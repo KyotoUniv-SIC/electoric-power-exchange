@@ -10,10 +10,6 @@ class Account {
   + history: string;
 }
 
-```
-
-```plantuml
-
 class Recruit {
   - id: string
   - post: string
@@ -21,10 +17,6 @@ class Recruit {
   - creatorAccountID: string
   - isFinished: boolean
 }
-
-```
-
-```plantuml
 
 class Apply {
   - id: string
@@ -35,81 +27,69 @@ class Apply {
 ```
 
 - Account
+  - 学生
+  - 電力使用量を発行するシステム担当
+  - 経理担当
+- 配電
+  - 電力会社
+  - 太陽光
 - 取引額
 - 残高
-- 学生の払い方
-- 購入と売却
-- 学生のアカウント
-- 電力使用権を発行するシステム担当のアカウント
-- 経理担当アカウント
-- 電力会社からの配電と、太陽光発電からの配電
-- トークン
-- 経理のほうで月初の使用料計算
-- 月の終わりの清算
+- 学生の支払手段
+- 購入・売却
+- トークン発行
+- 月初の使用量計算
+- 月末の精算
 
 ```plantuml
 class StudentAccount {
-  - id: string;
-  - name: string;
-  - payment_method: string;
-  - xrp_address;
+  - id: string
+  - name: string
+  - payment_method: string
+  - xrp_address: string
 }
-```
 
-```plantuml
 class AdminAccount {
-  - id: string;
-  - name: string;
+  - id: string
+  - name: string
+  - xrp_address: string
 }
-```
 
-```plantuml
 class AccountantAccount {
-  - id: string;
-  - name: string;
+  - id: string
+  - name: string
+  - xrp_address: string
 }
-```
 
-```plantuml
 class MonthlyUsage {
-  - id: string;
-  - student_account_id: string;
-  - 
-  - amount_kwh: number;
-  - 
+  - id: string
+  - student_account_id: string
+  - amount_kwh: number //150
 }
-```
 
-```plantuml
 class MonthlyClearance {
-  - id: string;
-  - student_account_id: string;
+  - id: string
+  - student_account_id: string
+  - is_finished: bloolean
 }
-```
 
-```plantuml
 class Transaction {
-  - id;
-  - sender_account_id: string;
-  - sender_xrp_address: string;
-  - recipient_account_id: string;
-  - recipient_xrp_address: string;
-  - amount: number; // 100
-  - denom: string; // 'JPY'
-}
-```
-
-```plantuml
-class Balance {
   - id: string;
-  - account_id: string;
-  - jpy_amount: number;
-  - xrp_amount: number;
+  - sender_account_id: string
+  - sender_xrp_address: string
+  - recipient_account_id: string
+  - recipient_xrp_address: string
+  - amount: number // 100
+  - denom: string // 'JPY'
 }
 
-```
+class Balance {
+  - id: string
+  - account_id: string
+  - jpy_amount: number
+  - xrp_amount: number
+}
 
-```plantuml
 class PowerFromDistLine {
   - id: string;
   - student_account_id: string;
@@ -117,9 +97,7 @@ class PowerFromDistLine {
   - price: number;
   - denom: string;
 }
-```
 
-```plantuml
 class PowerFromSolarPV {
   - id: string;
   - student_account_id: string;
