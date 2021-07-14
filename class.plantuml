@@ -1,0 +1,65 @@
+@startuml class
+class StudentAccount {
+  - id: string
+  - name: string
+  - payment_method: string
+  - xrp_address: string
+}
+
+class AdminAccount {
+  - id: string
+  - name: string
+  - xrp_address: string
+}
+
+class AccountantAccount {
+  - id: string
+  - name: string
+  - xrp_address: string
+}
+
+class MonthlyUsage {
+  - id: string
+  - student_account_id: string
+  - amount_kwh: number //150
+}
+
+class MonthlyClearance {
+  - id: string
+  - student_account_id: string
+  - is_finished: bloolean
+}
+
+class Transaction {
+  - id: string;
+  - sender_account_id: string
+  - sender_xrp_address: string
+  - recipient_account_id: string
+  - recipient_xrp_address: string
+  - amount: number // 100
+  - denom: string // 'JPY'
+}
+
+class Balance {
+  - id: string
+  - account_id: string
+  - jpy_amount: number
+  - xrp_amount: number
+}
+
+class PowerFromDistLine {
+  - id: string;
+  - student_account_id: string;
+  - amount_kwh: number;
+  - price: number;
+  - denom: string;
+}
+
+class PowerFromSolarPV {
+  - id: string;
+  - student_account_id: string;
+  - amount_kwh: number;
+  - price: number;
+  - denom: string;
+}
+@enduml
