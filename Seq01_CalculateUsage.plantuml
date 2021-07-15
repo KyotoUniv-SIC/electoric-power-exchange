@@ -1,0 +1,10 @@
+@startuml sequence
+participant Student1          as st1
+participant System            as sys
+database    UsageDatabase     as db
+
+db --> sys : send last year usage data
+sys --> st1 : send last year usage data
+st1 --> sys : send desired usage
+sys --> st1 : send this month usage
+@enduml
