@@ -1,0 +1,10 @@
+@startuml sequence
+participant Student1          as st1
+participant System            as sys
+participant XrpLedger         as xl
+
+st1 --> sys : desired solar and energy company's energy
+sys --> xl : XRP send request
+xl --> st1 : send XRP token(solar and company)
+
+@enduml
