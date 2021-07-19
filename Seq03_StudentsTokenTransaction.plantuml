@@ -1,0 +1,11 @@
+@startuml sequence
+participant Student1 as st1
+participant Student2 as st2
+participant XRPLedger as xl
+
+st1 --> st2 : request to send XRP
+st2 --> xl : request to send XRP
+xl --> st1 : add XRP token(solar and company)
+xl --> st2 : remove XRP token(solar and company)
+
+@enduml

@@ -1,0 +1,11 @@
+@startuml sequence
+participant Student1 as st1
+database UsageDatabase as db
+participant XRPLedger as xl
+
+st1 --> db : request to show own usage and newwork usage data
+db --> st1 : show Student1's usage and newwork usage data
+st1 --> xl : request to show own balance data
+xl --> st1 : show Student1's balance data
+
+@enduml

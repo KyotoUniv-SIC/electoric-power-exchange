@@ -1,0 +1,3 @@
+@startuml sequence
+/'マーケットをどのようなものにするか決めてから書く'/
+@enduml
