@@ -1,12 +1,10 @@
 @startuml sequence
 participant System   as sys
-database UsageDatabase as db
+database UsageDatabase as db1
 participant XRPLedger as xl
-participant Student1 as st1
 
-sys --> db : request student usage data
-db --> sys : show student usage data
-sys --> xl : request to debit student's token
-xl --> st1 : remove XRP token
-xl --> sys : add XRP token
+sys --> db1 : request student usage data
+db1 --> sys : show student usage data
+sys --> xl : request transaction\n(debit student's token)
+xl --> xl : add XRP token(System)\nremove XRP token(Student1)
 @enduml

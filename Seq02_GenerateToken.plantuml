@@ -3,9 +3,7 @@ participant Student1          as st1
 participant System            as sys
 participant XRPLedger         as xl
 
-st1 --> sys : desired solar and energy company's energy
-sys --> xl : request to send XRP 
-xl --> st1 : add XRP token(solar and company)
-xl --> sys : remove XRP token(solar and company)
-
+st1 --> sys : desired electoricity\n(solar or energy company )
+sys --> xl : request transaction\n(System to Student1)
+xl --> xl : add XRP token(Student1)\nremove XRP token(System)
 @enduml

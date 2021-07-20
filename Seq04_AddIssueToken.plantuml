@@ -8,7 +8,5 @@ st1 --> sys : request more electricity
 sys --> ec : buy electricity
 ec --> sys : provide electricity
 sys --> xl : request to send token to Student 
-xl --> st1 : add XRP token(company)
-xl --> sys : remove XRP token(company)
-
+xl --> xl : add XRP token(Student1)\nremove XRP token(System)
 @enduml
