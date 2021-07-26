@@ -1,0 +1,12 @@
+@startuml sequence
+participant Student1 as st1
+participant System as sys
+participant EnergyCompany as ec
+participant XRPLedger as xl
+
+st1 --> sys : request more electricity
+sys --> ec : buy electricity
+ec --> sys : provide electricity
+sys --> xl : request to send token to Student 
+xl --> xl : add XRP token(Student1)\nremove XRP token(System)
+@enduml

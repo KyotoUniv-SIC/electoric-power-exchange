@@ -1,10 +1,9 @@
 @startuml sequence
 participant Student1          as st1
 participant System            as sys
-participant XrpLedger         as xl
+participant XRPLedger         as xl
 
-st1 --> sys : desired solar and energy company's energy
-sys --> xl : XRP send request
-xl --> st1 : send XRP token(solar and company)
-
+st1 --> sys : desired electoricity\n(solar or energy company )
+sys --> xl : request transaction\n(System to Student1)
+xl --> xl : add XRP token(Student1)\nremove XRP token(System)
 @enduml
