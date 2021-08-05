@@ -8,5 +8,5 @@ sa --> db1 : request usage data in network
 sa <-- db1 : send usage data in network
 sa --> db2 : request market data
 sa <-- db2 : send market data
-sa --> ua : report monthly data in newwork
+sa --> ua : report monthly data in network
 @enduml

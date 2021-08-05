@@ -3,5 +3,5 @@ participant Student1 as st1
 database TxDatabase as db2
 
 st1 --> db2 : requst market data
-st1 <-- db2 : send market data(daily close)
+st1 <-- db2 : send market data(daily winning bid)
 @enduml
