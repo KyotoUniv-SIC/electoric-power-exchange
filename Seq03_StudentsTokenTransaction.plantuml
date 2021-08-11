@@ -5,8 +5,9 @@ participant System as sys
 participant XRPLedger as xl
 database TxDatabase as db2
 
-st1 --> sys : send ask(price & amount)
-st2 --> sys : accept Student1's ask
+st1 --> sys : send ask\n(price & amount)
+st2 --> sys : send bid\n(price & amount)
+sys --> sys : calculate winning bid
 sys --> xl : request transaction\n(Student2 to Student1)
 xl --> xl : add XRP token(Student1)\nremove XRP token(Student2)
 sys --> db2 : report transaction\n(price & amount) 
