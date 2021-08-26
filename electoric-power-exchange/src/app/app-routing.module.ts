@@ -3,11 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { AiueoComponent } from './aiueo/aiueo.component';
 import { HomeComponent } from './home/home.component';
 
-const routes: Routes = [{path:'', component: HomeComponent},
- {path:'aiueo', component: AiueoComponent}];
+const routes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'aiueo', component: AiueoComponent },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
