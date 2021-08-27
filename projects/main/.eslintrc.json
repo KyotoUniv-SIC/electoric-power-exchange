@@ -10,8 +10,8 @@
       ],
       "parserOptions": {
         "project": [
-          "projects/electoric-power-exchange/tsconfig.app.json",
-          "projects/electoric-power-exchange/tsconfig.spec.json"
+          "projects/main/tsconfig.app.json",
+          "projects/main/tsconfig.spec.json"
         ],
         "createDefaultProgram": true
       },

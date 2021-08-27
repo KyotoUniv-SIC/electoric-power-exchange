@@ -1,9 +1,0 @@
-{
-  "integrationFolder": "projects/electoric-power-exchange/cypress/integration",
-  "supportFile": "projects/electoric-power-exchange/cypress/support/index.ts",
-  "videosFolder": "projects/electoric-power-exchange/cypress/videos",
-  "screenshotsFolder": "projects/electoric-power-exchange/cypress/screenshots",
-  "pluginsFile": "projects/electoric-power-exchange/cypress/plugins/index.ts",
-  "fixturesFolder": "projects/electoric-power-exchange/cypress/fixtures",
-  "baseUrl": "http://localhost:4200"
-}
