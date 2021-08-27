@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "cli": {
-    "analytics": "ddf21dee-ded1-4440-bdbf-68075f6b318b"
+    "analytics": "d626884b-0bc2-4f6d-b15b-5c14eb9027fa"
   },
   "version": 1,
   "newProjectRoot": "projects",
@@ -13,24 +13,24 @@
           "strict": true
         }
       },
-      "root": "",
-      "sourceRoot": "src",
+      "root": "projects/electoric-power-exchange",
+      "sourceRoot": "projects/electoric-power-exchange/src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/electoric-power-exchange",
-            "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.app.json",
+            "index": "projects/electoric-power-exchange/src/index.html",
+            "main": "projects/electoric-power-exchange/src/main.ts",
+            "polyfills": "projects/electoric-power-exchange/src/polyfills.ts",
+            "tsConfig": "projects/electoric-power-exchange/tsconfig.app.json",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "projects/electoric-power-exchange/src/favicon.ico",
+              "projects/electoric-power-exchange/src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "projects/electoric-power-exchange/src/styles.css"
             ],
             "scripts": []
           },
@@ -50,8 +50,8 @@
               ],
               "fileReplacements": [
                 {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "replace": "projects/electoric-power-exchange/src/environments/environment.ts",
+                  "with": "projects/electoric-power-exchange/src/environments/environment.prod.ts"
                 }
               ],
               "outputHashing": "all"
@@ -88,16 +88,16 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.spec.json",
-            "karmaConfig": "karma.conf.js",
+            "main": "projects/electoric-power-exchange/src/test.ts",
+            "polyfills": "projects/electoric-power-exchange/src/polyfills.ts",
+            "tsConfig": "projects/electoric-power-exchange/tsconfig.spec.json",
+            "karmaConfig": "projects/electoric-power-exchange/karma.conf.js",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "projects/electoric-power-exchange/src/favicon.ico",
+              "projects/electoric-power-exchange/src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "projects/electoric-power-exchange/src/styles.css"
             ],
             "scripts": []
           }
