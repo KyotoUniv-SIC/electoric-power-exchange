@@ -1,7 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "cli": {
-    "analytics": "d626884b-0bc2-4f6d-b15b-5c14eb9027fa"
+    "analytics": "d626884b-0bc2-4f6d-b15b-5c14eb9027fa",
+    "defaultCollection": "@angular-eslint/schematics"
   },
   "version": 1,
   "newProjectRoot": "projects",
@@ -100,6 +101,15 @@
               "projects/electoric-power-exchange/src/styles.css"
             ],
             "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/electoric-power-exchange/**/*.ts",
+              "projects/electoric-power-exchange/**/*.html"
+            ]
           }
         }
       }
