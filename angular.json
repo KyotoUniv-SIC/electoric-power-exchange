@@ -111,6 +111,39 @@
               "projects/electoric-power-exchange/**/*.html"
             ]
           }
+        },
+        "cypress-run": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "electoric-power-exchange:serve",
+            "configFile": "projects/electoric-power-exchange/cypress.json"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "electoric-power-exchange:serve:production"
+            }
+          }
+        },
+        "cypress-open": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "watch": true,
+            "headless": false,
+            "configFile": "projects/electoric-power-exchange/cypress.json"
+          }
+        },
+        "e2e": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "electoric-power-exchange:serve",
+            "watch": true,
+            "headless": false
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "electoric-power-exchange:serve:production"
+            }
+          }
         }
       }
     }
