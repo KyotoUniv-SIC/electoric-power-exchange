@@ -1,5 +1,5 @@
 syntax = "proto3";
-package website;
+package main;
 
 import "firebase_rules_options.proto";
 
