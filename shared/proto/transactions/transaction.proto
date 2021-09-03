@@ -5,7 +5,7 @@ import "firebase_rules_options.proto";
 
 option (google.firebase.rules.firebase_rules).full_package_names = true;
 
-message  Transaction {
+message Transaction {
   string id = 1;
   string sender_account_id = 2;
   string sender_xrp_address = 3;
