@@ -1,0 +1,16 @@
+syntax = "proto3";
+package website;
+
+import "firebase_rules_options.proto";
+
+option (google.firebase.rules.firebase_rules).full_package_names = true;
+
+message  Transaction {
+  string id = 1;
+  string sender_account_id = 2;
+  string sender_xrp_address = 3;
+  string recipient_account_id = 4;
+  string recipient_xrp_address = 5;
+  uint64 amount = 6;
+  string denom = 7;
+}

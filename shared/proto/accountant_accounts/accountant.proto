@@ -1,0 +1,12 @@
+syntax = "proto3";
+package website;
+
+import "firebase_rules_options.proto";
+
+option (google.firebase.rules.firebase_rules).full_package_names = true;
+
+message AccountantAccount {
+  string id = 1;
+  string name = 2;
+  string xrp_address = 3;
+}
