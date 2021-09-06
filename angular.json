@@ -1,8 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "cli": {
-    "analytics": "d626884b-0bc2-4f6d-b15b-5c14eb9027fa",
-    "defaultCollection": "@angular-eslint/schematics"
+    "analytics": "275ee8c7-d031-45f9-ad28-6a789fcbb579",
+    "defaultCollection": "@ngrx/schematics"
   },
   "version": 1,
   "newProjectRoot": "projects",
@@ -72,10 +72,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "electoric-power-exchange:build:production"
+              "browserTarget": "main:build:production"
             },
             "development": {
-              "browserTarget": "electoric-power-exchange:build:development"
+              "browserTarget": "main:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -83,24 +83,13 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "electoric-power-exchange:build"
+            "browserTarget": "main:build"
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular-builders/jest:run",
           "options": {
-            "main": "projects/main/src/test.ts",
-            "polyfills": "projects/main/src/polyfills.ts",
-            "tsConfig": "projects/main/tsconfig.spec.json",
-            "karmaConfig": "projects/main/karma.conf.js",
-            "assets": [
-              "projects/main/src/favicon.ico",
-              "projects/main/src/assets"
-            ],
-            "styles": [
-              "projects/main/src/styles.css"
-            ],
-            "scripts": []
+            "configPath": "./jest.config.js"
           }
         },
         "lint": {
@@ -115,12 +104,12 @@
         "cypress-run": {
           "builder": "@cypress/schematic:cypress",
           "options": {
-            "devServerTarget": "electoric-power-exchange:serve",
+            "devServerTarget": "main:serve",
             "configFile": "projects/main/cypress.json"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "electoric-power-exchange:serve:production"
+              "devServerTarget": "main:serve:production"
             }
           }
         },
@@ -135,15 +124,19 @@
         "e2e": {
           "builder": "@cypress/schematic:cypress",
           "options": {
-            "devServerTarget": "electoric-power-exchange:serve",
+            "devServerTarget": "main:serve",
             "watch": true,
             "headless": false
           },
           "configurations": {
             "production": {
-              "devServerTarget": "electoric-power-exchange:serve:production"
+              "devServerTarget": "main:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
     },
@@ -169,11 +162,9 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular-builders/jest:run",
           "options": {
-            "main": "projects/shared/src/test.ts",
-            "tsConfig": "projects/shared/tsconfig.spec.json",
-            "karmaConfig": "projects/shared/karma.conf.js"
+            "configPath": "./jest.config.js"
           }
         },
         "lint": {
@@ -184,9 +175,42 @@
               "projects/shared/**/*.html"
             ]
           }
+        },
+        "cypress-run": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "shared:serve",
+            "configFile": "projects/shared/cypress.json"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "shared:serve:production"
+            }
+          }
+        },
+        "cypress-open": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "watch": true,
+            "headless": false,
+            "configFile": "projects/shared/cypress.json"
+          }
+        },
+        "e2e": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "shared:serve",
+            "watch": true,
+            "headless": false
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "shared:serve:production"
+            }
+          }
         }
       }
     }
   },
-  "defaultProject": "electoric-power-exchange"
+  "defaultProject": "main"
 }

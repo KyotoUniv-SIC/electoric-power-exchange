@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "project-id"
+  },
+  "targets": {
+    "project-id": {
+      "hosting": {
+        "main": [
+          "project-id"
+        ]
+      }
+    }
+  }
+}

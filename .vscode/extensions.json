@@ -1,0 +1,18 @@
+{
+  "recommendations": [
+    "editorconfig.editorconfig",
+    "davidanson.vscode-markdownlint",
+    "docsmsft.docs-markdown",
+    "docsmsft.docs-yaml",
+    "ms-vsliveshare.vsliveshare",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "angular.ng-template",
+    "cyrilletuzi.angular-schematics",
+    "stylelint.vscode-stylelint",
+    "zxh404.vscode-proto3",
+    "toba.vsfire",
+    "bradlc.vscode-tailwindcss",
+    "zxh404.vscode-proto3"
+  ]
+}
