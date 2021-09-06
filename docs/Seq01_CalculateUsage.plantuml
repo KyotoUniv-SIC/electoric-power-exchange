@@ -1,0 +1,9 @@
+@startuml sequence
+database    UsageDatabase     as db1
+participant System            as sys
+participant Student1          as st1
+
+sys --> db1 : request last year usage data
+db1 --> sys : send last year usage data
+sys --> st1 : send last year usage data \nand calculated this month usage
+@enduml
