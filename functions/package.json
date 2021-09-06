@@ -8,7 +8,8 @@
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
-    "prepare": "firebase functions:config:get > .runtimeconfig.json || exit 0"
+    "prepare": "firebase functions:config:get > .runtimeconfig.json || exit 0",
+    "preinstall": "cd ../common && npm i && npm run build"
   },
   "engines": {
     "node": "14"
