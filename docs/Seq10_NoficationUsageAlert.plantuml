@@ -1,9 +1,0 @@
-@startuml sequence
-participant System as sys
-database UsageDatabase as db1
-participant Student1 as st1
-
-sys --> db1 : request usage data in network
-sys <-- db1 : send usage data in network
-sys --> st1 : send nofication last month usage
-@enduml

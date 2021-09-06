@@ -1,9 +1,0 @@
-@startuml sequence
-participant Student1 as st1
-database UsageDatabase as db1
-
-st1 --> db1 : request own usage and remaining token
-st1 <-- db1 : send Student1's usage and remaining token
-st1 --> db1 : request usage in network
-st1 <-- db1 : send usage in network\n(average,sum,ranking)
-@enduml
