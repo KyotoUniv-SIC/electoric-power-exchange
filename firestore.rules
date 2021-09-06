@@ -1,0 +1,75 @@
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isUserID(userID) {
+      return request.auth.uid == userID;
+    }
+
+    function getUser(userID) {
+      return get(/databases/$(database)/documents/users/$(userID));
+    }
+
+    function inUserIDs(userID) {
+      return request.auth.uid in getUser(userID).data.userIDs;
+    }
+
+    function isUser(userID) {
+      return isUserID(userID) || inUserIDs(userID);
+    }
+
+    match /users/{user} {
+      allow read:   if isUserID(user) || request.auth.uid in resource.data.userIDs;
+      allow create: if isUserID(user) || request.auth.uid in request.resource.data.userIDs;
+      allow update: if isUserID(user) || (request.auth.uid in request.resource.data.adminUserIDs && request.auth.uid in resource.data.adminUserIDs);
+
+      match /wallets/{wallet} {
+        allow read, write: if isUser(user);
+      }
+    }
+
+    match /profiles/{profile} {
+      allow read;
+      allow create, update: if isUser(request.resource.data.userID);
+    }
+
+    match /rates/rate {
+      allow read;
+    }
+
+    match /x/gesell {
+      match /coins/{coin} {
+        allow read;
+        allow create, update: if isUser(request.resource.data.userID);
+
+        match /transactions/{transaction} {
+          allow read;
+        }
+      }
+    }
+
+    match /x/trust {
+      match /skills/{skill} {
+        allow read;
+      }
+
+      match /recruits/{recruit} {
+        allow read;
+        allow create: if isUser(request.resource.data.userID);
+
+        match /entries/{entry} {
+          allow read;
+        }
+      }
+
+      match /scores/score {
+        allow read;
+      }
+    }
+
+    match /x/proof {
+      match /proofs/{proof} {
+        allow read;
+        allow create: if isUser(request.resource.data.userID);
+      }
+    }
+  }
+}
