@@ -1,10 +1,13 @@
 syntax = "proto3";
-package website;
+package main;
 
 import "firebase_rules_options.proto";
 
 option (google.firebase.rules.firebase_rules).full_package_names = true;
 
-message Account {
+message StudentAccount {
   string id = 1;
+  string name = 2;
+  string payment_method = 3;
+  string xrp_address = 4;
 }
