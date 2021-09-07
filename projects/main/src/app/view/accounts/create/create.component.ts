@@ -6,9 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./create.component.css'],
 })
 export class CreateComponent implements OnInit {
-  @Input()
-  create?: Create;
-  
+
   constructor() {}
 
   ngOnInit(): void {}

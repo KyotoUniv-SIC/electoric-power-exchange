@@ -2,12 +2,10 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { CreateComponent } from "./create.component";
 import { RouterModule } from '@angular/router';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { MaterialModule } from '@view/material.module';
 
 @NgModule({
   declarations: [CreateComponent],
-  imports: [CommonModule, RouterModule, FlexLayoutModule, MaterialModule],
+  imports: [CommonModule, RouterModule],
   exports: [CreateComponent]
 })
-export class CreateViewModule {}
+export class CreateModule {}
