@@ -37,7 +37,8 @@
     }
   ],
   "extends": [
-    "eslint:recommended"
+    "eslint:recommended",
+    "prettier"
   ],
   "@angular-eslint/component-selector": [
     "error",
