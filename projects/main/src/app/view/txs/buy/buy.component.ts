@@ -6,9 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./buy.component.css'],
 })
 export class BuyComponent implements OnInit {
-  @Input()
-  buy?: Buy;
-  
+
   constructor() {}
 
   ngOnInit(): void {}

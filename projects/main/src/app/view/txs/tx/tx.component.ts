@@ -6,9 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./tx.component.css'],
 })
 export class TxComponent implements OnInit {
-  @Input()
-  tx?: Tx;
-  
+
   constructor() {}
 
   ngOnInit(): void {}

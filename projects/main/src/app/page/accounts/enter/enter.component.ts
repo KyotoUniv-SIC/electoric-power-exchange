@@ -8,17 +8,10 @@ import { map, mergeMap } from 'rxjs/operators';
   styleUrls: ['./enter.component.css'],
 })
 export class EnterComponent implements OnInit {
-  enterID$: Observable<string>;
-  enter$: Observable<Enter>;
 
-  constructor(private enter: EnterService) {
-    this.enterID$ = this.route.params.pipe(
-      map(params => params['enter_id']),
-    );
-    this.enter$ = this.enterID$.pipe(
-      mergeMap(id => this.enter.get$(id)),
-    );
+  constructor() { }
+
+  ngOnInit(): void {
   }
 
-  ngOnInit(): void {}
 }

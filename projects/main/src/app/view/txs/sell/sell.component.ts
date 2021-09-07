@@ -6,9 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./sell.component.css'],
 })
 export class SellComponent implements OnInit {
-  @Input()
-  sell?: Sell;
-  
+
   constructor() {}
 
   ngOnInit(): void {}
