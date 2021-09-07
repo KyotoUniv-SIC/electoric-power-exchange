@@ -8,17 +8,10 @@ import { map, mergeMap } from 'rxjs/operators';
   styleUrls: ['./buy.component.css'],
 })
 export class BuyComponent implements OnInit {
-  buyID$: Observable<string>;
-  buy$: Observable<Buy>;
 
-  constructor(private buy: BuyService) {
-    this.buyID$ = this.route.params.pipe(
-      map(params => params['buy_id']),
-    );
-    this.buy$ = this.buyID$.pipe(
-      mergeMap(id => this.buy.get$(id)),
-    );
+  constructor() { }
+
+  ngOnInit(): void {
   }
 
-  ngOnInit(): void {}
 }
