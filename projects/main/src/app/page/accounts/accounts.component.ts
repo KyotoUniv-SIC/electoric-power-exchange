@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import * as proto from '@local/common/esm/proto';
+import { proto } from '@local/common';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -8,10 +8,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./accounts.component.css'],
 })
 export class AccountsComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }
