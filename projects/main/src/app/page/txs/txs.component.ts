@@ -6,11 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./txs.component.css'],
 })
 export class TxsComponent implements OnInit {
-  data$: Observable<Txs[]>;
 
-  constructor(private txs: TxsService) {
-    this.data$ = this.txs.list$();
+  constructor() { }
+
+  ngOnInit(): void {
   }
 
-  ngOnInit(): void {}
 }

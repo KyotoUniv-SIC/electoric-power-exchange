@@ -6,11 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./messages.component.css'],
 })
 export class MessagesComponent implements OnInit {
-  data$: Observable<Messages[]>;
 
-  constructor(private messages: MessagesService) {
-    this.data$ = this.messages.list$();
+  constructor() { }
+
+  ngOnInit(): void {
   }
 
-  ngOnInit(): void {}
 }

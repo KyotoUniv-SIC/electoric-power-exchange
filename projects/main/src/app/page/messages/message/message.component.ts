@@ -8,17 +8,10 @@ import { map, mergeMap } from 'rxjs/operators';
   styleUrls: ['./message.component.css'],
 })
 export class MessageComponent implements OnInit {
-  messageID$: Observable<string>;
-  message$: Observable<Message>;
 
-  constructor(private message: MessageService) {
-    this.messageID$ = this.route.params.pipe(
-      map(params => params['message_id']),
-    );
-    this.message$ = this.messageID$.pipe(
-      mergeMap(id => this.message.get$(id)),
-    );
+  constructor() { }
+
+  ngOnInit(): void {
   }
 
-  ngOnInit(): void {}
 }
