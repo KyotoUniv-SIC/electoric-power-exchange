@@ -16,7 +16,7 @@
   },
   "main": "lib/functions/src/index.js",
   "dependencies": {
-    "common": "file:common",
+    "@local/common": "file:common",
     "firebase-admin": "^9.11.1",
     "firebase-functions": "^3.14.1"
   },
