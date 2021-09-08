@@ -1,22 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from './page/home/home.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    loadChildren: () => import('./page/home/home.module').then(m => m.HomeModule)
-  },
+  { path: '', component: HomeComponent },
   {
     path: 'accounts',
-    loadChildren: () => import('./page/accounts/accounts.module').then(m => m.AccountsModule)
+    loadChildren: () => import('./page/accounts/accounts.module').then(m => m.AppAccountsModule)
   },
   {
     path: 'txs',
-    loadChildren: () => import('./page/txs/txs.module').then(m => m.TxsModule)
+    loadChildren: () => import('./page/txs/txs.module').then(m => m.AppTxsModule)
   },
   {
     path: 'messages',
-    loadChildren: () => import('./page/messages/messages.module').then(m => m.MessagesModule)
+    loadChildren: () => import('./page/messages/messages.module').then(m => m.AppMessagesModule)
   },
 ];
 
