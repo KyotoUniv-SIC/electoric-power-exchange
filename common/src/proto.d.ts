@@ -388,215 +388,108 @@ export namespace main {
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a PowerFromDistLine. */
-    interface IPowerFromDistLine {
+    /** Properties of a SolarPower. */
+    interface ISolarPower {
 
-        /** PowerFromDistLine id */
+        /** SolarPower id */
         id?: (string|null);
 
-        /** PowerFromDistLine student_account_id */
+        /** SolarPower student_account_id */
         student_account_id?: (string|null);
 
-        /** PowerFromDistLine amount_kwh */
+        /** SolarPower amount_kwh */
         amount_kwh?: (Long|null);
 
-        /** PowerFromDistLine price */
+        /** SolarPower price */
         price?: (Long|null);
 
-        /** PowerFromDistLine denom */
+        /** SolarPower denom */
         denom?: (string|null);
     }
 
-    /** Represents a PowerFromDistLine. */
-    class PowerFromDistLine implements IPowerFromDistLine {
+    /** Represents a SolarPower. */
+    class SolarPower implements ISolarPower {
 
         /**
-         * Constructs a new PowerFromDistLine.
+         * Constructs a new SolarPower.
          * @param [properties] Properties to set
          */
-        constructor(properties?: main.IPowerFromDistLine);
+        constructor(properties?: main.ISolarPower);
 
-        /** PowerFromDistLine id. */
+        /** SolarPower id. */
         public id: string;
 
-        /** PowerFromDistLine student_account_id. */
+        /** SolarPower student_account_id. */
         public student_account_id: string;
 
-        /** PowerFromDistLine amount_kwh. */
+        /** SolarPower amount_kwh. */
         public amount_kwh: Long;
 
-        /** PowerFromDistLine price. */
+        /** SolarPower price. */
         public price: Long;
 
-        /** PowerFromDistLine denom. */
+        /** SolarPower denom. */
         public denom: string;
 
         /**
-         * Encodes the specified PowerFromDistLine message. Does not implicitly {@link main.PowerFromDistLine.verify|verify} messages.
-         * @param message PowerFromDistLine message or plain object to encode
+         * Encodes the specified SolarPower message. Does not implicitly {@link main.SolarPower.verify|verify} messages.
+         * @param message SolarPower message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encode(message: main.IPowerFromDistLine, writer?: $protobuf.Writer): $protobuf.Writer;
+        public static encode(message: main.ISolarPower, writer?: $protobuf.Writer): $protobuf.Writer;
 
         /**
-         * Encodes the specified PowerFromDistLine message, length delimited. Does not implicitly {@link main.PowerFromDistLine.verify|verify} messages.
-         * @param message PowerFromDistLine message or plain object to encode
+         * Encodes the specified SolarPower message, length delimited. Does not implicitly {@link main.SolarPower.verify|verify} messages.
+         * @param message SolarPower message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encodeDelimited(message: main.IPowerFromDistLine, writer?: $protobuf.Writer): $protobuf.Writer;
+        public static encodeDelimited(message: main.ISolarPower, writer?: $protobuf.Writer): $protobuf.Writer;
 
         /**
-         * Decodes a PowerFromDistLine message from the specified reader or buffer.
+         * Decodes a SolarPower message from the specified reader or buffer.
          * @param reader Reader or buffer to decode from
          * @param [length] Message length if known beforehand
-         * @returns PowerFromDistLine
+         * @returns SolarPower
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.PowerFromDistLine;
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.SolarPower;
 
         /**
-         * Decodes a PowerFromDistLine message from the specified reader or buffer, length delimited.
+         * Decodes a SolarPower message from the specified reader or buffer, length delimited.
          * @param reader Reader or buffer to decode from
-         * @returns PowerFromDistLine
+         * @returns SolarPower
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.PowerFromDistLine;
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.SolarPower;
 
         /**
-         * Verifies a PowerFromDistLine message.
+         * Verifies a SolarPower message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
         public static verify(message: { [k: string]: any }): (string|null);
 
         /**
-         * Creates a PowerFromDistLine message from a plain object. Also converts values to their respective internal types.
+         * Creates a SolarPower message from a plain object. Also converts values to their respective internal types.
          * @param object Plain object
-         * @returns PowerFromDistLine
+         * @returns SolarPower
          */
-        public static fromObject(object: { [k: string]: any }): main.PowerFromDistLine;
+        public static fromObject(object: { [k: string]: any }): main.SolarPower;
 
         /**
-         * Creates a plain object from a PowerFromDistLine message. Also converts values to other types if specified.
-         * @param message PowerFromDistLine
+         * Creates a plain object from a SolarPower message. Also converts values to other types if specified.
+         * @param message SolarPower
          * @param [options] Conversion options
          * @returns Plain object
          */
-        public static toObject(message: main.PowerFromDistLine, options?: $protobuf.IConversionOptions): { [k: string]: any };
+        public static toObject(message: main.SolarPower, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
         /**
-         * Converts this PowerFromDistLine to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a PowerFromSolar. */
-    interface IPowerFromSolar {
-
-        /** PowerFromSolar id */
-        id?: (string|null);
-
-        /** PowerFromSolar student_account_id */
-        student_account_id?: (string|null);
-
-        /** PowerFromSolar amount_kwh */
-        amount_kwh?: (Long|null);
-
-        /** PowerFromSolar price */
-        price?: (Long|null);
-
-        /** PowerFromSolar denom */
-        denom?: (string|null);
-    }
-
-    /** Represents a PowerFromSolar. */
-    class PowerFromSolar implements IPowerFromSolar {
-
-        /**
-         * Constructs a new PowerFromSolar.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: main.IPowerFromSolar);
-
-        /** PowerFromSolar id. */
-        public id: string;
-
-        /** PowerFromSolar student_account_id. */
-        public student_account_id: string;
-
-        /** PowerFromSolar amount_kwh. */
-        public amount_kwh: Long;
-
-        /** PowerFromSolar price. */
-        public price: Long;
-
-        /** PowerFromSolar denom. */
-        public denom: string;
-
-        /**
-         * Encodes the specified PowerFromSolar message. Does not implicitly {@link main.PowerFromSolar.verify|verify} messages.
-         * @param message PowerFromSolar message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: main.IPowerFromSolar, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Encodes the specified PowerFromSolar message, length delimited. Does not implicitly {@link main.PowerFromSolar.verify|verify} messages.
-         * @param message PowerFromSolar message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: main.IPowerFromSolar, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Decodes a PowerFromSolar message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns PowerFromSolar
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.PowerFromSolar;
-
-        /**
-         * Decodes a PowerFromSolar message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns PowerFromSolar
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.PowerFromSolar;
-
-        /**
-         * Verifies a PowerFromSolar message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a PowerFromSolar message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns PowerFromSolar
-         */
-        public static fromObject(object: { [k: string]: any }): main.PowerFromSolar;
-
-        /**
-         * Creates a plain object from a PowerFromSolar message. Also converts values to other types if specified.
-         * @param message PowerFromSolar
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: main.PowerFromSolar, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this PowerFromSolar to JSON.
+         * Converts this SolarPower to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -706,6 +599,9 @@ export namespace main {
     /** Properties of a Transaction. */
     interface ITransaction {
 
+        /** Transaction status */
+        status?: (boolean|null);
+
         /** Transaction id */
         id?: (string|null);
 
@@ -736,6 +632,9 @@ export namespace main {
          * @param [properties] Properties to set
          */
         constructor(properties?: main.ITransaction);
+
+        /** Transaction status. */
+        public status: boolean;
 
         /** Transaction id. */
         public id: string;
@@ -817,6 +716,113 @@ export namespace main {
 
         /**
          * Converts this Transaction to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of an UtilityPower. */
+    interface IUtilityPower {
+
+        /** UtilityPower id */
+        id?: (string|null);
+
+        /** UtilityPower student_account_id */
+        student_account_id?: (string|null);
+
+        /** UtilityPower amount_kwh */
+        amount_kwh?: (Long|null);
+
+        /** UtilityPower price */
+        price?: (Long|null);
+
+        /** UtilityPower denom */
+        denom?: (string|null);
+    }
+
+    /** Represents an UtilityPower. */
+    class UtilityPower implements IUtilityPower {
+
+        /**
+         * Constructs a new UtilityPower.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.IUtilityPower);
+
+        /** UtilityPower id. */
+        public id: string;
+
+        /** UtilityPower student_account_id. */
+        public student_account_id: string;
+
+        /** UtilityPower amount_kwh. */
+        public amount_kwh: Long;
+
+        /** UtilityPower price. */
+        public price: Long;
+
+        /** UtilityPower denom. */
+        public denom: string;
+
+        /**
+         * Encodes the specified UtilityPower message. Does not implicitly {@link main.UtilityPower.verify|verify} messages.
+         * @param message UtilityPower message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.IUtilityPower, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified UtilityPower message, length delimited. Does not implicitly {@link main.UtilityPower.verify|verify} messages.
+         * @param message UtilityPower message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.IUtilityPower, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes an UtilityPower message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns UtilityPower
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.UtilityPower;
+
+        /**
+         * Decodes an UtilityPower message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns UtilityPower
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.UtilityPower;
+
+        /**
+         * Verifies an UtilityPower message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an UtilityPower message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns UtilityPower
+         */
+        public static fromObject(object: { [k: string]: any }): main.UtilityPower;
+
+        /**
+         * Creates a plain object from an UtilityPower message. Also converts values to other types if specified.
+         * @param message UtilityPower
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.UtilityPower, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this UtilityPower to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
