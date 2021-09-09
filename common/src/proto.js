@@ -960,28 +960,28 @@ export const main = $root.main = (() => {
         return MonthlyUsage;
     })();
 
-    main.PowerFromDistLine = (function() {
+    main.SolarPower = (function() {
 
         /**
-         * Properties of a PowerFromDistLine.
+         * Properties of a SolarPower.
          * @memberof main
-         * @interface IPowerFromDistLine
-         * @property {string|null} [id] PowerFromDistLine id
-         * @property {string|null} [student_account_id] PowerFromDistLine student_account_id
-         * @property {Long|null} [amount_kwh] PowerFromDistLine amount_kwh
-         * @property {Long|null} [price] PowerFromDistLine price
-         * @property {string|null} [denom] PowerFromDistLine denom
+         * @interface ISolarPower
+         * @property {string|null} [id] SolarPower id
+         * @property {string|null} [student_account_id] SolarPower student_account_id
+         * @property {Long|null} [amount_kwh] SolarPower amount_kwh
+         * @property {Long|null} [price] SolarPower price
+         * @property {string|null} [denom] SolarPower denom
          */
 
         /**
-         * Constructs a new PowerFromDistLine.
+         * Constructs a new SolarPower.
          * @memberof main
-         * @classdesc Represents a PowerFromDistLine.
-         * @implements IPowerFromDistLine
+         * @classdesc Represents a SolarPower.
+         * @implements ISolarPower
          * @constructor
-         * @param {main.IPowerFromDistLine=} [properties] Properties to set
+         * @param {main.ISolarPower=} [properties] Properties to set
          */
-        function PowerFromDistLine(properties) {
+        function SolarPower(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
@@ -989,55 +989,55 @@ export const main = $root.main = (() => {
         }
 
         /**
-         * PowerFromDistLine id.
+         * SolarPower id.
          * @member {string} id
-         * @memberof main.PowerFromDistLine
+         * @memberof main.SolarPower
          * @instance
          */
-        PowerFromDistLine.prototype.id = "";
+        SolarPower.prototype.id = "";
 
         /**
-         * PowerFromDistLine student_account_id.
+         * SolarPower student_account_id.
          * @member {string} student_account_id
-         * @memberof main.PowerFromDistLine
+         * @memberof main.SolarPower
          * @instance
          */
-        PowerFromDistLine.prototype.student_account_id = "";
+        SolarPower.prototype.student_account_id = "";
 
         /**
-         * PowerFromDistLine amount_kwh.
+         * SolarPower amount_kwh.
          * @member {Long} amount_kwh
-         * @memberof main.PowerFromDistLine
+         * @memberof main.SolarPower
          * @instance
          */
-        PowerFromDistLine.prototype.amount_kwh = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+        SolarPower.prototype.amount_kwh = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
-         * PowerFromDistLine price.
+         * SolarPower price.
          * @member {Long} price
-         * @memberof main.PowerFromDistLine
+         * @memberof main.SolarPower
          * @instance
          */
-        PowerFromDistLine.prototype.price = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+        SolarPower.prototype.price = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
-         * PowerFromDistLine denom.
+         * SolarPower denom.
          * @member {string} denom
-         * @memberof main.PowerFromDistLine
+         * @memberof main.SolarPower
          * @instance
          */
-        PowerFromDistLine.prototype.denom = "";
+        SolarPower.prototype.denom = "";
 
         /**
-         * Encodes the specified PowerFromDistLine message. Does not implicitly {@link main.PowerFromDistLine.verify|verify} messages.
+         * Encodes the specified SolarPower message. Does not implicitly {@link main.SolarPower.verify|verify} messages.
          * @function encode
-         * @memberof main.PowerFromDistLine
+         * @memberof main.SolarPower
          * @static
-         * @param {main.IPowerFromDistLine} message PowerFromDistLine message or plain object to encode
+         * @param {main.ISolarPower} message SolarPower message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        PowerFromDistLine.encode = function encode(message, writer) {
+        SolarPower.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
             if (message.id != null && Object.hasOwnProperty.call(message, "id"))
@@ -1054,33 +1054,33 @@ export const main = $root.main = (() => {
         };
 
         /**
-         * Encodes the specified PowerFromDistLine message, length delimited. Does not implicitly {@link main.PowerFromDistLine.verify|verify} messages.
+         * Encodes the specified SolarPower message, length delimited. Does not implicitly {@link main.SolarPower.verify|verify} messages.
          * @function encodeDelimited
-         * @memberof main.PowerFromDistLine
+         * @memberof main.SolarPower
          * @static
-         * @param {main.IPowerFromDistLine} message PowerFromDistLine message or plain object to encode
+         * @param {main.ISolarPower} message SolarPower message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        PowerFromDistLine.encodeDelimited = function encodeDelimited(message, writer) {
+        SolarPower.encodeDelimited = function encodeDelimited(message, writer) {
             return this.encode(message, writer).ldelim();
         };
 
         /**
-         * Decodes a PowerFromDistLine message from the specified reader or buffer.
+         * Decodes a SolarPower message from the specified reader or buffer.
          * @function decode
-         * @memberof main.PowerFromDistLine
+         * @memberof main.SolarPower
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
          * @param {number} [length] Message length if known beforehand
-         * @returns {main.PowerFromDistLine} PowerFromDistLine
+         * @returns {main.SolarPower} SolarPower
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        PowerFromDistLine.decode = function decode(reader, length) {
+        SolarPower.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.PowerFromDistLine();
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.SolarPower();
             while (reader.pos < end) {
                 let tag = reader.uint32();
                 switch (tag >>> 3) {
@@ -1108,30 +1108,30 @@ export const main = $root.main = (() => {
         };
 
         /**
-         * Decodes a PowerFromDistLine message from the specified reader or buffer, length delimited.
+         * Decodes a SolarPower message from the specified reader or buffer, length delimited.
          * @function decodeDelimited
-         * @memberof main.PowerFromDistLine
+         * @memberof main.SolarPower
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {main.PowerFromDistLine} PowerFromDistLine
+         * @returns {main.SolarPower} SolarPower
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        PowerFromDistLine.decodeDelimited = function decodeDelimited(reader) {
+        SolarPower.decodeDelimited = function decodeDelimited(reader) {
             if (!(reader instanceof $Reader))
                 reader = new $Reader(reader);
             return this.decode(reader, reader.uint32());
         };
 
         /**
-         * Verifies a PowerFromDistLine message.
+         * Verifies a SolarPower message.
          * @function verify
-         * @memberof main.PowerFromDistLine
+         * @memberof main.SolarPower
          * @static
          * @param {Object.<string,*>} message Plain object to verify
          * @returns {string|null} `null` if valid, otherwise the reason why it is not
          */
-        PowerFromDistLine.verify = function verify(message) {
+        SolarPower.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
             if (message.id != null && message.hasOwnProperty("id"))
@@ -1153,17 +1153,17 @@ export const main = $root.main = (() => {
         };
 
         /**
-         * Creates a PowerFromDistLine message from a plain object. Also converts values to their respective internal types.
+         * Creates a SolarPower message from a plain object. Also converts values to their respective internal types.
          * @function fromObject
-         * @memberof main.PowerFromDistLine
+         * @memberof main.SolarPower
          * @static
          * @param {Object.<string,*>} object Plain object
-         * @returns {main.PowerFromDistLine} PowerFromDistLine
+         * @returns {main.SolarPower} SolarPower
          */
-        PowerFromDistLine.fromObject = function fromObject(object) {
-            if (object instanceof $root.main.PowerFromDistLine)
+        SolarPower.fromObject = function fromObject(object) {
+            if (object instanceof $root.main.SolarPower)
                 return object;
-            let message = new $root.main.PowerFromDistLine();
+            let message = new $root.main.SolarPower();
             if (object.id != null)
                 message.id = String(object.id);
             if (object.student_account_id != null)
@@ -1192,15 +1192,15 @@ export const main = $root.main = (() => {
         };
 
         /**
-         * Creates a plain object from a PowerFromDistLine message. Also converts values to other types if specified.
+         * Creates a plain object from a SolarPower message. Also converts values to other types if specified.
          * @function toObject
-         * @memberof main.PowerFromDistLine
+         * @memberof main.SolarPower
          * @static
-         * @param {main.PowerFromDistLine} message PowerFromDistLine
+         * @param {main.SolarPower} message SolarPower
          * @param {$protobuf.IConversionOptions} [options] Conversion options
          * @returns {Object.<string,*>} Plain object
          */
-        PowerFromDistLine.toObject = function toObject(message, options) {
+        SolarPower.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
             let object = {};
@@ -1239,309 +1239,17 @@ export const main = $root.main = (() => {
         };
 
         /**
-         * Converts this PowerFromDistLine to JSON.
+         * Converts this SolarPower to JSON.
          * @function toJSON
-         * @memberof main.PowerFromDistLine
+         * @memberof main.SolarPower
          * @instance
          * @returns {Object.<string,*>} JSON object
          */
-        PowerFromDistLine.prototype.toJSON = function toJSON() {
+        SolarPower.prototype.toJSON = function toJSON() {
             return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
         };
 
-        return PowerFromDistLine;
-    })();
-
-    main.PowerFromSolar = (function() {
-
-        /**
-         * Properties of a PowerFromSolar.
-         * @memberof main
-         * @interface IPowerFromSolar
-         * @property {string|null} [id] PowerFromSolar id
-         * @property {string|null} [student_account_id] PowerFromSolar student_account_id
-         * @property {Long|null} [amount_kwh] PowerFromSolar amount_kwh
-         * @property {Long|null} [price] PowerFromSolar price
-         * @property {string|null} [denom] PowerFromSolar denom
-         */
-
-        /**
-         * Constructs a new PowerFromSolar.
-         * @memberof main
-         * @classdesc Represents a PowerFromSolar.
-         * @implements IPowerFromSolar
-         * @constructor
-         * @param {main.IPowerFromSolar=} [properties] Properties to set
-         */
-        function PowerFromSolar(properties) {
-            if (properties)
-                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
-                        this[keys[i]] = properties[keys[i]];
-        }
-
-        /**
-         * PowerFromSolar id.
-         * @member {string} id
-         * @memberof main.PowerFromSolar
-         * @instance
-         */
-        PowerFromSolar.prototype.id = "";
-
-        /**
-         * PowerFromSolar student_account_id.
-         * @member {string} student_account_id
-         * @memberof main.PowerFromSolar
-         * @instance
-         */
-        PowerFromSolar.prototype.student_account_id = "";
-
-        /**
-         * PowerFromSolar amount_kwh.
-         * @member {Long} amount_kwh
-         * @memberof main.PowerFromSolar
-         * @instance
-         */
-        PowerFromSolar.prototype.amount_kwh = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
-
-        /**
-         * PowerFromSolar price.
-         * @member {Long} price
-         * @memberof main.PowerFromSolar
-         * @instance
-         */
-        PowerFromSolar.prototype.price = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
-
-        /**
-         * PowerFromSolar denom.
-         * @member {string} denom
-         * @memberof main.PowerFromSolar
-         * @instance
-         */
-        PowerFromSolar.prototype.denom = "";
-
-        /**
-         * Encodes the specified PowerFromSolar message. Does not implicitly {@link main.PowerFromSolar.verify|verify} messages.
-         * @function encode
-         * @memberof main.PowerFromSolar
-         * @static
-         * @param {main.IPowerFromSolar} message PowerFromSolar message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        PowerFromSolar.encode = function encode(message, writer) {
-            if (!writer)
-                writer = $Writer.create();
-            if (message.id != null && Object.hasOwnProperty.call(message, "id"))
-                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
-            if (message.student_account_id != null && Object.hasOwnProperty.call(message, "student_account_id"))
-                writer.uint32(/* id 2, wireType 2 =*/18).string(message.student_account_id);
-            if (message.amount_kwh != null && Object.hasOwnProperty.call(message, "amount_kwh"))
-                writer.uint32(/* id 3, wireType 0 =*/24).uint64(message.amount_kwh);
-            if (message.price != null && Object.hasOwnProperty.call(message, "price"))
-                writer.uint32(/* id 4, wireType 0 =*/32).uint64(message.price);
-            if (message.denom != null && Object.hasOwnProperty.call(message, "denom"))
-                writer.uint32(/* id 5, wireType 2 =*/42).string(message.denom);
-            return writer;
-        };
-
-        /**
-         * Encodes the specified PowerFromSolar message, length delimited. Does not implicitly {@link main.PowerFromSolar.verify|verify} messages.
-         * @function encodeDelimited
-         * @memberof main.PowerFromSolar
-         * @static
-         * @param {main.IPowerFromSolar} message PowerFromSolar message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        PowerFromSolar.encodeDelimited = function encodeDelimited(message, writer) {
-            return this.encode(message, writer).ldelim();
-        };
-
-        /**
-         * Decodes a PowerFromSolar message from the specified reader or buffer.
-         * @function decode
-         * @memberof main.PowerFromSolar
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @param {number} [length] Message length if known beforehand
-         * @returns {main.PowerFromSolar} PowerFromSolar
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        PowerFromSolar.decode = function decode(reader, length) {
-            if (!(reader instanceof $Reader))
-                reader = $Reader.create(reader);
-            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.PowerFromSolar();
-            while (reader.pos < end) {
-                let tag = reader.uint32();
-                switch (tag >>> 3) {
-                case 1:
-                    message.id = reader.string();
-                    break;
-                case 2:
-                    message.student_account_id = reader.string();
-                    break;
-                case 3:
-                    message.amount_kwh = reader.uint64();
-                    break;
-                case 4:
-                    message.price = reader.uint64();
-                    break;
-                case 5:
-                    message.denom = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Decodes a PowerFromSolar message from the specified reader or buffer, length delimited.
-         * @function decodeDelimited
-         * @memberof main.PowerFromSolar
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {main.PowerFromSolar} PowerFromSolar
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        PowerFromSolar.decodeDelimited = function decodeDelimited(reader) {
-            if (!(reader instanceof $Reader))
-                reader = new $Reader(reader);
-            return this.decode(reader, reader.uint32());
-        };
-
-        /**
-         * Verifies a PowerFromSolar message.
-         * @function verify
-         * @memberof main.PowerFromSolar
-         * @static
-         * @param {Object.<string,*>} message Plain object to verify
-         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-         */
-        PowerFromSolar.verify = function verify(message) {
-            if (typeof message !== "object" || message === null)
-                return "object expected";
-            if (message.id != null && message.hasOwnProperty("id"))
-                if (!$util.isString(message.id))
-                    return "id: string expected";
-            if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
-                if (!$util.isString(message.student_account_id))
-                    return "student_account_id: string expected";
-            if (message.amount_kwh != null && message.hasOwnProperty("amount_kwh"))
-                if (!$util.isInteger(message.amount_kwh) && !(message.amount_kwh && $util.isInteger(message.amount_kwh.low) && $util.isInteger(message.amount_kwh.high)))
-                    return "amount_kwh: integer|Long expected";
-            if (message.price != null && message.hasOwnProperty("price"))
-                if (!$util.isInteger(message.price) && !(message.price && $util.isInteger(message.price.low) && $util.isInteger(message.price.high)))
-                    return "price: integer|Long expected";
-            if (message.denom != null && message.hasOwnProperty("denom"))
-                if (!$util.isString(message.denom))
-                    return "denom: string expected";
-            return null;
-        };
-
-        /**
-         * Creates a PowerFromSolar message from a plain object. Also converts values to their respective internal types.
-         * @function fromObject
-         * @memberof main.PowerFromSolar
-         * @static
-         * @param {Object.<string,*>} object Plain object
-         * @returns {main.PowerFromSolar} PowerFromSolar
-         */
-        PowerFromSolar.fromObject = function fromObject(object) {
-            if (object instanceof $root.main.PowerFromSolar)
-                return object;
-            let message = new $root.main.PowerFromSolar();
-            if (object.id != null)
-                message.id = String(object.id);
-            if (object.student_account_id != null)
-                message.student_account_id = String(object.student_account_id);
-            if (object.amount_kwh != null)
-                if ($util.Long)
-                    (message.amount_kwh = $util.Long.fromValue(object.amount_kwh)).unsigned = true;
-                else if (typeof object.amount_kwh === "string")
-                    message.amount_kwh = parseInt(object.amount_kwh, 10);
-                else if (typeof object.amount_kwh === "number")
-                    message.amount_kwh = object.amount_kwh;
-                else if (typeof object.amount_kwh === "object")
-                    message.amount_kwh = new $util.LongBits(object.amount_kwh.low >>> 0, object.amount_kwh.high >>> 0).toNumber(true);
-            if (object.price != null)
-                if ($util.Long)
-                    (message.price = $util.Long.fromValue(object.price)).unsigned = true;
-                else if (typeof object.price === "string")
-                    message.price = parseInt(object.price, 10);
-                else if (typeof object.price === "number")
-                    message.price = object.price;
-                else if (typeof object.price === "object")
-                    message.price = new $util.LongBits(object.price.low >>> 0, object.price.high >>> 0).toNumber(true);
-            if (object.denom != null)
-                message.denom = String(object.denom);
-            return message;
-        };
-
-        /**
-         * Creates a plain object from a PowerFromSolar message. Also converts values to other types if specified.
-         * @function toObject
-         * @memberof main.PowerFromSolar
-         * @static
-         * @param {main.PowerFromSolar} message PowerFromSolar
-         * @param {$protobuf.IConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        PowerFromSolar.toObject = function toObject(message, options) {
-            if (!options)
-                options = {};
-            let object = {};
-            if (options.defaults) {
-                object.id = "";
-                object.student_account_id = "";
-                if ($util.Long) {
-                    let long = new $util.Long(0, 0, true);
-                    object.amount_kwh = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.amount_kwh = options.longs === String ? "0" : 0;
-                if ($util.Long) {
-                    let long = new $util.Long(0, 0, true);
-                    object.price = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.price = options.longs === String ? "0" : 0;
-                object.denom = "";
-            }
-            if (message.id != null && message.hasOwnProperty("id"))
-                object.id = message.id;
-            if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
-                object.student_account_id = message.student_account_id;
-            if (message.amount_kwh != null && message.hasOwnProperty("amount_kwh"))
-                if (typeof message.amount_kwh === "number")
-                    object.amount_kwh = options.longs === String ? String(message.amount_kwh) : message.amount_kwh;
-                else
-                    object.amount_kwh = options.longs === String ? $util.Long.prototype.toString.call(message.amount_kwh) : options.longs === Number ? new $util.LongBits(message.amount_kwh.low >>> 0, message.amount_kwh.high >>> 0).toNumber(true) : message.amount_kwh;
-            if (message.price != null && message.hasOwnProperty("price"))
-                if (typeof message.price === "number")
-                    object.price = options.longs === String ? String(message.price) : message.price;
-                else
-                    object.price = options.longs === String ? $util.Long.prototype.toString.call(message.price) : options.longs === Number ? new $util.LongBits(message.price.low >>> 0, message.price.high >>> 0).toNumber(true) : message.price;
-            if (message.denom != null && message.hasOwnProperty("denom"))
-                object.denom = message.denom;
-            return object;
-        };
-
-        /**
-         * Converts this PowerFromSolar to JSON.
-         * @function toJSON
-         * @memberof main.PowerFromSolar
-         * @instance
-         * @returns {Object.<string,*>} JSON object
-         */
-        PowerFromSolar.prototype.toJSON = function toJSON() {
-            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-        };
-
-        return PowerFromSolar;
+        return SolarPower;
     })();
 
     main.StudentAccount = (function() {
@@ -1792,6 +1500,7 @@ export const main = $root.main = (() => {
          * Properties of a Transaction.
          * @memberof main
          * @interface ITransaction
+         * @property {boolean|null} [status] Transaction status
          * @property {string|null} [id] Transaction id
          * @property {string|null} [sender_account_id] Transaction sender_account_id
          * @property {string|null} [sender_xrp_address] Transaction sender_xrp_address
@@ -1815,6 +1524,14 @@ export const main = $root.main = (() => {
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
+
+        /**
+         * Transaction status.
+         * @member {boolean} status
+         * @memberof main.Transaction
+         * @instance
+         */
+        Transaction.prototype.status = false;
 
         /**
          * Transaction id.
@@ -1884,20 +1601,22 @@ export const main = $root.main = (() => {
         Transaction.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
+            if (message.status != null && Object.hasOwnProperty.call(message, "status"))
+                writer.uint32(/* id 1, wireType 0 =*/8).bool(message.status);
             if (message.id != null && Object.hasOwnProperty.call(message, "id"))
-                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.id);
             if (message.sender_account_id != null && Object.hasOwnProperty.call(message, "sender_account_id"))
-                writer.uint32(/* id 2, wireType 2 =*/18).string(message.sender_account_id);
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.sender_account_id);
             if (message.sender_xrp_address != null && Object.hasOwnProperty.call(message, "sender_xrp_address"))
-                writer.uint32(/* id 3, wireType 2 =*/26).string(message.sender_xrp_address);
+                writer.uint32(/* id 4, wireType 2 =*/34).string(message.sender_xrp_address);
             if (message.recipient_account_id != null && Object.hasOwnProperty.call(message, "recipient_account_id"))
-                writer.uint32(/* id 4, wireType 2 =*/34).string(message.recipient_account_id);
+                writer.uint32(/* id 5, wireType 2 =*/42).string(message.recipient_account_id);
             if (message.recipient_xrp_address != null && Object.hasOwnProperty.call(message, "recipient_xrp_address"))
-                writer.uint32(/* id 5, wireType 2 =*/42).string(message.recipient_xrp_address);
+                writer.uint32(/* id 6, wireType 2 =*/50).string(message.recipient_xrp_address);
             if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
-                writer.uint32(/* id 6, wireType 0 =*/48).uint64(message.amount);
+                writer.uint32(/* id 7, wireType 0 =*/56).uint64(message.amount);
             if (message.denom != null && Object.hasOwnProperty.call(message, "denom"))
-                writer.uint32(/* id 7, wireType 2 =*/58).string(message.denom);
+                writer.uint32(/* id 8, wireType 2 =*/66).string(message.denom);
             return writer;
         };
 
@@ -1933,24 +1652,27 @@ export const main = $root.main = (() => {
                 let tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    message.id = reader.string();
+                    message.status = reader.bool();
                     break;
                 case 2:
-                    message.sender_account_id = reader.string();
+                    message.id = reader.string();
                     break;
                 case 3:
-                    message.sender_xrp_address = reader.string();
+                    message.sender_account_id = reader.string();
                     break;
                 case 4:
-                    message.recipient_account_id = reader.string();
+                    message.sender_xrp_address = reader.string();
                     break;
                 case 5:
-                    message.recipient_xrp_address = reader.string();
+                    message.recipient_account_id = reader.string();
                     break;
                 case 6:
-                    message.amount = reader.uint64();
+                    message.recipient_xrp_address = reader.string();
                     break;
                 case 7:
+                    message.amount = reader.uint64();
+                    break;
+                case 8:
                     message.denom = reader.string();
                     break;
                 default:
@@ -1988,6 +1710,9 @@ export const main = $root.main = (() => {
         Transaction.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
+            if (message.status != null && message.hasOwnProperty("status"))
+                if (typeof message.status !== "boolean")
+                    return "status: boolean expected";
             if (message.id != null && message.hasOwnProperty("id"))
                 if (!$util.isString(message.id))
                     return "id: string expected";
@@ -2024,6 +1749,8 @@ export const main = $root.main = (() => {
             if (object instanceof $root.main.Transaction)
                 return object;
             let message = new $root.main.Transaction();
+            if (object.status != null)
+                message.status = Boolean(object.status);
             if (object.id != null)
                 message.id = String(object.id);
             if (object.sender_account_id != null)
@@ -2062,6 +1789,7 @@ export const main = $root.main = (() => {
                 options = {};
             let object = {};
             if (options.defaults) {
+                object.status = false;
                 object.id = "";
                 object.sender_account_id = "";
                 object.sender_xrp_address = "";
@@ -2074,6 +1802,8 @@ export const main = $root.main = (() => {
                     object.amount = options.longs === String ? "0" : 0;
                 object.denom = "";
             }
+            if (message.status != null && message.hasOwnProperty("status"))
+                object.status = message.status;
             if (message.id != null && message.hasOwnProperty("id"))
                 object.id = message.id;
             if (message.sender_account_id != null && message.hasOwnProperty("sender_account_id"))
@@ -2106,6 +1836,298 @@ export const main = $root.main = (() => {
         };
 
         return Transaction;
+    })();
+
+    main.UtilityPower = (function() {
+
+        /**
+         * Properties of an UtilityPower.
+         * @memberof main
+         * @interface IUtilityPower
+         * @property {string|null} [id] UtilityPower id
+         * @property {string|null} [student_account_id] UtilityPower student_account_id
+         * @property {Long|null} [amount_kwh] UtilityPower amount_kwh
+         * @property {Long|null} [price] UtilityPower price
+         * @property {string|null} [denom] UtilityPower denom
+         */
+
+        /**
+         * Constructs a new UtilityPower.
+         * @memberof main
+         * @classdesc Represents an UtilityPower.
+         * @implements IUtilityPower
+         * @constructor
+         * @param {main.IUtilityPower=} [properties] Properties to set
+         */
+        function UtilityPower(properties) {
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * UtilityPower id.
+         * @member {string} id
+         * @memberof main.UtilityPower
+         * @instance
+         */
+        UtilityPower.prototype.id = "";
+
+        /**
+         * UtilityPower student_account_id.
+         * @member {string} student_account_id
+         * @memberof main.UtilityPower
+         * @instance
+         */
+        UtilityPower.prototype.student_account_id = "";
+
+        /**
+         * UtilityPower amount_kwh.
+         * @member {Long} amount_kwh
+         * @memberof main.UtilityPower
+         * @instance
+         */
+        UtilityPower.prototype.amount_kwh = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * UtilityPower price.
+         * @member {Long} price
+         * @memberof main.UtilityPower
+         * @instance
+         */
+        UtilityPower.prototype.price = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * UtilityPower denom.
+         * @member {string} denom
+         * @memberof main.UtilityPower
+         * @instance
+         */
+        UtilityPower.prototype.denom = "";
+
+        /**
+         * Encodes the specified UtilityPower message. Does not implicitly {@link main.UtilityPower.verify|verify} messages.
+         * @function encode
+         * @memberof main.UtilityPower
+         * @static
+         * @param {main.IUtilityPower} message UtilityPower message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        UtilityPower.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+            if (message.student_account_id != null && Object.hasOwnProperty.call(message, "student_account_id"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.student_account_id);
+            if (message.amount_kwh != null && Object.hasOwnProperty.call(message, "amount_kwh"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint64(message.amount_kwh);
+            if (message.price != null && Object.hasOwnProperty.call(message, "price"))
+                writer.uint32(/* id 4, wireType 0 =*/32).uint64(message.price);
+            if (message.denom != null && Object.hasOwnProperty.call(message, "denom"))
+                writer.uint32(/* id 5, wireType 2 =*/42).string(message.denom);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified UtilityPower message, length delimited. Does not implicitly {@link main.UtilityPower.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof main.UtilityPower
+         * @static
+         * @param {main.IUtilityPower} message UtilityPower message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        UtilityPower.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes an UtilityPower message from the specified reader or buffer.
+         * @function decode
+         * @memberof main.UtilityPower
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {main.UtilityPower} UtilityPower
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        UtilityPower.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.UtilityPower();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.id = reader.string();
+                    break;
+                case 2:
+                    message.student_account_id = reader.string();
+                    break;
+                case 3:
+                    message.amount_kwh = reader.uint64();
+                    break;
+                case 4:
+                    message.price = reader.uint64();
+                    break;
+                case 5:
+                    message.denom = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes an UtilityPower message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof main.UtilityPower
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {main.UtilityPower} UtilityPower
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        UtilityPower.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies an UtilityPower message.
+         * @function verify
+         * @memberof main.UtilityPower
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        UtilityPower.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isString(message.id))
+                    return "id: string expected";
+            if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
+                if (!$util.isString(message.student_account_id))
+                    return "student_account_id: string expected";
+            if (message.amount_kwh != null && message.hasOwnProperty("amount_kwh"))
+                if (!$util.isInteger(message.amount_kwh) && !(message.amount_kwh && $util.isInteger(message.amount_kwh.low) && $util.isInteger(message.amount_kwh.high)))
+                    return "amount_kwh: integer|Long expected";
+            if (message.price != null && message.hasOwnProperty("price"))
+                if (!$util.isInteger(message.price) && !(message.price && $util.isInteger(message.price.low) && $util.isInteger(message.price.high)))
+                    return "price: integer|Long expected";
+            if (message.denom != null && message.hasOwnProperty("denom"))
+                if (!$util.isString(message.denom))
+                    return "denom: string expected";
+            return null;
+        };
+
+        /**
+         * Creates an UtilityPower message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof main.UtilityPower
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {main.UtilityPower} UtilityPower
+         */
+        UtilityPower.fromObject = function fromObject(object) {
+            if (object instanceof $root.main.UtilityPower)
+                return object;
+            let message = new $root.main.UtilityPower();
+            if (object.id != null)
+                message.id = String(object.id);
+            if (object.student_account_id != null)
+                message.student_account_id = String(object.student_account_id);
+            if (object.amount_kwh != null)
+                if ($util.Long)
+                    (message.amount_kwh = $util.Long.fromValue(object.amount_kwh)).unsigned = true;
+                else if (typeof object.amount_kwh === "string")
+                    message.amount_kwh = parseInt(object.amount_kwh, 10);
+                else if (typeof object.amount_kwh === "number")
+                    message.amount_kwh = object.amount_kwh;
+                else if (typeof object.amount_kwh === "object")
+                    message.amount_kwh = new $util.LongBits(object.amount_kwh.low >>> 0, object.amount_kwh.high >>> 0).toNumber(true);
+            if (object.price != null)
+                if ($util.Long)
+                    (message.price = $util.Long.fromValue(object.price)).unsigned = true;
+                else if (typeof object.price === "string")
+                    message.price = parseInt(object.price, 10);
+                else if (typeof object.price === "number")
+                    message.price = object.price;
+                else if (typeof object.price === "object")
+                    message.price = new $util.LongBits(object.price.low >>> 0, object.price.high >>> 0).toNumber(true);
+            if (object.denom != null)
+                message.denom = String(object.denom);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from an UtilityPower message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof main.UtilityPower
+         * @static
+         * @param {main.UtilityPower} message UtilityPower
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        UtilityPower.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.defaults) {
+                object.id = "";
+                object.student_account_id = "";
+                if ($util.Long) {
+                    let long = new $util.Long(0, 0, true);
+                    object.amount_kwh = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.amount_kwh = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    let long = new $util.Long(0, 0, true);
+                    object.price = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.price = options.longs === String ? "0" : 0;
+                object.denom = "";
+            }
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
+                object.student_account_id = message.student_account_id;
+            if (message.amount_kwh != null && message.hasOwnProperty("amount_kwh"))
+                if (typeof message.amount_kwh === "number")
+                    object.amount_kwh = options.longs === String ? String(message.amount_kwh) : message.amount_kwh;
+                else
+                    object.amount_kwh = options.longs === String ? $util.Long.prototype.toString.call(message.amount_kwh) : options.longs === Number ? new $util.LongBits(message.amount_kwh.low >>> 0, message.amount_kwh.high >>> 0).toNumber(true) : message.amount_kwh;
+            if (message.price != null && message.hasOwnProperty("price"))
+                if (typeof message.price === "number")
+                    object.price = options.longs === String ? String(message.price) : message.price;
+                else
+                    object.price = options.longs === String ? $util.Long.prototype.toString.call(message.price) : options.longs === Number ? new $util.LongBits(message.price.low >>> 0, message.price.high >>> 0).toNumber(true) : message.price;
+            if (message.denom != null && message.hasOwnProperty("denom"))
+                object.denom = message.denom;
+            return object;
+        };
+
+        /**
+         * Converts this UtilityPower to JSON.
+         * @function toJSON
+         * @memberof main.UtilityPower
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        UtilityPower.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return UtilityPower;
     })();
 
     return main;

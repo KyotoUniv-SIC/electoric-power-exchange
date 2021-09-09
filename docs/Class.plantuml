@@ -47,7 +47,7 @@ class Balance {
   - xrp_amount: number
 }
 
-class PowerFromDistLine {
+class UtilityPower {
   - id: string;
   - student_account_id: string;
   - amount_kwh: number;
@@ -55,7 +55,7 @@ class PowerFromDistLine {
   - denom: string;
 }
 
-class PowerFromSolarPV {
+class SolarPower {
   - id: string;
   - student_account_id: string;
   - amount_kwh: number;

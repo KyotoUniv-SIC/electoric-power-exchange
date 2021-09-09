@@ -1,1 +1,36 @@
-<p>txs works!</p>
+<div class="form">
+  <h1>Transaction Functions</h1>
+  <span class="button-panel" routerLink="/txs/buy" value="Buy Electoricity"></span>
+  <span class="button-panel" routerLink="/txs/sell" value="Sell Electoricity"></span>
+
+  <h1>Transactions List</h1>
+  <ul>
+    <ng-container *ngFor = "let transaction of transactions">
+      <li routerLink="/txs/{{ transaction.id }}">
+        <span class="column-name">Transaction Hash:</span>
+        <span class="column-value">{{ transaction.id }}</span>
+        <ol>
+          <ng-container *ngIf="transaction.status === true; then accept; else reject"></ng-container>
+          <ng-template #accept>
+             <li><span class="column-name">Transaction Accepted</span></li>
+          </ng-template>
+          <ng-template #reject>
+            <li><span class="column-name">Transaction Rejected</span></li>
+          </ng-template>
+          <li>
+            <span class="column-name">From:</span>
+            <span class="column-value">{{ transaction.sender_account_id }}</span>
+          </li>
+          <li>
+            <span class="column-name">To:</span>
+            <span class="column-value">{{ transaction.recipient_account_id }}</span>
+          </li>
+          <li>
+            <span class="column-value">{{ transaction.amount }}</span>
+            <span class="column-value">{{ transaction.denom }}</span>
+          </li>
+        </ol>
+      </li>
+    </ng-container>
+  </ul>
+</div>

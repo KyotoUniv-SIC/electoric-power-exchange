@@ -1,1 +1,54 @@
-<p>tx works!</p>
+<div class="form">
+  <h1>Transaction Detail</h1>
+  <ng-container *ngFor = "let transaction of transactions">
+    <ng-container *ngIf="transaction.id === txHash; then loaded; else loading"></ng-container>
+    <ng-template #loaded>
+      <ol>
+        <li>
+          <span class="column-name">Transaction Hash:</span>
+          <span class="column-value">{{ transaction.id }}</span>
+        </li>
+        <ng-container *ngIf="transaction.status === true; then accept; else reject"></ng-container>
+        <ng-template #accept>
+          <li>
+            <span class="column-name">Status:</span>
+            <span class="column-name">Transaction Accepted</span>
+          </li>
+        </ng-template>
+        <ng-template #reject>
+          <li>
+            <span class="column-name">Status:</span>
+            <span class="column-name">Transaction Rejected</span>
+          </li>
+        </ng-template>
+        <ng-container *ngIf="transaction.denom === 'spx'; then solar; else utility"></ng-container>
+        <ng-template #solar>
+          <li>
+            <span class="column-name">Energy Type:</span>
+            <span class="column-name">Solor Power</span>
+          </li>
+        </ng-template>
+        <ng-template #utility>
+          <li>
+            <span class="column-name">Energy Type:</span>
+            <span class="column-name">Utility Power</span>
+          </li>
+        </ng-template>
+        <li>
+          <span class="column-name">Sender:</span>
+          <span class="column-value">{{ transaction.sender_account_id }}</span>
+        </li>
+        <li>
+          <span class="column-name">Recipient:</span>
+          <span class="column-value">{{ transaction.recipient_account_id }}</span>
+        </li>
+        <li>
+          <span class="column-name">Amount:</span>
+          <span class="column-value">{{ transaction.amount }}</span>
+          <span class="column-value">{{ transaction.denom }}</span>
+        </li>
+      </ol>
+    </ng-template>
+    <ng-template #loading></ng-template>
+  </ng-container>
+</div>
