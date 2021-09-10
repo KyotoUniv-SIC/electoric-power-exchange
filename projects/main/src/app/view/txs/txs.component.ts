@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { proto } from '@local/common';
 
 @Component({
   selector: 'view-txs',
@@ -7,7 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class TxsComponent implements OnInit {
   @Input()
-  transactions?: any | null;
+  transactions?: proto.main.Transaction[] | null;
 
   constructor() {}
 
