@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { proto } from '@local/common';
 
 @Component({
   selector: 'view-tx',
@@ -9,7 +10,7 @@ export class TxComponent implements OnInit {
   @Input()
   txHash?: string | null;
   @Input()
-  transactions?: any | null;
+  transactions?: proto.main.Transaction[] | null;
 
   constructor() {}
 

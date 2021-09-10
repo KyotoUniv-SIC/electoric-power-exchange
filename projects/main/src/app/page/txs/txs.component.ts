@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-//import { proto } from '@local/common'
+import { proto } from '@local/common';
+import * as Long from 'long';
 import { combineLatest, Observable, of } from 'rxjs';
 
 @Component({
@@ -9,37 +10,32 @@ import { combineLatest, Observable, of } from 'rxjs';
   styleUrls: ['./txs.component.css'],
 })
 export class TxsComponent implements OnInit {
-  transactions$: Observable<any[] | undefined>;
+  transactions$: Observable<proto.main.Transaction[] | undefined>;
 
   constructor(private route: ActivatedRoute) {
-    const transactions01$ = of(
-      {
+    this.transactions$ = of([
+      new proto.main.Transaction({
         status: true,
-        id: "dummy01",
-        sender_account_id: "Bob",
-        sender_xrp_address: "xrp01",
-        recipient_account_id: "Alice",
-        recipient_xrp_address: "xrp02",
-        amount: 100,
-        denom: "epx"
-      }
-    );
-    const transactions02$ = of(
-      {
+        id: 'dummy01',
+        sender_account_id: 'Bob',
+        sender_xrp_address: 'xrp01',
+        recipient_account_id: 'Alice',
+        recipient_xrp_address: 'xrp02',
+        amount: Long.fromNumber(100),
+        denom: 'epx',
+      }),
+      new proto.main.Transaction({
         status: false,
-        id: "dummy02",
-        sender_account_id: "Alice",
-        sender_xrp_address: "xrp02",
-        recipient_account_id: "Bob",
-        recipient_xrp_address: "xrp01",
-        amount: 100,
-        denom: "spx"
-      }
-    );
-    this.transactions$ = combineLatest([transactions01$, transactions02$])
-   }
-
-  ngOnInit(): void {
+        id: 'dummy02',
+        sender_account_id: 'Alice',
+        sender_xrp_address: 'xrp02',
+        recipient_account_id: 'Bob',
+        recipient_xrp_address: 'xrp01',
+        amount: Long.fromNumber(100),
+        denom: 'spx',
+      }),
+    ]);
   }
 
+  ngOnInit(): void {}
 }
