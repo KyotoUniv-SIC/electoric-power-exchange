@@ -1,17 +1,32 @@
-<div class="form">
-  <h1>PLEASE SIGN IN</h1>
-  <form>
-    <div class="form-item">
-      <input placeholder="Input ID" />
+<div class="mt-48 mx-auto max-w-sm">
+  <p class="text-3xl text-center">PLEASE SIGN IN</p>
+  <div class="text-center mt-12">
+    <div class="mdc-text-field mdc-text-field--outlined w-4/5 mb-2">
+      <input class="mdc-text-field__input" id="text-field-hero-input" />
+      <div class="mdc-notched-outline">
+        <div class="mdc-notched-outline__leading"></div>
+        <div class="mdc-notched-outline__notch">
+          <label for="text-field-hero-input" class="mdc-floating-label">Input ID</label>
+        </div>
+        <div class="mdc-notched-outline__trailing"></div>
+      </div>
     </div>
-    <div class="form-item">
-      <input placeholder="Input Password" />
+    <br />
+    <div class="mdc-text-field mdc-text-field--outlined w-4/5 mb-2">
+      <input class="mdc-text-field__input" id="text-field-hero-input" />
+      <div class="mdc-notched-outline">
+        <div class="mdc-notched-outline__leading"></div>
+        <div class="mdc-notched-outline__notch">
+          <label for="text-field-hero-input" class="mdc-floating-label">Input Password</label>
+        </div>
+        <div class="mdc-notched-outline__trailing"></div>
+      </div>
     </div>
-    <div class="button-panel">
-      <input class="button" value="Sign In" />
-    </div>
-  </form>
-  <div class="form-footer">
-    <p>No account? <strong><a routerLink="/accounts/create">Sign up</a></strong></p>
+    <br />
+    <button class="mdc-button mdc-button--raised mt-8"><span class="mdc-button__ripple"></span> Sign Up</button>
+    <br />
+    <p class="mt-4">
+      No account? <strong><a class="text-blue-700" routerLink="/accounts/create">Sign up</a></strong>
+    </p>
   </div>
 </div>
