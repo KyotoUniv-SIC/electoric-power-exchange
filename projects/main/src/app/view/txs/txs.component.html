@@ -1,42 +1,41 @@
-<div class="form">
-  <p class="text-3xl text-center mt-36">Transaction Functions</p>
-  <span class="button-panel" routerLink="/txs/buy" value="Buy Electoricity"></span>
-  <span class="button-panel" routerLink="/txs/sell" value="Sell Electoricity"></span>
+<p class="text-3xl text-center mt-36">Transaction Functions</p>
+<span class="button-panel" routerLink="/txs/buy" value="Buy Electoricity"></span>
+<span class="button-panel" routerLink="/txs/sell" value="Sell Electoricity"></span>
 
-  <p class="text-2xl text-center my-12">Transaction List</p>
-  <div class="flex justify-center">
-    <ul>
-      <ng-container *ngFor="let transaction of transactions">
-        <li routerLink="/txs/{{ transaction.id }}" class="shadow-md p-4 cursor-pointer">
-          <div>
-            <span class="column-name">Transaction Hash:</span>
-            <span class="column-value">{{ transaction.id }}</span>
+<p class="text-2xl text-center my-12">Transaction List</p>
+<div class="flex justify-center">
+  <ul>
+    <ng-container *ngFor="let transaction of transactions">
+      <li routerLink="/txs/{{ transaction.id }}" class="mdc-card mdc-card--outlined p-6 m-6 cursor-pointer flex justify-center">
+        <div>
+          <span class="font-bold">Transaction Hash : </span>
+          <span class="underline">{{ transaction.id }}</span>
+        </div>
+
+        <ol>
+          <ng-container *ngIf="transaction.status === true; then accept; else reject"></ng-container>
+          <ng-template #accept class="color: #68d391;">
+            <li><span class="font-bold">Transaction </span><span class="text-green-400 underline">Accepted</span></li>
+          </ng-template>
+          <ng-template #reject>
+            <li><span class="font-bold">Transaction </span><span class="text-red-600 underline"> Rejected</span></li>
+          </ng-template>
+          <div class="">
+            <li>
+              <span class="font-bold">From : </span>
+              <span class="underline">{{ transaction.sender_account_id }}</span>
+            </li>
+            <li>
+              <span class="font-bold">→ To : </span>
+              <span class="underline">{{ transaction.recipient_account_id }}</span>
+            </li>
           </div>
-          <div>
-            <ol>
-              <ng-container *ngIf="transaction.status === true; then accept; else reject"></ng-container>
-              <ng-template #accept>
-                <li><span class="column-name">Transaction Accepted</span></li>
-              </ng-template>
-              <ng-template #reject>
-                <li><span class="column-name">Transaction Rejected</span></li>
-              </ng-template>
-              <li>
-                <span class="column-name">From:</span>
-                <span class="column-value">{{ transaction.sender_account_id }}</span>
-              </li>
-              <li>
-                <span class="column-name">To:</span>
-                <span class="column-value">{{ transaction.recipient_account_id }}</span>
-              </li>
-              <li>
-                <span class="column-value">{{ transaction.amount }}</span>
-                <span class="column-value">{{ transaction.denom }}</span>
-              </li>
-            </ol>
-          </div>
-        </li>
-      </ng-container>
-    </ul>
-  </div>
+          <li class="border-2 border-black text-center">
+            <span>{{ transaction.amount }}</span>
+            <span>{{ transaction.denom }}</span>
+          </li>
+        </ol>
+      </li>
+    </ng-container>
+  </ul>
 </div>
