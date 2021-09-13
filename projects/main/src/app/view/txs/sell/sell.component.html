@@ -1,1 +1,44 @@
-<p>sell works!</p>
+<div class="bg-blue-200 h-screen">
+  <p class="text-4xl font-bold pl-36 py-5">Token Market</p>
+  <div class="w-4/5 h-5/6 bg-white m-auto">
+    <p class="text-3xl p-10">Token Price</p>
+    <div class="text-center">
+      <span class="p-4 text-2xl">1 Token</span>
+      <span class="pr-8 text-2xl">=</span>
+      <div class="mdc-text-field mdc-text-field--outlined">
+        <input [(ngModel)]="price" class="mdc-text-field__input" id="text-field-hero-input" type="number"/>
+        <div class="mdc-notched-outline">
+          <div class="mdc-notched-outline__leading"></div>
+          <div class="mdc-notched-outline__trailing"></div>
+        </div>
+      </div>
+      <span class="p-4 text-2xl">JPY</span>
+    </div>
+    <p class="text-3xl p-10">Sell Token Amount</p>
+    <div class="text-center">
+      <div class="mdc-text-field mdc-text-field--outlined">
+        <input [(ngModel)]="amount" class="mdc-text-field__input" id="text-field-hero-input" type="number" value="1"/>
+        <div class="mdc-notched-outline">
+          <div class="mdc-notched-outline__leading"></div>
+          <div class="mdc-notched-outline__trailing"></div>
+        </div>
+      </div>
+    </div>
+
+    <p class="text-3xl p-10">Transaction Detail</p>
+    <div class="text-center">
+      <div>
+        <span class="text-2xl">Total Price = </span>
+        <span class="pr-10 pl-2 py-2 border rounded border-gray-400 text-xl">{{calcTotalPrice()}}</span>
+        <span class="text-xl pl-2">JPY</span>
+      </div>
+      <div class="mt-6">
+        <span class="text-2xl">Total Energy = </span>
+        <span class="pr-10 pl-2 py-2 border rounded border-gray-400 text-xl">{{calcElectricity()}}</span>
+        <span class="text-xl pl-2">kWh</span>
+      </div>
+      <button class="mdc-button mdc-button--raised mt-16"><span class="mdc-button__ripple"></span>Request Purchase</button>
+    </div>
+  </div>
+</div>
+
