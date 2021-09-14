@@ -19,19 +19,18 @@
         <div class="flex">
           <div class="flex-1 mr-4">
             <div>
-              <span class="font-bold text-2xl">Transaction Hash : </span>
-              <span class="underline text-2xl">{{ transaction.id }}</span>
+              <span class="font-bold text-4xl">Transaction Hash : </span>
+              <span class="underline text-4xl">{{ transaction.id }}</span>
             </div>
-
-            <ol>
-              <ng-container *ngIf="transaction.status === true; then accept; else reject"></ng-container>
-              <ng-template #accept class="color: #68d391;">
-                <li><span class="font-bold text-2xl">Transaction </span><span class="text-green-400 underline">Accepted</span></li>
-              </ng-template>
-              <ng-template #reject>
-                <li><span class="font-bold text-2xl">Transaction </span><span class="text-red-600 underline"> Rejected</span></li>
-              </ng-template>
-            </ol>
+          </div>
+          <div class="flex-1 mr-4">
+            <ng-container *ngIf="transaction.status === true; then accept; else reject"></ng-container>
+            <ng-template #accept class="color: #68d391;">
+              <span class="font-bold text-4xl">Transaction </span><span class="text-green-400 underline text-2xl">Accepted</span>
+            </ng-template>
+            <ng-template #reject>
+              <span class="font-bold text-4xl">Transaction </span><span class="text-red-600 underline text-2xl"> Rejected</span>
+            </ng-template>
           </div>
           <div class="flex-1 mr-4">
             <li>
