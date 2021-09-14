@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { proto } from '@local/common';
+import * as Long from 'long';
+import { Observable, of } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 
 @Component({
@@ -8,10 +11,38 @@ import { map, mergeMap } from 'rxjs/operators';
   styleUrls: ['./account.component.css'],
 })
 export class AccountComponent implements OnInit {
+  account$: Observable<proto.main.StudentAccount | undefined>;
+  usage$: Observable<proto.main.MonthlyUsage | undefined>;
+  balances$: Observable<any | undefined>;
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) {
+    this.account$ = of(
+      new proto.main.StudentAccount({
+        id: 'testID',
+        name: 'testName',
+        payment_method: 'xrp',
+        xrp_address: 'rpct6vuKL2bcJq9FFygAsYNMVXyXirwPeL',
+      }),
+    );
 
-  ngOnInit(): void {
+    this.usage$ = of(
+      new proto.main.MonthlyUsage({
+        id: 'testUsage',
+        student_account_id: 'testID',
+        amount_kwh: Long.fromNumber(2000),
+      }),
+    );
+
+    this.balances$ = of([
+      {
+        amount: 200,
+        denom: 'upx',
+      },
+      {
+        amount: 100,
+        denom: 'spx',
+      },
+    ]);
   }
-
+  ngOnInit(): void {}
 }
