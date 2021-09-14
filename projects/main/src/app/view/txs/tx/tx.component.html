@@ -5,47 +5,51 @@
 <div class="flex justify-center">
   <ul>
     <ng-container *ngFor="let transaction of transactions">
-      <li routerLink="/txs/{{ transaction.id }}" class="mdc-card mdc-card--outlined p-6 m-6 cursor-pointer flex justify-center">
-        <div>
-          <span class="font-bold">Transaction Hash : </span>
-          <span class="underline">{{ transaction.id }}</span>
-        </div>
+      <ng-container *ngIf="transaction.id === txHash; then loaded; else loading"></ng-container>
+      <ng-template #loaded>
+        <li routerLink="/txs/{{ transaction.id }}" class="mdc-card mdc-card--outlined p-6 m-6 cursor-pointer flex justify-center">
+          <div>
+            <span class="font-bold">Transaction Hash : </span>
+            <span class="underline">{{ transaction.id }}</span>
+          </div>
 
-        <ol>
-          <ng-container *ngIf="transaction.status === true; then accept; else reject"></ng-container>
-          <ng-template #accept>
-            <li><span class="font-bold">Status : Transaction </span><span class="text-green-400 underline">Accepted</span></li>
-          </ng-template>
-          <ng-template #reject>
-            <li><span class="font-bold">Status : Transaction </span><span class="text-red-600 underline"> Rejected</span></li>
-          </ng-template>
-          <ng-container *ngIf="transaction.denom === 'spx'; then solar; else utility"></ng-container>
-          <ng-template #solar>
+          <ol>
+            <ng-container *ngIf="transaction.status === true; then accept; else reject"></ng-container>
+            <ng-template #accept>
+              <li><span class="font-bold">Status : Transaction </span><span class="text-green-400 underline">Accepted</span></li>
+            </ng-template>
+            <ng-template #reject>
+              <li><span class="font-bold">Status : Transaction </span><span class="text-red-600 underline"> Rejected</span></li>
+            </ng-template>
+            <ng-container *ngIf="transaction.denom === 'spx'; then solar; else utility"></ng-container>
+            <ng-template #solar>
+              <li>
+                <span class="font-bold">Energy Type:</span>
+                <span class="underline">Solor Power</span>
+              </li>
+            </ng-template>
+            <ng-template #utility>
+              <li>
+                <span class="font-bold">Energy Type:</span>
+                <span class="underline">Utility Power</span>
+              </li>
+            </ng-template>
             <li>
-              <span class="font-bold">Energy Type:</span>
-              <span class="underline">Solor Power</span>
+              <span class="font-bold">Sender:</span>
+              <span class="underline">{{ transaction.sender_account_id }}</span>
             </li>
-          </ng-template>
-          <ng-template #utility>
             <li>
-              <span class="font-bold">Energy Type:</span>
-              <span class="underline">Utility Power</span>
+              <span class="font-bold">Recipient:</span>
+              <span class="underline">{{ transaction.recipient_account_id }}</span>
             </li>
-          </ng-template>
-          <li>
-            <span class="font-bold">Sender:</span>
-            <span class="underline">{{ transaction.sender_account_id }}</span>
-          </li>
-          <li>
-            <span class="font-bold">Recipient:</span>
-            <span class="underline">{{ transaction.recipient_account_id }}</span>
-          </li>
-          <li class="border-2 border-black text-center">
-            <span>Amount : {{ transaction.amount }}</span>
-            <span>{{ transaction.denom }}</span>
-          </li>
-        </ol>
-      </li>
+            <li class="border-2 border-black text-center">
+              <span>Amount : {{ transaction.amount }}</span>
+              <span>{{ transaction.denom }}</span>
+            </li>
+          </ol>
+        </li>
+      </ng-template>
+      <ng-template #loading></ng-template>
     </ng-container>
   </ul>
 </div>
