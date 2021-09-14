@@ -1,101 +1,132 @@
-<p class="text-3xl text-center mt-36">Account Information</p>
-<div class="mt-36 mx-auto max-w-sm">
-  <ul class="mdc-list mdc-list--two-line">
-    <li role="separator" class="mdc-list-divider"></li>
-    <li class="mdc-list-item" tabindex="0">
-      <span class="mdc-list-item__ripple"></span>
-      <span class="mdc-list-item__text">
-        <span class="mdc-list-item__primary-text">{{ account?.id }}</span>
-        <span class="mdc-list-item__secondary-text">Account ID</span>
-      </span>
-    </li>
-    <li role="separator" class="mdc-list-divider"></li>
-    <li class="mdc-list-item">
-      <span class="mdc-list-item__ripple"></span>
-      <span class="mdc-list-item__text">
-        <span class="mdc-list-item__primary-text">{{ account?.name }}</span>
-        <span class="mdc-list-item__secondary-text">Student Full Name</span>
-      </span>
-    </li>
-    <li role="separator" class="mdc-list-divider"></li>
-    <li class="mdc-list-item">
-      <span class="mdc-list-item__ripple"></span>
-      <span class="mdc-list-item__text">
-        <span class="mdc-list-item__primary-text">{{ account?.payment_method }}</span>
-        <span class="mdc-list-item__secondary-text">Payment Method for Electricity</span>
-      </span>
-    </li>
-    <li role="separator" class="mdc-list-divider"></li>
-    <li class="mdc-list-item">
-      <span class="mdc-list-item__ripple"></span>
-      <span class="mdc-list-item__text">
-        <span class="mdc-list-item__primary-text">{{ account?.xrp_address }}</span>
-        <span class="mdc-list-item__secondary-text">XRP Address</span>
-      </span>
-    </li>
-    <li role="separator" class="mdc-list-divider"></li>
-  </ul>
-</div>
+<p class="text-4xl mt-12 ml-36">Dashboard</p>
+<div class="flex">
+  <div class="flex-initial ml-36">
+    <p class="text-3xl mt-12">Account Information</p>
+    <div class="mt-12 mx-auto">
+      <ul class="mdc-list mdc-list--two-line">
+        <li role="separator" class="mdc-list-divider"></li>
+        <li class="mdc-list-item" tabindex="0">
+          <span class="mdc-list-item__ripple"></span>
+          <span class="mdc-list-item__text">
+            <span class="mdc-list-item__primary-text text-2xl">{{ account?.id }}</span>
+            <span class="mdc-list-item__secondary-text text-xl">Account ID</span>
+          </span>
+        </li>
+        <li role="separator" class="mdc-list-divider"></li>
+        <li class="mdc-list-item">
+          <span class="mdc-list-item__ripple"></span>
+          <span class="mdc-list-item__text">
+            <span class="mdc-list-item__primary-text text-2xl">{{ account?.name }}</span>
+            <span class="mdc-list-item__secondary-text text-xl">Student Full Name</span>
+          </span>
+        </li>
+        <li role="separator" class="mdc-list-divider"></li>
+        <li class="mdc-list-item">
+          <span class="mdc-list-item__ripple"></span>
+          <span class="mdc-list-item__text">
+            <span class="mdc-list-item__primary-text text-2xl">{{ account?.payment_method }}</span>
+            <span class="mdc-list-item__secondary-text text-xl">Payment Method for Electricity</span>
+          </span>
+        </li>
+        <li role="separator" class="mdc-list-divider"></li>
+        <li class="mdc-list-item">
+          <span class="mdc-list-item__ripple"></span>
+          <span class="mdc-list-item__text">
+            <span class="mdc-list-item__primary-text text-2xl">{{ account?.xrp_address }}</span>
+            <span class="mdc-list-item__secondary-text text-xl">XRP Address</span>
+          </span>
+        </li>
+        <li role="separator" class="mdc-list-divider"></li>
+      </ul>
+    </div>
+  </div>
 
-<p class="text-3xl text-center mt-36">Usage Data</p>
-<div class="mt-36 mx-auto max-w-sm">
-  <div class="space-y-6">
-    <div class="mdc-card mdc-card--outlined">
-      <div class="demo-card__primary">
-        <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Monthly Usage</h2>
-        <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">{{usage?.amount_kwh}} kWh</h3>
+  <div class="flex-initial ml-36">
+    <p class="text-3xl mt-12">Balance Information</p>
+    <div class="mt-12 mx-auto space-y-6">
+      <div class="mdc-card mdc-card--outlined">
+        <div class="demo-card__primary">
+          <h2 class="demo-card__title mdc-typography mdc-typography--headline6 text-2xl">Utility Power</h2>
+          <ng-container *ngFor="let Balance of balances">
+            <ng-container *ngIf="Balance.denom === 'upx'">
+              <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2 text-xl">
+                UPX Balance: {{ Balance.amount }} {{ Balance.denom }}
+              </h3>
+            </ng-container>
+          </ng-container>
+        </div>
+        <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
+          <div class="mdc-card__media mdc-card__media--16-9 demo-card__media" style="background-image: url(assets/img/utility.jpg)"></div>
+          <div class="demo-card__secondary mdc-typography mdc-typography--body2 text-xl">
+            Electricity from Electoric Power Companies. It is Usually Cheeper than Solar Power.
+          </div>
+        </div>
+        <div class="mdc-card__actions">
+          <div class="mdc-card__action-buttons">
+            <button class="mdc-button mdc-card__action mdc-card__action--button text-2xl" routerLink="/txs/buy">
+              <span class="mdc-button__ripple"></span> Buy
+            </button>
+            <button class="mdc-button mdc-card__action mdc-card__action--button text-2xl" routerLink="/txs/sell">
+              <span class="mdc-button__ripple"></span> Sell
+            </button>
+          </div>
+        </div>
       </div>
-      <div class="mdc-card__actions">
-        <div class="mdc-card__action-buttons">
-          <button class="mdc-button mdc-card__action mdc-card__action--button">  <span class="mdc-button__ripple"></span> Ranking</button>
-          <button class="mdc-button mdc-card__action mdc-card__action--button">  <span class="mdc-button__ripple"></span> Consumption</button>
+
+      <div class="mdc-card mdc-card--outlined">
+        <div class="demo-card__primary">
+          <h2 class="demo-card__title mdc-typography mdc-typography--headline6 text-2xl">Solar Power</h2>
+          <ng-container *ngFor="let Balance of balances">
+            <ng-container *ngIf="Balance.denom === 'spx'">
+              <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2 text-xl">
+                SPX Balance: {{ Balance.amount }} {{ Balance.denom }}
+              </h3>
+            </ng-container>
+          </ng-container>
+        </div>
+        <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
+          <div class="mdc-card__media mdc-card__media--16-9 demo-card__media" style="background-image: url(assets/img/solar.jpg)"></div>
+          <div class="demo-card__secondary mdc-typography mdc-typography--body2 text-xl">
+            Electricity from Solar Panels on SIC. It is Usually More Expensive than Utility Power.
+          </div>
+        </div>
+        <div class="mdc-card__actions">
+          <div class="mdc-card__action-buttons">
+            <button class="mdc-button mdc-card__action mdc-card__action--button text-2xl" routerLink="/txs/buy">
+              <span class="mdc-button__ripple"></span> Buy
+            </button>
+            <button class="mdc-button mdc-card__action mdc-card__action--button text-2xl" routerLink="/txs/sell">
+              <span class="mdc-button__ripple"></span> Sell
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<p class="text-3xl text-center mt-36">Balance Information</p>
-<div class="mt-36 mx-auto max-w-sm">
-  <div class="space-y-6">
-    <div class="mdc-card mdc-card--outlined">
-      <div class="demo-card__primary">
-        <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Utility Power</h2>
-        <ng-container *ngFor = "let Balance of balances">
-          <ng-container *ngIf="Balance.denom === 'upx'">
-            <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">UPX Balance: {{Balance.amount}} {{Balance.denom}}</h3>
-          </ng-container>
-        </ng-container>
-      </div>
-      <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
-        <div class="mdc-card__media mdc-card__media--16-9 demo-card__media" style="background-image: url(assets/img/utility.jpg);"></div>
-        <div class="demo-card__secondary mdc-typography mdc-typography--body2">Electricity from Electoric Power Companies. It is Usually Cheeper than Solar Power.</div>
-      </div>
-      <div class="mdc-card__actions">
-        <div class="mdc-card__action-buttons">
-          <button class="mdc-button mdc-card__action mdc-card__action--button">  <span class="mdc-button__ripple"></span> Buy</button>
-          <button class="mdc-button mdc-card__action mdc-card__action--button">  <span class="mdc-button__ripple"></span> Sell</button>
+  <div class="flex-initial ml-36 mr-36">
+    <p class="text-3xl mt-12">Usage Data</p>
+    <div class="mt-12 mx-auto space-y-6">
+      <div class="mdc-card mdc-card--outlined">
+        <div class="demo-card__primary">
+          <h2 class="demo-card__title mdc-typography mdc-typography--headline6 text-2xl">Monthly Usage</h2>
+          <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2 text-xl">{{ usage?.amount_kwh }} kWh</h3>
         </div>
-      </div>
-    </div>
-
-    <div class="mdc-card mdc-card--outlined">
-      <div class="demo-card__primary">
-        <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Solar Power</h2>
-        <ng-container *ngFor = "let Balance of balances">
-          <ng-container *ngIf="Balance.denom === 'spx'">
-            <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">SPX Balance: {{Balance.amount}} {{Balance.denom}}</h3>
-          </ng-container>
-        </ng-container>
-      </div>
-      <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
-        <div class="mdc-card__media mdc-card__media--16-9 demo-card__media" style="background-image: url(assets/img/solar.jpg);"></div>
-        <div class="demo-card__secondary mdc-typography mdc-typography--body2">Electricity from Solar Panels on SIC. It is Usually More Expensive than Utility Power.</div>
-      </div>
-      <div class="mdc-card__actions">
-        <div class="mdc-card__action-buttons">
-          <button class="mdc-button mdc-card__action mdc-card__action--button">  <span class="mdc-button__ripple"></span> Buy</button>
-          <button class="mdc-button mdc-card__action mdc-card__action--button">  <span class="mdc-button__ripple"></span> Sell</button>
+        <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
+          <div class="mdc-card__media mdc-card__media--16-9 demo-card__media" style="background-image: url(assets/img/mater.jpg)"></div>
+          <div class="demo-card__secondary mdc-typography mdc-typography--body2 text-xl">
+            Electricity Usage up to Yesterday. It Affect the Usage Next Month.
+          </div>
+        </div>
+        <div class="mdc-card__actions">
+          <div class="mdc-card__action-buttons">
+            <button class="mdc-button mdc-card__action mdc-card__action--button text-2xl">
+              <span class="mdc-button__ripple"></span> Ranking
+            </button>
+            <button class="mdc-button mdc-card__action mdc-card__action--button text-2xl">
+              <span class="mdc-button__ripple"></span> Consumption
+            </button>
+          </div>
         </div>
       </div>
     </div>
