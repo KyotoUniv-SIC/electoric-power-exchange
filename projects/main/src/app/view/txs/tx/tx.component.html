@@ -1,68 +1,76 @@
-<div class="ml-36 mt-12">
-  <p class="text-4xl font-bold">Transaction Detail</p>
+<div class="">
+  <p class="font-bold">Transaction Detail</p>
   <span class="button-panel" routerLink="/txs/buy" value="Buy Electoricity"></span>
   <span class="button-panel" routerLink="/txs/sell" value="Sell Electoricity"></span>
 
-  <ul class="flex">
+  <ul class="flex mat-card">
     <ng-container *ngFor="let transaction of transactions">
       <ng-container *ngIf="transaction.id === txHash; then loaded; else loading"></ng-container>
       <ng-template #loaded>
-        <li routerLink="/txs/{{ transaction.id }}" class="mdc-card mdc-card--outlined p-6 m-6 cursor-pointer flex justify-center">
+        <li routerLink="/txs/{{ transaction.id }}" class="cursor-pointer flex justify-center">
           <ol>
             <div>
-              <li role="separator" class="mdc-list-divider"></li>
-              <li class="my-2">
-                <span class="font-bold text-3xl">Transaction Hash : </span>
-                <span class="underline text-3xl">{{ transaction.id }}</span>
+              <li class="">
+                <span class="font-bold">Transaction Hash : </span>
+                <span class="">{{ transaction.id }}</span>
               </li>
-              <li role="separator" class="mdc-list-divider"></li>
             </div>
+            <mat-divider></mat-divider>
             <ng-container *ngIf="transaction.status === true; then accept; else reject"></ng-container>
             <ng-template #accept>
-              <li class="my-2">
-                <span class="font-bold text-3xl">Status : Transaction </span><span class="text-green-400 underline text-3xl">Accepted</span>
+              <li class="flex">
+                <span class="font-bold">Status : Transaction </span
+                ><span>
+                  <mat-chip-list aria-label="Fish selection">
+                    <mat-chip color="warn" selected> Accepted</mat-chip>
+                  </mat-chip-list></span
+                >
               </li>
-              <li role="separator" class="mdc-list-divider"></li>
+              <mat-divider></mat-divider>
             </ng-template>
+
             <ng-template #reject>
-              <li class="my-2">
-                <span class="font-bold text-3xl">Status : Transaction </span><span class="text-red-600 underline text-3xl"> Rejected</span>
+              <li class="flex">
+                <span class="font-bold">Status : Transaction </span
+                ><mat-chip-list aria-label="Fish selection">
+                  <mat-chip color="primary" selected> Rejected</mat-chip>
+                </mat-chip-list>
               </li>
-              <li role="separator" class="mdc-list-divider"></li>
+              <mat-divider></mat-divider>
             </ng-template>
             <ng-container *ngIf="transaction.denom === 'spx'; then solar; else utility"></ng-container>
             <ng-template #solar>
-              <li class="my-2">
-                <span class="font-bold text-3xl">Energy Type:</span>
-                <span class="underline text-3xl">Solor Power</span>
+              <li class="">
+                <span class="font-bold">Energy Type:</span>
+                <span class="">Solor Power</span>
               </li>
-              <li role="separator" class="mdc-list-divider"></li>
+              <mat-divider></mat-divider>
             </ng-template>
             <ng-template #utility>
-              <li class="my-2">
-                <span class="font-bold text-3xl">Energy Type:</span>
-                <span class="underline text-3xl">Utility Power</span>
+              <li class="">
+                <span class="font-bold">Energy Type:</span>
+                <span class="">Utility Power</span>
               </li>
-              <li role="separator" class="mdc-list-divider"></li>
+              <mat-divider></mat-divider>
             </ng-template>
 
-            <li class="my-2">
-              <span class="font-bold text-3xl">Sender:</span>
-              <span class="underline text-3xl">{{ transaction.sender_account_id }}</span>
+            <li class="">
+              <span class="font-bold">Sender:</span>
+              <span class="">{{ transaction.sender_account_id }}</span>
+              <mat-divider></mat-divider>
             </li>
-            <li role="separator" class="mdc-list-divider"></li>
 
-            <li class="my-2">
-              <span class="font-bold text-3xl">Recipient:</span>
-              <span class="underline text-3xl">{{ transaction.recipient_account_id }}</span>
+            <li class="">
+              <span class="font-bold">Recipient:</span>
+              <span class="">{{ transaction.recipient_account_id }}</span>
+              <mat-divider></mat-divider>
             </li>
-            <li role="separator" class="mdc-list-divider"></li>
 
-            <li class="my-2 text-3xl">
+            <li class="">
               <span><span class="font-bold">Amount</span> : {{ transaction.amount }}</span>
               <span>{{ transaction.denom }}</span>
+              <mat-divider></mat-divider>
             </li>
-            <li role="separator" class="mdc-list-divider"></li>
           </ol>
         </li>
       </ng-template>
