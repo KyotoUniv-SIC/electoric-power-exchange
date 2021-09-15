@@ -1,55 +1,49 @@
-<p class="text-4xl mt-12 ml-36">Transactions</p>
-<div class="ml-36 mt-12">
-  <p class="text-3xl">Transaction Functions</p>
-  <div class="flex mt-12 ml-36">
-    <div class="flex-auto ...">
-      <button class="mdc-button mdc-button--raised" routerLink="/txs/buy"><span class="mdc-button__ripple"></span> Buy Electricity</button>
-    </div>
-    <div class="flex-auto ...">
-      <button class="mdc-button mdc-button--raised" routerLink="/txs/sell">
-        <span class="mdc-button__ripple"></span> Sell Electricity
-      </button>
-    </div>
+<h2>Transactions</h2>
+<h3>Transaction Functions</h3>
+<div class="flex">
+  <div class="flex-auto">
+    <button mat-flat-button color="accent" routerLink="/txs/buy">Buy Electricity</button>
   </div>
-
-  <p class="text-3xl my-12">Transaction List</p>
-  <ul>
-    <ng-container *ngFor="let transaction of transactions">
-      <li routerLink="/txs/{{ transaction.id }}" class="mdc-card mdc-card--outlined p-4 m-4 cursor-pointer">
-        <div class="flex">
-          <div class="flex-1 mr-4">
-            <div>
-              <span class="font-bold text-4xl">Transaction Hash : </span>
-              <span class="underline text-4xl">{{ transaction.id }}</span>
-            </div>
-          </div>
-          <div class="flex-1 mr-4">
-            <ng-container *ngIf="transaction.status === true; then accept; else reject"></ng-container>
-            <ng-template #accept class="color: #68d391;">
-              <span class="font-bold text-4xl">Transaction </span><span class="text-green-400 underline text-2xl">Accepted</span>
-            </ng-template>
-            <ng-template #reject>
-              <span class="font-bold text-4xl">Transaction </span><span class="text-red-600 underline text-2xl"> Rejected</span>
-            </ng-template>
-          </div>
-          <div class="flex-1 mr-4">
-            <li>
-              <span class="font-bold text-2xl">From : </span>
-              <span class="underline text-2xl">{{ transaction.sender_account_id }}</span>
-            </li>
-            <li>
-              <span class="font-bold text-2xl">→ To : </span>
-              <span class="underline text-2xl">{{ transaction.recipient_account_id }}</span>
-            </li>
-          </div>
-          <div class="flex-1 mr-4 border-dashed">
-            <li class="p-1 text-center">
-              <span class="font-bold text-4xl">{{ transaction.amount }}</span>
-              <span class="font-bold text-4xl">{{ transaction.denom }}</span>
-            </li>
-          </div>
-        </div>
-      </li>
-    </ng-container>
-  </ul>
+  <div class="flex-auto">
+    <button mat-flat-button color="accent" routerLink="/txs/sell">Sell Electricity</button>
+  </div>
 </div>
+
+<h3>Transaction List</h3>
+<mat-card>
+  <mat-nav-list>
+    <ng-container *ngFor="let transaction of transactions">
+      <mat-list-item class="flex" routerLink="/txs/{{ transaction.id }}">
+        <div class="flex-auto">
+          <span class="column-name font-bold">Transaction Hash : </span><span class="column-value font-bold">{{ transaction.id }}</span>
+        </div>
+        <div class="flex-auto">
+          <ng-container *ngIf="transaction.status === true; then accept; else reject"></ng-container>
+          <ng-template #accept>
+            <mat-chip-list>
+              <mat-chip color="primary" selected>Accepted</mat-chip>
+            </mat-chip-list>
+          </ng-template>
+          <ng-template #reject>
+            <mat-chip-list>
+              <mat-chip color="warn" selected>Rejected</mat-chip>
+            </mat-chip-list>
+          </ng-template>
+        </div>
+        <div class="flex-auto">
+          <span class="font-bold">From : </span>
+          <span class="font-bold">{{ transaction.sender_account_id }}</span>
+        </div>
+        <div class="flex-auto">
+          <span class="font-bold">To : </span>
+          <span class="font-bold">{{ transaction.recipient_account_id }}</span>
+        </div>
+        <div class="flex-auto">
+          <span class="font-bold">{{ transaction.amount }}</span>
+          <span class="font-bold">{{ transaction.denom }}</span>
+        </div>
+      </mat-list-item>
+      <mat-divider [inset]="true"></mat-divider>
+    </ng-container>
+  </mat-nav-list>
+</mat-card>
