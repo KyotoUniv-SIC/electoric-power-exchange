@@ -1,80 +1,81 @@
-<div class="">
-  <p class="font-bold">Transaction Detail</p>
-  <span class="button-panel" routerLink="/txs/buy" value="Buy Electoricity"></span>
-  <span class="button-panel" routerLink="/txs/sell" value="Sell Electoricity"></span>
-
-  <ul class="flex mat-card">
+<p class="font-bold">Transaction Detail</p>
+<span class="button-panel" routerLink="/txs/buy" value="Buy Electoricity"></span>
+<span class="button-panel" routerLink="/txs/sell" value="Sell Electoricity"></span>
+<mat-list role="list">
+  <ul class="flex">
     <ng-container *ngFor="let transaction of transactions">
       <ng-container *ngIf="transaction.id === txHash; then loaded; else loading"></ng-container>
       <ng-template #loaded>
         <li routerLink="/txs/{{ transaction.id }}" class="cursor-pointer flex justify-center">
           <ol>
-            <div>
-              <li class="">
-                <span class="font-bold">Transaction Hash : </span>
-                <span class="">{{ transaction.id }}</span>
-              </li>
-            </div>
-            <mat-divider></mat-divider>
+            <mat-list-item role="listitem">
+              <div>
+                <li class="">
+                  <span class="font-bold">Transaction Hash : </span>
+                  <span class="">{{ transaction.id }}</span>
+                </li>
+              </div>
+            </mat-list-item>
+
             <ng-container *ngIf="transaction.status === true; then accept; else reject"></ng-container>
             <ng-template #accept>
-              <li class="flex">
+              <mat-list-item role="listitem">
                 <span class="font-bold">Status : Transaction </span
                 ><span>
-                  <mat-chip-list aria-label="Fish selection">
+                  <mat-chip-list>
                     <mat-chip color="warn" selected> Accepted</mat-chip>
                   </mat-chip-list></span
                 >
-              </li>
-              <mat-divider></mat-divider>
+              </mat-list-item>
             </ng-template>
 
             <ng-template #reject>
-              <li class="flex">
-                <span class="font-bold">Status : Transaction </span
-                ><mat-chip-list aria-label="Fish selection">
+              <mat-list-item role="listitem">
+                <span class="font-bold">Status : Transaction</span>
+                <mat-chip-list>
                   <mat-chip color="primary" selected> Rejected</mat-chip>
                 </mat-chip-list>
-              </li>
-              <mat-divider></mat-divider>
+              </mat-list-item>
             </ng-template>
             <ng-container *ngIf="transaction.denom === 'spx'; then solar; else utility"></ng-container>
             <ng-template #solar>
-              <li class="">
-                <span class="font-bold">Energy Type:</span>
-                <span class="">Solor Power</span>
-              </li>
-              <mat-divider></mat-divider>
+              <mat-list-item role="listitem">
+                <li class="">
+                  <span class="font-bold">Energy Type:</span>
+                  <span class="">Solor Power</span>
+                </li>
+              </mat-list-item>
             </ng-template>
             <ng-template #utility>
-              <li class="">
-                <span class="font-bold">Energy Type:</span>
-                <span class="">Utility Power</span>
-              </li>
-              <mat-divider></mat-divider>
+              <mat-list-item role="listitem">
+                <li class="">
+                  <span class="font-bold">Energy Type:</span>
+                  <span class="">Utility Power</span>
+                </li>
+              </mat-list-item>
             </ng-template>
-
-            <li class="">
-              <span class="font-bold">Sender:</span>
-              <span class="">{{ transaction.sender_account_id }}</span>
-              <mat-divider></mat-divider>
-            </li>
-
-            <li class="">
-              <span class="font-bold">Recipient:</span>
-              <span class="">{{ transaction.recipient_account_id }}</span>
-              <mat-divider></mat-divider>
-            </li>
-
-            <li class="">
-              <span><span class="font-bold">Amount</span> : {{ transaction.amount }}</span>
-              <span>{{ transaction.denom }}</span>
-              <mat-divider></mat-divider>
-            </li>
+            <mat-list-item role="listitem">
+              <li class="">
+                <span class="font-bold">Sender:</span>
+                <span class="">{{ transaction.sender_account_id }}</span>
+              </li>
+            </mat-list-item>
+            <mat-list-item role="listitem">
+              <li class="">
+                <span class="font-bold">Recipient:</span>
+                <span class="">{{ transaction.recipient_account_id }}</span>
+              </li>
+            </mat-list-item>
+            <mat-list-item role="listitem">
+              <li class="">
+                <span><span class="font-bold">Amount</span> : {{ transaction.amount }}</span>
+                <span>{{ transaction.denom }}</span>
+              </li>
+            </mat-list-item>
           </ol>
         </li>
       </ng-template>
       <ng-template #loading></ng-template>
     </ng-container>
   </ul>
-</div>
+</mat-list>
