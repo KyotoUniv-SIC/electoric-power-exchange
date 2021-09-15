@@ -2,50 +2,41 @@
 <p class="">Token Price</p>
 <div class="">
   <div class="">
-    <span class="">1 Token</span>
+    <span class="">1 </span>
+    <mat-form-field appearance="fill">
+      <mat-label>Token</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let token of tokens" [value]="token.value">
+          {{ token.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
     <span class="">=</span>
-    <div class="mdc-text-field mdc-text-field--outlined">
-      <input [(ngModel)]="price" class="mdc-text-field__input" id="text-field-hero-input" type="number" />
-      <div class="mdc-notched-outline">
-        <div class="mdc-notched-outline__leading"></div>
-        <!--<div class="mdc-notched-outline__notch">
-            <label for="text-field-hero-input" class="mdc-floating-label">Input Value</label>
-          </div>-->
-        <div class="mdc-notched-outline__trailing"></div>
-      </div>
-    </div>
+    <mat-form-field appearance="fill">
+      <mat-label>Input JPY</mat-label>
+      <input matInput placeholder="Inupt value" value="22" type="number" [(ngModel)]="price" />
+    </mat-form-field>
     <span class="">JPY</span>
   </div>
   <p class="">Buy Token Amount</p>
   <div class="">
-    <div class="mdc-text-field mdc-text-field--outlined">
-      <input [(ngModel)]="amount" class="mdc-text-field__input" id="text-field-hero-input" type="number" value="1" />
-      <div class="mdc-notched-outline">
-        <div class="mdc-notched-outline__leading"></div>
-        <!--<div class="mdc-notched-outline__notch">
-            <label for="text-field-hero-input" class="mdc-floating-label">Input Amount</label>
-          </div>-->
-        <div class="mdc-notched-outline__trailing"></div>
-      </div>
-    </div>
-    <input [(ngModel)]="amount" class="mdc-text-field__input" id="text-field-hero-input" type="number" value="1" />
-  </div>
-
-  <p class="">Transaction Detail</p>
-  <div class="">
-    <div>
-      <span class="">Total Price = </span>
-      <span class="border rounded border-gray-400">{{ calcTotalPrice() }}</span>
-      <span class="">JPY</span>
-    </div>
+    <mat-form-field appearance="fill">
+      <mat-label>Input Amount</mat-label>
+      <input matInput placeholder="Inupt amount" value="1" type="number" [(ngModel)]="amount" />
+    </mat-form-field>
+    <p class="">Transaction Detail</p>
     <div class="">
-      <span class="">Total Energy = </span>
-      <span class="border rounded border-gray-400">{{ calcElectricity() }}</span>
-      <span class="">kWh</span>
+      <div>
+        <span class="">Total Price = </span>
+        <span class="border rounded border-gray-400">{{ calcTotalPrice() }}</span>
+        <span class="">JPY</span>
+      </div>
+      <div class="">
+        <span class="">Total Energy = </span>
+        <span class="border rounded border-gray-400">{{ calcElectricity() }}</span>
+        <span class="">kWh</span>
+      </div>
+      <button mat-flat-button color="primary">Request Purchase</button>
     </div>
-    <div class="example-button-row">
-      <button mat-raised-button color="primary">Request Purchase</button>
-    </div>
-    <button class="mdc-button mdc-button--raised"><span class="mdc-button__ripple"></span>Request Purchase</button>
   </div>
 </div>
