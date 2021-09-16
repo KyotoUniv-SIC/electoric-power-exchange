@@ -1,44 +1,21 @@
-<p class="text-4xl mt-12 ml-36">Sign In</p>
-<div class="mt-48 mx-auto max-w-sm">
-  <p class="text-3xl">PLEASE SIGN IN</p>
-  <div class="mt-12">
-    <div class="border">
-      <input class="w-full p-2 outline-none" placeholder=" Input ID " />
-    </div>
-    <div class="hidden">
-      <div class="mdc-text-field mdc-text-field--outlined w-4/5 mb-2">
-        <input class="mdc-text-field__input" id="text-field-hero-input" />
-        <div class="mdc-notched-outline">
-          <div class="mdc-notched-outline__leading"></div>
-          <div class="mdc-notched-outline__notch">
-            <label for="text-field-hero-input" class="mdc-floating-label">Input ID</label>
-          </div>
-          <div class="mdc-notched-outline__trailing"></div>
-        </div>
-      </div>
-    </div>
+<h2>Sign In</h2>
+<div class="">
+  <h3>PLEASE SIGN IN</h3>
+  <div class="">
+    <mat-form-field appearance="fill" class="flex-auto w-1/5 break-all">
+      <mat-label>Input ID</mat-label>
+      <input matInput placeholder="Inupt value" type="text" />
+    </mat-form-field>
+    <br />
+    <mat-form-field appearance="fill" class="flex-auto w-1/5 break-all">
+      <mat-label>Input Passowrd</mat-label>
+      <input matInput placeholder="Inupt value" type="password" />
+    </mat-form-field>
+    <br />
+    <button mat-flat-button color="primary">Sign In</button>
 
-    <br />
-    <div class="border">
-      <input class="w-full p-2 outline-none" placeholder=" Input Password " />
-    </div>
-    <div class="hidden">
-      <div class="mdc-text-field mdc-text-field--outlined w-4/5 mb-2">
-        <input class="mdc-text-field__input" id="text-field-hero-input" />
-        <div class="mdc-notched-outline">
-          <div class="mdc-notched-outline__leading"></div>
-          <div class="mdc-notched-outline__notch">
-            <label for="text-field-hero-input" class="mdc-floating-label">Input Password</label>
-          </div>
-          <div class="mdc-notched-outline__trailing"></div>
-        </div>
-      </div>
-    </div>
-    <br />
-    <button class="mdc-button mdc-button--raised mt-8"><span class="mdc-button__ripple"></span> Sign In</button>
-    <br />
-    <p class="mt-4">
-      No account? <strong><a class="text-blue-700" routerLink="/accounts/create">Sign Up</a></strong>
+    <p class="">
+      No account? <strong class="underline 2px"><a class="text-blue-700" routerLink="/accounts/create">Sign Up</a></strong>
     </p>
   </div>
 </div>
