@@ -1,6 +1,6 @@
 <h2>Transaction Detail</h2>
 <mat-card>
-  <mat-list class="flex flex-wrap">
+  <mat-list>
     <ng-container *ngFor="let transaction of transactions">
       <ng-container *ngIf="transaction.id === txHash; then loaded; else loading"></ng-container>
       <ng-template #loaded>
