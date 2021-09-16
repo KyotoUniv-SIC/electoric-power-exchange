@@ -85,7 +85,7 @@ header {
 }
 
 #hdr-box #logo img {
-  max-height: 100%;
+  max-height: 200%;
   background: #fff;
 }
 
@@ -171,16 +171,6 @@ header {
   background: url(./../../../assets/images/github-jpy.svg) no-repeat left 0 top 0;
   background-size: 13px auto;
 }
-#hdr-box nav #nav-02 li:nth-of-type(2) a span::before {
-  display: inline-block;
-  content: '';
-  margin: 0 5px 0 0;
-  width: 13px;
-  height: 13px;
-  background: url(./../../../assets/images/github-eur.svg) no-repeat left 0 top 0;
-  background-size: 13px auto;
-}
-
 #hdr-box nav #nav-btn {
   position: absolute;
   right: 40px;
@@ -513,8 +503,6 @@ footer p {
 footer p span {
   display: inline-block;
   padding: 0 0 0 180px;
-  background: url(./../../../assets/images/logo.svg) no-repeat left 0 top 50%;
-  background-size: auto 18px;
 }
 
 @media only screen and (max-width: 1024px) {
@@ -814,8 +802,8 @@ footer p span {
     color: #a1a1a1;
   }
 
-  #s-03 div.kava-box ul li h3 {
-    background-image: url(./../../../assets/images/kava.svg);
+  #s-03 div.ku-box ul li h3 {
+    background-image: url(./../../../assets/images/kyoto-univ.svg);
   }
   #s-03 div.lcnem-box ul li h3 {
     background-image: url(./../../../assets/images/lcnem.svg);
