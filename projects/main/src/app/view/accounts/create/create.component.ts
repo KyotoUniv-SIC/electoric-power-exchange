@@ -6,11 +6,6 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./create.component.css'],
 })
 export class CreateComponent implements OnInit {
-  checked = false;
-  indeterminate = false;
-  labelPosition: 'before' | 'after' = 'after';
-  disabled = false;
-
   constructor() {}
 
   ngOnInit(): void {}
