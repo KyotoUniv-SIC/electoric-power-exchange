@@ -1,5 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 
+interface Token {
+  value: string;
+  viewValue: string;
+}
+
 @Component({
   selector: 'view-sell',
   templateUrl: './sell.component.html',
@@ -20,4 +25,10 @@ export class SellComponent implements OnInit {
     if (!this.amount) return null;
     return this.amount;
   }
+
+  tokens: Token[] = [
+    {value: 'upx-0', viewValue: 'upx'},
+    {value: 'spx-1', viewValue: 'spx'},
+    {value: 'epx-2', viewValue: 'epx'}
+  ];
 }
