@@ -1,81 +1,69 @@
-<p class="font-bold">Transaction Detail</p>
-<span class="button-panel" routerLink="/txs/buy" value="Buy Electoricity"></span>
-<span class="button-panel" routerLink="/txs/sell" value="Sell Electoricity"></span>
-<mat-list role="list">
-  <ul class="flex">
+<h2>Transaction Detail</h2>
+<mat-card>
+  <mat-list class="flex flex-wrap">
     <ng-container *ngFor="let transaction of transactions">
       <ng-container *ngIf="transaction.id === txHash; then loaded; else loading"></ng-container>
       <ng-template #loaded>
-        <li routerLink="/txs/{{ transaction.id }}" class="cursor-pointer flex justify-center">
-          <ol>
-            <mat-list-item role="listitem">
-              <div>
-                <li class="">
-                  <span class="font-bold">Transaction Hash : </span>
-                  <span class="">{{ transaction.id }}</span>
-                </li>
-              </div>
-            </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
+        <mat-list-item class="flex flex-wrap">
+          <span class="flex-auto w-1/3 break-all">Transaction Hash:</span>
+          <span class="flex-auto w-1/3 break-all"></span>
+          <span class="flex-auto w-1/3 break-all">{{ transaction.id }}</span>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
 
-            <ng-container *ngIf="transaction.status === true; then accept; else reject"></ng-container>
-            <ng-template #accept>
-              <mat-list-item role="listitem">
-                <span class="font-bold">Status : Transaction </span
-                ><span>
-                  <mat-chip-list>
-                    <mat-chip color="warn" selected> Accepted</mat-chip>
-                  </mat-chip-list></span
-                >
-              </mat-list-item>
-            </ng-template>
+        <mat-list-item class="flex flex-wrap">
+          <span class="flex-auto w-1/3 break-all">Transaction Status:</span>
+          <span class="flex-auto w-1/3 break-all"></span>
+          <ng-container *ngIf="transaction.status === true; then accept; else reject"></ng-container>
+          <ng-template #accept>
+            <mat-chip-list class="flex-auto w-1/3 break-all">
+              <mat-chip color="primary" selected>Accepted</mat-chip>
+            </mat-chip-list>
+          </ng-template>
+          <ng-template #reject>
+            <mat-chip-list class="flex-auto w-1/3 break-all">
+              <mat-chip color="warn" selected>Rejected</mat-chip>
+            </mat-chip-list>
+          </ng-template>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
 
-            <ng-template #reject>
-              <mat-list-item role="listitem">
-                <span class="font-bold">Status : Transaction</span>
-                <mat-chip-list>
-                  <mat-chip color="primary" selected> Rejected</mat-chip>
-                </mat-chip-list>
-              </mat-list-item>
-            </ng-template>
-            <ng-container *ngIf="transaction.denom === 'spx'; then solar; else utility"></ng-container>
-            <ng-template #solar>
-              <mat-list-item role="listitem">
-                <li class="">
-                  <span class="font-bold">Energy Type:</span>
-                  <span class="">Solor Power</span>
-                </li>
-              </mat-list-item>
-            </ng-template>
-            <ng-template #utility>
-              <mat-list-item role="listitem">
-                <li class="">
-                  <span class="font-bold">Energy Type:</span>
-                  <span class="">Utility Power</span>
-                </li>
-              </mat-list-item>
-            </ng-template>
-            <mat-list-item role="listitem">
-              <li class="">
-                <span class="font-bold">Sender:</span>
-                <span class="">{{ transaction.sender_account_id }}</span>
-              </li>
-            </mat-list-item>
-            <mat-list-item role="listitem">
-              <li class="">
-                <span class="font-bold">Recipient:</span>
-                <span class="">{{ transaction.recipient_account_id }}</span>
-              </li>
-            </mat-list-item>
-            <mat-list-item role="listitem">
-              <li class="">
-                <span><span class="font-bold">Amount</span> : {{ transaction.amount }}</span>
-                <span>{{ transaction.denom }}</span>
-              </li>
-            </mat-list-item>
-          </ol>
-        </li>
+        <mat-list-item class="flex flex-wrap">
+          <span class="flex-auto w-1/3 break-all">Energy Type:</span>
+          <span class="flex-auto w-1/3 break-all"></span>
+          <ng-container *ngIf="transaction.denom === 'spx'; then solar; else utility"></ng-container>
+          <ng-template #solar>
+            <span class="flex-auto w-1/3 break-all">Solar Power</span>
+          </ng-template>
+          <ng-template #utility>
+            <span class="flex-auto w-1/3 break-all">Utility Power</span>
+          </ng-template>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
+
+        <mat-list-item class="flex flex-wrap">
+          <span class="flex-auto w-1/3 break-all">Transaction Sender:</span>
+          <span class="flex-auto w-1/3 break-all"></span>
+          <span class="flex-auto w-1/3 break-all">{{ transaction.sender_account_id }}</span>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
+
+        <mat-list-item class="flex flex-wrap">
+          <span class="flex-auto w-1/3 break-all">Transaction Recipient:</span>
+          <span class="flex-auto w-1/3 break-all"></span>
+          <span class="flex-auto w-1/3 break-all">{{ transaction.recipient_account_id }}</span>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
+
+        <mat-list-item class="flex flex-wrap">
+          <span class="flex-auto w-1/3 break-all">Amount:</span>
+          <span class="flex-auto w-1/3 break-all"></span>
+          <span class="flex-auto w-1/3 break-all">{{ transaction.amount }} {{ transaction.denom }}</span>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
       </ng-template>
       <ng-template #loading></ng-template>
     </ng-container>
-  </ul>
-</mat-list>
+  </mat-list>
+</mat-card>
