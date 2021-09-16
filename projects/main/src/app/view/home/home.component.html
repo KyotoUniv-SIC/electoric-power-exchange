@@ -1,25 +1,146 @@
-<div class="form">
-  <h1>KyotoUniv-SIC Electoric Power Exchange</h1>
-  <h1>Functions</h1>
-    <ul>
-      <li><div class="button-panel"><input class="button" routerLink="/accounts" value="Accounts"></div>
-        <ol>
-          <li><div class="button-panel"><input class="button" routerLink="/accounts/account" value="Account Info"></div></li>
-          <li><div class="button-panel"><input class="button" routerLink="/accounts/create" value="Sign Up"></div></li>
-          <li><div class="button-panel"><input class="button" routerLink="/accounts/enter" value="Log In"></div></li>
-        </ol>
-      </li>
-      <li><div class="button-panel"><input class="button" routerLink="/txs" value="Transactions"></div>
-        <ol>
-          <li><div class="button-panel"><input class="button" routerLink="/txs/tx" value="Transaction Detail"></div></li>
-          <li><div class="button-panel"><input class="button" routerLink="/txs/buy" value="Buy Electricity"></div></li>
-          <li><div class="button-panel"><input class="button" routerLink="/txs/sell" value="Sell Electricity"></div></li>
-        </ol>
-      </li>
-      <li><div class="button-panel"><input class="button" routerLink="/messages" value="Messages List"></div>
-        <ol>
-          <li><div class="button-panel"><input class="button" routerLink="/messages/message" value="Message Detail"></div></li>
-        </ol>
-      </li>
-    </ul>
+<header>
+  <div id="hdr-box">
+    <!--  <div id="logo"><a href="/"><span>JPYX, EURX</span><img src="/images/logo.svg" class="icon"></a></div> -->
+    <div id="logo">
+      <a href="/"><span>Kyoto University</span><img src="assets/images/logo.svg" /></a>
+    </div>
+    <nav>
+      <ul id="nav-01">
+        <li><a href="/accounts/account">Dashboard</a></li>
+        <li><a href="/txs">Transactions</a></li>
+      </ul>
+
+      <ul id="nav-02">
+        <li>
+          <a href="https://github.com/KyotoUniv-SIC/electoric-power-exchange"><span>KyotoUniv-SIC GitHub</span></a>
+        </li>
+      </ul>
+
+      <p id="nav-btn"><a href="/accounts/enter">Log in</a></p>
+    </nav>
+  </div>
+</header>
+
+<div id="contents">
+  <section id="mv">
+    <h1>
+      <span class="fw-n">EDISON is </span>
+      <span>Energy DIstribution System </span>
+      <span>ON KyotoUniv-SIC</span>
+    </h1>
+    <p>Electoric power exchange by XRP Ledger</p>
+    <p class="mv-btn"><a href="/accounts/create">Create an Account</a></p>
+  </section>
+
+  <section id="s-01">
+    <div class="jpyx-box">
+      <h2>Electricity by Solar Power</h2>
+      <ul>
+        <li>
+          <h3>Solar Power XRP Token</h3>
+          <p>$SPX</p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="eurx-box">
+      <h2>Electricity by Utility Power</h2>
+      <ul>
+        <li>
+          <h3>Utility Power XRP Token</h3>
+          <p>$UPX</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="s-03">
+    <div>
+      <h2>The Difference Between These Electricity</h2>
+      <p>
+        We use the roof of KyotoUniv-SIC to generate solar power.<br />
+        Solar power is more expensive than utility power bought from electric power company, but it is eco-friendry to the earth.
+      </p>
+      <p class="etc-btn"><a href="/accounts/create">See more</a></p>
+    </div>
+
+    <div class="ku-box">
+      <h2>About us</h2>
+      <p>Our project is conducting a demonstration experiment in Kyoto University Social Innovation Center.</p>
+      <ul>
+        <li>
+          <a href="https://innovationkyoto.org/" target="_blank">
+            <h3>Kyoto University Social Innovation Center</h3>
+            <p>https://innovationkyoto.org/</p>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="lcnem-box">
+      <p>The developer of EDISON is CauchyE, Inc. who is a leading technologist of blockchain technologies in Japan.</p>
+      <ul>
+        <li>
+          <a href="https://cauchye.com/" target="_blank">
+            <h3>CauchyE, Inc.</h3>
+            <p>https://cauchye.com/</p>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <!--
+    <div>
+      <h2>Contributions</h2>
+      <p>
+        We've already done some little contributions to Cosmos ecosystems. We will continue to contribute to Cosmos ecosystem and also Kava
+        ecosystem.
+      </p>
+      <ul>
+        <li>
+          <a href="https://github.com/cosmos-client/cosmos-client-ts" target="_blank">
+            <h3>cosmos-client</h3>
+            <p>github.com</p>
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/cosmos/scaffold" target="_blank">
+            <h3>cosmos scaffold</h3>
+            <p>github.com</p>
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/cosmos/modules" target="_blank">
+            <h3>cosmos modules</h3>
+            <p>github.com</p>
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/lcnem/proximax-pegzone" target="_blank">
+            <h3>proximax-pegzone</h3>
+            <p>github.com</p>
+          </a>
+        </li>
+      </ul>
+    </div>
+    -->
+  </section>
+
+  <section id="s-04">
+    <div>
+      <h2>Contact</h2>
+      <p>To contact us in EDISON topic, please create an issue ticket in GitHub.</p>
+      <ul>
+        <li>
+          <a href="https://github.com/KyotoUniv-SIC/electoric-power-exchange/issues" target="_blank">
+            <h3>EDISON GitHub Issues</h3>
+            <p>github.com</p>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
 </div>
+
+<footer>
+  <p><span>&copy; 2021 KyotoUniv-SIC EDISON. All rights reserved.</span></p>
+</footer>
