@@ -1,12 +1,12 @@
 {
   "projects": {
-    "default": "project-id"
+    "default": "kyoto-univ-sic-electric-dev"
   },
   "targets": {
-    "project-id": {
+    "kyoto-univ-sic-electric-dev": {
       "hosting": {
         "main": [
-          "project-id"
+          "kyoto-univ-sic-electric-dev"
         ]
       }
     }
