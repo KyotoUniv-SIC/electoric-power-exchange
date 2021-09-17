@@ -11,6 +11,9 @@
     "prepare": "firebase functions:config:get > .runtimeconfig.json || exit 0",
     "preinstall": "cd ../common && npm i && npm run build"
   },
+  "engines": {
+    "node": "14"
+  },
   "main": "lib/index.js",
   "dependencies": {
     "@local/common": "file:common",
