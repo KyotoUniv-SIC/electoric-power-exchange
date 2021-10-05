@@ -2,31 +2,50 @@
   <h2>Sign Up</h2>
   <h3>SIGN UP ACCOUNT</h3>
   <mat-card>
-    <mat-form-field appearance="fill">
-      <mat-label>Input Name</mat-label>
-      <input matInput placeholder="Inupt value" type="text" />
-    </mat-form-field>
-    <br />
-    <mat-form-field appearance="fill">
-      <mat-label>Input Email</mat-label>
-      <input matInput placeholder="Inupt value" type="text" />
-    </mat-form-field>
-    <br />
-    <mat-form-field appearance="fill">
-      <mat-label>Input ID</mat-label>
-      <input matInput placeholder="Inupt value" type="text" />
-    </mat-form-field>
-    <br />
-    <mat-form-field appearance="fill">
-      <mat-label>Input Password</mat-label>
-      <input matInput placeholder="Inupt value" type="password" />
-    </mat-form-field>
-    <br />
-    <mat-radio-group>
+    <form #formRef="ngForm" (submit)="onSubmit(idRef.value, mailRef.value, passwordRef.value)">
+      <mat-form-field appearance="fill">
+        <mat-label>Input Name</mat-label>
+        <input #idRef ngModel name="id" matInput required placeholder="Input value" pattern="^[a-z_][a-z_0-9]*$" autocomplete="username" />
+      </mat-form-field>
+      <br />
+      <mat-form-field appearance="fill">
+        <mat-label>Input Email</mat-label>
+        <input
+          #mailRef
+          ngModel
+          name="mail"
+          matInput
+          required
+          placeholder="Input value"
+          pattern="^[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$"
+        />
+      </mat-form-field>
+      <br />
+      <mat-form-field appearance="fill">
+        <mat-label>Input Password</mat-label>
+        <input
+          #passwordRef
+          ngModel
+          [type]="isPasswordVisible ? 'text' : 'password'"
+          name="password"
+          matInput
+          required
+          placeholder="Input value"
+          pattern="/^[a-z\d]{8,100}$/i"
+        />
+        <button mat-button type="button" matSuffix (click)="togglePasswordVisibility()">
+          <mat-icon>
+            {{ isPasswordVisible ? 'visibility' : 'visibility_off' }}
+          </mat-icon>
+        </button>
+      </mat-form-field>
+      <br />
+      <!-- <mat-radio-group class="flex">
       <mat-radio-button class="mr-4" value="student">Student</mat-radio-button>
       <mat-radio-button value="administrator">Administrator</mat-radio-button>
     </mat-radio-group>
-    <br /><br />
-    <button mat-flat-button color="primary">Sign In</button>
+    <br /> -->
+      <button mat-flat-button color="primary" type="submit" [disabled]="formRef.invalid">Sign In</button>
+    </form>
   </mat-card>
 </div>

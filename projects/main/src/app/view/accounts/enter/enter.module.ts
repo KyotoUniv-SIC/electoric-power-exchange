@@ -1,13 +1,13 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { EnterComponent } from "./enter.component";
+import { MaterialModule } from '../../../material.module';
+import { EnterComponent } from './enter.component';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { MaterialModule } from "../../../material.module";
-import { MatInputModule } from "@angular/material/input";
 
 @NgModule({
   declarations: [EnterComponent],
-  imports: [CommonModule, RouterModule,MaterialModule,MatInputModule],
-  exports: [EnterComponent]
+  imports: [CommonModule, RouterModule, MaterialModule, FormsModule],
+  exports: [EnterComponent],
 })
 export class EnterModule {}

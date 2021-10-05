@@ -1,15 +1,14 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { CreateComponent } from "./create.component";
+import { MaterialModule } from '../../../material.module';
+import { CreateComponent } from './create.component';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { MaterialModule } from "../../../material.module";
-import { MatInputModule } from "@angular/material/input";
-import { MatCheckboxModule } from "@angular/material/checkbox";
-import {MatRadioModule} from '@angular/material/radio';
+
 @NgModule({
   declarations: [CreateComponent],
-  imports: [CommonModule, RouterModule,MaterialModule,MatInputModule,MatCheckboxModule,MatRadioModule],
+  imports: [CommonModule, RouterModule, MaterialModule, FormsModule],
 
-  exports: [CreateComponent]
+  exports: [CreateComponent],
 })
 export class CreateModule {}

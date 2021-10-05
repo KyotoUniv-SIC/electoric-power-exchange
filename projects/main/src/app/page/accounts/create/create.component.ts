@@ -1,6 +1,5 @@
+import { CreateOnSubmitEvent } from '../../../view/accounts/create/create.component';
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map, mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-create',
@@ -8,10 +7,19 @@ import { map, mergeMap } from 'rxjs/operators';
   styleUrls: ['./create.component.css'],
 })
 export class CreateComponent implements OnInit {
+  id: string;
+  mail: string;
+  password: string;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor() {
+    this.id = '';
+    this.mail = '';
+    this.password = '';
   }
 
+  ngOnInit(): void {}
+
+  async onSubmit($event: CreateOnSubmitEvent) {
+    // await this.idApplication.create($event.id, $event.mail, $event.password);
+  }
 }
