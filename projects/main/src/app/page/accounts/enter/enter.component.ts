@@ -13,7 +13,7 @@ export class EnterComponent implements OnInit {
   mail: string;
   password: string;
 
-  constructor() {
+  constructor(private sessionService: SessionService) {
     this.mail = '';
     this.password = '';
   }
@@ -21,6 +21,6 @@ export class EnterComponent implements OnInit {
   ngOnInit(): void {}
 
   async onSubmit($event: EnterOnSubmitEvent) {
-    // await this.idApplication.enter($event.mail, $event.password);
+    this.sessionService.login();
   }
 }
