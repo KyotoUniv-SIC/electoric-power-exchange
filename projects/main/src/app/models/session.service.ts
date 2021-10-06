@@ -39,7 +39,7 @@ export class SessionService {
       .signOut()
       .then(() => {
         this.sessionSubject.next(this.session.reset());
-        return this.router.navigate(['/account/login']);
+        return this.router.navigate(['/accounts/enter']);
       })
       .then(() => alert('Logout is Successful!'))
       .catch((err) => {

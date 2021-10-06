@@ -8,7 +8,9 @@
   <span class="flex-auto w-1/2"></span>
   <span class="flex-auto">
     <button *ngIf="!login" mat-flat-button color="account" routerLink="/accounts/enter">Sign In</button>
-    <mat-icon *ngIf="login" color="account" routerLink="/accounts/enter" (click)="logout()">exit_to_app</mat-icon>
+    <button mat-icon-button *ngIf="login" routerLink="/accounts/enter" (click)="logout()">
+      <mat-icon color="account">exit_to_app</mat-icon>
+    </button>
   </span>
 </mat-toolbar>
 <mat-drawer-container>
