@@ -23,8 +23,8 @@ export class EnterComponent implements OnInit {
   ngOnInit(): void {}
 
   async onSubmit($event: EnterOnSubmitEvent) {
-    this.account.email = this.mail;
-    this.account.password = this.password;
+    this.account.email = $event.mail;
+    this.account.password = $event.password;
     this.sessionService.login(this.account);
   }
 }

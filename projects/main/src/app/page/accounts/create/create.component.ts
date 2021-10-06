@@ -29,9 +29,10 @@ export class CreateComponent implements OnInit {
       alert('Password mismatch');
       return;
     }
-    this.account.email = this.mail;
-    this.account.password = this.password;
-    this.account.passwordConfirmation = this.passwordConfirmation;
+    this.account.email = $event.mail;
+    this.account.password = $event.password;
+    this.account.passwordConfirmation = $event.passwordConfirmation;
+    console.log(this.account);
     this.session.signup(this.account);
     this.account.reset();
   }
