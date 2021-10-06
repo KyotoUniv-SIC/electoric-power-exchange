@@ -3,7 +3,7 @@
   <h3>PLEASE SIGN IN</h3>
   <mat-card>
     <form #formRef="ngForm" (submit)="onSubmit(mailRef.value, passwordRef.value)">
-      <mat-form-field appearance="fill">
+      <mat-form-field>
         <mat-label>Input Email Address</mat-label>
         <input
           #mailRef
@@ -16,7 +16,7 @@
         />
       </mat-form-field>
       <br />
-      <mat-form-field appearance="fill">
+      <mat-form-field>
         <mat-label>Input Password</mat-label>
         <input
           #passwordRef

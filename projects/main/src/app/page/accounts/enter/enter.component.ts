@@ -1,3 +1,4 @@
+import { Password } from '../../../models/session.model';
 import { SessionService } from '../../../models/session.service';
 import { EnterOnSubmitEvent } from '../../../view/accounts/enter/enter.component';
 import { Component, OnInit } from '@angular/core';
@@ -10,6 +11,7 @@ import { map, mergeMap } from 'rxjs/operators';
   styleUrls: ['./enter.component.css'],
 })
 export class EnterComponent implements OnInit {
+  public account = new Password();
   mail: string;
   password: string;
 
@@ -21,6 +23,8 @@ export class EnterComponent implements OnInit {
   ngOnInit(): void {}
 
   async onSubmit($event: EnterOnSubmitEvent) {
-    this.sessionService.login();
+    this.account.email = this.mail;
+    this.account.password = this.password;
+    this.sessionService.login(this.account);
   }
 }

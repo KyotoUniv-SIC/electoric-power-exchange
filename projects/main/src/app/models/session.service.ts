@@ -14,17 +14,40 @@ export class SessionService {
 
   constructor(private router: Router, private afAuth: AngularFireAuth) {}
 
-  login(): void {
-    this.session.login = true;
-    this.sessionSubject.next(this.session);
-    this.router.navigate(['/']);
+  login(account: Password): void {
+    this.afAuth
+      .signInWithEmailAndPassword(account.email, account.password)
+      .then((auth) => {
+        if (!auth.user?.emailVerified) {
+          this.afAuth.signOut();
+          return Promise.reject('Email Address is Unconfirmed.');
+        } else {
+          this.session.login = true;
+          this.sessionSubject.next(this.session);
+          return this.router.navigate(['/']);
+        }
+      })
+      .then(() => alert('Login is Successful!'))
+      .catch((err) => {
+        console.log(err);
+        alert('Login is Failure!\n' + err);
+      });
   }
 
   logout(): void {
-    this.session.login = false;
-    this.sessionSubject.next(this.session);
-    this.router.navigate(['/account/enter']);
+    this.afAuth
+      .signOut()
+      .then(() => {
+        this.sessionSubject.next(this.session.reset());
+        return this.router.navigate(['/account/login']);
+      })
+      .then(() => alert('Logout is Successful!'))
+      .catch((err) => {
+        console.log(err);
+        alert('Logout is Failure!\n' + err);
+      });
   }
+
   signup(account: Password): void {
     this.afAuth
       .createUserWithEmailAndPassword(account.email, account.password)

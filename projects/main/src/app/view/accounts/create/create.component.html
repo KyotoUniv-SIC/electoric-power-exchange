@@ -2,13 +2,13 @@
   <h2>Sign Up</h2>
   <h3>SIGN UP ACCOUNT</h3>
   <mat-card>
-    <form #formRef="ngForm" (submit)="onSubmit(idRef.value, mailRef.value, passwordRef.value)">
-      <mat-form-field appearance="fill">
+    <form #formRef="ngForm" (submit)="onSubmit(idRef.value, mailRef.value, passwordRef.value, passwordConfirmationRef.value)">
+      <mat-form-field>
         <mat-label>Input Name</mat-label>
         <input #idRef ngModel name="id" matInput required placeholder="Input value" pattern="^[a-z_][a-z_0-9]*$" autocomplete="username" />
       </mat-form-field>
       <br />
-      <mat-form-field appearance="fill">
+      <mat-form-field>
         <mat-label>Input Email</mat-label>
         <input
           #mailRef
@@ -21,7 +21,7 @@
         />
       </mat-form-field>
       <br />
-      <mat-form-field appearance="fill">
+      <mat-form-field>
         <mat-label>Input Password</mat-label>
         <input
           #passwordRef
@@ -31,7 +31,26 @@
           matInput
           required
           placeholder="Input value"
-          pattern="/^[a-z\d]{8,100}$/i"
+          pattern="^[a-z\d]{6,100}$"
+        />
+        <button mat-button type="button" matSuffix (click)="togglePasswordVisibility()">
+          <mat-icon>
+            {{ isPasswordVisible ? 'visibility' : 'visibility_off' }}
+          </mat-icon>
+        </button>
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <mat-label>Input Password Agein</mat-label>
+        <input
+          #passwordConfirmationRef
+          ngModel
+          [type]="isPasswordVisible ? 'text' : 'password'"
+          name="passwordConfirmation"
+          matInput
+          required
+          placeholder="Input value"
+          pattern="^[a-z\d]{6,100}$"
         />
         <button mat-button type="button" matSuffix (click)="togglePasswordVisibility()">
           <mat-icon>
