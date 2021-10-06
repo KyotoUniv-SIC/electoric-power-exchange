@@ -1,1 +1,7 @@
-<view-create></view-create>
+<view-create
+  [id]="id"
+  [mail]="mail"
+  [password]="password"
+  [passwordConfirmation]="passwordConfirmation"
+  (appSubmit)="onSubmit($event)"
+></view-create>
