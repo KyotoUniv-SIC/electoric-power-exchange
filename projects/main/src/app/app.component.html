@@ -1,3 +1,9 @@
-<view-app>
+<ng-container *ngIf="!hidden; then home; else app"></ng-container>
+<ng-template #home>
   <router-outlet></router-outlet>
-</view-app>
+</ng-template>
+<ng-template #app>
+  <view-app>
+    <router-outlet></router-outlet>
+  </view-app>
+</ng-template>
