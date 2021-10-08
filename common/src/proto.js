@@ -456,6 +456,312 @@ export const main = $root.main = (() => {
         return AdminAccount;
     })();
 
+    main.AskRequest = (function() {
+
+        /**
+         * Properties of an AskRequest.
+         * @memberof main
+         * @interface IAskRequest
+         * @property {string|null} [id] AskRequest id
+         * @property {string|null} [account_id] AskRequest account_id
+         * @property {Long|null} [price] AskRequest price
+         * @property {Long|null} [amount] AskRequest amount
+         * @property {Long|null} [denom] AskRequest denom
+         */
+
+        /**
+         * Constructs a new AskRequest.
+         * @memberof main
+         * @classdesc Represents an AskRequest.
+         * @implements IAskRequest
+         * @constructor
+         * @param {main.IAskRequest=} [properties] Properties to set
+         */
+        function AskRequest(properties) {
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * AskRequest id.
+         * @member {string} id
+         * @memberof main.AskRequest
+         * @instance
+         */
+        AskRequest.prototype.id = "";
+
+        /**
+         * AskRequest account_id.
+         * @member {string} account_id
+         * @memberof main.AskRequest
+         * @instance
+         */
+        AskRequest.prototype.account_id = "";
+
+        /**
+         * AskRequest price.
+         * @member {Long} price
+         * @memberof main.AskRequest
+         * @instance
+         */
+        AskRequest.prototype.price = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * AskRequest amount.
+         * @member {Long} amount
+         * @memberof main.AskRequest
+         * @instance
+         */
+        AskRequest.prototype.amount = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * AskRequest denom.
+         * @member {Long} denom
+         * @memberof main.AskRequest
+         * @instance
+         */
+        AskRequest.prototype.denom = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * Encodes the specified AskRequest message. Does not implicitly {@link main.AskRequest.verify|verify} messages.
+         * @function encode
+         * @memberof main.AskRequest
+         * @static
+         * @param {main.IAskRequest} message AskRequest message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        AskRequest.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+            if (message.account_id != null && Object.hasOwnProperty.call(message, "account_id"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.account_id);
+            if (message.price != null && Object.hasOwnProperty.call(message, "price"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint64(message.price);
+            if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
+                writer.uint32(/* id 4, wireType 0 =*/32).uint64(message.amount);
+            if (message.denom != null && Object.hasOwnProperty.call(message, "denom"))
+                writer.uint32(/* id 5, wireType 0 =*/40).uint64(message.denom);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified AskRequest message, length delimited. Does not implicitly {@link main.AskRequest.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof main.AskRequest
+         * @static
+         * @param {main.IAskRequest} message AskRequest message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        AskRequest.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes an AskRequest message from the specified reader or buffer.
+         * @function decode
+         * @memberof main.AskRequest
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {main.AskRequest} AskRequest
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        AskRequest.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.AskRequest();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.id = reader.string();
+                    break;
+                case 2:
+                    message.account_id = reader.string();
+                    break;
+                case 3:
+                    message.price = reader.uint64();
+                    break;
+                case 4:
+                    message.amount = reader.uint64();
+                    break;
+                case 5:
+                    message.denom = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes an AskRequest message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof main.AskRequest
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {main.AskRequest} AskRequest
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        AskRequest.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies an AskRequest message.
+         * @function verify
+         * @memberof main.AskRequest
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        AskRequest.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isString(message.id))
+                    return "id: string expected";
+            if (message.account_id != null && message.hasOwnProperty("account_id"))
+                if (!$util.isString(message.account_id))
+                    return "account_id: string expected";
+            if (message.price != null && message.hasOwnProperty("price"))
+                if (!$util.isInteger(message.price) && !(message.price && $util.isInteger(message.price.low) && $util.isInteger(message.price.high)))
+                    return "price: integer|Long expected";
+            if (message.amount != null && message.hasOwnProperty("amount"))
+                if (!$util.isInteger(message.amount) && !(message.amount && $util.isInteger(message.amount.low) && $util.isInteger(message.amount.high)))
+                    return "amount: integer|Long expected";
+            if (message.denom != null && message.hasOwnProperty("denom"))
+                if (!$util.isInteger(message.denom) && !(message.denom && $util.isInteger(message.denom.low) && $util.isInteger(message.denom.high)))
+                    return "denom: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates an AskRequest message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof main.AskRequest
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {main.AskRequest} AskRequest
+         */
+        AskRequest.fromObject = function fromObject(object) {
+            if (object instanceof $root.main.AskRequest)
+                return object;
+            let message = new $root.main.AskRequest();
+            if (object.id != null)
+                message.id = String(object.id);
+            if (object.account_id != null)
+                message.account_id = String(object.account_id);
+            if (object.price != null)
+                if ($util.Long)
+                    (message.price = $util.Long.fromValue(object.price)).unsigned = true;
+                else if (typeof object.price === "string")
+                    message.price = parseInt(object.price, 10);
+                else if (typeof object.price === "number")
+                    message.price = object.price;
+                else if (typeof object.price === "object")
+                    message.price = new $util.LongBits(object.price.low >>> 0, object.price.high >>> 0).toNumber(true);
+            if (object.amount != null)
+                if ($util.Long)
+                    (message.amount = $util.Long.fromValue(object.amount)).unsigned = true;
+                else if (typeof object.amount === "string")
+                    message.amount = parseInt(object.amount, 10);
+                else if (typeof object.amount === "number")
+                    message.amount = object.amount;
+                else if (typeof object.amount === "object")
+                    message.amount = new $util.LongBits(object.amount.low >>> 0, object.amount.high >>> 0).toNumber(true);
+            if (object.denom != null)
+                if ($util.Long)
+                    (message.denom = $util.Long.fromValue(object.denom)).unsigned = true;
+                else if (typeof object.denom === "string")
+                    message.denom = parseInt(object.denom, 10);
+                else if (typeof object.denom === "number")
+                    message.denom = object.denom;
+                else if (typeof object.denom === "object")
+                    message.denom = new $util.LongBits(object.denom.low >>> 0, object.denom.high >>> 0).toNumber(true);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from an AskRequest message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof main.AskRequest
+         * @static
+         * @param {main.AskRequest} message AskRequest
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        AskRequest.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.defaults) {
+                object.id = "";
+                object.account_id = "";
+                if ($util.Long) {
+                    let long = new $util.Long(0, 0, true);
+                    object.price = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.price = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    let long = new $util.Long(0, 0, true);
+                    object.amount = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.amount = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    let long = new $util.Long(0, 0, true);
+                    object.denom = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.denom = options.longs === String ? "0" : 0;
+            }
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            if (message.account_id != null && message.hasOwnProperty("account_id"))
+                object.account_id = message.account_id;
+            if (message.price != null && message.hasOwnProperty("price"))
+                if (typeof message.price === "number")
+                    object.price = options.longs === String ? String(message.price) : message.price;
+                else
+                    object.price = options.longs === String ? $util.Long.prototype.toString.call(message.price) : options.longs === Number ? new $util.LongBits(message.price.low >>> 0, message.price.high >>> 0).toNumber(true) : message.price;
+            if (message.amount != null && message.hasOwnProperty("amount"))
+                if (typeof message.amount === "number")
+                    object.amount = options.longs === String ? String(message.amount) : message.amount;
+                else
+                    object.amount = options.longs === String ? $util.Long.prototype.toString.call(message.amount) : options.longs === Number ? new $util.LongBits(message.amount.low >>> 0, message.amount.high >>> 0).toNumber(true) : message.amount;
+            if (message.denom != null && message.hasOwnProperty("denom"))
+                if (typeof message.denom === "number")
+                    object.denom = options.longs === String ? String(message.denom) : message.denom;
+                else
+                    object.denom = options.longs === String ? $util.Long.prototype.toString.call(message.denom) : options.longs === Number ? new $util.LongBits(message.denom.low >>> 0, message.denom.high >>> 0).toNumber(true) : message.denom;
+            return object;
+        };
+
+        /**
+         * Converts this AskRequest to JSON.
+         * @function toJSON
+         * @memberof main.AskRequest
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        AskRequest.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return AskRequest;
+    })();
+
     main.Balance = (function() {
 
         /**
@@ -724,6 +1030,312 @@ export const main = $root.main = (() => {
         };
 
         return Balance;
+    })();
+
+    main.BidRequest = (function() {
+
+        /**
+         * Properties of a BidRequest.
+         * @memberof main
+         * @interface IBidRequest
+         * @property {string|null} [id] BidRequest id
+         * @property {string|null} [account_id] BidRequest account_id
+         * @property {Long|null} [price] BidRequest price
+         * @property {Long|null} [amount] BidRequest amount
+         * @property {Long|null} [denom] BidRequest denom
+         */
+
+        /**
+         * Constructs a new BidRequest.
+         * @memberof main
+         * @classdesc Represents a BidRequest.
+         * @implements IBidRequest
+         * @constructor
+         * @param {main.IBidRequest=} [properties] Properties to set
+         */
+        function BidRequest(properties) {
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * BidRequest id.
+         * @member {string} id
+         * @memberof main.BidRequest
+         * @instance
+         */
+        BidRequest.prototype.id = "";
+
+        /**
+         * BidRequest account_id.
+         * @member {string} account_id
+         * @memberof main.BidRequest
+         * @instance
+         */
+        BidRequest.prototype.account_id = "";
+
+        /**
+         * BidRequest price.
+         * @member {Long} price
+         * @memberof main.BidRequest
+         * @instance
+         */
+        BidRequest.prototype.price = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * BidRequest amount.
+         * @member {Long} amount
+         * @memberof main.BidRequest
+         * @instance
+         */
+        BidRequest.prototype.amount = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * BidRequest denom.
+         * @member {Long} denom
+         * @memberof main.BidRequest
+         * @instance
+         */
+        BidRequest.prototype.denom = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * Encodes the specified BidRequest message. Does not implicitly {@link main.BidRequest.verify|verify} messages.
+         * @function encode
+         * @memberof main.BidRequest
+         * @static
+         * @param {main.IBidRequest} message BidRequest message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        BidRequest.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+            if (message.account_id != null && Object.hasOwnProperty.call(message, "account_id"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.account_id);
+            if (message.price != null && Object.hasOwnProperty.call(message, "price"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint64(message.price);
+            if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
+                writer.uint32(/* id 4, wireType 0 =*/32).uint64(message.amount);
+            if (message.denom != null && Object.hasOwnProperty.call(message, "denom"))
+                writer.uint32(/* id 5, wireType 0 =*/40).uint64(message.denom);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified BidRequest message, length delimited. Does not implicitly {@link main.BidRequest.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof main.BidRequest
+         * @static
+         * @param {main.IBidRequest} message BidRequest message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        BidRequest.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a BidRequest message from the specified reader or buffer.
+         * @function decode
+         * @memberof main.BidRequest
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {main.BidRequest} BidRequest
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        BidRequest.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.BidRequest();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.id = reader.string();
+                    break;
+                case 2:
+                    message.account_id = reader.string();
+                    break;
+                case 3:
+                    message.price = reader.uint64();
+                    break;
+                case 4:
+                    message.amount = reader.uint64();
+                    break;
+                case 5:
+                    message.denom = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a BidRequest message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof main.BidRequest
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {main.BidRequest} BidRequest
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        BidRequest.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a BidRequest message.
+         * @function verify
+         * @memberof main.BidRequest
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        BidRequest.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isString(message.id))
+                    return "id: string expected";
+            if (message.account_id != null && message.hasOwnProperty("account_id"))
+                if (!$util.isString(message.account_id))
+                    return "account_id: string expected";
+            if (message.price != null && message.hasOwnProperty("price"))
+                if (!$util.isInteger(message.price) && !(message.price && $util.isInteger(message.price.low) && $util.isInteger(message.price.high)))
+                    return "price: integer|Long expected";
+            if (message.amount != null && message.hasOwnProperty("amount"))
+                if (!$util.isInteger(message.amount) && !(message.amount && $util.isInteger(message.amount.low) && $util.isInteger(message.amount.high)))
+                    return "amount: integer|Long expected";
+            if (message.denom != null && message.hasOwnProperty("denom"))
+                if (!$util.isInteger(message.denom) && !(message.denom && $util.isInteger(message.denom.low) && $util.isInteger(message.denom.high)))
+                    return "denom: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a BidRequest message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof main.BidRequest
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {main.BidRequest} BidRequest
+         */
+        BidRequest.fromObject = function fromObject(object) {
+            if (object instanceof $root.main.BidRequest)
+                return object;
+            let message = new $root.main.BidRequest();
+            if (object.id != null)
+                message.id = String(object.id);
+            if (object.account_id != null)
+                message.account_id = String(object.account_id);
+            if (object.price != null)
+                if ($util.Long)
+                    (message.price = $util.Long.fromValue(object.price)).unsigned = true;
+                else if (typeof object.price === "string")
+                    message.price = parseInt(object.price, 10);
+                else if (typeof object.price === "number")
+                    message.price = object.price;
+                else if (typeof object.price === "object")
+                    message.price = new $util.LongBits(object.price.low >>> 0, object.price.high >>> 0).toNumber(true);
+            if (object.amount != null)
+                if ($util.Long)
+                    (message.amount = $util.Long.fromValue(object.amount)).unsigned = true;
+                else if (typeof object.amount === "string")
+                    message.amount = parseInt(object.amount, 10);
+                else if (typeof object.amount === "number")
+                    message.amount = object.amount;
+                else if (typeof object.amount === "object")
+                    message.amount = new $util.LongBits(object.amount.low >>> 0, object.amount.high >>> 0).toNumber(true);
+            if (object.denom != null)
+                if ($util.Long)
+                    (message.denom = $util.Long.fromValue(object.denom)).unsigned = true;
+                else if (typeof object.denom === "string")
+                    message.denom = parseInt(object.denom, 10);
+                else if (typeof object.denom === "number")
+                    message.denom = object.denom;
+                else if (typeof object.denom === "object")
+                    message.denom = new $util.LongBits(object.denom.low >>> 0, object.denom.high >>> 0).toNumber(true);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a BidRequest message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof main.BidRequest
+         * @static
+         * @param {main.BidRequest} message BidRequest
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        BidRequest.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.defaults) {
+                object.id = "";
+                object.account_id = "";
+                if ($util.Long) {
+                    let long = new $util.Long(0, 0, true);
+                    object.price = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.price = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    let long = new $util.Long(0, 0, true);
+                    object.amount = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.amount = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    let long = new $util.Long(0, 0, true);
+                    object.denom = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.denom = options.longs === String ? "0" : 0;
+            }
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            if (message.account_id != null && message.hasOwnProperty("account_id"))
+                object.account_id = message.account_id;
+            if (message.price != null && message.hasOwnProperty("price"))
+                if (typeof message.price === "number")
+                    object.price = options.longs === String ? String(message.price) : message.price;
+                else
+                    object.price = options.longs === String ? $util.Long.prototype.toString.call(message.price) : options.longs === Number ? new $util.LongBits(message.price.low >>> 0, message.price.high >>> 0).toNumber(true) : message.price;
+            if (message.amount != null && message.hasOwnProperty("amount"))
+                if (typeof message.amount === "number")
+                    object.amount = options.longs === String ? String(message.amount) : message.amount;
+                else
+                    object.amount = options.longs === String ? $util.Long.prototype.toString.call(message.amount) : options.longs === Number ? new $util.LongBits(message.amount.low >>> 0, message.amount.high >>> 0).toNumber(true) : message.amount;
+            if (message.denom != null && message.hasOwnProperty("denom"))
+                if (typeof message.denom === "number")
+                    object.denom = options.longs === String ? String(message.denom) : message.denom;
+                else
+                    object.denom = options.longs === String ? $util.Long.prototype.toString.call(message.denom) : options.longs === Number ? new $util.LongBits(message.denom.low >>> 0, message.denom.high >>> 0).toNumber(true) : message.denom;
+            return object;
+        };
+
+        /**
+         * Converts this BidRequest to JSON.
+         * @function toJSON
+         * @memberof main.BidRequest
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        BidRequest.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return BidRequest;
     })();
 
     main.MonthlyUsage = (function() {

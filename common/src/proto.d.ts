@@ -192,6 +192,113 @@ export namespace main {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of an AskRequest. */
+    interface IAskRequest {
+
+        /** AskRequest id */
+        id?: (string|null);
+
+        /** AskRequest account_id */
+        account_id?: (string|null);
+
+        /** AskRequest price */
+        price?: (Long|null);
+
+        /** AskRequest amount */
+        amount?: (Long|null);
+
+        /** AskRequest denom */
+        denom?: (Long|null);
+    }
+
+    /** Represents an AskRequest. */
+    class AskRequest implements IAskRequest {
+
+        /**
+         * Constructs a new AskRequest.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.IAskRequest);
+
+        /** AskRequest id. */
+        public id: string;
+
+        /** AskRequest account_id. */
+        public account_id: string;
+
+        /** AskRequest price. */
+        public price: Long;
+
+        /** AskRequest amount. */
+        public amount: Long;
+
+        /** AskRequest denom. */
+        public denom: Long;
+
+        /**
+         * Encodes the specified AskRequest message. Does not implicitly {@link main.AskRequest.verify|verify} messages.
+         * @param message AskRequest message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.IAskRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified AskRequest message, length delimited. Does not implicitly {@link main.AskRequest.verify|verify} messages.
+         * @param message AskRequest message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.IAskRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes an AskRequest message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns AskRequest
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.AskRequest;
+
+        /**
+         * Decodes an AskRequest message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns AskRequest
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.AskRequest;
+
+        /**
+         * Verifies an AskRequest message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an AskRequest message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns AskRequest
+         */
+        public static fromObject(object: { [k: string]: any }): main.AskRequest;
+
+        /**
+         * Creates a plain object from an AskRequest message. Also converts values to other types if specified.
+         * @param message AskRequest
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.AskRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this AskRequest to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a Balance. */
     interface IBalance {
 
@@ -288,6 +395,113 @@ export namespace main {
 
         /**
          * Converts this Balance to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a BidRequest. */
+    interface IBidRequest {
+
+        /** BidRequest id */
+        id?: (string|null);
+
+        /** BidRequest account_id */
+        account_id?: (string|null);
+
+        /** BidRequest price */
+        price?: (Long|null);
+
+        /** BidRequest amount */
+        amount?: (Long|null);
+
+        /** BidRequest denom */
+        denom?: (Long|null);
+    }
+
+    /** Represents a BidRequest. */
+    class BidRequest implements IBidRequest {
+
+        /**
+         * Constructs a new BidRequest.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.IBidRequest);
+
+        /** BidRequest id. */
+        public id: string;
+
+        /** BidRequest account_id. */
+        public account_id: string;
+
+        /** BidRequest price. */
+        public price: Long;
+
+        /** BidRequest amount. */
+        public amount: Long;
+
+        /** BidRequest denom. */
+        public denom: Long;
+
+        /**
+         * Encodes the specified BidRequest message. Does not implicitly {@link main.BidRequest.verify|verify} messages.
+         * @param message BidRequest message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.IBidRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified BidRequest message, length delimited. Does not implicitly {@link main.BidRequest.verify|verify} messages.
+         * @param message BidRequest message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.IBidRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a BidRequest message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns BidRequest
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.BidRequest;
+
+        /**
+         * Decodes a BidRequest message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns BidRequest
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.BidRequest;
+
+        /**
+         * Verifies a BidRequest message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a BidRequest message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns BidRequest
+         */
+        public static fromObject(object: { [k: string]: any }): main.BidRequest;
+
+        /**
+         * Creates a plain object from a BidRequest message. Also converts values to other types if specified.
+         * @param message BidRequest
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.BidRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this BidRequest to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
