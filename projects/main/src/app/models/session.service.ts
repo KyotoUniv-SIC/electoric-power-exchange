@@ -25,7 +25,7 @@ export class SessionService {
         } else {
           this.session.login = true;
           this.sessionSubject.next(this.session);
-          return this.router.navigate(['/accounts/account']);
+          return this.router.navigate(['/dashboard']);
         }
       })
       .then(() => alert('Login is Successful!'))

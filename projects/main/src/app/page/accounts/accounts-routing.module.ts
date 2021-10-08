@@ -1,3 +1,4 @@
+import { AuthGuard } from '../../guard/auth.guard';
 import { EnterGuard } from '../../guard/enter.guard';
 import { AccountComponent } from './account/account.component';
 import { AccountsComponent } from './accounts.component';
@@ -10,7 +11,7 @@ const routes: Routes = [
   { path: '', component: AccountsComponent },
   { path: 'create', component: CreateComponent },
   { path: 'enter', component: EnterComponent, canActivate: [EnterGuard] },
-  { path: 'account', component: AccountComponent },
+  { path: 'account', component: AccountComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
