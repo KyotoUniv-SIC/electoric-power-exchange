@@ -1,25 +1,33 @@
+import { AuthGuard } from './guard/auth.guard';
+import { HomeComponent } from './page/home/home.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './page/home/home.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   {
+    path: 'dashboard',
+    loadChildren: () => import('./page/dashboard/dashboard.module').then((m) => m.AppDashboardModule),
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'accounts',
-    loadChildren: () => import('./page/accounts/accounts.module').then(m => m.AppAccountsModule)
+    loadChildren: () => import('./page/accounts/accounts.module').then((m) => m.AppAccountsModule),
   },
   {
     path: 'txs',
-    loadChildren: () => import('./page/txs/txs.module').then(m => m.AppTxsModule)
+    loadChildren: () => import('./page/txs/txs.module').then((m) => m.AppTxsModule),
+    canActivate: [AuthGuard],
   },
   {
     path: 'messages',
-    loadChildren: () => import('./page/messages/messages.module').then(m => m.AppMessagesModule)
+    loadChildren: () => import('./page/messages/messages.module').then((m) => m.AppMessagesModule),
+    canActivate: [AuthGuard],
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

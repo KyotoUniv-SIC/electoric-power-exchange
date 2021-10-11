@@ -3,9 +3,14 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
+<<<<<<< HEAD
 import { User as fbUser } from '@firebase/auth-types';
 import { Observable, of, Subject } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
+=======
+import { Observable, Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
+>>>>>>> 4f6d85b7a9b27f10d22f3029cb9a086880c27262
 
 @Injectable({
   providedIn: 'root',
@@ -53,7 +58,7 @@ export class SessionService {
         } else {
           this.session.login = true;
           this.sessionSubject.next(this.session);
-          return this.router.navigate(['/']);
+          return this.router.navigate(['/dashboard']);
         }
       })
       .then(() => alert('Login is Successful!'))
