@@ -10,13 +10,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateComponent implements OnInit {
   public account = new Password();
-  id: string;
+  name: string;
   mail: string;
   password: string;
   passwordConfirmation: string;
 
   constructor(private session: SessionService) {
-    this.id = '';
+    this.name = '';
     this.mail = '';
     this.password = '';
     this.passwordConfirmation = '';
@@ -29,11 +29,12 @@ export class CreateComponent implements OnInit {
       alert('Password mismatch');
       return;
     }
+    this.account.name = $event.name;
     this.account.email = $event.mail;
     this.account.password = $event.password;
     this.account.passwordConfirmation = $event.passwordConfirmation;
-    console.log(this.account);
+    // console.log(this.account);
     this.session.signup(this.account);
-    this.account.reset();
+    // this.account.reset();
   }
 }

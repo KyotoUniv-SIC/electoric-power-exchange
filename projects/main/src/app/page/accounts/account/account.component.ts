@@ -1,4 +1,7 @@
+import { User } from '../../../models/session.model';
+import { SessionService } from '../../../models/session.service';
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { proto } from '@local/common';
 import * as Long from 'long';
@@ -11,38 +14,11 @@ import { map, mergeMap } from 'rxjs/operators';
   styleUrls: ['./account.component.css'],
 })
 export class AccountComponent implements OnInit {
-  account$: Observable<proto.main.StudentAccount | undefined>;
-  usage$: Observable<proto.main.MonthlyUsage | undefined>;
-  balances$: Observable<any | undefined>;
+  user$: Observable<any | undefined>;
 
-  constructor(private route: ActivatedRoute) {
-    this.account$ = of(
-      new proto.main.StudentAccount({
-        id: 'testID',
-        name: 'testName',
-        payment_method: 'xrp',
-        xrp_address: 'rpct6vuKL2bcJq9FFygAsYNMVXyXirwPeL',
-      }),
-    );
-
-    this.usage$ = of(
-      new proto.main.MonthlyUsage({
-        id: 'testUsage',
-        student_account_id: 'testID',
-        amount_kwh: Long.fromNumber(2000),
-      }),
-    );
-
-    this.balances$ = of([
-      {
-        amount: 200,
-        denom: 'upx',
-      },
-      {
-        amount: 100,
-        denom: 'spx',
-      },
-    ]);
+  constructor(private route: ActivatedRoute, private db: AngularFirestore, private session: SessionService) {
+    this.user$ = session.getCurrentUser();
+    this.user$.subscribe((res) => console.log(res));
   }
   ngOnInit(): void {}
 }
