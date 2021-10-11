@@ -2,7 +2,8 @@ import { Password, Session } from './session.model';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +25,7 @@ export class SessionService {
         } else {
           this.session.login = true;
           this.sessionSubject.next(this.session);
-          return this.router.navigate(['/']);
+          return this.router.navigate(['/dashboard']);
         }
       })
       .then(() => alert('Login is Successful!'))
@@ -57,5 +58,20 @@ export class SessionService {
         console.log(err);
         alert('Failed to create an account.\n' + err);
       });
+  }
+  checkLogin(): void {
+    this.afAuth.authState.subscribe((auth) => {
+      this.session.login = !!auth;
+      this.sessionSubject.next(this.session);
+    });
+  }
+
+  checkLoginState(): Observable<Session> {
+    return this.afAuth.authState.pipe(
+      map((auth) => {
+        this.session.login = !!auth;
+        return this.session;
+      }),
+    );
   }
 }

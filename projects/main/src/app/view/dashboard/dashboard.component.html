@@ -1,0 +1,95 @@
+<h2 class="text-center">Dashboard</h2>
+<div class="flex flex-wrap">
+  <div class="flex-auto w-1/3">
+    <h3>Account Information</h3>
+    <mat-card>
+      <mat-list>
+        <mat-divider [inset]="true"></mat-divider>
+        <mat-list-item class="flex flex-wrap">
+          <span class="flex-auto w-1/3 break-all">Account ID:</span>
+          <span class="flex-auto w-1/3"></span>
+          <span class="flex-auto w-1/3 break-all">{{ account?.id }}</span>
+        </mat-list-item>
+
+        <mat-divider [inset]="true"></mat-divider>
+        <mat-list-item class="flex flex-wrap">
+          <span class="flex-auto w-1/3 break-all">Student Name:</span>
+          <span class="flex-auto w-1/3"></span>
+          <span class="flex-auto w-1/3 break-all">{{ account?.name }}</span>
+        </mat-list-item>
+
+        <mat-divider [inset]="true"></mat-divider>
+        <mat-list-item class="flex flex-wrap">
+          <span class="flex-auto w-1/3 break-all">Payment Method for Electricity:</span>
+          <span class="flex-auto w-1/3"></span>
+          <span class="flex-auto w-1/3 break-all">{{ account?.payment_method }}</span>
+        </mat-list-item>
+
+        <mat-divider [inset]="true"></mat-divider>
+        <mat-list-item class="flex flex-wrap">
+          <span class="flex-auto w-1/3 break-all">XRP Address:</span>
+          <span class="flex-auto w-1/3"></span>
+          <span class="flex-auto w-1/3 break-all">{{ account?.xrp_address }}</span>
+        </mat-list-item>
+      </mat-list>
+    </mat-card>
+  </div>
+
+  <div class="flex-auto w-1/3">
+    <h3>Balance Information</h3>
+    <mat-card>
+      <mat-card-header>
+        <ng-container *ngFor="let Balance of balances">
+          <ng-container *ngIf="Balance.denom === 'upx'">
+            <mat-card-title>UPX Balance: {{ Balance.amount }} {{ Balance.denom }}</mat-card-title>
+          </ng-container>
+        </ng-container>
+        <mat-card-subtitle>Utility Power</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image src="assets/img/utility.jpg" alt="Photo of a Shiba Inu" />
+      <mat-card-content>
+        <p>Electricity from Electoric Power Companies. It is Usually Cheeper than Solar Power.</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-flat-button routerLink="/txs/buy">BUY</button>
+        <button mat-flat-button routerLink="/txs/sell">SELL</button>
+      </mat-card-actions>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-header>
+        <ng-container *ngFor="let Balance of balances">
+          <ng-container *ngIf="Balance.denom === 'spx'">
+            <mat-card-title>SPX Balance: {{ Balance.amount }} {{ Balance.denom }}</mat-card-title>
+          </ng-container>
+        </ng-container>
+        <mat-card-subtitle>Solar Power</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image src="assets/img/solar.jpg" alt="Photo of a Shiba Inu" />
+      <mat-card-content>
+        <p>Electricity from Solar Panels on SIC. It is Usually More Expensive than Utility Power.</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-flat-button routerLink="/txs/buy">BUY</button>
+        <button mat-flat-button routerLink="/txs/sell">SELL</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <div class="flex-auto w-1/3">
+    <h3>Usage Data</h3>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Monthly Usage: {{ usage?.amount_kwh }} kWh</mat-card-title>
+      </mat-card-header>
+      <img mat-card-image src="assets/img/mater.jpg" alt="Photo of a Shiba Inu" />
+      <mat-card-content>
+        <p>Electricity Usage up to Yesterday. It Affect the Usage Next Month.</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-flat-button>RANKING</button>
+        <button mat-flat-button>CONSUMPTION</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
