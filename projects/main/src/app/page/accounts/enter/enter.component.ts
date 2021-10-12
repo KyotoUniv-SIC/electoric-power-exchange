@@ -1,9 +1,7 @@
-import { Password } from '../../../models/session.model';
-import { SessionService } from '../../../models/session.service';
+import { AuthApplicationService } from '../../../models/auth/auth.application.service';
+import { Password } from '../../../models/auth/auth.model';
 import { EnterOnSubmitEvent } from '../../../view/accounts/enter/enter.component';
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map, mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-enter',
@@ -15,7 +13,7 @@ export class EnterComponent implements OnInit {
   mail: string;
   password: string;
 
-  constructor(private sessionService: SessionService) {
+  constructor(private authApp: AuthApplicationService) {
     this.mail = '';
     this.password = '';
   }
@@ -25,6 +23,6 @@ export class EnterComponent implements OnInit {
   async onSubmit($event: EnterOnSubmitEvent) {
     this.account.email = $event.mail;
     this.account.password = $event.password;
-    this.sessionService.login(this.account);
+    this.authApp.login(this.account);
   }
 }

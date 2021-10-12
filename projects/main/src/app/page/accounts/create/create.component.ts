@@ -1,5 +1,5 @@
-import { Password } from '../../../models/session.model';
-import { SessionService } from '../../../models/session.service';
+import { AuthApplicationService } from '../../../models/auth/auth.application.service';
+import { Password } from '../../../models/auth/auth.model';
 import { CreateOnSubmitEvent } from '../../../view/accounts/create/create.component';
 import { Component, OnInit } from '@angular/core';
 
@@ -15,7 +15,7 @@ export class CreateComponent implements OnInit {
   password: string;
   passwordConfirmation: string;
 
-  constructor(private session: SessionService) {
+  constructor(private auth: AuthApplicationService) {
     this.name = '';
     this.mail = '';
     this.password = '';
@@ -34,7 +34,7 @@ export class CreateComponent implements OnInit {
     this.account.password = $event.password;
     this.account.passwordConfirmation = $event.passwordConfirmation;
     // console.log(this.account);
-    this.session.signup(this.account);
+    this.auth.signup(this.account);
     // this.account.reset();
   }
 }

@@ -11,7 +11,7 @@ export class User {
   }
 }
 
-export class Session {
+export class Auth {
   login: boolean;
   user: User;
 
@@ -20,7 +20,7 @@ export class Session {
     this.user = new User();
   }
 
-  reset(): Session {
+  reset(): Auth {
     this.login = false;
     this.user = new User();
     return this;

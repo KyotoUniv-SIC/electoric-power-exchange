@@ -1,4 +1,4 @@
-import { SessionService } from './models/session.service';
+import { AuthService } from './models/auth/auth.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'main';
-  constructor(private session: SessionService) {
-    this.session.checkLogin();
+  constructor(private auth: AuthService) {
+    this.auth.checkLogin();
   }
 }
