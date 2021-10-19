@@ -1,29 +1,38 @@
-import { Injectable } from '@angular/core';
-import {Firestore, collection, collectionGroup, query, QueryConstraint, doc, getDoc, docData, getDocs, collectionData, setDoc, serverTimestamp } from '@angular/fire/firestore';
 import { IAskInfrastructureService } from './ask.service';
-import { Ask } from 'common';
+import { Injectable } from '@angular/core';
+import {
+  Firestore,
+  collection,
+  collectionGroup,
+  query,
+  QueryConstraint,
+  doc,
+  getDoc,
+  docData,
+  getDocs,
+  collectionData,
+  setDoc,
+  serverTimestamp,
+} from '@angular/fire/firestore';
+import { proto } from '@local/common';
 import { AskFirestore } from 'common';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AskInfrastructureService
-  implements IAskInfrastructureService {
-
+export class AskInfrastructureService implements IAskInfrastructureService {
   constructor(private readonly firestore: Firestore) {}
 
   collection(...queryConstraints: QueryConstraint[]) {
     const ref = collection(this.firestore, AskFirestore.collectionPath());
 
-    return (queryConstraints.length > 0
-      ? query(ref, ...queryConstraints) : ref).withConverter(AskFirestore.converter);
+    return (queryConstraints.length > 0 ? query(ref, ...queryConstraints) : ref).withConverter(AskFirestore.converter);
   }
 
   collectionGroup(...queryConstraints: QueryConstraint[]) {
     const ref = collectionGroup(this.firestore, AskFirestore.collectionID);
 
-    return (queryConstraints.length > 0
-      ? query(ref, ...queryConstraints) : ref).withConverter(AskFirestore.converter);
+    return (queryConstraints.length > 0 ? query(ref, ...queryConstraints) : ref).withConverter(AskFirestore.converter);
   }
 
   document(id?: string) {
@@ -33,8 +42,7 @@ export class AskInfrastructureService
   }
 
   get(id: string) {
-    return getDoc(this.document(id))
-      .then(snapshot => snapshot.data());
+    return getDoc(this.document(id)).then((snapshot) => snapshot.data());
   }
 
   get$(id: string) {
@@ -42,8 +50,7 @@ export class AskInfrastructureService
   }
 
   list() {
-    return getDocs(this.collection())
-      .then(snapshots => snapshots.docs.map(doc => doc.data()))
+    return getDocs(this.collection()).then((snapshots) => snapshots.docs.map((doc) => doc.data()));
   }
 
   list$() {
@@ -51,15 +58,14 @@ export class AskInfrastructureService
   }
 
   listGroup() {
-    return getDocs(this.collectionGroup())
-      .then(snapshots => snapshots.docs.map(doc => doc.data()))
+    return getDocs(this.collectionGroup()).then((snapshots) => snapshots.docs.map((doc) => doc.data()));
   }
 
   listGroup$() {
     return collectionData(this.collectionGroup());
   }
 
-  create(data: Ask) {
+  create(data: proto.main.AskRequest) {
     const doc = this.document();
     data.id = doc.id;
 

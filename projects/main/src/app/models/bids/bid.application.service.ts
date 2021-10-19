@@ -1,11 +1,10 @@
-import { Injectable } from '@angular/core';
 import { BidService } from './bid.service';
-import { Bid } from 'common';
+import { Injectable } from '@angular/core';
+import { proto } from '@local/common';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BidApplicationService {
-  
   constructor(private readonly bid: BidService) {}
 }
