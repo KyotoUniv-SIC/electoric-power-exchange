@@ -14,8 +14,9 @@ import {
   setDoc,
   serverTimestamp,
 } from '@angular/fire/firestore';
-import { proto } from '@local/common';
-import { AskFirestore } from 'common';
+import { AskFirestore } from 'common/src/entities/asks';
+import { Ask } from 'common/dist/cjs/entities/asks';
+
 
 @Injectable({
   providedIn: 'root',
@@ -65,13 +66,13 @@ export class AskInfrastructureService implements IAskInfrastructureService {
     return collectionData(this.collectionGroup());
   }
 
-  create(data: proto.main.AskRequest) {
+  create(data: Ask) {
     const doc = this.document();
     data.id = doc.id;
 
-    const now = serverTimestamp();
-    data.created_at = now;
-    data.updated_at = now;
+    // const now = serverTimestamp();
+    // data.created_at = now;
+    // data.updated_at = now;
 
     return setDoc(doc, data);
   }

@@ -1,16 +1,16 @@
 import { AskInfrastructureService } from './ask.infrastructure.service';
 import { Injectable } from '@angular/core';
-import { proto } from '@local/common';
+import { Ask } from 'common/src/entities/asks';
 import { Observable } from 'rxjs';
 
 export interface IAskInfrastructureService {
-  get(id: string): Promise<proto.main.AskRequest | undefined>;
-  get$(id: string): Observable<proto.main.AskRequest | undefined>;
-  list(): Promise<proto.main.AskRequest[]>;
-  list$(): Observable<proto.main.AskRequest[]>;
-  listGroup(): Promise<proto.main.AskRequest[]>;
-  listGroup$(): Observable<proto.main.AskRequest[]>;
-  create(data: proto.main.AskRequest): Promise<void>;
+  get(id: string): Promise<Ask | undefined>;
+  get$(id: string): Observable<Ask | undefined>;
+  list(): Promise<Ask[]>;
+  list$(): Observable<Ask[]>;
+  listGroup(): Promise<Ask[]>;
+  listGroup$(): Observable<Ask[]>;
+  create(data: Ask): Promise<void>;
 }
 
 @Injectable({

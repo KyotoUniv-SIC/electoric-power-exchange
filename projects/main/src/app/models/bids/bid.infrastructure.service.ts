@@ -14,8 +14,7 @@ import {
   setDoc,
   serverTimestamp,
 } from '@angular/fire/firestore';
-import { proto } from '@local/common';
-import { BidFirestore } from 'common';
+import { Bid, BidFirestore } from 'common/src/entities/bids';
 
 @Injectable({
   providedIn: 'root',
@@ -65,13 +64,13 @@ export class BidInfrastructureService implements IBidInfrastructureService {
     return collectionData(this.collectionGroup());
   }
 
-  create(data: proto.main.BidRequest) {
+  create(data: Bid) {
     const doc = this.document();
     data.id = doc.id;
 
-    const now = serverTimestamp();
-    data.created_at = now;
-    data.updated_at = now;
+    // const now = serverTimestamp();
+    // data.created_at = now;
+    // data.updated_at = now;
 
     return setDoc(doc, data);
   }

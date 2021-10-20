@@ -1,6 +1,5 @@
 import { BidService } from './bid.service';
 import { Injectable } from '@angular/core';
-import { proto } from '@local/common';
 
 @Injectable({
   providedIn: 'root',
