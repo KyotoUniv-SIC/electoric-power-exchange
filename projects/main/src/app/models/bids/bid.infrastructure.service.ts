@@ -68,9 +68,9 @@ export class BidInfrastructureService implements IBidInfrastructureService {
     const doc = this.document();
     data.id = doc.id;
 
-    // const now = serverTimestamp();
-    // data.created_at = now;
-    // data.updated_at = now;
+    const now = serverTimestamp();
+    data.created_at = now;
+    data.updated_at = now;
 
     return setDoc(doc, data);
   }
