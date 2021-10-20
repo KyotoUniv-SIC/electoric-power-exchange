@@ -1,4 +1,4 @@
-import { proto } from '@local/common';
+import { proto } from '../..';
 
 export class Ask extends proto.main.AskRequest {
   validate() {

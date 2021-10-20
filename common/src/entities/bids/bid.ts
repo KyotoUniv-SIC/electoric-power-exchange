@@ -1,4 +1,4 @@
-import { proto } from '@local/common';
+import { proto } from '../..';
 
 export class Bid extends proto.main.BidRequest {
   validate() {

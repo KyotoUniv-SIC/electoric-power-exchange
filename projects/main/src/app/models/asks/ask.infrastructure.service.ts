@@ -14,9 +14,8 @@ import {
   setDoc,
   serverTimestamp,
 } from '@angular/fire/firestore';
-import { AskFirestore } from 'common/src/entities/asks';
 import { Ask } from 'common/dist/cjs/entities/asks';
-
+import { AskFirestore } from 'common/src/entities/asks';
 
 @Injectable({
   providedIn: 'root',
