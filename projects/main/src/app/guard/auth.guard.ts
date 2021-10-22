@@ -1,6 +1,6 @@
-import { SessionService } from '../models/session.service';
+import { AuthService } from '../models/auth/auth.service';
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -8,17 +8,14 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(
-    private session: SessionService, // 追加
-    private router: Router,
-  ) {}
+  constructor(private auth: AuthService, private router: Router) {}
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    return this.session.checkLoginState().pipe(
-      map((session) => {
-        if (!session.login) {
+    return this.auth.checkLoginState().pipe(
+      map((auth) => {
+        if (!auth.login) {
           this.router.navigate(['/accounts/enter']);
         }
-        return session.login;
+        return auth.login;
       }),
     );
   }

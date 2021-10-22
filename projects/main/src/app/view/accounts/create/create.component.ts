@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 export type CreateOnSubmitEvent = {
-  id: string;
+  name: string;
   mail: string;
   password: string;
   passwordConfirmation: string;
@@ -14,7 +14,7 @@ export type CreateOnSubmitEvent = {
 })
 export class CreateComponent implements OnInit {
   @Input()
-  id?: string | null;
+  name?: string | null;
 
   @Input()
   mail?: string | null;
@@ -36,9 +36,9 @@ export class CreateComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onSubmit(id: string, mail: string, password: string, passwordConfirmation: string) {
+  onSubmit(name: string, mail: string, password: string, passwordConfirmation: string) {
     this.isPasswordVisible = false;
-    this.appSubmit.emit({ id, mail, password, passwordConfirmation });
+    this.appSubmit.emit({ name, mail, password, passwordConfirmation });
   }
 
   togglePasswordVisibility() {

@@ -1,6 +1,7 @@
-import { Session } from '../models/session.model';
-import { SessionService } from '../models/session.service';
-import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
+import { AuthApplicationService } from '../models/auth/auth.application.service';
+import { Auth } from '../models/auth/auth.model';
+import { AuthService } from '../models/auth/auth.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 
@@ -15,17 +16,17 @@ export class AppComponent implements OnInit {
 
   public login = false;
 
-  constructor(private router: Router, public sessionService: SessionService) {}
+  constructor(private router: Router, public authService: AuthService, public authApp: AuthApplicationService) {}
 
   ngOnInit() {
-    this.sessionService.sessionState.subscribe((session: Session) => {
-      if (session) {
-        this.login = session.login;
+    this.authService.authState.subscribe((auth: Auth) => {
+      if (auth) {
+        this.login = auth.login;
       }
     });
   }
 
   logout(): void {
-    this.sessionService.logout();
+    this.authApp.logout();
   }
 }
