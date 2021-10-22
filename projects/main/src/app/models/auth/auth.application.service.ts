@@ -1,19 +1,19 @@
-import { Password, Session } from './session.model';
+import { Password, Auth } from './auth.model';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
-export class SessionService {
-  public session = new Session();
-  public sessionSubject = new Subject<Session>();
-  public sessionState = this.sessionSubject.asObservable();
+export class AuthApplicationService {
+  public auth = new Auth();
+  public authSubject = new Subject<Auth>();
+  public authState = this.authSubject.asObservable();
 
-  constructor(private router: Router, private afAuth: AngularFireAuth) {}
+  constructor(private router: Router, private afAuth: AngularFireAuth, private afs: AngularFirestore) {}
 
   login(account: Password): void {
     this.afAuth
@@ -23,8 +23,8 @@ export class SessionService {
           this.afAuth.signOut();
           return Promise.reject('Email Address is Unconfirmed.');
         } else {
-          this.session.login = true;
-          this.sessionSubject.next(this.session);
+          this.auth.login = true;
+          this.authSubject.next(this.auth);
           return this.router.navigate(['/dashboard']);
         }
       })
@@ -39,10 +39,12 @@ export class SessionService {
     this.afAuth
       .signOut()
       .then(() => {
-        this.sessionSubject.next(this.session.reset());
         return this.router.navigate(['/accounts/enter']);
       })
-      .then(() => alert('Logout is Successful!'))
+      .then(() => {
+        this.authSubject.next(this.auth.reset());
+        alert('Logout is Successful!');
+      })
       .catch((err) => {
         console.log(err);
         alert('Logout is Failure!\n' + err);
@@ -59,19 +61,8 @@ export class SessionService {
         alert('Failed to create an account.\n' + err);
       });
   }
-  checkLogin(): void {
-    this.afAuth.authState.subscribe((auth) => {
-      this.session.login = !!auth;
-      this.sessionSubject.next(this.session);
-    });
-  }
 
-  checkLoginState(): Observable<Session> {
-    return this.afAuth.authState.pipe(
-      map((auth) => {
-        this.session.login = !!auth;
-        return this.session;
-      }),
-    );
+  public getCurrentUser(): Observable<any> {
+    return this.afAuth.user;
   }
 }

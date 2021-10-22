@@ -2,10 +2,19 @@
   <h2>Sign Up</h2>
   <h3>SIGN UP ACCOUNT</h3>
   <mat-card>
-    <form #formRef="ngForm" (submit)="onSubmit(idRef.value, mailRef.value, passwordRef.value, passwordConfirmationRef.value)">
+    <form #formRef="ngForm" (submit)="onSubmit(nameRef.value, mailRef.value, passwordRef.value, passwordConfirmationRef.value)">
       <mat-form-field>
         <mat-label>Input Name</mat-label>
-        <input #idRef ngModel name="id" matInput required placeholder="Input value" pattern="^[a-z_][a-z_0-9]*$" autocomplete="username" />
+        <input
+          #nameRef
+          ngModel
+          name="name"
+          matInput
+          required
+          placeholder="Input value"
+          pattern="^[a-zA-Z0-9_][a-z_0-9]*$"
+          autocomplete="username"
+        />
       </mat-form-field>
       <br />
       <mat-form-field>
@@ -31,7 +40,7 @@
           matInput
           required
           placeholder="Input value"
-          pattern="^[a-z\d]{6,100}$"
+          pattern="^[a-zA-Z\d]{6,100}$"
         />
         <button mat-button type="button" matSuffix (click)="togglePasswordVisibility()">
           <mat-icon>
@@ -50,7 +59,7 @@
           matInput
           required
           placeholder="Input value"
-          pattern="^[a-z\d]{6,100}$"
+          pattern="^[a-zA-Z\d]{6,100}$"
         />
         <button mat-button type="button" matSuffix (click)="togglePasswordVisibility()">
           <mat-icon>
