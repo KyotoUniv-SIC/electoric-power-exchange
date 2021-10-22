@@ -14,7 +14,7 @@ import {
   setDoc,
   serverTimestamp,
 } from '@angular/fire/firestore';
-import { Bid, BidFirestore } from 'common/src/entities/bids';
+import { BidRequest, BidFirestore } from 'common/src/entities/bids';
 
 @Injectable({
   providedIn: 'root',
@@ -64,7 +64,7 @@ export class BidInfrastructureService implements IBidInfrastructureService {
     return collectionData(this.collectionGroup());
   }
 
-  create(data: Bid) {
+  create(data: BidRequest) {
     const doc = this.document();
     data.id = doc.id;
 

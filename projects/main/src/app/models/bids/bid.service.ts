@@ -1,16 +1,16 @@
 import { BidInfrastructureService } from './bid.infrastructure.service';
 import { Injectable } from '@angular/core';
-import { Bid } from 'common/src/entities/bids';
+import { BidRequest } from 'common/src/entities/bids';
 import { Observable } from 'rxjs';
 
 export interface IBidInfrastructureService {
-  get(id: string): Promise<Bid | undefined>;
-  get$(id: string): Observable<Bid | undefined>;
-  list(): Promise<Bid[]>;
-  list$(): Observable<Bid[]>;
-  listGroup(): Promise<Bid[]>;
-  listGroup$(): Observable<Bid[]>;
-  create(data: Bid): Promise<void>;
+  get(id: string): Promise<BidRequest | undefined>;
+  get$(id: string): Observable<BidRequest | undefined>;
+  list(): Promise<BidRequest[]>;
+  list$(): Observable<BidRequest[]>;
+  listGroup(): Promise<BidRequest[]>;
+  listGroup$(): Observable<BidRequest[]>;
+  create(data: BidRequest): Promise<void>;
 }
 
 @Injectable({
@@ -45,5 +45,9 @@ export class BidService {
 
   listGroup$() {
     return this.iBidInfrastructure.listGroup$();
+  }
+
+  create(data: BidRequest) {
+    return this.iBidInfrastructure.create(data);
   }
 }

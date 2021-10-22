@@ -1,17 +1,17 @@
+import { AskRequest } from './ask';
 import { FirestoreDataConverter } from 'firebase/firestore';
-import { Ask } from './ask';
 
 export class AskFirestore {
   static collectionID = 'asks';
   static documentID = 'ask_id';
   static virtualPath = `${AskFirestore.collectionID}/${AskFirestore.documentID}`;
 
-  static converter: FirestoreDataConverter<Ask> = {
-    toFirestore: (data) => ({...data}),
+  static converter: FirestoreDataConverter<AskRequest> = {
+    toFirestore: (data) => ({ ...data }),
     fromFirestore: (snapshot, options) => {
       const data = snapshot.data(options)!;
-      return new Ask(data);
-    }
+      return new AskRequest(data);
+    },
   };
 
   static collectionPath() {

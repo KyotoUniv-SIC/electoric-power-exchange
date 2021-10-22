@@ -202,13 +202,13 @@ export namespace main {
         account_id?: (string|null);
 
         /** AskRequest price */
-        price?: (Long|null);
+        price?: (number|null);
 
         /** AskRequest amount */
-        amount?: (Long|null);
+        amount?: (number|null);
 
         /** AskRequest denom */
-        denom?: (Long|null);
+        denom?: (string|null);
     }
 
     /** Represents an AskRequest. */
@@ -227,13 +227,13 @@ export namespace main {
         public account_id: string;
 
         /** AskRequest price. */
-        public price: Long;
+        public price: number;
 
         /** AskRequest amount. */
-        public amount: Long;
+        public amount: number;
 
         /** AskRequest denom. */
-        public denom: Long;
+        public denom: string;
 
         /**
          * Encodes the specified AskRequest message. Does not implicitly {@link main.AskRequest.verify|verify} messages.
@@ -410,13 +410,13 @@ export namespace main {
         account_id?: (string|null);
 
         /** BidRequest price */
-        price?: (Long|null);
+        price?: (number|null);
 
         /** BidRequest amount */
-        amount?: (Long|null);
+        amount?: (number|null);
 
         /** BidRequest denom */
-        denom?: (Long|null);
+        denom?: (string|null);
     }
 
     /** Represents a BidRequest. */
@@ -435,13 +435,13 @@ export namespace main {
         public account_id: string;
 
         /** BidRequest price. */
-        public price: Long;
+        public price: number;
 
         /** BidRequest amount. */
-        public amount: Long;
+        public amount: number;
 
         /** BidRequest denom. */
-        public denom: Long;
+        public denom: string;
 
         /**
          * Encodes the specified BidRequest message. Does not implicitly {@link main.BidRequest.verify|verify} messages.

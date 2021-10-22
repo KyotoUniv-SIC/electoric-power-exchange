@@ -1,17 +1,17 @@
+import { BidRequest } from './bid';
 import { FirestoreDataConverter } from 'firebase/firestore';
-import { Bid } from './bid';
 
 export class BidFirestore {
   static collectionID = 'bids';
   static documentID = 'bid_id';
   static virtualPath = `${BidFirestore.collectionID}/${BidFirestore.documentID}`;
 
-  static converter: FirestoreDataConverter<Bid> = {
-    toFirestore: (data) => ({...data}),
+  static converter: FirestoreDataConverter<BidRequest> = {
+    toFirestore: (data) => ({ ...data }),
     fromFirestore: (snapshot, options) => {
       const data = snapshot.data(options)!;
-      return new Bid(data);
-    }
+      return new BidRequest(data);
+    },
   };
 
   static collectionPath() {

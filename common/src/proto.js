@@ -464,9 +464,9 @@ export const main = $root.main = (() => {
          * @interface IAskRequest
          * @property {string|null} [id] AskRequest id
          * @property {string|null} [account_id] AskRequest account_id
-         * @property {Long|null} [price] AskRequest price
-         * @property {Long|null} [amount] AskRequest amount
-         * @property {Long|null} [denom] AskRequest denom
+         * @property {number|null} [price] AskRequest price
+         * @property {number|null} [amount] AskRequest amount
+         * @property {string|null} [denom] AskRequest denom
          */
 
         /**
@@ -502,27 +502,27 @@ export const main = $root.main = (() => {
 
         /**
          * AskRequest price.
-         * @member {Long} price
+         * @member {number} price
          * @memberof main.AskRequest
          * @instance
          */
-        AskRequest.prototype.price = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+        AskRequest.prototype.price = 0;
 
         /**
          * AskRequest amount.
-         * @member {Long} amount
+         * @member {number} amount
          * @memberof main.AskRequest
          * @instance
          */
-        AskRequest.prototype.amount = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+        AskRequest.prototype.amount = 0;
 
         /**
          * AskRequest denom.
-         * @member {Long} denom
+         * @member {string} denom
          * @memberof main.AskRequest
          * @instance
          */
-        AskRequest.prototype.denom = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+        AskRequest.prototype.denom = "";
 
         /**
          * Encodes the specified AskRequest message. Does not implicitly {@link main.AskRequest.verify|verify} messages.
@@ -541,11 +541,11 @@ export const main = $root.main = (() => {
             if (message.account_id != null && Object.hasOwnProperty.call(message, "account_id"))
                 writer.uint32(/* id 2, wireType 2 =*/18).string(message.account_id);
             if (message.price != null && Object.hasOwnProperty.call(message, "price"))
-                writer.uint32(/* id 3, wireType 0 =*/24).uint64(message.price);
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.price);
             if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
-                writer.uint32(/* id 4, wireType 0 =*/32).uint64(message.amount);
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.amount);
             if (message.denom != null && Object.hasOwnProperty.call(message, "denom"))
-                writer.uint32(/* id 5, wireType 0 =*/40).uint64(message.denom);
+                writer.uint32(/* id 5, wireType 2 =*/42).string(message.denom);
             return writer;
         };
 
@@ -587,13 +587,13 @@ export const main = $root.main = (() => {
                     message.account_id = reader.string();
                     break;
                 case 3:
-                    message.price = reader.uint64();
+                    message.price = reader.uint32();
                     break;
                 case 4:
-                    message.amount = reader.uint64();
+                    message.amount = reader.uint32();
                     break;
                 case 5:
-                    message.denom = reader.uint64();
+                    message.denom = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -637,14 +637,14 @@ export const main = $root.main = (() => {
                 if (!$util.isString(message.account_id))
                     return "account_id: string expected";
             if (message.price != null && message.hasOwnProperty("price"))
-                if (!$util.isInteger(message.price) && !(message.price && $util.isInteger(message.price.low) && $util.isInteger(message.price.high)))
-                    return "price: integer|Long expected";
+                if (!$util.isInteger(message.price))
+                    return "price: integer expected";
             if (message.amount != null && message.hasOwnProperty("amount"))
-                if (!$util.isInteger(message.amount) && !(message.amount && $util.isInteger(message.amount.low) && $util.isInteger(message.amount.high)))
-                    return "amount: integer|Long expected";
+                if (!$util.isInteger(message.amount))
+                    return "amount: integer expected";
             if (message.denom != null && message.hasOwnProperty("denom"))
-                if (!$util.isInteger(message.denom) && !(message.denom && $util.isInteger(message.denom.low) && $util.isInteger(message.denom.high)))
-                    return "denom: integer|Long expected";
+                if (!$util.isString(message.denom))
+                    return "denom: string expected";
             return null;
         };
 
@@ -665,32 +665,11 @@ export const main = $root.main = (() => {
             if (object.account_id != null)
                 message.account_id = String(object.account_id);
             if (object.price != null)
-                if ($util.Long)
-                    (message.price = $util.Long.fromValue(object.price)).unsigned = true;
-                else if (typeof object.price === "string")
-                    message.price = parseInt(object.price, 10);
-                else if (typeof object.price === "number")
-                    message.price = object.price;
-                else if (typeof object.price === "object")
-                    message.price = new $util.LongBits(object.price.low >>> 0, object.price.high >>> 0).toNumber(true);
+                message.price = object.price >>> 0;
             if (object.amount != null)
-                if ($util.Long)
-                    (message.amount = $util.Long.fromValue(object.amount)).unsigned = true;
-                else if (typeof object.amount === "string")
-                    message.amount = parseInt(object.amount, 10);
-                else if (typeof object.amount === "number")
-                    message.amount = object.amount;
-                else if (typeof object.amount === "object")
-                    message.amount = new $util.LongBits(object.amount.low >>> 0, object.amount.high >>> 0).toNumber(true);
+                message.amount = object.amount >>> 0;
             if (object.denom != null)
-                if ($util.Long)
-                    (message.denom = $util.Long.fromValue(object.denom)).unsigned = true;
-                else if (typeof object.denom === "string")
-                    message.denom = parseInt(object.denom, 10);
-                else if (typeof object.denom === "number")
-                    message.denom = object.denom;
-                else if (typeof object.denom === "object")
-                    message.denom = new $util.LongBits(object.denom.low >>> 0, object.denom.high >>> 0).toNumber(true);
+                message.denom = String(object.denom);
             return message;
         };
 
@@ -710,41 +689,20 @@ export const main = $root.main = (() => {
             if (options.defaults) {
                 object.id = "";
                 object.account_id = "";
-                if ($util.Long) {
-                    let long = new $util.Long(0, 0, true);
-                    object.price = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.price = options.longs === String ? "0" : 0;
-                if ($util.Long) {
-                    let long = new $util.Long(0, 0, true);
-                    object.amount = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.amount = options.longs === String ? "0" : 0;
-                if ($util.Long) {
-                    let long = new $util.Long(0, 0, true);
-                    object.denom = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.denom = options.longs === String ? "0" : 0;
+                object.price = 0;
+                object.amount = 0;
+                object.denom = "";
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 object.id = message.id;
             if (message.account_id != null && message.hasOwnProperty("account_id"))
                 object.account_id = message.account_id;
             if (message.price != null && message.hasOwnProperty("price"))
-                if (typeof message.price === "number")
-                    object.price = options.longs === String ? String(message.price) : message.price;
-                else
-                    object.price = options.longs === String ? $util.Long.prototype.toString.call(message.price) : options.longs === Number ? new $util.LongBits(message.price.low >>> 0, message.price.high >>> 0).toNumber(true) : message.price;
+                object.price = message.price;
             if (message.amount != null && message.hasOwnProperty("amount"))
-                if (typeof message.amount === "number")
-                    object.amount = options.longs === String ? String(message.amount) : message.amount;
-                else
-                    object.amount = options.longs === String ? $util.Long.prototype.toString.call(message.amount) : options.longs === Number ? new $util.LongBits(message.amount.low >>> 0, message.amount.high >>> 0).toNumber(true) : message.amount;
+                object.amount = message.amount;
             if (message.denom != null && message.hasOwnProperty("denom"))
-                if (typeof message.denom === "number")
-                    object.denom = options.longs === String ? String(message.denom) : message.denom;
-                else
-                    object.denom = options.longs === String ? $util.Long.prototype.toString.call(message.denom) : options.longs === Number ? new $util.LongBits(message.denom.low >>> 0, message.denom.high >>> 0).toNumber(true) : message.denom;
+                object.denom = message.denom;
             return object;
         };
 
@@ -1040,9 +998,9 @@ export const main = $root.main = (() => {
          * @interface IBidRequest
          * @property {string|null} [id] BidRequest id
          * @property {string|null} [account_id] BidRequest account_id
-         * @property {Long|null} [price] BidRequest price
-         * @property {Long|null} [amount] BidRequest amount
-         * @property {Long|null} [denom] BidRequest denom
+         * @property {number|null} [price] BidRequest price
+         * @property {number|null} [amount] BidRequest amount
+         * @property {string|null} [denom] BidRequest denom
          */
 
         /**
@@ -1078,27 +1036,27 @@ export const main = $root.main = (() => {
 
         /**
          * BidRequest price.
-         * @member {Long} price
+         * @member {number} price
          * @memberof main.BidRequest
          * @instance
          */
-        BidRequest.prototype.price = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+        BidRequest.prototype.price = 0;
 
         /**
          * BidRequest amount.
-         * @member {Long} amount
+         * @member {number} amount
          * @memberof main.BidRequest
          * @instance
          */
-        BidRequest.prototype.amount = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+        BidRequest.prototype.amount = 0;
 
         /**
          * BidRequest denom.
-         * @member {Long} denom
+         * @member {string} denom
          * @memberof main.BidRequest
          * @instance
          */
-        BidRequest.prototype.denom = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+        BidRequest.prototype.denom = "";
 
         /**
          * Encodes the specified BidRequest message. Does not implicitly {@link main.BidRequest.verify|verify} messages.
@@ -1117,11 +1075,11 @@ export const main = $root.main = (() => {
             if (message.account_id != null && Object.hasOwnProperty.call(message, "account_id"))
                 writer.uint32(/* id 2, wireType 2 =*/18).string(message.account_id);
             if (message.price != null && Object.hasOwnProperty.call(message, "price"))
-                writer.uint32(/* id 3, wireType 0 =*/24).uint64(message.price);
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.price);
             if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
-                writer.uint32(/* id 4, wireType 0 =*/32).uint64(message.amount);
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.amount);
             if (message.denom != null && Object.hasOwnProperty.call(message, "denom"))
-                writer.uint32(/* id 5, wireType 0 =*/40).uint64(message.denom);
+                writer.uint32(/* id 5, wireType 2 =*/42).string(message.denom);
             return writer;
         };
 
@@ -1163,13 +1121,13 @@ export const main = $root.main = (() => {
                     message.account_id = reader.string();
                     break;
                 case 3:
-                    message.price = reader.uint64();
+                    message.price = reader.uint32();
                     break;
                 case 4:
-                    message.amount = reader.uint64();
+                    message.amount = reader.uint32();
                     break;
                 case 5:
-                    message.denom = reader.uint64();
+                    message.denom = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -1213,14 +1171,14 @@ export const main = $root.main = (() => {
                 if (!$util.isString(message.account_id))
                     return "account_id: string expected";
             if (message.price != null && message.hasOwnProperty("price"))
-                if (!$util.isInteger(message.price) && !(message.price && $util.isInteger(message.price.low) && $util.isInteger(message.price.high)))
-                    return "price: integer|Long expected";
+                if (!$util.isInteger(message.price))
+                    return "price: integer expected";
             if (message.amount != null && message.hasOwnProperty("amount"))
-                if (!$util.isInteger(message.amount) && !(message.amount && $util.isInteger(message.amount.low) && $util.isInteger(message.amount.high)))
-                    return "amount: integer|Long expected";
+                if (!$util.isInteger(message.amount))
+                    return "amount: integer expected";
             if (message.denom != null && message.hasOwnProperty("denom"))
-                if (!$util.isInteger(message.denom) && !(message.denom && $util.isInteger(message.denom.low) && $util.isInteger(message.denom.high)))
-                    return "denom: integer|Long expected";
+                if (!$util.isString(message.denom))
+                    return "denom: string expected";
             return null;
         };
 
@@ -1241,32 +1199,11 @@ export const main = $root.main = (() => {
             if (object.account_id != null)
                 message.account_id = String(object.account_id);
             if (object.price != null)
-                if ($util.Long)
-                    (message.price = $util.Long.fromValue(object.price)).unsigned = true;
-                else if (typeof object.price === "string")
-                    message.price = parseInt(object.price, 10);
-                else if (typeof object.price === "number")
-                    message.price = object.price;
-                else if (typeof object.price === "object")
-                    message.price = new $util.LongBits(object.price.low >>> 0, object.price.high >>> 0).toNumber(true);
+                message.price = object.price >>> 0;
             if (object.amount != null)
-                if ($util.Long)
-                    (message.amount = $util.Long.fromValue(object.amount)).unsigned = true;
-                else if (typeof object.amount === "string")
-                    message.amount = parseInt(object.amount, 10);
-                else if (typeof object.amount === "number")
-                    message.amount = object.amount;
-                else if (typeof object.amount === "object")
-                    message.amount = new $util.LongBits(object.amount.low >>> 0, object.amount.high >>> 0).toNumber(true);
+                message.amount = object.amount >>> 0;
             if (object.denom != null)
-                if ($util.Long)
-                    (message.denom = $util.Long.fromValue(object.denom)).unsigned = true;
-                else if (typeof object.denom === "string")
-                    message.denom = parseInt(object.denom, 10);
-                else if (typeof object.denom === "number")
-                    message.denom = object.denom;
-                else if (typeof object.denom === "object")
-                    message.denom = new $util.LongBits(object.denom.low >>> 0, object.denom.high >>> 0).toNumber(true);
+                message.denom = String(object.denom);
             return message;
         };
 
@@ -1286,41 +1223,20 @@ export const main = $root.main = (() => {
             if (options.defaults) {
                 object.id = "";
                 object.account_id = "";
-                if ($util.Long) {
-                    let long = new $util.Long(0, 0, true);
-                    object.price = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.price = options.longs === String ? "0" : 0;
-                if ($util.Long) {
-                    let long = new $util.Long(0, 0, true);
-                    object.amount = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.amount = options.longs === String ? "0" : 0;
-                if ($util.Long) {
-                    let long = new $util.Long(0, 0, true);
-                    object.denom = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.denom = options.longs === String ? "0" : 0;
+                object.price = 0;
+                object.amount = 0;
+                object.denom = "";
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 object.id = message.id;
             if (message.account_id != null && message.hasOwnProperty("account_id"))
                 object.account_id = message.account_id;
             if (message.price != null && message.hasOwnProperty("price"))
-                if (typeof message.price === "number")
-                    object.price = options.longs === String ? String(message.price) : message.price;
-                else
-                    object.price = options.longs === String ? $util.Long.prototype.toString.call(message.price) : options.longs === Number ? new $util.LongBits(message.price.low >>> 0, message.price.high >>> 0).toNumber(true) : message.price;
+                object.price = message.price;
             if (message.amount != null && message.hasOwnProperty("amount"))
-                if (typeof message.amount === "number")
-                    object.amount = options.longs === String ? String(message.amount) : message.amount;
-                else
-                    object.amount = options.longs === String ? $util.Long.prototype.toString.call(message.amount) : options.longs === Number ? new $util.LongBits(message.amount.low >>> 0, message.amount.high >>> 0).toNumber(true) : message.amount;
+                object.amount = message.amount;
             if (message.denom != null && message.hasOwnProperty("denom"))
-                if (typeof message.denom === "number")
-                    object.denom = options.longs === String ? String(message.denom) : message.denom;
-                else
-                    object.denom = options.longs === String ? $util.Long.prototype.toString.call(message.denom) : options.longs === Number ? new $util.LongBits(message.denom.low >>> 0, message.denom.high >>> 0).toNumber(true) : message.denom;
+                object.denom = message.denom;
             return object;
         };
 

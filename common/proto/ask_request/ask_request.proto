@@ -8,7 +8,7 @@ option (google.firebase.rules.firebase_rules).full_package_names = true;
 message AskRequest {
   string id = 1;
   string account_id = 2;
-  uint64 price = 3;
-  uint64 amount = 4;
-  uint64 denom = 5;
+  uint32 price = 3;
+  uint32 amount = 4;
+  string denom = 5;
 }

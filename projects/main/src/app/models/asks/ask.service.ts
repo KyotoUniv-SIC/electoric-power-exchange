@@ -1,16 +1,16 @@
 import { AskInfrastructureService } from './ask.infrastructure.service';
 import { Injectable } from '@angular/core';
-import { Ask } from 'common/src/entities/asks';
+import { AskRequest } from 'common/src/entities/asks';
 import { Observable } from 'rxjs';
 
 export interface IAskInfrastructureService {
-  get(id: string): Promise<Ask | undefined>;
-  get$(id: string): Observable<Ask | undefined>;
-  list(): Promise<Ask[]>;
-  list$(): Observable<Ask[]>;
-  listGroup(): Promise<Ask[]>;
-  listGroup$(): Observable<Ask[]>;
-  create(data: Ask): Promise<void>;
+  get(id: string): Promise<AskRequest | undefined>;
+  get$(id: string): Observable<AskRequest | undefined>;
+  list(): Promise<AskRequest[]>;
+  list$(): Observable<AskRequest[]>;
+  listGroup(): Promise<AskRequest[]>;
+  listGroup$(): Observable<AskRequest[]>;
+  create(data: AskRequest): Promise<void>;
 }
 
 @Injectable({
@@ -45,5 +45,8 @@ export class AskService {
 
   listGroup$() {
     return this.iAskInfrastructure.listGroup$();
+  }
+  create(data: AskRequest) {
+    return this.iAskInfrastructure.create(data);
   }
 }
