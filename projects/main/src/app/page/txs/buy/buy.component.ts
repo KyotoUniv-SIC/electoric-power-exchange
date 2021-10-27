@@ -2,9 +2,6 @@ import { AskApplicationService } from '../../../models/asks/ask.application.serv
 import { BuyOnSubmitEvent } from '../../../view/txs/buy/buy.component';
 import { Component, OnInit } from '@angular/core';
 import { AskRequest } from 'common/src/entities/asks';
-import * as Long from 'long';
-import { Observable } from 'rxjs';
-import { map, mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-buy',

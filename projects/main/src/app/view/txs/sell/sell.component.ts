@@ -1,9 +1,16 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 interface Token {
   value: string;
   viewValue: string;
 }
+
+export type SellOnSubmitEvent = {
+  accountID: string;
+  price: number;
+  amount: number;
+  denom: string;
+};
 
 @Component({
   selector: 'view-sell',
@@ -11,12 +18,31 @@ interface Token {
   styleUrls: ['./sell.component.css'],
 })
 export class SellComponent implements OnInit {
-  constructor() {}
+  @Input()
+  accountID?: string | null;
+
+  @Input()
+  price?: number | null;
+
+  @Input()
+  amount?: number | null;
+
+  @Input()
+  denom?: string | null;
+
+  @Output()
+  appSubmit: EventEmitter<SellOnSubmitEvent>;
+
+  constructor() {
+    this.appSubmit = new EventEmitter();
+  }
 
   ngOnInit(): void {}
 
-  price = 22;
-  amount = 1;
+  onSubmit(accountID: string, price: string, amount: string, denom: string) {
+    this.appSubmit.emit({ accountID, price: Number(price), amount: Number(amount), denom });
+  }
+
   calcTotalPrice() {
     if (!this.price || !this.amount) return null;
     return this.price * this.amount;
@@ -27,8 +53,7 @@ export class SellComponent implements OnInit {
   }
 
   tokens: Token[] = [
-    {value: 'upx-0', viewValue: 'upx'},
-    {value: 'spx-1', viewValue: 'spx'},
-    {value: 'epx-2', viewValue: 'epx'}
+    { value: 'upx-0', viewValue: 'upx' },
+    { value: 'spx-1', viewValue: 'spx' },
   ];
 }

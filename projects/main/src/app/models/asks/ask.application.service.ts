@@ -6,8 +6,9 @@ import { AskRequest } from 'common/src/entities/asks';
   providedIn: 'root',
 })
 export class AskApplicationService {
-  constructor(private readonly ask: AskService) { }
+  constructor(private readonly ask: AskService) {}
 
   async create(data: AskRequest) {
     this.ask.create(data);
+  }
 }
