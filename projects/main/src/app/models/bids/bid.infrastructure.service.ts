@@ -14,7 +14,7 @@ import {
   setDoc,
   serverTimestamp,
 } from '@angular/fire/firestore';
-import { BidRequest, BidFirestore } from 'common/src/entities/bids';
+import { BidRequest, BidFirestore } from '@local/common';
 
 @Injectable({
   providedIn: 'root',
