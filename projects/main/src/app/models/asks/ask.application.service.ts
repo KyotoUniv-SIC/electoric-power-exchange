@@ -1,6 +1,6 @@
 import { AskService } from './ask.service';
 import { Injectable } from '@angular/core';
-import { proto } from '@local/common';
+import { AskRequest } from '@local/common';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +8,7 @@ import { proto } from '@local/common';
 export class AskApplicationService {
   constructor(private readonly ask: AskService) {}
 
-  async create(data: proto.main.AskRequest) {
+  async create(data: AskRequest) {
     this.ask.create(data);
   }
 }
