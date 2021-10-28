@@ -1,6 +1,6 @@
 import { BidService } from './bid.service';
 import { Injectable } from '@angular/core';
-import { BidRequest } from 'common/src/entities/bids';
+import { proto } from '@local/common';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +8,7 @@ import { BidRequest } from 'common/src/entities/bids';
 export class BidApplicationService {
   constructor(private readonly bid: BidService) {}
 
-  async create(data: BidRequest) {
+  async create(data: proto.main.BidRequest) {
     this.bid.create(data);
   }
 }
