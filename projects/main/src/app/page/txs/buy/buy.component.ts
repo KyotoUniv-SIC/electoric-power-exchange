@@ -1,7 +1,7 @@
 import { AskApplicationService } from '../../../models/asks/ask.application.service';
 import { BuyOnSubmitEvent } from '../../../view/txs/buy/buy.component';
 import { Component, OnInit } from '@angular/core';
-import { proto } from '@local/common';
+import { AskRequest } from '@local/common';
 
 @Component({
   selector: 'app-buy',
@@ -9,20 +9,20 @@ import { proto } from '@local/common';
   styleUrls: ['./buy.component.css'],
 })
 export class BuyComponent implements OnInit {
-  buyRequest: proto.main.AskRequest;
+  buyRequest: AskRequest;
   price: number | undefined;
   amount: number | undefined;
   denom: string | undefined;
 
   constructor(private readonly askApp: AskApplicationService) {
-    this.buyRequest = new proto.main.AskRequest();
+    this.buyRequest = new AskRequest();
   }
 
   ngOnInit(): void {}
 
   async onSubmit($event: BuyOnSubmitEvent) {
     await this.askApp.create(
-      new proto.main.AskRequest({
+      new AskRequest({
         denom: $event.denom,
         price: $event.price,
         amount: $event.amount,
