@@ -8,9 +8,11 @@ import { HomeModule } from './view/home/home.module';
 import { ViewModule } from './view/view.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { getAnalytics, provideAnalytics } from '@angular/fire/analytics';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { getAuth, provideAuth } from '@angular/fire/auth';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { getStorage, provideStorage } from '@angular/fire/storage';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -18,6 +20,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { SharedModule } from 'projects/shared/src/common';
+
+const initApp = () => initializeApp(environment.firebase);
 
 @NgModule({
   declarations: [AppComponent, HomeComponent],
@@ -34,9 +38,11 @@ import { SharedModule } from 'projects/shared/src/common';
     MaterialModule,
     ReactiveFormsModule,
     SharedModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule,
-    AngularFireAuthModule,
+    provideFirebaseApp(() => initApp()),
+    provideFirestore(() => getFirestore()),
+    provideAuth(() => getAuth()),
+    provideStorage(() => getStorage()),
+    provideAnalytics(() => getAnalytics()),
   ],
   providers: [],
   bootstrap: [AppComponent],
