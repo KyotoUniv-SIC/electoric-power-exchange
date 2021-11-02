@@ -1,45 +1,48 @@
-<div class="text-center">
+<div class="flex flex-col w-96">
   <h2>Sign In</h2>
   <h3>PLEASE SIGN IN</h3>
-  <mat-card>
-    <form #formRef="ngForm" (submit)="onSubmit(mailRef.value, passwordRef.value)">
-      <mat-form-field>
-        <mat-label>Input Email Address</mat-label>
-        <input
-          #mailRef
-          ngModel
-          name="mail"
-          matInput
-          required
-          placeholder="Input value"
-          pattern="^[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$"
-        />
-      </mat-form-field>
-      <br />
-      <mat-form-field>
-        <mat-label>Input Password</mat-label>
-        <input
-          #passwordRef
-          ngModel
-          [type]="isPasswordVisible ? 'text' : 'password'"
-          name="password"
-          matInput
-          required
-          placeholder="Input value"
-          pattern="^[a-z\d]{6,100}$"
-        />
-        <button mat-button type="button" matSuffix (click)="togglePasswordVisibility()">
-          <mat-icon>
-            {{ isPasswordVisible ? 'visibility' : 'visibility_off' }}
-          </mat-icon>
-        </button>
-      </mat-form-field>
-      <br />
-      <button mat-flat-button color="primary" type="submit" [disabled]="formRef.invalid">Sign In</button>
-      <br /><br />
-      <p>
-        No account? <strong class="underline 2px"><a class="text-blue-700" routerLink="/accounts/create">Sign Up</a></strong>
-      </p>
-    </form>
-  </mat-card>
+  <form #formRef="ngForm" (submit)="onSubmit(mailRef.value, passwordRef.value)">
+    <mat-form-field class="w-full">
+      <mat-label>Input Email Address</mat-label>
+      <input
+        #mailRef
+        ngModel
+        name="mail"
+        matInput
+        required
+        placeholder="Input value"
+        pattern="^[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$"
+      />
+    </mat-form-field>
+    <br />
+    <mat-form-field class="w-full">
+      <mat-label>Input Password</mat-label>
+      <input
+        #passwordRef
+        ngModel
+        [type]="isPasswordVisible ? 'text' : 'password'"
+        name="password"
+        matInput
+        required
+        placeholder="Input value"
+        pattern="^[a-z\d]{6,100}$"
+      />
+      <button mat-button type="button" matSuffix (click)="togglePasswordVisibility()">
+        <mat-icon>
+          {{ isPasswordVisible ? 'visibility' : 'visibility_off' }}
+        </mat-icon>
+      </button>
+    </mat-form-field>
+    <div class="flex flex-row">
+      <span class="flex-auto"> </span>
+      <div>
+        <br />
+        <button mat-flat-button class="w-full" color="primary" type="submit" [disabled]="formRef.invalid">Sign In</button>
+        <br /><br />
+        <p>
+          No account? <strong class="underline 2px"><a class="text-blue-700" routerLink="/accounts/create">Sign Up</a></strong>
+        </p>
+      </div>
+    </div>
+  </form>
 </div>
