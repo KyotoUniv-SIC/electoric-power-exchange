@@ -1,0 +1,12 @@
+syntax = "proto3";
+package main;
+
+import "firebase_rules_options.proto";
+
+option (google.firebase.rules.firebase_rules).full_package_names = true;
+
+message User {
+  string id = 1;
+  string current_account_id = 2;
+  repeated string account_ids_order = 3;
+}
