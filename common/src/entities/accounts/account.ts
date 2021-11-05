@@ -2,8 +2,9 @@ import { proto } from '../..';
 import { FieldValue, Timestamp } from '@angular/fire/firestore';
 
 export class Account extends proto.main.Account {
-  created_at?: FieldValue | Timestamp;
-  updated_at?: FieldValue | Timestamp;
+  constructor(iAccount: proto.main.IAccount, public created_at?: FieldValue | Timestamp, public updated_at?: FieldValue | Timestamp) {
+    super(iAccount);
+  }
 
   validate() {
     return false;

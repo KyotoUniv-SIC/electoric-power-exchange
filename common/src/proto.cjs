@@ -52,8 +52,8 @@
              * @property {string|null} [id] Account id
              * @property {Array.<string>|null} [user_ids] Account user_ids
              * @property {Array.<string>|null} [admin_user_ids] Account admin_user_ids
-             * @property {Array.<string>|null} [name] Account name
-             * @property {Array.<string>|null} [image_url] Account image_url
+             * @property {string|null} [name] Account name
+             * @property {string|null} [image_url] Account image_url
              * @property {main.AccountType|null} [type] Account type
              */
     
@@ -68,8 +68,6 @@
             function Account(properties) {
                 this.user_ids = [];
                 this.admin_user_ids = [];
-                this.name = [];
-                this.image_url = [];
                 if (properties)
                     for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                         if (properties[keys[i]] != null)
@@ -102,19 +100,19 @@
     
             /**
              * Account name.
-             * @member {Array.<string>} name
+             * @member {string} name
              * @memberof main.Account
              * @instance
              */
-            Account.prototype.name = $util.emptyArray;
+            Account.prototype.name = "";
     
             /**
              * Account image_url.
-             * @member {Array.<string>} image_url
+             * @member {string} image_url
              * @memberof main.Account
              * @instance
              */
-            Account.prototype.image_url = $util.emptyArray;
+            Account.prototype.image_url = "";
     
             /**
              * Account type.
@@ -144,12 +142,10 @@
                 if (message.admin_user_ids != null && message.admin_user_ids.length)
                     for (var i = 0; i < message.admin_user_ids.length; ++i)
                         writer.uint32(/* id 3, wireType 2 =*/26).string(message.admin_user_ids[i]);
-                if (message.name != null && message.name.length)
-                    for (var i = 0; i < message.name.length; ++i)
-                        writer.uint32(/* id 4, wireType 2 =*/34).string(message.name[i]);
-                if (message.image_url != null && message.image_url.length)
-                    for (var i = 0; i < message.image_url.length; ++i)
-                        writer.uint32(/* id 5, wireType 2 =*/42).string(message.image_url[i]);
+                if (message.name != null && Object.hasOwnProperty.call(message, "name"))
+                    writer.uint32(/* id 4, wireType 2 =*/34).string(message.name);
+                if (message.image_url != null && Object.hasOwnProperty.call(message, "image_url"))
+                    writer.uint32(/* id 5, wireType 2 =*/42).string(message.image_url);
                 if (message.type != null && Object.hasOwnProperty.call(message, "type"))
                     writer.uint32(/* id 6, wireType 0 =*/48).int32(message.type);
                 return writer;
@@ -200,14 +196,10 @@
                         message.admin_user_ids.push(reader.string());
                         break;
                     case 4:
-                        if (!(message.name && message.name.length))
-                            message.name = [];
-                        message.name.push(reader.string());
+                        message.name = reader.string();
                         break;
                     case 5:
-                        if (!(message.image_url && message.image_url.length))
-                            message.image_url = [];
-                        message.image_url.push(reader.string());
+                        message.image_url = reader.string();
                         break;
                     case 6:
                         message.type = reader.int32();
@@ -264,20 +256,12 @@
                         if (!$util.isString(message.admin_user_ids[i]))
                             return "admin_user_ids: string[] expected";
                 }
-                if (message.name != null && message.hasOwnProperty("name")) {
-                    if (!Array.isArray(message.name))
-                        return "name: array expected";
-                    for (var i = 0; i < message.name.length; ++i)
-                        if (!$util.isString(message.name[i]))
-                            return "name: string[] expected";
-                }
-                if (message.image_url != null && message.hasOwnProperty("image_url")) {
-                    if (!Array.isArray(message.image_url))
-                        return "image_url: array expected";
-                    for (var i = 0; i < message.image_url.length; ++i)
-                        if (!$util.isString(message.image_url[i]))
-                            return "image_url: string[] expected";
-                }
+                if (message.name != null && message.hasOwnProperty("name"))
+                    if (!$util.isString(message.name))
+                        return "name: string expected";
+                if (message.image_url != null && message.hasOwnProperty("image_url"))
+                    if (!$util.isString(message.image_url))
+                        return "image_url: string expected";
                 if (message.type != null && message.hasOwnProperty("type"))
                     switch (message.type) {
                     default:
@@ -319,20 +303,10 @@
                     for (var i = 0; i < object.admin_user_ids.length; ++i)
                         message.admin_user_ids[i] = String(object.admin_user_ids[i]);
                 }
-                if (object.name) {
-                    if (!Array.isArray(object.name))
-                        throw TypeError(".main.Account.name: array expected");
-                    message.name = [];
-                    for (var i = 0; i < object.name.length; ++i)
-                        message.name[i] = String(object.name[i]);
-                }
-                if (object.image_url) {
-                    if (!Array.isArray(object.image_url))
-                        throw TypeError(".main.Account.image_url: array expected");
-                    message.image_url = [];
-                    for (var i = 0; i < object.image_url.length; ++i)
-                        message.image_url[i] = String(object.image_url[i]);
-                }
+                if (object.name != null)
+                    message.name = String(object.name);
+                if (object.image_url != null)
+                    message.image_url = String(object.image_url);
                 switch (object.type) {
                 case "UNKNOWN":
                 case 0:
@@ -370,11 +344,11 @@
                 if (options.arrays || options.defaults) {
                     object.user_ids = [];
                     object.admin_user_ids = [];
-                    object.name = [];
-                    object.image_url = [];
                 }
                 if (options.defaults) {
                     object.id = "";
+                    object.name = "";
+                    object.image_url = "";
                     object.type = options.enums === String ? "UNKNOWN" : 0;
                 }
                 if (message.id != null && message.hasOwnProperty("id"))
@@ -389,16 +363,10 @@
                     for (var j = 0; j < message.admin_user_ids.length; ++j)
                         object.admin_user_ids[j] = message.admin_user_ids[j];
                 }
-                if (message.name && message.name.length) {
-                    object.name = [];
-                    for (var j = 0; j < message.name.length; ++j)
-                        object.name[j] = message.name[j];
-                }
-                if (message.image_url && message.image_url.length) {
-                    object.image_url = [];
-                    for (var j = 0; j < message.image_url.length; ++j)
-                        object.image_url[j] = message.image_url[j];
-                }
+                if (message.name != null && message.hasOwnProperty("name"))
+                    object.name = message.name;
+                if (message.image_url != null && message.hasOwnProperty("image_url"))
+                    object.image_url = message.image_url;
                 if (message.type != null && message.hasOwnProperty("type"))
                     object.type = options.enums === String ? $root.main.AccountType[message.type] : message.type;
                 return object;

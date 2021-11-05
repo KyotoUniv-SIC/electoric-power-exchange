@@ -1,5 +1,5 @@
-import { FirestoreDataConverter } from 'firebase/firestore';
 import { Account } from './account';
+import { FirestoreDataConverter } from 'firebase/firestore';
 
 export class AccountFirestore {
   static collectionID = 'accounts';
@@ -7,11 +7,11 @@ export class AccountFirestore {
   static virtualPath = `${AccountFirestore.collectionID}/${AccountFirestore.documentID}`;
 
   static converter: FirestoreDataConverter<Account> = {
-    toFirestore: (data) => ({...data}),
+    toFirestore: (data) => ({ ...data }),
     fromFirestore: (snapshot, options) => {
       const data = snapshot.data(options)!;
-      return new Account(data);
-    }
+      return new Account(data, data.created_at, data.updated_at);
+    },
   };
 
   static collectionPath() {

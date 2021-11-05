@@ -12,6 +12,7 @@ import { getAnalytics, provideAnalytics } from '@angular/fire/analytics';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { provideFunctions, getFunctions } from '@angular/fire/functions';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -40,6 +41,7 @@ const initApp = () => initializeApp(environment.firebase);
     SharedModule,
     provideFirebaseApp(() => initApp()),
     provideFirestore(() => getFirestore()),
+    provideFunctions(() => getFunctions()),
     provideAuth(() => getAuth()),
     provideStorage(() => getStorage()),
     provideAnalytics(() => getAnalytics()),

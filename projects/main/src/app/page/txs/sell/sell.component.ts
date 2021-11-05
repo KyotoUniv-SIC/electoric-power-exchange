@@ -1,7 +1,7 @@
-import { BidApplicationService } from '../../../models/bids/bid.application.service';
 import { SellOnSubmitEvent } from '../../../view/txs/sell/sell.component';
 import { Component, OnInit } from '@angular/core';
 import { BidRequest } from '@local/common';
+import { BidRequestApplicationService } from 'projects/shared/src/lib/services/bid-requests/bid-request.application.service';
 
 @Component({
   selector: 'app-sell',
@@ -9,14 +9,11 @@ import { BidRequest } from '@local/common';
   styleUrls: ['./sell.component.css'],
 })
 export class SellComponent implements OnInit {
-  sellRequest: BidRequest;
   price: number | undefined;
   amount: number | undefined;
   denom: string | undefined;
 
-  constructor(private readonly bidApp: BidApplicationService) {
-    this.sellRequest = new BidRequest();
-  }
+  constructor(private readonly bidApp: BidRequestApplicationService) {}
 
   ngOnInit(): void {}
   async onSubmit($event: SellOnSubmitEvent) {

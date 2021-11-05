@@ -23,10 +23,10 @@ export namespace main {
         admin_user_ids?: (string[]|null);
 
         /** Account name */
-        name?: (string[]|null);
+        name?: (string|null);
 
         /** Account image_url */
-        image_url?: (string[]|null);
+        image_url?: (string|null);
 
         /** Account type */
         type?: (main.AccountType|null);
@@ -51,10 +51,10 @@ export namespace main {
         public admin_user_ids: string[];
 
         /** Account name. */
-        public name: string[];
+        public name: string;
 
         /** Account image_url. */
-        public image_url: string[];
+        public image_url: string;
 
         /** Account type. */
         public type: main.AccountType;
