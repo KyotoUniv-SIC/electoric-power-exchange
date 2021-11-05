@@ -1,6 +1,7 @@
+import { BuyOnSubmitEvent } from '../../../view/txs/buy/buy.component';
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map, mergeMap } from 'rxjs/operators';
+import { AskRequest } from '@local/common';
+import { AskRequestApplicationService } from 'projects/shared/src/lib/services/ask-requests/ask-request.application.service';
 
 @Component({
   selector: 'app-buy',
@@ -8,10 +9,21 @@ import { map, mergeMap } from 'rxjs/operators';
   styleUrls: ['./buy.component.css'],
 })
 export class BuyComponent implements OnInit {
+  price: number | undefined;
+  amount: number | undefined;
+  denom: string | undefined;
 
-  constructor() { }
+  constructor(private readonly askApp: AskRequestApplicationService) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  async onSubmit($event: BuyOnSubmitEvent) {
+    await this.askApp.create(
+      new AskRequest({
+        denom: $event.denom,
+        price: $event.price,
+        amount: $event.amount,
+      }),
+    );
   }
-
 }

@@ -1,7 +1,4 @@
-import { AuthApplicationService } from '../models/auth/auth.application.service';
-import { Auth } from '../models/auth/auth.model';
-import { AuthService } from '../models/auth/auth.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 
@@ -14,19 +11,15 @@ export class AppComponent implements OnInit {
   @ViewChild('sidenav')
   sidenav!: MatSidenav;
 
-  public login = false;
+  @Input()
+  isLogin?: boolean | null;
 
-  constructor(private router: Router, public authService: AuthService, public authApp: AuthApplicationService) {}
+  @Output()
+  appSignOut = new EventEmitter<never>();
 
-  ngOnInit() {
-    this.authService.authState.subscribe((auth: Auth) => {
-      if (auth) {
-        this.login = auth.login;
-      }
-    });
-  }
+  constructor(private router: Router) {}
 
-  logout(): void {
-    this.authApp.logout();
-  }
+  ngOnInit() {}
+
+  onClickLogout(): void {}
 }

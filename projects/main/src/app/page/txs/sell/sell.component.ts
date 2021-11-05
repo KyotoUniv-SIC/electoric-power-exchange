@@ -1,6 +1,7 @@
+import { SellOnSubmitEvent } from '../../../view/txs/sell/sell.component';
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map, mergeMap } from 'rxjs/operators';
+import { BidRequest } from '@local/common';
+import { BidRequestApplicationService } from 'projects/shared/src/lib/services/bid-requests/bid-request.application.service';
 
 @Component({
   selector: 'app-sell',
@@ -8,10 +9,20 @@ import { map, mergeMap } from 'rxjs/operators';
   styleUrls: ['./sell.component.css'],
 })
 export class SellComponent implements OnInit {
+  price: number | undefined;
+  amount: number | undefined;
+  denom: string | undefined;
 
-  constructor() { }
+  constructor(private readonly bidApp: BidRequestApplicationService) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+  async onSubmit($event: SellOnSubmitEvent) {
+    await this.bidApp.create(
+      new BidRequest({
+        denom: $event.denom,
+        price: $event.price,
+        amount: $event.amount,
+      }),
+    );
   }
-
 }

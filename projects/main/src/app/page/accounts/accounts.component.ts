@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { proto } from '@local/common';
 import { Observable } from 'rxjs';
 
 @Component({

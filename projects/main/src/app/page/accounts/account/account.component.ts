@@ -1,7 +1,8 @@
-import { AuthApplicationService } from '../../../models/auth/auth.application.service';
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ActivatedRoute } from '@angular/router';
+import { User } from '@local/common';
+import { AuthService } from 'projects/shared/src/lib/services/auth/auth.service';
 import { Observable, of } from 'rxjs';
 
 @Component({
@@ -10,11 +11,10 @@ import { Observable, of } from 'rxjs';
   styleUrls: ['./account.component.css'],
 })
 export class AccountComponent implements OnInit {
-  user$: Observable<any | undefined>;
+  user$: Observable<User | undefined>;
 
-  constructor(private route: ActivatedRoute, private db: AngularFirestore, private authApp: AuthApplicationService) {
-    this.user$ = authApp.getCurrentUser();
-    this.user$.subscribe((res) => console.log(res));
+  constructor(private route: ActivatedRoute, private db: AngularFirestore, private auth: AuthService) {
+    this.user$ = auth.currentUser$;
   }
   ngOnInit(): void {}
 }
