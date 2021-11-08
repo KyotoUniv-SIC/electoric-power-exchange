@@ -13,6 +13,7 @@ export class CreateComponent implements OnInit {
   ngOnInit(): void {}
 
   async onSubmit($event: CreateOnSubmitEvent) {
+    console.log($event.mail, $event.password, $event.name);
     this.auth.signup(
       {
         type: 'email',
