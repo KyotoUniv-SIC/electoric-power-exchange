@@ -38,6 +38,10 @@ export class CreateComponent implements OnInit {
 
   onSubmit(name: string, mail: string, password: string, passwordConfirmation: string) {
     this.isPasswordVisible = false;
+    if (password !== passwordConfirmation) {
+      alert('パスワードが異なります。');
+      return;
+    }
     this.appSubmit.emit({ name, mail, password, passwordConfirmation });
   }
 
