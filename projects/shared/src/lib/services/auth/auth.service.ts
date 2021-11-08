@@ -17,6 +17,7 @@ import {
 } from '@angular/fire/auth';
 import { Firestore, runTransaction, doc, serverTimestamp, Timestamp, arrayUnion } from '@angular/fire/firestore';
 import { Functions, httpsCallable } from '@angular/fire/functions';
+import { autoId } from '@google-cloud/firestore/build/src/util';
 import { Account, User } from '@local/common';
 import { Observable, of } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
@@ -84,7 +85,7 @@ export class AuthService {
 
     await runTransaction(this.firestore, async (t) => {
       const userID = credential.user?.uid || '';
-      const accountID = doc(this.firestore, '_').id;
+      const accountID = autoId();
 
       // Create User document on firestore
       const iUser: IUser = {
@@ -160,7 +161,7 @@ export class AuthService {
   async createNewAccountOfUser(userID: string, accountConverter: (iAccount: IAccount) => Promise<Account>) {
     const now = serverTimestamp() as Timestamp;
     await runTransaction(this.firestore, async (t) => {
-      const accountID = doc(this.firestore, '_').id;
+      const accountID = autoId();
 
       // Add the new account id to the account ids list which the user has on firestore
       t.update(this.userInfrastructure.document(userID), {
