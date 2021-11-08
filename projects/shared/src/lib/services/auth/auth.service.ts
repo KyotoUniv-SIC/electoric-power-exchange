@@ -136,7 +136,7 @@ export class AuthService {
       credential = await signInWithPopup(this.auth, provider);
     }
 
-    if (credential.operationType == 'signIn') {
+    if (credential.operationType !== 'signIn') {
       // If this is a first sign in (= a sign up)
       await this.auth.currentUser?.delete();
       throw { code: 'ext/user-not-found' };
