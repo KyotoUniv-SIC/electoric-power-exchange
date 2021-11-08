@@ -2,6 +2,7 @@ import { AccountInfrastructureService } from '../accounts/account.infrastructure
 import { AccountService } from '../accounts/account.service';
 import { UserInfrastructureService } from '../users/user.infrastructure.service';
 import { UserService } from '../users/user.service';
+import { autoId } from './auto-id';
 import { IAccount } from './i-account.model';
 import { IUser } from './i-user.model';
 import { UserRecord } from './user-record';
@@ -20,17 +21,6 @@ import { Functions, httpsCallable } from '@angular/fire/functions';
 import { Account, User } from '@local/common';
 import { Observable, of } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
-
-export function autoId() {
-  const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-
-  let autoId = '';
-
-  for (let i = 0; i < 20; i++) {
-    autoId += CHARS.charAt(Math.floor(Math.random() * CHARS.length));
-  }
-  return autoId;
-}
 
 @Injectable({
   providedIn: 'root',
