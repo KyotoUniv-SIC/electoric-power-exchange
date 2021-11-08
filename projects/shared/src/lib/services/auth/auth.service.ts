@@ -21,6 +21,17 @@ import { Account, User } from '@local/common';
 import { Observable, of } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 
+export function autoId() {
+  const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+  let autoId = '';
+
+  for (let i = 0; i < 20; i++) {
+    autoId += CHARS.charAt(Math.floor(Math.random() * CHARS.length));
+  }
+  return autoId;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -84,7 +95,7 @@ export class AuthService {
 
     await runTransaction(this.firestore, async (t) => {
       const userID = credential.user?.uid || '';
-      const accountID = doc(this.firestore, '_').id;
+      const accountID = autoId();
 
       // Create User document on firestore
       const iUser: IUser = {
@@ -160,7 +171,7 @@ export class AuthService {
   async createNewAccountOfUser(userID: string, accountConverter: (iAccount: IAccount) => Promise<Account>) {
     const now = serverTimestamp() as Timestamp;
     await runTransaction(this.firestore, async (t) => {
-      const accountID = doc(this.firestore, '_').id;
+      const accountID = autoId();
 
       // Add the new account id to the account ids list which the user has on firestore
       t.update(this.userInfrastructure.document(userID), {
