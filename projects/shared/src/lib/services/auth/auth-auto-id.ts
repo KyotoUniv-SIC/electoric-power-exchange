@@ -1,4 +1,4 @@
-export function autoId() {
+export function authAutoId() {
   const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
   let autoId = '';
