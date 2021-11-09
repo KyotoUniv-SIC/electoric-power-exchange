@@ -40,18 +40,6 @@ export class BuyComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit(accountID: string, price: string, amount: string, denom: string) {
-    if (!denom) {
-      alert('トークンの種類を指定してください。');
-      return;
-    }
-    if (!price) {
-      alert('1単位あたりの希望価格を指定してください。');
-      return;
-    }
-    if (!price) {
-      alert('希望トークン数を指定してください。');
-      return;
-    }
     this.appSubmit.emit({ accountID, price: Number(price), amount: Number(amount), denom });
   }
 

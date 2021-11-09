@@ -8,7 +8,7 @@
         <span class="flex-auto w-1/10 break-all text-center">1</span>
         <mat-form-field class="flex-auto w-1/5 break-all">
           <mat-label>Token</mat-label>
-          <mat-select #denomRef>
+          <mat-select #denomRef required>
             <mat-option *ngFor="let token of tokens" [value]="token.value">
               {{ token.viewValue }}
             </mat-option>
@@ -19,7 +19,7 @@
         <span class="flex-auto w-1/10 break-all"></span>
         <mat-form-field class="flex-auto w-1/5 break-all">
           <mat-label>Input JPY</mat-label>
-          <input #priceRef matInput type="number" ngModel name="price" />
+          <input #priceRef matInput type="number" ngModel name="price" required />
         </mat-form-field>
         <span class="flex-auto w-1/10 break-all text-center">JPY</span>
       </mat-list-item>
@@ -31,7 +31,7 @@
         <span class="flex-auto w-1/3 break-all"></span>
         <mat-form-field class="flex-auto w-1/3 break-all">
           <mat-label>Input Amount</mat-label>
-          <input #amountRef matInput type="number" ngModel name="amount" />
+          <input #amountRef matInput type="number" ngModel name="amount" required />
         </mat-form-field>
       </mat-list-item>
       <mat-divider [inset]="true"></mat-divider>
