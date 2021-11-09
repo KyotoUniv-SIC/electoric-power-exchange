@@ -1,7 +1,7 @@
 // eslint-disable-next-line camelcase
 import { student_account } from '.';
 import { account } from '../accounts';
-import { Account, proto } from '@local/common';
+import { Account, proto, StudentAccount } from '@local/common';
 
 account.onCreateHandler.push(async (snapshot, context) => {
   const data = snapshot.data()!;
@@ -11,5 +11,5 @@ account.onCreateHandler.push(async (snapshot, context) => {
     return;
   }
 
-  await student_account.create(new StudentAccount());
+  await student_account.create(new StudentAccount(data, data.created_at, data.updated_at));
 });
