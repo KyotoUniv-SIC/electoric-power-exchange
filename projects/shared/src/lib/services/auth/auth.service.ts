@@ -2,7 +2,7 @@ import { AccountInfrastructureService } from '../accounts/account.infrastructure
 import { AccountService } from '../accounts/account.service';
 import { UserInfrastructureService } from '../users/user.infrastructure.service';
 import { UserService } from '../users/user.service';
-import { authAutoId } from './auth-auto-id';
+import { AutoId } from './auto-id';
 import { IAccount } from './i-account.model';
 import { IUser } from './i-user.model';
 import { UserRecord } from './user-record';
@@ -85,7 +85,7 @@ export class AuthService {
 
     await runTransaction(this.firestore, async (t) => {
       const userID = credential.user?.uid || '';
-      const accountID = authAutoId();
+      const accountID = AutoId();
 
       // Create User document on firestore
       const iUser: IUser = {
@@ -161,7 +161,7 @@ export class AuthService {
   async createNewAccountOfUser(userID: string, accountConverter: (iAccount: IAccount) => Promise<Account>) {
     const now = serverTimestamp() as Timestamp;
     await runTransaction(this.firestore, async (t) => {
-      const accountID = authAutoId();
+      const accountID = AutoId();
 
       // Add the new account id to the account ids list which the user has on firestore
       t.update(this.userInfrastructure.document(userID), {

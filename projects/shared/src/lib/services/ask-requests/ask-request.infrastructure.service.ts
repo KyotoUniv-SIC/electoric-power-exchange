@@ -1,4 +1,4 @@
-import { askAutoId } from './ask-auto-id';
+import { AutoId } from '../auth/auto-id';
 import { IAskRequestInfrastructureService } from './ask-request.service';
 import { Injectable } from '@angular/core';
 import {
@@ -39,9 +39,7 @@ export class AskRequestInfrastructureService implements IAskRequestInfrastructur
   document(id?: string) {
     const ref = collection(this.firestore, AskRequestFirestore.collectionPath());
 
-    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path, askAutoId())).withConverter(
-      AskRequestFirestore.converter,
-    );
+    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path, AutoId())).withConverter(AskRequestFirestore.converter);
   }
 
   get(id: string) {

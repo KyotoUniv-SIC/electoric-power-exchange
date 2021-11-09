@@ -1,4 +1,4 @@
-export function bidAutoId() {
+export function AutoId() {
   const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
   let autoId = '';

@@ -1,4 +1,4 @@
-import { bidAutoId } from './bid-auto-id';
+import { AutoId } from '../auth/auto-id';
 import { IBidRequestInfrastructureService } from './bid-request.service';
 import { Injectable } from '@angular/core';
 import {
@@ -39,9 +39,7 @@ export class BidRequestInfrastructureService implements IBidRequestInfrastructur
   document(id?: string) {
     const ref = collection(this.firestore, BidRequestFirestore.collectionPath());
 
-    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path, bidAutoId())).withConverter(
-      BidRequestFirestore.converter,
-    );
+    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path, AutoId())).withConverter(BidRequestFirestore.converter);
   }
 
   get(id: string) {
