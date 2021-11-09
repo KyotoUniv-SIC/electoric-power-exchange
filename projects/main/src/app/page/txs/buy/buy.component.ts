@@ -18,13 +18,12 @@ export class BuyComponent implements OnInit {
   ngOnInit(): void {}
 
   async onSubmit($event: BuyOnSubmitEvent) {
-    if ($event.denom)
-      await this.askApp.create(
-        new AskRequest({
-          denom: $event.denom,
-          price: $event.price,
-          amount: $event.amount,
-        }),
-      );
+    await this.askApp.create(
+      new AskRequest({
+        denom: $event.denom,
+        price: $event.price,
+        amount: $event.amount,
+      }),
+    );
   }
 }
