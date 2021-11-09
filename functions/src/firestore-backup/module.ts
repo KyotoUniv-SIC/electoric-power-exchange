@@ -1,7 +1,6 @@
 /* eslint-disable require-jsdoc */
 import { config } from '../config';
 import * as firestore from '@google-cloud/firestore';
-import * as functions from 'firebase-functions';
 
 export async function export_() {
   const client = new firestore.v1.FirestoreAdminClient();

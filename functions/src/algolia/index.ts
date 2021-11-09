@@ -1,1 +1,1 @@
-export * as algolia from './module';
+// export * as algolia from './module';
