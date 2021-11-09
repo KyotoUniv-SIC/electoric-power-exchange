@@ -1624,6 +1624,248 @@
             return BidRequest;
         })();
     
+        main.Message = (function() {
+    
+            /**
+             * Properties of a Message.
+             * @memberof main
+             * @interface IMessage
+             * @property {string|null} [id] Message id
+             * @property {string|null} [sender_account_id] Message sender_account_id
+             * @property {string|null} [recipient_account_id] Message recipient_account_id
+             * @property {string|null} [text] Message text
+             */
+    
+            /**
+             * Constructs a new Message.
+             * @memberof main
+             * @classdesc Represents a Message.
+             * @implements IMessage
+             * @constructor
+             * @param {main.IMessage=} [properties] Properties to set
+             */
+            function Message(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+    
+            /**
+             * Message id.
+             * @member {string} id
+             * @memberof main.Message
+             * @instance
+             */
+            Message.prototype.id = "";
+    
+            /**
+             * Message sender_account_id.
+             * @member {string} sender_account_id
+             * @memberof main.Message
+             * @instance
+             */
+            Message.prototype.sender_account_id = "";
+    
+            /**
+             * Message recipient_account_id.
+             * @member {string} recipient_account_id
+             * @memberof main.Message
+             * @instance
+             */
+            Message.prototype.recipient_account_id = "";
+    
+            /**
+             * Message text.
+             * @member {string} text
+             * @memberof main.Message
+             * @instance
+             */
+            Message.prototype.text = "";
+    
+            /**
+             * Encodes the specified Message message. Does not implicitly {@link main.Message.verify|verify} messages.
+             * @function encode
+             * @memberof main.Message
+             * @static
+             * @param {main.IMessage} message Message message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            Message.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                if (message.sender_account_id != null && Object.hasOwnProperty.call(message, "sender_account_id"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.sender_account_id);
+                if (message.recipient_account_id != null && Object.hasOwnProperty.call(message, "recipient_account_id"))
+                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.recipient_account_id);
+                if (message.text != null && Object.hasOwnProperty.call(message, "text"))
+                    writer.uint32(/* id 4, wireType 2 =*/34).string(message.text);
+                return writer;
+            };
+    
+            /**
+             * Encodes the specified Message message, length delimited. Does not implicitly {@link main.Message.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof main.Message
+             * @static
+             * @param {main.IMessage} message Message message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            Message.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+    
+            /**
+             * Decodes a Message message from the specified reader or buffer.
+             * @function decode
+             * @memberof main.Message
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {main.Message} Message
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            Message.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.Message();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.id = reader.string();
+                        break;
+                    case 2:
+                        message.sender_account_id = reader.string();
+                        break;
+                    case 3:
+                        message.recipient_account_id = reader.string();
+                        break;
+                    case 4:
+                        message.text = reader.string();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Decodes a Message message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof main.Message
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {main.Message} Message
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            Message.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+    
+            /**
+             * Verifies a Message message.
+             * @function verify
+             * @memberof main.Message
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            Message.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.id != null && message.hasOwnProperty("id"))
+                    if (!$util.isString(message.id))
+                        return "id: string expected";
+                if (message.sender_account_id != null && message.hasOwnProperty("sender_account_id"))
+                    if (!$util.isString(message.sender_account_id))
+                        return "sender_account_id: string expected";
+                if (message.recipient_account_id != null && message.hasOwnProperty("recipient_account_id"))
+                    if (!$util.isString(message.recipient_account_id))
+                        return "recipient_account_id: string expected";
+                if (message.text != null && message.hasOwnProperty("text"))
+                    if (!$util.isString(message.text))
+                        return "text: string expected";
+                return null;
+            };
+    
+            /**
+             * Creates a Message message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof main.Message
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {main.Message} Message
+             */
+            Message.fromObject = function fromObject(object) {
+                if (object instanceof $root.main.Message)
+                    return object;
+                var message = new $root.main.Message();
+                if (object.id != null)
+                    message.id = String(object.id);
+                if (object.sender_account_id != null)
+                    message.sender_account_id = String(object.sender_account_id);
+                if (object.recipient_account_id != null)
+                    message.recipient_account_id = String(object.recipient_account_id);
+                if (object.text != null)
+                    message.text = String(object.text);
+                return message;
+            };
+    
+            /**
+             * Creates a plain object from a Message message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof main.Message
+             * @static
+             * @param {main.Message} message Message
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            Message.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.id = "";
+                    object.sender_account_id = "";
+                    object.recipient_account_id = "";
+                    object.text = "";
+                }
+                if (message.id != null && message.hasOwnProperty("id"))
+                    object.id = message.id;
+                if (message.sender_account_id != null && message.hasOwnProperty("sender_account_id"))
+                    object.sender_account_id = message.sender_account_id;
+                if (message.recipient_account_id != null && message.hasOwnProperty("recipient_account_id"))
+                    object.recipient_account_id = message.recipient_account_id;
+                if (message.text != null && message.hasOwnProperty("text"))
+                    object.text = message.text;
+                return object;
+            };
+    
+            /**
+             * Converts this Message to JSON.
+             * @function toJSON
+             * @memberof main.Message
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            Message.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            return Message;
+        })();
+    
         main.MonthlyUsage = (function() {
     
             /**
