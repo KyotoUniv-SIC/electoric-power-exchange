@@ -8,7 +8,7 @@
         <span class="flex-auto w-1/10 break-all text-center">1</span>
         <mat-form-field class="flex-auto w-1/5 break-all">
           <mat-label>Token</mat-label>
-          <mat-select #denomRef required>
+          <mat-select #denomRef>
             <mat-option *ngFor="let token of tokens" [value]="token.value">
               {{ token.viewValue }}
             </mat-option>
