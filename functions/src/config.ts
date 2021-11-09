@@ -1,4 +1,5 @@
-import * as functions from "firebase-functions";
+/* eslint-disable camelcase */
+import * as functions from 'firebase-functions';
 
 export const config = functions.config() as {
   service_account: {

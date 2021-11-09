@@ -1,11 +1,12 @@
-import * as functions from "firebase-functions";
-import * as firestore from "@google-cloud/firestore";
-import { config } from "../config";
+/* eslint-disable require-jsdoc */
+import { config } from '../config';
+import * as firestore from '@google-cloud/firestore';
+import * as functions from 'firebase-functions';
 
 export async function export_() {
   const client = new firestore.v1.FirestoreAdminClient();
   const projectID = config.service_account.project_id;
-  const databaseName = client.databasePath(projectID, "(default)");
+  const databaseName = client.databasePath(projectID, '(default)');
   const bucket = `gs://${projectID}-firestore`;
 
   return await client
@@ -19,11 +20,11 @@ export async function export_() {
     })
     .then((responses: any[]) => {
       const response = responses[0];
-      console.log(`Operation Name: ${response["name"]}`);
+      console.log(`Operation Name: ${response['name']}`);
       return response;
     })
     .catch((err: Error) => {
       console.error(err);
-      throw new Error("Export operation failed");
+      throw new Error('Export operation failed');
     });
 }

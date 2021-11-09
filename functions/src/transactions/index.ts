@@ -1,1 +1,1 @@
-export * as transaction from "./module";
+export * as transaction from './module';

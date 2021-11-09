@@ -1,7 +1,10 @@
-import * as functions from "firebase-functions";
-import * as admin from "firebase-admin";
-import { account } from "../accounts";
-import { user } from "../users";
+/* eslint-disable valid-jsdoc */
+
+/* eslint-disable camelcase */
+import { account } from '../accounts';
+import { user } from '../users';
+import * as admin from 'firebase-admin';
+import * as functions from 'firebase-functions';
 
 /**
  *
@@ -9,31 +12,21 @@ import { user } from "../users";
  * @param userID
  * @param isAdmin
  */
-export async function validateAuth(
-  accountID: string,
-  userID?: string,
-  isAdmin?: boolean
-) {
+export async function validateAuth(accountID: string, userID?: string, isAdmin?: boolean) {
   if (!userID) {
-    throw new functions.https.HttpsError("unauthenticated", "unauthenticated");
+    throw new functions.https.HttpsError('unauthenticated', 'unauthenticated');
   }
   const account_ = await account.get(accountID);
 
   if (isAdmin) {
     if (!account_.admin_user_ids.find((userID_) => userID_ === userID)) {
-      throw new functions.https.HttpsError(
-        "unauthenticated",
-        "user is not in account"
-      );
+      throw new functions.https.HttpsError('unauthenticated', 'user is not in account');
     }
     return;
   }
 
   if (!account_.user_ids.find((userID_) => userID_ === userID)) {
-    throw new functions.https.HttpsError(
-      "unauthenticated",
-      "user is not in account"
-    );
+    throw new functions.https.HttpsError('unauthenticated', 'user is not in account');
   }
 }
 
@@ -45,13 +38,10 @@ export const getUsers = functions.https.onCall(
     data: {
       account_id: string;
     },
-    context
+    context,
   ) => {
     try {
-      await account.validateAuth(
-        data.account_id,
-        context.auth && context.auth.uid
-      );
+      await account.validateAuth(data.account_id, context.auth && context.auth.uid);
 
       const account_ = await account.get(data.account_id);
 
@@ -66,9 +56,9 @@ export const getUsers = functions.https.onCall(
         throw e;
       }
       console.error(e);
-      throw new functions.https.HttpsError("unknown", e.toString(), e);
+      throw new functions.https.HttpsError('unknown', e.toString(), e);
     }
-  }
+  },
 );
 
 /**
@@ -80,33 +70,25 @@ export const removeUser = functions.https.onCall(
       account_id: string;
       user_id: string;
     },
-    context
+    context,
   ) => {
     try {
-      await validateAuth(
-        data.account_id,
-        context.auth && context.auth.uid,
-        true
-      );
+      await validateAuth(data.account_id, context.auth && context.auth.uid, true);
 
       await account.update(data.account_id, {
         user_ids: admin.firestore.FieldValue.arrayRemove(data.user_id) as any,
-        admin_user_ids: admin.firestore.FieldValue.arrayRemove(
-          data.user_id
-        ) as any,
+        admin_user_ids: admin.firestore.FieldValue.arrayRemove(data.user_id) as any,
       });
 
       await user.update(data.user_id, {
-        account_ids_order: admin.firestore.FieldValue.arrayRemove(
-          data.account_id
-        ) as any,
+        account_ids_order: admin.firestore.FieldValue.arrayRemove(data.account_id) as any,
       });
     } catch (e) {
       if (e instanceof functions.https.HttpsError) {
         throw e;
       }
       console.error(e);
-      throw new functions.https.HttpsError("unknown", e.toString(), e);
+      throw new functions.https.HttpsError('unknown', e.toString(), e);
     }
-  }
+  },
 );

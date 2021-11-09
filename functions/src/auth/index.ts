@@ -1,1 +1,1 @@
-export * as auth from "./module";
+export * as auth from './module';

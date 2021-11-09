@@ -1,6 +1,7 @@
-import * as admin from "firebase-admin";
+/* eslint-disable require-jsdoc */
+import * as admin from 'firebase-admin';
 
-export const collectionPath = "triggers";
+export const collectionPath = 'triggers';
 
 export async function isTriggeredOnce(eventID: string) {
   return await admin.firestore().runTransaction(async (t) => {

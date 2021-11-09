@@ -1,4 +1,5 @@
-import * as admin from "firebase-admin";
+/* eslint-disable camelcase */
+import * as admin from 'firebase-admin';
 
 export type Transaction = {
   from_account_id: string;
