@@ -1,9 +1,11 @@
+// eslint-disable-next-line camelcase
 import { student_account } from '.';
 import { account } from '../accounts';
 import { Account, proto } from '@local/common';
 
 account.onCreateHandler.push(async (snapshot, context) => {
-  const account = new Account(snapshot.data(), snapshot.data().created_at, snapshot.data().updated_at);
+  const data = snapshot.data()!;
+  const account = new Account(data, data.created_at, data.updated_at);
 
   if (account.type !== proto.main.AccountType.STUDENT) {
     return;

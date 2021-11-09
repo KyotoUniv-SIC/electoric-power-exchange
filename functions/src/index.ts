@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+import { account } from './accounts';
 import { auth } from './auth';
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
@@ -10,3 +11,5 @@ admin.initializeApp({
 
 export const auth_get_users = auth.getUsers;
 export const auth_remove_user = auth.removeUser;
+
+export const account_on_create = account.onCreate;
