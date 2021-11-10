@@ -1,7 +1,7 @@
 <h2 class="text-center">Account Detail</h2>
 <mat-card>
   <mat-list>
-    <ng-container *ngIf="!user.multiFactor; then loading; else loaded"></ng-container>
+    <ng-container *ngIf="!user; then loading; else loaded"></ng-container>
     <ng-template #loading>
       <p>Invalid Account!</p>
     </ng-template>
@@ -10,33 +10,38 @@
       <mat-list-item class="flex flex-wrap">
         <span class="flex-auto w-1/3 break-all">User ID:</span>
         <span class="flex-auto w-1/3 break-all"></span>
-        <span class="flex-auto w-1/3 break-all">{{ user.multiFactor.user.uid }}</span>
+        <span class="flex-auto w-1/3 break-all">{{ user?.uid }}</span>
       </mat-list-item>
       <mat-divider [inset]="true"></mat-divider>
       <mat-list-item class="flex flex-wrap">
         <span class="flex-auto w-1/3 break-all">Display Name:</span>
         <span class="flex-auto w-1/3 break-all"></span>
-        <span class="flex-auto w-1/3 break-all">{{ user.multiFactor.user.displayName }}</span>
+        <span class="flex-auto w-1/3 break-all">{{ user?.displayName }}</span>
       </mat-list-item>
       <mat-divider [inset]="true"></mat-divider>
       <mat-list-item class="flex flex-wrap">
         <span class="flex-auto w-1/3 break-all">Email Address:</span>
         <span class="flex-auto w-1/3 break-all"></span>
-        <span class="flex-auto w-1/3 break-all">{{ user.multiFactor.user.email }}</span>
+        <span class="flex-auto w-1/3 break-all">{{ user?.email }}</span>
       </mat-list-item>
       <mat-divider [inset]="true"></mat-divider>
       <mat-list-item class="flex flex-wrap">
-        <span class="flex-auto w-1/3 break-all">Account Create:</span>
+        <span class="flex-auto w-1/3 break-all">Account Verified:</span>
         <span class="flex-auto w-1/3 break-all"></span>
-        <span class="flex-auto w-1/3 break-all">{{ user.multiFactor.user.metadata.creationTime }}</span>
+        <span class="flex-auto w-1/3 break-all">
+          <ng-container *ngIf="!user?.emailVerified; then empty; else exist"></ng-container>
+          <ng-template #exist>
+            <mat-chip-list>
+              <mat-chip color="primary" selected>Verified</mat-chip>
+            </mat-chip-list>
+          </ng-template>
+          <ng-template #empty>
+            <mat-chip-list>
+              <mat-chip color="warn" selected>Unverified</mat-chip>
+            </mat-chip-list>
+          </ng-template>
+        </span>
       </mat-list-item>
-      <mat-divider [inset]="true"></mat-divider>
-      <mat-list-item class="flex flex-wrap">
-        <span class="flex-auto w-1/3 break-all">Last Sign In:</span>
-        <span class="flex-auto w-1/3 break-all"></span>
-        <span class="flex-auto w-1/3 break-all">{{ user.multiFactor.user.metadata.lastSignInTime }}</span>
-      </mat-list-item>
-      <mat-divider [inset]="true"></mat-divider>
     </ng-template>
   </mat-list>
 </mat-card>
