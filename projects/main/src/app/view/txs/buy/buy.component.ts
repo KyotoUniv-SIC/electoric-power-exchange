@@ -40,6 +40,10 @@ export class BuyComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit(accountID: string, price: string, amount: string, denom: string) {
+    if (!denom) {
+      alert('トークンの種類を指定してください。\nUPX=電力会社、SPX=太陽光発電');
+      return;
+    }
     this.appSubmit.emit({ accountID, price: Number(price), amount: Number(amount), denom });
   }
 

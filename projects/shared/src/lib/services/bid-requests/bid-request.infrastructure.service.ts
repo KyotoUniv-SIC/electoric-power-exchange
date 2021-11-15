@@ -1,40 +1,49 @@
-import { Injectable } from '@angular/core';
-import { Firestore, collection, collectionGroup, query, QueryConstraint, doc, getDoc, docData, getDocs, collectionData, setDoc, serverTimestamp } from '@angular/fire/firestore';
+import { AutoId } from '../auth/auto-id';
 import { IBidRequestInfrastructureService } from './bid-request.service';
+import { Injectable } from '@angular/core';
+import {
+  Firestore,
+  collection,
+  collectionGroup,
+  query,
+  QueryConstraint,
+  doc,
+  getDoc,
+  docData,
+  getDocs,
+  collectionData,
+  setDoc,
+  serverTimestamp,
+} from '@angular/fire/firestore';
 import { BidRequest } from '@local/common';
 import { BidRequestFirestore } from '@local/common';
 
 @Injectable({
   providedIn: 'root',
 })
-export class BidRequestInfrastructureService
-  implements IBidRequestInfrastructureService {
-
+export class BidRequestInfrastructureService implements IBidRequestInfrastructureService {
   constructor(private readonly firestore: Firestore) {}
 
   collection(...queryConstraints: QueryConstraint[]) {
     const ref = collection(this.firestore, BidRequestFirestore.collectionPath());
 
-    return (queryConstraints.length > 0
-      ? query(ref, ...queryConstraints) : ref).withConverter(BidRequestFirestore.converter);
+    return (queryConstraints.length > 0 ? query(ref, ...queryConstraints) : ref).withConverter(BidRequestFirestore.converter);
   }
 
   collectionGroup(...queryConstraints: QueryConstraint[]) {
     const ref = collectionGroup(this.firestore, BidRequestFirestore.collectionID);
 
-    return (queryConstraints.length > 0
-      ? query(ref, ...queryConstraints) : ref).withConverter(BidRequestFirestore.converter);
+    return (queryConstraints.length > 0 ? query(ref, ...queryConstraints) : ref).withConverter(BidRequestFirestore.converter);
   }
 
   document(id?: string) {
     const ref = collection(this.firestore, BidRequestFirestore.collectionPath());
 
-    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path)).withConverter(BidRequestFirestore.converter);
+    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path, AutoId())).withConverter(BidRequestFirestore.converter);
   }
 
   get(id: string) {
-    return getDoc(this.document(id))
-      .then(snapshot => snapshot.data());
+    return getDoc(this.document(id)).then((snapshot) => snapshot.data());
   }
 
   get$(id: string) {
@@ -42,8 +51,7 @@ export class BidRequestInfrastructureService
   }
 
   list() {
-    return getDocs(this.collection())
-      .then(snapshots => snapshots.docs.map(doc => doc.data()))
+    return getDocs(this.collection()).then((snapshots) => snapshots.docs.map((doc) => doc.data()));
   }
 
   list$() {
@@ -51,8 +59,7 @@ export class BidRequestInfrastructureService
   }
 
   listGroup() {
-    return getDocs(this.collectionGroup())
-      .then(snapshots => snapshots.docs.map(doc => doc.data()))
+    return getDocs(this.collectionGroup()).then((snapshots) => snapshots.docs.map((doc) => doc.data()));
   }
 
   listGroup$() {
