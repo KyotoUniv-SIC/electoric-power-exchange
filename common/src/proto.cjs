@@ -1624,16 +1624,262 @@
             return BidRequest;
         })();
     
+        main.Chat = (function() {
+    
+            /**
+             * Properties of a Chat.
+             * @memberof main
+             * @interface IChat
+             * @property {string|null} [id] Chat id
+             * @property {string|null} [name] Chat name
+             * @property {string|null} [user1] Chat user1
+             * @property {string|null} [user2] Chat user2
+             */
+    
+            /**
+             * Constructs a new Chat.
+             * @memberof main
+             * @classdesc Represents a Chat.
+             * @implements IChat
+             * @constructor
+             * @param {main.IChat=} [properties] Properties to set
+             */
+            function Chat(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+    
+            /**
+             * Chat id.
+             * @member {string} id
+             * @memberof main.Chat
+             * @instance
+             */
+            Chat.prototype.id = "";
+    
+            /**
+             * Chat name.
+             * @member {string} name
+             * @memberof main.Chat
+             * @instance
+             */
+            Chat.prototype.name = "";
+    
+            /**
+             * Chat user1.
+             * @member {string} user1
+             * @memberof main.Chat
+             * @instance
+             */
+            Chat.prototype.user1 = "";
+    
+            /**
+             * Chat user2.
+             * @member {string} user2
+             * @memberof main.Chat
+             * @instance
+             */
+            Chat.prototype.user2 = "";
+    
+            /**
+             * Encodes the specified Chat message. Does not implicitly {@link main.Chat.verify|verify} messages.
+             * @function encode
+             * @memberof main.Chat
+             * @static
+             * @param {main.IChat} message Chat message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            Chat.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                if (message.name != null && Object.hasOwnProperty.call(message, "name"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.name);
+                if (message.user1 != null && Object.hasOwnProperty.call(message, "user1"))
+                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.user1);
+                if (message.user2 != null && Object.hasOwnProperty.call(message, "user2"))
+                    writer.uint32(/* id 4, wireType 2 =*/34).string(message.user2);
+                return writer;
+            };
+    
+            /**
+             * Encodes the specified Chat message, length delimited. Does not implicitly {@link main.Chat.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof main.Chat
+             * @static
+             * @param {main.IChat} message Chat message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            Chat.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+    
+            /**
+             * Decodes a Chat message from the specified reader or buffer.
+             * @function decode
+             * @memberof main.Chat
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {main.Chat} Chat
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            Chat.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.Chat();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.id = reader.string();
+                        break;
+                    case 2:
+                        message.name = reader.string();
+                        break;
+                    case 3:
+                        message.user1 = reader.string();
+                        break;
+                    case 4:
+                        message.user2 = reader.string();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Decodes a Chat message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof main.Chat
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {main.Chat} Chat
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            Chat.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+    
+            /**
+             * Verifies a Chat message.
+             * @function verify
+             * @memberof main.Chat
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            Chat.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.id != null && message.hasOwnProperty("id"))
+                    if (!$util.isString(message.id))
+                        return "id: string expected";
+                if (message.name != null && message.hasOwnProperty("name"))
+                    if (!$util.isString(message.name))
+                        return "name: string expected";
+                if (message.user1 != null && message.hasOwnProperty("user1"))
+                    if (!$util.isString(message.user1))
+                        return "user1: string expected";
+                if (message.user2 != null && message.hasOwnProperty("user2"))
+                    if (!$util.isString(message.user2))
+                        return "user2: string expected";
+                return null;
+            };
+    
+            /**
+             * Creates a Chat message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof main.Chat
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {main.Chat} Chat
+             */
+            Chat.fromObject = function fromObject(object) {
+                if (object instanceof $root.main.Chat)
+                    return object;
+                var message = new $root.main.Chat();
+                if (object.id != null)
+                    message.id = String(object.id);
+                if (object.name != null)
+                    message.name = String(object.name);
+                if (object.user1 != null)
+                    message.user1 = String(object.user1);
+                if (object.user2 != null)
+                    message.user2 = String(object.user2);
+                return message;
+            };
+    
+            /**
+             * Creates a plain object from a Chat message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof main.Chat
+             * @static
+             * @param {main.Chat} message Chat
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            Chat.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.id = "";
+                    object.name = "";
+                    object.user1 = "";
+                    object.user2 = "";
+                }
+                if (message.id != null && message.hasOwnProperty("id"))
+                    object.id = message.id;
+                if (message.name != null && message.hasOwnProperty("name"))
+                    object.name = message.name;
+                if (message.user1 != null && message.hasOwnProperty("user1"))
+                    object.user1 = message.user1;
+                if (message.user2 != null && message.hasOwnProperty("user2"))
+                    object.user2 = message.user2;
+                return object;
+            };
+    
+            /**
+             * Converts this Chat to JSON.
+             * @function toJSON
+             * @memberof main.Chat
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            Chat.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            return Chat;
+        })();
+    
         main.Message = (function() {
     
             /**
              * Properties of a Message.
              * @memberof main
              * @interface IMessage
+             * @property {boolean|null} [status] Message status
+             * @property {string|null} [type] Message type
              * @property {string|null} [id] Message id
+             * @property {string|null} [chat_id] Message chat_id
              * @property {string|null} [sender_account_id] Message sender_account_id
              * @property {string|null} [recipient_account_id] Message recipient_account_id
              * @property {string|null} [text] Message text
+             * @property {google.protobuf.ITimestamp|null} [date] Message date
              */
     
             /**
@@ -1652,12 +1898,36 @@
             }
     
             /**
+             * Message status.
+             * @member {boolean} status
+             * @memberof main.Message
+             * @instance
+             */
+            Message.prototype.status = false;
+    
+            /**
+             * Message type.
+             * @member {string} type
+             * @memberof main.Message
+             * @instance
+             */
+            Message.prototype.type = "";
+    
+            /**
              * Message id.
              * @member {string} id
              * @memberof main.Message
              * @instance
              */
             Message.prototype.id = "";
+    
+            /**
+             * Message chat_id.
+             * @member {string} chat_id
+             * @memberof main.Message
+             * @instance
+             */
+            Message.prototype.chat_id = "";
     
             /**
              * Message sender_account_id.
@@ -1684,6 +1954,14 @@
             Message.prototype.text = "";
     
             /**
+             * Message date.
+             * @member {google.protobuf.ITimestamp|null|undefined} date
+             * @memberof main.Message
+             * @instance
+             */
+            Message.prototype.date = null;
+    
+            /**
              * Encodes the specified Message message. Does not implicitly {@link main.Message.verify|verify} messages.
              * @function encode
              * @memberof main.Message
@@ -1695,14 +1973,22 @@
             Message.encode = function encode(message, writer) {
                 if (!writer)
                     writer = $Writer.create();
+                if (message.status != null && Object.hasOwnProperty.call(message, "status"))
+                    writer.uint32(/* id 1, wireType 0 =*/8).bool(message.status);
+                if (message.type != null && Object.hasOwnProperty.call(message, "type"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.type);
                 if (message.id != null && Object.hasOwnProperty.call(message, "id"))
-                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.id);
+                if (message.chat_id != null && Object.hasOwnProperty.call(message, "chat_id"))
+                    writer.uint32(/* id 4, wireType 2 =*/34).string(message.chat_id);
                 if (message.sender_account_id != null && Object.hasOwnProperty.call(message, "sender_account_id"))
-                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.sender_account_id);
+                    writer.uint32(/* id 5, wireType 2 =*/42).string(message.sender_account_id);
                 if (message.recipient_account_id != null && Object.hasOwnProperty.call(message, "recipient_account_id"))
-                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.recipient_account_id);
+                    writer.uint32(/* id 6, wireType 2 =*/50).string(message.recipient_account_id);
                 if (message.text != null && Object.hasOwnProperty.call(message, "text"))
-                    writer.uint32(/* id 4, wireType 2 =*/34).string(message.text);
+                    writer.uint32(/* id 7, wireType 2 =*/58).string(message.text);
+                if (message.date != null && Object.hasOwnProperty.call(message, "date"))
+                    $root.google.protobuf.Timestamp.encode(message.date, writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
                 return writer;
             };
     
@@ -1738,16 +2024,28 @@
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
                     case 1:
-                        message.id = reader.string();
+                        message.status = reader.bool();
                         break;
                     case 2:
-                        message.sender_account_id = reader.string();
+                        message.type = reader.string();
                         break;
                     case 3:
-                        message.recipient_account_id = reader.string();
+                        message.id = reader.string();
                         break;
                     case 4:
+                        message.chat_id = reader.string();
+                        break;
+                    case 5:
+                        message.sender_account_id = reader.string();
+                        break;
+                    case 6:
+                        message.recipient_account_id = reader.string();
+                        break;
+                    case 7:
                         message.text = reader.string();
+                        break;
+                    case 8:
+                        message.date = $root.google.protobuf.Timestamp.decode(reader, reader.uint32());
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -1784,9 +2082,18 @@
             Message.verify = function verify(message) {
                 if (typeof message !== "object" || message === null)
                     return "object expected";
+                if (message.status != null && message.hasOwnProperty("status"))
+                    if (typeof message.status !== "boolean")
+                        return "status: boolean expected";
+                if (message.type != null && message.hasOwnProperty("type"))
+                    if (!$util.isString(message.type))
+                        return "type: string expected";
                 if (message.id != null && message.hasOwnProperty("id"))
                     if (!$util.isString(message.id))
                         return "id: string expected";
+                if (message.chat_id != null && message.hasOwnProperty("chat_id"))
+                    if (!$util.isString(message.chat_id))
+                        return "chat_id: string expected";
                 if (message.sender_account_id != null && message.hasOwnProperty("sender_account_id"))
                     if (!$util.isString(message.sender_account_id))
                         return "sender_account_id: string expected";
@@ -1796,6 +2103,11 @@
                 if (message.text != null && message.hasOwnProperty("text"))
                     if (!$util.isString(message.text))
                         return "text: string expected";
+                if (message.date != null && message.hasOwnProperty("date")) {
+                    var error = $root.google.protobuf.Timestamp.verify(message.date);
+                    if (error)
+                        return "date." + error;
+                }
                 return null;
             };
     
@@ -1811,14 +2123,25 @@
                 if (object instanceof $root.main.Message)
                     return object;
                 var message = new $root.main.Message();
+                if (object.status != null)
+                    message.status = Boolean(object.status);
+                if (object.type != null)
+                    message.type = String(object.type);
                 if (object.id != null)
                     message.id = String(object.id);
+                if (object.chat_id != null)
+                    message.chat_id = String(object.chat_id);
                 if (object.sender_account_id != null)
                     message.sender_account_id = String(object.sender_account_id);
                 if (object.recipient_account_id != null)
                     message.recipient_account_id = String(object.recipient_account_id);
                 if (object.text != null)
                     message.text = String(object.text);
+                if (object.date != null) {
+                    if (typeof object.date !== "object")
+                        throw TypeError(".main.Message.date: object expected");
+                    message.date = $root.google.protobuf.Timestamp.fromObject(object.date);
+                }
                 return message;
             };
     
@@ -1836,19 +2159,31 @@
                     options = {};
                 var object = {};
                 if (options.defaults) {
+                    object.status = false;
+                    object.type = "";
                     object.id = "";
+                    object.chat_id = "";
                     object.sender_account_id = "";
                     object.recipient_account_id = "";
                     object.text = "";
+                    object.date = null;
                 }
+                if (message.status != null && message.hasOwnProperty("status"))
+                    object.status = message.status;
+                if (message.type != null && message.hasOwnProperty("type"))
+                    object.type = message.type;
                 if (message.id != null && message.hasOwnProperty("id"))
                     object.id = message.id;
+                if (message.chat_id != null && message.hasOwnProperty("chat_id"))
+                    object.chat_id = message.chat_id;
                 if (message.sender_account_id != null && message.hasOwnProperty("sender_account_id"))
                     object.sender_account_id = message.sender_account_id;
                 if (message.recipient_account_id != null && message.hasOwnProperty("recipient_account_id"))
                     object.recipient_account_id = message.recipient_account_id;
                 if (message.text != null && message.hasOwnProperty("text"))
                     object.text = message.text;
+                if (message.date != null && message.hasOwnProperty("date"))
+                    object.date = $root.google.protobuf.Timestamp.toObject(message.date, options);
                 return object;
             };
     
@@ -3508,6 +3843,242 @@
         })();
     
         return main;
+    })();
+    
+    $root.google = (function() {
+    
+        /**
+         * Namespace google.
+         * @exports google
+         * @namespace
+         */
+        var google = {};
+    
+        google.protobuf = (function() {
+    
+            /**
+             * Namespace protobuf.
+             * @memberof google
+             * @namespace
+             */
+            var protobuf = {};
+    
+            protobuf.Timestamp = (function() {
+    
+                /**
+                 * Properties of a Timestamp.
+                 * @memberof google.protobuf
+                 * @interface ITimestamp
+                 * @property {Long|null} [seconds] Timestamp seconds
+                 * @property {number|null} [nanos] Timestamp nanos
+                 */
+    
+                /**
+                 * Constructs a new Timestamp.
+                 * @memberof google.protobuf
+                 * @classdesc Represents a Timestamp.
+                 * @implements ITimestamp
+                 * @constructor
+                 * @param {google.protobuf.ITimestamp=} [properties] Properties to set
+                 */
+                function Timestamp(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * Timestamp seconds.
+                 * @member {Long} seconds
+                 * @memberof google.protobuf.Timestamp
+                 * @instance
+                 */
+                Timestamp.prototype.seconds = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+    
+                /**
+                 * Timestamp nanos.
+                 * @member {number} nanos
+                 * @memberof google.protobuf.Timestamp
+                 * @instance
+                 */
+                Timestamp.prototype.nanos = 0;
+    
+                /**
+                 * Encodes the specified Timestamp message. Does not implicitly {@link google.protobuf.Timestamp.verify|verify} messages.
+                 * @function encode
+                 * @memberof google.protobuf.Timestamp
+                 * @static
+                 * @param {google.protobuf.ITimestamp} message Timestamp message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                Timestamp.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.seconds != null && Object.hasOwnProperty.call(message, "seconds"))
+                        writer.uint32(/* id 1, wireType 0 =*/8).int64(message.seconds);
+                    if (message.nanos != null && Object.hasOwnProperty.call(message, "nanos"))
+                        writer.uint32(/* id 2, wireType 0 =*/16).int32(message.nanos);
+                    return writer;
+                };
+    
+                /**
+                 * Encodes the specified Timestamp message, length delimited. Does not implicitly {@link google.protobuf.Timestamp.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof google.protobuf.Timestamp
+                 * @static
+                 * @param {google.protobuf.ITimestamp} message Timestamp message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                Timestamp.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+    
+                /**
+                 * Decodes a Timestamp message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof google.protobuf.Timestamp
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {google.protobuf.Timestamp} Timestamp
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                Timestamp.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.google.protobuf.Timestamp();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.seconds = reader.int64();
+                            break;
+                        case 2:
+                            message.nanos = reader.int32();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                /**
+                 * Decodes a Timestamp message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof google.protobuf.Timestamp
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {google.protobuf.Timestamp} Timestamp
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                Timestamp.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+    
+                /**
+                 * Verifies a Timestamp message.
+                 * @function verify
+                 * @memberof google.protobuf.Timestamp
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                Timestamp.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.seconds != null && message.hasOwnProperty("seconds"))
+                        if (!$util.isInteger(message.seconds) && !(message.seconds && $util.isInteger(message.seconds.low) && $util.isInteger(message.seconds.high)))
+                            return "seconds: integer|Long expected";
+                    if (message.nanos != null && message.hasOwnProperty("nanos"))
+                        if (!$util.isInteger(message.nanos))
+                            return "nanos: integer expected";
+                    return null;
+                };
+    
+                /**
+                 * Creates a Timestamp message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof google.protobuf.Timestamp
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {google.protobuf.Timestamp} Timestamp
+                 */
+                Timestamp.fromObject = function fromObject(object) {
+                    if (object instanceof $root.google.protobuf.Timestamp)
+                        return object;
+                    var message = new $root.google.protobuf.Timestamp();
+                    if (object.seconds != null)
+                        if ($util.Long)
+                            (message.seconds = $util.Long.fromValue(object.seconds)).unsigned = false;
+                        else if (typeof object.seconds === "string")
+                            message.seconds = parseInt(object.seconds, 10);
+                        else if (typeof object.seconds === "number")
+                            message.seconds = object.seconds;
+                        else if (typeof object.seconds === "object")
+                            message.seconds = new $util.LongBits(object.seconds.low >>> 0, object.seconds.high >>> 0).toNumber();
+                    if (object.nanos != null)
+                        message.nanos = object.nanos | 0;
+                    return message;
+                };
+    
+                /**
+                 * Creates a plain object from a Timestamp message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof google.protobuf.Timestamp
+                 * @static
+                 * @param {google.protobuf.Timestamp} message Timestamp
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                Timestamp.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.defaults) {
+                        if ($util.Long) {
+                            var long = new $util.Long(0, 0, false);
+                            object.seconds = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                        } else
+                            object.seconds = options.longs === String ? "0" : 0;
+                        object.nanos = 0;
+                    }
+                    if (message.seconds != null && message.hasOwnProperty("seconds"))
+                        if (typeof message.seconds === "number")
+                            object.seconds = options.longs === String ? String(message.seconds) : message.seconds;
+                        else
+                            object.seconds = options.longs === String ? $util.Long.prototype.toString.call(message.seconds) : options.longs === Number ? new $util.LongBits(message.seconds.low >>> 0, message.seconds.high >>> 0).toNumber() : message.seconds;
+                    if (message.nanos != null && message.hasOwnProperty("nanos"))
+                        object.nanos = message.nanos;
+                    return object;
+                };
+    
+                /**
+                 * Converts this Timestamp to JSON.
+                 * @function toJSON
+                 * @memberof google.protobuf.Timestamp
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                Timestamp.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+    
+                return Timestamp;
+            })();
+    
+            return protobuf;
+        })();
+    
+        return google;
     })();
 
     return $root;
