@@ -1,12 +1,12 @@
 {
   "projects": {
-    "default": "kyoto-univ-sic-electric-dev"
+    "default": "edison-dev-1c1b5"
   },
   "targets": {
-    "kyoto-univ-sic-electric-dev": {
+    "edison-dev-1c1b5": {
       "hosting": {
         "main": [
-          "kyoto-univ-sic-electric-dev"
+          "edison-dev-1c1b5"
         ]
       }
     }
