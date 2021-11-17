@@ -1,12 +1,12 @@
 export const environment = {
   production: true,
   firebase: {
-    apiKey: 'AIzaSyCb4GQMkQwcoPheY76vwV9zCxaSkU9_7sI',
-    authDomain: 'kyoto-univ-sic-electric-dev.firebaseapp.com',
-    projectId: 'kyoto-univ-sic-electric-dev',
-    storageBucket: 'kyoto-univ-sic-electric-dev.appspot.com',
-    messagingSenderId: '249012959391',
-    appId: '1:249012959391:web:cdcbe70ace957fb1990aaa',
-    measurementId: 'G-QNZJY63HSC',
+    apiKey: 'AIzaSyABS-YFbTz8MCgMiqHchDNRgMDQy599Deo',
+    authDomain: 'edison-dev-1c1b5.firebaseapp.com',
+    projectId: 'edison-dev-1c1b5',
+    storageBucket: 'edison-dev-1c1b5.appspot.com',
+    messagingSenderId: '260332319675',
+    appId: '1:260332319675:web:6d27a52f2e832bc0410a9e',
+    measurementId: 'G-2HB1BRH1ES',
   },
 };
