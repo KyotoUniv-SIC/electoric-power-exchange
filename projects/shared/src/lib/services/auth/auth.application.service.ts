@@ -2,7 +2,15 @@ import { ChangeEmailError, ChangePasswordError, ResetPasswordError, SignInError,
 import { AuthService } from './auth.service';
 import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
-import { Auth, GoogleAuthProvider, FacebookAuthProvider, sendPasswordResetEmail, updateEmail, updatePassword } from '@angular/fire/auth';
+import {
+  Auth,
+  GoogleAuthProvider,
+  FacebookAuthProvider,
+  sendPasswordResetEmail,
+  updateEmail,
+  updatePassword,
+  sendEmailVerification,
+} from '@angular/fire/auth';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Account, User } from '@local/common';
@@ -87,6 +95,31 @@ export class AuthApplicationService {
       return;
     } finally {
       dialogRef.close();
+    }
+
+    const dialogRef2 = this.loadingDialog.open('アカウントを確認するためのメールを送信しています');
+    try {
+      await sendEmailVerification(this.auth.currentUser!);
+    } catch (error) {
+      switch ((error as ResetPasswordError).code) {
+        case 'auth/user-not-found':
+          this.snackBar.open('登録されていないユーザーです。', undefined, {
+            duration: 6000,
+          });
+          break;
+        case 'auth/wrong-password':
+          this.snackBar.open('パスワードが間違っています', undefined, {
+            duration: 6000,
+          });
+          break;
+        case 'auth/invalid-email':
+          this.snackBar.open('無効なメールアドレスです。', undefined, {
+            duration: 6000,
+          });
+          break;
+      }
+    } finally {
+      dialogRef2.close();
     }
 
     this.location.back();
