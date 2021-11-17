@@ -1,5 +1,6 @@
 import { SellOnSubmitEvent } from '../../../view/txs/sell/sell.component';
 import { Component, OnInit } from '@angular/core';
+import { getAuth } from '@angular/fire/auth';
 import { BidRequest } from '@local/common';
 import { BidRequestApplicationService } from 'projects/shared/src/lib/services/bid-requests/bid-request.application.service';
 
@@ -19,6 +20,7 @@ export class SellComponent implements OnInit {
   async onSubmit($event: SellOnSubmitEvent) {
     await this.bidApp.create(
       new BidRequest({
+        account_id: getAuth().currentUser?.uid,
         denom: $event.denom,
         price: $event.price,
         amount: $event.amount,

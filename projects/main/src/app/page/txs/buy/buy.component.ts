@@ -1,6 +1,7 @@
 import { BuyOnSubmitEvent } from '../../../view/txs/buy/buy.component';
 import { Component, OnInit } from '@angular/core';
 import { AskRequest } from '@local/common';
+import { getAuth } from 'firebase/auth';
 import { AskRequestApplicationService } from 'projects/shared/src/lib/services/ask-requests/ask-request.application.service';
 
 @Component({
@@ -20,6 +21,7 @@ export class BuyComponent implements OnInit {
   async onSubmit($event: BuyOnSubmitEvent) {
     await this.askApp.create(
       new AskRequest({
+        account_id: getAuth().currentUser?.uid,
         denom: $event.denom,
         price: $event.price,
         amount: $event.amount,
