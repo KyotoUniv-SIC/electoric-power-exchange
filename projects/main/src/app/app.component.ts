@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthApplicationService } from 'projects/shared/src/lib/services/auth/auth.application.service';
 import { AuthService } from 'projects/shared/src/lib/services/auth/auth.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -10,7 +11,12 @@ import { map } from 'rxjs/operators';
 })
 export class AppComponent {
   isLogin$: Observable<boolean>;
-  constructor(private readonly auth: AuthService) {
-    this.isLogin$ = this.auth.currentUser$.pipe(map((user) => !!user));
+  constructor(private readonly auth: AuthService, private authApp: AuthApplicationService) {
+    this.isLogin$ = this.auth.currentUser$.pipe(map((user) => !!user?.id));
+  }
+
+  async onSubmit() {
+    this.authApp.signOut();
+    location.reload();
   }
 }

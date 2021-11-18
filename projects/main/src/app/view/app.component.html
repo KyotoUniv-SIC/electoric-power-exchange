@@ -8,8 +8,11 @@
   <span class="flex-auto w-1/2"></span>
   <span class="flex-auto">
     <button *ngIf="!isLogin" mat-flat-button color="account" routerLink="/accounts/enter">Sign In</button>
+    <span class="mr-2"></span>
     <button *ngIf="!isLogin" mat-flat-button color="account" routerLink="/accounts/create">Sign Up</button>
-    <button mat-icon-button *ngIf="isLogin" (click)="onClickLogout()">Sign Out</button>
+    <button mat-icon-button *ngIf="isLogin" (click)="onClickSignout()">
+      <mat-icon color="account">exit_to_app</mat-icon>
+    </button>
   </span>
 </mat-toolbar>
 <mat-drawer-container>

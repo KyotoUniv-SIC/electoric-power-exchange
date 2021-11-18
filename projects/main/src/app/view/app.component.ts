@@ -21,5 +21,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {}
 
-  onClickLogout(): void {}
+  onClickSignout(): void {
+    this.appSignOut.emit();
+  }
 }
