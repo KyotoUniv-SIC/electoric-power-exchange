@@ -2,7 +2,6 @@ syntax = "proto3";
 package main;
 
 import "firebase_rules_options.proto";
-import "google/protobuf/timestamp.proto";
 
 option (google.firebase.rules.firebase_rules).full_package_names = true;
 
@@ -14,5 +13,4 @@ message Message {
   string sender_account_id = 5;
   string recipient_account_id = 6;
   string text = 7;
-  google.protobuf.Timestamp date = 8;
 }

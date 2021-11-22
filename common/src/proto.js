@@ -1870,7 +1870,6 @@ export const main = $root.main = (() => {
          * @property {string|null} [sender_account_id] Message sender_account_id
          * @property {string|null} [recipient_account_id] Message recipient_account_id
          * @property {string|null} [text] Message text
-         * @property {google.protobuf.ITimestamp|null} [date] Message date
          */
 
         /**
@@ -1945,14 +1944,6 @@ export const main = $root.main = (() => {
         Message.prototype.text = "";
 
         /**
-         * Message date.
-         * @member {google.protobuf.ITimestamp|null|undefined} date
-         * @memberof main.Message
-         * @instance
-         */
-        Message.prototype.date = null;
-
-        /**
          * Encodes the specified Message message. Does not implicitly {@link main.Message.verify|verify} messages.
          * @function encode
          * @memberof main.Message
@@ -1978,8 +1969,6 @@ export const main = $root.main = (() => {
                 writer.uint32(/* id 6, wireType 2 =*/50).string(message.recipient_account_id);
             if (message.text != null && Object.hasOwnProperty.call(message, "text"))
                 writer.uint32(/* id 7, wireType 2 =*/58).string(message.text);
-            if (message.date != null && Object.hasOwnProperty.call(message, "date"))
-                $root.google.protobuf.Timestamp.encode(message.date, writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
             return writer;
         };
 
@@ -2034,9 +2023,6 @@ export const main = $root.main = (() => {
                     break;
                 case 7:
                     message.text = reader.string();
-                    break;
-                case 8:
-                    message.date = $root.google.protobuf.Timestamp.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -2094,11 +2080,6 @@ export const main = $root.main = (() => {
             if (message.text != null && message.hasOwnProperty("text"))
                 if (!$util.isString(message.text))
                     return "text: string expected";
-            if (message.date != null && message.hasOwnProperty("date")) {
-                let error = $root.google.protobuf.Timestamp.verify(message.date);
-                if (error)
-                    return "date." + error;
-            }
             return null;
         };
 
@@ -2128,11 +2109,6 @@ export const main = $root.main = (() => {
                 message.recipient_account_id = String(object.recipient_account_id);
             if (object.text != null)
                 message.text = String(object.text);
-            if (object.date != null) {
-                if (typeof object.date !== "object")
-                    throw TypeError(".main.Message.date: object expected");
-                message.date = $root.google.protobuf.Timestamp.fromObject(object.date);
-            }
             return message;
         };
 
@@ -2157,7 +2133,6 @@ export const main = $root.main = (() => {
                 object.sender_account_id = "";
                 object.recipient_account_id = "";
                 object.text = "";
-                object.date = null;
             }
             if (message.status != null && message.hasOwnProperty("status"))
                 object.status = message.status;
@@ -2173,8 +2148,6 @@ export const main = $root.main = (() => {
                 object.recipient_account_id = message.recipient_account_id;
             if (message.text != null && message.hasOwnProperty("text"))
                 object.text = message.text;
-            if (message.date != null && message.hasOwnProperty("date"))
-                object.date = $root.google.protobuf.Timestamp.toObject(message.date, options);
             return object;
         };
 
@@ -3834,242 +3807,6 @@ export const main = $root.main = (() => {
     })();
 
     return main;
-})();
-
-export const google = $root.google = (() => {
-
-    /**
-     * Namespace google.
-     * @exports google
-     * @namespace
-     */
-    const google = {};
-
-    google.protobuf = (function() {
-
-        /**
-         * Namespace protobuf.
-         * @memberof google
-         * @namespace
-         */
-        const protobuf = {};
-
-        protobuf.Timestamp = (function() {
-
-            /**
-             * Properties of a Timestamp.
-             * @memberof google.protobuf
-             * @interface ITimestamp
-             * @property {Long|null} [seconds] Timestamp seconds
-             * @property {number|null} [nanos] Timestamp nanos
-             */
-
-            /**
-             * Constructs a new Timestamp.
-             * @memberof google.protobuf
-             * @classdesc Represents a Timestamp.
-             * @implements ITimestamp
-             * @constructor
-             * @param {google.protobuf.ITimestamp=} [properties] Properties to set
-             */
-            function Timestamp(properties) {
-                if (properties)
-                    for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
-                            this[keys[i]] = properties[keys[i]];
-            }
-
-            /**
-             * Timestamp seconds.
-             * @member {Long} seconds
-             * @memberof google.protobuf.Timestamp
-             * @instance
-             */
-            Timestamp.prototype.seconds = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
-
-            /**
-             * Timestamp nanos.
-             * @member {number} nanos
-             * @memberof google.protobuf.Timestamp
-             * @instance
-             */
-            Timestamp.prototype.nanos = 0;
-
-            /**
-             * Encodes the specified Timestamp message. Does not implicitly {@link google.protobuf.Timestamp.verify|verify} messages.
-             * @function encode
-             * @memberof google.protobuf.Timestamp
-             * @static
-             * @param {google.protobuf.ITimestamp} message Timestamp message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            Timestamp.encode = function encode(message, writer) {
-                if (!writer)
-                    writer = $Writer.create();
-                if (message.seconds != null && Object.hasOwnProperty.call(message, "seconds"))
-                    writer.uint32(/* id 1, wireType 0 =*/8).int64(message.seconds);
-                if (message.nanos != null && Object.hasOwnProperty.call(message, "nanos"))
-                    writer.uint32(/* id 2, wireType 0 =*/16).int32(message.nanos);
-                return writer;
-            };
-
-            /**
-             * Encodes the specified Timestamp message, length delimited. Does not implicitly {@link google.protobuf.Timestamp.verify|verify} messages.
-             * @function encodeDelimited
-             * @memberof google.protobuf.Timestamp
-             * @static
-             * @param {google.protobuf.ITimestamp} message Timestamp message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            Timestamp.encodeDelimited = function encodeDelimited(message, writer) {
-                return this.encode(message, writer).ldelim();
-            };
-
-            /**
-             * Decodes a Timestamp message from the specified reader or buffer.
-             * @function decode
-             * @memberof google.protobuf.Timestamp
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @param {number} [length] Message length if known beforehand
-             * @returns {google.protobuf.Timestamp} Timestamp
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            Timestamp.decode = function decode(reader, length) {
-                if (!(reader instanceof $Reader))
-                    reader = $Reader.create(reader);
-                let end = length === undefined ? reader.len : reader.pos + length, message = new $root.google.protobuf.Timestamp();
-                while (reader.pos < end) {
-                    let tag = reader.uint32();
-                    switch (tag >>> 3) {
-                    case 1:
-                        message.seconds = reader.int64();
-                        break;
-                    case 2:
-                        message.nanos = reader.int32();
-                        break;
-                    default:
-                        reader.skipType(tag & 7);
-                        break;
-                    }
-                }
-                return message;
-            };
-
-            /**
-             * Decodes a Timestamp message from the specified reader or buffer, length delimited.
-             * @function decodeDelimited
-             * @memberof google.protobuf.Timestamp
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {google.protobuf.Timestamp} Timestamp
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            Timestamp.decodeDelimited = function decodeDelimited(reader) {
-                if (!(reader instanceof $Reader))
-                    reader = new $Reader(reader);
-                return this.decode(reader, reader.uint32());
-            };
-
-            /**
-             * Verifies a Timestamp message.
-             * @function verify
-             * @memberof google.protobuf.Timestamp
-             * @static
-             * @param {Object.<string,*>} message Plain object to verify
-             * @returns {string|null} `null` if valid, otherwise the reason why it is not
-             */
-            Timestamp.verify = function verify(message) {
-                if (typeof message !== "object" || message === null)
-                    return "object expected";
-                if (message.seconds != null && message.hasOwnProperty("seconds"))
-                    if (!$util.isInteger(message.seconds) && !(message.seconds && $util.isInteger(message.seconds.low) && $util.isInteger(message.seconds.high)))
-                        return "seconds: integer|Long expected";
-                if (message.nanos != null && message.hasOwnProperty("nanos"))
-                    if (!$util.isInteger(message.nanos))
-                        return "nanos: integer expected";
-                return null;
-            };
-
-            /**
-             * Creates a Timestamp message from a plain object. Also converts values to their respective internal types.
-             * @function fromObject
-             * @memberof google.protobuf.Timestamp
-             * @static
-             * @param {Object.<string,*>} object Plain object
-             * @returns {google.protobuf.Timestamp} Timestamp
-             */
-            Timestamp.fromObject = function fromObject(object) {
-                if (object instanceof $root.google.protobuf.Timestamp)
-                    return object;
-                let message = new $root.google.protobuf.Timestamp();
-                if (object.seconds != null)
-                    if ($util.Long)
-                        (message.seconds = $util.Long.fromValue(object.seconds)).unsigned = false;
-                    else if (typeof object.seconds === "string")
-                        message.seconds = parseInt(object.seconds, 10);
-                    else if (typeof object.seconds === "number")
-                        message.seconds = object.seconds;
-                    else if (typeof object.seconds === "object")
-                        message.seconds = new $util.LongBits(object.seconds.low >>> 0, object.seconds.high >>> 0).toNumber();
-                if (object.nanos != null)
-                    message.nanos = object.nanos | 0;
-                return message;
-            };
-
-            /**
-             * Creates a plain object from a Timestamp message. Also converts values to other types if specified.
-             * @function toObject
-             * @memberof google.protobuf.Timestamp
-             * @static
-             * @param {google.protobuf.Timestamp} message Timestamp
-             * @param {$protobuf.IConversionOptions} [options] Conversion options
-             * @returns {Object.<string,*>} Plain object
-             */
-            Timestamp.toObject = function toObject(message, options) {
-                if (!options)
-                    options = {};
-                let object = {};
-                if (options.defaults) {
-                    if ($util.Long) {
-                        let long = new $util.Long(0, 0, false);
-                        object.seconds = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.seconds = options.longs === String ? "0" : 0;
-                    object.nanos = 0;
-                }
-                if (message.seconds != null && message.hasOwnProperty("seconds"))
-                    if (typeof message.seconds === "number")
-                        object.seconds = options.longs === String ? String(message.seconds) : message.seconds;
-                    else
-                        object.seconds = options.longs === String ? $util.Long.prototype.toString.call(message.seconds) : options.longs === Number ? new $util.LongBits(message.seconds.low >>> 0, message.seconds.high >>> 0).toNumber() : message.seconds;
-                if (message.nanos != null && message.hasOwnProperty("nanos"))
-                    object.nanos = message.nanos;
-                return object;
-            };
-
-            /**
-             * Converts this Timestamp to JSON.
-             * @function toJSON
-             * @memberof google.protobuf.Timestamp
-             * @instance
-             * @returns {Object.<string,*>} JSON object
-             */
-            Timestamp.prototype.toJSON = function toJSON() {
-                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-            };
-
-            return Timestamp;
-        })();
-
-        return protobuf;
-    })();
-
-    return google;
 })();
 
 export { $root as default };
