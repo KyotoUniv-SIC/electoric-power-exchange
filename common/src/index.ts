@@ -5,3 +5,4 @@ export * from "./entities/ask-requests";
 export * from "./entities/bid-requests";
 export * from "./entities/student-accounts";
 export * from "./entities/messages";
+export * from "./entities/chats";
