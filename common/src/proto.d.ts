@@ -628,6 +628,226 @@ export namespace main {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a Chat. */
+    interface IChat {
+
+        /** Chat id */
+        id?: (string|null);
+
+        /** Chat name */
+        name?: (string|null);
+
+        /** Chat user1 */
+        user1?: (string|null);
+
+        /** Chat user2 */
+        user2?: (string|null);
+    }
+
+    /** Represents a Chat. */
+    class Chat implements IChat {
+
+        /**
+         * Constructs a new Chat.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.IChat);
+
+        /** Chat id. */
+        public id: string;
+
+        /** Chat name. */
+        public name: string;
+
+        /** Chat user1. */
+        public user1: string;
+
+        /** Chat user2. */
+        public user2: string;
+
+        /**
+         * Encodes the specified Chat message. Does not implicitly {@link main.Chat.verify|verify} messages.
+         * @param message Chat message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.IChat, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified Chat message, length delimited. Does not implicitly {@link main.Chat.verify|verify} messages.
+         * @param message Chat message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.IChat, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a Chat message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns Chat
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.Chat;
+
+        /**
+         * Decodes a Chat message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns Chat
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.Chat;
+
+        /**
+         * Verifies a Chat message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a Chat message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns Chat
+         */
+        public static fromObject(object: { [k: string]: any }): main.Chat;
+
+        /**
+         * Creates a plain object from a Chat message. Also converts values to other types if specified.
+         * @param message Chat
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.Chat, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this Chat to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a Message. */
+    interface IMessage {
+
+        /** Message status */
+        status?: (boolean|null);
+
+        /** Message type */
+        type?: (string|null);
+
+        /** Message id */
+        id?: (string|null);
+
+        /** Message chat_id */
+        chat_id?: (string|null);
+
+        /** Message sender_account_id */
+        sender_account_id?: (string|null);
+
+        /** Message recipient_account_id */
+        recipient_account_id?: (string|null);
+
+        /** Message text */
+        text?: (string|null);
+    }
+
+    /** Represents a Message. */
+    class Message implements IMessage {
+
+        /**
+         * Constructs a new Message.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.IMessage);
+
+        /** Message status. */
+        public status: boolean;
+
+        /** Message type. */
+        public type: string;
+
+        /** Message id. */
+        public id: string;
+
+        /** Message chat_id. */
+        public chat_id: string;
+
+        /** Message sender_account_id. */
+        public sender_account_id: string;
+
+        /** Message recipient_account_id. */
+        public recipient_account_id: string;
+
+        /** Message text. */
+        public text: string;
+
+        /**
+         * Encodes the specified Message message. Does not implicitly {@link main.Message.verify|verify} messages.
+         * @param message Message message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.IMessage, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified Message message, length delimited. Does not implicitly {@link main.Message.verify|verify} messages.
+         * @param message Message message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.IMessage, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a Message message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns Message
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.Message;
+
+        /**
+         * Decodes a Message message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns Message
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.Message;
+
+        /**
+         * Verifies a Message message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a Message message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns Message
+         */
+        public static fromObject(object: { [k: string]: any }): main.Message;
+
+        /**
+         * Creates a plain object from a Message message. Also converts values to other types if specified.
+         * @param message Message
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.Message, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this Message to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a MonthlyUsage. */
     interface IMonthlyUsage {
 

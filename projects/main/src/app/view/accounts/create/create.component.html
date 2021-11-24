@@ -2,9 +2,10 @@
   <h2>Sign Up</h2>
   <h3>SIGN UP ACCOUNT</h3>
   <form #formRef="ngForm" (submit)="onSubmit(nameRef.value, mailRef.value, passwordRef.value, passwordConfirmationRef.value)">
-    <mat-form-field class="w-full">
+    <mat-form-field hintLabel="Min 4 characters" class="w-full">
       <mat-label>Input Name</mat-label>
       <input #nameRef ngModel name="name" matInput required placeholder="Input value" minlength="4" />
+      <mat-hint align="end">{{nameRef.value?.length || 0}}/4</mat-hint>
     </mat-form-field>
     <br />
     <mat-form-field class="w-full">
@@ -20,7 +21,7 @@
       />
     </mat-form-field>
     <br />
-    <mat-form-field class="w-full">
+    <mat-form-field hintLabel="Min 8 characters" class="w-full">
       <mat-label>Input Password</mat-label>
       <input
         #passwordRef
@@ -37,6 +38,8 @@
           {{ isPasswordVisible ? 'visibility' : 'visibility_off' }}
         </mat-icon>
       </button>
+      <mat-hint align="end">{{passwordRef.value?.length || 0}}/8</mat-hint>
+
     </mat-form-field>
     <br />
     <mat-form-field class="w-full">

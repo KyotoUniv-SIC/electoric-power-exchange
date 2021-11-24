@@ -20,8 +20,13 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'messages',
-    loadChildren: () => import('./page/messages/messages.module').then((m) => m.AppMessagesModule),
+    path: 'chats',
+    loadChildren: () => import('./page/chats/chats.module').then((m) => m.AppChatsModule),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'chats',
+    loadChildren: () => import('./page/chats/chats.module').then((m) => m.AppChatsModule),
     canActivate: [AuthGuard],
   },
 ];
