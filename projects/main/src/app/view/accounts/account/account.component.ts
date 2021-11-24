@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { proto } from '@local/common';
+import { User } from '@firebase/auth';
 
 @Component({
   selector: 'view-account',
@@ -8,7 +8,7 @@ import { proto } from '@local/common';
 })
 export class AccountComponent implements OnInit {
   @Input()
-  user?: any | null;
+  user?: User | null;
 
   constructor() {}
 
