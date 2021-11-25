@@ -1881,16 +1881,18 @@
         })();
     
         /**
-         * AskType enum.
-         * @name main.AskType
+         * NormalAskType enum.
+         * @name main.NormalAskType
          * @enum {number}
-         * @property {number} PRIMARY=0 PRIMARY value
-         * @property {number} SECONDARY=1 SECONDARY value
+         * @property {number} UNKNOWN=0 UNKNOWN value
+         * @property {number} PRIMARYADDITIONAL=1 PRIMARYADDITIONAL value
+         * @property {number} SECONDARY=2 SECONDARY value
          */
-        main.AskType = (function() {
+        main.NormalAskType = (function() {
             var valuesById = {}, values = Object.create(valuesById);
-            values[valuesById[0] = "PRIMARY"] = 0;
-            values[valuesById[1] = "SECONDARY"] = 1;
+            values[valuesById[0] = "UNKNOWN"] = 0;
+            values[valuesById[1] = "PRIMARYADDITIONAL"] = 1;
+            values[valuesById[2] = "SECONDARY"] = 2;
             return values;
         })();
     
@@ -1901,7 +1903,7 @@
              * @memberof main
              * @interface INormalAsk
              * @property {string|null} [id] NormalAsk id
-             * @property {main.AskType|null} [type] NormalAsk type
+             * @property {main.NormalAskType|null} [type] NormalAsk type
              * @property {string|null} [account_id] NormalAsk account_id
              * @property {number|null} [price] NormalAsk price
              * @property {number|null} [amount] NormalAsk amount
@@ -1932,7 +1934,7 @@
     
             /**
              * NormalAsk type.
-             * @member {main.AskType} type
+             * @member {main.NormalAskType} type
              * @memberof main.NormalAsk
              * @instance
              */
@@ -2077,6 +2079,7 @@
                         return "type: enum value expected";
                     case 0:
                     case 1:
+                    case 2:
                         break;
                     }
                 if (message.account_id != null && message.hasOwnProperty("account_id"))
@@ -2106,13 +2109,17 @@
                 if (object.id != null)
                     message.id = String(object.id);
                 switch (object.type) {
-                case "PRIMARY":
+                case "UNKNOWN":
                 case 0:
                     message.type = 0;
                     break;
-                case "SECONDARY":
+                case "PRIMARYADDITIONAL":
                 case 1:
                     message.type = 1;
+                    break;
+                case "SECONDARY":
+                case 2:
+                    message.type = 2;
                     break;
                 }
                 if (object.account_id != null)
@@ -2139,7 +2146,7 @@
                 var object = {};
                 if (options.defaults) {
                     object.id = "";
-                    object.type = options.enums === String ? "PRIMARY" : 0;
+                    object.type = options.enums === String ? "UNKNOWN" : 0;
                     object.account_id = "";
                     object.price = 0;
                     object.amount = 0;
@@ -2147,7 +2154,7 @@
                 if (message.id != null && message.hasOwnProperty("id"))
                     object.id = message.id;
                 if (message.type != null && message.hasOwnProperty("type"))
-                    object.type = options.enums === String ? $root.main.AskType[message.type] : message.type;
+                    object.type = options.enums === String ? $root.main.NormalAskType[message.type] : message.type;
                 if (message.account_id != null && message.hasOwnProperty("account_id"))
                     object.account_id = message.account_id;
                 if (message.price != null && message.hasOwnProperty("price"))
@@ -3164,6 +3171,304 @@
             };
     
             return PrimaryBid;
+        })();
+    
+        /**
+         * RenewableAskType enum.
+         * @name main.RenewableAskType
+         * @enum {number}
+         * @property {number} UNKNOWN=0 UNKNOWN value
+         * @property {number} PRIMARY=1 PRIMARY value
+         * @property {number} SECONDARY=2 SECONDARY value
+         */
+        main.RenewableAskType = (function() {
+            var valuesById = {}, values = Object.create(valuesById);
+            values[valuesById[0] = "UNKNOWN"] = 0;
+            values[valuesById[1] = "PRIMARY"] = 1;
+            values[valuesById[2] = "SECONDARY"] = 2;
+            return values;
+        })();
+    
+        main.RenewableAsk = (function() {
+    
+            /**
+             * Properties of a RenewableAsk.
+             * @memberof main
+             * @interface IRenewableAsk
+             * @property {string|null} [id] RenewableAsk id
+             * @property {main.RenewableAskType|null} [type] RenewableAsk type
+             * @property {string|null} [account_id] RenewableAsk account_id
+             * @property {number|null} [price] RenewableAsk price
+             * @property {number|null} [amount] RenewableAsk amount
+             */
+    
+            /**
+             * Constructs a new RenewableAsk.
+             * @memberof main
+             * @classdesc Represents a RenewableAsk.
+             * @implements IRenewableAsk
+             * @constructor
+             * @param {main.IRenewableAsk=} [properties] Properties to set
+             */
+            function RenewableAsk(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+    
+            /**
+             * RenewableAsk id.
+             * @member {string} id
+             * @memberof main.RenewableAsk
+             * @instance
+             */
+            RenewableAsk.prototype.id = "";
+    
+            /**
+             * RenewableAsk type.
+             * @member {main.RenewableAskType} type
+             * @memberof main.RenewableAsk
+             * @instance
+             */
+            RenewableAsk.prototype.type = 0;
+    
+            /**
+             * RenewableAsk account_id.
+             * @member {string} account_id
+             * @memberof main.RenewableAsk
+             * @instance
+             */
+            RenewableAsk.prototype.account_id = "";
+    
+            /**
+             * RenewableAsk price.
+             * @member {number} price
+             * @memberof main.RenewableAsk
+             * @instance
+             */
+            RenewableAsk.prototype.price = 0;
+    
+            /**
+             * RenewableAsk amount.
+             * @member {number} amount
+             * @memberof main.RenewableAsk
+             * @instance
+             */
+            RenewableAsk.prototype.amount = 0;
+    
+            /**
+             * Encodes the specified RenewableAsk message. Does not implicitly {@link main.RenewableAsk.verify|verify} messages.
+             * @function encode
+             * @memberof main.RenewableAsk
+             * @static
+             * @param {main.IRenewableAsk} message RenewableAsk message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            RenewableAsk.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                if (message.type != null && Object.hasOwnProperty.call(message, "type"))
+                    writer.uint32(/* id 2, wireType 0 =*/16).int32(message.type);
+                if (message.account_id != null && Object.hasOwnProperty.call(message, "account_id"))
+                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.account_id);
+                if (message.price != null && Object.hasOwnProperty.call(message, "price"))
+                    writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.price);
+                if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
+                    writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.amount);
+                return writer;
+            };
+    
+            /**
+             * Encodes the specified RenewableAsk message, length delimited. Does not implicitly {@link main.RenewableAsk.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof main.RenewableAsk
+             * @static
+             * @param {main.IRenewableAsk} message RenewableAsk message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            RenewableAsk.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+    
+            /**
+             * Decodes a RenewableAsk message from the specified reader or buffer.
+             * @function decode
+             * @memberof main.RenewableAsk
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {main.RenewableAsk} RenewableAsk
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            RenewableAsk.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.RenewableAsk();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.id = reader.string();
+                        break;
+                    case 2:
+                        message.type = reader.int32();
+                        break;
+                    case 3:
+                        message.account_id = reader.string();
+                        break;
+                    case 4:
+                        message.price = reader.uint32();
+                        break;
+                    case 5:
+                        message.amount = reader.uint32();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Decodes a RenewableAsk message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof main.RenewableAsk
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {main.RenewableAsk} RenewableAsk
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            RenewableAsk.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+    
+            /**
+             * Verifies a RenewableAsk message.
+             * @function verify
+             * @memberof main.RenewableAsk
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            RenewableAsk.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.id != null && message.hasOwnProperty("id"))
+                    if (!$util.isString(message.id))
+                        return "id: string expected";
+                if (message.type != null && message.hasOwnProperty("type"))
+                    switch (message.type) {
+                    default:
+                        return "type: enum value expected";
+                    case 0:
+                    case 1:
+                    case 2:
+                        break;
+                    }
+                if (message.account_id != null && message.hasOwnProperty("account_id"))
+                    if (!$util.isString(message.account_id))
+                        return "account_id: string expected";
+                if (message.price != null && message.hasOwnProperty("price"))
+                    if (!$util.isInteger(message.price))
+                        return "price: integer expected";
+                if (message.amount != null && message.hasOwnProperty("amount"))
+                    if (!$util.isInteger(message.amount))
+                        return "amount: integer expected";
+                return null;
+            };
+    
+            /**
+             * Creates a RenewableAsk message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof main.RenewableAsk
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {main.RenewableAsk} RenewableAsk
+             */
+            RenewableAsk.fromObject = function fromObject(object) {
+                if (object instanceof $root.main.RenewableAsk)
+                    return object;
+                var message = new $root.main.RenewableAsk();
+                if (object.id != null)
+                    message.id = String(object.id);
+                switch (object.type) {
+                case "UNKNOWN":
+                case 0:
+                    message.type = 0;
+                    break;
+                case "PRIMARY":
+                case 1:
+                    message.type = 1;
+                    break;
+                case "SECONDARY":
+                case 2:
+                    message.type = 2;
+                    break;
+                }
+                if (object.account_id != null)
+                    message.account_id = String(object.account_id);
+                if (object.price != null)
+                    message.price = object.price >>> 0;
+                if (object.amount != null)
+                    message.amount = object.amount >>> 0;
+                return message;
+            };
+    
+            /**
+             * Creates a plain object from a RenewableAsk message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof main.RenewableAsk
+             * @static
+             * @param {main.RenewableAsk} message RenewableAsk
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            RenewableAsk.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.id = "";
+                    object.type = options.enums === String ? "UNKNOWN" : 0;
+                    object.account_id = "";
+                    object.price = 0;
+                    object.amount = 0;
+                }
+                if (message.id != null && message.hasOwnProperty("id"))
+                    object.id = message.id;
+                if (message.type != null && message.hasOwnProperty("type"))
+                    object.type = options.enums === String ? $root.main.RenewableAskType[message.type] : message.type;
+                if (message.account_id != null && message.hasOwnProperty("account_id"))
+                    object.account_id = message.account_id;
+                if (message.price != null && message.hasOwnProperty("price"))
+                    object.price = message.price;
+                if (message.amount != null && message.hasOwnProperty("amount"))
+                    object.amount = message.amount;
+                return object;
+            };
+    
+            /**
+             * Converts this RenewableAsk to JSON.
+             * @function toJSON
+             * @memberof main.RenewableAsk
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            RenewableAsk.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            return RenewableAsk;
         })();
     
         main.RenewableBid = (function() {

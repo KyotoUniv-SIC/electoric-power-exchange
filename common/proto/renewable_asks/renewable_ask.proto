@@ -5,14 +5,15 @@ import "firebase_rules_options.proto";
 
 option (google.firebase.rules.firebase_rules).full_package_names = true;
 
-enum AskType {
-  PRIMARY = 0;
-  SECONDARY = 1;
+enum RenewableAskType {
+  UNKNOWN = 0;
+  PRIMARY = 1;
+  SECONDARY = 2;
 }
 
 message RenewableAsk {
   string id = 1;
-  AskType type = 2;
+  RenewableAskType type = 2;
   string account_id = 3;
   uint32 price = 4;
   uint32 amount = 5;

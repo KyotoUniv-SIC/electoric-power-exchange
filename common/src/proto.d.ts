@@ -729,10 +729,11 @@ export namespace main {
         public toJSON(): { [k: string]: any };
     }
 
-    /** AskType enum. */
-    enum AskType {
-        PRIMARY = 0,
-        SECONDARY = 1
+    /** NormalAskType enum. */
+    enum NormalAskType {
+        UNKNOWN = 0,
+        PRIMARYADDITIONAL = 1,
+        SECONDARY = 2
     }
 
     /** Properties of a NormalAsk. */
@@ -742,7 +743,7 @@ export namespace main {
         id?: (string|null);
 
         /** NormalAsk type */
-        type?: (main.AskType|null);
+        type?: (main.NormalAskType|null);
 
         /** NormalAsk account_id */
         account_id?: (string|null);
@@ -767,7 +768,7 @@ export namespace main {
         public id: string;
 
         /** NormalAsk type. */
-        public type: main.AskType;
+        public type: main.NormalAskType;
 
         /** NormalAsk account_id. */
         public account_id: string;
@@ -1247,6 +1248,120 @@ export namespace main {
 
         /**
          * Converts this PrimaryBid to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** RenewableAskType enum. */
+    enum RenewableAskType {
+        UNKNOWN = 0,
+        PRIMARY = 1,
+        SECONDARY = 2
+    }
+
+    /** Properties of a RenewableAsk. */
+    interface IRenewableAsk {
+
+        /** RenewableAsk id */
+        id?: (string|null);
+
+        /** RenewableAsk type */
+        type?: (main.RenewableAskType|null);
+
+        /** RenewableAsk account_id */
+        account_id?: (string|null);
+
+        /** RenewableAsk price */
+        price?: (number|null);
+
+        /** RenewableAsk amount */
+        amount?: (number|null);
+    }
+
+    /** Represents a RenewableAsk. */
+    class RenewableAsk implements IRenewableAsk {
+
+        /**
+         * Constructs a new RenewableAsk.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.IRenewableAsk);
+
+        /** RenewableAsk id. */
+        public id: string;
+
+        /** RenewableAsk type. */
+        public type: main.RenewableAskType;
+
+        /** RenewableAsk account_id. */
+        public account_id: string;
+
+        /** RenewableAsk price. */
+        public price: number;
+
+        /** RenewableAsk amount. */
+        public amount: number;
+
+        /**
+         * Encodes the specified RenewableAsk message. Does not implicitly {@link main.RenewableAsk.verify|verify} messages.
+         * @param message RenewableAsk message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.IRenewableAsk, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified RenewableAsk message, length delimited. Does not implicitly {@link main.RenewableAsk.verify|verify} messages.
+         * @param message RenewableAsk message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.IRenewableAsk, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a RenewableAsk message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RenewableAsk
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.RenewableAsk;
+
+        /**
+         * Decodes a RenewableAsk message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RenewableAsk
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.RenewableAsk;
+
+        /**
+         * Verifies a RenewableAsk message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RenewableAsk message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RenewableAsk
+         */
+        public static fromObject(object: { [k: string]: any }): main.RenewableAsk;
+
+        /**
+         * Creates a plain object from a RenewableAsk message. Also converts values to other types if specified.
+         * @param message RenewableAsk
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.RenewableAsk, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RenewableAsk to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
