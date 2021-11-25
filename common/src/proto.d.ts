@@ -2,6 +2,101 @@ import * as $protobuf from "protobufjs";
 /** Namespace main. */
 export namespace main {
 
+    /** Properties of an AccountantAccount. */
+    interface IAccountantAccount {
+
+        /** AccountantAccount id */
+        id?: (string|null);
+
+        /** AccountantAccount name */
+        name?: (string|null);
+
+        /** AccountantAccount xrp_address */
+        xrp_address?: (string|null);
+    }
+
+    /** Represents an AccountantAccount. */
+    class AccountantAccount implements IAccountantAccount {
+
+        /**
+         * Constructs a new AccountantAccount.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.IAccountantAccount);
+
+        /** AccountantAccount id. */
+        public id: string;
+
+        /** AccountantAccount name. */
+        public name: string;
+
+        /** AccountantAccount xrp_address. */
+        public xrp_address: string;
+
+        /**
+         * Encodes the specified AccountantAccount message. Does not implicitly {@link main.AccountantAccount.verify|verify} messages.
+         * @param message AccountantAccount message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.IAccountantAccount, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified AccountantAccount message, length delimited. Does not implicitly {@link main.AccountantAccount.verify|verify} messages.
+         * @param message AccountantAccount message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.IAccountantAccount, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes an AccountantAccount message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns AccountantAccount
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.AccountantAccount;
+
+        /**
+         * Decodes an AccountantAccount message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns AccountantAccount
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.AccountantAccount;
+
+        /**
+         * Verifies an AccountantAccount message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an AccountantAccount message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns AccountantAccount
+         */
+        public static fromObject(object: { [k: string]: any }): main.AccountantAccount;
+
+        /**
+         * Creates a plain object from an AccountantAccount message. Also converts values to other types if specified.
+         * @param message AccountantAccount
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.AccountantAccount, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this AccountantAccount to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** AccountType enum. */
     enum AccountType {
         UNKNOWN = 0,
@@ -123,101 +218,6 @@ export namespace main {
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of an AccountantAccount. */
-    interface IAccountantAccount {
-
-        /** AccountantAccount id */
-        id?: (string|null);
-
-        /** AccountantAccount name */
-        name?: (string|null);
-
-        /** AccountantAccount xrp_address */
-        xrp_address?: (string|null);
-    }
-
-    /** Represents an AccountantAccount. */
-    class AccountantAccount implements IAccountantAccount {
-
-        /**
-         * Constructs a new AccountantAccount.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: main.IAccountantAccount);
-
-        /** AccountantAccount id. */
-        public id: string;
-
-        /** AccountantAccount name. */
-        public name: string;
-
-        /** AccountantAccount xrp_address. */
-        public xrp_address: string;
-
-        /**
-         * Encodes the specified AccountantAccount message. Does not implicitly {@link main.AccountantAccount.verify|verify} messages.
-         * @param message AccountantAccount message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: main.IAccountantAccount, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Encodes the specified AccountantAccount message, length delimited. Does not implicitly {@link main.AccountantAccount.verify|verify} messages.
-         * @param message AccountantAccount message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: main.IAccountantAccount, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Decodes an AccountantAccount message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns AccountantAccount
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.AccountantAccount;
-
-        /**
-         * Decodes an AccountantAccount message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns AccountantAccount
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.AccountantAccount;
-
-        /**
-         * Verifies an AccountantAccount message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates an AccountantAccount message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns AccountantAccount
-         */
-        public static fromObject(object: { [k: string]: any }): main.AccountantAccount;
-
-        /**
-         * Creates a plain object from an AccountantAccount message. Also converts values to other types if specified.
-         * @param message AccountantAccount
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: main.AccountantAccount, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this AccountantAccount to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
     /** Properties of an AdminAccount. */
     interface IAdminAccount {
 
@@ -308,113 +308,6 @@ export namespace main {
 
         /**
          * Converts this AdminAccount to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of an AskRequest. */
-    interface IAskRequest {
-
-        /** AskRequest id */
-        id?: (string|null);
-
-        /** AskRequest account_id */
-        account_id?: (string|null);
-
-        /** AskRequest price */
-        price?: (number|null);
-
-        /** AskRequest amount */
-        amount?: (number|null);
-
-        /** AskRequest denom */
-        denom?: (string|null);
-    }
-
-    /** Represents an AskRequest. */
-    class AskRequest implements IAskRequest {
-
-        /**
-         * Constructs a new AskRequest.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: main.IAskRequest);
-
-        /** AskRequest id. */
-        public id: string;
-
-        /** AskRequest account_id. */
-        public account_id: string;
-
-        /** AskRequest price. */
-        public price: number;
-
-        /** AskRequest amount. */
-        public amount: number;
-
-        /** AskRequest denom. */
-        public denom: string;
-
-        /**
-         * Encodes the specified AskRequest message. Does not implicitly {@link main.AskRequest.verify|verify} messages.
-         * @param message AskRequest message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: main.IAskRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Encodes the specified AskRequest message, length delimited. Does not implicitly {@link main.AskRequest.verify|verify} messages.
-         * @param message AskRequest message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: main.IAskRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Decodes an AskRequest message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns AskRequest
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.AskRequest;
-
-        /**
-         * Decodes an AskRequest message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns AskRequest
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.AskRequest;
-
-        /**
-         * Verifies an AskRequest message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates an AskRequest message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns AskRequest
-         */
-        public static fromObject(object: { [k: string]: any }): main.AskRequest;
-
-        /**
-         * Creates a plain object from an AskRequest message. Also converts values to other types if specified.
-         * @param message AskRequest
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: main.AskRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this AskRequest to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -516,113 +409,6 @@ export namespace main {
 
         /**
          * Converts this Balance to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a BidRequest. */
-    interface IBidRequest {
-
-        /** BidRequest id */
-        id?: (string|null);
-
-        /** BidRequest account_id */
-        account_id?: (string|null);
-
-        /** BidRequest price */
-        price?: (number|null);
-
-        /** BidRequest amount */
-        amount?: (number|null);
-
-        /** BidRequest denom */
-        denom?: (string|null);
-    }
-
-    /** Represents a BidRequest. */
-    class BidRequest implements IBidRequest {
-
-        /**
-         * Constructs a new BidRequest.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: main.IBidRequest);
-
-        /** BidRequest id. */
-        public id: string;
-
-        /** BidRequest account_id. */
-        public account_id: string;
-
-        /** BidRequest price. */
-        public price: number;
-
-        /** BidRequest amount. */
-        public amount: number;
-
-        /** BidRequest denom. */
-        public denom: string;
-
-        /**
-         * Encodes the specified BidRequest message. Does not implicitly {@link main.BidRequest.verify|verify} messages.
-         * @param message BidRequest message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: main.IBidRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Encodes the specified BidRequest message, length delimited. Does not implicitly {@link main.BidRequest.verify|verify} messages.
-         * @param message BidRequest message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: main.IBidRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Decodes a BidRequest message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns BidRequest
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.BidRequest;
-
-        /**
-         * Decodes a BidRequest message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns BidRequest
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.BidRequest;
-
-        /**
-         * Verifies a BidRequest message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a BidRequest message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns BidRequest
-         */
-        public static fromObject(object: { [k: string]: any }): main.BidRequest;
-
-        /**
-         * Creates a plain object from a BidRequest message. Also converts values to other types if specified.
-         * @param message BidRequest
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: main.BidRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this BidRequest to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -938,6 +724,832 @@ export namespace main {
 
         /**
          * Converts this MonthlyUsage to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** AskType enum. */
+    enum AskType {
+        PRIMARY = 0,
+        SECONDARY = 1
+    }
+
+    /** Properties of a NormalAsk. */
+    interface INormalAsk {
+
+        /** NormalAsk id */
+        id?: (string|null);
+
+        /** NormalAsk type */
+        type?: (main.AskType|null);
+
+        /** NormalAsk account_id */
+        account_id?: (string|null);
+
+        /** NormalAsk price */
+        price?: (number|null);
+
+        /** NormalAsk amount */
+        amount?: (number|null);
+    }
+
+    /** Represents a NormalAsk. */
+    class NormalAsk implements INormalAsk {
+
+        /**
+         * Constructs a new NormalAsk.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.INormalAsk);
+
+        /** NormalAsk id. */
+        public id: string;
+
+        /** NormalAsk type. */
+        public type: main.AskType;
+
+        /** NormalAsk account_id. */
+        public account_id: string;
+
+        /** NormalAsk price. */
+        public price: number;
+
+        /** NormalAsk amount. */
+        public amount: number;
+
+        /**
+         * Encodes the specified NormalAsk message. Does not implicitly {@link main.NormalAsk.verify|verify} messages.
+         * @param message NormalAsk message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.INormalAsk, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified NormalAsk message, length delimited. Does not implicitly {@link main.NormalAsk.verify|verify} messages.
+         * @param message NormalAsk message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.INormalAsk, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a NormalAsk message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns NormalAsk
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.NormalAsk;
+
+        /**
+         * Decodes a NormalAsk message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns NormalAsk
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.NormalAsk;
+
+        /**
+         * Verifies a NormalAsk message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a NormalAsk message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns NormalAsk
+         */
+        public static fromObject(object: { [k: string]: any }): main.NormalAsk;
+
+        /**
+         * Creates a plain object from a NormalAsk message. Also converts values to other types if specified.
+         * @param message NormalAsk
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.NormalAsk, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this NormalAsk to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a NormalBid. */
+    interface INormalBid {
+
+        /** NormalBid id */
+        id?: (string|null);
+
+        /** NormalBid account_id */
+        account_id?: (string|null);
+
+        /** NormalBid price */
+        price?: (number|null);
+
+        /** NormalBid amount */
+        amount?: (number|null);
+    }
+
+    /** Represents a NormalBid. */
+    class NormalBid implements INormalBid {
+
+        /**
+         * Constructs a new NormalBid.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.INormalBid);
+
+        /** NormalBid id. */
+        public id: string;
+
+        /** NormalBid account_id. */
+        public account_id: string;
+
+        /** NormalBid price. */
+        public price: number;
+
+        /** NormalBid amount. */
+        public amount: number;
+
+        /**
+         * Encodes the specified NormalBid message. Does not implicitly {@link main.NormalBid.verify|verify} messages.
+         * @param message NormalBid message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.INormalBid, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified NormalBid message, length delimited. Does not implicitly {@link main.NormalBid.verify|verify} messages.
+         * @param message NormalBid message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.INormalBid, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a NormalBid message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns NormalBid
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.NormalBid;
+
+        /**
+         * Decodes a NormalBid message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns NormalBid
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.NormalBid;
+
+        /**
+         * Verifies a NormalBid message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a NormalBid message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns NormalBid
+         */
+        public static fromObject(object: { [k: string]: any }): main.NormalBid;
+
+        /**
+         * Creates a plain object from a NormalBid message. Also converts values to other types if specified.
+         * @param message NormalBid
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.NormalBid, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this NormalBid to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a NormalSettlement. */
+    interface INormalSettlement {
+
+        /** NormalSettlement id */
+        id?: (string|null);
+
+        /** NormalSettlement ask_id */
+        ask_id?: (string|null);
+
+        /** NormalSettlement bid_id */
+        bid_id?: (string|null);
+
+        /** NormalSettlement amount */
+        amount?: (number|null);
+
+        /** NormalSettlement date */
+        date?: (google.protobuf.ITimestamp|null);
+    }
+
+    /** Represents a NormalSettlement. */
+    class NormalSettlement implements INormalSettlement {
+
+        /**
+         * Constructs a new NormalSettlement.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.INormalSettlement);
+
+        /** NormalSettlement id. */
+        public id: string;
+
+        /** NormalSettlement ask_id. */
+        public ask_id: string;
+
+        /** NormalSettlement bid_id. */
+        public bid_id: string;
+
+        /** NormalSettlement amount. */
+        public amount: number;
+
+        /** NormalSettlement date. */
+        public date?: (google.protobuf.ITimestamp|null);
+
+        /**
+         * Encodes the specified NormalSettlement message. Does not implicitly {@link main.NormalSettlement.verify|verify} messages.
+         * @param message NormalSettlement message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.INormalSettlement, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified NormalSettlement message, length delimited. Does not implicitly {@link main.NormalSettlement.verify|verify} messages.
+         * @param message NormalSettlement message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.INormalSettlement, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a NormalSettlement message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns NormalSettlement
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.NormalSettlement;
+
+        /**
+         * Decodes a NormalSettlement message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns NormalSettlement
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.NormalSettlement;
+
+        /**
+         * Verifies a NormalSettlement message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a NormalSettlement message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns NormalSettlement
+         */
+        public static fromObject(object: { [k: string]: any }): main.NormalSettlement;
+
+        /**
+         * Creates a plain object from a NormalSettlement message. Also converts values to other types if specified.
+         * @param message NormalSettlement
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.NormalSettlement, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this NormalSettlement to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a PrimaryAsk. */
+    interface IPrimaryAsk {
+
+        /** PrimaryAsk id */
+        id?: (string|null);
+
+        /** PrimaryAsk account_id */
+        account_id?: (string|null);
+
+        /** PrimaryAsk price */
+        price?: (number|null);
+
+        /** PrimaryAsk amount */
+        amount?: (number|null);
+    }
+
+    /** Represents a PrimaryAsk. */
+    class PrimaryAsk implements IPrimaryAsk {
+
+        /**
+         * Constructs a new PrimaryAsk.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.IPrimaryAsk);
+
+        /** PrimaryAsk id. */
+        public id: string;
+
+        /** PrimaryAsk account_id. */
+        public account_id: string;
+
+        /** PrimaryAsk price. */
+        public price: number;
+
+        /** PrimaryAsk amount. */
+        public amount: number;
+
+        /**
+         * Encodes the specified PrimaryAsk message. Does not implicitly {@link main.PrimaryAsk.verify|verify} messages.
+         * @param message PrimaryAsk message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.IPrimaryAsk, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified PrimaryAsk message, length delimited. Does not implicitly {@link main.PrimaryAsk.verify|verify} messages.
+         * @param message PrimaryAsk message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.IPrimaryAsk, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a PrimaryAsk message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns PrimaryAsk
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.PrimaryAsk;
+
+        /**
+         * Decodes a PrimaryAsk message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns PrimaryAsk
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.PrimaryAsk;
+
+        /**
+         * Verifies a PrimaryAsk message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a PrimaryAsk message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns PrimaryAsk
+         */
+        public static fromObject(object: { [k: string]: any }): main.PrimaryAsk;
+
+        /**
+         * Creates a plain object from a PrimaryAsk message. Also converts values to other types if specified.
+         * @param message PrimaryAsk
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.PrimaryAsk, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this PrimaryAsk to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a PrimaryBid. */
+    interface IPrimaryBid {
+
+        /** PrimaryBid id */
+        id?: (string|null);
+
+        /** PrimaryBid account_id */
+        account_id?: (string|null);
+
+        /** PrimaryBid price */
+        price?: (number|null);
+
+        /** PrimaryBid amount */
+        amount?: (number|null);
+    }
+
+    /** Represents a PrimaryBid. */
+    class PrimaryBid implements IPrimaryBid {
+
+        /**
+         * Constructs a new PrimaryBid.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.IPrimaryBid);
+
+        /** PrimaryBid id. */
+        public id: string;
+
+        /** PrimaryBid account_id. */
+        public account_id: string;
+
+        /** PrimaryBid price. */
+        public price: number;
+
+        /** PrimaryBid amount. */
+        public amount: number;
+
+        /**
+         * Encodes the specified PrimaryBid message. Does not implicitly {@link main.PrimaryBid.verify|verify} messages.
+         * @param message PrimaryBid message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.IPrimaryBid, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified PrimaryBid message, length delimited. Does not implicitly {@link main.PrimaryBid.verify|verify} messages.
+         * @param message PrimaryBid message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.IPrimaryBid, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a PrimaryBid message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns PrimaryBid
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.PrimaryBid;
+
+        /**
+         * Decodes a PrimaryBid message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns PrimaryBid
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.PrimaryBid;
+
+        /**
+         * Verifies a PrimaryBid message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a PrimaryBid message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns PrimaryBid
+         */
+        public static fromObject(object: { [k: string]: any }): main.PrimaryBid;
+
+        /**
+         * Creates a plain object from a PrimaryBid message. Also converts values to other types if specified.
+         * @param message PrimaryBid
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.PrimaryBid, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this PrimaryBid to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a RenewableBid. */
+    interface IRenewableBid {
+
+        /** RenewableBid id */
+        id?: (string|null);
+
+        /** RenewableBid account_id */
+        account_id?: (string|null);
+
+        /** RenewableBid price */
+        price?: (number|null);
+
+        /** RenewableBid amount */
+        amount?: (number|null);
+    }
+
+    /** Represents a RenewableBid. */
+    class RenewableBid implements IRenewableBid {
+
+        /**
+         * Constructs a new RenewableBid.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.IRenewableBid);
+
+        /** RenewableBid id. */
+        public id: string;
+
+        /** RenewableBid account_id. */
+        public account_id: string;
+
+        /** RenewableBid price. */
+        public price: number;
+
+        /** RenewableBid amount. */
+        public amount: number;
+
+        /**
+         * Encodes the specified RenewableBid message. Does not implicitly {@link main.RenewableBid.verify|verify} messages.
+         * @param message RenewableBid message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.IRenewableBid, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified RenewableBid message, length delimited. Does not implicitly {@link main.RenewableBid.verify|verify} messages.
+         * @param message RenewableBid message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.IRenewableBid, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a RenewableBid message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RenewableBid
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.RenewableBid;
+
+        /**
+         * Decodes a RenewableBid message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RenewableBid
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.RenewableBid;
+
+        /**
+         * Verifies a RenewableBid message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RenewableBid message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RenewableBid
+         */
+        public static fromObject(object: { [k: string]: any }): main.RenewableBid;
+
+        /**
+         * Creates a plain object from a RenewableBid message. Also converts values to other types if specified.
+         * @param message RenewableBid
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.RenewableBid, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RenewableBid to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a RenewableSettlement. */
+    interface IRenewableSettlement {
+
+        /** RenewableSettlement ask_id */
+        ask_id?: (string|null);
+
+        /** RenewableSettlement bid_id */
+        bid_id?: (string|null);
+
+        /** RenewableSettlement amount */
+        amount?: (number|null);
+
+        /** RenewableSettlement date */
+        date?: (google.protobuf.ITimestamp|null);
+    }
+
+    /** Represents a RenewableSettlement. */
+    class RenewableSettlement implements IRenewableSettlement {
+
+        /**
+         * Constructs a new RenewableSettlement.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.IRenewableSettlement);
+
+        /** RenewableSettlement ask_id. */
+        public ask_id: string;
+
+        /** RenewableSettlement bid_id. */
+        public bid_id: string;
+
+        /** RenewableSettlement amount. */
+        public amount: number;
+
+        /** RenewableSettlement date. */
+        public date?: (google.protobuf.ITimestamp|null);
+
+        /**
+         * Encodes the specified RenewableSettlement message. Does not implicitly {@link main.RenewableSettlement.verify|verify} messages.
+         * @param message RenewableSettlement message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.IRenewableSettlement, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified RenewableSettlement message, length delimited. Does not implicitly {@link main.RenewableSettlement.verify|verify} messages.
+         * @param message RenewableSettlement message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.IRenewableSettlement, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a RenewableSettlement message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RenewableSettlement
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.RenewableSettlement;
+
+        /**
+         * Decodes a RenewableSettlement message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RenewableSettlement
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.RenewableSettlement;
+
+        /**
+         * Verifies a RenewableSettlement message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RenewableSettlement message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RenewableSettlement
+         */
+        public static fromObject(object: { [k: string]: any }): main.RenewableSettlement;
+
+        /**
+         * Creates a plain object from a RenewableSettlement message. Also converts values to other types if specified.
+         * @param message RenewableSettlement
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.RenewableSettlement, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RenewableSettlement to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a SinglePriceRenewableSettlement. */
+    interface ISinglePriceRenewableSettlement {
+
+        /** SinglePriceRenewableSettlement id */
+        id?: (string|null);
+
+        /** SinglePriceRenewableSettlement price */
+        price?: (number|null);
+
+        /** SinglePriceRenewableSettlement amount */
+        amount?: (number|null);
+
+        /** SinglePriceRenewableSettlement date */
+        date?: (google.protobuf.ITimestamp|null);
+    }
+
+    /** Represents a SinglePriceRenewableSettlement. */
+    class SinglePriceRenewableSettlement implements ISinglePriceRenewableSettlement {
+
+        /**
+         * Constructs a new SinglePriceRenewableSettlement.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.ISinglePriceRenewableSettlement);
+
+        /** SinglePriceRenewableSettlement id. */
+        public id: string;
+
+        /** SinglePriceRenewableSettlement price. */
+        public price: number;
+
+        /** SinglePriceRenewableSettlement amount. */
+        public amount: number;
+
+        /** SinglePriceRenewableSettlement date. */
+        public date?: (google.protobuf.ITimestamp|null);
+
+        /**
+         * Encodes the specified SinglePriceRenewableSettlement message. Does not implicitly {@link main.SinglePriceRenewableSettlement.verify|verify} messages.
+         * @param message SinglePriceRenewableSettlement message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.ISinglePriceRenewableSettlement, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified SinglePriceRenewableSettlement message, length delimited. Does not implicitly {@link main.SinglePriceRenewableSettlement.verify|verify} messages.
+         * @param message SinglePriceRenewableSettlement message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.ISinglePriceRenewableSettlement, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a SinglePriceRenewableSettlement message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns SinglePriceRenewableSettlement
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.SinglePriceRenewableSettlement;
+
+        /**
+         * Decodes a SinglePriceRenewableSettlement message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns SinglePriceRenewableSettlement
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.SinglePriceRenewableSettlement;
+
+        /**
+         * Verifies a SinglePriceRenewableSettlement message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a SinglePriceRenewableSettlement message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns SinglePriceRenewableSettlement
+         */
+        public static fromObject(object: { [k: string]: any }): main.SinglePriceRenewableSettlement;
+
+        /**
+         * Creates a plain object from a SinglePriceRenewableSettlement message. Also converts values to other types if specified.
+         * @param message SinglePriceRenewableSettlement
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.SinglePriceRenewableSettlement, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this SinglePriceRenewableSettlement to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -1476,5 +2088,102 @@ export namespace main {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+    }
+}
+
+/** Namespace google. */
+export namespace google {
+
+    /** Namespace protobuf. */
+    namespace protobuf {
+
+        /** Properties of a Timestamp. */
+        interface ITimestamp {
+
+            /** Timestamp seconds */
+            seconds?: (Long|null);
+
+            /** Timestamp nanos */
+            nanos?: (number|null);
+        }
+
+        /** Represents a Timestamp. */
+        class Timestamp implements ITimestamp {
+
+            /**
+             * Constructs a new Timestamp.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: google.protobuf.ITimestamp);
+
+            /** Timestamp seconds. */
+            public seconds: Long;
+
+            /** Timestamp nanos. */
+            public nanos: number;
+
+            /**
+             * Encodes the specified Timestamp message. Does not implicitly {@link google.protobuf.Timestamp.verify|verify} messages.
+             * @param message Timestamp message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: google.protobuf.ITimestamp, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Encodes the specified Timestamp message, length delimited. Does not implicitly {@link google.protobuf.Timestamp.verify|verify} messages.
+             * @param message Timestamp message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encodeDelimited(message: google.protobuf.ITimestamp, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a Timestamp message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns Timestamp
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): google.protobuf.Timestamp;
+
+            /**
+             * Decodes a Timestamp message from the specified reader or buffer, length delimited.
+             * @param reader Reader or buffer to decode from
+             * @returns Timestamp
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): google.protobuf.Timestamp;
+
+            /**
+             * Verifies a Timestamp message.
+             * @param message Plain object to verify
+             * @returns `null` if valid, otherwise the reason why it is not
+             */
+            public static verify(message: { [k: string]: any }): (string|null);
+
+            /**
+             * Creates a Timestamp message from a plain object. Also converts values to their respective internal types.
+             * @param object Plain object
+             * @returns Timestamp
+             */
+            public static fromObject(object: { [k: string]: any }): google.protobuf.Timestamp;
+
+            /**
+             * Creates a plain object from a Timestamp message. Also converts values to other types if specified.
+             * @param message Timestamp
+             * @param [options] Conversion options
+             * @returns Plain object
+             */
+            public static toObject(message: google.protobuf.Timestamp, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+            /**
+             * Converts this Timestamp to JSON.
+             * @returns JSON object
+             */
+            public toJSON(): { [k: string]: any };
+        }
     }
 }
