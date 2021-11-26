@@ -1,8 +1,9 @@
 import { BuyOnSubmitEvent } from '../../../view/txs/buy/buy.component';
 import { Component, OnInit } from '@angular/core';
-import { AskRequest } from '@local/common';
+import { NormalBid, RenewableBid } from '@local/common';
 import { getAuth } from 'firebase/auth';
-import { AskRequestApplicationService } from 'projects/shared/src/lib/services/ask-requests/ask-request.application.service';
+import { NormalBidApplicationService } from 'projects/shared/src/lib/services/normal-bids/normal-bid.application.service';
+import { RenewableBidApplicationService } from 'projects/shared/src/lib/services/renewable-bid/renewable-bid.application.service';
 
 @Component({
   selector: 'app-buy',
@@ -14,18 +15,33 @@ export class BuyComponent implements OnInit {
   amount: number | undefined;
   denom: string | undefined;
 
-  constructor(private readonly askApp: AskRequestApplicationService) {}
+  constructor(
+    private readonly normalBidApp: NormalBidApplicationService,
+    private readonly renewableBidApp: RenewableBidApplicationService,
+  ) {
+    this.price = 27;
+    this.amount = 1;
+  }
 
   ngOnInit(): void {}
 
   async onSubmit($event: BuyOnSubmitEvent) {
-    await this.askApp.create(
-      new AskRequest({
-        account_id: getAuth().currentUser?.uid,
-        denom: $event.denom,
-        price: $event.price,
-        amount: $event.amount,
-      }),
-    );
+    if ($event.denom == 'spx-1') {
+      await this.renewableBidApp.create(
+        new RenewableBid({
+          account_id: getAuth().currentUser?.uid,
+          price: $event.price,
+          amount: $event.amount,
+        }),
+      );
+    } else {
+      await this.normalBidApp.create(
+        new NormalBid({
+          account_id: getAuth().currentUser?.uid,
+          price: $event.price,
+          amount: $event.amount,
+        }),
+      );
+    }
   }
 }

@@ -47,13 +47,9 @@ export class BuyComponent implements OnInit {
     this.appSubmit.emit({ accountID, price: Number(price), amount: Number(amount), denom });
   }
 
-  calcTotalPrice() {
-    if (!this.price || !this.amount) return null;
-    return this.price * this.amount;
-  }
-  calcElectricity() {
-    if (!this.amount) return null;
-    return this.amount;
+  calcTotalPrice(price: any, amount: any) {
+    if (!price || !amount) return null;
+    return price * amount;
   }
 
   tokens: Token[] = [
