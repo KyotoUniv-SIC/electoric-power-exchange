@@ -1,5 +1,5 @@
 import { AutoId } from '../auth/auto-id';
-import { IBidRequestInfrastructureService } from './bid-request.service';
+import { IRenewableBidInfrastructureService } from './renewable-bid.service';
 import { Injectable } from '@angular/core';
 import {
   Firestore,
@@ -15,31 +15,33 @@ import {
   setDoc,
   serverTimestamp,
 } from '@angular/fire/firestore';
-import { BidRequest } from '@local/common';
-import { BidRequestFirestore } from '@local/common';
+import { RenewableBid } from '@local/common';
+import { RenewableBidFirestore } from '@local/common';
 
 @Injectable({
   providedIn: 'root',
 })
-export class BidRequestInfrastructureService implements IBidRequestInfrastructureService {
+export class RenewableBidInfrastructureService implements IRenewableBidInfrastructureService {
   constructor(private readonly firestore: Firestore) {}
 
   collection(...queryConstraints: QueryConstraint[]) {
-    const ref = collection(this.firestore, BidRequestFirestore.collectionPath());
+    const ref = collection(this.firestore, RenewableBidFirestore.collectionPath());
 
-    return (queryConstraints.length > 0 ? query(ref, ...queryConstraints) : ref).withConverter(BidRequestFirestore.converter);
+    return (queryConstraints.length > 0 ? query(ref, ...queryConstraints) : ref).withConverter(RenewableBidFirestore.converter);
   }
 
   collectionGroup(...queryConstraints: QueryConstraint[]) {
-    const ref = collectionGroup(this.firestore, BidRequestFirestore.collectionID);
+    const ref = collectionGroup(this.firestore, RenewableBidFirestore.collectionID);
 
-    return (queryConstraints.length > 0 ? query(ref, ...queryConstraints) : ref).withConverter(BidRequestFirestore.converter);
+    return (queryConstraints.length > 0 ? query(ref, ...queryConstraints) : ref).withConverter(RenewableBidFirestore.converter);
   }
 
   document(id?: string) {
-    const ref = collection(this.firestore, BidRequestFirestore.collectionPath());
+    const ref = collection(this.firestore, RenewableBidFirestore.collectionPath());
 
-    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path, AutoId())).withConverter(BidRequestFirestore.converter);
+    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path, AutoId())).withConverter(
+      RenewableBidFirestore.converter,
+    );
   }
 
   get(id: string) {
@@ -66,7 +68,7 @@ export class BidRequestInfrastructureService implements IBidRequestInfrastructur
     return collectionData(this.collectionGroup());
   }
 
-  create(data: BidRequest) {
+  create(data: RenewableBid) {
     const doc = this.document();
     data.id = doc.id;
 

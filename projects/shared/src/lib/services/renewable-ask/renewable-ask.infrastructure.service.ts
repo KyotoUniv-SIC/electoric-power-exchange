@@ -1,5 +1,5 @@
 import { AutoId } from '../auth/auto-id';
-import { IAskRequestInfrastructureService } from './ask-request.service';
+import { IRenewableAskInfrastructureService } from './renewable-ask.service';
 import { Injectable } from '@angular/core';
 import {
   Firestore,
@@ -15,31 +15,33 @@ import {
   setDoc,
   serverTimestamp,
 } from '@angular/fire/firestore';
-import { AskRequest } from '@local/common';
-import { AskRequestFirestore } from '@local/common';
+import { RenewableAsk } from '@local/common';
+import { RenewableAskFirestore } from '@local/common';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AskRequestInfrastructureService implements IAskRequestInfrastructureService {
+export class RenewableAskInfrastructureService implements IRenewableAskInfrastructureService {
   constructor(private readonly firestore: Firestore) {}
 
   collection(...queryConstraints: QueryConstraint[]) {
-    const ref = collection(this.firestore, AskRequestFirestore.collectionPath());
+    const ref = collection(this.firestore, RenewableAskFirestore.collectionPath());
 
-    return (queryConstraints.length > 0 ? query(ref, ...queryConstraints) : ref).withConverter(AskRequestFirestore.converter);
+    return (queryConstraints.length > 0 ? query(ref, ...queryConstraints) : ref).withConverter(RenewableAskFirestore.converter);
   }
 
   collectionGroup(...queryConstraints: QueryConstraint[]) {
-    const ref = collectionGroup(this.firestore, AskRequestFirestore.collectionID);
+    const ref = collectionGroup(this.firestore, RenewableAskFirestore.collectionID);
 
-    return (queryConstraints.length > 0 ? query(ref, ...queryConstraints) : ref).withConverter(AskRequestFirestore.converter);
+    return (queryConstraints.length > 0 ? query(ref, ...queryConstraints) : ref).withConverter(RenewableAskFirestore.converter);
   }
 
   document(id?: string) {
-    const ref = collection(this.firestore, AskRequestFirestore.collectionPath());
+    const ref = collection(this.firestore, RenewableAskFirestore.collectionPath());
 
-    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path, AutoId())).withConverter(AskRequestFirestore.converter);
+    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path, AutoId())).withConverter(
+      RenewableAskFirestore.converter,
+    );
   }
 
   get(id: string) {
@@ -66,7 +68,7 @@ export class AskRequestInfrastructureService implements IAskRequestInfrastructur
     return collectionData(this.collectionGroup());
   }
 
-  create(data: AskRequest) {
+  create(data: RenewableAsk) {
     const doc = this.document();
     data.id = doc.id;
 
