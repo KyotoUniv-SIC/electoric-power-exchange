@@ -12,6 +12,6 @@ message Transaction {
   string sender_xrp_address = 4;
   string recipient_account_id = 5;
   string recipient_xrp_address = 6;
-  uint64 amount = 7;
+  uint32 amount = 7;
   string denom = 8;
 }

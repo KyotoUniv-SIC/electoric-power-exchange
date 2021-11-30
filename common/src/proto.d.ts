@@ -323,10 +323,10 @@ export namespace main {
         account_id?: (string|null);
 
         /** Balance amount_jpy */
-        amount_jpy?: (Long|null);
+        amount_jpy?: (number|null);
 
         /** Balance amount_xrp */
-        amount_xrp?: (Long|null);
+        amount_xrp?: (number|null);
     }
 
     /** Represents a Balance. */
@@ -345,10 +345,10 @@ export namespace main {
         public account_id: string;
 
         /** Balance amount_jpy. */
-        public amount_jpy: Long;
+        public amount_jpy: number;
 
         /** Balance amount_xrp. */
-        public amount_xrp: Long;
+        public amount_xrp: number;
 
         /**
          * Encodes the specified Balance message. Does not implicitly {@link main.Balance.verify|verify} messages.
@@ -644,7 +644,7 @@ export namespace main {
         student_account_id?: (string|null);
 
         /** MonthlyUsage amount_kwh */
-        amount_kwh?: (Long|null);
+        amount_kwh?: (number|null);
     }
 
     /** Represents a MonthlyUsage. */
@@ -663,7 +663,7 @@ export namespace main {
         public student_account_id: string;
 
         /** MonthlyUsage amount_kwh. */
-        public amount_kwh: Long;
+        public amount_kwh: number;
 
         /**
          * Encodes the specified MonthlyUsage message. Does not implicitly {@link main.MonthlyUsage.verify|verify} messages.
@@ -1680,10 +1680,10 @@ export namespace main {
         student_account_id?: (string|null);
 
         /** SolarPower amount_kwh */
-        amount_kwh?: (Long|null);
+        amount_kwh?: (number|null);
 
         /** SolarPower price */
-        price?: (Long|null);
+        price?: (number|null);
 
         /** SolarPower denom */
         denom?: (string|null);
@@ -1705,10 +1705,10 @@ export namespace main {
         public student_account_id: string;
 
         /** SolarPower amount_kwh. */
-        public amount_kwh: Long;
+        public amount_kwh: number;
 
         /** SolarPower price. */
-        public price: Long;
+        public price: number;
 
         /** SolarPower denom. */
         public denom: string;
@@ -1900,7 +1900,7 @@ export namespace main {
         recipient_xrp_address?: (string|null);
 
         /** Transaction amount */
-        amount?: (Long|null);
+        amount?: (number|null);
 
         /** Transaction denom */
         denom?: (string|null);
@@ -1934,7 +1934,7 @@ export namespace main {
         public recipient_xrp_address: string;
 
         /** Transaction amount. */
-        public amount: Long;
+        public amount: number;
 
         /** Transaction denom. */
         public denom: string;
@@ -2108,10 +2108,10 @@ export namespace main {
         student_account_id?: (string|null);
 
         /** UtilityPower amount_kwh */
-        amount_kwh?: (Long|null);
+        amount_kwh?: (number|null);
 
         /** UtilityPower price */
-        price?: (Long|null);
+        price?: (number|null);
 
         /** UtilityPower denom */
         denom?: (string|null);
@@ -2133,10 +2133,10 @@ export namespace main {
         public student_account_id: string;
 
         /** UtilityPower amount_kwh. */
-        public amount_kwh: Long;
+        public amount_kwh: number;
 
         /** UtilityPower price. */
-        public price: Long;
+        public price: number;
 
         /** UtilityPower denom. */
         public denom: string;

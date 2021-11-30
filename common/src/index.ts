@@ -10,3 +10,4 @@ export * from './entities/renewable-bids';
 export * from './entities/normal-bids';
 export * from "./entities/primary-asks";
 export * from "./entities/primary-bids";
+export * from "./entities/monthly-usages";
