@@ -15,9 +15,9 @@ exports.scheduledFunctionCrontab = functions.pubsub
 
     for (const student of students) {
       const studentID = student.id;
-      // problem: StudentID指定で取れるようにする
-      const monthlyUsage = await monthly_usage.get(studentID);
-      const usageAmount = !monthlyUsage ? 120 : monthlyUsage.amount_kwh;
+      const now = new Date();
+      const monthlyUsage = await monthly_usage.getLastYear(studentID, now);
+      const usageAmount = !monthlyUsage[0] ? 120 : monthlyUsage[0].amount_kwh;
       await primary_ask.create(
         new PrimaryAsk({
           account_id: studentID,
