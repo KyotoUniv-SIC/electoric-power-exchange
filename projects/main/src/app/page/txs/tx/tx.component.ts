@@ -24,7 +24,7 @@ export class TxComponent implements OnInit {
         sender_xrp_address: 'xrp01',
         recipient_account_id: 'Alice',
         recipient_xrp_address: 'xrp02',
-        amount: Long.fromNumber(100),
+        amount: 100,
         denom: 'epx',
       }),
       new proto.main.Transaction({
@@ -34,7 +34,7 @@ export class TxComponent implements OnInit {
         sender_xrp_address: 'xrp02',
         recipient_account_id: 'Bob',
         recipient_xrp_address: 'xrp01',
-        amount: Long.fromNumber(100),
+        amount: 100,
         denom: 'spx',
       }),
     ]);
