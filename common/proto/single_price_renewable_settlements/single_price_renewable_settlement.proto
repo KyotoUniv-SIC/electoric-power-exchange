@@ -2,7 +2,6 @@ syntax = "proto3";
 package main;
 
 import "firebase_rules_options.proto";
-import "google/protobuf/timestamp.proto";
 
 option (google.firebase.rules.firebase_rules).full_package_names = true;
 
@@ -10,5 +9,7 @@ message SinglePriceRenewableSettlement {
   string id = 1;
   uint32 price = 2;
   uint32 amount = 3;
-  google.protobuf.Timestamp date = 4;
+  uint32 year = 4;
+  uint32 month = 5;
+  uint32 date = 6;
 }
