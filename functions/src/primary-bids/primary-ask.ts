@@ -1,6 +1,5 @@
-// eslint-disable-next-line camelcase
+/* eslint-disable camelcase */
 import { primary_bid } from '.';
-// eslint-disable-next-line camelcase
 import { primary_ask } from '../primary-asks';
 import { PrimaryBid } from '@local/common';
 
