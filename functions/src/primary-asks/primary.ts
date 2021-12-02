@@ -8,7 +8,7 @@ import { PrimaryAsk } from '@local/common';
 import * as functions from 'firebase-functions';
 
 exports.scheduledFunctionCrontab = functions.pubsub
-  .schedule('0 0 0 * *')
+  .schedule('0 0 1 * *')
   .timeZone('Asia/Tokyo') // Users can choose timezone - default is America/Los_Angeles
   .onRun(async () => {
     const students = await student_account.list();
