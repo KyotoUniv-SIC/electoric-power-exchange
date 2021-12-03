@@ -12,3 +12,5 @@ export * from './entities/primary-asks';
 export * from './entities/primary-bids';
 export * from './entities/student-accounts/monthly-usages';
 export * from './entities/admin-accounts';
+export * from './entities/single-price-normal-settlements';
+export * from './entities/single-price-renewable-settlements';
