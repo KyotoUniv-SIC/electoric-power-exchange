@@ -11,14 +11,14 @@ exports.scheduledFunctionCrontab = functions.pubsub
   .onRun(async () => {
     // Bidを価格の高い順に並び替える
     const normalBids = await normal_bid.list();
-    if (!normalBids || !normalBids[0]) {
+    if (!normalBids || !normalBids.length) {
       return;
     }
     const sortNormalBids = normalBids.sort((first, second) => second.price - first.price);
 
     // Askを価格の低い順に並び替える
     const normalAsks = await normal_ask.list();
-    if (!normalAsks || !normalAsks[0]) {
+    if (!normalAsks || !normalAsks.length) {
       return;
     }
     const sortNormalAsks = normalAsks.sort((first, second) => first.price - second.price);

@@ -11,14 +11,14 @@ exports.scheduledFunctionCrontab = functions.pubsub
   .onRun(async () => {
     // Bidを価格の高い順に並び替える
     const renewableBids = await renewable_bid.list();
-    if (!renewableBids || !renewableBids[0]) {
+    if (!renewableBids || !renewableBids.length) {
       return;
     }
     const sortRenewableBids = renewableBids.sort((first, second) => second.price - first.price);
 
     // Askを価格の低い順に並び替える
     const renewableAsks = await renewable_ask.list();
-    if (!renewableAsks || !renewableAsks[0]) {
+    if (!renewableAsks || !renewableAsks.length) {
       return;
     }
     const sortRenewableAsks = renewableAsks.sort((first, second) => first.price - second.price);
