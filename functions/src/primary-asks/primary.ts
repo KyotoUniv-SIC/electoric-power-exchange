@@ -1,8 +1,6 @@
-// eslint-disable-next-line camelcase
+/* eslint-disable camelcase */
 import { primary_ask } from '.';
-// eslint-disable-next-line camelcase
 import { monthly_usage } from '../monthly-usages';
-// eslint-disable-next-line camelcase
 import { student_account } from '../student-accounts';
 import { PrimaryAsk } from '@local/common';
 import * as functions from 'firebase-functions';

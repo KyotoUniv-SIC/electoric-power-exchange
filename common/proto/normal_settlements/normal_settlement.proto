@@ -2,7 +2,6 @@ syntax = "proto3";
 package main;
 
 import "firebase_rules_options.proto";
-import "google/protobuf/timestamp.proto";
 
 option (google.firebase.rules.firebase_rules).full_package_names = true;
 
@@ -11,5 +10,7 @@ message NormalSettlement {
   string ask_id = 2;
   string bid_id = 3;
   uint32 amount = 4;
-  google.protobuf.Timestamp date = 5;
+  uint32 year = 5;
+  uint32 month = 6;
+  uint32 date = 7;
 }
