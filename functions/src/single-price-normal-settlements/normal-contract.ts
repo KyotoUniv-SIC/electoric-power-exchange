@@ -62,17 +62,11 @@ exports.scheduledFunctionCrontab = functions.pubsub
       const equilibriumPrice = sortNormalBids[i].price <= sortNormalAsks[j].price ? sortNormalAsks[i].price : sortNormalBids[j].price;
       // 止まったときの低い方が成約取引量となる
       const equilibriumAmount = sortNormalBids[i].amount <= sortNormalAsks[j].amount ? sortNormalBids[i].amount : sortNormalAsks[j].amount;
-      // 一日前の日付を取得
-      const time = new Date();
-      time.setDate(time.getDate() - 1);
 
       await single_price_normal_settlement.create(
         new SinglePriceNormalSettlement({
           price: equilibriumPrice,
           amount: equilibriumAmount,
-          year: time.getFullYear(),
-          month: time.getMonth(),
-          date: time.getDate(),
         }),
       );
     }

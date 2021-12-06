@@ -28,9 +28,6 @@ single_price_renewable_settlement.onCreateHandler.push(async (snapshot, context)
           ask_id: sortRenewableAsks[j].account_id,
           price: data.price,
           amount: sortRenewableBids[i].amount,
-          year: data.year,
-          month: data.month,
-          date: data.date,
         }),
       );
       sortRenewableAsks[j].amount -= sortRenewableBids[i].amount;
@@ -42,9 +39,6 @@ single_price_renewable_settlement.onCreateHandler.push(async (snapshot, context)
           ask_id: sortRenewableAsks[j].account_id,
           price: data.price,
           amount: sortRenewableAsks[j].amount,
-          year: data.year,
-          month: data.month,
-          date: data.date,
         }),
       );
       sortRenewableBids[i].amount -= sortRenewableAsks[j].amount;
@@ -56,9 +50,6 @@ single_price_renewable_settlement.onCreateHandler.push(async (snapshot, context)
           ask_id: sortRenewableAsks[j].account_id,
           price: data.price,
           amount: sortRenewableBids[i].amount,
-          year: data.year,
-          month: data.month,
-          date: data.date,
         }),
       );
       i++;

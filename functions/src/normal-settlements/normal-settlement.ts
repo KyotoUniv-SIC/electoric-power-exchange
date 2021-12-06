@@ -28,9 +28,6 @@ single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) =>
           ask_id: sortNormalAsks[j].account_id,
           price: data.price,
           amount: sortNormalBids[i].amount,
-          year: data.year,
-          month: data.month,
-          date: data.date,
         }),
       );
       sortNormalAsks[j].amount -= sortNormalBids[i].amount;
@@ -42,9 +39,6 @@ single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) =>
           ask_id: sortNormalAsks[j].account_id,
           price: data.price,
           amount: sortNormalAsks[j].amount,
-          year: data.year,
-          month: data.month,
-          date: data.date,
         }),
       );
       sortNormalBids[i].amount -= sortNormalAsks[j].amount;
@@ -56,9 +50,6 @@ single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) =>
           ask_id: sortNormalAsks[j].account_id,
           price: data.price,
           amount: sortNormalBids[i].amount,
-          year: data.year,
-          month: data.month,
-          date: data.date,
         }),
       );
       i++;
