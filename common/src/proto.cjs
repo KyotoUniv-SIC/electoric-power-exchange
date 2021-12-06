@@ -2385,8 +2385,9 @@
              * @memberof main
              * @interface INormalSettlement
              * @property {string|null} [id] NormalSettlement id
-             * @property {string|null} [ask_id] NormalSettlement ask_id
              * @property {string|null} [bid_id] NormalSettlement bid_id
+             * @property {string|null} [ask_id] NormalSettlement ask_id
+             * @property {number|null} [price] NormalSettlement price
              * @property {number|null} [amount] NormalSettlement amount
              * @property {number|null} [year] NormalSettlement year
              * @property {number|null} [month] NormalSettlement month
@@ -2417,6 +2418,14 @@
             NormalSettlement.prototype.id = "";
     
             /**
+             * NormalSettlement bid_id.
+             * @member {string} bid_id
+             * @memberof main.NormalSettlement
+             * @instance
+             */
+            NormalSettlement.prototype.bid_id = "";
+    
+            /**
              * NormalSettlement ask_id.
              * @member {string} ask_id
              * @memberof main.NormalSettlement
@@ -2425,12 +2434,12 @@
             NormalSettlement.prototype.ask_id = "";
     
             /**
-             * NormalSettlement bid_id.
-             * @member {string} bid_id
+             * NormalSettlement price.
+             * @member {number} price
              * @memberof main.NormalSettlement
              * @instance
              */
-            NormalSettlement.prototype.bid_id = "";
+            NormalSettlement.prototype.price = 0;
     
             /**
              * NormalSettlement amount.
@@ -2478,18 +2487,20 @@
                     writer = $Writer.create();
                 if (message.id != null && Object.hasOwnProperty.call(message, "id"))
                     writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
-                if (message.ask_id != null && Object.hasOwnProperty.call(message, "ask_id"))
-                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.ask_id);
                 if (message.bid_id != null && Object.hasOwnProperty.call(message, "bid_id"))
-                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.bid_id);
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.bid_id);
+                if (message.ask_id != null && Object.hasOwnProperty.call(message, "ask_id"))
+                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.ask_id);
+                if (message.price != null && Object.hasOwnProperty.call(message, "price"))
+                    writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.price);
                 if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
-                    writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.amount);
+                    writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.amount);
                 if (message.year != null && Object.hasOwnProperty.call(message, "year"))
-                    writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.year);
+                    writer.uint32(/* id 6, wireType 0 =*/48).uint32(message.year);
                 if (message.month != null && Object.hasOwnProperty.call(message, "month"))
-                    writer.uint32(/* id 6, wireType 0 =*/48).uint32(message.month);
+                    writer.uint32(/* id 7, wireType 0 =*/56).uint32(message.month);
                 if (message.date != null && Object.hasOwnProperty.call(message, "date"))
-                    writer.uint32(/* id 7, wireType 0 =*/56).uint32(message.date);
+                    writer.uint32(/* id 8, wireType 0 =*/64).uint32(message.date);
                 return writer;
             };
     
@@ -2528,21 +2539,24 @@
                         message.id = reader.string();
                         break;
                     case 2:
-                        message.ask_id = reader.string();
-                        break;
-                    case 3:
                         message.bid_id = reader.string();
                         break;
+                    case 3:
+                        message.ask_id = reader.string();
+                        break;
                     case 4:
-                        message.amount = reader.uint32();
+                        message.price = reader.uint32();
                         break;
                     case 5:
-                        message.year = reader.uint32();
+                        message.amount = reader.uint32();
                         break;
                     case 6:
-                        message.month = reader.uint32();
+                        message.year = reader.uint32();
                         break;
                     case 7:
+                        message.month = reader.uint32();
+                        break;
+                    case 8:
                         message.date = reader.uint32();
                         break;
                     default:
@@ -2583,12 +2597,15 @@
                 if (message.id != null && message.hasOwnProperty("id"))
                     if (!$util.isString(message.id))
                         return "id: string expected";
-                if (message.ask_id != null && message.hasOwnProperty("ask_id"))
-                    if (!$util.isString(message.ask_id))
-                        return "ask_id: string expected";
                 if (message.bid_id != null && message.hasOwnProperty("bid_id"))
                     if (!$util.isString(message.bid_id))
                         return "bid_id: string expected";
+                if (message.ask_id != null && message.hasOwnProperty("ask_id"))
+                    if (!$util.isString(message.ask_id))
+                        return "ask_id: string expected";
+                if (message.price != null && message.hasOwnProperty("price"))
+                    if (!$util.isInteger(message.price))
+                        return "price: integer expected";
                 if (message.amount != null && message.hasOwnProperty("amount"))
                     if (!$util.isInteger(message.amount))
                         return "amount: integer expected";
@@ -2618,10 +2635,12 @@
                 var message = new $root.main.NormalSettlement();
                 if (object.id != null)
                     message.id = String(object.id);
-                if (object.ask_id != null)
-                    message.ask_id = String(object.ask_id);
                 if (object.bid_id != null)
                     message.bid_id = String(object.bid_id);
+                if (object.ask_id != null)
+                    message.ask_id = String(object.ask_id);
+                if (object.price != null)
+                    message.price = object.price >>> 0;
                 if (object.amount != null)
                     message.amount = object.amount >>> 0;
                 if (object.year != null)
@@ -2648,8 +2667,9 @@
                 var object = {};
                 if (options.defaults) {
                     object.id = "";
-                    object.ask_id = "";
                     object.bid_id = "";
+                    object.ask_id = "";
+                    object.price = 0;
                     object.amount = 0;
                     object.year = 0;
                     object.month = 0;
@@ -2657,10 +2677,12 @@
                 }
                 if (message.id != null && message.hasOwnProperty("id"))
                     object.id = message.id;
-                if (message.ask_id != null && message.hasOwnProperty("ask_id"))
-                    object.ask_id = message.ask_id;
                 if (message.bid_id != null && message.hasOwnProperty("bid_id"))
                     object.bid_id = message.bid_id;
+                if (message.ask_id != null && message.hasOwnProperty("ask_id"))
+                    object.ask_id = message.ask_id;
+                if (message.price != null && message.hasOwnProperty("price"))
+                    object.price = message.price;
                 if (message.amount != null && message.hasOwnProperty("amount"))
                     object.amount = message.amount;
                 if (message.year != null && message.hasOwnProperty("year"))
@@ -3717,8 +3739,9 @@
              * @memberof main
              * @interface IRenewableSettlement
              * @property {string|null} [id] RenewableSettlement id
-             * @property {string|null} [ask_id] RenewableSettlement ask_id
              * @property {string|null} [bid_id] RenewableSettlement bid_id
+             * @property {string|null} [ask_id] RenewableSettlement ask_id
+             * @property {number|null} [price] RenewableSettlement price
              * @property {number|null} [amount] RenewableSettlement amount
              * @property {number|null} [year] RenewableSettlement year
              * @property {number|null} [month] RenewableSettlement month
@@ -3749,6 +3772,14 @@
             RenewableSettlement.prototype.id = "";
     
             /**
+             * RenewableSettlement bid_id.
+             * @member {string} bid_id
+             * @memberof main.RenewableSettlement
+             * @instance
+             */
+            RenewableSettlement.prototype.bid_id = "";
+    
+            /**
              * RenewableSettlement ask_id.
              * @member {string} ask_id
              * @memberof main.RenewableSettlement
@@ -3757,12 +3788,12 @@
             RenewableSettlement.prototype.ask_id = "";
     
             /**
-             * RenewableSettlement bid_id.
-             * @member {string} bid_id
+             * RenewableSettlement price.
+             * @member {number} price
              * @memberof main.RenewableSettlement
              * @instance
              */
-            RenewableSettlement.prototype.bid_id = "";
+            RenewableSettlement.prototype.price = 0;
     
             /**
              * RenewableSettlement amount.
@@ -3810,18 +3841,20 @@
                     writer = $Writer.create();
                 if (message.id != null && Object.hasOwnProperty.call(message, "id"))
                     writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
-                if (message.ask_id != null && Object.hasOwnProperty.call(message, "ask_id"))
-                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.ask_id);
                 if (message.bid_id != null && Object.hasOwnProperty.call(message, "bid_id"))
-                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.bid_id);
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.bid_id);
+                if (message.ask_id != null && Object.hasOwnProperty.call(message, "ask_id"))
+                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.ask_id);
+                if (message.price != null && Object.hasOwnProperty.call(message, "price"))
+                    writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.price);
                 if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
-                    writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.amount);
+                    writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.amount);
                 if (message.year != null && Object.hasOwnProperty.call(message, "year"))
-                    writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.year);
+                    writer.uint32(/* id 6, wireType 0 =*/48).uint32(message.year);
                 if (message.month != null && Object.hasOwnProperty.call(message, "month"))
-                    writer.uint32(/* id 6, wireType 0 =*/48).uint32(message.month);
+                    writer.uint32(/* id 7, wireType 0 =*/56).uint32(message.month);
                 if (message.date != null && Object.hasOwnProperty.call(message, "date"))
-                    writer.uint32(/* id 7, wireType 0 =*/56).uint32(message.date);
+                    writer.uint32(/* id 8, wireType 0 =*/64).uint32(message.date);
                 return writer;
             };
     
@@ -3860,21 +3893,24 @@
                         message.id = reader.string();
                         break;
                     case 2:
-                        message.ask_id = reader.string();
-                        break;
-                    case 3:
                         message.bid_id = reader.string();
                         break;
+                    case 3:
+                        message.ask_id = reader.string();
+                        break;
                     case 4:
-                        message.amount = reader.uint32();
+                        message.price = reader.uint32();
                         break;
                     case 5:
-                        message.year = reader.uint32();
+                        message.amount = reader.uint32();
                         break;
                     case 6:
-                        message.month = reader.uint32();
+                        message.year = reader.uint32();
                         break;
                     case 7:
+                        message.month = reader.uint32();
+                        break;
+                    case 8:
                         message.date = reader.uint32();
                         break;
                     default:
@@ -3915,12 +3951,15 @@
                 if (message.id != null && message.hasOwnProperty("id"))
                     if (!$util.isString(message.id))
                         return "id: string expected";
-                if (message.ask_id != null && message.hasOwnProperty("ask_id"))
-                    if (!$util.isString(message.ask_id))
-                        return "ask_id: string expected";
                 if (message.bid_id != null && message.hasOwnProperty("bid_id"))
                     if (!$util.isString(message.bid_id))
                         return "bid_id: string expected";
+                if (message.ask_id != null && message.hasOwnProperty("ask_id"))
+                    if (!$util.isString(message.ask_id))
+                        return "ask_id: string expected";
+                if (message.price != null && message.hasOwnProperty("price"))
+                    if (!$util.isInteger(message.price))
+                        return "price: integer expected";
                 if (message.amount != null && message.hasOwnProperty("amount"))
                     if (!$util.isInteger(message.amount))
                         return "amount: integer expected";
@@ -3950,10 +3989,12 @@
                 var message = new $root.main.RenewableSettlement();
                 if (object.id != null)
                     message.id = String(object.id);
-                if (object.ask_id != null)
-                    message.ask_id = String(object.ask_id);
                 if (object.bid_id != null)
                     message.bid_id = String(object.bid_id);
+                if (object.ask_id != null)
+                    message.ask_id = String(object.ask_id);
+                if (object.price != null)
+                    message.price = object.price >>> 0;
                 if (object.amount != null)
                     message.amount = object.amount >>> 0;
                 if (object.year != null)
@@ -3980,8 +4021,9 @@
                 var object = {};
                 if (options.defaults) {
                     object.id = "";
-                    object.ask_id = "";
                     object.bid_id = "";
+                    object.ask_id = "";
+                    object.price = 0;
                     object.amount = 0;
                     object.year = 0;
                     object.month = 0;
@@ -3989,10 +4031,12 @@
                 }
                 if (message.id != null && message.hasOwnProperty("id"))
                     object.id = message.id;
-                if (message.ask_id != null && message.hasOwnProperty("ask_id"))
-                    object.ask_id = message.ask_id;
                 if (message.bid_id != null && message.hasOwnProperty("bid_id"))
                     object.bid_id = message.bid_id;
+                if (message.ask_id != null && message.hasOwnProperty("ask_id"))
+                    object.ask_id = message.ask_id;
+                if (message.price != null && message.hasOwnProperty("price"))
+                    object.price = message.price;
                 if (message.amount != null && message.hasOwnProperty("amount"))
                     object.amount = message.amount;
                 if (message.year != null && message.hasOwnProperty("year"))

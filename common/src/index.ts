@@ -14,3 +14,5 @@ export * from './entities/student-accounts/monthly-usages';
 export * from './entities/admin-accounts';
 export * from './entities/single-price-normal-settlements';
 export * from './entities/single-price-renewable-settlements';
+export * from "./entities/normal-settlements";
+export * from "./entities/renewable-settlements";

@@ -950,11 +950,14 @@ export namespace main {
         /** NormalSettlement id */
         id?: (string|null);
 
+        /** NormalSettlement bid_id */
+        bid_id?: (string|null);
+
         /** NormalSettlement ask_id */
         ask_id?: (string|null);
 
-        /** NormalSettlement bid_id */
-        bid_id?: (string|null);
+        /** NormalSettlement price */
+        price?: (number|null);
 
         /** NormalSettlement amount */
         amount?: (number|null);
@@ -981,11 +984,14 @@ export namespace main {
         /** NormalSettlement id. */
         public id: string;
 
+        /** NormalSettlement bid_id. */
+        public bid_id: string;
+
         /** NormalSettlement ask_id. */
         public ask_id: string;
 
-        /** NormalSettlement bid_id. */
-        public bid_id: string;
+        /** NormalSettlement price. */
+        public price: number;
 
         /** NormalSettlement amount. */
         public amount: number;
@@ -1486,11 +1492,14 @@ export namespace main {
         /** RenewableSettlement id */
         id?: (string|null);
 
+        /** RenewableSettlement bid_id */
+        bid_id?: (string|null);
+
         /** RenewableSettlement ask_id */
         ask_id?: (string|null);
 
-        /** RenewableSettlement bid_id */
-        bid_id?: (string|null);
+        /** RenewableSettlement price */
+        price?: (number|null);
 
         /** RenewableSettlement amount */
         amount?: (number|null);
@@ -1517,11 +1526,14 @@ export namespace main {
         /** RenewableSettlement id. */
         public id: string;
 
+        /** RenewableSettlement bid_id. */
+        public bid_id: string;
+
         /** RenewableSettlement ask_id. */
         public ask_id: string;
 
-        /** RenewableSettlement bid_id. */
-        public bid_id: string;
+        /** RenewableSettlement price. */
+        public price: number;
 
         /** RenewableSettlement amount. */
         public amount: number;
