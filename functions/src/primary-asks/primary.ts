@@ -15,7 +15,7 @@ exports.scheduledFunctionCrontab = functions.pubsub
       const studentID = student.id;
       const now = new Date();
       const monthlyUsage = await monthly_usage.getLastYear(studentID, now);
-      const usageAmount = !monthlyUsage[0] ? 120 : monthlyUsage[0].amount_kwh;
+      const usageAmount = !monthlyUsage.length ? 120 : monthlyUsage[0].amount_kwh;
       await primary_ask.create(
         new PrimaryAsk({
           account_id: studentID,
