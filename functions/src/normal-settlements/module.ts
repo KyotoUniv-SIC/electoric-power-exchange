@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 /* eslint-disable require-jsdoc */
-import { SinglePriceRenewableSettlement, SinglePriceRenewableSettlementFirestore } from '@local/common';
+import { NormalSettlement, NormalSettlementFirestore } from '@local/common';
 import * as admin from 'firebase-admin';
 
 export * from './controller';
@@ -11,15 +11,15 @@ export * from './controller';
 export function collection() {
   return admin
     .firestore()
-    .collection(SinglePriceRenewableSettlementFirestore.collectionPath())
-    .withConverter(SinglePriceRenewableSettlementFirestore.converter as any);
+    .collection(NormalSettlementFirestore.collectionPath())
+    .withConverter(NormalSettlementFirestore.converter as any);
 }
 
 export function collectionGroup() {
   return admin
     .firestore()
-    .collectionGroup(SinglePriceRenewableSettlementFirestore.collectionID)
-    .withConverter(SinglePriceRenewableSettlementFirestore.converter as any);
+    .collectionGroup(NormalSettlementFirestore.collectionID)
+    .withConverter(NormalSettlementFirestore.converter as any);
 }
 
 export function document(id?: string) {
@@ -30,16 +30,16 @@ export function document(id?: string) {
 export async function get(id: string) {
   return await document(id)
     .get()
-    .then((snapshot) => snapshot.data() as SinglePriceRenewableSettlement);
+    .then((snapshot) => snapshot.data() as NormalSettlement);
 }
 
 export async function list() {
   return await collection()
     .get()
-    .then((snapshot) => snapshot.docs.map((doc) => doc.data() as SinglePriceRenewableSettlement));
+    .then((snapshot) => snapshot.docs.map((doc) => doc.data() as NormalSettlement));
 }
 
-export async function create(data: SinglePriceRenewableSettlement) {
+export async function create(data: NormalSettlement) {
   const doc = document();
   data.id = doc.id;
 
@@ -56,7 +56,7 @@ export async function create(data: SinglePriceRenewableSettlement) {
   await doc.set(data);
 }
 
-export async function update(data: SinglePriceRenewableSettlement) {
+export async function update(data: NormalSettlement) {
   const now = admin.firestore.Timestamp.now();
   data.updated_at = now;
 

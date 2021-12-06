@@ -1,14 +1,14 @@
 import { proto } from '../..';
 import { FieldValue, Timestamp } from 'firebase/firestore';
 
-export class SinglePriceRenewableSettlement extends proto.main.SinglePriceRenewableSettlement {
+export class RenewableSettlement extends proto.main.RenewableSettlement {
   constructor(
-    iSinglePriceRenewableSettlement: proto.main.ISinglePriceRenewableSettlement,
+    iRenewableSettlement: proto.main.IRenewableSettlement,
     public market_date?: FieldValue | Timestamp,
     public created_at?: FieldValue | Timestamp,
     public updated_at?: FieldValue | Timestamp,
   ) {
-    super(iSinglePriceRenewableSettlement);
+    super(iRenewableSettlement);
   }
 
   validate() {

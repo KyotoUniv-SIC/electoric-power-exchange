@@ -64,17 +64,11 @@ exports.scheduledFunctionCrontab = functions.pubsub
       // 止まったときの低い方が成約取引量となる
       const equilibriumAmount =
         sortRenewableBids[i].amount <= sortRenewableAsks[j].amount ? sortRenewableBids[i].amount : sortRenewableAsks[j].amount;
-      // 一日前の日付を取得
-      const time = new Date();
-      time.setDate(time.getDate() - 1);
 
       await single_price_renewable_settlement.create(
         new SinglePriceRenewableSettlement({
           price: equilibriumPrice,
           amount: equilibriumAmount,
-          year: time.getFullYear(),
-          month: time.getMonth(),
-          date: time.getDate(),
         }),
       );
     }
