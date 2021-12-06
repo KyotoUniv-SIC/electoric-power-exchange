@@ -2,6 +2,7 @@ syntax = "proto3";
 package main;
 
 import "firebase_rules_options.proto";
+import "google/protobuf/timestamp.proto";
 
 option (google.firebase.rules.firebase_rules).full_package_names = true;
 
@@ -11,7 +12,5 @@ message RenewableSettlement {
   string ask_id = 3;
   uint32 price = 4;
   uint32 amount = 5;
-  uint32 year = 6;
-  uint32 month = 7;
-  uint32 date = 8;
+  //google.protobuf.Timestamp date = 6;
 }
