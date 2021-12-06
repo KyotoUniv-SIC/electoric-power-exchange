@@ -3,10 +3,10 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 /* eslint-disable require-jsdoc */
-import * as admin from 'firebase-admin';
 import { RenewableSettlement, RenewableSettlementFirestore } from '@local/common';
+import * as admin from 'firebase-admin';
 
-export * from './controller'
+export * from './controller';
 
 export function collection() {
   return admin
@@ -39,9 +39,7 @@ export async function list() {
     .then((snapshot) => snapshot.docs.map((doc) => doc.data() as RenewableSettlement));
 }
 
-export async function create(
-  data: RenewableSettlement
-) {
+export async function create(data: RenewableSettlement) {
   const doc = document();
   data.id = doc.id;
 
@@ -49,12 +47,16 @@ export async function create(
   data.created_at = now;
   data.updated_at = now;
 
+  const date = now.toDate();
+  date.setDate(date.getDate() - 1);
+  const timestamp = admin.firestore.Timestamp.fromDate(date);
+
+  data.market_date = timestamp;
+
   await doc.set(data);
 }
 
-export async function update(
-  data: RenewableSettlement
-) {
+export async function update(data: RenewableSettlement) {
   const now = admin.firestore.Timestamp.now();
   data.updated_at = now;
 
