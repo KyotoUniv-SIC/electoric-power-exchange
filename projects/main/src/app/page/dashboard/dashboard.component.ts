@@ -28,7 +28,7 @@ export class DashboardComponent implements OnInit {
       new proto.main.MonthlyUsage({
         id: 'testUsage',
         student_account_id: 'testID',
-        amount_kwh: Long.fromNumber(2000),
+        amount_kwh: 2000,
       }),
     );
 

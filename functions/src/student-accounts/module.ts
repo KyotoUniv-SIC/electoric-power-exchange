@@ -33,6 +33,12 @@ export async function get(id: string) {
     .then((snapshot) => snapshot.data() as StudentAccount);
 }
 
+export async function list() {
+  return await collection()
+    .get()
+    .then((snapshot) => snapshot.docs.map((doc) => doc.data() as StudentAccount));
+}
+
 export async function create(data: StudentAccount) {
   const doc = document();
   data.id = doc.id;
