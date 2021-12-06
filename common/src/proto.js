@@ -825,8 +825,8 @@ export const main = $root.main = (() => {
          * @interface IBalance
          * @property {string|null} [id] Balance id
          * @property {string|null} [account_id] Balance account_id
-         * @property {Long|null} [amount_jpy] Balance amount_jpy
-         * @property {Long|null} [amount_xrp] Balance amount_xrp
+         * @property {number|null} [amount_jpy] Balance amount_jpy
+         * @property {number|null} [amount_xrp] Balance amount_xrp
          */
 
         /**
@@ -862,19 +862,19 @@ export const main = $root.main = (() => {
 
         /**
          * Balance amount_jpy.
-         * @member {Long} amount_jpy
+         * @member {number} amount_jpy
          * @memberof main.Balance
          * @instance
          */
-        Balance.prototype.amount_jpy = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+        Balance.prototype.amount_jpy = 0;
 
         /**
          * Balance amount_xrp.
-         * @member {Long} amount_xrp
+         * @member {number} amount_xrp
          * @memberof main.Balance
          * @instance
          */
-        Balance.prototype.amount_xrp = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+        Balance.prototype.amount_xrp = 0;
 
         /**
          * Encodes the specified Balance message. Does not implicitly {@link main.Balance.verify|verify} messages.
@@ -893,9 +893,9 @@ export const main = $root.main = (() => {
             if (message.account_id != null && Object.hasOwnProperty.call(message, "account_id"))
                 writer.uint32(/* id 2, wireType 2 =*/18).string(message.account_id);
             if (message.amount_jpy != null && Object.hasOwnProperty.call(message, "amount_jpy"))
-                writer.uint32(/* id 3, wireType 0 =*/24).uint64(message.amount_jpy);
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.amount_jpy);
             if (message.amount_xrp != null && Object.hasOwnProperty.call(message, "amount_xrp"))
-                writer.uint32(/* id 4, wireType 0 =*/32).uint64(message.amount_xrp);
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.amount_xrp);
             return writer;
         };
 
@@ -937,10 +937,10 @@ export const main = $root.main = (() => {
                     message.account_id = reader.string();
                     break;
                 case 3:
-                    message.amount_jpy = reader.uint64();
+                    message.amount_jpy = reader.uint32();
                     break;
                 case 4:
-                    message.amount_xrp = reader.uint64();
+                    message.amount_xrp = reader.uint32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -984,11 +984,11 @@ export const main = $root.main = (() => {
                 if (!$util.isString(message.account_id))
                     return "account_id: string expected";
             if (message.amount_jpy != null && message.hasOwnProperty("amount_jpy"))
-                if (!$util.isInteger(message.amount_jpy) && !(message.amount_jpy && $util.isInteger(message.amount_jpy.low) && $util.isInteger(message.amount_jpy.high)))
-                    return "amount_jpy: integer|Long expected";
+                if (!$util.isInteger(message.amount_jpy))
+                    return "amount_jpy: integer expected";
             if (message.amount_xrp != null && message.hasOwnProperty("amount_xrp"))
-                if (!$util.isInteger(message.amount_xrp) && !(message.amount_xrp && $util.isInteger(message.amount_xrp.low) && $util.isInteger(message.amount_xrp.high)))
-                    return "amount_xrp: integer|Long expected";
+                if (!$util.isInteger(message.amount_xrp))
+                    return "amount_xrp: integer expected";
             return null;
         };
 
@@ -1009,23 +1009,9 @@ export const main = $root.main = (() => {
             if (object.account_id != null)
                 message.account_id = String(object.account_id);
             if (object.amount_jpy != null)
-                if ($util.Long)
-                    (message.amount_jpy = $util.Long.fromValue(object.amount_jpy)).unsigned = true;
-                else if (typeof object.amount_jpy === "string")
-                    message.amount_jpy = parseInt(object.amount_jpy, 10);
-                else if (typeof object.amount_jpy === "number")
-                    message.amount_jpy = object.amount_jpy;
-                else if (typeof object.amount_jpy === "object")
-                    message.amount_jpy = new $util.LongBits(object.amount_jpy.low >>> 0, object.amount_jpy.high >>> 0).toNumber(true);
+                message.amount_jpy = object.amount_jpy >>> 0;
             if (object.amount_xrp != null)
-                if ($util.Long)
-                    (message.amount_xrp = $util.Long.fromValue(object.amount_xrp)).unsigned = true;
-                else if (typeof object.amount_xrp === "string")
-                    message.amount_xrp = parseInt(object.amount_xrp, 10);
-                else if (typeof object.amount_xrp === "number")
-                    message.amount_xrp = object.amount_xrp;
-                else if (typeof object.amount_xrp === "object")
-                    message.amount_xrp = new $util.LongBits(object.amount_xrp.low >>> 0, object.amount_xrp.high >>> 0).toNumber(true);
+                message.amount_xrp = object.amount_xrp >>> 0;
             return message;
         };
 
@@ -1045,31 +1031,17 @@ export const main = $root.main = (() => {
             if (options.defaults) {
                 object.id = "";
                 object.account_id = "";
-                if ($util.Long) {
-                    let long = new $util.Long(0, 0, true);
-                    object.amount_jpy = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.amount_jpy = options.longs === String ? "0" : 0;
-                if ($util.Long) {
-                    let long = new $util.Long(0, 0, true);
-                    object.amount_xrp = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.amount_xrp = options.longs === String ? "0" : 0;
+                object.amount_jpy = 0;
+                object.amount_xrp = 0;
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 object.id = message.id;
             if (message.account_id != null && message.hasOwnProperty("account_id"))
                 object.account_id = message.account_id;
             if (message.amount_jpy != null && message.hasOwnProperty("amount_jpy"))
-                if (typeof message.amount_jpy === "number")
-                    object.amount_jpy = options.longs === String ? String(message.amount_jpy) : message.amount_jpy;
-                else
-                    object.amount_jpy = options.longs === String ? $util.Long.prototype.toString.call(message.amount_jpy) : options.longs === Number ? new $util.LongBits(message.amount_jpy.low >>> 0, message.amount_jpy.high >>> 0).toNumber(true) : message.amount_jpy;
+                object.amount_jpy = message.amount_jpy;
             if (message.amount_xrp != null && message.hasOwnProperty("amount_xrp"))
-                if (typeof message.amount_xrp === "number")
-                    object.amount_xrp = options.longs === String ? String(message.amount_xrp) : message.amount_xrp;
-                else
-                    object.amount_xrp = options.longs === String ? $util.Long.prototype.toString.call(message.amount_xrp) : options.longs === Number ? new $util.LongBits(message.amount_xrp.low >>> 0, message.amount_xrp.high >>> 0).toNumber(true) : message.amount_xrp;
+                object.amount_xrp = message.amount_xrp;
             return object;
         };
 
@@ -1645,7 +1617,7 @@ export const main = $root.main = (() => {
          * @interface IMonthlyUsage
          * @property {string|null} [id] MonthlyUsage id
          * @property {string|null} [student_account_id] MonthlyUsage student_account_id
-         * @property {Long|null} [amount_kwh] MonthlyUsage amount_kwh
+         * @property {number|null} [amount_kwh] MonthlyUsage amount_kwh
          */
 
         /**
@@ -1681,11 +1653,11 @@ export const main = $root.main = (() => {
 
         /**
          * MonthlyUsage amount_kwh.
-         * @member {Long} amount_kwh
+         * @member {number} amount_kwh
          * @memberof main.MonthlyUsage
          * @instance
          */
-        MonthlyUsage.prototype.amount_kwh = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+        MonthlyUsage.prototype.amount_kwh = 0;
 
         /**
          * Encodes the specified MonthlyUsage message. Does not implicitly {@link main.MonthlyUsage.verify|verify} messages.
@@ -1704,7 +1676,7 @@ export const main = $root.main = (() => {
             if (message.student_account_id != null && Object.hasOwnProperty.call(message, "student_account_id"))
                 writer.uint32(/* id 2, wireType 2 =*/18).string(message.student_account_id);
             if (message.amount_kwh != null && Object.hasOwnProperty.call(message, "amount_kwh"))
-                writer.uint32(/* id 3, wireType 0 =*/24).uint64(message.amount_kwh);
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.amount_kwh);
             return writer;
         };
 
@@ -1746,7 +1718,7 @@ export const main = $root.main = (() => {
                     message.student_account_id = reader.string();
                     break;
                 case 3:
-                    message.amount_kwh = reader.uint64();
+                    message.amount_kwh = reader.uint32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -1790,8 +1762,8 @@ export const main = $root.main = (() => {
                 if (!$util.isString(message.student_account_id))
                     return "student_account_id: string expected";
             if (message.amount_kwh != null && message.hasOwnProperty("amount_kwh"))
-                if (!$util.isInteger(message.amount_kwh) && !(message.amount_kwh && $util.isInteger(message.amount_kwh.low) && $util.isInteger(message.amount_kwh.high)))
-                    return "amount_kwh: integer|Long expected";
+                if (!$util.isInteger(message.amount_kwh))
+                    return "amount_kwh: integer expected";
             return null;
         };
 
@@ -1812,14 +1784,7 @@ export const main = $root.main = (() => {
             if (object.student_account_id != null)
                 message.student_account_id = String(object.student_account_id);
             if (object.amount_kwh != null)
-                if ($util.Long)
-                    (message.amount_kwh = $util.Long.fromValue(object.amount_kwh)).unsigned = true;
-                else if (typeof object.amount_kwh === "string")
-                    message.amount_kwh = parseInt(object.amount_kwh, 10);
-                else if (typeof object.amount_kwh === "number")
-                    message.amount_kwh = object.amount_kwh;
-                else if (typeof object.amount_kwh === "object")
-                    message.amount_kwh = new $util.LongBits(object.amount_kwh.low >>> 0, object.amount_kwh.high >>> 0).toNumber(true);
+                message.amount_kwh = object.amount_kwh >>> 0;
             return message;
         };
 
@@ -1839,21 +1804,14 @@ export const main = $root.main = (() => {
             if (options.defaults) {
                 object.id = "";
                 object.student_account_id = "";
-                if ($util.Long) {
-                    let long = new $util.Long(0, 0, true);
-                    object.amount_kwh = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.amount_kwh = options.longs === String ? "0" : 0;
+                object.amount_kwh = 0;
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 object.id = message.id;
             if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
                 object.student_account_id = message.student_account_id;
             if (message.amount_kwh != null && message.hasOwnProperty("amount_kwh"))
-                if (typeof message.amount_kwh === "number")
-                    object.amount_kwh = options.longs === String ? String(message.amount_kwh) : message.amount_kwh;
-                else
-                    object.amount_kwh = options.longs === String ? $util.Long.prototype.toString.call(message.amount_kwh) : options.longs === Number ? new $util.LongBits(message.amount_kwh.low >>> 0, message.amount_kwh.high >>> 0).toNumber(true) : message.amount_kwh;
+                object.amount_kwh = message.amount_kwh;
             return object;
         };
 
@@ -2421,7 +2379,9 @@ export const main = $root.main = (() => {
          * @property {string|null} [ask_id] NormalSettlement ask_id
          * @property {string|null} [bid_id] NormalSettlement bid_id
          * @property {number|null} [amount] NormalSettlement amount
-         * @property {google.protobuf.ITimestamp|null} [date] NormalSettlement date
+         * @property {number|null} [year] NormalSettlement year
+         * @property {number|null} [month] NormalSettlement month
+         * @property {number|null} [date] NormalSettlement date
          */
 
         /**
@@ -2472,12 +2432,28 @@ export const main = $root.main = (() => {
         NormalSettlement.prototype.amount = 0;
 
         /**
-         * NormalSettlement date.
-         * @member {google.protobuf.ITimestamp|null|undefined} date
+         * NormalSettlement year.
+         * @member {number} year
          * @memberof main.NormalSettlement
          * @instance
          */
-        NormalSettlement.prototype.date = null;
+        NormalSettlement.prototype.year = 0;
+
+        /**
+         * NormalSettlement month.
+         * @member {number} month
+         * @memberof main.NormalSettlement
+         * @instance
+         */
+        NormalSettlement.prototype.month = 0;
+
+        /**
+         * NormalSettlement date.
+         * @member {number} date
+         * @memberof main.NormalSettlement
+         * @instance
+         */
+        NormalSettlement.prototype.date = 0;
 
         /**
          * Encodes the specified NormalSettlement message. Does not implicitly {@link main.NormalSettlement.verify|verify} messages.
@@ -2499,8 +2475,12 @@ export const main = $root.main = (() => {
                 writer.uint32(/* id 3, wireType 2 =*/26).string(message.bid_id);
             if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
                 writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.amount);
+            if (message.year != null && Object.hasOwnProperty.call(message, "year"))
+                writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.year);
+            if (message.month != null && Object.hasOwnProperty.call(message, "month"))
+                writer.uint32(/* id 6, wireType 0 =*/48).uint32(message.month);
             if (message.date != null && Object.hasOwnProperty.call(message, "date"))
-                $root.google.protobuf.Timestamp.encode(message.date, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                writer.uint32(/* id 7, wireType 0 =*/56).uint32(message.date);
             return writer;
         };
 
@@ -2548,7 +2528,13 @@ export const main = $root.main = (() => {
                     message.amount = reader.uint32();
                     break;
                 case 5:
-                    message.date = $root.google.protobuf.Timestamp.decode(reader, reader.uint32());
+                    message.year = reader.uint32();
+                    break;
+                case 6:
+                    message.month = reader.uint32();
+                    break;
+                case 7:
+                    message.date = reader.uint32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -2597,11 +2583,15 @@ export const main = $root.main = (() => {
             if (message.amount != null && message.hasOwnProperty("amount"))
                 if (!$util.isInteger(message.amount))
                     return "amount: integer expected";
-            if (message.date != null && message.hasOwnProperty("date")) {
-                let error = $root.google.protobuf.Timestamp.verify(message.date);
-                if (error)
-                    return "date." + error;
-            }
+            if (message.year != null && message.hasOwnProperty("year"))
+                if (!$util.isInteger(message.year))
+                    return "year: integer expected";
+            if (message.month != null && message.hasOwnProperty("month"))
+                if (!$util.isInteger(message.month))
+                    return "month: integer expected";
+            if (message.date != null && message.hasOwnProperty("date"))
+                if (!$util.isInteger(message.date))
+                    return "date: integer expected";
             return null;
         };
 
@@ -2625,11 +2615,12 @@ export const main = $root.main = (() => {
                 message.bid_id = String(object.bid_id);
             if (object.amount != null)
                 message.amount = object.amount >>> 0;
-            if (object.date != null) {
-                if (typeof object.date !== "object")
-                    throw TypeError(".main.NormalSettlement.date: object expected");
-                message.date = $root.google.protobuf.Timestamp.fromObject(object.date);
-            }
+            if (object.year != null)
+                message.year = object.year >>> 0;
+            if (object.month != null)
+                message.month = object.month >>> 0;
+            if (object.date != null)
+                message.date = object.date >>> 0;
             return message;
         };
 
@@ -2651,7 +2642,9 @@ export const main = $root.main = (() => {
                 object.ask_id = "";
                 object.bid_id = "";
                 object.amount = 0;
-                object.date = null;
+                object.year = 0;
+                object.month = 0;
+                object.date = 0;
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 object.id = message.id;
@@ -2661,8 +2654,12 @@ export const main = $root.main = (() => {
                 object.bid_id = message.bid_id;
             if (message.amount != null && message.hasOwnProperty("amount"))
                 object.amount = message.amount;
+            if (message.year != null && message.hasOwnProperty("year"))
+                object.year = message.year;
+            if (message.month != null && message.hasOwnProperty("month"))
+                object.month = message.month;
             if (message.date != null && message.hasOwnProperty("date"))
-                object.date = $root.google.protobuf.Timestamp.toObject(message.date, options);
+                object.date = message.date;
             return object;
         };
 
@@ -3710,10 +3707,13 @@ export const main = $root.main = (() => {
          * Properties of a RenewableSettlement.
          * @memberof main
          * @interface IRenewableSettlement
+         * @property {string|null} [id] RenewableSettlement id
          * @property {string|null} [ask_id] RenewableSettlement ask_id
          * @property {string|null} [bid_id] RenewableSettlement bid_id
          * @property {number|null} [amount] RenewableSettlement amount
-         * @property {google.protobuf.ITimestamp|null} [date] RenewableSettlement date
+         * @property {number|null} [year] RenewableSettlement year
+         * @property {number|null} [month] RenewableSettlement month
+         * @property {number|null} [date] RenewableSettlement date
          */
 
         /**
@@ -3730,6 +3730,14 @@ export const main = $root.main = (() => {
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
+
+        /**
+         * RenewableSettlement id.
+         * @member {string} id
+         * @memberof main.RenewableSettlement
+         * @instance
+         */
+        RenewableSettlement.prototype.id = "";
 
         /**
          * RenewableSettlement ask_id.
@@ -3756,12 +3764,28 @@ export const main = $root.main = (() => {
         RenewableSettlement.prototype.amount = 0;
 
         /**
-         * RenewableSettlement date.
-         * @member {google.protobuf.ITimestamp|null|undefined} date
+         * RenewableSettlement year.
+         * @member {number} year
          * @memberof main.RenewableSettlement
          * @instance
          */
-        RenewableSettlement.prototype.date = null;
+        RenewableSettlement.prototype.year = 0;
+
+        /**
+         * RenewableSettlement month.
+         * @member {number} month
+         * @memberof main.RenewableSettlement
+         * @instance
+         */
+        RenewableSettlement.prototype.month = 0;
+
+        /**
+         * RenewableSettlement date.
+         * @member {number} date
+         * @memberof main.RenewableSettlement
+         * @instance
+         */
+        RenewableSettlement.prototype.date = 0;
 
         /**
          * Encodes the specified RenewableSettlement message. Does not implicitly {@link main.RenewableSettlement.verify|verify} messages.
@@ -3775,14 +3799,20 @@ export const main = $root.main = (() => {
         RenewableSettlement.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
+            if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
             if (message.ask_id != null && Object.hasOwnProperty.call(message, "ask_id"))
-                writer.uint32(/* id 1, wireType 2 =*/10).string(message.ask_id);
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.ask_id);
             if (message.bid_id != null && Object.hasOwnProperty.call(message, "bid_id"))
-                writer.uint32(/* id 2, wireType 2 =*/18).string(message.bid_id);
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.bid_id);
             if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
-                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.amount);
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.amount);
+            if (message.year != null && Object.hasOwnProperty.call(message, "year"))
+                writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.year);
+            if (message.month != null && Object.hasOwnProperty.call(message, "month"))
+                writer.uint32(/* id 6, wireType 0 =*/48).uint32(message.month);
             if (message.date != null && Object.hasOwnProperty.call(message, "date"))
-                $root.google.protobuf.Timestamp.encode(message.date, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                writer.uint32(/* id 7, wireType 0 =*/56).uint32(message.date);
             return writer;
         };
 
@@ -3818,16 +3848,25 @@ export const main = $root.main = (() => {
                 let tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    message.ask_id = reader.string();
+                    message.id = reader.string();
                     break;
                 case 2:
-                    message.bid_id = reader.string();
+                    message.ask_id = reader.string();
                     break;
                 case 3:
-                    message.amount = reader.uint32();
+                    message.bid_id = reader.string();
                     break;
                 case 4:
-                    message.date = $root.google.protobuf.Timestamp.decode(reader, reader.uint32());
+                    message.amount = reader.uint32();
+                    break;
+                case 5:
+                    message.year = reader.uint32();
+                    break;
+                case 6:
+                    message.month = reader.uint32();
+                    break;
+                case 7:
+                    message.date = reader.uint32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -3864,6 +3903,9 @@ export const main = $root.main = (() => {
         RenewableSettlement.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isString(message.id))
+                    return "id: string expected";
             if (message.ask_id != null && message.hasOwnProperty("ask_id"))
                 if (!$util.isString(message.ask_id))
                     return "ask_id: string expected";
@@ -3873,11 +3915,15 @@ export const main = $root.main = (() => {
             if (message.amount != null && message.hasOwnProperty("amount"))
                 if (!$util.isInteger(message.amount))
                     return "amount: integer expected";
-            if (message.date != null && message.hasOwnProperty("date")) {
-                let error = $root.google.protobuf.Timestamp.verify(message.date);
-                if (error)
-                    return "date." + error;
-            }
+            if (message.year != null && message.hasOwnProperty("year"))
+                if (!$util.isInteger(message.year))
+                    return "year: integer expected";
+            if (message.month != null && message.hasOwnProperty("month"))
+                if (!$util.isInteger(message.month))
+                    return "month: integer expected";
+            if (message.date != null && message.hasOwnProperty("date"))
+                if (!$util.isInteger(message.date))
+                    return "date: integer expected";
             return null;
         };
 
@@ -3893,17 +3939,20 @@ export const main = $root.main = (() => {
             if (object instanceof $root.main.RenewableSettlement)
                 return object;
             let message = new $root.main.RenewableSettlement();
+            if (object.id != null)
+                message.id = String(object.id);
             if (object.ask_id != null)
                 message.ask_id = String(object.ask_id);
             if (object.bid_id != null)
                 message.bid_id = String(object.bid_id);
             if (object.amount != null)
                 message.amount = object.amount >>> 0;
-            if (object.date != null) {
-                if (typeof object.date !== "object")
-                    throw TypeError(".main.RenewableSettlement.date: object expected");
-                message.date = $root.google.protobuf.Timestamp.fromObject(object.date);
-            }
+            if (object.year != null)
+                message.year = object.year >>> 0;
+            if (object.month != null)
+                message.month = object.month >>> 0;
+            if (object.date != null)
+                message.date = object.date >>> 0;
             return message;
         };
 
@@ -3921,19 +3970,28 @@ export const main = $root.main = (() => {
                 options = {};
             let object = {};
             if (options.defaults) {
+                object.id = "";
                 object.ask_id = "";
                 object.bid_id = "";
                 object.amount = 0;
-                object.date = null;
+                object.year = 0;
+                object.month = 0;
+                object.date = 0;
             }
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
             if (message.ask_id != null && message.hasOwnProperty("ask_id"))
                 object.ask_id = message.ask_id;
             if (message.bid_id != null && message.hasOwnProperty("bid_id"))
                 object.bid_id = message.bid_id;
             if (message.amount != null && message.hasOwnProperty("amount"))
                 object.amount = message.amount;
+            if (message.year != null && message.hasOwnProperty("year"))
+                object.year = message.year;
+            if (message.month != null && message.hasOwnProperty("month"))
+                object.month = message.month;
             if (message.date != null && message.hasOwnProperty("date"))
-                object.date = $root.google.protobuf.Timestamp.toObject(message.date, options);
+                object.date = message.date;
             return object;
         };
 
@@ -3951,6 +4009,292 @@ export const main = $root.main = (() => {
         return RenewableSettlement;
     })();
 
+    main.SinglePriceNormalSettlement = (function() {
+
+        /**
+         * Properties of a SinglePriceNormalSettlement.
+         * @memberof main
+         * @interface ISinglePriceNormalSettlement
+         * @property {string|null} [id] SinglePriceNormalSettlement id
+         * @property {number|null} [price] SinglePriceNormalSettlement price
+         * @property {number|null} [amount] SinglePriceNormalSettlement amount
+         * @property {number|null} [year] SinglePriceNormalSettlement year
+         * @property {number|null} [month] SinglePriceNormalSettlement month
+         * @property {number|null} [date] SinglePriceNormalSettlement date
+         */
+
+        /**
+         * Constructs a new SinglePriceNormalSettlement.
+         * @memberof main
+         * @classdesc Represents a SinglePriceNormalSettlement.
+         * @implements ISinglePriceNormalSettlement
+         * @constructor
+         * @param {main.ISinglePriceNormalSettlement=} [properties] Properties to set
+         */
+        function SinglePriceNormalSettlement(properties) {
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * SinglePriceNormalSettlement id.
+         * @member {string} id
+         * @memberof main.SinglePriceNormalSettlement
+         * @instance
+         */
+        SinglePriceNormalSettlement.prototype.id = "";
+
+        /**
+         * SinglePriceNormalSettlement price.
+         * @member {number} price
+         * @memberof main.SinglePriceNormalSettlement
+         * @instance
+         */
+        SinglePriceNormalSettlement.prototype.price = 0;
+
+        /**
+         * SinglePriceNormalSettlement amount.
+         * @member {number} amount
+         * @memberof main.SinglePriceNormalSettlement
+         * @instance
+         */
+        SinglePriceNormalSettlement.prototype.amount = 0;
+
+        /**
+         * SinglePriceNormalSettlement year.
+         * @member {number} year
+         * @memberof main.SinglePriceNormalSettlement
+         * @instance
+         */
+        SinglePriceNormalSettlement.prototype.year = 0;
+
+        /**
+         * SinglePriceNormalSettlement month.
+         * @member {number} month
+         * @memberof main.SinglePriceNormalSettlement
+         * @instance
+         */
+        SinglePriceNormalSettlement.prototype.month = 0;
+
+        /**
+         * SinglePriceNormalSettlement date.
+         * @member {number} date
+         * @memberof main.SinglePriceNormalSettlement
+         * @instance
+         */
+        SinglePriceNormalSettlement.prototype.date = 0;
+
+        /**
+         * Encodes the specified SinglePriceNormalSettlement message. Does not implicitly {@link main.SinglePriceNormalSettlement.verify|verify} messages.
+         * @function encode
+         * @memberof main.SinglePriceNormalSettlement
+         * @static
+         * @param {main.ISinglePriceNormalSettlement} message SinglePriceNormalSettlement message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        SinglePriceNormalSettlement.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+            if (message.price != null && Object.hasOwnProperty.call(message, "price"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.price);
+            if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.amount);
+            if (message.year != null && Object.hasOwnProperty.call(message, "year"))
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.year);
+            if (message.month != null && Object.hasOwnProperty.call(message, "month"))
+                writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.month);
+            if (message.date != null && Object.hasOwnProperty.call(message, "date"))
+                writer.uint32(/* id 6, wireType 0 =*/48).uint32(message.date);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified SinglePriceNormalSettlement message, length delimited. Does not implicitly {@link main.SinglePriceNormalSettlement.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof main.SinglePriceNormalSettlement
+         * @static
+         * @param {main.ISinglePriceNormalSettlement} message SinglePriceNormalSettlement message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        SinglePriceNormalSettlement.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a SinglePriceNormalSettlement message from the specified reader or buffer.
+         * @function decode
+         * @memberof main.SinglePriceNormalSettlement
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {main.SinglePriceNormalSettlement} SinglePriceNormalSettlement
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        SinglePriceNormalSettlement.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.SinglePriceNormalSettlement();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.id = reader.string();
+                    break;
+                case 2:
+                    message.price = reader.uint32();
+                    break;
+                case 3:
+                    message.amount = reader.uint32();
+                    break;
+                case 4:
+                    message.year = reader.uint32();
+                    break;
+                case 5:
+                    message.month = reader.uint32();
+                    break;
+                case 6:
+                    message.date = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a SinglePriceNormalSettlement message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof main.SinglePriceNormalSettlement
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {main.SinglePriceNormalSettlement} SinglePriceNormalSettlement
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        SinglePriceNormalSettlement.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a SinglePriceNormalSettlement message.
+         * @function verify
+         * @memberof main.SinglePriceNormalSettlement
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        SinglePriceNormalSettlement.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isString(message.id))
+                    return "id: string expected";
+            if (message.price != null && message.hasOwnProperty("price"))
+                if (!$util.isInteger(message.price))
+                    return "price: integer expected";
+            if (message.amount != null && message.hasOwnProperty("amount"))
+                if (!$util.isInteger(message.amount))
+                    return "amount: integer expected";
+            if (message.year != null && message.hasOwnProperty("year"))
+                if (!$util.isInteger(message.year))
+                    return "year: integer expected";
+            if (message.month != null && message.hasOwnProperty("month"))
+                if (!$util.isInteger(message.month))
+                    return "month: integer expected";
+            if (message.date != null && message.hasOwnProperty("date"))
+                if (!$util.isInteger(message.date))
+                    return "date: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a SinglePriceNormalSettlement message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof main.SinglePriceNormalSettlement
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {main.SinglePriceNormalSettlement} SinglePriceNormalSettlement
+         */
+        SinglePriceNormalSettlement.fromObject = function fromObject(object) {
+            if (object instanceof $root.main.SinglePriceNormalSettlement)
+                return object;
+            let message = new $root.main.SinglePriceNormalSettlement();
+            if (object.id != null)
+                message.id = String(object.id);
+            if (object.price != null)
+                message.price = object.price >>> 0;
+            if (object.amount != null)
+                message.amount = object.amount >>> 0;
+            if (object.year != null)
+                message.year = object.year >>> 0;
+            if (object.month != null)
+                message.month = object.month >>> 0;
+            if (object.date != null)
+                message.date = object.date >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a SinglePriceNormalSettlement message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof main.SinglePriceNormalSettlement
+         * @static
+         * @param {main.SinglePriceNormalSettlement} message SinglePriceNormalSettlement
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        SinglePriceNormalSettlement.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.defaults) {
+                object.id = "";
+                object.price = 0;
+                object.amount = 0;
+                object.year = 0;
+                object.month = 0;
+                object.date = 0;
+            }
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            if (message.price != null && message.hasOwnProperty("price"))
+                object.price = message.price;
+            if (message.amount != null && message.hasOwnProperty("amount"))
+                object.amount = message.amount;
+            if (message.year != null && message.hasOwnProperty("year"))
+                object.year = message.year;
+            if (message.month != null && message.hasOwnProperty("month"))
+                object.month = message.month;
+            if (message.date != null && message.hasOwnProperty("date"))
+                object.date = message.date;
+            return object;
+        };
+
+        /**
+         * Converts this SinglePriceNormalSettlement to JSON.
+         * @function toJSON
+         * @memberof main.SinglePriceNormalSettlement
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        SinglePriceNormalSettlement.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return SinglePriceNormalSettlement;
+    })();
+
     main.SinglePriceRenewableSettlement = (function() {
 
         /**
@@ -3960,7 +4304,9 @@ export const main = $root.main = (() => {
          * @property {string|null} [id] SinglePriceRenewableSettlement id
          * @property {number|null} [price] SinglePriceRenewableSettlement price
          * @property {number|null} [amount] SinglePriceRenewableSettlement amount
-         * @property {google.protobuf.ITimestamp|null} [date] SinglePriceRenewableSettlement date
+         * @property {number|null} [year] SinglePriceRenewableSettlement year
+         * @property {number|null} [month] SinglePriceRenewableSettlement month
+         * @property {number|null} [date] SinglePriceRenewableSettlement date
          */
 
         /**
@@ -4003,12 +4349,28 @@ export const main = $root.main = (() => {
         SinglePriceRenewableSettlement.prototype.amount = 0;
 
         /**
-         * SinglePriceRenewableSettlement date.
-         * @member {google.protobuf.ITimestamp|null|undefined} date
+         * SinglePriceRenewableSettlement year.
+         * @member {number} year
          * @memberof main.SinglePriceRenewableSettlement
          * @instance
          */
-        SinglePriceRenewableSettlement.prototype.date = null;
+        SinglePriceRenewableSettlement.prototype.year = 0;
+
+        /**
+         * SinglePriceRenewableSettlement month.
+         * @member {number} month
+         * @memberof main.SinglePriceRenewableSettlement
+         * @instance
+         */
+        SinglePriceRenewableSettlement.prototype.month = 0;
+
+        /**
+         * SinglePriceRenewableSettlement date.
+         * @member {number} date
+         * @memberof main.SinglePriceRenewableSettlement
+         * @instance
+         */
+        SinglePriceRenewableSettlement.prototype.date = 0;
 
         /**
          * Encodes the specified SinglePriceRenewableSettlement message. Does not implicitly {@link main.SinglePriceRenewableSettlement.verify|verify} messages.
@@ -4028,8 +4390,12 @@ export const main = $root.main = (() => {
                 writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.price);
             if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
                 writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.amount);
+            if (message.year != null && Object.hasOwnProperty.call(message, "year"))
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.year);
+            if (message.month != null && Object.hasOwnProperty.call(message, "month"))
+                writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.month);
             if (message.date != null && Object.hasOwnProperty.call(message, "date"))
-                $root.google.protobuf.Timestamp.encode(message.date, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                writer.uint32(/* id 6, wireType 0 =*/48).uint32(message.date);
             return writer;
         };
 
@@ -4074,7 +4440,13 @@ export const main = $root.main = (() => {
                     message.amount = reader.uint32();
                     break;
                 case 4:
-                    message.date = $root.google.protobuf.Timestamp.decode(reader, reader.uint32());
+                    message.year = reader.uint32();
+                    break;
+                case 5:
+                    message.month = reader.uint32();
+                    break;
+                case 6:
+                    message.date = reader.uint32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -4120,11 +4492,15 @@ export const main = $root.main = (() => {
             if (message.amount != null && message.hasOwnProperty("amount"))
                 if (!$util.isInteger(message.amount))
                     return "amount: integer expected";
-            if (message.date != null && message.hasOwnProperty("date")) {
-                let error = $root.google.protobuf.Timestamp.verify(message.date);
-                if (error)
-                    return "date." + error;
-            }
+            if (message.year != null && message.hasOwnProperty("year"))
+                if (!$util.isInteger(message.year))
+                    return "year: integer expected";
+            if (message.month != null && message.hasOwnProperty("month"))
+                if (!$util.isInteger(message.month))
+                    return "month: integer expected";
+            if (message.date != null && message.hasOwnProperty("date"))
+                if (!$util.isInteger(message.date))
+                    return "date: integer expected";
             return null;
         };
 
@@ -4146,11 +4522,12 @@ export const main = $root.main = (() => {
                 message.price = object.price >>> 0;
             if (object.amount != null)
                 message.amount = object.amount >>> 0;
-            if (object.date != null) {
-                if (typeof object.date !== "object")
-                    throw TypeError(".main.SinglePriceRenewableSettlement.date: object expected");
-                message.date = $root.google.protobuf.Timestamp.fromObject(object.date);
-            }
+            if (object.year != null)
+                message.year = object.year >>> 0;
+            if (object.month != null)
+                message.month = object.month >>> 0;
+            if (object.date != null)
+                message.date = object.date >>> 0;
             return message;
         };
 
@@ -4171,7 +4548,9 @@ export const main = $root.main = (() => {
                 object.id = "";
                 object.price = 0;
                 object.amount = 0;
-                object.date = null;
+                object.year = 0;
+                object.month = 0;
+                object.date = 0;
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 object.id = message.id;
@@ -4179,8 +4558,12 @@ export const main = $root.main = (() => {
                 object.price = message.price;
             if (message.amount != null && message.hasOwnProperty("amount"))
                 object.amount = message.amount;
+            if (message.year != null && message.hasOwnProperty("year"))
+                object.year = message.year;
+            if (message.month != null && message.hasOwnProperty("month"))
+                object.month = message.month;
             if (message.date != null && message.hasOwnProperty("date"))
-                object.date = $root.google.protobuf.Timestamp.toObject(message.date, options);
+                object.date = message.date;
             return object;
         };
 
@@ -4206,8 +4589,8 @@ export const main = $root.main = (() => {
          * @interface ISolarPower
          * @property {string|null} [id] SolarPower id
          * @property {string|null} [student_account_id] SolarPower student_account_id
-         * @property {Long|null} [amount_kwh] SolarPower amount_kwh
-         * @property {Long|null} [price] SolarPower price
+         * @property {number|null} [amount_kwh] SolarPower amount_kwh
+         * @property {number|null} [price] SolarPower price
          * @property {string|null} [denom] SolarPower denom
          */
 
@@ -4244,19 +4627,19 @@ export const main = $root.main = (() => {
 
         /**
          * SolarPower amount_kwh.
-         * @member {Long} amount_kwh
+         * @member {number} amount_kwh
          * @memberof main.SolarPower
          * @instance
          */
-        SolarPower.prototype.amount_kwh = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+        SolarPower.prototype.amount_kwh = 0;
 
         /**
          * SolarPower price.
-         * @member {Long} price
+         * @member {number} price
          * @memberof main.SolarPower
          * @instance
          */
-        SolarPower.prototype.price = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+        SolarPower.prototype.price = 0;
 
         /**
          * SolarPower denom.
@@ -4283,9 +4666,9 @@ export const main = $root.main = (() => {
             if (message.student_account_id != null && Object.hasOwnProperty.call(message, "student_account_id"))
                 writer.uint32(/* id 2, wireType 2 =*/18).string(message.student_account_id);
             if (message.amount_kwh != null && Object.hasOwnProperty.call(message, "amount_kwh"))
-                writer.uint32(/* id 3, wireType 0 =*/24).uint64(message.amount_kwh);
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.amount_kwh);
             if (message.price != null && Object.hasOwnProperty.call(message, "price"))
-                writer.uint32(/* id 4, wireType 0 =*/32).uint64(message.price);
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.price);
             if (message.denom != null && Object.hasOwnProperty.call(message, "denom"))
                 writer.uint32(/* id 5, wireType 2 =*/42).string(message.denom);
             return writer;
@@ -4329,10 +4712,10 @@ export const main = $root.main = (() => {
                     message.student_account_id = reader.string();
                     break;
                 case 3:
-                    message.amount_kwh = reader.uint64();
+                    message.amount_kwh = reader.uint32();
                     break;
                 case 4:
-                    message.price = reader.uint64();
+                    message.price = reader.uint32();
                     break;
                 case 5:
                     message.denom = reader.string();
@@ -4379,11 +4762,11 @@ export const main = $root.main = (() => {
                 if (!$util.isString(message.student_account_id))
                     return "student_account_id: string expected";
             if (message.amount_kwh != null && message.hasOwnProperty("amount_kwh"))
-                if (!$util.isInteger(message.amount_kwh) && !(message.amount_kwh && $util.isInteger(message.amount_kwh.low) && $util.isInteger(message.amount_kwh.high)))
-                    return "amount_kwh: integer|Long expected";
+                if (!$util.isInteger(message.amount_kwh))
+                    return "amount_kwh: integer expected";
             if (message.price != null && message.hasOwnProperty("price"))
-                if (!$util.isInteger(message.price) && !(message.price && $util.isInteger(message.price.low) && $util.isInteger(message.price.high)))
-                    return "price: integer|Long expected";
+                if (!$util.isInteger(message.price))
+                    return "price: integer expected";
             if (message.denom != null && message.hasOwnProperty("denom"))
                 if (!$util.isString(message.denom))
                     return "denom: string expected";
@@ -4407,23 +4790,9 @@ export const main = $root.main = (() => {
             if (object.student_account_id != null)
                 message.student_account_id = String(object.student_account_id);
             if (object.amount_kwh != null)
-                if ($util.Long)
-                    (message.amount_kwh = $util.Long.fromValue(object.amount_kwh)).unsigned = true;
-                else if (typeof object.amount_kwh === "string")
-                    message.amount_kwh = parseInt(object.amount_kwh, 10);
-                else if (typeof object.amount_kwh === "number")
-                    message.amount_kwh = object.amount_kwh;
-                else if (typeof object.amount_kwh === "object")
-                    message.amount_kwh = new $util.LongBits(object.amount_kwh.low >>> 0, object.amount_kwh.high >>> 0).toNumber(true);
+                message.amount_kwh = object.amount_kwh >>> 0;
             if (object.price != null)
-                if ($util.Long)
-                    (message.price = $util.Long.fromValue(object.price)).unsigned = true;
-                else if (typeof object.price === "string")
-                    message.price = parseInt(object.price, 10);
-                else if (typeof object.price === "number")
-                    message.price = object.price;
-                else if (typeof object.price === "object")
-                    message.price = new $util.LongBits(object.price.low >>> 0, object.price.high >>> 0).toNumber(true);
+                message.price = object.price >>> 0;
             if (object.denom != null)
                 message.denom = String(object.denom);
             return message;
@@ -4445,16 +4814,8 @@ export const main = $root.main = (() => {
             if (options.defaults) {
                 object.id = "";
                 object.student_account_id = "";
-                if ($util.Long) {
-                    let long = new $util.Long(0, 0, true);
-                    object.amount_kwh = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.amount_kwh = options.longs === String ? "0" : 0;
-                if ($util.Long) {
-                    let long = new $util.Long(0, 0, true);
-                    object.price = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.price = options.longs === String ? "0" : 0;
+                object.amount_kwh = 0;
+                object.price = 0;
                 object.denom = "";
             }
             if (message.id != null && message.hasOwnProperty("id"))
@@ -4462,15 +4823,9 @@ export const main = $root.main = (() => {
             if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
                 object.student_account_id = message.student_account_id;
             if (message.amount_kwh != null && message.hasOwnProperty("amount_kwh"))
-                if (typeof message.amount_kwh === "number")
-                    object.amount_kwh = options.longs === String ? String(message.amount_kwh) : message.amount_kwh;
-                else
-                    object.amount_kwh = options.longs === String ? $util.Long.prototype.toString.call(message.amount_kwh) : options.longs === Number ? new $util.LongBits(message.amount_kwh.low >>> 0, message.amount_kwh.high >>> 0).toNumber(true) : message.amount_kwh;
+                object.amount_kwh = message.amount_kwh;
             if (message.price != null && message.hasOwnProperty("price"))
-                if (typeof message.price === "number")
-                    object.price = options.longs === String ? String(message.price) : message.price;
-                else
-                    object.price = options.longs === String ? $util.Long.prototype.toString.call(message.price) : options.longs === Number ? new $util.LongBits(message.price.low >>> 0, message.price.high >>> 0).toNumber(true) : message.price;
+                object.price = message.price;
             if (message.denom != null && message.hasOwnProperty("denom"))
                 object.denom = message.denom;
             return object;
@@ -4744,7 +5099,7 @@ export const main = $root.main = (() => {
          * @property {string|null} [sender_xrp_address] Transaction sender_xrp_address
          * @property {string|null} [recipient_account_id] Transaction recipient_account_id
          * @property {string|null} [recipient_xrp_address] Transaction recipient_xrp_address
-         * @property {Long|null} [amount] Transaction amount
+         * @property {number|null} [amount] Transaction amount
          * @property {string|null} [denom] Transaction denom
          */
 
@@ -4813,11 +5168,11 @@ export const main = $root.main = (() => {
 
         /**
          * Transaction amount.
-         * @member {Long} amount
+         * @member {number} amount
          * @memberof main.Transaction
          * @instance
          */
-        Transaction.prototype.amount = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+        Transaction.prototype.amount = 0;
 
         /**
          * Transaction denom.
@@ -4852,7 +5207,7 @@ export const main = $root.main = (() => {
             if (message.recipient_xrp_address != null && Object.hasOwnProperty.call(message, "recipient_xrp_address"))
                 writer.uint32(/* id 6, wireType 2 =*/50).string(message.recipient_xrp_address);
             if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
-                writer.uint32(/* id 7, wireType 0 =*/56).uint64(message.amount);
+                writer.uint32(/* id 7, wireType 0 =*/56).uint32(message.amount);
             if (message.denom != null && Object.hasOwnProperty.call(message, "denom"))
                 writer.uint32(/* id 8, wireType 2 =*/66).string(message.denom);
             return writer;
@@ -4908,7 +5263,7 @@ export const main = $root.main = (() => {
                     message.recipient_xrp_address = reader.string();
                     break;
                 case 7:
-                    message.amount = reader.uint64();
+                    message.amount = reader.uint32();
                     break;
                 case 8:
                     message.denom = reader.string();
@@ -4967,8 +5322,8 @@ export const main = $root.main = (() => {
                 if (!$util.isString(message.recipient_xrp_address))
                     return "recipient_xrp_address: string expected";
             if (message.amount != null && message.hasOwnProperty("amount"))
-                if (!$util.isInteger(message.amount) && !(message.amount && $util.isInteger(message.amount.low) && $util.isInteger(message.amount.high)))
-                    return "amount: integer|Long expected";
+                if (!$util.isInteger(message.amount))
+                    return "amount: integer expected";
             if (message.denom != null && message.hasOwnProperty("denom"))
                 if (!$util.isString(message.denom))
                     return "denom: string expected";
@@ -5000,14 +5355,7 @@ export const main = $root.main = (() => {
             if (object.recipient_xrp_address != null)
                 message.recipient_xrp_address = String(object.recipient_xrp_address);
             if (object.amount != null)
-                if ($util.Long)
-                    (message.amount = $util.Long.fromValue(object.amount)).unsigned = true;
-                else if (typeof object.amount === "string")
-                    message.amount = parseInt(object.amount, 10);
-                else if (typeof object.amount === "number")
-                    message.amount = object.amount;
-                else if (typeof object.amount === "object")
-                    message.amount = new $util.LongBits(object.amount.low >>> 0, object.amount.high >>> 0).toNumber(true);
+                message.amount = object.amount >>> 0;
             if (object.denom != null)
                 message.denom = String(object.denom);
             return message;
@@ -5033,11 +5381,7 @@ export const main = $root.main = (() => {
                 object.sender_xrp_address = "";
                 object.recipient_account_id = "";
                 object.recipient_xrp_address = "";
-                if ($util.Long) {
-                    let long = new $util.Long(0, 0, true);
-                    object.amount = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.amount = options.longs === String ? "0" : 0;
+                object.amount = 0;
                 object.denom = "";
             }
             if (message.status != null && message.hasOwnProperty("status"))
@@ -5053,10 +5397,7 @@ export const main = $root.main = (() => {
             if (message.recipient_xrp_address != null && message.hasOwnProperty("recipient_xrp_address"))
                 object.recipient_xrp_address = message.recipient_xrp_address;
             if (message.amount != null && message.hasOwnProperty("amount"))
-                if (typeof message.amount === "number")
-                    object.amount = options.longs === String ? String(message.amount) : message.amount;
-                else
-                    object.amount = options.longs === String ? $util.Long.prototype.toString.call(message.amount) : options.longs === Number ? new $util.LongBits(message.amount.low >>> 0, message.amount.high >>> 0).toNumber(true) : message.amount;
+                object.amount = message.amount;
             if (message.denom != null && message.hasOwnProperty("denom"))
                 object.denom = message.denom;
             return object;
@@ -5321,8 +5662,8 @@ export const main = $root.main = (() => {
          * @interface IUtilityPower
          * @property {string|null} [id] UtilityPower id
          * @property {string|null} [student_account_id] UtilityPower student_account_id
-         * @property {Long|null} [amount_kwh] UtilityPower amount_kwh
-         * @property {Long|null} [price] UtilityPower price
+         * @property {number|null} [amount_kwh] UtilityPower amount_kwh
+         * @property {number|null} [price] UtilityPower price
          * @property {string|null} [denom] UtilityPower denom
          */
 
@@ -5359,19 +5700,19 @@ export const main = $root.main = (() => {
 
         /**
          * UtilityPower amount_kwh.
-         * @member {Long} amount_kwh
+         * @member {number} amount_kwh
          * @memberof main.UtilityPower
          * @instance
          */
-        UtilityPower.prototype.amount_kwh = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+        UtilityPower.prototype.amount_kwh = 0;
 
         /**
          * UtilityPower price.
-         * @member {Long} price
+         * @member {number} price
          * @memberof main.UtilityPower
          * @instance
          */
-        UtilityPower.prototype.price = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+        UtilityPower.prototype.price = 0;
 
         /**
          * UtilityPower denom.
@@ -5398,9 +5739,9 @@ export const main = $root.main = (() => {
             if (message.student_account_id != null && Object.hasOwnProperty.call(message, "student_account_id"))
                 writer.uint32(/* id 2, wireType 2 =*/18).string(message.student_account_id);
             if (message.amount_kwh != null && Object.hasOwnProperty.call(message, "amount_kwh"))
-                writer.uint32(/* id 3, wireType 0 =*/24).uint64(message.amount_kwh);
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.amount_kwh);
             if (message.price != null && Object.hasOwnProperty.call(message, "price"))
-                writer.uint32(/* id 4, wireType 0 =*/32).uint64(message.price);
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.price);
             if (message.denom != null && Object.hasOwnProperty.call(message, "denom"))
                 writer.uint32(/* id 5, wireType 2 =*/42).string(message.denom);
             return writer;
@@ -5444,10 +5785,10 @@ export const main = $root.main = (() => {
                     message.student_account_id = reader.string();
                     break;
                 case 3:
-                    message.amount_kwh = reader.uint64();
+                    message.amount_kwh = reader.uint32();
                     break;
                 case 4:
-                    message.price = reader.uint64();
+                    message.price = reader.uint32();
                     break;
                 case 5:
                     message.denom = reader.string();
@@ -5494,11 +5835,11 @@ export const main = $root.main = (() => {
                 if (!$util.isString(message.student_account_id))
                     return "student_account_id: string expected";
             if (message.amount_kwh != null && message.hasOwnProperty("amount_kwh"))
-                if (!$util.isInteger(message.amount_kwh) && !(message.amount_kwh && $util.isInteger(message.amount_kwh.low) && $util.isInteger(message.amount_kwh.high)))
-                    return "amount_kwh: integer|Long expected";
+                if (!$util.isInteger(message.amount_kwh))
+                    return "amount_kwh: integer expected";
             if (message.price != null && message.hasOwnProperty("price"))
-                if (!$util.isInteger(message.price) && !(message.price && $util.isInteger(message.price.low) && $util.isInteger(message.price.high)))
-                    return "price: integer|Long expected";
+                if (!$util.isInteger(message.price))
+                    return "price: integer expected";
             if (message.denom != null && message.hasOwnProperty("denom"))
                 if (!$util.isString(message.denom))
                     return "denom: string expected";
@@ -5522,23 +5863,9 @@ export const main = $root.main = (() => {
             if (object.student_account_id != null)
                 message.student_account_id = String(object.student_account_id);
             if (object.amount_kwh != null)
-                if ($util.Long)
-                    (message.amount_kwh = $util.Long.fromValue(object.amount_kwh)).unsigned = true;
-                else if (typeof object.amount_kwh === "string")
-                    message.amount_kwh = parseInt(object.amount_kwh, 10);
-                else if (typeof object.amount_kwh === "number")
-                    message.amount_kwh = object.amount_kwh;
-                else if (typeof object.amount_kwh === "object")
-                    message.amount_kwh = new $util.LongBits(object.amount_kwh.low >>> 0, object.amount_kwh.high >>> 0).toNumber(true);
+                message.amount_kwh = object.amount_kwh >>> 0;
             if (object.price != null)
-                if ($util.Long)
-                    (message.price = $util.Long.fromValue(object.price)).unsigned = true;
-                else if (typeof object.price === "string")
-                    message.price = parseInt(object.price, 10);
-                else if (typeof object.price === "number")
-                    message.price = object.price;
-                else if (typeof object.price === "object")
-                    message.price = new $util.LongBits(object.price.low >>> 0, object.price.high >>> 0).toNumber(true);
+                message.price = object.price >>> 0;
             if (object.denom != null)
                 message.denom = String(object.denom);
             return message;
@@ -5560,16 +5887,8 @@ export const main = $root.main = (() => {
             if (options.defaults) {
                 object.id = "";
                 object.student_account_id = "";
-                if ($util.Long) {
-                    let long = new $util.Long(0, 0, true);
-                    object.amount_kwh = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.amount_kwh = options.longs === String ? "0" : 0;
-                if ($util.Long) {
-                    let long = new $util.Long(0, 0, true);
-                    object.price = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.price = options.longs === String ? "0" : 0;
+                object.amount_kwh = 0;
+                object.price = 0;
                 object.denom = "";
             }
             if (message.id != null && message.hasOwnProperty("id"))
@@ -5577,15 +5896,9 @@ export const main = $root.main = (() => {
             if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
                 object.student_account_id = message.student_account_id;
             if (message.amount_kwh != null && message.hasOwnProperty("amount_kwh"))
-                if (typeof message.amount_kwh === "number")
-                    object.amount_kwh = options.longs === String ? String(message.amount_kwh) : message.amount_kwh;
-                else
-                    object.amount_kwh = options.longs === String ? $util.Long.prototype.toString.call(message.amount_kwh) : options.longs === Number ? new $util.LongBits(message.amount_kwh.low >>> 0, message.amount_kwh.high >>> 0).toNumber(true) : message.amount_kwh;
+                object.amount_kwh = message.amount_kwh;
             if (message.price != null && message.hasOwnProperty("price"))
-                if (typeof message.price === "number")
-                    object.price = options.longs === String ? String(message.price) : message.price;
-                else
-                    object.price = options.longs === String ? $util.Long.prototype.toString.call(message.price) : options.longs === Number ? new $util.LongBits(message.price.low >>> 0, message.price.high >>> 0).toNumber(true) : message.price;
+                object.price = message.price;
             if (message.denom != null && message.hasOwnProperty("denom"))
                 object.denom = message.denom;
             return object;
@@ -5606,242 +5919,6 @@ export const main = $root.main = (() => {
     })();
 
     return main;
-})();
-
-export const google = $root.google = (() => {
-
-    /**
-     * Namespace google.
-     * @exports google
-     * @namespace
-     */
-    const google = {};
-
-    google.protobuf = (function() {
-
-        /**
-         * Namespace protobuf.
-         * @memberof google
-         * @namespace
-         */
-        const protobuf = {};
-
-        protobuf.Timestamp = (function() {
-
-            /**
-             * Properties of a Timestamp.
-             * @memberof google.protobuf
-             * @interface ITimestamp
-             * @property {Long|null} [seconds] Timestamp seconds
-             * @property {number|null} [nanos] Timestamp nanos
-             */
-
-            /**
-             * Constructs a new Timestamp.
-             * @memberof google.protobuf
-             * @classdesc Represents a Timestamp.
-             * @implements ITimestamp
-             * @constructor
-             * @param {google.protobuf.ITimestamp=} [properties] Properties to set
-             */
-            function Timestamp(properties) {
-                if (properties)
-                    for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
-                            this[keys[i]] = properties[keys[i]];
-            }
-
-            /**
-             * Timestamp seconds.
-             * @member {Long} seconds
-             * @memberof google.protobuf.Timestamp
-             * @instance
-             */
-            Timestamp.prototype.seconds = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
-
-            /**
-             * Timestamp nanos.
-             * @member {number} nanos
-             * @memberof google.protobuf.Timestamp
-             * @instance
-             */
-            Timestamp.prototype.nanos = 0;
-
-            /**
-             * Encodes the specified Timestamp message. Does not implicitly {@link google.protobuf.Timestamp.verify|verify} messages.
-             * @function encode
-             * @memberof google.protobuf.Timestamp
-             * @static
-             * @param {google.protobuf.ITimestamp} message Timestamp message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            Timestamp.encode = function encode(message, writer) {
-                if (!writer)
-                    writer = $Writer.create();
-                if (message.seconds != null && Object.hasOwnProperty.call(message, "seconds"))
-                    writer.uint32(/* id 1, wireType 0 =*/8).int64(message.seconds);
-                if (message.nanos != null && Object.hasOwnProperty.call(message, "nanos"))
-                    writer.uint32(/* id 2, wireType 0 =*/16).int32(message.nanos);
-                return writer;
-            };
-
-            /**
-             * Encodes the specified Timestamp message, length delimited. Does not implicitly {@link google.protobuf.Timestamp.verify|verify} messages.
-             * @function encodeDelimited
-             * @memberof google.protobuf.Timestamp
-             * @static
-             * @param {google.protobuf.ITimestamp} message Timestamp message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            Timestamp.encodeDelimited = function encodeDelimited(message, writer) {
-                return this.encode(message, writer).ldelim();
-            };
-
-            /**
-             * Decodes a Timestamp message from the specified reader or buffer.
-             * @function decode
-             * @memberof google.protobuf.Timestamp
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @param {number} [length] Message length if known beforehand
-             * @returns {google.protobuf.Timestamp} Timestamp
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            Timestamp.decode = function decode(reader, length) {
-                if (!(reader instanceof $Reader))
-                    reader = $Reader.create(reader);
-                let end = length === undefined ? reader.len : reader.pos + length, message = new $root.google.protobuf.Timestamp();
-                while (reader.pos < end) {
-                    let tag = reader.uint32();
-                    switch (tag >>> 3) {
-                    case 1:
-                        message.seconds = reader.int64();
-                        break;
-                    case 2:
-                        message.nanos = reader.int32();
-                        break;
-                    default:
-                        reader.skipType(tag & 7);
-                        break;
-                    }
-                }
-                return message;
-            };
-
-            /**
-             * Decodes a Timestamp message from the specified reader or buffer, length delimited.
-             * @function decodeDelimited
-             * @memberof google.protobuf.Timestamp
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {google.protobuf.Timestamp} Timestamp
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            Timestamp.decodeDelimited = function decodeDelimited(reader) {
-                if (!(reader instanceof $Reader))
-                    reader = new $Reader(reader);
-                return this.decode(reader, reader.uint32());
-            };
-
-            /**
-             * Verifies a Timestamp message.
-             * @function verify
-             * @memberof google.protobuf.Timestamp
-             * @static
-             * @param {Object.<string,*>} message Plain object to verify
-             * @returns {string|null} `null` if valid, otherwise the reason why it is not
-             */
-            Timestamp.verify = function verify(message) {
-                if (typeof message !== "object" || message === null)
-                    return "object expected";
-                if (message.seconds != null && message.hasOwnProperty("seconds"))
-                    if (!$util.isInteger(message.seconds) && !(message.seconds && $util.isInteger(message.seconds.low) && $util.isInteger(message.seconds.high)))
-                        return "seconds: integer|Long expected";
-                if (message.nanos != null && message.hasOwnProperty("nanos"))
-                    if (!$util.isInteger(message.nanos))
-                        return "nanos: integer expected";
-                return null;
-            };
-
-            /**
-             * Creates a Timestamp message from a plain object. Also converts values to their respective internal types.
-             * @function fromObject
-             * @memberof google.protobuf.Timestamp
-             * @static
-             * @param {Object.<string,*>} object Plain object
-             * @returns {google.protobuf.Timestamp} Timestamp
-             */
-            Timestamp.fromObject = function fromObject(object) {
-                if (object instanceof $root.google.protobuf.Timestamp)
-                    return object;
-                let message = new $root.google.protobuf.Timestamp();
-                if (object.seconds != null)
-                    if ($util.Long)
-                        (message.seconds = $util.Long.fromValue(object.seconds)).unsigned = false;
-                    else if (typeof object.seconds === "string")
-                        message.seconds = parseInt(object.seconds, 10);
-                    else if (typeof object.seconds === "number")
-                        message.seconds = object.seconds;
-                    else if (typeof object.seconds === "object")
-                        message.seconds = new $util.LongBits(object.seconds.low >>> 0, object.seconds.high >>> 0).toNumber();
-                if (object.nanos != null)
-                    message.nanos = object.nanos | 0;
-                return message;
-            };
-
-            /**
-             * Creates a plain object from a Timestamp message. Also converts values to other types if specified.
-             * @function toObject
-             * @memberof google.protobuf.Timestamp
-             * @static
-             * @param {google.protobuf.Timestamp} message Timestamp
-             * @param {$protobuf.IConversionOptions} [options] Conversion options
-             * @returns {Object.<string,*>} Plain object
-             */
-            Timestamp.toObject = function toObject(message, options) {
-                if (!options)
-                    options = {};
-                let object = {};
-                if (options.defaults) {
-                    if ($util.Long) {
-                        let long = new $util.Long(0, 0, false);
-                        object.seconds = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.seconds = options.longs === String ? "0" : 0;
-                    object.nanos = 0;
-                }
-                if (message.seconds != null && message.hasOwnProperty("seconds"))
-                    if (typeof message.seconds === "number")
-                        object.seconds = options.longs === String ? String(message.seconds) : message.seconds;
-                    else
-                        object.seconds = options.longs === String ? $util.Long.prototype.toString.call(message.seconds) : options.longs === Number ? new $util.LongBits(message.seconds.low >>> 0, message.seconds.high >>> 0).toNumber() : message.seconds;
-                if (message.nanos != null && message.hasOwnProperty("nanos"))
-                    object.nanos = message.nanos;
-                return object;
-            };
-
-            /**
-             * Converts this Timestamp to JSON.
-             * @function toJSON
-             * @memberof google.protobuf.Timestamp
-             * @instance
-             * @returns {Object.<string,*>} JSON object
-             */
-            Timestamp.prototype.toJSON = function toJSON() {
-                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-            };
-
-            return Timestamp;
-        })();
-
-        return protobuf;
-    })();
-
-    return google;
 })();
 
 export { $root as default };

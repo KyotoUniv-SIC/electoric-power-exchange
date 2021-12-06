@@ -8,6 +8,6 @@ option (google.firebase.rules.firebase_rules).full_package_names = true;
 message Balance {
   string id = 1;
   string account_id = 2;
-  uint64 amount_jpy = 3;
-  uint64 amount_xrp = 4;
+  uint32 amount_jpy = 3;
+  uint32 amount_xrp = 4;
 }
