@@ -40,8 +40,8 @@ export async function list(studentAccountID: string) {
 }
 
 export async function getLastYear(studentAccountID: string, date: Date) {
-  const lastYear1dayAgo = date.setFullYear(date.getFullYear() - 1, date.getMonth(), date.getDate() - 1);
-  const lastYear1dayLater = date.setFullYear(date.getFullYear() - 1, date.getMonth(), date.getDate() + 1);
+  const lastYear1dayAgo = date.setFullYear(date.getFullYear() - 1, date.getMonth() + 1, date.getDate() - 1);
+  const lastYear1dayLater = date.setFullYear(date.getFullYear() - 1, date.getMonth() + 1, date.getDate() + 1);
   return await collection(studentAccountID)
     .where('createdAt', '>', lastYear1dayAgo)
     .where('createdAt', '<', lastYear1dayLater)
