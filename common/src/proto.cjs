@@ -2389,9 +2389,6 @@
              * @property {string|null} [ask_id] NormalSettlement ask_id
              * @property {number|null} [price] NormalSettlement price
              * @property {number|null} [amount] NormalSettlement amount
-             * @property {number|null} [year] NormalSettlement year
-             * @property {number|null} [month] NormalSettlement month
-             * @property {number|null} [date] NormalSettlement date
              */
     
             /**
@@ -2450,30 +2447,6 @@
             NormalSettlement.prototype.amount = 0;
     
             /**
-             * NormalSettlement year.
-             * @member {number} year
-             * @memberof main.NormalSettlement
-             * @instance
-             */
-            NormalSettlement.prototype.year = 0;
-    
-            /**
-             * NormalSettlement month.
-             * @member {number} month
-             * @memberof main.NormalSettlement
-             * @instance
-             */
-            NormalSettlement.prototype.month = 0;
-    
-            /**
-             * NormalSettlement date.
-             * @member {number} date
-             * @memberof main.NormalSettlement
-             * @instance
-             */
-            NormalSettlement.prototype.date = 0;
-    
-            /**
              * Encodes the specified NormalSettlement message. Does not implicitly {@link main.NormalSettlement.verify|verify} messages.
              * @function encode
              * @memberof main.NormalSettlement
@@ -2495,12 +2468,6 @@
                     writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.price);
                 if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
                     writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.amount);
-                if (message.year != null && Object.hasOwnProperty.call(message, "year"))
-                    writer.uint32(/* id 6, wireType 0 =*/48).uint32(message.year);
-                if (message.month != null && Object.hasOwnProperty.call(message, "month"))
-                    writer.uint32(/* id 7, wireType 0 =*/56).uint32(message.month);
-                if (message.date != null && Object.hasOwnProperty.call(message, "date"))
-                    writer.uint32(/* id 8, wireType 0 =*/64).uint32(message.date);
                 return writer;
             };
     
@@ -2549,15 +2516,6 @@
                         break;
                     case 5:
                         message.amount = reader.uint32();
-                        break;
-                    case 6:
-                        message.year = reader.uint32();
-                        break;
-                    case 7:
-                        message.month = reader.uint32();
-                        break;
-                    case 8:
-                        message.date = reader.uint32();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -2609,15 +2567,6 @@
                 if (message.amount != null && message.hasOwnProperty("amount"))
                     if (!$util.isInteger(message.amount))
                         return "amount: integer expected";
-                if (message.year != null && message.hasOwnProperty("year"))
-                    if (!$util.isInteger(message.year))
-                        return "year: integer expected";
-                if (message.month != null && message.hasOwnProperty("month"))
-                    if (!$util.isInteger(message.month))
-                        return "month: integer expected";
-                if (message.date != null && message.hasOwnProperty("date"))
-                    if (!$util.isInteger(message.date))
-                        return "date: integer expected";
                 return null;
             };
     
@@ -2643,12 +2592,6 @@
                     message.price = object.price >>> 0;
                 if (object.amount != null)
                     message.amount = object.amount >>> 0;
-                if (object.year != null)
-                    message.year = object.year >>> 0;
-                if (object.month != null)
-                    message.month = object.month >>> 0;
-                if (object.date != null)
-                    message.date = object.date >>> 0;
                 return message;
             };
     
@@ -2671,9 +2614,6 @@
                     object.ask_id = "";
                     object.price = 0;
                     object.amount = 0;
-                    object.year = 0;
-                    object.month = 0;
-                    object.date = 0;
                 }
                 if (message.id != null && message.hasOwnProperty("id"))
                     object.id = message.id;
@@ -2685,12 +2625,6 @@
                     object.price = message.price;
                 if (message.amount != null && message.hasOwnProperty("amount"))
                     object.amount = message.amount;
-                if (message.year != null && message.hasOwnProperty("year"))
-                    object.year = message.year;
-                if (message.month != null && message.hasOwnProperty("month"))
-                    object.month = message.month;
-                if (message.date != null && message.hasOwnProperty("date"))
-                    object.date = message.date;
                 return object;
             };
     
@@ -3743,9 +3677,6 @@
              * @property {string|null} [ask_id] RenewableSettlement ask_id
              * @property {number|null} [price] RenewableSettlement price
              * @property {number|null} [amount] RenewableSettlement amount
-             * @property {number|null} [year] RenewableSettlement year
-             * @property {number|null} [month] RenewableSettlement month
-             * @property {number|null} [date] RenewableSettlement date
              */
     
             /**
@@ -3804,30 +3735,6 @@
             RenewableSettlement.prototype.amount = 0;
     
             /**
-             * RenewableSettlement year.
-             * @member {number} year
-             * @memberof main.RenewableSettlement
-             * @instance
-             */
-            RenewableSettlement.prototype.year = 0;
-    
-            /**
-             * RenewableSettlement month.
-             * @member {number} month
-             * @memberof main.RenewableSettlement
-             * @instance
-             */
-            RenewableSettlement.prototype.month = 0;
-    
-            /**
-             * RenewableSettlement date.
-             * @member {number} date
-             * @memberof main.RenewableSettlement
-             * @instance
-             */
-            RenewableSettlement.prototype.date = 0;
-    
-            /**
              * Encodes the specified RenewableSettlement message. Does not implicitly {@link main.RenewableSettlement.verify|verify} messages.
              * @function encode
              * @memberof main.RenewableSettlement
@@ -3849,12 +3756,6 @@
                     writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.price);
                 if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
                     writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.amount);
-                if (message.year != null && Object.hasOwnProperty.call(message, "year"))
-                    writer.uint32(/* id 6, wireType 0 =*/48).uint32(message.year);
-                if (message.month != null && Object.hasOwnProperty.call(message, "month"))
-                    writer.uint32(/* id 7, wireType 0 =*/56).uint32(message.month);
-                if (message.date != null && Object.hasOwnProperty.call(message, "date"))
-                    writer.uint32(/* id 8, wireType 0 =*/64).uint32(message.date);
                 return writer;
             };
     
@@ -3903,15 +3804,6 @@
                         break;
                     case 5:
                         message.amount = reader.uint32();
-                        break;
-                    case 6:
-                        message.year = reader.uint32();
-                        break;
-                    case 7:
-                        message.month = reader.uint32();
-                        break;
-                    case 8:
-                        message.date = reader.uint32();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -3963,15 +3855,6 @@
                 if (message.amount != null && message.hasOwnProperty("amount"))
                     if (!$util.isInteger(message.amount))
                         return "amount: integer expected";
-                if (message.year != null && message.hasOwnProperty("year"))
-                    if (!$util.isInteger(message.year))
-                        return "year: integer expected";
-                if (message.month != null && message.hasOwnProperty("month"))
-                    if (!$util.isInteger(message.month))
-                        return "month: integer expected";
-                if (message.date != null && message.hasOwnProperty("date"))
-                    if (!$util.isInteger(message.date))
-                        return "date: integer expected";
                 return null;
             };
     
@@ -3997,12 +3880,6 @@
                     message.price = object.price >>> 0;
                 if (object.amount != null)
                     message.amount = object.amount >>> 0;
-                if (object.year != null)
-                    message.year = object.year >>> 0;
-                if (object.month != null)
-                    message.month = object.month >>> 0;
-                if (object.date != null)
-                    message.date = object.date >>> 0;
                 return message;
             };
     
@@ -4025,9 +3902,6 @@
                     object.ask_id = "";
                     object.price = 0;
                     object.amount = 0;
-                    object.year = 0;
-                    object.month = 0;
-                    object.date = 0;
                 }
                 if (message.id != null && message.hasOwnProperty("id"))
                     object.id = message.id;
@@ -4039,12 +3913,6 @@
                     object.price = message.price;
                 if (message.amount != null && message.hasOwnProperty("amount"))
                     object.amount = message.amount;
-                if (message.year != null && message.hasOwnProperty("year"))
-                    object.year = message.year;
-                if (message.month != null && message.hasOwnProperty("month"))
-                    object.month = message.month;
-                if (message.date != null && message.hasOwnProperty("date"))
-                    object.date = message.date;
                 return object;
             };
     
@@ -4071,9 +3939,6 @@
              * @property {string|null} [id] SinglePriceNormalSettlement id
              * @property {number|null} [price] SinglePriceNormalSettlement price
              * @property {number|null} [amount] SinglePriceNormalSettlement amount
-             * @property {number|null} [year] SinglePriceNormalSettlement year
-             * @property {number|null} [month] SinglePriceNormalSettlement month
-             * @property {number|null} [date] SinglePriceNormalSettlement date
              */
     
             /**
@@ -4116,30 +3981,6 @@
             SinglePriceNormalSettlement.prototype.amount = 0;
     
             /**
-             * SinglePriceNormalSettlement year.
-             * @member {number} year
-             * @memberof main.SinglePriceNormalSettlement
-             * @instance
-             */
-            SinglePriceNormalSettlement.prototype.year = 0;
-    
-            /**
-             * SinglePriceNormalSettlement month.
-             * @member {number} month
-             * @memberof main.SinglePriceNormalSettlement
-             * @instance
-             */
-            SinglePriceNormalSettlement.prototype.month = 0;
-    
-            /**
-             * SinglePriceNormalSettlement date.
-             * @member {number} date
-             * @memberof main.SinglePriceNormalSettlement
-             * @instance
-             */
-            SinglePriceNormalSettlement.prototype.date = 0;
-    
-            /**
              * Encodes the specified SinglePriceNormalSettlement message. Does not implicitly {@link main.SinglePriceNormalSettlement.verify|verify} messages.
              * @function encode
              * @memberof main.SinglePriceNormalSettlement
@@ -4157,12 +3998,6 @@
                     writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.price);
                 if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
                     writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.amount);
-                if (message.year != null && Object.hasOwnProperty.call(message, "year"))
-                    writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.year);
-                if (message.month != null && Object.hasOwnProperty.call(message, "month"))
-                    writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.month);
-                if (message.date != null && Object.hasOwnProperty.call(message, "date"))
-                    writer.uint32(/* id 6, wireType 0 =*/48).uint32(message.date);
                 return writer;
             };
     
@@ -4205,15 +4040,6 @@
                         break;
                     case 3:
                         message.amount = reader.uint32();
-                        break;
-                    case 4:
-                        message.year = reader.uint32();
-                        break;
-                    case 5:
-                        message.month = reader.uint32();
-                        break;
-                    case 6:
-                        message.date = reader.uint32();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -4259,15 +4085,6 @@
                 if (message.amount != null && message.hasOwnProperty("amount"))
                     if (!$util.isInteger(message.amount))
                         return "amount: integer expected";
-                if (message.year != null && message.hasOwnProperty("year"))
-                    if (!$util.isInteger(message.year))
-                        return "year: integer expected";
-                if (message.month != null && message.hasOwnProperty("month"))
-                    if (!$util.isInteger(message.month))
-                        return "month: integer expected";
-                if (message.date != null && message.hasOwnProperty("date"))
-                    if (!$util.isInteger(message.date))
-                        return "date: integer expected";
                 return null;
             };
     
@@ -4289,12 +4106,6 @@
                     message.price = object.price >>> 0;
                 if (object.amount != null)
                     message.amount = object.amount >>> 0;
-                if (object.year != null)
-                    message.year = object.year >>> 0;
-                if (object.month != null)
-                    message.month = object.month >>> 0;
-                if (object.date != null)
-                    message.date = object.date >>> 0;
                 return message;
             };
     
@@ -4315,9 +4126,6 @@
                     object.id = "";
                     object.price = 0;
                     object.amount = 0;
-                    object.year = 0;
-                    object.month = 0;
-                    object.date = 0;
                 }
                 if (message.id != null && message.hasOwnProperty("id"))
                     object.id = message.id;
@@ -4325,12 +4133,6 @@
                     object.price = message.price;
                 if (message.amount != null && message.hasOwnProperty("amount"))
                     object.amount = message.amount;
-                if (message.year != null && message.hasOwnProperty("year"))
-                    object.year = message.year;
-                if (message.month != null && message.hasOwnProperty("month"))
-                    object.month = message.month;
-                if (message.date != null && message.hasOwnProperty("date"))
-                    object.date = message.date;
                 return object;
             };
     
@@ -4357,9 +4159,6 @@
              * @property {string|null} [id] SinglePriceRenewableSettlement id
              * @property {number|null} [price] SinglePriceRenewableSettlement price
              * @property {number|null} [amount] SinglePriceRenewableSettlement amount
-             * @property {number|null} [year] SinglePriceRenewableSettlement year
-             * @property {number|null} [month] SinglePriceRenewableSettlement month
-             * @property {number|null} [date] SinglePriceRenewableSettlement date
              */
     
             /**
@@ -4402,30 +4201,6 @@
             SinglePriceRenewableSettlement.prototype.amount = 0;
     
             /**
-             * SinglePriceRenewableSettlement year.
-             * @member {number} year
-             * @memberof main.SinglePriceRenewableSettlement
-             * @instance
-             */
-            SinglePriceRenewableSettlement.prototype.year = 0;
-    
-            /**
-             * SinglePriceRenewableSettlement month.
-             * @member {number} month
-             * @memberof main.SinglePriceRenewableSettlement
-             * @instance
-             */
-            SinglePriceRenewableSettlement.prototype.month = 0;
-    
-            /**
-             * SinglePriceRenewableSettlement date.
-             * @member {number} date
-             * @memberof main.SinglePriceRenewableSettlement
-             * @instance
-             */
-            SinglePriceRenewableSettlement.prototype.date = 0;
-    
-            /**
              * Encodes the specified SinglePriceRenewableSettlement message. Does not implicitly {@link main.SinglePriceRenewableSettlement.verify|verify} messages.
              * @function encode
              * @memberof main.SinglePriceRenewableSettlement
@@ -4443,12 +4218,6 @@
                     writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.price);
                 if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
                     writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.amount);
-                if (message.year != null && Object.hasOwnProperty.call(message, "year"))
-                    writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.year);
-                if (message.month != null && Object.hasOwnProperty.call(message, "month"))
-                    writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.month);
-                if (message.date != null && Object.hasOwnProperty.call(message, "date"))
-                    writer.uint32(/* id 6, wireType 0 =*/48).uint32(message.date);
                 return writer;
             };
     
@@ -4491,15 +4260,6 @@
                         break;
                     case 3:
                         message.amount = reader.uint32();
-                        break;
-                    case 4:
-                        message.year = reader.uint32();
-                        break;
-                    case 5:
-                        message.month = reader.uint32();
-                        break;
-                    case 6:
-                        message.date = reader.uint32();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -4545,15 +4305,6 @@
                 if (message.amount != null && message.hasOwnProperty("amount"))
                     if (!$util.isInteger(message.amount))
                         return "amount: integer expected";
-                if (message.year != null && message.hasOwnProperty("year"))
-                    if (!$util.isInteger(message.year))
-                        return "year: integer expected";
-                if (message.month != null && message.hasOwnProperty("month"))
-                    if (!$util.isInteger(message.month))
-                        return "month: integer expected";
-                if (message.date != null && message.hasOwnProperty("date"))
-                    if (!$util.isInteger(message.date))
-                        return "date: integer expected";
                 return null;
             };
     
@@ -4575,12 +4326,6 @@
                     message.price = object.price >>> 0;
                 if (object.amount != null)
                     message.amount = object.amount >>> 0;
-                if (object.year != null)
-                    message.year = object.year >>> 0;
-                if (object.month != null)
-                    message.month = object.month >>> 0;
-                if (object.date != null)
-                    message.date = object.date >>> 0;
                 return message;
             };
     
@@ -4601,9 +4346,6 @@
                     object.id = "";
                     object.price = 0;
                     object.amount = 0;
-                    object.year = 0;
-                    object.month = 0;
-                    object.date = 0;
                 }
                 if (message.id != null && message.hasOwnProperty("id"))
                     object.id = message.id;
@@ -4611,12 +4353,6 @@
                     object.price = message.price;
                 if (message.amount != null && message.hasOwnProperty("amount"))
                     object.amount = message.amount;
-                if (message.year != null && message.hasOwnProperty("year"))
-                    object.year = message.year;
-                if (message.month != null && message.hasOwnProperty("month"))
-                    object.month = message.month;
-                if (message.date != null && message.hasOwnProperty("date"))
-                    object.date = message.date;
                 return object;
             };
     
@@ -5972,6 +5708,242 @@
         })();
     
         return main;
+    })();
+    
+    $root.google = (function() {
+    
+        /**
+         * Namespace google.
+         * @exports google
+         * @namespace
+         */
+        var google = {};
+    
+        google.protobuf = (function() {
+    
+            /**
+             * Namespace protobuf.
+             * @memberof google
+             * @namespace
+             */
+            var protobuf = {};
+    
+            protobuf.Timestamp = (function() {
+    
+                /**
+                 * Properties of a Timestamp.
+                 * @memberof google.protobuf
+                 * @interface ITimestamp
+                 * @property {Long|null} [seconds] Timestamp seconds
+                 * @property {number|null} [nanos] Timestamp nanos
+                 */
+    
+                /**
+                 * Constructs a new Timestamp.
+                 * @memberof google.protobuf
+                 * @classdesc Represents a Timestamp.
+                 * @implements ITimestamp
+                 * @constructor
+                 * @param {google.protobuf.ITimestamp=} [properties] Properties to set
+                 */
+                function Timestamp(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * Timestamp seconds.
+                 * @member {Long} seconds
+                 * @memberof google.protobuf.Timestamp
+                 * @instance
+                 */
+                Timestamp.prototype.seconds = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+    
+                /**
+                 * Timestamp nanos.
+                 * @member {number} nanos
+                 * @memberof google.protobuf.Timestamp
+                 * @instance
+                 */
+                Timestamp.prototype.nanos = 0;
+    
+                /**
+                 * Encodes the specified Timestamp message. Does not implicitly {@link google.protobuf.Timestamp.verify|verify} messages.
+                 * @function encode
+                 * @memberof google.protobuf.Timestamp
+                 * @static
+                 * @param {google.protobuf.ITimestamp} message Timestamp message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                Timestamp.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.seconds != null && Object.hasOwnProperty.call(message, "seconds"))
+                        writer.uint32(/* id 1, wireType 0 =*/8).int64(message.seconds);
+                    if (message.nanos != null && Object.hasOwnProperty.call(message, "nanos"))
+                        writer.uint32(/* id 2, wireType 0 =*/16).int32(message.nanos);
+                    return writer;
+                };
+    
+                /**
+                 * Encodes the specified Timestamp message, length delimited. Does not implicitly {@link google.protobuf.Timestamp.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof google.protobuf.Timestamp
+                 * @static
+                 * @param {google.protobuf.ITimestamp} message Timestamp message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                Timestamp.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+    
+                /**
+                 * Decodes a Timestamp message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof google.protobuf.Timestamp
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {google.protobuf.Timestamp} Timestamp
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                Timestamp.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.google.protobuf.Timestamp();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.seconds = reader.int64();
+                            break;
+                        case 2:
+                            message.nanos = reader.int32();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                /**
+                 * Decodes a Timestamp message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof google.protobuf.Timestamp
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {google.protobuf.Timestamp} Timestamp
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                Timestamp.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+    
+                /**
+                 * Verifies a Timestamp message.
+                 * @function verify
+                 * @memberof google.protobuf.Timestamp
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                Timestamp.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.seconds != null && message.hasOwnProperty("seconds"))
+                        if (!$util.isInteger(message.seconds) && !(message.seconds && $util.isInteger(message.seconds.low) && $util.isInteger(message.seconds.high)))
+                            return "seconds: integer|Long expected";
+                    if (message.nanos != null && message.hasOwnProperty("nanos"))
+                        if (!$util.isInteger(message.nanos))
+                            return "nanos: integer expected";
+                    return null;
+                };
+    
+                /**
+                 * Creates a Timestamp message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof google.protobuf.Timestamp
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {google.protobuf.Timestamp} Timestamp
+                 */
+                Timestamp.fromObject = function fromObject(object) {
+                    if (object instanceof $root.google.protobuf.Timestamp)
+                        return object;
+                    var message = new $root.google.protobuf.Timestamp();
+                    if (object.seconds != null)
+                        if ($util.Long)
+                            (message.seconds = $util.Long.fromValue(object.seconds)).unsigned = false;
+                        else if (typeof object.seconds === "string")
+                            message.seconds = parseInt(object.seconds, 10);
+                        else if (typeof object.seconds === "number")
+                            message.seconds = object.seconds;
+                        else if (typeof object.seconds === "object")
+                            message.seconds = new $util.LongBits(object.seconds.low >>> 0, object.seconds.high >>> 0).toNumber();
+                    if (object.nanos != null)
+                        message.nanos = object.nanos | 0;
+                    return message;
+                };
+    
+                /**
+                 * Creates a plain object from a Timestamp message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof google.protobuf.Timestamp
+                 * @static
+                 * @param {google.protobuf.Timestamp} message Timestamp
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                Timestamp.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.defaults) {
+                        if ($util.Long) {
+                            var long = new $util.Long(0, 0, false);
+                            object.seconds = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                        } else
+                            object.seconds = options.longs === String ? "0" : 0;
+                        object.nanos = 0;
+                    }
+                    if (message.seconds != null && message.hasOwnProperty("seconds"))
+                        if (typeof message.seconds === "number")
+                            object.seconds = options.longs === String ? String(message.seconds) : message.seconds;
+                        else
+                            object.seconds = options.longs === String ? $util.Long.prototype.toString.call(message.seconds) : options.longs === Number ? new $util.LongBits(message.seconds.low >>> 0, message.seconds.high >>> 0).toNumber() : message.seconds;
+                    if (message.nanos != null && message.hasOwnProperty("nanos"))
+                        object.nanos = message.nanos;
+                    return object;
+                };
+    
+                /**
+                 * Converts this Timestamp to JSON.
+                 * @function toJSON
+                 * @memberof google.protobuf.Timestamp
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                Timestamp.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+    
+                return Timestamp;
+            })();
+    
+            return protobuf;
+        })();
+    
+        return google;
     })();
 
     return $root;
