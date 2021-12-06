@@ -319,14 +319,14 @@ export namespace main {
         /** Balance id */
         id?: (string|null);
 
-        /** Balance account_id */
-        account_id?: (string|null);
+        /** Balance student_account_id */
+        student_account_id?: (string|null);
 
-        /** Balance amount_jpy */
-        amount_jpy?: (number|null);
+        /** Balance amount_upx */
+        amount_upx?: (number|null);
 
-        /** Balance amount_xrp */
-        amount_xrp?: (number|null);
+        /** Balance amount_spx */
+        amount_spx?: (number|null);
     }
 
     /** Represents a Balance. */
@@ -341,14 +341,14 @@ export namespace main {
         /** Balance id. */
         public id: string;
 
-        /** Balance account_id. */
-        public account_id: string;
+        /** Balance student_account_id. */
+        public student_account_id: string;
 
-        /** Balance amount_jpy. */
-        public amount_jpy: number;
+        /** Balance amount_upx. */
+        public amount_upx: number;
 
-        /** Balance amount_xrp. */
-        public amount_xrp: number;
+        /** Balance amount_spx. */
+        public amount_spx: number;
 
         /**
          * Encodes the specified Balance message. Does not implicitly {@link main.Balance.verify|verify} messages.

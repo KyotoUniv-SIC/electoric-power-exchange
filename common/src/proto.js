@@ -824,9 +824,9 @@ export const main = $root.main = (() => {
          * @memberof main
          * @interface IBalance
          * @property {string|null} [id] Balance id
-         * @property {string|null} [account_id] Balance account_id
-         * @property {number|null} [amount_jpy] Balance amount_jpy
-         * @property {number|null} [amount_xrp] Balance amount_xrp
+         * @property {string|null} [student_account_id] Balance student_account_id
+         * @property {number|null} [amount_upx] Balance amount_upx
+         * @property {number|null} [amount_spx] Balance amount_spx
          */
 
         /**
@@ -853,28 +853,28 @@ export const main = $root.main = (() => {
         Balance.prototype.id = "";
 
         /**
-         * Balance account_id.
-         * @member {string} account_id
+         * Balance student_account_id.
+         * @member {string} student_account_id
          * @memberof main.Balance
          * @instance
          */
-        Balance.prototype.account_id = "";
+        Balance.prototype.student_account_id = "";
 
         /**
-         * Balance amount_jpy.
-         * @member {number} amount_jpy
+         * Balance amount_upx.
+         * @member {number} amount_upx
          * @memberof main.Balance
          * @instance
          */
-        Balance.prototype.amount_jpy = 0;
+        Balance.prototype.amount_upx = 0;
 
         /**
-         * Balance amount_xrp.
-         * @member {number} amount_xrp
+         * Balance amount_spx.
+         * @member {number} amount_spx
          * @memberof main.Balance
          * @instance
          */
-        Balance.prototype.amount_xrp = 0;
+        Balance.prototype.amount_spx = 0;
 
         /**
          * Encodes the specified Balance message. Does not implicitly {@link main.Balance.verify|verify} messages.
@@ -890,12 +890,12 @@ export const main = $root.main = (() => {
                 writer = $Writer.create();
             if (message.id != null && Object.hasOwnProperty.call(message, "id"))
                 writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
-            if (message.account_id != null && Object.hasOwnProperty.call(message, "account_id"))
-                writer.uint32(/* id 2, wireType 2 =*/18).string(message.account_id);
-            if (message.amount_jpy != null && Object.hasOwnProperty.call(message, "amount_jpy"))
-                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.amount_jpy);
-            if (message.amount_xrp != null && Object.hasOwnProperty.call(message, "amount_xrp"))
-                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.amount_xrp);
+            if (message.student_account_id != null && Object.hasOwnProperty.call(message, "student_account_id"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.student_account_id);
+            if (message.amount_upx != null && Object.hasOwnProperty.call(message, "amount_upx"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.amount_upx);
+            if (message.amount_spx != null && Object.hasOwnProperty.call(message, "amount_spx"))
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.amount_spx);
             return writer;
         };
 
@@ -934,13 +934,13 @@ export const main = $root.main = (() => {
                     message.id = reader.string();
                     break;
                 case 2:
-                    message.account_id = reader.string();
+                    message.student_account_id = reader.string();
                     break;
                 case 3:
-                    message.amount_jpy = reader.uint32();
+                    message.amount_upx = reader.uint32();
                     break;
                 case 4:
-                    message.amount_xrp = reader.uint32();
+                    message.amount_spx = reader.uint32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -980,15 +980,15 @@ export const main = $root.main = (() => {
             if (message.id != null && message.hasOwnProperty("id"))
                 if (!$util.isString(message.id))
                     return "id: string expected";
-            if (message.account_id != null && message.hasOwnProperty("account_id"))
-                if (!$util.isString(message.account_id))
-                    return "account_id: string expected";
-            if (message.amount_jpy != null && message.hasOwnProperty("amount_jpy"))
-                if (!$util.isInteger(message.amount_jpy))
-                    return "amount_jpy: integer expected";
-            if (message.amount_xrp != null && message.hasOwnProperty("amount_xrp"))
-                if (!$util.isInteger(message.amount_xrp))
-                    return "amount_xrp: integer expected";
+            if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
+                if (!$util.isString(message.student_account_id))
+                    return "student_account_id: string expected";
+            if (message.amount_upx != null && message.hasOwnProperty("amount_upx"))
+                if (!$util.isInteger(message.amount_upx))
+                    return "amount_upx: integer expected";
+            if (message.amount_spx != null && message.hasOwnProperty("amount_spx"))
+                if (!$util.isInteger(message.amount_spx))
+                    return "amount_spx: integer expected";
             return null;
         };
 
@@ -1006,12 +1006,12 @@ export const main = $root.main = (() => {
             let message = new $root.main.Balance();
             if (object.id != null)
                 message.id = String(object.id);
-            if (object.account_id != null)
-                message.account_id = String(object.account_id);
-            if (object.amount_jpy != null)
-                message.amount_jpy = object.amount_jpy >>> 0;
-            if (object.amount_xrp != null)
-                message.amount_xrp = object.amount_xrp >>> 0;
+            if (object.student_account_id != null)
+                message.student_account_id = String(object.student_account_id);
+            if (object.amount_upx != null)
+                message.amount_upx = object.amount_upx >>> 0;
+            if (object.amount_spx != null)
+                message.amount_spx = object.amount_spx >>> 0;
             return message;
         };
 
@@ -1030,18 +1030,18 @@ export const main = $root.main = (() => {
             let object = {};
             if (options.defaults) {
                 object.id = "";
-                object.account_id = "";
-                object.amount_jpy = 0;
-                object.amount_xrp = 0;
+                object.student_account_id = "";
+                object.amount_upx = 0;
+                object.amount_spx = 0;
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 object.id = message.id;
-            if (message.account_id != null && message.hasOwnProperty("account_id"))
-                object.account_id = message.account_id;
-            if (message.amount_jpy != null && message.hasOwnProperty("amount_jpy"))
-                object.amount_jpy = message.amount_jpy;
-            if (message.amount_xrp != null && message.hasOwnProperty("amount_xrp"))
-                object.amount_xrp = message.amount_xrp;
+            if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
+                object.student_account_id = message.student_account_id;
+            if (message.amount_upx != null && message.hasOwnProperty("amount_upx"))
+                object.amount_upx = message.amount_upx;
+            if (message.amount_spx != null && message.hasOwnProperty("amount_spx"))
+                object.amount_spx = message.amount_spx;
             return object;
         };
 
