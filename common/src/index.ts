@@ -17,3 +17,4 @@ export * from './entities/single-price-renewable-settlements';
 export * from './entities/normal-settlements';
 export * from './entities/renewable-settlements';
 export * from './entities/student-accounts/balances';
+export * from './entities/student-accounts/remaining-balances';
