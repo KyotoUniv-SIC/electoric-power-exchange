@@ -3,10 +3,10 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 /* eslint-disable require-jsdoc */
-import * as admin from 'firebase-admin';
 import { Balance, BalanceFirestore } from '@local/common';
+import * as admin from 'firebase-admin';
 
-export * from './controller'
+export * from './controller';
 
 export function collection(studentAccountID: string) {
   return admin
@@ -33,15 +33,32 @@ export async function get(studentAccountID: string, id: string) {
     .then((snapshot) => snapshot.data() as Balance);
 }
 
+export async function getLatest(studentAccountID: string) {
+  return await collection(studentAccountID)
+    .orderBy('createdAt', 'desc')
+    .limit(1)
+    .get()
+    .then((snapshot) => snapshot.docs.map((doc) => doc.data() as Balance));
+}
+
+// 先にPrimaryAskが走って残高更新されてしまう場合にも対応する昨月の残高管理
+export async function getLastMonth(studentAccountID: string) {
+  const today = new Date().setHours(0, 0, 0, 0);
+  return await collection(studentAccountID)
+    .orderBy('createdAt', 'desc')
+    .where('createdAt', '<', today)
+    .limit(1)
+    .get()
+    .then((snapshot) => snapshot.docs.map((doc) => doc.data() as Balance));
+}
+
 export async function list(studentAccountID: string) {
   return await collection(studentAccountID)
     .get()
     .then((snapshot) => snapshot.docs.map((doc) => doc.data() as Balance));
 }
 
-export async function create(
-  data: Balance
-) {
+export async function create(data: Balance) {
   const doc = document(data.student_account_id);
   data.id = doc.id;
 
@@ -52,9 +69,7 @@ export async function create(
   await doc.set(data);
 }
 
-export async function update(
-  data: Balance
-) {
+export async function update(data: Balance) {
   const now = admin.firestore.Timestamp.now();
   data.updated_at = now;
 
