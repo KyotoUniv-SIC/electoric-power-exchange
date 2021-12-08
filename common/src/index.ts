@@ -18,3 +18,7 @@ export * from './entities/normal-settlements';
 export * from './entities/renewable-settlements';
 export * from './entities/student-accounts/balances';
 export * from './entities/student-accounts/balance-snapshots';
+export * from "./entities/normal-ask-histories";
+export * from "./entities/normal-bid-histories";
+export * from "./entities/renewable-bid-histories";
+export * from "./entities/renewable-ask-histories";
