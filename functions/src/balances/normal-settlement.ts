@@ -7,7 +7,7 @@ normal_settlement.onCreateHandler.push(async (snapshot, context) => {
   const data = snapshot.data()!;
 
   const bidderBalance = await balance.getLatest(data.bid_id);
-  await balance.create(
+  await balance.update(
     new Balance({
       student_account_id: data.bid_id,
       amount_upx: bidderBalance[0].amount_upx + data.amount,
@@ -16,7 +16,7 @@ normal_settlement.onCreateHandler.push(async (snapshot, context) => {
   );
 
   const sellerBalance = await balance.getLatest(data.ask_id);
-  await balance.create(
+  await balance.update(
     new Balance({
       student_account_id: data.ask_id,
       amount_upx: sellerBalance[0].amount_upx - data.amount,

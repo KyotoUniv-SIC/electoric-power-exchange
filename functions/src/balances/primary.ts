@@ -6,7 +6,7 @@ import { Balance } from '@local/common';
 primary_ask.onCreateHandler.push(async (snapshot, context) => {
   const data = snapshot.data()!;
 
-  await balance.create(
+  await balance.update(
     new Balance({
       student_account_id: data.account_id,
       amount_upx: data.amount,
