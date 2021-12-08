@@ -12,16 +12,50 @@
     </div>
   </mat-card>
 
-  <h3>Transaction List</h3>
+  <h3>Orders</h3>
   <mat-card>
     <mat-nav-list>
-      <ng-container *ngFor="let transaction of transactions">
-        <mat-list-item class="flex" routerLink="/txs/{{ transaction.id }}">
+      <ng-container *ngFor="let normalBidOrder of normalBidOrders">
+        <mat-list-item class="flex" routerLink="/txs/{{ normalBidOrder.id }}">
           <div class="flex-auto">
-            <span class="column-name font-bold">Transaction Hash : </span><span class="column-value font-bold">{{ transaction.id }}</span>
+            <span class="column-name font-bold">Date : </span>
+            <span class="column-value font-bold">{{ normalBidOrder.created_at }}</span>
           </div>
           <div class="flex-auto">
-            <ng-container *ngIf="transaction.status === true; then accept; else reject"></ng-container>
+            <span class="font-bold">amount : </span>
+            <span class="font-bold">{{ normalBidOrder.amount }}</span>
+            <span class="font-bold">UPX</span>
+          </div>
+          <div class="flex-auto">
+            <span class="font-bold">Price : </span>
+            <span class="font-bold">{{ normalBidOrder.price }}</span>
+          </div>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
+      </ng-container>
+    </mat-nav-list>
+  </mat-card>
+
+  <h3>Transaction History</h3>
+  <mat-card>
+    <mat-nav-list>
+      <ng-container *ngFor="let normalBid of normalBidHistories">
+        <mat-list-item class="flex" routerLink="/txs/{{ normalBid.id }}">
+          <div class="flex-auto">
+            <span class="column-name font-bold">Date : </span>
+            <span class="column-value font-bold">{{ normalBid.created_at }}</span>
+          </div>
+          <div class="flex-auto">
+            <span class="font-bold">amount : </span>
+            <span class="font-bold">{{ normalBid.amount }}</span>
+            <span class="font-bold">UPX</span>
+          </div>
+          <div class="flex-auto">
+            <span class="font-bold">Price : </span>
+            <span class="font-bold">{{ normalBid.price }}</span>
+          </div>
+          <div class="flex-auto">
+            <ng-container *ngIf="normalBid.is_accepted === true; then accept; else reject"></ng-container>
             <ng-template #accept>
               <mat-chip-list>
                 <mat-chip color="primary" selected>Accepted</mat-chip>
@@ -32,18 +66,6 @@
                 <mat-chip color="warn" selected>Rejected</mat-chip>
               </mat-chip-list>
             </ng-template>
-          </div>
-          <div class="flex-auto">
-            <span class="font-bold">From : </span>
-            <span class="font-bold">{{ transaction.sender_account_id }}</span>
-          </div>
-          <div class="flex-auto">
-            <span class="font-bold">To : </span>
-            <span class="font-bold">{{ transaction.recipient_account_id }}</span>
-          </div>
-          <div class="flex-auto">
-            <span class="font-bold">{{ transaction.amount }}</span>
-            <span class="font-bold">{{ transaction.denom }}</span>
           </div>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
