@@ -72,6 +72,8 @@ export async function create(data: Balance) {
 export async function update(data: Balance) {
   const now = admin.firestore.Timestamp.now();
   data.updated_at = now;
+  const doc = document(data.student_account_id);
+  data.id = doc.id;
 
   await document(data.student_account_id, data.id).update(data);
 }
