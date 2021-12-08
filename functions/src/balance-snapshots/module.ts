@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 /* eslint-disable require-jsdoc */
-import { MonthlyUsage, MonthlyUsageFirestore } from '@local/common';
+import { BalanceSnapshot, BalanceSnapshotFirestore } from '@local/common';
 import * as admin from 'firebase-admin';
 
 export * from './controller';
@@ -11,15 +11,15 @@ export * from './controller';
 export function collection(studentAccountID: string) {
   return admin
     .firestore()
-    .collection(MonthlyUsageFirestore.collectionPath(studentAccountID))
-    .withConverter(MonthlyUsageFirestore.converter as any);
+    .collection(BalanceSnapshotFirestore.collectionPath(studentAccountID))
+    .withConverter(BalanceSnapshotFirestore.converter as any);
 }
 
 export function collectionGroup() {
   return admin
     .firestore()
-    .collectionGroup(MonthlyUsageFirestore.collectionID)
-    .withConverter(MonthlyUsageFirestore.converter as any);
+    .collectionGroup(BalanceSnapshotFirestore.collectionID)
+    .withConverter(BalanceSnapshotFirestore.converter as any);
 }
 
 export function document(studentAccountID: string, id?: string) {
@@ -30,26 +30,16 @@ export function document(studentAccountID: string, id?: string) {
 export async function get(studentAccountID: string, id: string) {
   return await document(studentAccountID, id)
     .get()
-    .then((snapshot) => snapshot.data() as MonthlyUsage);
+    .then((snapshot) => snapshot.data() as BalanceSnapshot);
 }
 
 export async function list(studentAccountID: string) {
   return await collection(studentAccountID)
     .get()
-    .then((snapshot) => snapshot.docs.map((doc) => doc.data() as MonthlyUsage));
+    .then((snapshot) => snapshot.docs.map((doc) => doc.data() as BalanceSnapshot));
 }
 
-export async function getLastYear(studentAccountID: string, date: Date) {
-  const lastYear1dayAgo = date.setFullYear(date.getFullYear() - 1, date.getMonth() + 1, date.getDate() - 1);
-  const lastYear1dayLater = date.setFullYear(date.getFullYear() - 1, date.getMonth() + 1, date.getDate() + 1);
-  return await collection(studentAccountID)
-    .where('createdAt', '>', lastYear1dayAgo)
-    .where('createdAt', '<', lastYear1dayLater)
-    .get()
-    .then((snapshot) => snapshot.docs.map((doc) => doc.data() as MonthlyUsage));
-}
-
-export async function create(data: MonthlyUsage) {
+export async function create(data: BalanceSnapshot) {
   const doc = document(data.student_account_id);
   data.id = doc.id;
 
@@ -60,7 +50,7 @@ export async function create(data: MonthlyUsage) {
   await doc.set(data);
 }
 
-export async function update(data: MonthlyUsage) {
+export async function update(data: BalanceSnapshot) {
   const now = admin.firestore.Timestamp.now();
   data.updated_at = now;
 

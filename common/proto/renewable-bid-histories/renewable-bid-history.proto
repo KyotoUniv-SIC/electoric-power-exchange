@@ -5,9 +5,11 @@ import "firebase_rules_options.proto";
 
 option (google.firebase.rules.firebase_rules).full_package_names = true;
 
-message Balance {
+message RenewableBidHistory {
   string id = 1;
-  string student_account_id = 2;
-  uint32 amount_upx = 3;
-  uint32 amount_spx = 4;
+  string account_id = 2;
+  uint32 price = 3;
+  uint32 amount = 4;
+  bool is_accepted = 5;
+  uint32 contract_price = 6;
 }
