@@ -1,8 +1,8 @@
 /* eslint-disable camelcase */
-import { remaining_balance } from '.';
+import { balance_snapshot } from '.';
 import { balance } from '../balances';
 import { student_account } from '../student-accounts';
-import { RemainingBalance } from '@local/common';
+import { BalanceSnapshot } from '@local/common';
 import * as functions from 'firebase-functions';
 
 exports.scheduledFunctionCrontab = functions.pubsub
@@ -14,6 +14,6 @@ exports.scheduledFunctionCrontab = functions.pubsub
     for (const student of students) {
       const studentID = student.id;
       const lastMonthBalance = await balance.getLastMonth(studentID);
-      await remaining_balance.create(new RemainingBalance(lastMonthBalance[0]));
+      await balance_snapshot.create(new BalanceSnapshot(lastMonthBalance[0]));
     }
   });

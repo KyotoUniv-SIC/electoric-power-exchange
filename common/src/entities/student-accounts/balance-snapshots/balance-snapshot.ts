@@ -1,13 +1,13 @@
 import { proto } from '../../..';
 import { FieldValue, Timestamp } from 'firebase/firestore';
 
-export class RemainingBalance extends proto.main.RemainingBalance {
+export class BalanceSnapshot extends proto.main.BalanceSnapshot {
   constructor(
-    iRemainingBalance: proto.main.IRemainingBalance,
+    iBalanceSnapshot: proto.main.IBalanceSnapshot,
     public created_at?: FieldValue | Timestamp,
     public updated_at?: FieldValue | Timestamp,
   ) {
-    super(iRemainingBalance);
+    super(iBalanceSnapshot);
   }
 
   validate() {

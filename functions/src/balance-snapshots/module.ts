@@ -3,23 +3,23 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 /* eslint-disable require-jsdoc */
+import { BalanceSnapshot, BalanceSnapshotFirestore } from '@local/common';
 import * as admin from 'firebase-admin';
-import { RemainingBalance, RemainingBalanceFirestore } from '@local/common';
 
-export * from './controller'
+export * from './controller';
 
 export function collection(studentAccountID: string) {
   return admin
     .firestore()
-    .collection(RemainingBalanceFirestore.collectionPath(studentAccountID))
-    .withConverter(RemainingBalanceFirestore.converter as any);
+    .collection(BalanceSnapshotFirestore.collectionPath(studentAccountID))
+    .withConverter(BalanceSnapshotFirestore.converter as any);
 }
 
 export function collectionGroup() {
   return admin
     .firestore()
-    .collectionGroup(RemainingBalanceFirestore.collectionID)
-    .withConverter(RemainingBalanceFirestore.converter as any);
+    .collectionGroup(BalanceSnapshotFirestore.collectionID)
+    .withConverter(BalanceSnapshotFirestore.converter as any);
 }
 
 export function document(studentAccountID: string, id?: string) {
@@ -30,18 +30,16 @@ export function document(studentAccountID: string, id?: string) {
 export async function get(studentAccountID: string, id: string) {
   return await document(studentAccountID, id)
     .get()
-    .then((snapshot) => snapshot.data() as RemainingBalance);
+    .then((snapshot) => snapshot.data() as BalanceSnapshot);
 }
 
 export async function list(studentAccountID: string) {
   return await collection(studentAccountID)
     .get()
-    .then((snapshot) => snapshot.docs.map((doc) => doc.data() as RemainingBalance));
+    .then((snapshot) => snapshot.docs.map((doc) => doc.data() as BalanceSnapshot));
 }
 
-export async function create(
-  data: RemainingBalance
-) {
+export async function create(data: BalanceSnapshot) {
   const doc = document(data.student_account_id);
   data.id = doc.id;
 
@@ -52,9 +50,7 @@ export async function create(
   await doc.set(data);
 }
 
-export async function update(
-  data: RemainingBalance
-) {
+export async function update(data: BalanceSnapshot) {
   const now = admin.firestore.Timestamp.now();
   data.updated_at = now;
 

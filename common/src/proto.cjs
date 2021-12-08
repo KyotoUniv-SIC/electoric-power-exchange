@@ -826,6 +826,248 @@
             return AdminAccount;
         })();
     
+        main.BalanceSnapshot = (function() {
+    
+            /**
+             * Properties of a BalanceSnapshot.
+             * @memberof main
+             * @interface IBalanceSnapshot
+             * @property {string|null} [id] BalanceSnapshot id
+             * @property {string|null} [student_account_id] BalanceSnapshot student_account_id
+             * @property {number|null} [amount_upx] BalanceSnapshot amount_upx
+             * @property {number|null} [amount_spx] BalanceSnapshot amount_spx
+             */
+    
+            /**
+             * Constructs a new BalanceSnapshot.
+             * @memberof main
+             * @classdesc Represents a BalanceSnapshot.
+             * @implements IBalanceSnapshot
+             * @constructor
+             * @param {main.IBalanceSnapshot=} [properties] Properties to set
+             */
+            function BalanceSnapshot(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+    
+            /**
+             * BalanceSnapshot id.
+             * @member {string} id
+             * @memberof main.BalanceSnapshot
+             * @instance
+             */
+            BalanceSnapshot.prototype.id = "";
+    
+            /**
+             * BalanceSnapshot student_account_id.
+             * @member {string} student_account_id
+             * @memberof main.BalanceSnapshot
+             * @instance
+             */
+            BalanceSnapshot.prototype.student_account_id = "";
+    
+            /**
+             * BalanceSnapshot amount_upx.
+             * @member {number} amount_upx
+             * @memberof main.BalanceSnapshot
+             * @instance
+             */
+            BalanceSnapshot.prototype.amount_upx = 0;
+    
+            /**
+             * BalanceSnapshot amount_spx.
+             * @member {number} amount_spx
+             * @memberof main.BalanceSnapshot
+             * @instance
+             */
+            BalanceSnapshot.prototype.amount_spx = 0;
+    
+            /**
+             * Encodes the specified BalanceSnapshot message. Does not implicitly {@link main.BalanceSnapshot.verify|verify} messages.
+             * @function encode
+             * @memberof main.BalanceSnapshot
+             * @static
+             * @param {main.IBalanceSnapshot} message BalanceSnapshot message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            BalanceSnapshot.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                if (message.student_account_id != null && Object.hasOwnProperty.call(message, "student_account_id"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.student_account_id);
+                if (message.amount_upx != null && Object.hasOwnProperty.call(message, "amount_upx"))
+                    writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.amount_upx);
+                if (message.amount_spx != null && Object.hasOwnProperty.call(message, "amount_spx"))
+                    writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.amount_spx);
+                return writer;
+            };
+    
+            /**
+             * Encodes the specified BalanceSnapshot message, length delimited. Does not implicitly {@link main.BalanceSnapshot.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof main.BalanceSnapshot
+             * @static
+             * @param {main.IBalanceSnapshot} message BalanceSnapshot message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            BalanceSnapshot.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+    
+            /**
+             * Decodes a BalanceSnapshot message from the specified reader or buffer.
+             * @function decode
+             * @memberof main.BalanceSnapshot
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {main.BalanceSnapshot} BalanceSnapshot
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            BalanceSnapshot.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.BalanceSnapshot();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.id = reader.string();
+                        break;
+                    case 2:
+                        message.student_account_id = reader.string();
+                        break;
+                    case 3:
+                        message.amount_upx = reader.uint32();
+                        break;
+                    case 4:
+                        message.amount_spx = reader.uint32();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Decodes a BalanceSnapshot message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof main.BalanceSnapshot
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {main.BalanceSnapshot} BalanceSnapshot
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            BalanceSnapshot.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+    
+            /**
+             * Verifies a BalanceSnapshot message.
+             * @function verify
+             * @memberof main.BalanceSnapshot
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            BalanceSnapshot.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.id != null && message.hasOwnProperty("id"))
+                    if (!$util.isString(message.id))
+                        return "id: string expected";
+                if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
+                    if (!$util.isString(message.student_account_id))
+                        return "student_account_id: string expected";
+                if (message.amount_upx != null && message.hasOwnProperty("amount_upx"))
+                    if (!$util.isInteger(message.amount_upx))
+                        return "amount_upx: integer expected";
+                if (message.amount_spx != null && message.hasOwnProperty("amount_spx"))
+                    if (!$util.isInteger(message.amount_spx))
+                        return "amount_spx: integer expected";
+                return null;
+            };
+    
+            /**
+             * Creates a BalanceSnapshot message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof main.BalanceSnapshot
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {main.BalanceSnapshot} BalanceSnapshot
+             */
+            BalanceSnapshot.fromObject = function fromObject(object) {
+                if (object instanceof $root.main.BalanceSnapshot)
+                    return object;
+                var message = new $root.main.BalanceSnapshot();
+                if (object.id != null)
+                    message.id = String(object.id);
+                if (object.student_account_id != null)
+                    message.student_account_id = String(object.student_account_id);
+                if (object.amount_upx != null)
+                    message.amount_upx = object.amount_upx >>> 0;
+                if (object.amount_spx != null)
+                    message.amount_spx = object.amount_spx >>> 0;
+                return message;
+            };
+    
+            /**
+             * Creates a plain object from a BalanceSnapshot message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof main.BalanceSnapshot
+             * @static
+             * @param {main.BalanceSnapshot} message BalanceSnapshot
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            BalanceSnapshot.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.id = "";
+                    object.student_account_id = "";
+                    object.amount_upx = 0;
+                    object.amount_spx = 0;
+                }
+                if (message.id != null && message.hasOwnProperty("id"))
+                    object.id = message.id;
+                if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
+                    object.student_account_id = message.student_account_id;
+                if (message.amount_upx != null && message.hasOwnProperty("amount_upx"))
+                    object.amount_upx = message.amount_upx;
+                if (message.amount_spx != null && message.hasOwnProperty("amount_spx"))
+                    object.amount_spx = message.amount_spx;
+                return object;
+            };
+    
+            /**
+             * Converts this BalanceSnapshot to JSON.
+             * @function toJSON
+             * @memberof main.BalanceSnapshot
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            BalanceSnapshot.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            return BalanceSnapshot;
+        })();
+    
         main.Balance = (function() {
     
             /**
@@ -3124,248 +3366,6 @@
             };
     
             return PrimaryBid;
-        })();
-    
-        main.RemainingBalance = (function() {
-    
-            /**
-             * Properties of a RemainingBalance.
-             * @memberof main
-             * @interface IRemainingBalance
-             * @property {string|null} [id] RemainingBalance id
-             * @property {string|null} [student_account_id] RemainingBalance student_account_id
-             * @property {number|null} [amount_upx] RemainingBalance amount_upx
-             * @property {number|null} [amount_spx] RemainingBalance amount_spx
-             */
-    
-            /**
-             * Constructs a new RemainingBalance.
-             * @memberof main
-             * @classdesc Represents a RemainingBalance.
-             * @implements IRemainingBalance
-             * @constructor
-             * @param {main.IRemainingBalance=} [properties] Properties to set
-             */
-            function RemainingBalance(properties) {
-                if (properties)
-                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
-                            this[keys[i]] = properties[keys[i]];
-            }
-    
-            /**
-             * RemainingBalance id.
-             * @member {string} id
-             * @memberof main.RemainingBalance
-             * @instance
-             */
-            RemainingBalance.prototype.id = "";
-    
-            /**
-             * RemainingBalance student_account_id.
-             * @member {string} student_account_id
-             * @memberof main.RemainingBalance
-             * @instance
-             */
-            RemainingBalance.prototype.student_account_id = "";
-    
-            /**
-             * RemainingBalance amount_upx.
-             * @member {number} amount_upx
-             * @memberof main.RemainingBalance
-             * @instance
-             */
-            RemainingBalance.prototype.amount_upx = 0;
-    
-            /**
-             * RemainingBalance amount_spx.
-             * @member {number} amount_spx
-             * @memberof main.RemainingBalance
-             * @instance
-             */
-            RemainingBalance.prototype.amount_spx = 0;
-    
-            /**
-             * Encodes the specified RemainingBalance message. Does not implicitly {@link main.RemainingBalance.verify|verify} messages.
-             * @function encode
-             * @memberof main.RemainingBalance
-             * @static
-             * @param {main.IRemainingBalance} message RemainingBalance message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            RemainingBalance.encode = function encode(message, writer) {
-                if (!writer)
-                    writer = $Writer.create();
-                if (message.id != null && Object.hasOwnProperty.call(message, "id"))
-                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
-                if (message.student_account_id != null && Object.hasOwnProperty.call(message, "student_account_id"))
-                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.student_account_id);
-                if (message.amount_upx != null && Object.hasOwnProperty.call(message, "amount_upx"))
-                    writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.amount_upx);
-                if (message.amount_spx != null && Object.hasOwnProperty.call(message, "amount_spx"))
-                    writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.amount_spx);
-                return writer;
-            };
-    
-            /**
-             * Encodes the specified RemainingBalance message, length delimited. Does not implicitly {@link main.RemainingBalance.verify|verify} messages.
-             * @function encodeDelimited
-             * @memberof main.RemainingBalance
-             * @static
-             * @param {main.IRemainingBalance} message RemainingBalance message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            RemainingBalance.encodeDelimited = function encodeDelimited(message, writer) {
-                return this.encode(message, writer).ldelim();
-            };
-    
-            /**
-             * Decodes a RemainingBalance message from the specified reader or buffer.
-             * @function decode
-             * @memberof main.RemainingBalance
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @param {number} [length] Message length if known beforehand
-             * @returns {main.RemainingBalance} RemainingBalance
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            RemainingBalance.decode = function decode(reader, length) {
-                if (!(reader instanceof $Reader))
-                    reader = $Reader.create(reader);
-                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.RemainingBalance();
-                while (reader.pos < end) {
-                    var tag = reader.uint32();
-                    switch (tag >>> 3) {
-                    case 1:
-                        message.id = reader.string();
-                        break;
-                    case 2:
-                        message.student_account_id = reader.string();
-                        break;
-                    case 3:
-                        message.amount_upx = reader.uint32();
-                        break;
-                    case 4:
-                        message.amount_spx = reader.uint32();
-                        break;
-                    default:
-                        reader.skipType(tag & 7);
-                        break;
-                    }
-                }
-                return message;
-            };
-    
-            /**
-             * Decodes a RemainingBalance message from the specified reader or buffer, length delimited.
-             * @function decodeDelimited
-             * @memberof main.RemainingBalance
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {main.RemainingBalance} RemainingBalance
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            RemainingBalance.decodeDelimited = function decodeDelimited(reader) {
-                if (!(reader instanceof $Reader))
-                    reader = new $Reader(reader);
-                return this.decode(reader, reader.uint32());
-            };
-    
-            /**
-             * Verifies a RemainingBalance message.
-             * @function verify
-             * @memberof main.RemainingBalance
-             * @static
-             * @param {Object.<string,*>} message Plain object to verify
-             * @returns {string|null} `null` if valid, otherwise the reason why it is not
-             */
-            RemainingBalance.verify = function verify(message) {
-                if (typeof message !== "object" || message === null)
-                    return "object expected";
-                if (message.id != null && message.hasOwnProperty("id"))
-                    if (!$util.isString(message.id))
-                        return "id: string expected";
-                if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
-                    if (!$util.isString(message.student_account_id))
-                        return "student_account_id: string expected";
-                if (message.amount_upx != null && message.hasOwnProperty("amount_upx"))
-                    if (!$util.isInteger(message.amount_upx))
-                        return "amount_upx: integer expected";
-                if (message.amount_spx != null && message.hasOwnProperty("amount_spx"))
-                    if (!$util.isInteger(message.amount_spx))
-                        return "amount_spx: integer expected";
-                return null;
-            };
-    
-            /**
-             * Creates a RemainingBalance message from a plain object. Also converts values to their respective internal types.
-             * @function fromObject
-             * @memberof main.RemainingBalance
-             * @static
-             * @param {Object.<string,*>} object Plain object
-             * @returns {main.RemainingBalance} RemainingBalance
-             */
-            RemainingBalance.fromObject = function fromObject(object) {
-                if (object instanceof $root.main.RemainingBalance)
-                    return object;
-                var message = new $root.main.RemainingBalance();
-                if (object.id != null)
-                    message.id = String(object.id);
-                if (object.student_account_id != null)
-                    message.student_account_id = String(object.student_account_id);
-                if (object.amount_upx != null)
-                    message.amount_upx = object.amount_upx >>> 0;
-                if (object.amount_spx != null)
-                    message.amount_spx = object.amount_spx >>> 0;
-                return message;
-            };
-    
-            /**
-             * Creates a plain object from a RemainingBalance message. Also converts values to other types if specified.
-             * @function toObject
-             * @memberof main.RemainingBalance
-             * @static
-             * @param {main.RemainingBalance} message RemainingBalance
-             * @param {$protobuf.IConversionOptions} [options] Conversion options
-             * @returns {Object.<string,*>} Plain object
-             */
-            RemainingBalance.toObject = function toObject(message, options) {
-                if (!options)
-                    options = {};
-                var object = {};
-                if (options.defaults) {
-                    object.id = "";
-                    object.student_account_id = "";
-                    object.amount_upx = 0;
-                    object.amount_spx = 0;
-                }
-                if (message.id != null && message.hasOwnProperty("id"))
-                    object.id = message.id;
-                if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
-                    object.student_account_id = message.student_account_id;
-                if (message.amount_upx != null && message.hasOwnProperty("amount_upx"))
-                    object.amount_upx = message.amount_upx;
-                if (message.amount_spx != null && message.hasOwnProperty("amount_spx"))
-                    object.amount_spx = message.amount_spx;
-                return object;
-            };
-    
-            /**
-             * Converts this RemainingBalance to JSON.
-             * @function toJSON
-             * @memberof main.RemainingBalance
-             * @instance
-             * @returns {Object.<string,*>} JSON object
-             */
-            RemainingBalance.prototype.toJSON = function toJSON() {
-                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-            };
-    
-            return RemainingBalance;
         })();
     
         /**
