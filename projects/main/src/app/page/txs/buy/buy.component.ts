@@ -1,9 +1,11 @@
 import { BuyOnSubmitEvent } from '../../../view/txs/buy/buy.component';
 import { Component, OnInit } from '@angular/core';
-import { NormalBid, RenewableBid } from '@local/common';
+import { AvailableBalance, NormalBid, RenewableBid } from '@local/common';
 import { getAuth } from 'firebase/auth';
 import { NormalBidApplicationService } from 'projects/shared/src/lib/services/normal-bids/normal-bid.application.service';
 import { RenewableBidApplicationService } from 'projects/shared/src/lib/services/renewable-bid/renewable-bid.application.service';
+import { AvailableBalanceApplicationService } from 'projects/shared/src/lib/student-accounts/available-balances/available-balance.application.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-buy',
@@ -11,6 +13,7 @@ import { RenewableBidApplicationService } from 'projects/shared/src/lib/services
   styleUrls: ['./buy.component.css'],
 })
 export class BuyComponent implements OnInit {
+  balance$: Observable<AvailableBalance> | undefined;
   price: number | undefined;
   amount: number | undefined;
   denom: string | undefined;
@@ -18,9 +21,15 @@ export class BuyComponent implements OnInit {
   constructor(
     private readonly normalBidApp: NormalBidApplicationService,
     private readonly renewableBidApp: RenewableBidApplicationService,
+    private readonly availableBalanceApp: AvailableBalanceApplicationService,
   ) {
     this.price = 27;
     this.amount = 1;
+    const accountID = getAuth().currentUser?.uid;
+    if (!accountID) {
+      return;
+    }
+    this.balance$ = this.availableBalanceApp.list$(accountID);
   }
 
   ngOnInit(): void {}

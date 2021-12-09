@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { AvailableBalance } from '@local/common';
 
 interface Token {
   value: string;
@@ -18,6 +19,9 @@ export type BuyOnSubmitEvent = {
   styleUrls: ['./buy.component.css'],
 })
 export class BuyComponent implements OnInit {
+  @Input()
+  balance?: AvailableBalance | null;
+
   @Input()
   accountID?: string | null;
 
