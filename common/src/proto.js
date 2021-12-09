@@ -893,9 +893,9 @@ export const main = $root.main = (() => {
             if (message.student_account_id != null && Object.hasOwnProperty.call(message, "student_account_id"))
                 writer.uint32(/* id 2, wireType 2 =*/18).string(message.student_account_id);
             if (message.amount_upx != null && Object.hasOwnProperty.call(message, "amount_upx"))
-                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.amount_upx);
+                writer.uint32(/* id 3, wireType 1 =*/25).double(message.amount_upx);
             if (message.amount_spx != null && Object.hasOwnProperty.call(message, "amount_spx"))
-                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.amount_spx);
+                writer.uint32(/* id 4, wireType 1 =*/33).double(message.amount_spx);
             return writer;
         };
 
@@ -937,10 +937,10 @@ export const main = $root.main = (() => {
                     message.student_account_id = reader.string();
                     break;
                 case 3:
-                    message.amount_upx = reader.uint32();
+                    message.amount_upx = reader.double();
                     break;
                 case 4:
-                    message.amount_spx = reader.uint32();
+                    message.amount_spx = reader.double();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -984,11 +984,11 @@ export const main = $root.main = (() => {
                 if (!$util.isString(message.student_account_id))
                     return "student_account_id: string expected";
             if (message.amount_upx != null && message.hasOwnProperty("amount_upx"))
-                if (!$util.isInteger(message.amount_upx))
-                    return "amount_upx: integer expected";
+                if (typeof message.amount_upx !== "number")
+                    return "amount_upx: number expected";
             if (message.amount_spx != null && message.hasOwnProperty("amount_spx"))
-                if (!$util.isInteger(message.amount_spx))
-                    return "amount_spx: integer expected";
+                if (typeof message.amount_spx !== "number")
+                    return "amount_spx: number expected";
             return null;
         };
 
@@ -1009,9 +1009,9 @@ export const main = $root.main = (() => {
             if (object.student_account_id != null)
                 message.student_account_id = String(object.student_account_id);
             if (object.amount_upx != null)
-                message.amount_upx = object.amount_upx >>> 0;
+                message.amount_upx = Number(object.amount_upx);
             if (object.amount_spx != null)
-                message.amount_spx = object.amount_spx >>> 0;
+                message.amount_spx = Number(object.amount_spx);
             return message;
         };
 
@@ -1039,9 +1039,9 @@ export const main = $root.main = (() => {
             if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
                 object.student_account_id = message.student_account_id;
             if (message.amount_upx != null && message.hasOwnProperty("amount_upx"))
-                object.amount_upx = message.amount_upx;
+                object.amount_upx = options.json && !isFinite(message.amount_upx) ? String(message.amount_upx) : message.amount_upx;
             if (message.amount_spx != null && message.hasOwnProperty("amount_spx"))
-                object.amount_spx = message.amount_spx;
+                object.amount_spx = options.json && !isFinite(message.amount_spx) ? String(message.amount_spx) : message.amount_spx;
             return object;
         };
 
@@ -1135,9 +1135,9 @@ export const main = $root.main = (() => {
             if (message.student_account_id != null && Object.hasOwnProperty.call(message, "student_account_id"))
                 writer.uint32(/* id 2, wireType 2 =*/18).string(message.student_account_id);
             if (message.amount_upx != null && Object.hasOwnProperty.call(message, "amount_upx"))
-                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.amount_upx);
+                writer.uint32(/* id 3, wireType 1 =*/25).double(message.amount_upx);
             if (message.amount_spx != null && Object.hasOwnProperty.call(message, "amount_spx"))
-                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.amount_spx);
+                writer.uint32(/* id 4, wireType 1 =*/33).double(message.amount_spx);
             return writer;
         };
 
@@ -1179,10 +1179,10 @@ export const main = $root.main = (() => {
                     message.student_account_id = reader.string();
                     break;
                 case 3:
-                    message.amount_upx = reader.uint32();
+                    message.amount_upx = reader.double();
                     break;
                 case 4:
-                    message.amount_spx = reader.uint32();
+                    message.amount_spx = reader.double();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -1226,11 +1226,11 @@ export const main = $root.main = (() => {
                 if (!$util.isString(message.student_account_id))
                     return "student_account_id: string expected";
             if (message.amount_upx != null && message.hasOwnProperty("amount_upx"))
-                if (!$util.isInteger(message.amount_upx))
-                    return "amount_upx: integer expected";
+                if (typeof message.amount_upx !== "number")
+                    return "amount_upx: number expected";
             if (message.amount_spx != null && message.hasOwnProperty("amount_spx"))
-                if (!$util.isInteger(message.amount_spx))
-                    return "amount_spx: integer expected";
+                if (typeof message.amount_spx !== "number")
+                    return "amount_spx: number expected";
             return null;
         };
 
@@ -1251,9 +1251,9 @@ export const main = $root.main = (() => {
             if (object.student_account_id != null)
                 message.student_account_id = String(object.student_account_id);
             if (object.amount_upx != null)
-                message.amount_upx = object.amount_upx >>> 0;
+                message.amount_upx = Number(object.amount_upx);
             if (object.amount_spx != null)
-                message.amount_spx = object.amount_spx >>> 0;
+                message.amount_spx = Number(object.amount_spx);
             return message;
         };
 
@@ -1281,9 +1281,9 @@ export const main = $root.main = (() => {
             if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
                 object.student_account_id = message.student_account_id;
             if (message.amount_upx != null && message.hasOwnProperty("amount_upx"))
-                object.amount_upx = message.amount_upx;
+                object.amount_upx = options.json && !isFinite(message.amount_upx) ? String(message.amount_upx) : message.amount_upx;
             if (message.amount_spx != null && message.hasOwnProperty("amount_spx"))
-                object.amount_spx = message.amount_spx;
+                object.amount_spx = options.json && !isFinite(message.amount_spx) ? String(message.amount_spx) : message.amount_spx;
             return object;
         };
 
@@ -1541,6 +1541,341 @@ export const main = $root.main = (() => {
         };
 
         return Chat;
+    })();
+
+    main.History = (function() {
+
+        /**
+         * Properties of a History.
+         * @memberof main
+         * @interface IHistory
+         * @property {string|null} [id] History id
+         * @property {google.protobuf.ITimestamp|null} [date] History date
+         * @property {number|null} [amount] History amount
+         * @property {number|null} [price] History price
+         * @property {number|null} [contract_price] History contract_price
+         * @property {boolean|null} [is_accepted] History is_accepted
+         * @property {boolean|null} [is_solar] History is_solar
+         * @property {boolean|null} [is_bid] History is_bid
+         */
+
+        /**
+         * Constructs a new History.
+         * @memberof main
+         * @classdesc Represents a History.
+         * @implements IHistory
+         * @constructor
+         * @param {main.IHistory=} [properties] Properties to set
+         */
+        function History(properties) {
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * History id.
+         * @member {string} id
+         * @memberof main.History
+         * @instance
+         */
+        History.prototype.id = "";
+
+        /**
+         * History date.
+         * @member {google.protobuf.ITimestamp|null|undefined} date
+         * @memberof main.History
+         * @instance
+         */
+        History.prototype.date = null;
+
+        /**
+         * History amount.
+         * @member {number} amount
+         * @memberof main.History
+         * @instance
+         */
+        History.prototype.amount = 0;
+
+        /**
+         * History price.
+         * @member {number} price
+         * @memberof main.History
+         * @instance
+         */
+        History.prototype.price = 0;
+
+        /**
+         * History contract_price.
+         * @member {number} contract_price
+         * @memberof main.History
+         * @instance
+         */
+        History.prototype.contract_price = 0;
+
+        /**
+         * History is_accepted.
+         * @member {boolean} is_accepted
+         * @memberof main.History
+         * @instance
+         */
+        History.prototype.is_accepted = false;
+
+        /**
+         * History is_solar.
+         * @member {boolean} is_solar
+         * @memberof main.History
+         * @instance
+         */
+        History.prototype.is_solar = false;
+
+        /**
+         * History is_bid.
+         * @member {boolean} is_bid
+         * @memberof main.History
+         * @instance
+         */
+        History.prototype.is_bid = false;
+
+        /**
+         * Encodes the specified History message. Does not implicitly {@link main.History.verify|verify} messages.
+         * @function encode
+         * @memberof main.History
+         * @static
+         * @param {main.IHistory} message History message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        History.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+            if (message.date != null && Object.hasOwnProperty.call(message, "date"))
+                $root.google.protobuf.Timestamp.encode(message.date, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+            if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
+                writer.uint32(/* id 3, wireType 1 =*/25).double(message.amount);
+            if (message.price != null && Object.hasOwnProperty.call(message, "price"))
+                writer.uint32(/* id 4, wireType 1 =*/33).double(message.price);
+            if (message.contract_price != null && Object.hasOwnProperty.call(message, "contract_price"))
+                writer.uint32(/* id 5, wireType 1 =*/41).double(message.contract_price);
+            if (message.is_accepted != null && Object.hasOwnProperty.call(message, "is_accepted"))
+                writer.uint32(/* id 6, wireType 0 =*/48).bool(message.is_accepted);
+            if (message.is_solar != null && Object.hasOwnProperty.call(message, "is_solar"))
+                writer.uint32(/* id 7, wireType 0 =*/56).bool(message.is_solar);
+            if (message.is_bid != null && Object.hasOwnProperty.call(message, "is_bid"))
+                writer.uint32(/* id 8, wireType 0 =*/64).bool(message.is_bid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified History message, length delimited. Does not implicitly {@link main.History.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof main.History
+         * @static
+         * @param {main.IHistory} message History message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        History.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a History message from the specified reader or buffer.
+         * @function decode
+         * @memberof main.History
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {main.History} History
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        History.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.History();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.id = reader.string();
+                    break;
+                case 2:
+                    message.date = $root.google.protobuf.Timestamp.decode(reader, reader.uint32());
+                    break;
+                case 3:
+                    message.amount = reader.double();
+                    break;
+                case 4:
+                    message.price = reader.double();
+                    break;
+                case 5:
+                    message.contract_price = reader.double();
+                    break;
+                case 6:
+                    message.is_accepted = reader.bool();
+                    break;
+                case 7:
+                    message.is_solar = reader.bool();
+                    break;
+                case 8:
+                    message.is_bid = reader.bool();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a History message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof main.History
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {main.History} History
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        History.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a History message.
+         * @function verify
+         * @memberof main.History
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        History.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isString(message.id))
+                    return "id: string expected";
+            if (message.date != null && message.hasOwnProperty("date")) {
+                let error = $root.google.protobuf.Timestamp.verify(message.date);
+                if (error)
+                    return "date." + error;
+            }
+            if (message.amount != null && message.hasOwnProperty("amount"))
+                if (typeof message.amount !== "number")
+                    return "amount: number expected";
+            if (message.price != null && message.hasOwnProperty("price"))
+                if (typeof message.price !== "number")
+                    return "price: number expected";
+            if (message.contract_price != null && message.hasOwnProperty("contract_price"))
+                if (typeof message.contract_price !== "number")
+                    return "contract_price: number expected";
+            if (message.is_accepted != null && message.hasOwnProperty("is_accepted"))
+                if (typeof message.is_accepted !== "boolean")
+                    return "is_accepted: boolean expected";
+            if (message.is_solar != null && message.hasOwnProperty("is_solar"))
+                if (typeof message.is_solar !== "boolean")
+                    return "is_solar: boolean expected";
+            if (message.is_bid != null && message.hasOwnProperty("is_bid"))
+                if (typeof message.is_bid !== "boolean")
+                    return "is_bid: boolean expected";
+            return null;
+        };
+
+        /**
+         * Creates a History message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof main.History
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {main.History} History
+         */
+        History.fromObject = function fromObject(object) {
+            if (object instanceof $root.main.History)
+                return object;
+            let message = new $root.main.History();
+            if (object.id != null)
+                message.id = String(object.id);
+            if (object.date != null) {
+                if (typeof object.date !== "object")
+                    throw TypeError(".main.History.date: object expected");
+                message.date = $root.google.protobuf.Timestamp.fromObject(object.date);
+            }
+            if (object.amount != null)
+                message.amount = Number(object.amount);
+            if (object.price != null)
+                message.price = Number(object.price);
+            if (object.contract_price != null)
+                message.contract_price = Number(object.contract_price);
+            if (object.is_accepted != null)
+                message.is_accepted = Boolean(object.is_accepted);
+            if (object.is_solar != null)
+                message.is_solar = Boolean(object.is_solar);
+            if (object.is_bid != null)
+                message.is_bid = Boolean(object.is_bid);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a History message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof main.History
+         * @static
+         * @param {main.History} message History
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        History.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.defaults) {
+                object.id = "";
+                object.date = null;
+                object.amount = 0;
+                object.price = 0;
+                object.contract_price = 0;
+                object.is_accepted = false;
+                object.is_solar = false;
+                object.is_bid = false;
+            }
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            if (message.date != null && message.hasOwnProperty("date"))
+                object.date = $root.google.protobuf.Timestamp.toObject(message.date, options);
+            if (message.amount != null && message.hasOwnProperty("amount"))
+                object.amount = options.json && !isFinite(message.amount) ? String(message.amount) : message.amount;
+            if (message.price != null && message.hasOwnProperty("price"))
+                object.price = options.json && !isFinite(message.price) ? String(message.price) : message.price;
+            if (message.contract_price != null && message.hasOwnProperty("contract_price"))
+                object.contract_price = options.json && !isFinite(message.contract_price) ? String(message.contract_price) : message.contract_price;
+            if (message.is_accepted != null && message.hasOwnProperty("is_accepted"))
+                object.is_accepted = message.is_accepted;
+            if (message.is_solar != null && message.hasOwnProperty("is_solar"))
+                object.is_solar = message.is_solar;
+            if (message.is_bid != null && message.hasOwnProperty("is_bid"))
+                object.is_bid = message.is_bid;
+            return object;
+        };
+
+        /**
+         * Converts this History to JSON.
+         * @function toJSON
+         * @memberof main.History
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        History.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return History;
     })();
 
     main.Message = (function() {
@@ -1918,7 +2253,7 @@ export const main = $root.main = (() => {
             if (message.student_account_id != null && Object.hasOwnProperty.call(message, "student_account_id"))
                 writer.uint32(/* id 2, wireType 2 =*/18).string(message.student_account_id);
             if (message.amount_kwh != null && Object.hasOwnProperty.call(message, "amount_kwh"))
-                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.amount_kwh);
+                writer.uint32(/* id 3, wireType 1 =*/25).double(message.amount_kwh);
             return writer;
         };
 
@@ -1960,7 +2295,7 @@ export const main = $root.main = (() => {
                     message.student_account_id = reader.string();
                     break;
                 case 3:
-                    message.amount_kwh = reader.uint32();
+                    message.amount_kwh = reader.double();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -2004,8 +2339,8 @@ export const main = $root.main = (() => {
                 if (!$util.isString(message.student_account_id))
                     return "student_account_id: string expected";
             if (message.amount_kwh != null && message.hasOwnProperty("amount_kwh"))
-                if (!$util.isInteger(message.amount_kwh))
-                    return "amount_kwh: integer expected";
+                if (typeof message.amount_kwh !== "number")
+                    return "amount_kwh: number expected";
             return null;
         };
 
@@ -2026,7 +2361,7 @@ export const main = $root.main = (() => {
             if (object.student_account_id != null)
                 message.student_account_id = String(object.student_account_id);
             if (object.amount_kwh != null)
-                message.amount_kwh = object.amount_kwh >>> 0;
+                message.amount_kwh = Number(object.amount_kwh);
             return message;
         };
 
@@ -2053,7 +2388,7 @@ export const main = $root.main = (() => {
             if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
                 object.student_account_id = message.student_account_id;
             if (message.amount_kwh != null && message.hasOwnProperty("amount_kwh"))
-                object.amount_kwh = message.amount_kwh;
+                object.amount_kwh = options.json && !isFinite(message.amount_kwh) ? String(message.amount_kwh) : message.amount_kwh;
             return object;
         };
 
@@ -2165,13 +2500,13 @@ export const main = $root.main = (() => {
             if (message.account_id != null && Object.hasOwnProperty.call(message, "account_id"))
                 writer.uint32(/* id 2, wireType 2 =*/18).string(message.account_id);
             if (message.price != null && Object.hasOwnProperty.call(message, "price"))
-                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.price);
+                writer.uint32(/* id 3, wireType 1 =*/25).double(message.price);
             if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
-                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.amount);
+                writer.uint32(/* id 4, wireType 1 =*/33).double(message.amount);
             if (message.is_accepted != null && Object.hasOwnProperty.call(message, "is_accepted"))
                 writer.uint32(/* id 5, wireType 0 =*/40).bool(message.is_accepted);
             if (message.contract_price != null && Object.hasOwnProperty.call(message, "contract_price"))
-                writer.uint32(/* id 6, wireType 0 =*/48).uint32(message.contract_price);
+                writer.uint32(/* id 6, wireType 1 =*/49).double(message.contract_price);
             return writer;
         };
 
@@ -2213,16 +2548,16 @@ export const main = $root.main = (() => {
                     message.account_id = reader.string();
                     break;
                 case 3:
-                    message.price = reader.uint32();
+                    message.price = reader.double();
                     break;
                 case 4:
-                    message.amount = reader.uint32();
+                    message.amount = reader.double();
                     break;
                 case 5:
                     message.is_accepted = reader.bool();
                     break;
                 case 6:
-                    message.contract_price = reader.uint32();
+                    message.contract_price = reader.double();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -2266,17 +2601,17 @@ export const main = $root.main = (() => {
                 if (!$util.isString(message.account_id))
                     return "account_id: string expected";
             if (message.price != null && message.hasOwnProperty("price"))
-                if (!$util.isInteger(message.price))
-                    return "price: integer expected";
+                if (typeof message.price !== "number")
+                    return "price: number expected";
             if (message.amount != null && message.hasOwnProperty("amount"))
-                if (!$util.isInteger(message.amount))
-                    return "amount: integer expected";
+                if (typeof message.amount !== "number")
+                    return "amount: number expected";
             if (message.is_accepted != null && message.hasOwnProperty("is_accepted"))
                 if (typeof message.is_accepted !== "boolean")
                     return "is_accepted: boolean expected";
             if (message.contract_price != null && message.hasOwnProperty("contract_price"))
-                if (!$util.isInteger(message.contract_price))
-                    return "contract_price: integer expected";
+                if (typeof message.contract_price !== "number")
+                    return "contract_price: number expected";
             return null;
         };
 
@@ -2297,13 +2632,13 @@ export const main = $root.main = (() => {
             if (object.account_id != null)
                 message.account_id = String(object.account_id);
             if (object.price != null)
-                message.price = object.price >>> 0;
+                message.price = Number(object.price);
             if (object.amount != null)
-                message.amount = object.amount >>> 0;
+                message.amount = Number(object.amount);
             if (object.is_accepted != null)
                 message.is_accepted = Boolean(object.is_accepted);
             if (object.contract_price != null)
-                message.contract_price = object.contract_price >>> 0;
+                message.contract_price = Number(object.contract_price);
             return message;
         };
 
@@ -2333,13 +2668,13 @@ export const main = $root.main = (() => {
             if (message.account_id != null && message.hasOwnProperty("account_id"))
                 object.account_id = message.account_id;
             if (message.price != null && message.hasOwnProperty("price"))
-                object.price = message.price;
+                object.price = options.json && !isFinite(message.price) ? String(message.price) : message.price;
             if (message.amount != null && message.hasOwnProperty("amount"))
-                object.amount = message.amount;
+                object.amount = options.json && !isFinite(message.amount) ? String(message.amount) : message.amount;
             if (message.is_accepted != null && message.hasOwnProperty("is_accepted"))
                 object.is_accepted = message.is_accepted;
             if (message.contract_price != null && message.hasOwnProperty("contract_price"))
-                object.contract_price = message.contract_price;
+                object.contract_price = options.json && !isFinite(message.contract_price) ? String(message.contract_price) : message.contract_price;
             return object;
         };
 
@@ -2478,13 +2813,13 @@ export const main = $root.main = (() => {
             if (message.account_id != null && Object.hasOwnProperty.call(message, "account_id"))
                 writer.uint32(/* id 3, wireType 2 =*/26).string(message.account_id);
             if (message.price != null && Object.hasOwnProperty.call(message, "price"))
-                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.price);
+                writer.uint32(/* id 4, wireType 1 =*/33).double(message.price);
             if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
-                writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.amount);
+                writer.uint32(/* id 5, wireType 1 =*/41).double(message.amount);
             if (message.is_accepted != null && Object.hasOwnProperty.call(message, "is_accepted"))
                 writer.uint32(/* id 6, wireType 0 =*/48).bool(message.is_accepted);
             if (message.contract_price != null && Object.hasOwnProperty.call(message, "contract_price"))
-                writer.uint32(/* id 7, wireType 0 =*/56).uint32(message.contract_price);
+                writer.uint32(/* id 7, wireType 1 =*/57).double(message.contract_price);
             return writer;
         };
 
@@ -2529,16 +2864,16 @@ export const main = $root.main = (() => {
                     message.account_id = reader.string();
                     break;
                 case 4:
-                    message.price = reader.uint32();
+                    message.price = reader.double();
                     break;
                 case 5:
-                    message.amount = reader.uint32();
+                    message.amount = reader.double();
                     break;
                 case 6:
                     message.is_accepted = reader.bool();
                     break;
                 case 7:
-                    message.contract_price = reader.uint32();
+                    message.contract_price = reader.double();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -2591,17 +2926,17 @@ export const main = $root.main = (() => {
                 if (!$util.isString(message.account_id))
                     return "account_id: string expected";
             if (message.price != null && message.hasOwnProperty("price"))
-                if (!$util.isInteger(message.price))
-                    return "price: integer expected";
+                if (typeof message.price !== "number")
+                    return "price: number expected";
             if (message.amount != null && message.hasOwnProperty("amount"))
-                if (!$util.isInteger(message.amount))
-                    return "amount: integer expected";
+                if (typeof message.amount !== "number")
+                    return "amount: number expected";
             if (message.is_accepted != null && message.hasOwnProperty("is_accepted"))
                 if (typeof message.is_accepted !== "boolean")
                     return "is_accepted: boolean expected";
             if (message.contract_price != null && message.hasOwnProperty("contract_price"))
-                if (!$util.isInteger(message.contract_price))
-                    return "contract_price: integer expected";
+                if (typeof message.contract_price !== "number")
+                    return "contract_price: number expected";
             return null;
         };
 
@@ -2636,13 +2971,13 @@ export const main = $root.main = (() => {
             if (object.account_id != null)
                 message.account_id = String(object.account_id);
             if (object.price != null)
-                message.price = object.price >>> 0;
+                message.price = Number(object.price);
             if (object.amount != null)
-                message.amount = object.amount >>> 0;
+                message.amount = Number(object.amount);
             if (object.is_accepted != null)
                 message.is_accepted = Boolean(object.is_accepted);
             if (object.contract_price != null)
-                message.contract_price = object.contract_price >>> 0;
+                message.contract_price = Number(object.contract_price);
             return message;
         };
 
@@ -2675,13 +3010,13 @@ export const main = $root.main = (() => {
             if (message.account_id != null && message.hasOwnProperty("account_id"))
                 object.account_id = message.account_id;
             if (message.price != null && message.hasOwnProperty("price"))
-                object.price = message.price;
+                object.price = options.json && !isFinite(message.price) ? String(message.price) : message.price;
             if (message.amount != null && message.hasOwnProperty("amount"))
-                object.amount = message.amount;
+                object.amount = options.json && !isFinite(message.amount) ? String(message.amount) : message.amount;
             if (message.is_accepted != null && message.hasOwnProperty("is_accepted"))
                 object.is_accepted = message.is_accepted;
             if (message.contract_price != null && message.hasOwnProperty("contract_price"))
-                object.contract_price = message.contract_price;
+                object.contract_price = options.json && !isFinite(message.contract_price) ? String(message.contract_price) : message.contract_price;
             return object;
         };
 
@@ -2802,9 +3137,9 @@ export const main = $root.main = (() => {
             if (message.account_id != null && Object.hasOwnProperty.call(message, "account_id"))
                 writer.uint32(/* id 3, wireType 2 =*/26).string(message.account_id);
             if (message.price != null && Object.hasOwnProperty.call(message, "price"))
-                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.price);
+                writer.uint32(/* id 4, wireType 1 =*/33).double(message.price);
             if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
-                writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.amount);
+                writer.uint32(/* id 5, wireType 1 =*/41).double(message.amount);
             return writer;
         };
 
@@ -2849,10 +3184,10 @@ export const main = $root.main = (() => {
                     message.account_id = reader.string();
                     break;
                 case 4:
-                    message.price = reader.uint32();
+                    message.price = reader.double();
                     break;
                 case 5:
-                    message.amount = reader.uint32();
+                    message.amount = reader.double();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -2905,11 +3240,11 @@ export const main = $root.main = (() => {
                 if (!$util.isString(message.account_id))
                     return "account_id: string expected";
             if (message.price != null && message.hasOwnProperty("price"))
-                if (!$util.isInteger(message.price))
-                    return "price: integer expected";
+                if (typeof message.price !== "number")
+                    return "price: number expected";
             if (message.amount != null && message.hasOwnProperty("amount"))
-                if (!$util.isInteger(message.amount))
-                    return "amount: integer expected";
+                if (typeof message.amount !== "number")
+                    return "amount: number expected";
             return null;
         };
 
@@ -2944,9 +3279,9 @@ export const main = $root.main = (() => {
             if (object.account_id != null)
                 message.account_id = String(object.account_id);
             if (object.price != null)
-                message.price = object.price >>> 0;
+                message.price = Number(object.price);
             if (object.amount != null)
-                message.amount = object.amount >>> 0;
+                message.amount = Number(object.amount);
             return message;
         };
 
@@ -2977,9 +3312,9 @@ export const main = $root.main = (() => {
             if (message.account_id != null && message.hasOwnProperty("account_id"))
                 object.account_id = message.account_id;
             if (message.price != null && message.hasOwnProperty("price"))
-                object.price = message.price;
+                object.price = options.json && !isFinite(message.price) ? String(message.price) : message.price;
             if (message.amount != null && message.hasOwnProperty("amount"))
-                object.amount = message.amount;
+                object.amount = options.json && !isFinite(message.amount) ? String(message.amount) : message.amount;
             return object;
         };
 
@@ -3073,9 +3408,9 @@ export const main = $root.main = (() => {
             if (message.account_id != null && Object.hasOwnProperty.call(message, "account_id"))
                 writer.uint32(/* id 2, wireType 2 =*/18).string(message.account_id);
             if (message.price != null && Object.hasOwnProperty.call(message, "price"))
-                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.price);
+                writer.uint32(/* id 3, wireType 1 =*/25).double(message.price);
             if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
-                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.amount);
+                writer.uint32(/* id 4, wireType 1 =*/33).double(message.amount);
             return writer;
         };
 
@@ -3117,10 +3452,10 @@ export const main = $root.main = (() => {
                     message.account_id = reader.string();
                     break;
                 case 3:
-                    message.price = reader.uint32();
+                    message.price = reader.double();
                     break;
                 case 4:
-                    message.amount = reader.uint32();
+                    message.amount = reader.double();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -3164,11 +3499,11 @@ export const main = $root.main = (() => {
                 if (!$util.isString(message.account_id))
                     return "account_id: string expected";
             if (message.price != null && message.hasOwnProperty("price"))
-                if (!$util.isInteger(message.price))
-                    return "price: integer expected";
+                if (typeof message.price !== "number")
+                    return "price: number expected";
             if (message.amount != null && message.hasOwnProperty("amount"))
-                if (!$util.isInteger(message.amount))
-                    return "amount: integer expected";
+                if (typeof message.amount !== "number")
+                    return "amount: number expected";
             return null;
         };
 
@@ -3189,9 +3524,9 @@ export const main = $root.main = (() => {
             if (object.account_id != null)
                 message.account_id = String(object.account_id);
             if (object.price != null)
-                message.price = object.price >>> 0;
+                message.price = Number(object.price);
             if (object.amount != null)
-                message.amount = object.amount >>> 0;
+                message.amount = Number(object.amount);
             return message;
         };
 
@@ -3219,9 +3554,9 @@ export const main = $root.main = (() => {
             if (message.account_id != null && message.hasOwnProperty("account_id"))
                 object.account_id = message.account_id;
             if (message.price != null && message.hasOwnProperty("price"))
-                object.price = message.price;
+                object.price = options.json && !isFinite(message.price) ? String(message.price) : message.price;
             if (message.amount != null && message.hasOwnProperty("amount"))
-                object.amount = message.amount;
+                object.amount = options.json && !isFinite(message.amount) ? String(message.amount) : message.amount;
             return object;
         };
 
@@ -3326,9 +3661,9 @@ export const main = $root.main = (() => {
             if (message.ask_id != null && Object.hasOwnProperty.call(message, "ask_id"))
                 writer.uint32(/* id 3, wireType 2 =*/26).string(message.ask_id);
             if (message.price != null && Object.hasOwnProperty.call(message, "price"))
-                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.price);
+                writer.uint32(/* id 4, wireType 1 =*/33).double(message.price);
             if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
-                writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.amount);
+                writer.uint32(/* id 5, wireType 1 =*/41).double(message.amount);
             return writer;
         };
 
@@ -3373,10 +3708,10 @@ export const main = $root.main = (() => {
                     message.ask_id = reader.string();
                     break;
                 case 4:
-                    message.price = reader.uint32();
+                    message.price = reader.double();
                     break;
                 case 5:
-                    message.amount = reader.uint32();
+                    message.amount = reader.double();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -3423,11 +3758,11 @@ export const main = $root.main = (() => {
                 if (!$util.isString(message.ask_id))
                     return "ask_id: string expected";
             if (message.price != null && message.hasOwnProperty("price"))
-                if (!$util.isInteger(message.price))
-                    return "price: integer expected";
+                if (typeof message.price !== "number")
+                    return "price: number expected";
             if (message.amount != null && message.hasOwnProperty("amount"))
-                if (!$util.isInteger(message.amount))
-                    return "amount: integer expected";
+                if (typeof message.amount !== "number")
+                    return "amount: number expected";
             return null;
         };
 
@@ -3450,9 +3785,9 @@ export const main = $root.main = (() => {
             if (object.ask_id != null)
                 message.ask_id = String(object.ask_id);
             if (object.price != null)
-                message.price = object.price >>> 0;
+                message.price = Number(object.price);
             if (object.amount != null)
-                message.amount = object.amount >>> 0;
+                message.amount = Number(object.amount);
             return message;
         };
 
@@ -3483,9 +3818,9 @@ export const main = $root.main = (() => {
             if (message.ask_id != null && message.hasOwnProperty("ask_id"))
                 object.ask_id = message.ask_id;
             if (message.price != null && message.hasOwnProperty("price"))
-                object.price = message.price;
+                object.price = options.json && !isFinite(message.price) ? String(message.price) : message.price;
             if (message.amount != null && message.hasOwnProperty("amount"))
-                object.amount = message.amount;
+                object.amount = options.json && !isFinite(message.amount) ? String(message.amount) : message.amount;
             return object;
         };
 
@@ -3579,9 +3914,9 @@ export const main = $root.main = (() => {
             if (message.account_id != null && Object.hasOwnProperty.call(message, "account_id"))
                 writer.uint32(/* id 2, wireType 2 =*/18).string(message.account_id);
             if (message.price != null && Object.hasOwnProperty.call(message, "price"))
-                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.price);
+                writer.uint32(/* id 3, wireType 1 =*/25).double(message.price);
             if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
-                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.amount);
+                writer.uint32(/* id 4, wireType 1 =*/33).double(message.amount);
             return writer;
         };
 
@@ -3623,10 +3958,10 @@ export const main = $root.main = (() => {
                     message.account_id = reader.string();
                     break;
                 case 3:
-                    message.price = reader.uint32();
+                    message.price = reader.double();
                     break;
                 case 4:
-                    message.amount = reader.uint32();
+                    message.amount = reader.double();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -3670,11 +4005,11 @@ export const main = $root.main = (() => {
                 if (!$util.isString(message.account_id))
                     return "account_id: string expected";
             if (message.price != null && message.hasOwnProperty("price"))
-                if (!$util.isInteger(message.price))
-                    return "price: integer expected";
+                if (typeof message.price !== "number")
+                    return "price: number expected";
             if (message.amount != null && message.hasOwnProperty("amount"))
-                if (!$util.isInteger(message.amount))
-                    return "amount: integer expected";
+                if (typeof message.amount !== "number")
+                    return "amount: number expected";
             return null;
         };
 
@@ -3695,9 +4030,9 @@ export const main = $root.main = (() => {
             if (object.account_id != null)
                 message.account_id = String(object.account_id);
             if (object.price != null)
-                message.price = object.price >>> 0;
+                message.price = Number(object.price);
             if (object.amount != null)
-                message.amount = object.amount >>> 0;
+                message.amount = Number(object.amount);
             return message;
         };
 
@@ -3725,9 +4060,9 @@ export const main = $root.main = (() => {
             if (message.account_id != null && message.hasOwnProperty("account_id"))
                 object.account_id = message.account_id;
             if (message.price != null && message.hasOwnProperty("price"))
-                object.price = message.price;
+                object.price = options.json && !isFinite(message.price) ? String(message.price) : message.price;
             if (message.amount != null && message.hasOwnProperty("amount"))
-                object.amount = message.amount;
+                object.amount = options.json && !isFinite(message.amount) ? String(message.amount) : message.amount;
             return object;
         };
 
@@ -3821,9 +4156,9 @@ export const main = $root.main = (() => {
             if (message.account_id != null && Object.hasOwnProperty.call(message, "account_id"))
                 writer.uint32(/* id 2, wireType 2 =*/18).string(message.account_id);
             if (message.price != null && Object.hasOwnProperty.call(message, "price"))
-                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.price);
+                writer.uint32(/* id 3, wireType 1 =*/25).double(message.price);
             if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
-                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.amount);
+                writer.uint32(/* id 4, wireType 1 =*/33).double(message.amount);
             return writer;
         };
 
@@ -3865,10 +4200,10 @@ export const main = $root.main = (() => {
                     message.account_id = reader.string();
                     break;
                 case 3:
-                    message.price = reader.uint32();
+                    message.price = reader.double();
                     break;
                 case 4:
-                    message.amount = reader.uint32();
+                    message.amount = reader.double();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -3912,11 +4247,11 @@ export const main = $root.main = (() => {
                 if (!$util.isString(message.account_id))
                     return "account_id: string expected";
             if (message.price != null && message.hasOwnProperty("price"))
-                if (!$util.isInteger(message.price))
-                    return "price: integer expected";
+                if (typeof message.price !== "number")
+                    return "price: number expected";
             if (message.amount != null && message.hasOwnProperty("amount"))
-                if (!$util.isInteger(message.amount))
-                    return "amount: integer expected";
+                if (typeof message.amount !== "number")
+                    return "amount: number expected";
             return null;
         };
 
@@ -3937,9 +4272,9 @@ export const main = $root.main = (() => {
             if (object.account_id != null)
                 message.account_id = String(object.account_id);
             if (object.price != null)
-                message.price = object.price >>> 0;
+                message.price = Number(object.price);
             if (object.amount != null)
-                message.amount = object.amount >>> 0;
+                message.amount = Number(object.amount);
             return message;
         };
 
@@ -3967,9 +4302,9 @@ export const main = $root.main = (() => {
             if (message.account_id != null && message.hasOwnProperty("account_id"))
                 object.account_id = message.account_id;
             if (message.price != null && message.hasOwnProperty("price"))
-                object.price = message.price;
+                object.price = options.json && !isFinite(message.price) ? String(message.price) : message.price;
             if (message.amount != null && message.hasOwnProperty("amount"))
-                object.amount = message.amount;
+                object.amount = options.json && !isFinite(message.amount) ? String(message.amount) : message.amount;
             return object;
         };
 
@@ -4081,13 +4416,13 @@ export const main = $root.main = (() => {
             if (message.account_id != null && Object.hasOwnProperty.call(message, "account_id"))
                 writer.uint32(/* id 2, wireType 2 =*/18).string(message.account_id);
             if (message.price != null && Object.hasOwnProperty.call(message, "price"))
-                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.price);
+                writer.uint32(/* id 3, wireType 1 =*/25).double(message.price);
             if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
-                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.amount);
+                writer.uint32(/* id 4, wireType 1 =*/33).double(message.amount);
             if (message.is_accepted != null && Object.hasOwnProperty.call(message, "is_accepted"))
                 writer.uint32(/* id 5, wireType 0 =*/40).bool(message.is_accepted);
             if (message.contract_price != null && Object.hasOwnProperty.call(message, "contract_price"))
-                writer.uint32(/* id 6, wireType 0 =*/48).uint32(message.contract_price);
+                writer.uint32(/* id 6, wireType 1 =*/49).double(message.contract_price);
             return writer;
         };
 
@@ -4129,16 +4464,16 @@ export const main = $root.main = (() => {
                     message.account_id = reader.string();
                     break;
                 case 3:
-                    message.price = reader.uint32();
+                    message.price = reader.double();
                     break;
                 case 4:
-                    message.amount = reader.uint32();
+                    message.amount = reader.double();
                     break;
                 case 5:
                     message.is_accepted = reader.bool();
                     break;
                 case 6:
-                    message.contract_price = reader.uint32();
+                    message.contract_price = reader.double();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -4182,17 +4517,17 @@ export const main = $root.main = (() => {
                 if (!$util.isString(message.account_id))
                     return "account_id: string expected";
             if (message.price != null && message.hasOwnProperty("price"))
-                if (!$util.isInteger(message.price))
-                    return "price: integer expected";
+                if (typeof message.price !== "number")
+                    return "price: number expected";
             if (message.amount != null && message.hasOwnProperty("amount"))
-                if (!$util.isInteger(message.amount))
-                    return "amount: integer expected";
+                if (typeof message.amount !== "number")
+                    return "amount: number expected";
             if (message.is_accepted != null && message.hasOwnProperty("is_accepted"))
                 if (typeof message.is_accepted !== "boolean")
                     return "is_accepted: boolean expected";
             if (message.contract_price != null && message.hasOwnProperty("contract_price"))
-                if (!$util.isInteger(message.contract_price))
-                    return "contract_price: integer expected";
+                if (typeof message.contract_price !== "number")
+                    return "contract_price: number expected";
             return null;
         };
 
@@ -4213,13 +4548,13 @@ export const main = $root.main = (() => {
             if (object.account_id != null)
                 message.account_id = String(object.account_id);
             if (object.price != null)
-                message.price = object.price >>> 0;
+                message.price = Number(object.price);
             if (object.amount != null)
-                message.amount = object.amount >>> 0;
+                message.amount = Number(object.amount);
             if (object.is_accepted != null)
                 message.is_accepted = Boolean(object.is_accepted);
             if (object.contract_price != null)
-                message.contract_price = object.contract_price >>> 0;
+                message.contract_price = Number(object.contract_price);
             return message;
         };
 
@@ -4249,13 +4584,13 @@ export const main = $root.main = (() => {
             if (message.account_id != null && message.hasOwnProperty("account_id"))
                 object.account_id = message.account_id;
             if (message.price != null && message.hasOwnProperty("price"))
-                object.price = message.price;
+                object.price = options.json && !isFinite(message.price) ? String(message.price) : message.price;
             if (message.amount != null && message.hasOwnProperty("amount"))
-                object.amount = message.amount;
+                object.amount = options.json && !isFinite(message.amount) ? String(message.amount) : message.amount;
             if (message.is_accepted != null && message.hasOwnProperty("is_accepted"))
                 object.is_accepted = message.is_accepted;
             if (message.contract_price != null && message.hasOwnProperty("contract_price"))
-                object.contract_price = message.contract_price;
+                object.contract_price = options.json && !isFinite(message.contract_price) ? String(message.contract_price) : message.contract_price;
             return object;
         };
 
@@ -4394,13 +4729,13 @@ export const main = $root.main = (() => {
             if (message.account_id != null && Object.hasOwnProperty.call(message, "account_id"))
                 writer.uint32(/* id 3, wireType 2 =*/26).string(message.account_id);
             if (message.price != null && Object.hasOwnProperty.call(message, "price"))
-                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.price);
+                writer.uint32(/* id 4, wireType 1 =*/33).double(message.price);
             if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
-                writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.amount);
+                writer.uint32(/* id 5, wireType 1 =*/41).double(message.amount);
             if (message.is_accepted != null && Object.hasOwnProperty.call(message, "is_accepted"))
                 writer.uint32(/* id 6, wireType 0 =*/48).bool(message.is_accepted);
             if (message.contract_price != null && Object.hasOwnProperty.call(message, "contract_price"))
-                writer.uint32(/* id 7, wireType 0 =*/56).uint32(message.contract_price);
+                writer.uint32(/* id 7, wireType 1 =*/57).double(message.contract_price);
             return writer;
         };
 
@@ -4445,16 +4780,16 @@ export const main = $root.main = (() => {
                     message.account_id = reader.string();
                     break;
                 case 4:
-                    message.price = reader.uint32();
+                    message.price = reader.double();
                     break;
                 case 5:
-                    message.amount = reader.uint32();
+                    message.amount = reader.double();
                     break;
                 case 6:
                     message.is_accepted = reader.bool();
                     break;
                 case 7:
-                    message.contract_price = reader.uint32();
+                    message.contract_price = reader.double();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -4507,17 +4842,17 @@ export const main = $root.main = (() => {
                 if (!$util.isString(message.account_id))
                     return "account_id: string expected";
             if (message.price != null && message.hasOwnProperty("price"))
-                if (!$util.isInteger(message.price))
-                    return "price: integer expected";
+                if (typeof message.price !== "number")
+                    return "price: number expected";
             if (message.amount != null && message.hasOwnProperty("amount"))
-                if (!$util.isInteger(message.amount))
-                    return "amount: integer expected";
+                if (typeof message.amount !== "number")
+                    return "amount: number expected";
             if (message.is_accepted != null && message.hasOwnProperty("is_accepted"))
                 if (typeof message.is_accepted !== "boolean")
                     return "is_accepted: boolean expected";
             if (message.contract_price != null && message.hasOwnProperty("contract_price"))
-                if (!$util.isInteger(message.contract_price))
-                    return "contract_price: integer expected";
+                if (typeof message.contract_price !== "number")
+                    return "contract_price: number expected";
             return null;
         };
 
@@ -4552,13 +4887,13 @@ export const main = $root.main = (() => {
             if (object.account_id != null)
                 message.account_id = String(object.account_id);
             if (object.price != null)
-                message.price = object.price >>> 0;
+                message.price = Number(object.price);
             if (object.amount != null)
-                message.amount = object.amount >>> 0;
+                message.amount = Number(object.amount);
             if (object.is_accepted != null)
                 message.is_accepted = Boolean(object.is_accepted);
             if (object.contract_price != null)
-                message.contract_price = object.contract_price >>> 0;
+                message.contract_price = Number(object.contract_price);
             return message;
         };
 
@@ -4591,13 +4926,13 @@ export const main = $root.main = (() => {
             if (message.account_id != null && message.hasOwnProperty("account_id"))
                 object.account_id = message.account_id;
             if (message.price != null && message.hasOwnProperty("price"))
-                object.price = message.price;
+                object.price = options.json && !isFinite(message.price) ? String(message.price) : message.price;
             if (message.amount != null && message.hasOwnProperty("amount"))
-                object.amount = message.amount;
+                object.amount = options.json && !isFinite(message.amount) ? String(message.amount) : message.amount;
             if (message.is_accepted != null && message.hasOwnProperty("is_accepted"))
                 object.is_accepted = message.is_accepted;
             if (message.contract_price != null && message.hasOwnProperty("contract_price"))
-                object.contract_price = message.contract_price;
+                object.contract_price = options.json && !isFinite(message.contract_price) ? String(message.contract_price) : message.contract_price;
             return object;
         };
 
@@ -4718,9 +5053,9 @@ export const main = $root.main = (() => {
             if (message.account_id != null && Object.hasOwnProperty.call(message, "account_id"))
                 writer.uint32(/* id 3, wireType 2 =*/26).string(message.account_id);
             if (message.price != null && Object.hasOwnProperty.call(message, "price"))
-                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.price);
+                writer.uint32(/* id 4, wireType 1 =*/33).double(message.price);
             if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
-                writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.amount);
+                writer.uint32(/* id 5, wireType 1 =*/41).double(message.amount);
             return writer;
         };
 
@@ -4765,10 +5100,10 @@ export const main = $root.main = (() => {
                     message.account_id = reader.string();
                     break;
                 case 4:
-                    message.price = reader.uint32();
+                    message.price = reader.double();
                     break;
                 case 5:
-                    message.amount = reader.uint32();
+                    message.amount = reader.double();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -4821,11 +5156,11 @@ export const main = $root.main = (() => {
                 if (!$util.isString(message.account_id))
                     return "account_id: string expected";
             if (message.price != null && message.hasOwnProperty("price"))
-                if (!$util.isInteger(message.price))
-                    return "price: integer expected";
+                if (typeof message.price !== "number")
+                    return "price: number expected";
             if (message.amount != null && message.hasOwnProperty("amount"))
-                if (!$util.isInteger(message.amount))
-                    return "amount: integer expected";
+                if (typeof message.amount !== "number")
+                    return "amount: number expected";
             return null;
         };
 
@@ -4860,9 +5195,9 @@ export const main = $root.main = (() => {
             if (object.account_id != null)
                 message.account_id = String(object.account_id);
             if (object.price != null)
-                message.price = object.price >>> 0;
+                message.price = Number(object.price);
             if (object.amount != null)
-                message.amount = object.amount >>> 0;
+                message.amount = Number(object.amount);
             return message;
         };
 
@@ -4893,9 +5228,9 @@ export const main = $root.main = (() => {
             if (message.account_id != null && message.hasOwnProperty("account_id"))
                 object.account_id = message.account_id;
             if (message.price != null && message.hasOwnProperty("price"))
-                object.price = message.price;
+                object.price = options.json && !isFinite(message.price) ? String(message.price) : message.price;
             if (message.amount != null && message.hasOwnProperty("amount"))
-                object.amount = message.amount;
+                object.amount = options.json && !isFinite(message.amount) ? String(message.amount) : message.amount;
             return object;
         };
 
@@ -4989,9 +5324,9 @@ export const main = $root.main = (() => {
             if (message.account_id != null && Object.hasOwnProperty.call(message, "account_id"))
                 writer.uint32(/* id 2, wireType 2 =*/18).string(message.account_id);
             if (message.price != null && Object.hasOwnProperty.call(message, "price"))
-                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.price);
+                writer.uint32(/* id 3, wireType 1 =*/25).double(message.price);
             if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
-                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.amount);
+                writer.uint32(/* id 4, wireType 1 =*/33).double(message.amount);
             return writer;
         };
 
@@ -5033,10 +5368,10 @@ export const main = $root.main = (() => {
                     message.account_id = reader.string();
                     break;
                 case 3:
-                    message.price = reader.uint32();
+                    message.price = reader.double();
                     break;
                 case 4:
-                    message.amount = reader.uint32();
+                    message.amount = reader.double();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -5080,11 +5415,11 @@ export const main = $root.main = (() => {
                 if (!$util.isString(message.account_id))
                     return "account_id: string expected";
             if (message.price != null && message.hasOwnProperty("price"))
-                if (!$util.isInteger(message.price))
-                    return "price: integer expected";
+                if (typeof message.price !== "number")
+                    return "price: number expected";
             if (message.amount != null && message.hasOwnProperty("amount"))
-                if (!$util.isInteger(message.amount))
-                    return "amount: integer expected";
+                if (typeof message.amount !== "number")
+                    return "amount: number expected";
             return null;
         };
 
@@ -5105,9 +5440,9 @@ export const main = $root.main = (() => {
             if (object.account_id != null)
                 message.account_id = String(object.account_id);
             if (object.price != null)
-                message.price = object.price >>> 0;
+                message.price = Number(object.price);
             if (object.amount != null)
-                message.amount = object.amount >>> 0;
+                message.amount = Number(object.amount);
             return message;
         };
 
@@ -5135,9 +5470,9 @@ export const main = $root.main = (() => {
             if (message.account_id != null && message.hasOwnProperty("account_id"))
                 object.account_id = message.account_id;
             if (message.price != null && message.hasOwnProperty("price"))
-                object.price = message.price;
+                object.price = options.json && !isFinite(message.price) ? String(message.price) : message.price;
             if (message.amount != null && message.hasOwnProperty("amount"))
-                object.amount = message.amount;
+                object.amount = options.json && !isFinite(message.amount) ? String(message.amount) : message.amount;
             return object;
         };
 
@@ -5242,9 +5577,9 @@ export const main = $root.main = (() => {
             if (message.ask_id != null && Object.hasOwnProperty.call(message, "ask_id"))
                 writer.uint32(/* id 3, wireType 2 =*/26).string(message.ask_id);
             if (message.price != null && Object.hasOwnProperty.call(message, "price"))
-                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.price);
+                writer.uint32(/* id 4, wireType 1 =*/33).double(message.price);
             if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
-                writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.amount);
+                writer.uint32(/* id 5, wireType 1 =*/41).double(message.amount);
             return writer;
         };
 
@@ -5289,10 +5624,10 @@ export const main = $root.main = (() => {
                     message.ask_id = reader.string();
                     break;
                 case 4:
-                    message.price = reader.uint32();
+                    message.price = reader.double();
                     break;
                 case 5:
-                    message.amount = reader.uint32();
+                    message.amount = reader.double();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -5339,11 +5674,11 @@ export const main = $root.main = (() => {
                 if (!$util.isString(message.ask_id))
                     return "ask_id: string expected";
             if (message.price != null && message.hasOwnProperty("price"))
-                if (!$util.isInteger(message.price))
-                    return "price: integer expected";
+                if (typeof message.price !== "number")
+                    return "price: number expected";
             if (message.amount != null && message.hasOwnProperty("amount"))
-                if (!$util.isInteger(message.amount))
-                    return "amount: integer expected";
+                if (typeof message.amount !== "number")
+                    return "amount: number expected";
             return null;
         };
 
@@ -5366,9 +5701,9 @@ export const main = $root.main = (() => {
             if (object.ask_id != null)
                 message.ask_id = String(object.ask_id);
             if (object.price != null)
-                message.price = object.price >>> 0;
+                message.price = Number(object.price);
             if (object.amount != null)
-                message.amount = object.amount >>> 0;
+                message.amount = Number(object.amount);
             return message;
         };
 
@@ -5399,9 +5734,9 @@ export const main = $root.main = (() => {
             if (message.ask_id != null && message.hasOwnProperty("ask_id"))
                 object.ask_id = message.ask_id;
             if (message.price != null && message.hasOwnProperty("price"))
-                object.price = message.price;
+                object.price = options.json && !isFinite(message.price) ? String(message.price) : message.price;
             if (message.amount != null && message.hasOwnProperty("amount"))
-                object.amount = message.amount;
+                object.amount = options.json && !isFinite(message.amount) ? String(message.amount) : message.amount;
             return object;
         };
 
@@ -5484,9 +5819,9 @@ export const main = $root.main = (() => {
             if (message.id != null && Object.hasOwnProperty.call(message, "id"))
                 writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
             if (message.price != null && Object.hasOwnProperty.call(message, "price"))
-                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.price);
+                writer.uint32(/* id 2, wireType 1 =*/17).double(message.price);
             if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
-                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.amount);
+                writer.uint32(/* id 3, wireType 1 =*/25).double(message.amount);
             return writer;
         };
 
@@ -5525,10 +5860,10 @@ export const main = $root.main = (() => {
                     message.id = reader.string();
                     break;
                 case 2:
-                    message.price = reader.uint32();
+                    message.price = reader.double();
                     break;
                 case 3:
-                    message.amount = reader.uint32();
+                    message.amount = reader.double();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -5569,11 +5904,11 @@ export const main = $root.main = (() => {
                 if (!$util.isString(message.id))
                     return "id: string expected";
             if (message.price != null && message.hasOwnProperty("price"))
-                if (!$util.isInteger(message.price))
-                    return "price: integer expected";
+                if (typeof message.price !== "number")
+                    return "price: number expected";
             if (message.amount != null && message.hasOwnProperty("amount"))
-                if (!$util.isInteger(message.amount))
-                    return "amount: integer expected";
+                if (typeof message.amount !== "number")
+                    return "amount: number expected";
             return null;
         };
 
@@ -5592,9 +5927,9 @@ export const main = $root.main = (() => {
             if (object.id != null)
                 message.id = String(object.id);
             if (object.price != null)
-                message.price = object.price >>> 0;
+                message.price = Number(object.price);
             if (object.amount != null)
-                message.amount = object.amount >>> 0;
+                message.amount = Number(object.amount);
             return message;
         };
 
@@ -5619,9 +5954,9 @@ export const main = $root.main = (() => {
             if (message.id != null && message.hasOwnProperty("id"))
                 object.id = message.id;
             if (message.price != null && message.hasOwnProperty("price"))
-                object.price = message.price;
+                object.price = options.json && !isFinite(message.price) ? String(message.price) : message.price;
             if (message.amount != null && message.hasOwnProperty("amount"))
-                object.amount = message.amount;
+                object.amount = options.json && !isFinite(message.amount) ? String(message.amount) : message.amount;
             return object;
         };
 
@@ -5704,9 +6039,9 @@ export const main = $root.main = (() => {
             if (message.id != null && Object.hasOwnProperty.call(message, "id"))
                 writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
             if (message.price != null && Object.hasOwnProperty.call(message, "price"))
-                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.price);
+                writer.uint32(/* id 2, wireType 1 =*/17).double(message.price);
             if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
-                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.amount);
+                writer.uint32(/* id 3, wireType 1 =*/25).double(message.amount);
             return writer;
         };
 
@@ -5745,10 +6080,10 @@ export const main = $root.main = (() => {
                     message.id = reader.string();
                     break;
                 case 2:
-                    message.price = reader.uint32();
+                    message.price = reader.double();
                     break;
                 case 3:
-                    message.amount = reader.uint32();
+                    message.amount = reader.double();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -5789,11 +6124,11 @@ export const main = $root.main = (() => {
                 if (!$util.isString(message.id))
                     return "id: string expected";
             if (message.price != null && message.hasOwnProperty("price"))
-                if (!$util.isInteger(message.price))
-                    return "price: integer expected";
+                if (typeof message.price !== "number")
+                    return "price: number expected";
             if (message.amount != null && message.hasOwnProperty("amount"))
-                if (!$util.isInteger(message.amount))
-                    return "amount: integer expected";
+                if (typeof message.amount !== "number")
+                    return "amount: number expected";
             return null;
         };
 
@@ -5812,9 +6147,9 @@ export const main = $root.main = (() => {
             if (object.id != null)
                 message.id = String(object.id);
             if (object.price != null)
-                message.price = object.price >>> 0;
+                message.price = Number(object.price);
             if (object.amount != null)
-                message.amount = object.amount >>> 0;
+                message.amount = Number(object.amount);
             return message;
         };
 
@@ -5839,9 +6174,9 @@ export const main = $root.main = (() => {
             if (message.id != null && message.hasOwnProperty("id"))
                 object.id = message.id;
             if (message.price != null && message.hasOwnProperty("price"))
-                object.price = message.price;
+                object.price = options.json && !isFinite(message.price) ? String(message.price) : message.price;
             if (message.amount != null && message.hasOwnProperty("amount"))
-                object.amount = message.amount;
+                object.amount = options.json && !isFinite(message.amount) ? String(message.amount) : message.amount;
             return object;
         };
 
@@ -5944,9 +6279,9 @@ export const main = $root.main = (() => {
             if (message.student_account_id != null && Object.hasOwnProperty.call(message, "student_account_id"))
                 writer.uint32(/* id 2, wireType 2 =*/18).string(message.student_account_id);
             if (message.amount_kwh != null && Object.hasOwnProperty.call(message, "amount_kwh"))
-                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.amount_kwh);
+                writer.uint32(/* id 3, wireType 1 =*/25).double(message.amount_kwh);
             if (message.price != null && Object.hasOwnProperty.call(message, "price"))
-                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.price);
+                writer.uint32(/* id 4, wireType 1 =*/33).double(message.price);
             if (message.denom != null && Object.hasOwnProperty.call(message, "denom"))
                 writer.uint32(/* id 5, wireType 2 =*/42).string(message.denom);
             return writer;
@@ -5990,10 +6325,10 @@ export const main = $root.main = (() => {
                     message.student_account_id = reader.string();
                     break;
                 case 3:
-                    message.amount_kwh = reader.uint32();
+                    message.amount_kwh = reader.double();
                     break;
                 case 4:
-                    message.price = reader.uint32();
+                    message.price = reader.double();
                     break;
                 case 5:
                     message.denom = reader.string();
@@ -6040,11 +6375,11 @@ export const main = $root.main = (() => {
                 if (!$util.isString(message.student_account_id))
                     return "student_account_id: string expected";
             if (message.amount_kwh != null && message.hasOwnProperty("amount_kwh"))
-                if (!$util.isInteger(message.amount_kwh))
-                    return "amount_kwh: integer expected";
+                if (typeof message.amount_kwh !== "number")
+                    return "amount_kwh: number expected";
             if (message.price != null && message.hasOwnProperty("price"))
-                if (!$util.isInteger(message.price))
-                    return "price: integer expected";
+                if (typeof message.price !== "number")
+                    return "price: number expected";
             if (message.denom != null && message.hasOwnProperty("denom"))
                 if (!$util.isString(message.denom))
                     return "denom: string expected";
@@ -6068,9 +6403,9 @@ export const main = $root.main = (() => {
             if (object.student_account_id != null)
                 message.student_account_id = String(object.student_account_id);
             if (object.amount_kwh != null)
-                message.amount_kwh = object.amount_kwh >>> 0;
+                message.amount_kwh = Number(object.amount_kwh);
             if (object.price != null)
-                message.price = object.price >>> 0;
+                message.price = Number(object.price);
             if (object.denom != null)
                 message.denom = String(object.denom);
             return message;
@@ -6101,9 +6436,9 @@ export const main = $root.main = (() => {
             if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
                 object.student_account_id = message.student_account_id;
             if (message.amount_kwh != null && message.hasOwnProperty("amount_kwh"))
-                object.amount_kwh = message.amount_kwh;
+                object.amount_kwh = options.json && !isFinite(message.amount_kwh) ? String(message.amount_kwh) : message.amount_kwh;
             if (message.price != null && message.hasOwnProperty("price"))
-                object.price = message.price;
+                object.price = options.json && !isFinite(message.price) ? String(message.price) : message.price;
             if (message.denom != null && message.hasOwnProperty("denom"))
                 object.denom = message.denom;
             return object;
@@ -6485,7 +6820,7 @@ export const main = $root.main = (() => {
             if (message.recipient_xrp_address != null && Object.hasOwnProperty.call(message, "recipient_xrp_address"))
                 writer.uint32(/* id 6, wireType 2 =*/50).string(message.recipient_xrp_address);
             if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
-                writer.uint32(/* id 7, wireType 0 =*/56).uint32(message.amount);
+                writer.uint32(/* id 7, wireType 1 =*/57).double(message.amount);
             if (message.denom != null && Object.hasOwnProperty.call(message, "denom"))
                 writer.uint32(/* id 8, wireType 2 =*/66).string(message.denom);
             return writer;
@@ -6541,7 +6876,7 @@ export const main = $root.main = (() => {
                     message.recipient_xrp_address = reader.string();
                     break;
                 case 7:
-                    message.amount = reader.uint32();
+                    message.amount = reader.double();
                     break;
                 case 8:
                     message.denom = reader.string();
@@ -6600,8 +6935,8 @@ export const main = $root.main = (() => {
                 if (!$util.isString(message.recipient_xrp_address))
                     return "recipient_xrp_address: string expected";
             if (message.amount != null && message.hasOwnProperty("amount"))
-                if (!$util.isInteger(message.amount))
-                    return "amount: integer expected";
+                if (typeof message.amount !== "number")
+                    return "amount: number expected";
             if (message.denom != null && message.hasOwnProperty("denom"))
                 if (!$util.isString(message.denom))
                     return "denom: string expected";
@@ -6633,7 +6968,7 @@ export const main = $root.main = (() => {
             if (object.recipient_xrp_address != null)
                 message.recipient_xrp_address = String(object.recipient_xrp_address);
             if (object.amount != null)
-                message.amount = object.amount >>> 0;
+                message.amount = Number(object.amount);
             if (object.denom != null)
                 message.denom = String(object.denom);
             return message;
@@ -6675,7 +7010,7 @@ export const main = $root.main = (() => {
             if (message.recipient_xrp_address != null && message.hasOwnProperty("recipient_xrp_address"))
                 object.recipient_xrp_address = message.recipient_xrp_address;
             if (message.amount != null && message.hasOwnProperty("amount"))
-                object.amount = message.amount;
+                object.amount = options.json && !isFinite(message.amount) ? String(message.amount) : message.amount;
             if (message.denom != null && message.hasOwnProperty("denom"))
                 object.denom = message.denom;
             return object;
@@ -7017,9 +7352,9 @@ export const main = $root.main = (() => {
             if (message.student_account_id != null && Object.hasOwnProperty.call(message, "student_account_id"))
                 writer.uint32(/* id 2, wireType 2 =*/18).string(message.student_account_id);
             if (message.amount_kwh != null && Object.hasOwnProperty.call(message, "amount_kwh"))
-                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.amount_kwh);
+                writer.uint32(/* id 3, wireType 1 =*/25).double(message.amount_kwh);
             if (message.price != null && Object.hasOwnProperty.call(message, "price"))
-                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.price);
+                writer.uint32(/* id 4, wireType 1 =*/33).double(message.price);
             if (message.denom != null && Object.hasOwnProperty.call(message, "denom"))
                 writer.uint32(/* id 5, wireType 2 =*/42).string(message.denom);
             return writer;
@@ -7063,10 +7398,10 @@ export const main = $root.main = (() => {
                     message.student_account_id = reader.string();
                     break;
                 case 3:
-                    message.amount_kwh = reader.uint32();
+                    message.amount_kwh = reader.double();
                     break;
                 case 4:
-                    message.price = reader.uint32();
+                    message.price = reader.double();
                     break;
                 case 5:
                     message.denom = reader.string();
@@ -7113,11 +7448,11 @@ export const main = $root.main = (() => {
                 if (!$util.isString(message.student_account_id))
                     return "student_account_id: string expected";
             if (message.amount_kwh != null && message.hasOwnProperty("amount_kwh"))
-                if (!$util.isInteger(message.amount_kwh))
-                    return "amount_kwh: integer expected";
+                if (typeof message.amount_kwh !== "number")
+                    return "amount_kwh: number expected";
             if (message.price != null && message.hasOwnProperty("price"))
-                if (!$util.isInteger(message.price))
-                    return "price: integer expected";
+                if (typeof message.price !== "number")
+                    return "price: number expected";
             if (message.denom != null && message.hasOwnProperty("denom"))
                 if (!$util.isString(message.denom))
                     return "denom: string expected";
@@ -7141,9 +7476,9 @@ export const main = $root.main = (() => {
             if (object.student_account_id != null)
                 message.student_account_id = String(object.student_account_id);
             if (object.amount_kwh != null)
-                message.amount_kwh = object.amount_kwh >>> 0;
+                message.amount_kwh = Number(object.amount_kwh);
             if (object.price != null)
-                message.price = object.price >>> 0;
+                message.price = Number(object.price);
             if (object.denom != null)
                 message.denom = String(object.denom);
             return message;
@@ -7174,9 +7509,9 @@ export const main = $root.main = (() => {
             if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
                 object.student_account_id = message.student_account_id;
             if (message.amount_kwh != null && message.hasOwnProperty("amount_kwh"))
-                object.amount_kwh = message.amount_kwh;
+                object.amount_kwh = options.json && !isFinite(message.amount_kwh) ? String(message.amount_kwh) : message.amount_kwh;
             if (message.price != null && message.hasOwnProperty("price"))
-                object.price = message.price;
+                object.price = options.json && !isFinite(message.price) ? String(message.price) : message.price;
             if (message.denom != null && message.hasOwnProperty("denom"))
                 object.denom = message.denom;
             return object;

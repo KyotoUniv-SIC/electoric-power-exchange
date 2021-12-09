@@ -616,6 +616,131 @@ export namespace main {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a History. */
+    interface IHistory {
+
+        /** History id */
+        id?: (string|null);
+
+        /** History date */
+        date?: (google.protobuf.ITimestamp|null);
+
+        /** History amount */
+        amount?: (number|null);
+
+        /** History price */
+        price?: (number|null);
+
+        /** History contract_price */
+        contract_price?: (number|null);
+
+        /** History is_accepted */
+        is_accepted?: (boolean|null);
+
+        /** History is_solar */
+        is_solar?: (boolean|null);
+
+        /** History is_bid */
+        is_bid?: (boolean|null);
+    }
+
+    /** Represents a History. */
+    class History implements IHistory {
+
+        /**
+         * Constructs a new History.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.IHistory);
+
+        /** History id. */
+        public id: string;
+
+        /** History date. */
+        public date?: (google.protobuf.ITimestamp|null);
+
+        /** History amount. */
+        public amount: number;
+
+        /** History price. */
+        public price: number;
+
+        /** History contract_price. */
+        public contract_price: number;
+
+        /** History is_accepted. */
+        public is_accepted: boolean;
+
+        /** History is_solar. */
+        public is_solar: boolean;
+
+        /** History is_bid. */
+        public is_bid: boolean;
+
+        /**
+         * Encodes the specified History message. Does not implicitly {@link main.History.verify|verify} messages.
+         * @param message History message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.IHistory, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified History message, length delimited. Does not implicitly {@link main.History.verify|verify} messages.
+         * @param message History message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.IHistory, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a History message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns History
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.History;
+
+        /**
+         * Decodes a History message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns History
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.History;
+
+        /**
+         * Verifies a History message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a History message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns History
+         */
+        public static fromObject(object: { [k: string]: any }): main.History;
+
+        /**
+         * Creates a plain object from a History message. Also converts values to other types if specified.
+         * @param message History
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.History, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this History to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a Message. */
     interface IMessage {
 
