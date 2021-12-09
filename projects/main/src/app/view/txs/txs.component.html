@@ -15,20 +15,46 @@
   <h3>Orders</h3>
   <mat-card>
     <mat-nav-list>
-      <ng-container *ngFor="let normalBidOrder of normalBidOrders">
-        <mat-list-item class="flex" routerLink="/txs/{{ normalBidOrder.id }}">
+      <ng-container *ngFor="let order of orders">
+        <mat-list-item class="flex" routerLink="/txs/order{{ order.id }}">
           <div class="flex-auto">
             <span class="column-name font-bold">Date : </span>
-            <span class="column-value font-bold">{{ normalBidOrder.created_at }}</span>
+            <span class="column-value font-bold">{{ order.date }}</span>
+          </div>
+          <div class="flex-auto">
+            <ng-container *ngIf="order.is_solar === true; then solar; else utility"></ng-container>
+            <ng-template #solar>
+              <mat-chip-list>
+                <mat-chip color="primary" selected>SPX</mat-chip>
+              </mat-chip-list>
+            </ng-template>
+            <ng-template #utility>
+              <mat-chip-list>
+                <mat-chip color="accent" selected>UPX</mat-chip>
+              </mat-chip-list>
+            </ng-template>
+          </div>
+          <div class="flex-auto">
+            <ng-container *ngIf="order.is_bid === true; then bid; else ask"></ng-container>
+            <ng-template #bid>
+              <mat-chip-list>
+                <span class="column-value font-bold">Bid</span>
+              </mat-chip-list>
+            </ng-template>
+            <ng-template #ask>
+              <mat-chip-list>
+                <span class="column-value font-bold">Ask</span>
+              </mat-chip-list>
+            </ng-template>
           </div>
           <div class="flex-auto">
             <span class="font-bold">amount : </span>
-            <span class="font-bold">{{ normalBidOrder.amount }}</span>
+            <span class="font-bold">{{ order.amount }}</span>
             <span class="font-bold">UPX</span>
           </div>
           <div class="flex-auto">
             <span class="font-bold">Price : </span>
-            <span class="font-bold">{{ normalBidOrder.price }}</span>
+            <span class="font-bold">{{ order.price }}</span>
           </div>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
@@ -39,23 +65,53 @@
   <h3>Transaction History</h3>
   <mat-card>
     <mat-nav-list>
-      <ng-container *ngFor="let normalBid of normalBidHistories">
-        <mat-list-item class="flex" routerLink="/txs/{{ normalBid.id }}">
+      <ng-container *ngFor="let history of histories">
+        <mat-list-item class="flex" routerLink="/txs/order{{ history.id }}">
           <div class="flex-auto">
             <span class="column-name font-bold">Date : </span>
-            <span class="column-value font-bold">{{ normalBid.created_at }}</span>
+            <span class="column-value font-bold">{{ history.date }}</span>
+          </div>
+          <div class="flex-auto">
+            <ng-container *ngIf="history.is_solar === true; then solar; else utility"></ng-container>
+            <ng-template #solar>
+              <mat-chip-list>
+                <mat-chip color="primary" selected>SPX</mat-chip>
+              </mat-chip-list>
+            </ng-template>
+            <ng-template #utility>
+              <mat-chip-list>
+                <mat-chip color="accent" selected>UPX</mat-chip>
+              </mat-chip-list>
+            </ng-template>
+          </div>
+          <div class="flex-auto">
+            <ng-container *ngIf="history.is_bid === true; then bid; else ask"></ng-container>
+            <ng-template #bid>
+              <mat-chip-list>
+                <span class="column-value font-bold">Bid</span>
+              </mat-chip-list>
+            </ng-template>
+            <ng-template #ask>
+              <mat-chip-list>
+                <span class="column-value font-bold">Ask</span>
+              </mat-chip-list>
+            </ng-template>
           </div>
           <div class="flex-auto">
             <span class="font-bold">amount : </span>
-            <span class="font-bold">{{ normalBid.amount }}</span>
+            <span class="font-bold">{{ history.amount }}</span>
             <span class="font-bold">UPX</span>
           </div>
           <div class="flex-auto">
             <span class="font-bold">Price : </span>
-            <span class="font-bold">{{ normalBid.price }}</span>
+            <span class="font-bold">{{ history.price }}</span>
           </div>
           <div class="flex-auto">
-            <ng-container *ngIf="normalBid.is_accepted === true; then accept; else reject"></ng-container>
+            <span class="font-bold">Contract Price : </span>
+            <span class="font-bold">{{ history.contract_price }}</span>
+          </div>
+          <div class="flex-auto">
+            <ng-container *ngIf="history.is_accepted === true; then accept; else reject"></ng-container>
             <ng-template #accept>
               <mat-chip-list>
                 <mat-chip color="primary" selected>Accepted</mat-chip>

@@ -1,3 +1,4 @@
+import { Order, History } from '../../page/txs/txs.component';
 import { Component, OnInit, Input } from '@angular/core';
 import { NormalAskHistory, NormalBid, NormalBidHistory, proto, RenewableAskHistory, RenewableBidHistory } from '@local/common';
 
@@ -8,10 +9,10 @@ import { NormalAskHistory, NormalBid, NormalBidHistory, proto, RenewableAskHisto
 })
 export class TxsComponent implements OnInit {
   @Input()
-  normalBidOrders?: NormalBid[] | null;
+  orders?: Order[] | null;
 
   @Input()
-  normalBidHistories?: NormalBidHistory[] | null;
+  histories?: History[] | null;
 
   constructor() {}
 
