@@ -6,11 +6,13 @@ import "google/protobuf/timestamp.proto";
 
 option (google.firebase.rules.firebase_rules).full_package_names = true;
 
-message RenewableSettlement {
-  string id =1;
-  string bid_id = 2;
-  string ask_id = 3;
+message History {
+  string id = 1;
+  google.protobuf.Timestamp date = 2;
+  double amount = 3;
   double price = 4;
-  double amount = 5;
-  //google.protobuf.Timestamp date = 6;
+  double contract_price = 5;
+  bool is_accepted = 6;
+  bool is_solar = 7;
+  bool is_bid = 8;
 }

@@ -8,6 +8,6 @@ option (google.firebase.rules.firebase_rules).full_package_names = true;
 message Balance {
   string id = 1;
   string student_account_id = 2;
-  uint32 amount_upx = 3;
-  uint32 amount_spx = 4;
+  double amount_upx = 3;
+  double amount_spx = 4;
 }

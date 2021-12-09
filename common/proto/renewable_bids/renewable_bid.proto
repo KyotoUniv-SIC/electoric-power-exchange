@@ -8,6 +8,6 @@ option (google.firebase.rules.firebase_rules).full_package_names = true;
 message RenewableBid {
   string id = 1;
   string account_id = 2;
-  uint32 price = 3;
-  uint32 amount = 4;
+  double price = 3;
+  double amount = 4;
 }

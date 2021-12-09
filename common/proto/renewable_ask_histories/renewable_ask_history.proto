@@ -15,8 +15,8 @@ message RenewableAskHistory {
   string id = 1;
   RenewableAskHistoryType type = 2;
   string account_id = 3;
-  uint32 price = 4;
-  uint32 amount = 5;
+  double price = 4;
+  double amount = 5;
   bool is_accepted = 6;
-  uint32 contract_price = 7;
+  double contract_price = 7;
 }
