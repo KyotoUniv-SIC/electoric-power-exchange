@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { NormalAsk } from '@local/common';
 import { LoadingDialogService } from 'ng-loading-dialog';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -34,5 +35,9 @@ export class NormalAskApplicationService {
     });
 
     await this.router.navigate(['txs']);
+  }
+
+  list$(uid: string) {
+    return this.normalAsk.list$().pipe(map((params) => params.filter((param) => param.account_id == uid)));
   }
 }
