@@ -1,1 +1,1 @@
-<view-sell [price]="price" [amount]="amount" [denom]="denom" (appSubmit)="onSubmit($event)"></view-sell>
+<view-sell [balance]="balance$ | async" [price]="price" [amount]="amount" [denom]="denom" (appSubmit)="onSubmit($event)"></view-sell>

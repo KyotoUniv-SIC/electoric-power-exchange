@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { AvailableBalance } from '@local/common';
 
 interface Token {
   value: string;
@@ -18,6 +19,9 @@ export type SellOnSubmitEvent = {
   styleUrls: ['./sell.component.css'],
 })
 export class SellComponent implements OnInit {
+  @Input()
+  balance?: AvailableBalance | null;
+
   @Input()
   accountID?: string | null;
 
@@ -42,6 +46,14 @@ export class SellComponent implements OnInit {
   onSubmit(accountID: string, price: string, amount: string, denom: string) {
     if (!denom) {
       alert('トークンの種類を指定してください。\nUPX=電力会社、SPX=太陽光発電');
+      return;
+    }
+    if (denom == 'upx-1' && Number(amount) > this.balance?.amount_upx!) {
+      alert('UPXの残高が足りません。');
+      return;
+    }
+    if (denom == 'spx-1' && Number(amount) > this.balance?.amount_spx!) {
+      alert('UPXの残高が足りません。');
       return;
     }
     this.appSubmit.emit({ accountID, price: Number(price), amount: Number(amount), denom });
