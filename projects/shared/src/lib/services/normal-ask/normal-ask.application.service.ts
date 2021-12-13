@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { NormalAsk } from '@local/common';
+import { account } from 'functions/src/accounts';
 import { LoadingDialogService } from 'ng-loading-dialog';
 import { map } from 'rxjs/operators';
 
@@ -35,6 +36,10 @@ export class NormalAskApplicationService {
     });
 
     await this.router.navigate(['txs']);
+  }
+
+  get$(uid: string, id: string) {
+    return this.normalAsk.get$(id).pipe(map((param) => (param?.account_id == uid ? param : undefined)));
   }
 
   list$(uid: string) {

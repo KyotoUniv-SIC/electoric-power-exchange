@@ -37,6 +37,10 @@ export class RenewableAskApplicationService {
     await this.router.navigate(['txs']);
   }
 
+  get$(uid: string, id: string) {
+    return this.renewableAsk.get$(id).pipe(map((param) => (param?.account_id == uid ? param : undefined)));
+  }
+
   list$(uid: string) {
     return this.renewableAsk.list$().pipe(map((params) => params.filter((param) => param.account_id == uid)));
   }

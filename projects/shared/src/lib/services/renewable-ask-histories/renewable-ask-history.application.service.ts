@@ -9,6 +9,10 @@ import { map } from 'rxjs/operators';
 export class RenewableAskHistoryApplicationService {
   constructor(private readonly renewableAskHistory: RenewableAskHistoryService) {}
 
+  get$(uid: string, id: string) {
+    return this.renewableAskHistory.get$(id).pipe(map((param) => (param?.account_id == uid ? param : undefined)));
+  }
+
   list$(uid: string) {
     return this.renewableAskHistory.list$().pipe(map((params) => params.filter((param) => param.account_id == uid)));
   }

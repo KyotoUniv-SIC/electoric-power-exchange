@@ -9,6 +9,10 @@ import { map } from 'rxjs/operators';
 export class NormalAskHistoryApplicationService {
   constructor(private readonly normalAskHistory: NormalAskHistoryService) {}
 
+  get$(uid: string, id: string) {
+    return this.normalAskHistory.get$(id).pipe(map((param) => (param?.account_id == uid ? param : undefined)));
+  }
+
   list$(uid: string) {
     return this.normalAskHistory.list$().pipe(map((params) => params.filter((param) => param.account_id == uid)));
   }

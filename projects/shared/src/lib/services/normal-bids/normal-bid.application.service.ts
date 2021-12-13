@@ -37,6 +37,10 @@ export class NormalBidApplicationService {
     await this.router.navigate(['txs']);
   }
 
+  get$(uid: string, id: string) {
+    return this.normalBid.get$(id).pipe(map((param) => (param?.account_id == uid ? param : undefined)));
+  }
+
   list$(uid: string) {
     return this.normalBid.list$().pipe(map((params) => params.filter((param) => param.account_id == uid)));
   }
