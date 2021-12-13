@@ -1,7 +1,6 @@
 import { AvailableBalanceService } from './available-balance.service';
 import { Injectable } from '@angular/core';
 import { AvailableBalance } from '@local/common';
-import { balance } from 'functions/src/balances';
 import { map } from 'rxjs/operators';
 
 @Injectable({
