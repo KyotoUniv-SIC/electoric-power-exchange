@@ -313,6 +313,107 @@ export namespace main {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of an AvailableBalance. */
+    interface IAvailableBalance {
+
+        /** AvailableBalance id */
+        id?: (string|null);
+
+        /** AvailableBalance student_account_id */
+        student_account_id?: (string|null);
+
+        /** AvailableBalance amount_upx */
+        amount_upx?: (number|null);
+
+        /** AvailableBalance amount_spx */
+        amount_spx?: (number|null);
+    }
+
+    /** Represents an AvailableBalance. */
+    class AvailableBalance implements IAvailableBalance {
+
+        /**
+         * Constructs a new AvailableBalance.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.IAvailableBalance);
+
+        /** AvailableBalance id. */
+        public id: string;
+
+        /** AvailableBalance student_account_id. */
+        public student_account_id: string;
+
+        /** AvailableBalance amount_upx. */
+        public amount_upx: number;
+
+        /** AvailableBalance amount_spx. */
+        public amount_spx: number;
+
+        /**
+         * Encodes the specified AvailableBalance message. Does not implicitly {@link main.AvailableBalance.verify|verify} messages.
+         * @param message AvailableBalance message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.IAvailableBalance, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified AvailableBalance message, length delimited. Does not implicitly {@link main.AvailableBalance.verify|verify} messages.
+         * @param message AvailableBalance message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.IAvailableBalance, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes an AvailableBalance message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns AvailableBalance
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.AvailableBalance;
+
+        /**
+         * Decodes an AvailableBalance message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns AvailableBalance
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.AvailableBalance;
+
+        /**
+         * Verifies an AvailableBalance message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an AvailableBalance message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns AvailableBalance
+         */
+        public static fromObject(object: { [k: string]: any }): main.AvailableBalance;
+
+        /**
+         * Creates a plain object from an AvailableBalance message. Also converts values to other types if specified.
+         * @param message AvailableBalance
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.AvailableBalance, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this AvailableBalance to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a BalanceSnapshot. */
     interface IBalanceSnapshot {
 

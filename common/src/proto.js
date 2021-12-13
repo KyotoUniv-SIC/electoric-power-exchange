@@ -817,6 +817,248 @@ export const main = $root.main = (() => {
         return AdminAccount;
     })();
 
+    main.AvailableBalance = (function() {
+
+        /**
+         * Properties of an AvailableBalance.
+         * @memberof main
+         * @interface IAvailableBalance
+         * @property {string|null} [id] AvailableBalance id
+         * @property {string|null} [student_account_id] AvailableBalance student_account_id
+         * @property {number|null} [amount_upx] AvailableBalance amount_upx
+         * @property {number|null} [amount_spx] AvailableBalance amount_spx
+         */
+
+        /**
+         * Constructs a new AvailableBalance.
+         * @memberof main
+         * @classdesc Represents an AvailableBalance.
+         * @implements IAvailableBalance
+         * @constructor
+         * @param {main.IAvailableBalance=} [properties] Properties to set
+         */
+        function AvailableBalance(properties) {
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * AvailableBalance id.
+         * @member {string} id
+         * @memberof main.AvailableBalance
+         * @instance
+         */
+        AvailableBalance.prototype.id = "";
+
+        /**
+         * AvailableBalance student_account_id.
+         * @member {string} student_account_id
+         * @memberof main.AvailableBalance
+         * @instance
+         */
+        AvailableBalance.prototype.student_account_id = "";
+
+        /**
+         * AvailableBalance amount_upx.
+         * @member {number} amount_upx
+         * @memberof main.AvailableBalance
+         * @instance
+         */
+        AvailableBalance.prototype.amount_upx = 0;
+
+        /**
+         * AvailableBalance amount_spx.
+         * @member {number} amount_spx
+         * @memberof main.AvailableBalance
+         * @instance
+         */
+        AvailableBalance.prototype.amount_spx = 0;
+
+        /**
+         * Encodes the specified AvailableBalance message. Does not implicitly {@link main.AvailableBalance.verify|verify} messages.
+         * @function encode
+         * @memberof main.AvailableBalance
+         * @static
+         * @param {main.IAvailableBalance} message AvailableBalance message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        AvailableBalance.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+            if (message.student_account_id != null && Object.hasOwnProperty.call(message, "student_account_id"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.student_account_id);
+            if (message.amount_upx != null && Object.hasOwnProperty.call(message, "amount_upx"))
+                writer.uint32(/* id 3, wireType 1 =*/25).double(message.amount_upx);
+            if (message.amount_spx != null && Object.hasOwnProperty.call(message, "amount_spx"))
+                writer.uint32(/* id 4, wireType 1 =*/33).double(message.amount_spx);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified AvailableBalance message, length delimited. Does not implicitly {@link main.AvailableBalance.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof main.AvailableBalance
+         * @static
+         * @param {main.IAvailableBalance} message AvailableBalance message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        AvailableBalance.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes an AvailableBalance message from the specified reader or buffer.
+         * @function decode
+         * @memberof main.AvailableBalance
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {main.AvailableBalance} AvailableBalance
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        AvailableBalance.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.AvailableBalance();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.id = reader.string();
+                    break;
+                case 2:
+                    message.student_account_id = reader.string();
+                    break;
+                case 3:
+                    message.amount_upx = reader.double();
+                    break;
+                case 4:
+                    message.amount_spx = reader.double();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes an AvailableBalance message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof main.AvailableBalance
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {main.AvailableBalance} AvailableBalance
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        AvailableBalance.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies an AvailableBalance message.
+         * @function verify
+         * @memberof main.AvailableBalance
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        AvailableBalance.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isString(message.id))
+                    return "id: string expected";
+            if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
+                if (!$util.isString(message.student_account_id))
+                    return "student_account_id: string expected";
+            if (message.amount_upx != null && message.hasOwnProperty("amount_upx"))
+                if (typeof message.amount_upx !== "number")
+                    return "amount_upx: number expected";
+            if (message.amount_spx != null && message.hasOwnProperty("amount_spx"))
+                if (typeof message.amount_spx !== "number")
+                    return "amount_spx: number expected";
+            return null;
+        };
+
+        /**
+         * Creates an AvailableBalance message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof main.AvailableBalance
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {main.AvailableBalance} AvailableBalance
+         */
+        AvailableBalance.fromObject = function fromObject(object) {
+            if (object instanceof $root.main.AvailableBalance)
+                return object;
+            let message = new $root.main.AvailableBalance();
+            if (object.id != null)
+                message.id = String(object.id);
+            if (object.student_account_id != null)
+                message.student_account_id = String(object.student_account_id);
+            if (object.amount_upx != null)
+                message.amount_upx = Number(object.amount_upx);
+            if (object.amount_spx != null)
+                message.amount_spx = Number(object.amount_spx);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from an AvailableBalance message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof main.AvailableBalance
+         * @static
+         * @param {main.AvailableBalance} message AvailableBalance
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        AvailableBalance.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.defaults) {
+                object.id = "";
+                object.student_account_id = "";
+                object.amount_upx = 0;
+                object.amount_spx = 0;
+            }
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
+                object.student_account_id = message.student_account_id;
+            if (message.amount_upx != null && message.hasOwnProperty("amount_upx"))
+                object.amount_upx = options.json && !isFinite(message.amount_upx) ? String(message.amount_upx) : message.amount_upx;
+            if (message.amount_spx != null && message.hasOwnProperty("amount_spx"))
+                object.amount_spx = options.json && !isFinite(message.amount_spx) ? String(message.amount_spx) : message.amount_spx;
+            return object;
+        };
+
+        /**
+         * Converts this AvailableBalance to JSON.
+         * @function toJSON
+         * @memberof main.AvailableBalance
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        AvailableBalance.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return AvailableBalance;
+    })();
+
     main.BalanceSnapshot = (function() {
 
         /**

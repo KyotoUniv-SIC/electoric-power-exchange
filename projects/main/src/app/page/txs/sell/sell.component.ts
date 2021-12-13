@@ -1,9 +1,11 @@
 import { SellOnSubmitEvent } from '../../../view/txs/sell/sell.component';
 import { Component, OnInit } from '@angular/core';
 import { getAuth } from '@angular/fire/auth';
-import { NormalAsk, RenewableAsk } from '@local/common';
 import { NormalAskApplicationService } from 'projects/shared/src/lib/services/normal-asks/normal-ask.application.service';
 import { RenewableAskApplicationService } from 'projects/shared/src/lib/services/renewable-asks/renewable-ask.application.service';
+import { AvailableBalance, NormalAsk, RenewableAsk } from '@local/common';
+import { AvailableBalanceApplicationService } from 'projects/shared/src/lib/student-accounts/available-balances/available-balance.application.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-sell',
@@ -11,6 +13,7 @@ import { RenewableAskApplicationService } from 'projects/shared/src/lib/services
   styleUrls: ['./sell.component.css'],
 })
 export class SellComponent implements OnInit {
+  balance$: Observable<AvailableBalance> | undefined;
   price: number | undefined;
   amount: number | undefined;
   denom: string | undefined;
@@ -18,9 +21,15 @@ export class SellComponent implements OnInit {
   constructor(
     private readonly normalAskApp: NormalAskApplicationService,
     private readonly renewableAskApp: RenewableAskApplicationService,
+    private readonly availableBalanceApp: AvailableBalanceApplicationService,
   ) {
     this.price = 27;
     this.amount = 1;
+    const accountID = getAuth().currentUser?.uid;
+    if (!accountID) {
+      return;
+    }
+    this.balance$ = this.availableBalanceApp.list$(accountID);
   }
 
   ngOnInit(): void {}
