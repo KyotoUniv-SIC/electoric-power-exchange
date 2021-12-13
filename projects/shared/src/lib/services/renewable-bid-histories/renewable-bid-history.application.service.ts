@@ -9,6 +9,10 @@ import { map } from 'rxjs/operators';
 export class RenewableBidHistoryApplicationService {
   constructor(private readonly renewableBidHistory: RenewableBidHistoryService) {}
 
+  get$(uid: string, id: string) {
+    return this.renewableBidHistory.get$(id).pipe(map((param) => (param?.account_id == uid ? param : undefined)));
+  }
+
   list$(uid: string) {
     return this.renewableBidHistory.list$().pipe(map((params) => params.filter((param) => param.account_id == uid)));
   }

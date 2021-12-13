@@ -14,39 +14,57 @@
 
   <h3>Orders</h3>
   <mat-card>
-    <mat-nav-list>
+    <mat-list>
       <ng-container *ngFor="let order of orders">
-        <mat-list-item class="flex" routerLink="/txs/order{{ order.id }}">
+        <mat-list-item class="flex">
           <div class="flex-auto">
             <span class="column-name font-bold">Date : </span>
             <span class="column-value font-bold">{{ order.date }}</span>
           </div>
-          <div class="flex-auto">
-            <ng-container *ngIf="order.is_solar === true; then solar; else utility"></ng-container>
-            <ng-template #solar>
+
+          <ng-container *ngIf="order.is_solar === true; then solar; else utility"></ng-container>
+          <ng-template #solar>
+            <div class="flex-auto">
               <mat-chip-list>
                 <mat-chip color="primary" selected>SPX</mat-chip>
               </mat-chip-list>
-            </ng-template>
-            <ng-template #utility>
+            </div>
+            <div class="flex-auto">
+              <ng-container *ngIf="order.is_bid === true; then solarBid; else solarAsk"></ng-container>
+              <ng-template #solarBid>
+                <mat-chip-list>
+                  <span color="primary" class="column-value font-bold">Bid</span>
+                </mat-chip-list>
+              </ng-template>
+              <ng-template #solarAsk>
+                <mat-chip-list>
+                  <span color="accent" class="column-value font-bold">Ask</span>
+                </mat-chip-list>
+              </ng-template>
+            </div>
+          </ng-template>
+
+          <ng-template #utility>
+            <div class="flex-auto">
               <mat-chip-list>
                 <mat-chip color="accent" selected>UPX</mat-chip>
               </mat-chip-list>
-            </ng-template>
-          </div>
-          <div class="flex-auto">
-            <ng-container *ngIf="order.is_bid === true; then bid; else ask"></ng-container>
-            <ng-template #bid>
-              <mat-chip-list>
-                <span class="column-value font-bold">Bid</span>
-              </mat-chip-list>
-            </ng-template>
-            <ng-template #ask>
-              <mat-chip-list>
-                <span class="column-value font-bold">Ask</span>
-              </mat-chip-list>
-            </ng-template>
-          </div>
+            </div>
+            <div class="flex-auto">
+              <ng-container *ngIf="order.is_bid === true; then utilityBid; else utilityAsk"></ng-container>
+              <ng-template #utilityBid>
+                <mat-chip-list>
+                  <span color="primary" class="column-value font-bold">Bid</span>
+                </mat-chip-list>
+              </ng-template>
+              <ng-template #utilityAsk>
+                <mat-chip-list>
+                  <span color="accent" class="column-value font-bold">Ask</span>
+                </mat-chip-list>
+              </ng-template>
+            </div>
+          </ng-template>
+
           <div class="flex-auto">
             <span class="font-bold">amount : </span>
             <span class="font-bold">{{ order.amount }}</span>
@@ -56,47 +74,79 @@
             <span class="font-bold">Price : </span>
             <span class="font-bold">{{ order.price }}</span>
           </div>
+          <div class="flex-auto">
+            <ng-template #solarBid>
+              <button mat-flat-button color="primary" routerLink="/txs/order/solar/buy/{ order.id }}">Detail</button>
+            </ng-template>
+            <ng-template #solarAsk>
+              <button mat-flat-button color="accent" routerLink="/txs/order/solar/sell/{ order.id }}">Detail</button>
+            </ng-template>
+            <ng-template #utilityBid>
+              <button mat-flat-button color="primary" routerLink="/txs/order/utility/buy/{ order.id }}">Detail</button>
+            </ng-template>
+            <ng-template #utilityAsk>
+              <button mat-flat-button color="accent" routerLink="/txs/order/utility/sell/{ order.id }}">Detail</button>
+            </ng-template>
+          </div>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
       </ng-container>
-    </mat-nav-list>
+    </mat-list>
   </mat-card>
 
   <h3>Transaction History</h3>
   <mat-card>
-    <mat-nav-list>
+    <mat-list>
       <ng-container *ngFor="let history of histories">
-        <mat-list-item class="flex" routerLink="/txs/order{{ history.id }}">
+        <mat-list-item class="flex">
           <div class="flex-auto">
             <span class="column-name font-bold">Date : </span>
             <span class="column-value font-bold">{{ history.date }}</span>
           </div>
-          <div class="flex-auto">
-            <ng-container *ngIf="history.is_solar === true; then solar; else utility"></ng-container>
-            <ng-template #solar>
+
+          <ng-container *ngIf="history.is_solar === true; then solar; else utility"></ng-container>
+          <ng-template #solar>
+            <div class="flex-auto">
               <mat-chip-list>
                 <mat-chip color="primary" selected>SPX</mat-chip>
               </mat-chip-list>
-            </ng-template>
-            <ng-template #utility>
+            </div>
+            <div class="flex-auto">
+              <ng-container *ngIf="history.is_bid === true; then solarBid; else solarAsk"></ng-container>
+              <ng-template #solarBid>
+                <mat-chip-list>
+                  <span color="primary" class="column-value font-bold">Bid</span>
+                </mat-chip-list>
+              </ng-template>
+              <ng-template #solarAsk>
+                <mat-chip-list>
+                  <span color="accent" class="column-value font-bold">Ask</span>
+                </mat-chip-list>
+              </ng-template>
+            </div>
+          </ng-template>
+
+          <ng-template #utility>
+            <div class="flex-auto">
               <mat-chip-list>
                 <mat-chip color="accent" selected>UPX</mat-chip>
               </mat-chip-list>
-            </ng-template>
-          </div>
-          <div class="flex-auto">
-            <ng-container *ngIf="history.is_bid === true; then bid; else ask"></ng-container>
-            <ng-template #bid>
-              <mat-chip-list>
-                <span class="column-value font-bold">Bid</span>
-              </mat-chip-list>
-            </ng-template>
-            <ng-template #ask>
-              <mat-chip-list>
-                <span class="column-value font-bold">Ask</span>
-              </mat-chip-list>
-            </ng-template>
-          </div>
+            </div>
+            <div class="flex-auto">
+              <ng-container *ngIf="history.is_bid === true; then utilityBid; else utilityAsk"></ng-container>
+              <ng-template #utilityBid>
+                <mat-chip-list>
+                  <span color="primary" class="column-value font-bold">Bid</span>
+                </mat-chip-list>
+              </ng-template>
+              <ng-template #utilityAsk>
+                <mat-chip-list>
+                  <span color="accent" class="column-value font-bold">Ask</span>
+                </mat-chip-list>
+              </ng-template>
+            </div>
+          </ng-template>
+
           <div class="flex-auto">
             <span class="font-bold">amount : </span>
             <span class="font-bold">{{ history.amount }}</span>
@@ -123,9 +173,23 @@
               </mat-chip-list>
             </ng-template>
           </div>
+          <div class="flex-auto">
+            <ng-template #solarBid>
+              <button mat-flat-button color="primary" routerLink="/txs/history/solar/buy/{ order.id }}">Detail</button>
+            </ng-template>
+            <ng-template #solarAsk>
+              <button mat-flat-button color="accent" routerLink="/txs/history/solar/sell/{ order.id }}">Detail</button>
+            </ng-template>
+            <ng-template #utilityBid>
+              <button mat-flat-button color="primary" routerLink="/txs/history/utility/buy/{ order.id }}">Detail</button>
+            </ng-template>
+            <ng-template #utilityAsk>
+              <button mat-flat-button color="accent" routerLink="/txs/history/utility/sell/{ order.id }}">Detail</button>
+            </ng-template>
+          </div>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
       </ng-container>
-    </mat-nav-list>
+    </mat-list>
   </mat-card>
 </div>

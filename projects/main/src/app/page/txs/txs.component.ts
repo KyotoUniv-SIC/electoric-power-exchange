@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { getAuth } from '@angular/fire/auth';
+import { Timestamp } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
-import { proto } from '@local/common';
-import { getAuth } from 'firebase/auth';
-import { Timestamp } from 'firebase/firestore';
 import { NormalAskHistoryApplicationService } from 'projects/shared/src/lib/services/normal-ask-histories/normal-ask-history.application.service';
 import { NormalAskApplicationService } from 'projects/shared/src/lib/services/normal-ask/normal-ask.application.service';
 import { NormalBidHistoryApplicationService } from 'projects/shared/src/lib/services/normal-bid-histories/normal-bid-history.application.service';
@@ -11,6 +10,8 @@ import { RenewableAskHistoryApplicationService } from 'projects/shared/src/lib/s
 import { RenewableAskApplicationService } from 'projects/shared/src/lib/services/renewable-ask/renewable-ask.application.service';
 import { RenewableBidHistoryApplicationService } from 'projects/shared/src/lib/services/renewable-bid-histories/renewable-bid-history.application.service';
 import { RenewableBidApplicationService } from 'projects/shared/src/lib/services/renewable-bid/renewable-bid.application.service';
+import { combineLatest, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 export interface Order {
   id: string;
@@ -38,8 +39,8 @@ export interface History {
   styleUrls: ['./txs.component.css'],
 })
 export class TxsComponent implements OnInit {
-  orders: Order[] | undefined;
-  histories: History[] | undefined;
+  orders$: Observable<Order[]> | undefined;
+  histories$: Observable<History[]> | undefined;
 
   constructor(
     private route: ActivatedRoute,
@@ -56,68 +57,65 @@ export class TxsComponent implements OnInit {
     if (!accountID) {
       return;
     }
-    this.normalBidApp.list$(accountID).subscribe((bids) =>
-      bids.forEach((bid) =>
-        this.orders?.push({
+    const normalBids$ = this.normalBidApp.list$(accountID);
+    const normalAsks$ = this.normalAskApp.list$(accountID);
+    const renewableBids$ = this.renewableBidApp.list$(accountID);
+    const renewableAsks$ = this.renewableAskApp.list$(accountID);
+
+    this.orders$ = combineLatest([normalBids$, normalAsks$, renewableBids$, renewableAsks$]).pipe(
+      map(([normalBids, normalAsks, renewableBids, renewableAsks]) => {
+        const normalBidList = normalBids.map((bid) => ({
           id: bid.id,
           date: (bid.created_at as Timestamp).toDate(),
           amount: bid.amount,
           price: bid.price,
           is_solar: false,
           is_bid: true,
-        }),
-      ),
-    );
-    this.normalAskApp.list$(accountID).subscribe((asks) =>
-      asks.forEach((ask) =>
-        this.orders?.push({
+        }));
+        const normalAskList = normalAsks.map((ask) => ({
           id: ask.id,
           date: (ask.created_at as Timestamp).toDate(),
           amount: ask.amount,
           price: ask.price,
           is_solar: false,
           is_bid: false,
-        }),
-      ),
-    );
-    this.renewableBidApp.list$(accountID).subscribe((bids) =>
-      bids.forEach((bid) =>
-        this.orders?.push({
+        }));
+        const renewableBidList = renewableBids.map((bid) => ({
           id: bid.id,
           date: (bid.created_at as Timestamp).toDate(),
           amount: bid.amount,
           price: bid.price,
           is_solar: true,
           is_bid: true,
-        }),
-      ),
-    );
-    this.renewableAskApp.list$(accountID).subscribe((asks) =>
-      asks.forEach((ask) =>
-        this.orders?.push({
+        }));
+        const renewableAskList = renewableAsks.map((ask) => ({
           id: ask.id,
           date: (ask.created_at as Timestamp).toDate(),
           amount: ask.amount,
           price: ask.price,
           is_solar: true,
           is_bid: false,
-        }),
-      ),
+        }));
+        return normalBidList.concat(normalAskList, renewableBidList, renewableAskList).sort(function (first, second) {
+          if (first.date > second.date) {
+            return -1;
+          } else if (first.date < second.date) {
+            return 1;
+          } else {
+            return 0;
+          }
+        });
+      }),
     );
 
-    this.orders?.sort(function (first, second) {
-      if (first.date > second.date) {
-        return -1;
-      } else if (first.date < second.date) {
-        return 1;
-      } else {
-        return 0;
-      }
-    });
+    const normalBidHistories$ = this.normalBidHistoryApp.list$(accountID);
+    const normalAskHistories$ = this.normalAskHistoryApp.list$(accountID);
+    const renewableBidHistories$ = this.renewableBidHistoryApp.list$(accountID);
+    const renewableAskHistories$ = this.renewableAskHistoryApp.list$(accountID);
 
-    this.normalBidHistoryApp.list$(accountID).subscribe((bids) =>
-      bids.forEach((bid) =>
-        this.histories?.push({
+    this.histories$ = combineLatest([normalBidHistories$, normalAskHistories$, renewableBidHistories$, renewableAskHistories$]).pipe(
+      map(([normalBids, normalAsks, renewableBids, renewableAsks]) => {
+        const normalBidList = normalBids.map((bid) => ({
           id: bid.id,
           date: (bid.created_at as Timestamp).toDate(),
           amount: bid.amount,
@@ -126,12 +124,8 @@ export class TxsComponent implements OnInit {
           is_accepted: bid.is_accepted,
           is_solar: false,
           is_bid: true,
-        }),
-      ),
-    );
-    this.normalAskHistoryApp.list$(accountID).subscribe((asks) =>
-      asks.forEach((ask) =>
-        this.histories?.push({
+        }));
+        const normalAskList = normalAsks.map((ask) => ({
           id: ask.id,
           date: (ask.created_at as Timestamp).toDate(),
           amount: ask.amount,
@@ -140,12 +134,8 @@ export class TxsComponent implements OnInit {
           is_accepted: ask.is_accepted,
           is_solar: false,
           is_bid: false,
-        }),
-      ),
-    );
-    this.renewableBidHistoryApp.list$(accountID).subscribe((bids) =>
-      bids.forEach((bid) =>
-        this.histories?.push({
+        }));
+        const renewableBidList = renewableBids.map((bid) => ({
           id: bid.id,
           date: (bid.created_at as Timestamp).toDate(),
           amount: bid.amount,
@@ -154,12 +144,8 @@ export class TxsComponent implements OnInit {
           is_accepted: bid.is_accepted,
           is_solar: true,
           is_bid: true,
-        }),
-      ),
-    );
-    this.renewableAskHistoryApp.list$(accountID).subscribe((asks) =>
-      asks.forEach((ask) =>
-        this.histories?.push({
+        }));
+        const renewableAskList = renewableAsks.map((ask) => ({
           id: ask.id,
           date: (ask.created_at as Timestamp).toDate(),
           amount: ask.amount,
@@ -168,18 +154,18 @@ export class TxsComponent implements OnInit {
           is_accepted: ask.is_accepted,
           is_solar: true,
           is_bid: false,
-        }),
-      ),
+        }));
+        return normalBidList.concat(normalAskList, renewableBidList, renewableAskList).sort(function (first, second) {
+          if (first.date > second.date) {
+            return -1;
+          } else if (first.date < second.date) {
+            return 1;
+          } else {
+            return 0;
+          }
+        });
+      }),
     );
-    this.histories?.sort(function (first, second) {
-      if (first.date > second.date) {
-        return -1;
-      } else if (first.date < second.date) {
-        return 1;
-      } else {
-        return 0;
-      }
-    });
   }
 
   ngOnInit(): void {}
