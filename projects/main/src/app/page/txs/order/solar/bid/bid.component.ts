@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { getAuth } from '@angular/fire/auth';
 import { ActivatedRoute } from '@angular/router';
 import { RenewableBid } from '@local/common';
-import { RenewableBidApplicationService } from 'projects/shared/src/lib/services/renewable-bid/renewable-bid.application.service';
+import { RenewableBidApplicationService } from 'projects/shared/src/lib/services/renewable-bids/renewable-bid.application.service';
 import { Observable } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { getAuth } from '@angular/fire/auth';
 import { ActivatedRoute } from '@angular/router';
 import { NormalAsk } from '@local/common';
-import { NormalAskApplicationService } from 'projects/shared/src/lib/services/normal-ask/normal-ask.application.service';
+import { NormalAskApplicationService } from 'projects/shared/src/lib/services/normal-asks/normal-ask.application.service';
 import { Observable } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 

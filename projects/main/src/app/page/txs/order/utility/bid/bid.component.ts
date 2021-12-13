@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { getAuth } from '@angular/fire/auth';
 import { ActivatedRoute } from '@angular/router';
 import { NormalBid } from '@local/common';
-import { NormalBidApplicationService } from 'projects/shared/src/lib/services/normal-bid/normal-bid.application.service';
+import { NormalBidApplicationService } from 'projects/shared/src/lib/services/normal-bids/normal-bid.application.service';
 import { Observable } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 

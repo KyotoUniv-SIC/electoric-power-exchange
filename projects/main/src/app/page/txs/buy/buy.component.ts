@@ -2,8 +2,8 @@ import { BuyOnSubmitEvent } from '../../../view/txs/buy/buy.component';
 import { Component, OnInit } from '@angular/core';
 import { NormalBid, RenewableBid } from '@local/common';
 import { getAuth } from 'firebase/auth';
-import { NormalBidApplicationService } from 'projects/shared/src/lib/services/normal-bid/normal-bid.application.service';
-import { RenewableBidApplicationService } from 'projects/shared/src/lib/services/renewable-bid/renewable-bid.application.service';
+import { NormalBidApplicationService } from 'projects/shared/src/lib/services/normal-bids/normal-bid.application.service';
+import { RenewableBidApplicationService } from 'projects/shared/src/lib/services/renewable-bids/renewable-bid.application.service';
 
 @Component({
   selector: 'app-buy',

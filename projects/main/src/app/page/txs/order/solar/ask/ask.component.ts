@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { getAuth } from '@angular/fire/auth';
 import { ActivatedRoute } from '@angular/router';
 import { RenewableAsk } from '@local/common';
-import { RenewableAskApplicationService } from 'projects/shared/src/lib/services/renewable-ask/renewable-ask.application.service';
+import { RenewableAskApplicationService } from 'projects/shared/src/lib/services/renewable-asks/renewable-ask.application.service';
 import { Observable } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 

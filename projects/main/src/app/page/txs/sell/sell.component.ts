@@ -2,8 +2,8 @@ import { SellOnSubmitEvent } from '../../../view/txs/sell/sell.component';
 import { Component, OnInit } from '@angular/core';
 import { getAuth } from '@angular/fire/auth';
 import { NormalAsk, RenewableAsk } from '@local/common';
-import { NormalAskApplicationService } from 'projects/shared/src/lib/services/normal-ask/normal-ask.application.service';
-import { RenewableAskApplicationService } from 'projects/shared/src/lib/services/renewable-ask/renewable-ask.application.service';
+import { NormalAskApplicationService } from 'projects/shared/src/lib/services/normal-asks/normal-ask.application.service';
+import { RenewableAskApplicationService } from 'projects/shared/src/lib/services/renewable-asks/renewable-ask.application.service';
 
 @Component({
   selector: 'app-sell',
