@@ -16,6 +16,14 @@ const routes: Routes = [
     path: 'order/utility',
     loadChildren: () => import('./order/utility/utility.module').then((m) => m.AppUtilityModule),
   },
+  {
+    path: 'history/solar',
+    loadChildren: () => import('./history/solar/solar.module').then((m) => m.AppSolarModule),
+  },
+  {
+    path: 'history/utility',
+    loadChildren: () => import('./history/utility/utility.module').then((m) => m.AppUtilityModule),
+  },
 ];
 
 @NgModule({
