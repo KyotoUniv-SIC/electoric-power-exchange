@@ -10,12 +10,10 @@ import { NormalBid } from '@local/common';
 export class BidComponent implements OnInit {
   @Input()
   normalBid?: NormalBid | null;
+  @Input()
+  createdAt?: Date | null;
 
-  createdAt?: Date;
-
-  constructor() {
-    this.createdAt = (this.normalBid?.created_at as Timestamp).toDate();
-  }
+  constructor() {}
 
   ngOnInit(): void {}
 }

@@ -10,12 +10,10 @@ import { Timestamp } from 'firebase/firestore';
 export class BidComponent implements OnInit {
   @Input()
   renewableBid?: RenewableBid | null;
+  @Input()
+  createdAt?: Date | null;
 
-  createdAt?: Date;
-
-  constructor() {
-    this.createdAt = (this.renewableBid?.created_at as Timestamp).toDate();
-  }
+  constructor() {}
 
   ngOnInit(): void {}
 }
