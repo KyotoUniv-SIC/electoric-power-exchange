@@ -8,7 +8,14 @@ const routes: Routes = [
   { path: '', component: TxsComponent },
   { path: 'buy', component: BuyComponent },
   { path: 'sell', component: SellComponent },
-
+  {
+    path: 'order/solar',
+    loadChildren: () => import('./order/solar/solar.module').then((m) => m.AppSolarModule),
+  },
+  {
+    path: 'order/utility',
+    loadChildren: () => import('./order/utility/utility.module').then((m) => m.AppUtilityModule),
+  },
 ];
 
 @NgModule({
