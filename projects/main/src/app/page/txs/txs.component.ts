@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { getAuth } from '@angular/fire/auth';
+import { Timestamp } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
-import { proto } from '@local/common';
-import { getAuth } from 'firebase/auth';
-import { Timestamp } from 'firebase/firestore';
 import { NormalAskHistoryApplicationService } from 'projects/shared/src/lib/services/normal-ask-histories/normal-ask-history.application.service';
 import { NormalAskApplicationService } from 'projects/shared/src/lib/services/normal-ask/normal-ask.application.service';
 import { NormalBidHistoryApplicationService } from 'projects/shared/src/lib/services/normal-bid-histories/normal-bid-history.application.service';
