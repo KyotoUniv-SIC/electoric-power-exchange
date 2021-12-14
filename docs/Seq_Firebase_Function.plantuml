@@ -1,0 +1,77 @@
+@startuml sequence
+
+participant Account      as acc
+participant StudentAccount      as st
+participant Balance      as ba #00FF00
+participant AvailableBalance    as avai
+participant BalanceSnapShot    as ss
+participant dailyUsage   as du
+participant MonthlyUsage   as mu
+participant MonthlyFee    as mf
+participant PrimaryAsk    as pa
+participant PrimaryBid    as pb
+participant Bid    as bid #00FFFF
+participant Ask    as ask #00FFFF
+participant SinglePriceSettlement    as sps
+participant Settlement    as settle
+participant BidHistory    as bidhis #00FFFF
+participant AskHistory   as askhis #00FFFF
+
+database  UsageDatabase as db1
+database XRPLedger   as xl #00FFFF
+
+== Create Account ==
+autonumber 1.1
+acc -> st : create StAcc when account created
+st -> ba : create Balance when StAcc
+ba -> avai : cp AvailableBalance when Blanace created or updated
+
+== Beginning of the Month ==
+autonumber inc A
+group Monthly Payment
+ss --> ba : get Balance and create SnapShot
+ss -> mf : next, calculate payment
+mf --> pb : get PrimalyBid
+mf --> bidhis : get BidHistory
+mf --> askhis : get AskHistory
+mf --> du : get DailyUsage
+mf --> mu : calculate MonthlyUsage
+mf --> mf : calculate Students' payment
+end
+
+group Reset Balance
+ss -> pa : after SS, create PrimalyAsk
+pa -> pb : after PrimaryAsk, create same Primaly Bid
+pa -> ba : after PrimaryAsk, reset Balance
+ba -> avai : cp AvailableBalance when Blanace created or updated
+end
+
+
+== Single Price Auction Market ==
+autonumber inc A
+ask -> avai : after ask, reduce AvailableBalance
+
+group GenTx(everyday)
+sps --> bid : get Bid List
+sps --> ask : get Ask List
+sps --> sps : calculate contract prices
+sps -> settle : after contract price, create Settlement
+settle --> bid : get Bid List
+settle --> ask : get Ask List
+settle --> settle : create contract pairs
+settle -> bidhis : create BidHistory
+settle -> bid : del Bid
+settle -> askhis : create AskHistory
+settle -> ask : del Ask
+end
+
+settle -> ba : add & remove Balance
+ba -> avai : cp AvailableBalance when Blanace created or updated
+
+== Daily Withdrawal ==
+autonumber inc A
+du --> db1 : request student usage data
+du -> ba : withdraw Blance
+ba -> avai : cp AvailableBalance when Blanace created or updated
+
+@enduml
