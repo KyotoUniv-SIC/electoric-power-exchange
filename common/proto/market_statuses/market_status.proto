@@ -1,0 +1,12 @@
+syntax = "proto3";
+package main;
+
+import "firebase_rules_options.proto";
+
+option (google.firebase.rules.firebase_rules).full_package_names = true;
+
+message  MarketStatus {
+  string id = 1;
+  bool is_finished_normal = 2;
+  bool is_finished_renewable = 3;
+}

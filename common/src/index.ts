@@ -23,3 +23,4 @@ export * from './entities/normal-bid-histories';
 export * from './entities/renewable-bid-histories';
 export * from './entities/renewable-ask-histories';
 export * from './entities/student-accounts/available-balances';
+export * from "./entities/market-statuses";

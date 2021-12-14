@@ -2120,6 +2120,226 @@ export const main = $root.main = (() => {
         return History;
     })();
 
+    main.MarketStatus = (function() {
+
+        /**
+         * Properties of a MarketStatus.
+         * @memberof main
+         * @interface IMarketStatus
+         * @property {string|null} [id] MarketStatus id
+         * @property {boolean|null} [is_finished_normal] MarketStatus is_finished_normal
+         * @property {boolean|null} [is_finished_renewable] MarketStatus is_finished_renewable
+         */
+
+        /**
+         * Constructs a new MarketStatus.
+         * @memberof main
+         * @classdesc Represents a MarketStatus.
+         * @implements IMarketStatus
+         * @constructor
+         * @param {main.IMarketStatus=} [properties] Properties to set
+         */
+        function MarketStatus(properties) {
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * MarketStatus id.
+         * @member {string} id
+         * @memberof main.MarketStatus
+         * @instance
+         */
+        MarketStatus.prototype.id = "";
+
+        /**
+         * MarketStatus is_finished_normal.
+         * @member {boolean} is_finished_normal
+         * @memberof main.MarketStatus
+         * @instance
+         */
+        MarketStatus.prototype.is_finished_normal = false;
+
+        /**
+         * MarketStatus is_finished_renewable.
+         * @member {boolean} is_finished_renewable
+         * @memberof main.MarketStatus
+         * @instance
+         */
+        MarketStatus.prototype.is_finished_renewable = false;
+
+        /**
+         * Encodes the specified MarketStatus message. Does not implicitly {@link main.MarketStatus.verify|verify} messages.
+         * @function encode
+         * @memberof main.MarketStatus
+         * @static
+         * @param {main.IMarketStatus} message MarketStatus message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MarketStatus.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+            if (message.is_finished_normal != null && Object.hasOwnProperty.call(message, "is_finished_normal"))
+                writer.uint32(/* id 2, wireType 0 =*/16).bool(message.is_finished_normal);
+            if (message.is_finished_renewable != null && Object.hasOwnProperty.call(message, "is_finished_renewable"))
+                writer.uint32(/* id 3, wireType 0 =*/24).bool(message.is_finished_renewable);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified MarketStatus message, length delimited. Does not implicitly {@link main.MarketStatus.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof main.MarketStatus
+         * @static
+         * @param {main.IMarketStatus} message MarketStatus message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MarketStatus.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a MarketStatus message from the specified reader or buffer.
+         * @function decode
+         * @memberof main.MarketStatus
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {main.MarketStatus} MarketStatus
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MarketStatus.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.MarketStatus();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.id = reader.string();
+                    break;
+                case 2:
+                    message.is_finished_normal = reader.bool();
+                    break;
+                case 3:
+                    message.is_finished_renewable = reader.bool();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a MarketStatus message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof main.MarketStatus
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {main.MarketStatus} MarketStatus
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MarketStatus.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a MarketStatus message.
+         * @function verify
+         * @memberof main.MarketStatus
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        MarketStatus.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isString(message.id))
+                    return "id: string expected";
+            if (message.is_finished_normal != null && message.hasOwnProperty("is_finished_normal"))
+                if (typeof message.is_finished_normal !== "boolean")
+                    return "is_finished_normal: boolean expected";
+            if (message.is_finished_renewable != null && message.hasOwnProperty("is_finished_renewable"))
+                if (typeof message.is_finished_renewable !== "boolean")
+                    return "is_finished_renewable: boolean expected";
+            return null;
+        };
+
+        /**
+         * Creates a MarketStatus message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof main.MarketStatus
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {main.MarketStatus} MarketStatus
+         */
+        MarketStatus.fromObject = function fromObject(object) {
+            if (object instanceof $root.main.MarketStatus)
+                return object;
+            let message = new $root.main.MarketStatus();
+            if (object.id != null)
+                message.id = String(object.id);
+            if (object.is_finished_normal != null)
+                message.is_finished_normal = Boolean(object.is_finished_normal);
+            if (object.is_finished_renewable != null)
+                message.is_finished_renewable = Boolean(object.is_finished_renewable);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a MarketStatus message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof main.MarketStatus
+         * @static
+         * @param {main.MarketStatus} message MarketStatus
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        MarketStatus.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.defaults) {
+                object.id = "";
+                object.is_finished_normal = false;
+                object.is_finished_renewable = false;
+            }
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            if (message.is_finished_normal != null && message.hasOwnProperty("is_finished_normal"))
+                object.is_finished_normal = message.is_finished_normal;
+            if (message.is_finished_renewable != null && message.hasOwnProperty("is_finished_renewable"))
+                object.is_finished_renewable = message.is_finished_renewable;
+            return object;
+        };
+
+        /**
+         * Converts this MarketStatus to JSON.
+         * @function toJSON
+         * @memberof main.MarketStatus
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        MarketStatus.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return MarketStatus;
+    })();
+
     main.Message = (function() {
 
         /**
