@@ -17,4 +17,19 @@ export class TxsComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  powerType(type: boolean) {
+    if (!type) {
+      return 'utility';
+    } else {
+      return 'solar';
+    }
+  }
+  txType(type: boolean) {
+    if (!type) {
+      return 'ask';
+    } else {
+      return 'bid';
+    }
+  }
 }

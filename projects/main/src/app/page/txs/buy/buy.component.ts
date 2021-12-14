@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AvailableBalance, NormalBid, RenewableBid } from '@local/common';
 import { getAuth } from 'firebase/auth';
 import { NormalBidApplicationService } from 'projects/shared/src/lib/services/normal-bids/normal-bid.application.service';
-import { RenewableBidApplicationService } from 'projects/shared/src/lib/services/renewable-bid/renewable-bid.application.service';
+import { RenewableBidApplicationService } from 'projects/shared/src/lib/services/renewable-bids/renewable-bid.application.service';
 import { AvailableBalanceApplicationService } from 'projects/shared/src/lib/student-accounts/available-balances/available-balance.application.service';
 import { Observable } from 'rxjs';
 

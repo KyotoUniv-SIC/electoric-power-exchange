@@ -14,9 +14,9 @@
 
   <h3>Orders</h3>
   <mat-card>
-    <mat-list>
+    <mat-nav-list>
       <ng-container *ngFor="let order of orders">
-        <mat-list-item class="flex">
+        <mat-list-item class="flex" routerLink="/txs/order/{{ powerType(order.is_solar) }}/{{ txType(order.is_bid) }}/{{ order.id }}">
           <div class="flex-auto">
             <span class="column-name font-bold">Date : </span>
             <span class="column-value font-bold">{{ order.date }}</span>
@@ -42,6 +42,11 @@
                 </mat-chip-list>
               </ng-template>
             </div>
+            <div class="flex-auto">
+              <span class="font-bold">amount : </span>
+              <span class="font-bold">{{ order.amount }}</span>
+              <span class="font-bold">SPX</span>
+            </div>
           </ng-template>
 
           <ng-template #utility>
@@ -63,42 +68,32 @@
                 </mat-chip-list>
               </ng-template>
             </div>
+            <div class="flex-auto">
+              <span class="font-bold">amount : </span>
+              <span class="font-bold">{{ order.amount }}</span>
+              <span class="font-bold">UPX</span>
+            </div>
           </ng-template>
 
           <div class="flex-auto">
-            <span class="font-bold">amount : </span>
-            <span class="font-bold">{{ order.amount }}</span>
-            <span class="font-bold">UPX</span>
-          </div>
-          <div class="flex-auto">
             <span class="font-bold">Price : </span>
             <span class="font-bold">{{ order.price }}</span>
-          </div>
-          <div class="flex-auto">
-            <ng-template #solarBid>
-              <button mat-flat-button color="primary" routerLink="/txs/order/solar/buy/{ order.id }}">Detail</button>
-            </ng-template>
-            <ng-template #solarAsk>
-              <button mat-flat-button color="accent" routerLink="/txs/order/solar/sell/{ order.id }}">Detail</button>
-            </ng-template>
-            <ng-template #utilityBid>
-              <button mat-flat-button color="primary" routerLink="/txs/order/utility/buy/{ order.id }}">Detail</button>
-            </ng-template>
-            <ng-template #utilityAsk>
-              <button mat-flat-button color="accent" routerLink="/txs/order/utility/sell/{ order.id }}">Detail</button>
-            </ng-template>
+            <span class="font-bold">JPY</span>
           </div>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
       </ng-container>
-    </mat-list>
+    </mat-nav-list>
   </mat-card>
 
   <h3>Transaction History</h3>
   <mat-card>
-    <mat-list>
+    <mat-nav-list>
       <ng-container *ngFor="let history of histories">
-        <mat-list-item class="flex">
+        <mat-list-item
+          class="flex"
+          routerLink="/txs/history/{{ powerType(history.is_solar) }}/{{ txType(history.is_bid) }}/{{ history.id }}"
+        >
           <div class="flex-auto">
             <span class="column-name font-bold">Date : </span>
             <span class="column-value font-bold">{{ history.date }}</span>
@@ -124,6 +119,11 @@
                 </mat-chip-list>
               </ng-template>
             </div>
+            <div class="flex-auto">
+              <span class="font-bold">amount : </span>
+              <span class="font-bold">{{ history.amount }}</span>
+              <span class="font-bold">SPX</span>
+            </div>
           </ng-template>
 
           <ng-template #utility>
@@ -145,16 +145,17 @@
                 </mat-chip-list>
               </ng-template>
             </div>
+            <div class="flex-auto">
+              <span class="font-bold">amount : </span>
+              <span class="font-bold">{{ history.amount }}</span>
+              <span class="font-bold">UPX</span>
+            </div>
           </ng-template>
 
           <div class="flex-auto">
-            <span class="font-bold">amount : </span>
-            <span class="font-bold">{{ history.amount }}</span>
-            <span class="font-bold">UPX</span>
-          </div>
-          <div class="flex-auto">
             <span class="font-bold">Price : </span>
             <span class="font-bold">{{ history.price }}</span>
+            <span class="font-bold">JPY</span>
           </div>
           <div class="flex-auto">
             <span class="font-bold">Contract Price : </span>
@@ -173,23 +174,9 @@
               </mat-chip-list>
             </ng-template>
           </div>
-          <div class="flex-auto">
-            <ng-template #solarBid>
-              <button mat-flat-button color="primary" routerLink="/txs/history/solar/buy/{ order.id }}">Detail</button>
-            </ng-template>
-            <ng-template #solarAsk>
-              <button mat-flat-button color="accent" routerLink="/txs/history/solar/sell/{ order.id }}">Detail</button>
-            </ng-template>
-            <ng-template #utilityBid>
-              <button mat-flat-button color="primary" routerLink="/txs/history/utility/buy/{ order.id }}">Detail</button>
-            </ng-template>
-            <ng-template #utilityAsk>
-              <button mat-flat-button color="accent" routerLink="/txs/history/utility/sell/{ order.id }}">Detail</button>
-            </ng-template>
-          </div>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
       </ng-container>
-    </mat-list>
+    </mat-nav-list>
   </mat-card>
 </div>
