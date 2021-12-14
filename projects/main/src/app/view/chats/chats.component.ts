@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-chats',
+  selector: 'view-chats',
   templateUrl: './chats.component.html',
-  styleUrls: ['./chats.component.css']
+  styleUrls: ['./chats.component.css'],
 })
 export class ChatsComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }
