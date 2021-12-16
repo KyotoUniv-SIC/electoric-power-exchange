@@ -2,7 +2,7 @@
   <mat-card>
     <mat-card-title>Bid History Detail</mat-card-title>
     <mat-list>
-      <ng-container *ngIf="!normalBid; then loading; else loaded"></ng-container>
+      <ng-container *ngIf="!normalBid; then primary; else loaded"></ng-container>
       <ng-template #loaded>
         <mat-divider [inset]="true"></mat-divider>
         <mat-list-item class="flex flex-wrap">
@@ -64,7 +64,58 @@
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
       </ng-template>
-      <ng-template #loading></ng-template>
+
+      <ng-template #primary>
+        <mat-divider [inset]="true"></mat-divider>
+        <mat-list-item class="flex flex-wrap">
+          <span class="break-all">Bid ID:</span>
+          <span class="flex-auto break-all"></span>
+          <span class="break-all">{{ primaryBid?.id }}</span>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
+
+        <mat-list-item class="flex flex-wrap">
+          <span class="break-all">Tx Type:</span>
+          <span class="flex-auto break-all"></span>
+          <span class="break-all">Primary Transaction</span>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
+
+        <mat-list-item class="flex flex-wrap">
+          <span class="break-all">Energy Type:</span>
+          <span class="flex-auto break-all"></span>
+          <span class="break-all">Utility Power</span>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
+
+        <mat-list-item class="flex flex-wrap">
+          <span class="break-all">Price:</span>
+          <span class="flex-auto break-all"></span>
+          <span class="break-all">{{ primaryBid?.price }} JPY</span>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
+
+        <mat-list-item class="flex flex-wrap">
+          <span class="break-all">Contract Price:</span>
+          <span class="flex-auto break-all"></span>
+          <span class="break-all">{{ normalBid?.contract_price }}JPY</span>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
+
+        <mat-list-item class="flex flex-wrap">
+          <span class="break-all">Amount:</span>
+          <span class="flex-auto break-all"></span>
+          <span class="break-all">{{ primaryBid?.amount }}kWh</span>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
+
+        <mat-list-item class="flex flex-wrap">
+          <span class="break-all">Date:</span>
+          <span class="flex-auto break-all"></span>
+          <span class="break-all">{{ createdAtPrimary }}</span>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
+      </ng-template>
     </mat-list>
   </mat-card>
 </div>

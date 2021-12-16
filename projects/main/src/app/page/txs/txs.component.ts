@@ -6,6 +6,7 @@ import { NormalAskHistoryApplicationService } from 'projects/shared/src/lib/serv
 import { NormalAskApplicationService } from 'projects/shared/src/lib/services/normal-asks/normal-ask.application.service';
 import { NormalBidHistoryApplicationService } from 'projects/shared/src/lib/services/normal-bid-histories/normal-bid-history.application.service';
 import { NormalBidApplicationService } from 'projects/shared/src/lib/services/normal-bids/normal-bid.application.service';
+import { PrimaryBidApplicationService } from 'projects/shared/src/lib/services/primary-bids/primary-bid.application.service';
 import { RenewableAskHistoryApplicationService } from 'projects/shared/src/lib/services/renewable-ask-histories/renewable-ask-history.application.service';
 import { RenewableAskApplicationService } from 'projects/shared/src/lib/services/renewable-asks/renewable-ask.application.service';
 import { RenewableBidHistoryApplicationService } from 'projects/shared/src/lib/services/renewable-bid-histories/renewable-bid-history.application.service';
@@ -44,6 +45,7 @@ export class TxsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private readonly primaryBidApp: PrimaryBidApplicationService,
     private readonly normalBidApp: NormalBidApplicationService,
     private readonly normalAskApp: NormalAskApplicationService,
     private readonly renewableBidApp: RenewableBidApplicationService,
@@ -108,13 +110,31 @@ export class TxsComponent implements OnInit {
       }),
     );
 
+    const primaryBid$ = this.primaryBidApp.list$(accountID);
     const normalBidHistories$ = this.normalBidHistoryApp.list$(accountID);
     const normalAskHistories$ = this.normalAskHistoryApp.list$(accountID);
     const renewableBidHistories$ = this.renewableBidHistoryApp.list$(accountID);
     const renewableAskHistories$ = this.renewableAskHistoryApp.list$(accountID);
 
-    this.histories$ = combineLatest([normalBidHistories$, normalAskHistories$, renewableBidHistories$, renewableAskHistories$]).pipe(
-      map(([normalBids, normalAsks, renewableBids, renewableAsks]) => {
+    this.histories$ = combineLatest([
+      primaryBid$,
+      normalBidHistories$,
+      normalAskHistories$,
+      renewableBidHistories$,
+      renewableAskHistories$,
+    ]).pipe(
+      map(([primaryBids, normalBids, normalAsks, renewableBids, renewableAsks]) => {
+        const primaryBidList = primaryBids.map((bid) => ({
+          id: bid.id,
+          date: (bid.created_at as Timestamp).toDate(),
+          amount: bid.amount,
+          price: bid.price,
+          contract_price: bid.price,
+          is_accepted: true,
+          is_solar: false,
+          is_bid: true,
+        }));
+
         const normalBidList = normalBids.map((bid) => ({
           id: bid.id,
           date: (bid.created_at as Timestamp).toDate(),
@@ -155,7 +175,7 @@ export class TxsComponent implements OnInit {
           is_solar: true,
           is_bid: false,
         }));
-        return normalBidList.concat(normalAskList, renewableBidList, renewableAskList).sort(function (first, second) {
+        return primaryBidList.concat(normalBidList, normalAskList, renewableBidList, renewableAskList).sort(function (first, second) {
           if (first.date > second.date) {
             return -1;
           } else if (first.date < second.date) {
