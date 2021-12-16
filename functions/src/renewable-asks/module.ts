@@ -3,10 +3,10 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 /* eslint-disable require-jsdoc */
+import { proto, RenewableAsk, RenewableAskFirestore } from '@local/common';
 import * as admin from 'firebase-admin';
-import { RenewableAsk, RenewableAskFirestore } from '@local/common';
 
-export * from './controller'
+export * from './controller';
 
 export function collection() {
   return admin
@@ -38,10 +38,23 @@ export async function list() {
     .get()
     .then((snapshot) => snapshot.docs.map((doc) => doc.data() as RenewableAsk));
 }
+export async function listPrimaryLastMonth() {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const lastMonth = new Date();
+  lastMonth.setMonth(lastMonth.getMonth() - 1);
+  lastMonth.setHours(0, 0, 0, 0);
 
-export async function create(
-  data: RenewableAsk
-) {
+  return await collection()
+    .orderBy('createdAt', 'desc')
+    .where('createdAt', '<', today)
+    .where('createdAt', '>', lastMonth)
+    .where('type', '>', proto.main.RenewableAskType.PRIMARY)
+    .get()
+    .then((snapshot) => snapshot.docs.map((doc) => doc.data() as RenewableAsk));
+}
+
+export async function create(data: RenewableAsk) {
   const doc = document();
   data.id = doc.id;
 
@@ -52,9 +65,7 @@ export async function create(
   await doc.set(data);
 }
 
-export async function update(
-  data: RenewableAsk
-) {
+export async function update(data: RenewableAsk) {
   const now = admin.firestore.Timestamp.now();
   data.updated_at = now;
 

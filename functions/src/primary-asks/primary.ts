@@ -17,7 +17,7 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
       new PrimaryAsk({
         account_id: studentID,
         price: 27,
-        amount: usageAmount,
+        amount: usageAmount * 0.9,
       }),
     );
   }

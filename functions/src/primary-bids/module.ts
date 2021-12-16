@@ -33,6 +33,14 @@ export async function get(id: string) {
     .then((snapshot) => snapshot.data() as PrimaryBid);
 }
 
+export async function getLatest(studentAccountID: string) {
+  return await collection()
+    .orderBy('createdAt', 'desc')
+    .where('account_id', '==', studentAccountID)
+    .get()
+    .then((snapshot) => snapshot.docs.map((doc) => doc.data() as PrimaryBid));
+}
+
 export async function create(data: PrimaryBid) {
   const doc = document();
   data.id = doc.id;
