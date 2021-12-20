@@ -717,6 +717,101 @@ export namespace main {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a DailyUsage. */
+    interface IDailyUsage {
+
+        /** DailyUsage id */
+        id?: (string|null);
+
+        /** DailyUsage student_account_id */
+        student_account_id?: (string|null);
+
+        /** DailyUsage amount_kwh */
+        amount_kwh?: (number|null);
+    }
+
+    /** Represents a DailyUsage. */
+    class DailyUsage implements IDailyUsage {
+
+        /**
+         * Constructs a new DailyUsage.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.IDailyUsage);
+
+        /** DailyUsage id. */
+        public id: string;
+
+        /** DailyUsage student_account_id. */
+        public student_account_id: string;
+
+        /** DailyUsage amount_kwh. */
+        public amount_kwh: number;
+
+        /**
+         * Encodes the specified DailyUsage message. Does not implicitly {@link main.DailyUsage.verify|verify} messages.
+         * @param message DailyUsage message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.IDailyUsage, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified DailyUsage message, length delimited. Does not implicitly {@link main.DailyUsage.verify|verify} messages.
+         * @param message DailyUsage message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.IDailyUsage, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a DailyUsage message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns DailyUsage
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.DailyUsage;
+
+        /**
+         * Decodes a DailyUsage message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns DailyUsage
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.DailyUsage;
+
+        /**
+         * Verifies a DailyUsage message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a DailyUsage message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns DailyUsage
+         */
+        public static fromObject(object: { [k: string]: any }): main.DailyUsage;
+
+        /**
+         * Creates a plain object from a DailyUsage message. Also converts values to other types if specified.
+         * @param message DailyUsage
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.DailyUsage, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this DailyUsage to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a History. */
     interface IHistory {
 

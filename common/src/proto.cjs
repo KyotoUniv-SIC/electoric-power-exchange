@@ -1794,6 +1794,226 @@
             return Chat;
         })();
     
+        main.DailyUsage = (function() {
+    
+            /**
+             * Properties of a DailyUsage.
+             * @memberof main
+             * @interface IDailyUsage
+             * @property {string|null} [id] DailyUsage id
+             * @property {string|null} [student_account_id] DailyUsage student_account_id
+             * @property {number|null} [amount_kwh] DailyUsage amount_kwh
+             */
+    
+            /**
+             * Constructs a new DailyUsage.
+             * @memberof main
+             * @classdesc Represents a DailyUsage.
+             * @implements IDailyUsage
+             * @constructor
+             * @param {main.IDailyUsage=} [properties] Properties to set
+             */
+            function DailyUsage(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+    
+            /**
+             * DailyUsage id.
+             * @member {string} id
+             * @memberof main.DailyUsage
+             * @instance
+             */
+            DailyUsage.prototype.id = "";
+    
+            /**
+             * DailyUsage student_account_id.
+             * @member {string} student_account_id
+             * @memberof main.DailyUsage
+             * @instance
+             */
+            DailyUsage.prototype.student_account_id = "";
+    
+            /**
+             * DailyUsage amount_kwh.
+             * @member {number} amount_kwh
+             * @memberof main.DailyUsage
+             * @instance
+             */
+            DailyUsage.prototype.amount_kwh = 0;
+    
+            /**
+             * Encodes the specified DailyUsage message. Does not implicitly {@link main.DailyUsage.verify|verify} messages.
+             * @function encode
+             * @memberof main.DailyUsage
+             * @static
+             * @param {main.IDailyUsage} message DailyUsage message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            DailyUsage.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                if (message.student_account_id != null && Object.hasOwnProperty.call(message, "student_account_id"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.student_account_id);
+                if (message.amount_kwh != null && Object.hasOwnProperty.call(message, "amount_kwh"))
+                    writer.uint32(/* id 3, wireType 1 =*/25).double(message.amount_kwh);
+                return writer;
+            };
+    
+            /**
+             * Encodes the specified DailyUsage message, length delimited. Does not implicitly {@link main.DailyUsage.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof main.DailyUsage
+             * @static
+             * @param {main.IDailyUsage} message DailyUsage message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            DailyUsage.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+    
+            /**
+             * Decodes a DailyUsage message from the specified reader or buffer.
+             * @function decode
+             * @memberof main.DailyUsage
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {main.DailyUsage} DailyUsage
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            DailyUsage.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.DailyUsage();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.id = reader.string();
+                        break;
+                    case 2:
+                        message.student_account_id = reader.string();
+                        break;
+                    case 3:
+                        message.amount_kwh = reader.double();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Decodes a DailyUsage message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof main.DailyUsage
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {main.DailyUsage} DailyUsage
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            DailyUsage.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+    
+            /**
+             * Verifies a DailyUsage message.
+             * @function verify
+             * @memberof main.DailyUsage
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            DailyUsage.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.id != null && message.hasOwnProperty("id"))
+                    if (!$util.isString(message.id))
+                        return "id: string expected";
+                if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
+                    if (!$util.isString(message.student_account_id))
+                        return "student_account_id: string expected";
+                if (message.amount_kwh != null && message.hasOwnProperty("amount_kwh"))
+                    if (typeof message.amount_kwh !== "number")
+                        return "amount_kwh: number expected";
+                return null;
+            };
+    
+            /**
+             * Creates a DailyUsage message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof main.DailyUsage
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {main.DailyUsage} DailyUsage
+             */
+            DailyUsage.fromObject = function fromObject(object) {
+                if (object instanceof $root.main.DailyUsage)
+                    return object;
+                var message = new $root.main.DailyUsage();
+                if (object.id != null)
+                    message.id = String(object.id);
+                if (object.student_account_id != null)
+                    message.student_account_id = String(object.student_account_id);
+                if (object.amount_kwh != null)
+                    message.amount_kwh = Number(object.amount_kwh);
+                return message;
+            };
+    
+            /**
+             * Creates a plain object from a DailyUsage message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof main.DailyUsage
+             * @static
+             * @param {main.DailyUsage} message DailyUsage
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            DailyUsage.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.id = "";
+                    object.student_account_id = "";
+                    object.amount_kwh = 0;
+                }
+                if (message.id != null && message.hasOwnProperty("id"))
+                    object.id = message.id;
+                if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
+                    object.student_account_id = message.student_account_id;
+                if (message.amount_kwh != null && message.hasOwnProperty("amount_kwh"))
+                    object.amount_kwh = options.json && !isFinite(message.amount_kwh) ? String(message.amount_kwh) : message.amount_kwh;
+                return object;
+            };
+    
+            /**
+             * Converts this DailyUsage to JSON.
+             * @function toJSON
+             * @memberof main.DailyUsage
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            DailyUsage.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            return DailyUsage;
+        })();
+    
         main.History = (function() {
     
             /**
