@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { proto } from '@local/common';
+import { ChartType } from 'chart.js';
+import { Label, MultiDataSet } from 'ng2-charts';
 
 @Component({
   selector: 'view-dashboard',
@@ -14,7 +16,14 @@ export class DashboardComponent implements OnInit {
   @Input()
   balances?: any | null;
 
-  constructor() {}
+  a: [10, 30, 45] | undefined;
+  doughnutChartLabels: Label[] = ['jQuey', 'React', 'Vue', 'Angular'];
+  doughnutChartData: MultiDataSet = [[
+    40, 30, 25, 5],
+  ];
+  doughnutChartType: ChartType = 'doughnut';
 
-  ngOnInit(): void {}
+  constructor() { }
+
+  ngOnInit(): void { }
 }
