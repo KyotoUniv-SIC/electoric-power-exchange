@@ -55,6 +55,21 @@ export async function listLastMonth(studentAccountID: string) {
     .then((snapshot) => snapshot.docs.map((doc) => doc.data() as DailyUsage));
 }
 
+export async function listThisMonth(studentAccountID: string) {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const first = new Date();
+  first.setDate(1);
+  first.setHours(0, 0, 0, 0);
+
+  return await collection(studentAccountID)
+    .orderBy('createdAt', 'desc')
+    .where('createdAt', '<', today)
+    .where('createdAt', '>', first)
+    .get()
+    .then((snapshot) => snapshot.docs.map((doc) => doc.data() as DailyUsage));
+}
+
 export async function create(data: DailyUsage) {
   const doc = document(data.student_account_id);
   data.id = doc.id;
