@@ -1,15 +1,36 @@
 /* eslint-disable camelcase */
+import './available-balances/balance';
+import './available-balances/normal-ask';
+import './available-balances/renewable-ask';
+import './balance-snapshots/market-status';
+import './balances/normal-settlement';
+import './balances/primary';
+import './balances/renewable-settlemet';
+import './balances/student-account';
+import './monthly-payments/calculate-payment';
+import './normal-settlements/normal-settlement';
+import './primary-asks/primary';
+import './primary-bids/primary';
+import './renewable-asks/primary';
+import './renewable-settlements/renewable-settlement';
+import './single-price-normal-settlements/normal-contract';
+import './single-price-renewable-settlements/renewable-contract';
+import './student-accounts/account';
 import * as admin from 'firebase-admin';
 
 // import * as functions from 'firebase-functions';
 
 admin.initializeApp();
+// admin.initializeApp({
+//   credential: admin.credential.cert(JSON.parse(JSON.stringify(functions.config().service_account).replace(/\\\\n/g, '\\n'))),
+//   databaseURL: functions.config().admin.database_url,
+// });
+
 // Take the text parameter passed to this HTTP endpoint and insert it into
 // Firestore under the path /messages/:documentId/original
 
 // export const auth_get_users = auth.getUsers;
 // export const auth_remove_user = auth.removeUser;
-// export const account_on_create = account.onCreate;
 
 const files = {
   accounts: './accounts',
