@@ -1,8 +1,9 @@
 /* eslint-disable camelcase */
 import { single_price_normal_settlement } from '.';
+import { market_status } from '../market-statuses';
 import { normal_ask } from '../normal-asks';
 import { normal_bid } from '../normal-bids';
-import { SinglePriceNormalSettlement } from '@local/common';
+import { MarketStatus, SinglePriceNormalSettlement } from '@local/common';
 import * as functions from 'firebase-functions';
 
 exports.scheduledFunctionCrontab = functions.pubsub
@@ -56,7 +57,12 @@ exports.scheduledFunctionCrontab = functions.pubsub
 
     // i,j両方が0のとき、成約は0になる
     if (i == 0 && j == 0) {
-      return;
+      const marketStatus = await market_status.list();
+      if (!marketStatus.length) {
+        await market_status.create(new MarketStatus({ is_finished_normal: true, is_finished_renewable: false }));
+      } else {
+        await market_status.update(new MarketStatus({ is_finished_normal: true }));
+      }
     } else {
       // 止まったときの高い方の価格が均衡価格となる
       const equilibriumPrice = sortNormalBids[i].price <= sortNormalAsks[j].price ? sortNormalAsks[i].price : sortNormalBids[j].price;

@@ -1,4 +1,4 @@
-<mat-toolbar color="primary" class="mat-elevation-z4 toolbar">
+<!-- <mat-toolbar color="primary" class="mat-elevation-z4 toolbar">
   <span class="flex-auto">
     <button mat-icon-button routerLink="/">
       <img class="icon" src="/favicon.ico" />
@@ -32,4 +32,51 @@
       <ng-content></ng-content>
     </div>
   </mat-drawer-content>
-</mat-drawer-container>
+</mat-drawer-container> -->
+
+<mat-toolbar color="primary">
+  <span class="flex-auto">
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </span>
+  <button mat-icon-button [routerLink]="'/'">
+    <img src="/favicon.ico" />
+  </button>
+  <button mat-button class="text-base sm:text-2xl" [routerLink]="'/'">EDISON</button>
+  <span class="flex-auto"></span>
+  <button *ngIf="!isLogin" mat-flat-button color="account" routerLink="/accounts/enter">Sign In</button>
+  <span class="mr-2"></span>
+  <button *ngIf="!isLogin" mat-flat-button color="account" routerLink="/accounts/create">Sign Up</button>
+  <button mat-icon-button *ngIf="isLogin" (click)="onClickSignout()">
+    <mat-icon color="account">exit_to_app</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-sidenav-container style="height: calc(100vh - 64px)">
+  <mat-sidenav mode="over" #sidenav>
+    <mat-nav-list>
+      <mat-list-item routerLink="/" (click)="sidenav.close()">
+        <span>Home</span>
+      </mat-list-item>
+      <mat-list-item routerLink="/dashboard" (click)="sidenav.close()">
+        <span>Dashboard</span>
+      </mat-list-item>
+      <mat-list-item routerLink="/txs" (click)="sidenav.close()">
+        <span>Transactions </span>
+      </mat-list-item>
+      <mat-list-item routerLink="/txs/buy" (click)="sidenav.close()">
+        <span>Buy Token</span>
+      </mat-list-item>
+      <mat-list-item routerLink="/txs/sell" (click)="sidenav.close()">
+        <span>Sell Token</span>
+      </mat-list-item>
+      <mat-list-item routerLink="/accounts/account" (click)="sidenav.close()">
+        <span>Account Info</span>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

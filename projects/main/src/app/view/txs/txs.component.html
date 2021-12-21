@@ -1,27 +1,29 @@
-<div class="text-center">
-  <h2>Transactions</h2>
-  <h3>Transaction Functions</h3>
+<div class="w-full lg:mx-auto lg:w-1/3 lg:mt-10">
   <mat-card class="mb-20">
-    <div class="flex">
+    <mat-card-title>Transaction Menu</mat-card-title>
+    <div class="flex mt-10">
+      <div class="flex-auto"></div>
       <div class="flex-auto">
         <button mat-flat-button color="accent" routerLink="/txs/buy">Buy Electricity</button>
       </div>
       <div class="flex-auto">
-        <button mat-flat-button color="accent" routerLink="/txs/sell">Sell Electricity</button>
+        <button mat-flat-button color="primary" routerLink="/txs/sell">Sell Electricity</button>
       </div>
     </div>
   </mat-card>
 
-  <h3>Orders</h3>
-  <mat-card>
+  <mat-card class="mb-20">
+    <mat-card-title>Order</mat-card-title>
     <mat-nav-list>
+      <ng-container *ngIf="!orders?.length">No order</ng-container>
       <ng-container *ngFor="let order of orders">
         <mat-list-item class="flex" routerLink="/txs/order/{{ powerType(order.is_solar) }}/{{ txType(order.is_bid) }}/{{ order.id }}">
           <div class="flex-auto">
             <span class="column-name font-bold">Date : </span>
             <span class="column-value font-bold">{{ order.date }}</span>
           </div>
-
+        </mat-list-item>
+        <mat-list-item class="flex" routerLink="/txs/order/{{ powerType(order.is_solar) }}/{{ txType(order.is_bid) }}/{{ order.id }}">
           <ng-container *ngIf="order.is_solar === true; then solar; else utility"></ng-container>
           <ng-template #solar>
             <div class="flex-auto">
@@ -48,7 +50,6 @@
               <span class="font-bold">SPX</span>
             </div>
           </ng-template>
-
           <ng-template #utility>
             <div class="flex-auto">
               <mat-chip-list>
@@ -59,7 +60,7 @@
               <ng-container *ngIf="order.is_bid === true; then utilityBid; else utilityAsk"></ng-container>
               <ng-template #utilityBid>
                 <mat-chip-list>
-                  <span color="primary" class="column-value font-bold">Bid</span>
+                  <span class="column-value font-bold">Bid</span>
                 </mat-chip-list>
               </ng-template>
               <ng-template #utilityAsk>
@@ -74,7 +75,6 @@
               <span class="font-bold">UPX</span>
             </div>
           </ng-template>
-
           <div class="flex-auto">
             <span class="font-bold">Price : </span>
             <span class="font-bold">{{ order.price }}</span>
@@ -86,9 +86,10 @@
     </mat-nav-list>
   </mat-card>
 
-  <h3>Transaction History</h3>
   <mat-card>
+    <mat-card-title>Transaction History</mat-card-title>
     <mat-nav-list>
+      <ng-container *ngIf="!histories?.length">No History</ng-container>
       <ng-container *ngFor="let history of histories">
         <mat-list-item
           class="flex"
@@ -98,7 +99,11 @@
             <span class="column-name font-bold">Date : </span>
             <span class="column-value font-bold">{{ history.date }}</span>
           </div>
-
+        </mat-list-item>
+        <mat-list-item
+          class="flex"
+          routerLink="/txs/history/{{ powerType(history.is_solar) }}/{{ txType(history.is_bid) }}/{{ history.id }}"
+        >
           <ng-container *ngIf="history.is_solar === true; then solar; else utility"></ng-container>
           <ng-template #solar>
             <div class="flex-auto">
@@ -110,12 +115,12 @@
               <ng-container *ngIf="history.is_bid === true; then solarBid; else solarAsk"></ng-container>
               <ng-template #solarBid>
                 <mat-chip-list>
-                  <span color="primary" class="column-value font-bold">Bid</span>
+                  <span class="column-value font-bold">Bid</span>
                 </mat-chip-list>
               </ng-template>
               <ng-template #solarAsk>
                 <mat-chip-list>
-                  <span color="accent" class="column-value font-bold">Ask</span>
+                  <span class="column-value font-bold">Ask</span>
                 </mat-chip-list>
               </ng-template>
             </div>
