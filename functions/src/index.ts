@@ -58,6 +58,9 @@ const files = {
   normals: './single-price-normal-settlements',
   renewables: './single-price-renewable-settlements',
   student_accounts: './student-accounts',
+  primary_renewable: './renewable-asks/primary',
+  normal_contract: './single-price-normal-settlements/normal-contract',
+  renewable_contract: './single-price-renewable-settlements/renewable-contract',
 };
 
 const loadFunctions = (filesObj: any) => {

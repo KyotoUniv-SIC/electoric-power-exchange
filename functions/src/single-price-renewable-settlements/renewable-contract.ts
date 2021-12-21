@@ -6,7 +6,7 @@ import { renewable_bid } from '../renewable-bids';
 import { MarketStatus, SinglePriceRenewableSettlement } from '@local/common';
 import * as functions from 'firebase-functions';
 
-exports.scheduledFunctionCrontab = functions.pubsub
+module.exports.renewableContract = functions.pubsub
   .schedule('0 0 * * *')
   .timeZone('Asia/Tokyo') // Users can choose timezone - default is America/Los_Angeles
   .onRun(async () => {
