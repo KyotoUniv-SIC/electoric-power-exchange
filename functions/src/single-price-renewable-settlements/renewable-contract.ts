@@ -1,8 +1,9 @@
 /* eslint-disable camelcase */
 import { single_price_renewable_settlement } from '.';
+import { market_status } from '../market-statuses';
 import { renewable_ask } from '../renewable-asks';
 import { renewable_bid } from '../renewable-bids';
-import { SinglePriceRenewableSettlement } from '@local/common';
+import { MarketStatus, SinglePriceRenewableSettlement } from '@local/common';
 import * as functions from 'firebase-functions';
 
 exports.scheduledFunctionCrontab = functions.pubsub
@@ -56,7 +57,12 @@ exports.scheduledFunctionCrontab = functions.pubsub
 
     // i,j両方が0のとき、成約は0になる
     if (i == 0 && j == 0) {
-      return;
+      const marketStatus = await market_status.list();
+      if (!marketStatus.length) {
+        await market_status.create(new MarketStatus({ is_finished_normal: false, is_finished_renewable: true }));
+      } else {
+        await market_status.update(new MarketStatus({ is_finished_renewable: true }));
+      }
     } else {
       // 止まったときの高い方の価格が均衡価格となる
       const equilibriumPrice =

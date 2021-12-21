@@ -1794,31 +1794,26 @@
             return Chat;
         })();
     
-        main.History = (function() {
+        main.DailyUsage = (function() {
     
             /**
-             * Properties of a History.
+             * Properties of a DailyUsage.
              * @memberof main
-             * @interface IHistory
-             * @property {string|null} [id] History id
-             * @property {google.protobuf.ITimestamp|null} [date] History date
-             * @property {number|null} [amount] History amount
-             * @property {number|null} [price] History price
-             * @property {number|null} [contract_price] History contract_price
-             * @property {boolean|null} [is_accepted] History is_accepted
-             * @property {boolean|null} [is_solar] History is_solar
-             * @property {boolean|null} [is_bid] History is_bid
+             * @interface IDailyUsage
+             * @property {string|null} [id] DailyUsage id
+             * @property {string|null} [student_account_id] DailyUsage student_account_id
+             * @property {number|null} [amount_kwh] DailyUsage amount_kwh
              */
     
             /**
-             * Constructs a new History.
+             * Constructs a new DailyUsage.
              * @memberof main
-             * @classdesc Represents a History.
-             * @implements IHistory
+             * @classdesc Represents a DailyUsage.
+             * @implements IDailyUsage
              * @constructor
-             * @param {main.IHistory=} [properties] Properties to set
+             * @param {main.IDailyUsage=} [properties] Properties to set
              */
-            function History(properties) {
+            function DailyUsage(properties) {
                 if (properties)
                     for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                         if (properties[keys[i]] != null)
@@ -1826,128 +1821,78 @@
             }
     
             /**
-             * History id.
+             * DailyUsage id.
              * @member {string} id
-             * @memberof main.History
+             * @memberof main.DailyUsage
              * @instance
              */
-            History.prototype.id = "";
+            DailyUsage.prototype.id = "";
     
             /**
-             * History date.
-             * @member {google.protobuf.ITimestamp|null|undefined} date
-             * @memberof main.History
+             * DailyUsage student_account_id.
+             * @member {string} student_account_id
+             * @memberof main.DailyUsage
              * @instance
              */
-            History.prototype.date = null;
+            DailyUsage.prototype.student_account_id = "";
     
             /**
-             * History amount.
-             * @member {number} amount
-             * @memberof main.History
+             * DailyUsage amount_kwh.
+             * @member {number} amount_kwh
+             * @memberof main.DailyUsage
              * @instance
              */
-            History.prototype.amount = 0;
+            DailyUsage.prototype.amount_kwh = 0;
     
             /**
-             * History price.
-             * @member {number} price
-             * @memberof main.History
-             * @instance
-             */
-            History.prototype.price = 0;
-    
-            /**
-             * History contract_price.
-             * @member {number} contract_price
-             * @memberof main.History
-             * @instance
-             */
-            History.prototype.contract_price = 0;
-    
-            /**
-             * History is_accepted.
-             * @member {boolean} is_accepted
-             * @memberof main.History
-             * @instance
-             */
-            History.prototype.is_accepted = false;
-    
-            /**
-             * History is_solar.
-             * @member {boolean} is_solar
-             * @memberof main.History
-             * @instance
-             */
-            History.prototype.is_solar = false;
-    
-            /**
-             * History is_bid.
-             * @member {boolean} is_bid
-             * @memberof main.History
-             * @instance
-             */
-            History.prototype.is_bid = false;
-    
-            /**
-             * Encodes the specified History message. Does not implicitly {@link main.History.verify|verify} messages.
+             * Encodes the specified DailyUsage message. Does not implicitly {@link main.DailyUsage.verify|verify} messages.
              * @function encode
-             * @memberof main.History
+             * @memberof main.DailyUsage
              * @static
-             * @param {main.IHistory} message History message or plain object to encode
+             * @param {main.IDailyUsage} message DailyUsage message or plain object to encode
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            History.encode = function encode(message, writer) {
+            DailyUsage.encode = function encode(message, writer) {
                 if (!writer)
                     writer = $Writer.create();
                 if (message.id != null && Object.hasOwnProperty.call(message, "id"))
                     writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
-                if (message.date != null && Object.hasOwnProperty.call(message, "date"))
-                    $root.google.protobuf.Timestamp.encode(message.date, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
-                if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
-                    writer.uint32(/* id 3, wireType 1 =*/25).double(message.amount);
-                if (message.price != null && Object.hasOwnProperty.call(message, "price"))
-                    writer.uint32(/* id 4, wireType 1 =*/33).double(message.price);
-                if (message.contract_price != null && Object.hasOwnProperty.call(message, "contract_price"))
-                    writer.uint32(/* id 5, wireType 1 =*/41).double(message.contract_price);
-                if (message.is_accepted != null && Object.hasOwnProperty.call(message, "is_accepted"))
-                    writer.uint32(/* id 6, wireType 0 =*/48).bool(message.is_accepted);
-                if (message.is_solar != null && Object.hasOwnProperty.call(message, "is_solar"))
-                    writer.uint32(/* id 7, wireType 0 =*/56).bool(message.is_solar);
-                if (message.is_bid != null && Object.hasOwnProperty.call(message, "is_bid"))
-                    writer.uint32(/* id 8, wireType 0 =*/64).bool(message.is_bid);
+                if (message.student_account_id != null && Object.hasOwnProperty.call(message, "student_account_id"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.student_account_id);
+                if (message.amount_kwh != null && Object.hasOwnProperty.call(message, "amount_kwh"))
+                    writer.uint32(/* id 3, wireType 1 =*/25).double(message.amount_kwh);
                 return writer;
             };
     
             /**
-             * Encodes the specified History message, length delimited. Does not implicitly {@link main.History.verify|verify} messages.
+             * Encodes the specified DailyUsage message, length delimited. Does not implicitly {@link main.DailyUsage.verify|verify} messages.
              * @function encodeDelimited
-             * @memberof main.History
+             * @memberof main.DailyUsage
              * @static
-             * @param {main.IHistory} message History message or plain object to encode
+             * @param {main.IDailyUsage} message DailyUsage message or plain object to encode
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            History.encodeDelimited = function encodeDelimited(message, writer) {
+            DailyUsage.encodeDelimited = function encodeDelimited(message, writer) {
                 return this.encode(message, writer).ldelim();
             };
     
             /**
-             * Decodes a History message from the specified reader or buffer.
+             * Decodes a DailyUsage message from the specified reader or buffer.
              * @function decode
-             * @memberof main.History
+             * @memberof main.DailyUsage
              * @static
              * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
              * @param {number} [length] Message length if known beforehand
-             * @returns {main.History} History
+             * @returns {main.DailyUsage} DailyUsage
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            History.decode = function decode(reader, length) {
+            DailyUsage.decode = function decode(reader, length) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
-                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.History();
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.DailyUsage();
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
@@ -1955,25 +1900,10 @@
                         message.id = reader.string();
                         break;
                     case 2:
-                        message.date = $root.google.protobuf.Timestamp.decode(reader, reader.uint32());
+                        message.student_account_id = reader.string();
                         break;
                     case 3:
-                        message.amount = reader.double();
-                        break;
-                    case 4:
-                        message.price = reader.double();
-                        break;
-                    case 5:
-                        message.contract_price = reader.double();
-                        break;
-                    case 6:
-                        message.is_accepted = reader.bool();
-                        break;
-                    case 7:
-                        message.is_solar = reader.bool();
-                        break;
-                    case 8:
-                        message.is_bid = reader.bool();
+                        message.amount_kwh = reader.double();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -1984,149 +1914,566 @@
             };
     
             /**
-             * Decodes a History message from the specified reader or buffer, length delimited.
+             * Decodes a DailyUsage message from the specified reader or buffer, length delimited.
              * @function decodeDelimited
-             * @memberof main.History
+             * @memberof main.DailyUsage
              * @static
              * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {main.History} History
+             * @returns {main.DailyUsage} DailyUsage
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            History.decodeDelimited = function decodeDelimited(reader) {
+            DailyUsage.decodeDelimited = function decodeDelimited(reader) {
                 if (!(reader instanceof $Reader))
                     reader = new $Reader(reader);
                 return this.decode(reader, reader.uint32());
             };
     
             /**
-             * Verifies a History message.
+             * Verifies a DailyUsage message.
              * @function verify
-             * @memberof main.History
+             * @memberof main.DailyUsage
              * @static
              * @param {Object.<string,*>} message Plain object to verify
              * @returns {string|null} `null` if valid, otherwise the reason why it is not
              */
-            History.verify = function verify(message) {
+            DailyUsage.verify = function verify(message) {
                 if (typeof message !== "object" || message === null)
                     return "object expected";
                 if (message.id != null && message.hasOwnProperty("id"))
                     if (!$util.isString(message.id))
                         return "id: string expected";
-                if (message.date != null && message.hasOwnProperty("date")) {
-                    var error = $root.google.protobuf.Timestamp.verify(message.date);
-                    if (error)
-                        return "date." + error;
-                }
-                if (message.amount != null && message.hasOwnProperty("amount"))
-                    if (typeof message.amount !== "number")
-                        return "amount: number expected";
-                if (message.price != null && message.hasOwnProperty("price"))
-                    if (typeof message.price !== "number")
-                        return "price: number expected";
-                if (message.contract_price != null && message.hasOwnProperty("contract_price"))
-                    if (typeof message.contract_price !== "number")
-                        return "contract_price: number expected";
-                if (message.is_accepted != null && message.hasOwnProperty("is_accepted"))
-                    if (typeof message.is_accepted !== "boolean")
-                        return "is_accepted: boolean expected";
-                if (message.is_solar != null && message.hasOwnProperty("is_solar"))
-                    if (typeof message.is_solar !== "boolean")
-                        return "is_solar: boolean expected";
-                if (message.is_bid != null && message.hasOwnProperty("is_bid"))
-                    if (typeof message.is_bid !== "boolean")
-                        return "is_bid: boolean expected";
+                if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
+                    if (!$util.isString(message.student_account_id))
+                        return "student_account_id: string expected";
+                if (message.amount_kwh != null && message.hasOwnProperty("amount_kwh"))
+                    if (typeof message.amount_kwh !== "number")
+                        return "amount_kwh: number expected";
                 return null;
             };
     
             /**
-             * Creates a History message from a plain object. Also converts values to their respective internal types.
+             * Creates a DailyUsage message from a plain object. Also converts values to their respective internal types.
              * @function fromObject
-             * @memberof main.History
+             * @memberof main.DailyUsage
              * @static
              * @param {Object.<string,*>} object Plain object
-             * @returns {main.History} History
+             * @returns {main.DailyUsage} DailyUsage
              */
-            History.fromObject = function fromObject(object) {
-                if (object instanceof $root.main.History)
+            DailyUsage.fromObject = function fromObject(object) {
+                if (object instanceof $root.main.DailyUsage)
                     return object;
-                var message = new $root.main.History();
+                var message = new $root.main.DailyUsage();
                 if (object.id != null)
                     message.id = String(object.id);
-                if (object.date != null) {
-                    if (typeof object.date !== "object")
-                        throw TypeError(".main.History.date: object expected");
-                    message.date = $root.google.protobuf.Timestamp.fromObject(object.date);
-                }
-                if (object.amount != null)
-                    message.amount = Number(object.amount);
-                if (object.price != null)
-                    message.price = Number(object.price);
-                if (object.contract_price != null)
-                    message.contract_price = Number(object.contract_price);
-                if (object.is_accepted != null)
-                    message.is_accepted = Boolean(object.is_accepted);
-                if (object.is_solar != null)
-                    message.is_solar = Boolean(object.is_solar);
-                if (object.is_bid != null)
-                    message.is_bid = Boolean(object.is_bid);
+                if (object.student_account_id != null)
+                    message.student_account_id = String(object.student_account_id);
+                if (object.amount_kwh != null)
+                    message.amount_kwh = Number(object.amount_kwh);
                 return message;
             };
     
             /**
-             * Creates a plain object from a History message. Also converts values to other types if specified.
+             * Creates a plain object from a DailyUsage message. Also converts values to other types if specified.
              * @function toObject
-             * @memberof main.History
+             * @memberof main.DailyUsage
              * @static
-             * @param {main.History} message History
+             * @param {main.DailyUsage} message DailyUsage
              * @param {$protobuf.IConversionOptions} [options] Conversion options
              * @returns {Object.<string,*>} Plain object
              */
-            History.toObject = function toObject(message, options) {
+            DailyUsage.toObject = function toObject(message, options) {
                 if (!options)
                     options = {};
                 var object = {};
                 if (options.defaults) {
                     object.id = "";
-                    object.date = null;
-                    object.amount = 0;
-                    object.price = 0;
-                    object.contract_price = 0;
-                    object.is_accepted = false;
-                    object.is_solar = false;
-                    object.is_bid = false;
+                    object.student_account_id = "";
+                    object.amount_kwh = 0;
                 }
                 if (message.id != null && message.hasOwnProperty("id"))
                     object.id = message.id;
-                if (message.date != null && message.hasOwnProperty("date"))
-                    object.date = $root.google.protobuf.Timestamp.toObject(message.date, options);
-                if (message.amount != null && message.hasOwnProperty("amount"))
-                    object.amount = options.json && !isFinite(message.amount) ? String(message.amount) : message.amount;
-                if (message.price != null && message.hasOwnProperty("price"))
-                    object.price = options.json && !isFinite(message.price) ? String(message.price) : message.price;
-                if (message.contract_price != null && message.hasOwnProperty("contract_price"))
-                    object.contract_price = options.json && !isFinite(message.contract_price) ? String(message.contract_price) : message.contract_price;
-                if (message.is_accepted != null && message.hasOwnProperty("is_accepted"))
-                    object.is_accepted = message.is_accepted;
-                if (message.is_solar != null && message.hasOwnProperty("is_solar"))
-                    object.is_solar = message.is_solar;
-                if (message.is_bid != null && message.hasOwnProperty("is_bid"))
-                    object.is_bid = message.is_bid;
+                if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
+                    object.student_account_id = message.student_account_id;
+                if (message.amount_kwh != null && message.hasOwnProperty("amount_kwh"))
+                    object.amount_kwh = options.json && !isFinite(message.amount_kwh) ? String(message.amount_kwh) : message.amount_kwh;
                 return object;
             };
     
             /**
-             * Converts this History to JSON.
+             * Converts this DailyUsage to JSON.
              * @function toJSON
-             * @memberof main.History
+             * @memberof main.DailyUsage
              * @instance
              * @returns {Object.<string,*>} JSON object
              */
-            History.prototype.toJSON = function toJSON() {
+            DailyUsage.prototype.toJSON = function toJSON() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
             };
     
-            return History;
+            return DailyUsage;
+        })();
+    
+        main.DiscountPrice = (function() {
+    
+            /**
+             * Properties of a DiscountPrice.
+             * @memberof main
+             * @interface IDiscountPrice
+             * @property {string|null} [id] DiscountPrice id
+             * @property {number|null} [price] DiscountPrice price
+             * @property {number|null} [amount_purchase] DiscountPrice amount_purchase
+             * @property {number|null} [amount_sale] DiscountPrice amount_sale
+             */
+    
+            /**
+             * Constructs a new DiscountPrice.
+             * @memberof main
+             * @classdesc Represents a DiscountPrice.
+             * @implements IDiscountPrice
+             * @constructor
+             * @param {main.IDiscountPrice=} [properties] Properties to set
+             */
+            function DiscountPrice(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+    
+            /**
+             * DiscountPrice id.
+             * @member {string} id
+             * @memberof main.DiscountPrice
+             * @instance
+             */
+            DiscountPrice.prototype.id = "";
+    
+            /**
+             * DiscountPrice price.
+             * @member {number} price
+             * @memberof main.DiscountPrice
+             * @instance
+             */
+            DiscountPrice.prototype.price = 0;
+    
+            /**
+             * DiscountPrice amount_purchase.
+             * @member {number} amount_purchase
+             * @memberof main.DiscountPrice
+             * @instance
+             */
+            DiscountPrice.prototype.amount_purchase = 0;
+    
+            /**
+             * DiscountPrice amount_sale.
+             * @member {number} amount_sale
+             * @memberof main.DiscountPrice
+             * @instance
+             */
+            DiscountPrice.prototype.amount_sale = 0;
+    
+            /**
+             * Encodes the specified DiscountPrice message. Does not implicitly {@link main.DiscountPrice.verify|verify} messages.
+             * @function encode
+             * @memberof main.DiscountPrice
+             * @static
+             * @param {main.IDiscountPrice} message DiscountPrice message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            DiscountPrice.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                if (message.price != null && Object.hasOwnProperty.call(message, "price"))
+                    writer.uint32(/* id 2, wireType 1 =*/17).double(message.price);
+                if (message.amount_purchase != null && Object.hasOwnProperty.call(message, "amount_purchase"))
+                    writer.uint32(/* id 3, wireType 1 =*/25).double(message.amount_purchase);
+                if (message.amount_sale != null && Object.hasOwnProperty.call(message, "amount_sale"))
+                    writer.uint32(/* id 4, wireType 1 =*/33).double(message.amount_sale);
+                return writer;
+            };
+    
+            /**
+             * Encodes the specified DiscountPrice message, length delimited. Does not implicitly {@link main.DiscountPrice.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof main.DiscountPrice
+             * @static
+             * @param {main.IDiscountPrice} message DiscountPrice message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            DiscountPrice.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+    
+            /**
+             * Decodes a DiscountPrice message from the specified reader or buffer.
+             * @function decode
+             * @memberof main.DiscountPrice
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {main.DiscountPrice} DiscountPrice
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            DiscountPrice.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.DiscountPrice();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.id = reader.string();
+                        break;
+                    case 2:
+                        message.price = reader.double();
+                        break;
+                    case 3:
+                        message.amount_purchase = reader.double();
+                        break;
+                    case 4:
+                        message.amount_sale = reader.double();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Decodes a DiscountPrice message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof main.DiscountPrice
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {main.DiscountPrice} DiscountPrice
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            DiscountPrice.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+    
+            /**
+             * Verifies a DiscountPrice message.
+             * @function verify
+             * @memberof main.DiscountPrice
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            DiscountPrice.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.id != null && message.hasOwnProperty("id"))
+                    if (!$util.isString(message.id))
+                        return "id: string expected";
+                if (message.price != null && message.hasOwnProperty("price"))
+                    if (typeof message.price !== "number")
+                        return "price: number expected";
+                if (message.amount_purchase != null && message.hasOwnProperty("amount_purchase"))
+                    if (typeof message.amount_purchase !== "number")
+                        return "amount_purchase: number expected";
+                if (message.amount_sale != null && message.hasOwnProperty("amount_sale"))
+                    if (typeof message.amount_sale !== "number")
+                        return "amount_sale: number expected";
+                return null;
+            };
+    
+            /**
+             * Creates a DiscountPrice message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof main.DiscountPrice
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {main.DiscountPrice} DiscountPrice
+             */
+            DiscountPrice.fromObject = function fromObject(object) {
+                if (object instanceof $root.main.DiscountPrice)
+                    return object;
+                var message = new $root.main.DiscountPrice();
+                if (object.id != null)
+                    message.id = String(object.id);
+                if (object.price != null)
+                    message.price = Number(object.price);
+                if (object.amount_purchase != null)
+                    message.amount_purchase = Number(object.amount_purchase);
+                if (object.amount_sale != null)
+                    message.amount_sale = Number(object.amount_sale);
+                return message;
+            };
+    
+            /**
+             * Creates a plain object from a DiscountPrice message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof main.DiscountPrice
+             * @static
+             * @param {main.DiscountPrice} message DiscountPrice
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            DiscountPrice.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.id = "";
+                    object.price = 0;
+                    object.amount_purchase = 0;
+                    object.amount_sale = 0;
+                }
+                if (message.id != null && message.hasOwnProperty("id"))
+                    object.id = message.id;
+                if (message.price != null && message.hasOwnProperty("price"))
+                    object.price = options.json && !isFinite(message.price) ? String(message.price) : message.price;
+                if (message.amount_purchase != null && message.hasOwnProperty("amount_purchase"))
+                    object.amount_purchase = options.json && !isFinite(message.amount_purchase) ? String(message.amount_purchase) : message.amount_purchase;
+                if (message.amount_sale != null && message.hasOwnProperty("amount_sale"))
+                    object.amount_sale = options.json && !isFinite(message.amount_sale) ? String(message.amount_sale) : message.amount_sale;
+                return object;
+            };
+    
+            /**
+             * Converts this DiscountPrice to JSON.
+             * @function toJSON
+             * @memberof main.DiscountPrice
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            DiscountPrice.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            return DiscountPrice;
+        })();
+    
+        main.MarketStatus = (function() {
+    
+            /**
+             * Properties of a MarketStatus.
+             * @memberof main
+             * @interface IMarketStatus
+             * @property {string|null} [id] MarketStatus id
+             * @property {boolean|null} [is_finished_normal] MarketStatus is_finished_normal
+             * @property {boolean|null} [is_finished_renewable] MarketStatus is_finished_renewable
+             */
+    
+            /**
+             * Constructs a new MarketStatus.
+             * @memberof main
+             * @classdesc Represents a MarketStatus.
+             * @implements IMarketStatus
+             * @constructor
+             * @param {main.IMarketStatus=} [properties] Properties to set
+             */
+            function MarketStatus(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+    
+            /**
+             * MarketStatus id.
+             * @member {string} id
+             * @memberof main.MarketStatus
+             * @instance
+             */
+            MarketStatus.prototype.id = "";
+    
+            /**
+             * MarketStatus is_finished_normal.
+             * @member {boolean} is_finished_normal
+             * @memberof main.MarketStatus
+             * @instance
+             */
+            MarketStatus.prototype.is_finished_normal = false;
+    
+            /**
+             * MarketStatus is_finished_renewable.
+             * @member {boolean} is_finished_renewable
+             * @memberof main.MarketStatus
+             * @instance
+             */
+            MarketStatus.prototype.is_finished_renewable = false;
+    
+            /**
+             * Encodes the specified MarketStatus message. Does not implicitly {@link main.MarketStatus.verify|verify} messages.
+             * @function encode
+             * @memberof main.MarketStatus
+             * @static
+             * @param {main.IMarketStatus} message MarketStatus message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            MarketStatus.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                if (message.is_finished_normal != null && Object.hasOwnProperty.call(message, "is_finished_normal"))
+                    writer.uint32(/* id 2, wireType 0 =*/16).bool(message.is_finished_normal);
+                if (message.is_finished_renewable != null && Object.hasOwnProperty.call(message, "is_finished_renewable"))
+                    writer.uint32(/* id 3, wireType 0 =*/24).bool(message.is_finished_renewable);
+                return writer;
+            };
+    
+            /**
+             * Encodes the specified MarketStatus message, length delimited. Does not implicitly {@link main.MarketStatus.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof main.MarketStatus
+             * @static
+             * @param {main.IMarketStatus} message MarketStatus message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            MarketStatus.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+    
+            /**
+             * Decodes a MarketStatus message from the specified reader or buffer.
+             * @function decode
+             * @memberof main.MarketStatus
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {main.MarketStatus} MarketStatus
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            MarketStatus.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.MarketStatus();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.id = reader.string();
+                        break;
+                    case 2:
+                        message.is_finished_normal = reader.bool();
+                        break;
+                    case 3:
+                        message.is_finished_renewable = reader.bool();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Decodes a MarketStatus message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof main.MarketStatus
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {main.MarketStatus} MarketStatus
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            MarketStatus.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+    
+            /**
+             * Verifies a MarketStatus message.
+             * @function verify
+             * @memberof main.MarketStatus
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            MarketStatus.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.id != null && message.hasOwnProperty("id"))
+                    if (!$util.isString(message.id))
+                        return "id: string expected";
+                if (message.is_finished_normal != null && message.hasOwnProperty("is_finished_normal"))
+                    if (typeof message.is_finished_normal !== "boolean")
+                        return "is_finished_normal: boolean expected";
+                if (message.is_finished_renewable != null && message.hasOwnProperty("is_finished_renewable"))
+                    if (typeof message.is_finished_renewable !== "boolean")
+                        return "is_finished_renewable: boolean expected";
+                return null;
+            };
+    
+            /**
+             * Creates a MarketStatus message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof main.MarketStatus
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {main.MarketStatus} MarketStatus
+             */
+            MarketStatus.fromObject = function fromObject(object) {
+                if (object instanceof $root.main.MarketStatus)
+                    return object;
+                var message = new $root.main.MarketStatus();
+                if (object.id != null)
+                    message.id = String(object.id);
+                if (object.is_finished_normal != null)
+                    message.is_finished_normal = Boolean(object.is_finished_normal);
+                if (object.is_finished_renewable != null)
+                    message.is_finished_renewable = Boolean(object.is_finished_renewable);
+                return message;
+            };
+    
+            /**
+             * Creates a plain object from a MarketStatus message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof main.MarketStatus
+             * @static
+             * @param {main.MarketStatus} message MarketStatus
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            MarketStatus.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.id = "";
+                    object.is_finished_normal = false;
+                    object.is_finished_renewable = false;
+                }
+                if (message.id != null && message.hasOwnProperty("id"))
+                    object.id = message.id;
+                if (message.is_finished_normal != null && message.hasOwnProperty("is_finished_normal"))
+                    object.is_finished_normal = message.is_finished_normal;
+                if (message.is_finished_renewable != null && message.hasOwnProperty("is_finished_renewable"))
+                    object.is_finished_renewable = message.is_finished_renewable;
+                return object;
+            };
+    
+            /**
+             * Converts this MarketStatus to JSON.
+             * @function toJSON
+             * @memberof main.MarketStatus
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            MarketStatus.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            return MarketStatus;
         })();
     
         main.Message = (function() {
@@ -2435,6 +2782,226 @@
             };
     
             return Message;
+        })();
+    
+        main.MonthlyPayment = (function() {
+    
+            /**
+             * Properties of a MonthlyPayment.
+             * @memberof main
+             * @interface IMonthlyPayment
+             * @property {string|null} [id] MonthlyPayment id
+             * @property {string|null} [student_account_id] MonthlyPayment student_account_id
+             * @property {number|null} [amount_jpy] MonthlyPayment amount_jpy
+             */
+    
+            /**
+             * Constructs a new MonthlyPayment.
+             * @memberof main
+             * @classdesc Represents a MonthlyPayment.
+             * @implements IMonthlyPayment
+             * @constructor
+             * @param {main.IMonthlyPayment=} [properties] Properties to set
+             */
+            function MonthlyPayment(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+    
+            /**
+             * MonthlyPayment id.
+             * @member {string} id
+             * @memberof main.MonthlyPayment
+             * @instance
+             */
+            MonthlyPayment.prototype.id = "";
+    
+            /**
+             * MonthlyPayment student_account_id.
+             * @member {string} student_account_id
+             * @memberof main.MonthlyPayment
+             * @instance
+             */
+            MonthlyPayment.prototype.student_account_id = "";
+    
+            /**
+             * MonthlyPayment amount_jpy.
+             * @member {number} amount_jpy
+             * @memberof main.MonthlyPayment
+             * @instance
+             */
+            MonthlyPayment.prototype.amount_jpy = 0;
+    
+            /**
+             * Encodes the specified MonthlyPayment message. Does not implicitly {@link main.MonthlyPayment.verify|verify} messages.
+             * @function encode
+             * @memberof main.MonthlyPayment
+             * @static
+             * @param {main.IMonthlyPayment} message MonthlyPayment message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            MonthlyPayment.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                if (message.student_account_id != null && Object.hasOwnProperty.call(message, "student_account_id"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.student_account_id);
+                if (message.amount_jpy != null && Object.hasOwnProperty.call(message, "amount_jpy"))
+                    writer.uint32(/* id 3, wireType 1 =*/25).double(message.amount_jpy);
+                return writer;
+            };
+    
+            /**
+             * Encodes the specified MonthlyPayment message, length delimited. Does not implicitly {@link main.MonthlyPayment.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof main.MonthlyPayment
+             * @static
+             * @param {main.IMonthlyPayment} message MonthlyPayment message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            MonthlyPayment.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+    
+            /**
+             * Decodes a MonthlyPayment message from the specified reader or buffer.
+             * @function decode
+             * @memberof main.MonthlyPayment
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {main.MonthlyPayment} MonthlyPayment
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            MonthlyPayment.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.MonthlyPayment();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.id = reader.string();
+                        break;
+                    case 2:
+                        message.student_account_id = reader.string();
+                        break;
+                    case 3:
+                        message.amount_jpy = reader.double();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Decodes a MonthlyPayment message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof main.MonthlyPayment
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {main.MonthlyPayment} MonthlyPayment
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            MonthlyPayment.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+    
+            /**
+             * Verifies a MonthlyPayment message.
+             * @function verify
+             * @memberof main.MonthlyPayment
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            MonthlyPayment.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.id != null && message.hasOwnProperty("id"))
+                    if (!$util.isString(message.id))
+                        return "id: string expected";
+                if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
+                    if (!$util.isString(message.student_account_id))
+                        return "student_account_id: string expected";
+                if (message.amount_jpy != null && message.hasOwnProperty("amount_jpy"))
+                    if (typeof message.amount_jpy !== "number")
+                        return "amount_jpy: number expected";
+                return null;
+            };
+    
+            /**
+             * Creates a MonthlyPayment message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof main.MonthlyPayment
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {main.MonthlyPayment} MonthlyPayment
+             */
+            MonthlyPayment.fromObject = function fromObject(object) {
+                if (object instanceof $root.main.MonthlyPayment)
+                    return object;
+                var message = new $root.main.MonthlyPayment();
+                if (object.id != null)
+                    message.id = String(object.id);
+                if (object.student_account_id != null)
+                    message.student_account_id = String(object.student_account_id);
+                if (object.amount_jpy != null)
+                    message.amount_jpy = Number(object.amount_jpy);
+                return message;
+            };
+    
+            /**
+             * Creates a plain object from a MonthlyPayment message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof main.MonthlyPayment
+             * @static
+             * @param {main.MonthlyPayment} message MonthlyPayment
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            MonthlyPayment.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.id = "";
+                    object.student_account_id = "";
+                    object.amount_jpy = 0;
+                }
+                if (message.id != null && message.hasOwnProperty("id"))
+                    object.id = message.id;
+                if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
+                    object.student_account_id = message.student_account_id;
+                if (message.amount_jpy != null && message.hasOwnProperty("amount_jpy"))
+                    object.amount_jpy = options.json && !isFinite(message.amount_jpy) ? String(message.amount_jpy) : message.amount_jpy;
+                return object;
+            };
+    
+            /**
+             * Converts this MonthlyPayment to JSON.
+             * @function toJSON
+             * @memberof main.MonthlyPayment
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            MonthlyPayment.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            return MonthlyPayment;
         })();
     
         main.MonthlyUsage = (function() {

@@ -3,23 +3,23 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 /* eslint-disable require-jsdoc */
-import { PrimaryAsk, PrimaryAskFirestore } from '@local/common';
 import * as admin from 'firebase-admin';
+import { MarketStatus, MarketStatusFirestore } from '@local/common';
 
-export * from './controller';
+export * from './controller'
 
 export function collection() {
   return admin
     .firestore()
-    .collection(PrimaryAskFirestore.collectionPath())
-    .withConverter(PrimaryAskFirestore.converter as any);
+    .collection(MarketStatusFirestore.collectionPath())
+    .withConverter(MarketStatusFirestore.converter as any);
 }
 
 export function collectionGroup() {
   return admin
     .firestore()
-    .collectionGroup(PrimaryAskFirestore.collectionID)
-    .withConverter(PrimaryAskFirestore.converter as any);
+    .collectionGroup(MarketStatusFirestore.collectionID)
+    .withConverter(MarketStatusFirestore.converter as any);
 }
 
 export function document(id?: string) {
@@ -30,25 +30,18 @@ export function document(id?: string) {
 export async function get(id: string) {
   return await document(id)
     .get()
-    .then((snapshot) => snapshot.data() as PrimaryAsk);
+    .then((snapshot) => snapshot.data() as MarketStatus);
 }
 
-export async function listLastMonth() {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const lastMonth = new Date();
-  lastMonth.setMonth(lastMonth.getMonth() - 1);
-  lastMonth.setHours(0, 0, 0, 0);
-
+export async function list() {
   return await collection()
-    .orderBy('createdAt', 'desc')
-    .where('createdAt', '<', today)
-    .where('createdAt', '>', lastMonth)
     .get()
-    .then((snapshot) => snapshot.docs.map((doc) => doc.data() as PrimaryAsk));
+    .then((snapshot) => snapshot.docs.map((doc) => doc.data() as MarketStatus));
 }
 
-export async function create(data: PrimaryAsk) {
+export async function create(
+  data: MarketStatus
+) {
   const doc = document();
   data.id = doc.id;
 
@@ -59,7 +52,9 @@ export async function create(data: PrimaryAsk) {
   await doc.set(data);
 }
 
-export async function update(data: PrimaryAsk) {
+export async function update(
+  data: MarketStatus
+) {
   const now = admin.firestore.Timestamp.now();
   data.updated_at = now;
 

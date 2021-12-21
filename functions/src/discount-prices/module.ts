@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 /* eslint-disable require-jsdoc */
-import { NormalBidHistory, NormalBidHistoryFirestore } from '@local/common';
+import { DiscountPrice, DiscountPriceFirestore } from '@local/common';
 import * as admin from 'firebase-admin';
 
 export * from './controller';
@@ -11,15 +11,15 @@ export * from './controller';
 export function collection() {
   return admin
     .firestore()
-    .collection(NormalBidHistoryFirestore.collectionPath())
-    .withConverter(NormalBidHistoryFirestore.converter as any);
+    .collection(DiscountPriceFirestore.collectionPath())
+    .withConverter(DiscountPriceFirestore.converter as any);
 }
 
 export function collectionGroup() {
   return admin
     .firestore()
-    .collectionGroup(NormalBidHistoryFirestore.collectionID)
-    .withConverter(NormalBidHistoryFirestore.converter as any);
+    .collectionGroup(DiscountPriceFirestore.collectionID)
+    .withConverter(DiscountPriceFirestore.converter as any);
 }
 
 export function document(id?: string) {
@@ -30,33 +30,23 @@ export function document(id?: string) {
 export async function get(id: string) {
   return await document(id)
     .get()
-    .then((snapshot) => snapshot.data() as NormalBidHistory);
+    .then((snapshot) => snapshot.data() as DiscountPrice);
 }
 
 export async function list() {
   return await collection()
     .get()
-    .then((snapshot) => snapshot.docs.map((doc) => doc.data() as NormalBidHistory));
+    .then((snapshot) => snapshot.docs.map((doc) => doc.data() as DiscountPrice));
 }
 
-export async function listLastMonth(studentAccountID: string) {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const lastMonth = new Date();
-  lastMonth.setDate(lastMonth.getDate() + 1);
-  lastMonth.setMonth(lastMonth.getMonth() - 1);
-  lastMonth.setHours(0, 0, 0, 0);
-
+export async function listLatest() {
   return await collection()
     .orderBy('createdAt', 'desc')
-    .where('account_id', '==', studentAccountID)
-    .where('createdAt', '<', today)
-    .where('createdAt', '>', lastMonth)
     .get()
-    .then((snapshot) => snapshot.docs.map((doc) => doc.data() as NormalBidHistory));
+    .then((snapshot) => snapshot.docs.map((doc) => doc.data() as DiscountPrice));
 }
 
-export async function create(data: NormalBidHistory) {
+export async function create(data: DiscountPrice) {
   const doc = document();
   data.id = doc.id;
 
@@ -67,7 +57,7 @@ export async function create(data: NormalBidHistory) {
   await doc.set(data);
 }
 
-export async function update(data: NormalBidHistory) {
+export async function update(data: DiscountPrice) {
   const now = admin.firestore.Timestamp.now();
   data.updated_at = now;
 

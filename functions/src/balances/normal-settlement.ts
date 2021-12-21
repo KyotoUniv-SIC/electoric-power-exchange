@@ -1,7 +1,8 @@
 /* eslint-disable camelcase */
 import { balance } from '.';
+import { market_status } from '../market-statuses';
 import { normal_settlement } from '../normal-settlements';
-import { Balance } from '@local/common';
+import { Balance, MarketStatus } from '@local/common';
 
 normal_settlement.onCreateHandler.push(async (snapshot, context) => {
   const data = snapshot.data()!;
@@ -23,4 +24,11 @@ normal_settlement.onCreateHandler.push(async (snapshot, context) => {
       amount_spx: sellerBalance[0].amount_spx,
     }),
   );
+
+  const marketStatus = await market_status.list();
+  if (!marketStatus.length) {
+    await market_status.create(new MarketStatus({ is_finished_normal: true, is_finished_renewable: false }));
+  } else {
+    await market_status.update(new MarketStatus({ is_finished_normal: true }));
+  }
 });

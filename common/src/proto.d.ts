@@ -717,126 +717,292 @@ export namespace main {
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a History. */
-    interface IHistory {
+    /** Properties of a DailyUsage. */
+    interface IDailyUsage {
 
-        /** History id */
+        /** DailyUsage id */
         id?: (string|null);
 
-        /** History date */
-        date?: (google.protobuf.ITimestamp|null);
+        /** DailyUsage student_account_id */
+        student_account_id?: (string|null);
 
-        /** History amount */
-        amount?: (number|null);
-
-        /** History price */
-        price?: (number|null);
-
-        /** History contract_price */
-        contract_price?: (number|null);
-
-        /** History is_accepted */
-        is_accepted?: (boolean|null);
-
-        /** History is_solar */
-        is_solar?: (boolean|null);
-
-        /** History is_bid */
-        is_bid?: (boolean|null);
+        /** DailyUsage amount_kwh */
+        amount_kwh?: (number|null);
     }
 
-    /** Represents a History. */
-    class History implements IHistory {
+    /** Represents a DailyUsage. */
+    class DailyUsage implements IDailyUsage {
 
         /**
-         * Constructs a new History.
+         * Constructs a new DailyUsage.
          * @param [properties] Properties to set
          */
-        constructor(properties?: main.IHistory);
+        constructor(properties?: main.IDailyUsage);
 
-        /** History id. */
+        /** DailyUsage id. */
         public id: string;
 
-        /** History date. */
-        public date?: (google.protobuf.ITimestamp|null);
+        /** DailyUsage student_account_id. */
+        public student_account_id: string;
 
-        /** History amount. */
-        public amount: number;
-
-        /** History price. */
-        public price: number;
-
-        /** History contract_price. */
-        public contract_price: number;
-
-        /** History is_accepted. */
-        public is_accepted: boolean;
-
-        /** History is_solar. */
-        public is_solar: boolean;
-
-        /** History is_bid. */
-        public is_bid: boolean;
+        /** DailyUsage amount_kwh. */
+        public amount_kwh: number;
 
         /**
-         * Encodes the specified History message. Does not implicitly {@link main.History.verify|verify} messages.
-         * @param message History message or plain object to encode
+         * Encodes the specified DailyUsage message. Does not implicitly {@link main.DailyUsage.verify|verify} messages.
+         * @param message DailyUsage message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encode(message: main.IHistory, writer?: $protobuf.Writer): $protobuf.Writer;
+        public static encode(message: main.IDailyUsage, writer?: $protobuf.Writer): $protobuf.Writer;
 
         /**
-         * Encodes the specified History message, length delimited. Does not implicitly {@link main.History.verify|verify} messages.
-         * @param message History message or plain object to encode
+         * Encodes the specified DailyUsage message, length delimited. Does not implicitly {@link main.DailyUsage.verify|verify} messages.
+         * @param message DailyUsage message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encodeDelimited(message: main.IHistory, writer?: $protobuf.Writer): $protobuf.Writer;
+        public static encodeDelimited(message: main.IDailyUsage, writer?: $protobuf.Writer): $protobuf.Writer;
 
         /**
-         * Decodes a History message from the specified reader or buffer.
+         * Decodes a DailyUsage message from the specified reader or buffer.
          * @param reader Reader or buffer to decode from
          * @param [length] Message length if known beforehand
-         * @returns History
+         * @returns DailyUsage
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.History;
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.DailyUsage;
 
         /**
-         * Decodes a History message from the specified reader or buffer, length delimited.
+         * Decodes a DailyUsage message from the specified reader or buffer, length delimited.
          * @param reader Reader or buffer to decode from
-         * @returns History
+         * @returns DailyUsage
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.History;
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.DailyUsage;
 
         /**
-         * Verifies a History message.
+         * Verifies a DailyUsage message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
         public static verify(message: { [k: string]: any }): (string|null);
 
         /**
-         * Creates a History message from a plain object. Also converts values to their respective internal types.
+         * Creates a DailyUsage message from a plain object. Also converts values to their respective internal types.
          * @param object Plain object
-         * @returns History
+         * @returns DailyUsage
          */
-        public static fromObject(object: { [k: string]: any }): main.History;
+        public static fromObject(object: { [k: string]: any }): main.DailyUsage;
 
         /**
-         * Creates a plain object from a History message. Also converts values to other types if specified.
-         * @param message History
+         * Creates a plain object from a DailyUsage message. Also converts values to other types if specified.
+         * @param message DailyUsage
          * @param [options] Conversion options
          * @returns Plain object
          */
-        public static toObject(message: main.History, options?: $protobuf.IConversionOptions): { [k: string]: any };
+        public static toObject(message: main.DailyUsage, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
         /**
-         * Converts this History to JSON.
+         * Converts this DailyUsage to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a DiscountPrice. */
+    interface IDiscountPrice {
+
+        /** DiscountPrice id */
+        id?: (string|null);
+
+        /** DiscountPrice price */
+        price?: (number|null);
+
+        /** DiscountPrice amount_purchase */
+        amount_purchase?: (number|null);
+
+        /** DiscountPrice amount_sale */
+        amount_sale?: (number|null);
+    }
+
+    /** Represents a DiscountPrice. */
+    class DiscountPrice implements IDiscountPrice {
+
+        /**
+         * Constructs a new DiscountPrice.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.IDiscountPrice);
+
+        /** DiscountPrice id. */
+        public id: string;
+
+        /** DiscountPrice price. */
+        public price: number;
+
+        /** DiscountPrice amount_purchase. */
+        public amount_purchase: number;
+
+        /** DiscountPrice amount_sale. */
+        public amount_sale: number;
+
+        /**
+         * Encodes the specified DiscountPrice message. Does not implicitly {@link main.DiscountPrice.verify|verify} messages.
+         * @param message DiscountPrice message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.IDiscountPrice, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified DiscountPrice message, length delimited. Does not implicitly {@link main.DiscountPrice.verify|verify} messages.
+         * @param message DiscountPrice message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.IDiscountPrice, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a DiscountPrice message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns DiscountPrice
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.DiscountPrice;
+
+        /**
+         * Decodes a DiscountPrice message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns DiscountPrice
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.DiscountPrice;
+
+        /**
+         * Verifies a DiscountPrice message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a DiscountPrice message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns DiscountPrice
+         */
+        public static fromObject(object: { [k: string]: any }): main.DiscountPrice;
+
+        /**
+         * Creates a plain object from a DiscountPrice message. Also converts values to other types if specified.
+         * @param message DiscountPrice
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.DiscountPrice, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this DiscountPrice to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a MarketStatus. */
+    interface IMarketStatus {
+
+        /** MarketStatus id */
+        id?: (string|null);
+
+        /** MarketStatus is_finished_normal */
+        is_finished_normal?: (boolean|null);
+
+        /** MarketStatus is_finished_renewable */
+        is_finished_renewable?: (boolean|null);
+    }
+
+    /** Represents a MarketStatus. */
+    class MarketStatus implements IMarketStatus {
+
+        /**
+         * Constructs a new MarketStatus.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.IMarketStatus);
+
+        /** MarketStatus id. */
+        public id: string;
+
+        /** MarketStatus is_finished_normal. */
+        public is_finished_normal: boolean;
+
+        /** MarketStatus is_finished_renewable. */
+        public is_finished_renewable: boolean;
+
+        /**
+         * Encodes the specified MarketStatus message. Does not implicitly {@link main.MarketStatus.verify|verify} messages.
+         * @param message MarketStatus message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.IMarketStatus, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified MarketStatus message, length delimited. Does not implicitly {@link main.MarketStatus.verify|verify} messages.
+         * @param message MarketStatus message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.IMarketStatus, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a MarketStatus message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MarketStatus
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.MarketStatus;
+
+        /**
+         * Decodes a MarketStatus message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MarketStatus
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.MarketStatus;
+
+        /**
+         * Verifies a MarketStatus message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MarketStatus message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MarketStatus
+         */
+        public static fromObject(object: { [k: string]: any }): main.MarketStatus;
+
+        /**
+         * Creates a plain object from a MarketStatus message. Also converts values to other types if specified.
+         * @param message MarketStatus
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.MarketStatus, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MarketStatus to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -956,6 +1122,101 @@ export namespace main {
 
         /**
          * Converts this Message to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a MonthlyPayment. */
+    interface IMonthlyPayment {
+
+        /** MonthlyPayment id */
+        id?: (string|null);
+
+        /** MonthlyPayment student_account_id */
+        student_account_id?: (string|null);
+
+        /** MonthlyPayment amount_jpy */
+        amount_jpy?: (number|null);
+    }
+
+    /** Represents a MonthlyPayment. */
+    class MonthlyPayment implements IMonthlyPayment {
+
+        /**
+         * Constructs a new MonthlyPayment.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.IMonthlyPayment);
+
+        /** MonthlyPayment id. */
+        public id: string;
+
+        /** MonthlyPayment student_account_id. */
+        public student_account_id: string;
+
+        /** MonthlyPayment amount_jpy. */
+        public amount_jpy: number;
+
+        /**
+         * Encodes the specified MonthlyPayment message. Does not implicitly {@link main.MonthlyPayment.verify|verify} messages.
+         * @param message MonthlyPayment message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.IMonthlyPayment, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified MonthlyPayment message, length delimited. Does not implicitly {@link main.MonthlyPayment.verify|verify} messages.
+         * @param message MonthlyPayment message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.IMonthlyPayment, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a MonthlyPayment message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MonthlyPayment
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.MonthlyPayment;
+
+        /**
+         * Decodes a MonthlyPayment message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MonthlyPayment
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.MonthlyPayment;
+
+        /**
+         * Verifies a MonthlyPayment message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MonthlyPayment message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MonthlyPayment
+         */
+        public static fromObject(object: { [k: string]: any }): main.MonthlyPayment;
+
+        /**
+         * Creates a plain object from a MonthlyPayment message. Also converts values to other types if specified.
+         * @param message MonthlyPayment
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.MonthlyPayment, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MonthlyPayment to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
