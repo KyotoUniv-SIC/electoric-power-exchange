@@ -3,23 +3,23 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 /* eslint-disable require-jsdoc */
-import { Balance, BalanceFirestore } from '@local/common';
 import * as admin from 'firebase-admin';
+import { MonthlyPayment, MonthlyPaymentFirestore } from '@local/common';
 
-export * from './controller';
+export * from './controller'
 
 export function collection(studentAccountID: string) {
   return admin
     .firestore()
-    .collection(BalanceFirestore.collectionPath(studentAccountID))
-    .withConverter(BalanceFirestore.converter as any);
+    .collection(MonthlyPaymentFirestore.collectionPath(studentAccountID))
+    .withConverter(MonthlyPaymentFirestore.converter as any);
 }
 
 export function collectionGroup() {
   return admin
     .firestore()
-    .collectionGroup(BalanceFirestore.collectionID)
-    .withConverter(BalanceFirestore.converter as any);
+    .collectionGroup(MonthlyPaymentFirestore.collectionID)
+    .withConverter(MonthlyPaymentFirestore.converter as any);
 }
 
 export function document(studentAccountID: string, id?: string) {
@@ -30,23 +30,18 @@ export function document(studentAccountID: string, id?: string) {
 export async function get(studentAccountID: string, id: string) {
   return await document(studentAccountID, id)
     .get()
-    .then((snapshot) => snapshot.data() as Balance);
-}
-
-export async function getLatest(studentAccountID: string) {
-  return await collection(studentAccountID)
-    .orderBy('createdAt', 'desc')
-    .get()
-    .then((snapshot) => snapshot.docs.map((doc) => doc.data() as Balance));
+    .then((snapshot) => snapshot.data() as MonthlyPayment);
 }
 
 export async function list(studentAccountID: string) {
   return await collection(studentAccountID)
     .get()
-    .then((snapshot) => snapshot.docs.map((doc) => doc.data() as Balance));
+    .then((snapshot) => snapshot.docs.map((doc) => doc.data() as MonthlyPayment));
 }
 
-export async function create(data: Balance) {
+export async function create(
+  data: MonthlyPayment
+) {
   const doc = document(data.student_account_id);
   data.id = doc.id;
 
@@ -57,11 +52,11 @@ export async function create(data: Balance) {
   await doc.set(data);
 }
 
-export async function update(data: Balance) {
+export async function update(
+  data: MonthlyPayment
+) {
   const now = admin.firestore.Timestamp.now();
   data.updated_at = now;
-  const doc = document(data.student_account_id);
-  data.id = doc.id;
 
   await document(data.student_account_id, data.id).update(data);
 }

@@ -5,8 +5,9 @@ import "firebase_rules_options.proto";
 
 option (google.firebase.rules.firebase_rules).full_package_names = true;
 
-message MonthlyUsage {
+message DiscountPrice {
   string id = 1;
-  string student_account_id = 2;
-  double amount_kwh = 3;
+  double price = 2;
+  double amount_purchase = 3;
+  double amount_sale = 4;
 }

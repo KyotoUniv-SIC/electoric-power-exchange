@@ -3,10 +3,10 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 /* eslint-disable require-jsdoc */
-import * as admin from 'firebase-admin';
 import { NormalAskHistory, NormalAskHistoryFirestore } from '@local/common';
+import * as admin from 'firebase-admin';
 
-export * from './controller'
+export * from './controller';
 
 export function collection() {
   return admin
@@ -39,9 +39,24 @@ export async function list() {
     .then((snapshot) => snapshot.docs.map((doc) => doc.data() as NormalAskHistory));
 }
 
-export async function create(
-  data: NormalAskHistory
-) {
+export async function listLastMonth(studentAccountID: string) {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const lastMonth = new Date();
+  lastMonth.setDate(lastMonth.getDate() + 1);
+  lastMonth.setMonth(lastMonth.getMonth() - 1);
+  lastMonth.setHours(0, 0, 0, 0);
+
+  return await collection()
+    .orderBy('createdAt', 'desc')
+    .where('account_id', '==', studentAccountID)
+    .where('createdAt', '<', today)
+    .where('createdAt', '>', lastMonth)
+    .get()
+    .then((snapshot) => snapshot.docs.map((doc) => doc.data() as NormalAskHistory));
+}
+
+export async function create(data: NormalAskHistory) {
   const doc = document();
   data.id = doc.id;
 
@@ -52,9 +67,7 @@ export async function create(
   await doc.set(data);
 }
 
-export async function update(
-  data: NormalAskHistory
-) {
+export async function update(data: NormalAskHistory) {
   const now = admin.firestore.Timestamp.now();
   data.updated_at = now;
 
