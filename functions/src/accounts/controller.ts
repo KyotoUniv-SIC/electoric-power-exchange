@@ -9,9 +9,10 @@ export const onDeleteHandler: FirestoreDeleteHandler[] = [];
 
 export const onCreate = functions.firestore.document(AccountFirestore.virtualPath).onCreate(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
+    console.log('hoge1');
     return;
   }
-
+  console.log('hoge2');
   for (const handler of onCreateHandler) {
     try {
       await handler(snapshot, context);
@@ -19,6 +20,7 @@ export const onCreate = functions.firestore.document(AccountFirestore.virtualPat
       console.error(e);
     }
   }
+  console.log('hoge3');
 });
 
 export const onUpdate = functions.firestore.document(AccountFirestore.virtualPath).onUpdate(async (snapshot, context) => {
