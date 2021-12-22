@@ -16,6 +16,7 @@ export class CreateComponent implements OnInit {
     this.auth.signup(
       {
         type: 'email',
+        name: $event.name,
         email: $event.mail,
         password: $event.password,
       },
