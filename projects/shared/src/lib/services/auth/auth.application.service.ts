@@ -43,7 +43,7 @@ export class AuthApplicationService {
     data: { type: 'email'; name: string; email: string; password: string } | { type: 'google' } | { type: 'facebook' },
     name: string,
   ) {
-    const dialogRef = this.loadingDialog.open('サインアップしています');
+    const firstDialogRef = this.loadingDialog.open('サインアップしています');
 
     try {
       await this.authService.signUp(
@@ -99,10 +99,10 @@ export class AuthApplicationService {
       return;
     } finally {
       updateProfile(this.auth.currentUser!, { displayName: name });
-      dialogRef.close();
+      firstDialogRef.close();
     }
 
-    const dialogRef2 = this.loadingDialog.open('アカウントを確認するためのメールを送信しています');
+    const SecondDialogRef = this.loadingDialog.open('アカウントを確認するためのメールを送信しています');
     try {
       await sendEmailVerification(this.auth.currentUser!);
     } catch (error) {
@@ -124,7 +124,7 @@ export class AuthApplicationService {
           break;
       }
     } finally {
-      dialogRef2.close();
+      SecondDialogRef.close();
     }
 
     this.location.back();
