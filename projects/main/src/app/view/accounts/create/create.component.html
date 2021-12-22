@@ -1,6 +1,29 @@
 <div class="w-full lg:mx-auto lg:w-1/3 lg:mt-10">
   <mat-card>
     <mat-card-title>Sign Up</mat-card-title>
+    <div class="flex my-10">
+      <div class="flex-auto"></div>
+      <div class="flex-auto">
+        <img mat-card-md-image src="assets/img/sdgs-circle.svg" alt="SDGs" />
+      </div>
+      <div class="flex-auto">
+        <img mat-card-md-image src="assets/img/sdgs-7.svg" alt="SDGs-7" />
+      </div>
+    </div>
+    <mat-card-title>EDISON (Energy DIstribution SystemON KyotoUniv-SIC)</mat-card-title>
+    <mat-card-content>
+      <p>
+        EDISON is Kyoto University's new electricity management system that allows users to trade their electricity usage rights per Kwh as
+        tokens.
+      </p>
+      <p>
+        Instead of paying an electricity fee based on the amount of electricity used at the end of the month, users can trade the
+        electricity usage right itself as a token.
+      </p>
+      <p>By creating an account, you have access to all functions, including transactions.</p>
+    </mat-card-content>
+    <br />
+    <mat-card-title>Create Account</mat-card-title>
     <form #formRef="ngForm" (submit)="onSubmit(nameRef.value, mailRef.value, passwordRef.value, passwordConfirmationRef.value)">
       <mat-form-field hintLabel="Min 4 characters" class="w-full">
         <mat-label>Input Name</mat-label>
