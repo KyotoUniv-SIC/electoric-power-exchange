@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Balance, proto } from '@local/common';
 import { ChartType } from 'chart.js';
-import { balance } from 'functions/src/balances';
 import { Label, MultiDataSet } from 'ng2-charts';
 
 @Component({
