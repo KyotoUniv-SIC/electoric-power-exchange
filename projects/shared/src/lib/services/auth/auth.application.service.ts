@@ -10,6 +10,7 @@ import {
   updateEmail,
   updatePassword,
   sendEmailVerification,
+  updateProfile,
 } from '@angular/fire/auth';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -38,7 +39,10 @@ export class AuthApplicationService {
     }
   }
 
-  async signup(data: { type: 'email'; email: string; password: string } | { type: 'google' } | { type: 'facebook' }, name: string) {
+  async signup(
+    data: { type: 'email'; name: string; email: string; password: string } | { type: 'google' } | { type: 'facebook' },
+    name: string,
+  ) {
     const dialogRef = this.loadingDialog.open('サインアップしています');
 
     try {
@@ -94,6 +98,7 @@ export class AuthApplicationService {
       }
       return;
     } finally {
+      updateProfile(this.auth.currentUser!, { displayName: name });
       dialogRef.close();
     }
 
