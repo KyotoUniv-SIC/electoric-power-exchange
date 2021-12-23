@@ -7,7 +7,12 @@ export const onCreateHandler: FirestoreCreateHandler[] = [];
 export const onUpdateHandler: FirestoreUpdateHandler[] = [];
 export const onDeleteHandler: FirestoreDeleteHandler[] = [];
 
-export const onCreate = functions.firestore.document(AccountFirestore.virtualPath).onCreate(async (snapshot, context) => {
+console.log('hoge0');
+module.exports.helloWorld = functions.https.onRequest((req, res) => {
+  console.log('Hello World');
+});
+
+module.exports.onCreate = functions.firestore.document(AccountFirestore.virtualPath).onCreate(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     console.log('hoge1');
     return;
@@ -23,7 +28,7 @@ export const onCreate = functions.firestore.document(AccountFirestore.virtualPat
   console.log('hoge3');
 });
 
-export const onUpdate = functions.firestore.document(AccountFirestore.virtualPath).onUpdate(async (snapshot, context) => {
+module.exports.onUpdate = functions.firestore.document(AccountFirestore.virtualPath).onUpdate(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     return;
   }
@@ -37,7 +42,7 @@ export const onUpdate = functions.firestore.document(AccountFirestore.virtualPat
   }
 });
 
-export const onDelete = functions.firestore.document(AccountFirestore.virtualPath).onDelete(async (snapshot, context) => {
+module.exports.onDelete = functions.firestore.document(AccountFirestore.virtualPath).onDelete(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     return;
   }

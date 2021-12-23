@@ -3,6 +3,7 @@ import { student_account } from '.';
 import { account } from '../accounts';
 import { Account, proto, StudentAccount } from '@local/common';
 
+console.log('account func');
 account.onCreateHandler.push(async (snapshot, context) => {
   const data = snapshot.data()!;
   const account = new Account(data, data.created_at, data.updated_at);
