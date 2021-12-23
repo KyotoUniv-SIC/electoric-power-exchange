@@ -10,6 +10,7 @@ import {
   updateEmail,
   updatePassword,
   sendEmailVerification,
+  updateProfile,
 } from '@angular/fire/auth';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -38,8 +39,11 @@ export class AuthApplicationService {
     }
   }
 
-  async signup(data: { type: 'email'; email: string; password: string } | { type: 'google' } | { type: 'facebook' }, name: string) {
-    const dialogRef = this.loadingDialog.open('サインアップしています');
+  async signup(
+    data: { type: 'email'; name: string; email: string; password: string } | { type: 'google' } | { type: 'facebook' },
+    name: string,
+  ) {
+    const firstDialogRef = this.loadingDialog.open('サインアップしています');
 
     try {
       await this.authService.signUp(
@@ -94,10 +98,11 @@ export class AuthApplicationService {
       }
       return;
     } finally {
-      dialogRef.close();
+      updateProfile(this.auth.currentUser!, { displayName: name });
+      firstDialogRef.close();
     }
 
-    const dialogRef2 = this.loadingDialog.open('アカウントを確認するためのメールを送信しています');
+    const SecondDialogRef = this.loadingDialog.open('アカウントを確認するためのメールを送信しています');
     try {
       await sendEmailVerification(this.auth.currentUser!);
     } catch (error) {
@@ -119,7 +124,7 @@ export class AuthApplicationService {
           break;
       }
     } finally {
-      dialogRef2.close();
+      SecondDialogRef.close();
     }
 
     this.location.back();
