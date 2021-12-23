@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { proto } from '@local/common';
+import { Balance, proto } from '@local/common';
 import { ChartType } from 'chart.js';
 import { Label, MultiDataSet } from 'ng2-charts';
 
@@ -10,20 +10,19 @@ import { Label, MultiDataSet } from 'ng2-charts';
 })
 export class DashboardComponent implements OnInit {
   @Input()
-  account?: proto.main.StudentAccount | null;
+  balances?: Balance | null;
   @Input()
-  usage?: proto.main.MonthlyUsage | null;
+  totalUsage?: number | null;
   @Input()
-  balances?: any | null;
+  usages?: number[] | null;
+  @Input()
+  usagesPreviousYear?: number[] | null;
 
-  a: [10, 30, 45] | undefined;
-  doughnutChartLabels: Label[] = ['jQuey', 'React', 'Vue', 'Angular'];
-  doughnutChartData: MultiDataSet = [[
-    40, 30, 25, 5],
-  ];
+  doughnutChartLabels: Label[] = ['Utility Power', 'Solar Power'];
+  doughnutChartData: MultiDataSet = [[this.balances?.amount_upx, this.balances?.amount_spx]];
   doughnutChartType: ChartType = 'doughnut';
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 }

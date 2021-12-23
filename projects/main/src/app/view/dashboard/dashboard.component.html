@@ -1,9 +1,11 @@
-<div class="w-full lg:mx-auto lg:w-1/3 lg:mt-10 ">
+<div class="w-full lg:mx-auto lg:w-1/3 lg:mt-10">
   <mat-card class="mt-10 mb-20">
     <mat-card-title>Current Usage</mat-card-title>
-    <p>Total Usage</p>
-    <p class="font-bold">1926.7</p>
-    <p>kWh</p>
+    <mat-card-content>
+      <p>Total Usage</p>
+      <p class="font-bold text-xl text-purple-800">{{ totalUsage }}</p>
+      <p>kWh</p>
+    </mat-card-content>
   </mat-card>
   <mat-card class="mb-20">
     <mat-card-title>Account Balance</mat-card-title>
@@ -11,19 +13,19 @@
   </mat-card>
   <mat-card class="mb-20">
     <mat-card-title>Usage Ranking</mat-card-title>
-    <p>Your ranking</p>
-    <p class="font-bold text-xl">1926.7</p>
-    <p>#1 Taro Y. 230kw </p>
-    <p>#2 Karo Y. 220kw</p>
+    <mat-card-content>
+      <p>Your ranking</p>
+      <p class="font-bold text-xl text-purple-800">1926.7</p>
+      <p>#1 Taro Y. 230kw</p>
+      <p>#2 Karo Y. 220kw</p>
+    </mat-card-content>
   </mat-card>
   <mat-card class="mb-20">
     <mat-card-title>Energy Sources</mat-card-title>
     <mat-card-content>Student</mat-card-content>
-    <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType">
-    </canvas>
+    <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"> </canvas>
     <mat-card-content>Total</mat-card-content>
-    <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType">
-    </canvas>
+    <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"> </canvas>
   </mat-card>
   <mat-card class="mb-20">
     <mat-card-title>Notifications</mat-card-title>
