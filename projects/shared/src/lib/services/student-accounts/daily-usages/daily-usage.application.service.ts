@@ -6,7 +6,9 @@ import { Injectable } from '@angular/core';
 })
 export class DailyUsageApplicationService {
   constructor(private readonly dailyUsage: DailyUsageService) {}
-
+  list(uid: string) {
+    return this.dailyUsage.list(uid);
+  }
   list$(uid: string) {
     return this.dailyUsage.list$(uid);
   }

@@ -9,7 +9,9 @@
   </mat-card>
   <mat-card class="mb-20">
     <mat-card-title>Account Balance</mat-card-title>
-    <button mat-flat-button color="accent">Buy More Tokens</button>
+    <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType">
+    </canvas>
+    <button mat-flat-button routerLink="/txs/buy" color="accent">Buy More Tokens</button>
   </mat-card>
   <mat-card class="mb-20">
     <mat-card-title>Usage Ranking</mat-card-title>
@@ -23,9 +25,11 @@
   <mat-card class="mb-20">
     <mat-card-title>Energy Sources</mat-card-title>
     <mat-card-content>Student</mat-card-content>
-    <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"> </canvas>
+    <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType">
+    </canvas>
     <mat-card-content>Total</mat-card-content>
-    <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"> </canvas>
+    <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType">
+    </canvas>
   </mat-card>
   <mat-card class="mb-20">
     <mat-card-title>Notifications</mat-card-title>
@@ -33,6 +37,10 @@
   </mat-card>
   <mat-card class="mb-20">
     <mat-card-title>Monthly Energy Consumption</mat-card-title>
+    <p>kWh</p>
+    <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+      [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
+    </canvas>
   </mat-card>
   <!-- <mat-card class="mb-20">
     <mat-card-title>Transaction Menu</mat-card-title>

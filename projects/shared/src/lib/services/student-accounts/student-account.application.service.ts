@@ -7,6 +7,10 @@ import { Injectable } from '@angular/core';
 export class StudentAccountApplicationService {
   constructor(private readonly studentAccount: StudentAccountService) {}
 
+  list() {
+    return this.studentAccount.list();
+  }
+
   list$() {
     return this.studentAccount.list$();
   }

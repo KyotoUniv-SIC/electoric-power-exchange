@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Balance, proto } from '@local/common';
-import { ChartType } from 'chart.js';
+import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Label, MultiDataSet } from 'ng2-charts';
 
 @Component({
@@ -19,10 +19,44 @@ export class DashboardComponent implements OnInit {
   usagesPreviousYear?: number[] | null;
 
   doughnutChartLabels: Label[] = ['Utility Power', 'Solar Power'];
-  doughnutChartData: MultiDataSet = [[this.balances?.amount_upx, this.balances?.amount_spx]];
+  doughnutChartData: MultiDataSet = [[
+    // this.balances?.amount_upx, this.balances?.amount_spx
+    100, 100
+  ]];
   doughnutChartType: ChartType = 'doughnut';
 
-  constructor() {}
+  barChartOptions: ChartOptions = {
+    responsive: true,
+  };
+  barChartLabels: Label[] = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec'
 
-  ngOnInit(): void {}
+  ];
+  barChartType: ChartType = 'bar';
+  barChartLegend = true;
+  barChartPlugins = [];
+
+  barChartData: ChartDataSets[] = [
+    { data: [100, 200, 70, 600, 450, 300, 50, 533, 66, 54], label: "This year" },
+    { data: [33, 100, 200, 70, 600, 450, 300, 50, 533, 66, 54, 554], label: "Last year" }
+  ];
+
+  constructor() { }
+
+  ngOnInit(): void { }
+
 }
+
+
+

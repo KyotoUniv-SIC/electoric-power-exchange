@@ -2,12 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { getAuth } from '@angular/fire/auth';
 import { Timestamp } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
-import { Balance } from '@local/common';
+import { Balance, User } from '@local/common';
 import { BalanceApplicationService } from 'projects/shared/src/lib/services/student-accounts/balances/balance.application.service';
 import { DailyUsageApplicationService } from 'projects/shared/src/lib/services/student-accounts/daily-usages/daily-usage.application.service';
 import { StudentAccountApplicationService } from 'projects/shared/src/lib/services/student-accounts/student-account.application.service';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, mergeMap } from 'rxjs/operators';
+
+export interface Ranking {
+  id: string;
+  name: string;
+  amount: number;
+}
 
 @Component({
   selector: 'app-dashboard',
@@ -16,12 +22,14 @@ import { map } from 'rxjs/operators';
 })
 export class DashboardComponent implements OnInit {
   balances$: Observable<Balance> | undefined;
+  rankings$: Observable<Ranking> | undefined;
   totalUsage$: Observable<number> | undefined;
   usages$: Observable<number[]> | undefined;
   usagesPreviousYear$: Observable<number[]> | undefined;
 
   constructor(
     private route: ActivatedRoute,
+    private readonly studentsApp: StudentAccountApplicationService,
     private readonly balanceApp: BalanceApplicationService,
     private readonly dailyUsageApp: DailyUsageApplicationService,
   ) {
@@ -29,6 +37,24 @@ export class DashboardComponent implements OnInit {
     if (!accountID) {
       return;
     }
+    const users$ = this.studentsApp.list$();
+    const a = users$.pipe(
+      mergeMap((users) =>
+        Promise.all(
+          users.map((user) =>
+            this.dailyUsageApp.list(user.id).then((usages) => {
+              let count = 0;
+              for (const usage of usages) {
+                if ((usage.created_at as Timestamp).toDate() > first) {
+                  count += usage.amount_kwh;
+                }
+              }
+              return { id: user.id, name: user.name, amount: count };
+            }),
+          ),
+        ),
+      ),
+    );
 
     this.balances$ = this.balanceApp.list$(accountID).pipe(map((balances) => balances[0]));
 
