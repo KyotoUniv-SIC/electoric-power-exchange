@@ -8,9 +8,6 @@ export const onUpdateHandler: FirestoreUpdateHandler[] = [];
 export const onDeleteHandler: FirestoreDeleteHandler[] = [];
 
 console.log('hoge0');
-module.exports.helloWorld = functions.https.onRequest((req, res) => {
-  console.log('Hello World');
-});
 
 module.exports.onCreate = functions.firestore.document(AccountFirestore.virtualPath).onCreate(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
