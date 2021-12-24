@@ -1,13 +1,13 @@
 import { FirestoreCreateHandler, FirestoreDeleteHandler, FirestoreUpdateHandler } from '../triggers';
 import { isTriggeredOnce } from '../triggers/module';
-import { AccountFirestore } from '@local/common';
+import { NormalAskFirestore } from '@local/common';
 import * as functions from 'firebase-functions';
 
 export const onCreateHandler: FirestoreCreateHandler[] = [];
 export const onUpdateHandler: FirestoreUpdateHandler[] = [];
 export const onDeleteHandler: FirestoreDeleteHandler[] = [];
 
-module.exports.onCreate = functions.firestore.document(AccountFirestore.virtualPath).onCreate(async (snapshot, context) => {
+module.exports.onCreate = functions.firestore.document(NormalAskFirestore.virtualPath).onCreate(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     return;
   }
@@ -21,7 +21,7 @@ module.exports.onCreate = functions.firestore.document(AccountFirestore.virtualP
   }
 });
 
-module.exports.onUpdate = functions.firestore.document(AccountFirestore.virtualPath).onUpdate(async (snapshot, context) => {
+module.exports.onUpdate = functions.firestore.document(NormalAskFirestore.virtualPath).onUpdate(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     return;
   }
@@ -35,7 +35,7 @@ module.exports.onUpdate = functions.firestore.document(AccountFirestore.virtualP
   }
 });
 
-module.exports.onDelete = functions.firestore.document(AccountFirestore.virtualPath).onDelete(async (snapshot, context) => {
+module.exports.onDelete = functions.firestore.document(NormalAskFirestore.virtualPath).onDelete(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     return;
   }
