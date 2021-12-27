@@ -22,7 +22,8 @@ export interface Ranking {
 })
 export class DashboardComponent implements OnInit {
   balances$: Observable<Balance> | undefined;
-  rankings$: Observable<Ranking> | undefined;
+  rankings$: Observable<Ranking[]> | undefined;
+  rank$: Observable<number> | undefined;
   totalUsage$: Observable<number> | undefined;
   usages$: Observable<number[]> | undefined;
   usagesPreviousYear$: Observable<number[]> | undefined;
@@ -38,7 +39,7 @@ export class DashboardComponent implements OnInit {
       return;
     }
     const users$ = this.studentsApp.list$();
-    const a = users$.pipe(
+    this.rankings$ = users$.pipe(
       mergeMap((users) =>
         Promise.all(
           users.map((user) =>
@@ -53,6 +54,15 @@ export class DashboardComponent implements OnInit {
             }),
           ),
         ),
+      ),
+      map((rankings) => rankings.sort((first, second) => second.amount - first.amount)),
+    );
+    this.rank$ = this.rankings$.pipe(
+      map(
+        (rankings) =>
+          rankings.findIndex((ranking) => {
+            ranking.id === accountID;
+          }) + 1,
       ),
     );
 
