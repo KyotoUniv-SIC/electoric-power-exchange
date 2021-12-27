@@ -1,1 +1,8 @@
-<view-dashboard [account]="account$ | async" [usage]="usage$ | async" [balances]="balances$ | async"></view-dashboard>
+<view-dashboard
+  [balances]="balances$ | async"
+  [totalUsage]="totalUsage$ | async"
+  [usages]="usages$ | async"
+  [usagesPreviousYear]="usagesPreviousYear$ | async"
+  [rankings]="rankings$ | async"
+  [rank]="rank$ | async"
+></view-dashboard>
