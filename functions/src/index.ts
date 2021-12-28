@@ -19,7 +19,6 @@ import './student-accounts/account';
 import * as admin from 'firebase-admin';
 
 // import * as functions from 'firebase-functions';
-console.log('hogehoge');
 
 admin.initializeApp();
 // admin.initializeApp({

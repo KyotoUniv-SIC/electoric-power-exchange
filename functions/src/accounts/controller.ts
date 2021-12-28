@@ -7,14 +7,10 @@ export const onCreateHandler: FirestoreCreateHandler[] = [];
 export const onUpdateHandler: FirestoreUpdateHandler[] = [];
 export const onDeleteHandler: FirestoreDeleteHandler[] = [];
 
-console.log('hoge0');
-
 module.exports.onCreate = functions.firestore.document(AccountFirestore.virtualPath).onCreate(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
-    console.log('hoge1');
     return;
   }
-  console.log('hoge2');
   for (const handler of onCreateHandler) {
     try {
       await handler(snapshot, context);
@@ -22,7 +18,6 @@ module.exports.onCreate = functions.firestore.document(AccountFirestore.virtualP
       console.error(e);
     }
   }
-  console.log('hoge3');
 });
 
 module.exports.onUpdate = functions.firestore.document(AccountFirestore.virtualPath).onUpdate(async (snapshot, context) => {
