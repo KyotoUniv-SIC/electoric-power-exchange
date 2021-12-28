@@ -1,7 +1,7 @@
 import { SellOnSubmitEvent } from '../../../view/txs/sell/sell.component';
 import { Component, OnInit } from '@angular/core';
 import { getAuth } from '@angular/fire/auth';
-import { AvailableBalance, NormalAsk, RenewableAsk } from '@local/common';
+import { AvailableBalance, NormalAsk, proto, RenewableAsk } from '@local/common';
 import { NormalAskApplicationService } from 'projects/shared/src/lib/services/normal-asks/normal-ask.application.service';
 import { RenewableAskApplicationService } from 'projects/shared/src/lib/services/renewable-asks/renewable-ask.application.service';
 import { AvailableBalanceApplicationService } from 'projects/shared/src/lib/services/student-accounts/available-balances/available-balance.application.service';
@@ -37,6 +37,7 @@ export class SellComponent implements OnInit {
     if ($event.denom == 'spx-1') {
       await this.renewableAskApp.create(
         new RenewableAsk({
+          type: proto.main.RenewableAskType.SECONDARY,
           account_id: getAuth().currentUser?.uid,
           price: $event.price,
           amount: $event.amount,
@@ -45,6 +46,7 @@ export class SellComponent implements OnInit {
     } else {
       await this.normalAskApp.create(
         new NormalAsk({
+          type: proto.main.NormalAskType.SECONDARY,
           account_id: getAuth().currentUser?.uid,
           price: $event.price,
           amount: $event.amount,
