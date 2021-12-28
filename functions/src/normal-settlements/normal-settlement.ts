@@ -5,7 +5,7 @@ import { normal_ask } from '../normal-asks';
 import { normal_bid_history } from '../normal-bid-histories';
 import { normal_bid } from '../normal-bids';
 import { single_price_normal_settlement } from '../single-price-normal-settlements';
-import { NormalAskHistory, NormalBidHistory, NormalSettlement } from '@local/common';
+import { NormalAskHistory, NormalBidHistory, NormalSettlement, proto } from '@local/common';
 
 single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) => {
   const data = snapshot.data()!;
@@ -37,6 +37,7 @@ single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) =>
       for (; j < sortNormalAsks.length; j++) {
         await normal_ask_history.create(
           new NormalAskHistory({
+            type: sortNormalAsks[j].type as unknown as proto.main.NormalAskHistoryType,
             account_id: sortNormalAsks[j].account_id,
             price: sortNormalAsks[j].price,
             amount: sortNormalAsks[j].amount,
@@ -71,6 +72,7 @@ single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) =>
 
       await normal_ask_history.create(
         new NormalAskHistory({
+          type: sortNormalAsks[j].type as unknown as proto.main.NormalAskHistoryType,
           account_id: sortNormalAsks[j].account_id,
           price: sortNormalAsks[j].price,
           amount: sortNormalBids[i].amount,
@@ -105,6 +107,7 @@ single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) =>
 
       await normal_ask_history.create(
         new NormalAskHistory({
+          type: sortNormalAsks[j].type as unknown as proto.main.NormalAskHistoryType,
           account_id: sortNormalAsks[j].account_id,
           price: sortNormalAsks[j].price,
           amount: sortNormalAsks[j].amount,
@@ -140,6 +143,7 @@ single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) =>
 
       await normal_ask_history.create(
         new NormalAskHistory({
+          type: sortNormalAsks[j].type as unknown as proto.main.NormalAskHistoryType,
           account_id: sortNormalAsks[j].account_id,
           price: sortNormalAsks[j].price,
           amount: sortNormalBids[i].amount,

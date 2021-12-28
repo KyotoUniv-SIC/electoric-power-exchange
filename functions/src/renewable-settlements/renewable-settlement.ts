@@ -5,7 +5,7 @@ import { renewable_ask } from '../renewable-asks';
 import { renewable_bid_history } from '../renewable-bid-histories';
 import { renewable_bid } from '../renewable-bids';
 import { single_price_renewable_settlement } from '../single-price-renewable-settlements';
-import { RenewableAskHistory, RenewableBidHistory, RenewableSettlement } from '@local/common';
+import { proto, RenewableAskHistory, RenewableBidHistory, RenewableSettlement } from '@local/common';
 
 single_price_renewable_settlement.onCreateHandler.push(async (snapshot, context) => {
   const data = snapshot.data()!;
@@ -37,6 +37,7 @@ single_price_renewable_settlement.onCreateHandler.push(async (snapshot, context)
       for (; j < sortRenewableAsks.length; j++) {
         await renewable_ask_history.create(
           new RenewableAskHistory({
+            type: sortRenewableAsks[j].type as unknown as proto.main.RenewableAskHistoryType,
             account_id: sortRenewableAsks[j].account_id,
             price: sortRenewableAsks[j].price,
             amount: sortRenewableAsks[j].amount,
@@ -71,6 +72,7 @@ single_price_renewable_settlement.onCreateHandler.push(async (snapshot, context)
 
       await renewable_ask_history.create(
         new RenewableAskHistory({
+          type: sortRenewableAsks[j].type as unknown as proto.main.RenewableAskHistoryType,
           account_id: sortRenewableAsks[j].account_id,
           price: sortRenewableAsks[j].price,
           amount: sortRenewableBids[i].amount,
@@ -105,6 +107,7 @@ single_price_renewable_settlement.onCreateHandler.push(async (snapshot, context)
 
       await renewable_ask_history.create(
         new RenewableAskHistory({
+          type: sortRenewableAsks[j].type as unknown as proto.main.RenewableAskHistoryType,
           account_id: sortRenewableAsks[j].account_id,
           price: sortRenewableAsks[j].price,
           amount: sortRenewableAsks[j].amount,
@@ -140,6 +143,7 @@ single_price_renewable_settlement.onCreateHandler.push(async (snapshot, context)
 
       await renewable_ask_history.create(
         new RenewableAskHistory({
+          type: sortRenewableAsks[j].type as unknown as proto.main.RenewableAskHistoryType,
           account_id: sortRenewableAsks[j].account_id,
           price: sortRenewableAsks[j].price,
           amount: sortRenewableBids[i].amount,
