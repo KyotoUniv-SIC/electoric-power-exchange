@@ -5,7 +5,7 @@ import { FirestoreDataConverter } from 'firebase/firestore';
 export class MonthlyUsageFirestore {
   static collectionID = 'monthly_usages';
   static documentID = 'monthly_usage_id';
-  static virtualPath = `${StudentAccountFirestore.virtualPath}/${MonthlyUsageFirestore.collectionID}/${MonthlyUsageFirestore.documentID}`;
+  static virtualPath = `${StudentAccountFirestore.virtualPath}/${MonthlyUsageFirestore.collectionID}/{${MonthlyUsageFirestore.documentID}}`;
 
   static converter: FirestoreDataConverter<MonthlyUsage> = {
     toFirestore: (data) => ({ ...data }),
