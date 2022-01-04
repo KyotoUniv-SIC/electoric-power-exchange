@@ -12,5 +12,5 @@ balance.onUpdateHandler.push(async (snapshot, context) => {
 balance.onCreateHandler.push(async (snapshot, context) => {
   const data = snapshot.data()!;
 
-  await available_balance.update(new AvailableBalance(data, data.created_at, data.updated_at));
+  await available_balance.create(new AvailableBalance(data, data.created_at, data.updated_at));
 });
