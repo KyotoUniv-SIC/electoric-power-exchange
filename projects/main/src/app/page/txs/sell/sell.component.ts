@@ -5,7 +5,9 @@ import { AvailableBalance, NormalAsk, proto, RenewableAsk } from '@local/common'
 import { NormalAskApplicationService } from 'projects/shared/src/lib/services/normal-asks/normal-ask.application.service';
 import { RenewableAskApplicationService } from 'projects/shared/src/lib/services/renewable-asks/renewable-ask.application.service';
 import { AvailableBalanceApplicationService } from 'projects/shared/src/lib/services/student-accounts/available-balances/available-balance.application.service';
+import { StudentAccountApplicationService } from 'projects/shared/src/lib/services/student-accounts/student-account.application.service';
 import { Observable } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-sell',
@@ -22,14 +24,16 @@ export class SellComponent implements OnInit {
     private readonly normalAskApp: NormalAskApplicationService,
     private readonly renewableAskApp: RenewableAskApplicationService,
     private readonly availableBalanceApp: AvailableBalanceApplicationService,
+    private readonly studentAccApp: StudentAccountApplicationService,
   ) {
     this.price = 27;
     this.amount = 1;
-    const accountID = getAuth().currentUser?.uid;
-    if (!accountID) {
+    const uid = getAuth().currentUser?.uid;
+    if (!uid) {
       return;
     }
-    this.balance$ = this.availableBalanceApp.list$(accountID);
+    const accountID$ = this.studentAccApp.getByUid$(uid);
+    this.balance$ = accountID$.pipe(mergeMap((account) => this.availableBalanceApp.list$(account.id)));
   }
 
   ngOnInit(): void {}
