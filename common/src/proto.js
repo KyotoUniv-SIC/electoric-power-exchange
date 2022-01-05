@@ -7274,6 +7274,7 @@ export const main = $root.main = (() => {
          * @memberof main
          * @interface IStudentAccount
          * @property {string|null} [id] StudentAccount id
+         * @property {Array.<string>|null} [user_ids] StudentAccount user_ids
          * @property {string|null} [name] StudentAccount name
          * @property {string|null} [payment_method] StudentAccount payment_method
          * @property {string|null} [xrp_address] StudentAccount xrp_address
@@ -7288,6 +7289,7 @@ export const main = $root.main = (() => {
          * @param {main.IStudentAccount=} [properties] Properties to set
          */
         function StudentAccount(properties) {
+            this.user_ids = [];
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
@@ -7301,6 +7303,14 @@ export const main = $root.main = (() => {
          * @instance
          */
         StudentAccount.prototype.id = "";
+
+        /**
+         * StudentAccount user_ids.
+         * @member {Array.<string>} user_ids
+         * @memberof main.StudentAccount
+         * @instance
+         */
+        StudentAccount.prototype.user_ids = $util.emptyArray;
 
         /**
          * StudentAccount name.
@@ -7340,12 +7350,15 @@ export const main = $root.main = (() => {
                 writer = $Writer.create();
             if (message.id != null && Object.hasOwnProperty.call(message, "id"))
                 writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+            if (message.user_ids != null && message.user_ids.length)
+                for (let i = 0; i < message.user_ids.length; ++i)
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.user_ids[i]);
             if (message.name != null && Object.hasOwnProperty.call(message, "name"))
-                writer.uint32(/* id 2, wireType 2 =*/18).string(message.name);
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.name);
             if (message.payment_method != null && Object.hasOwnProperty.call(message, "payment_method"))
-                writer.uint32(/* id 3, wireType 2 =*/26).string(message.payment_method);
+                writer.uint32(/* id 4, wireType 2 =*/34).string(message.payment_method);
             if (message.xrp_address != null && Object.hasOwnProperty.call(message, "xrp_address"))
-                writer.uint32(/* id 4, wireType 2 =*/34).string(message.xrp_address);
+                writer.uint32(/* id 5, wireType 2 =*/42).string(message.xrp_address);
             return writer;
         };
 
@@ -7384,12 +7397,17 @@ export const main = $root.main = (() => {
                     message.id = reader.string();
                     break;
                 case 2:
-                    message.name = reader.string();
+                    if (!(message.user_ids && message.user_ids.length))
+                        message.user_ids = [];
+                    message.user_ids.push(reader.string());
                     break;
                 case 3:
-                    message.payment_method = reader.string();
+                    message.name = reader.string();
                     break;
                 case 4:
+                    message.payment_method = reader.string();
+                    break;
+                case 5:
                     message.xrp_address = reader.string();
                     break;
                 default:
@@ -7430,6 +7448,13 @@ export const main = $root.main = (() => {
             if (message.id != null && message.hasOwnProperty("id"))
                 if (!$util.isString(message.id))
                     return "id: string expected";
+            if (message.user_ids != null && message.hasOwnProperty("user_ids")) {
+                if (!Array.isArray(message.user_ids))
+                    return "user_ids: array expected";
+                for (let i = 0; i < message.user_ids.length; ++i)
+                    if (!$util.isString(message.user_ids[i]))
+                        return "user_ids: string[] expected";
+            }
             if (message.name != null && message.hasOwnProperty("name"))
                 if (!$util.isString(message.name))
                     return "name: string expected";
@@ -7456,6 +7481,13 @@ export const main = $root.main = (() => {
             let message = new $root.main.StudentAccount();
             if (object.id != null)
                 message.id = String(object.id);
+            if (object.user_ids) {
+                if (!Array.isArray(object.user_ids))
+                    throw TypeError(".main.StudentAccount.user_ids: array expected");
+                message.user_ids = [];
+                for (let i = 0; i < object.user_ids.length; ++i)
+                    message.user_ids[i] = String(object.user_ids[i]);
+            }
             if (object.name != null)
                 message.name = String(object.name);
             if (object.payment_method != null)
@@ -7478,6 +7510,8 @@ export const main = $root.main = (() => {
             if (!options)
                 options = {};
             let object = {};
+            if (options.arrays || options.defaults)
+                object.user_ids = [];
             if (options.defaults) {
                 object.id = "";
                 object.name = "";
@@ -7486,6 +7520,11 @@ export const main = $root.main = (() => {
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 object.id = message.id;
+            if (message.user_ids && message.user_ids.length) {
+                object.user_ids = [];
+                for (let j = 0; j < message.user_ids.length; ++j)
+                    object.user_ids[j] = message.user_ids[j];
+            }
             if (message.name != null && message.hasOwnProperty("name"))
                 object.name = message.name;
             if (message.payment_method != null && message.hasOwnProperty("payment_method"))

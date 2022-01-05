@@ -48,7 +48,7 @@ export class SellComponent implements OnInit {
       alert('トークンの種類を指定してください。\nUPX=電力会社、SPX=太陽光発電');
       return;
     }
-    if (denom == 'upx-1' && Number(amount) > this.balance?.amount_upx!) {
+    if (denom == 'upx-0' && Number(amount) > this.balance?.amount_upx!) {
       alert('UPXの残高が足りません。');
       return;
     }

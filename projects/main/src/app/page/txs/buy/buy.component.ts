@@ -5,7 +5,9 @@ import { getAuth } from 'firebase/auth';
 import { NormalBidApplicationService } from 'projects/shared/src/lib/services/normal-bids/normal-bid.application.service';
 import { RenewableBidApplicationService } from 'projects/shared/src/lib/services/renewable-bids/renewable-bid.application.service';
 import { AvailableBalanceApplicationService } from 'projects/shared/src/lib/services/student-accounts/available-balances/available-balance.application.service';
+import { StudentAccountApplicationService } from 'projects/shared/src/lib/services/student-accounts/student-account.application.service';
 import { Observable } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-buy',
@@ -22,14 +24,16 @@ export class BuyComponent implements OnInit {
     private readonly normalBidApp: NormalBidApplicationService,
     private readonly renewableBidApp: RenewableBidApplicationService,
     private readonly availableBalanceApp: AvailableBalanceApplicationService,
+    private readonly studentAccApp: StudentAccountApplicationService,
   ) {
     this.price = 27;
     this.amount = 1;
-    const accountID = getAuth().currentUser?.uid;
-    if (!accountID) {
+    const uid = getAuth().currentUser?.uid;
+    if (!uid) {
       return;
     }
-    this.balance$ = this.availableBalanceApp.list$(accountID);
+    const accountID$ = this.studentAccApp.getByUid$(uid);
+    this.balance$ = accountID$.pipe(mergeMap((account) => this.availableBalanceApp.list$(account.id)));
   }
 
   ngOnInit(): void {}
