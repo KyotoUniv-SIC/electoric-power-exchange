@@ -2944,6 +2944,9 @@ export namespace main {
         /** StudentAccount id */
         id?: (string|null);
 
+        /** StudentAccount user_ids */
+        user_ids?: (string[]|null);
+
         /** StudentAccount name */
         name?: (string|null);
 
@@ -2965,6 +2968,9 @@ export namespace main {
 
         /** StudentAccount id. */
         public id: string;
+
+        /** StudentAccount user_ids. */
+        public user_ids: string[];
 
         /** StudentAccount name. */
         public name: string;
