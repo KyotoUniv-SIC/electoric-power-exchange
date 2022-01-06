@@ -20,8 +20,8 @@ single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) =>
   let j = 0;
   const condition = true;
   while (condition) {
-    if (sortNormalBids[i] < data.price || sortNormalAsks[j] > data.price) {
-      for (; i < sortNormalBids.length; i++) {
+    if (sortNormalBids[i].price < data.price || sortNormalAsks[j].price > data.price) {
+      for (; i < sortNormalBids.length - 1; i++) {
         await normal_bid_history.create(
           new NormalBidHistory({
             account_id: sortNormalBids[i].account_id,
@@ -34,7 +34,7 @@ single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) =>
         await normal_bid.delete_(sortNormalBids[i].id);
       }
 
-      for (; j < sortNormalAsks.length; j++) {
+      for (; j < sortNormalAsks.length - 1; j++) {
         await normal_ask_history.create(
           new NormalAskHistory({
             type: sortNormalAsks[j].type as unknown as proto.main.NormalAskHistoryType,
@@ -49,6 +49,7 @@ single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) =>
       }
       break;
     }
+
     if (sortNormalBids[i].amount < sortNormalAsks[j].amount) {
       await normal_settlement.create(
         new NormalSettlement({
@@ -84,6 +85,9 @@ single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) =>
 
       sortNormalAsks[j].amount -= sortNormalBids[i].amount;
       i++;
+      if (i >= sortNormalBids.length) {
+        break;
+      }
     } else if (sortNormalBids[i].amount > sortNormalAsks[j].amount) {
       await normal_settlement.create(
         new NormalSettlement({
@@ -119,6 +123,9 @@ single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) =>
 
       sortNormalBids[i].amount -= sortNormalAsks[j].amount;
       j++;
+      if (j >= sortNormalAsks.length) {
+        break;
+      }
     } else {
       await normal_settlement.create(
         new NormalSettlement({
@@ -155,6 +162,10 @@ single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) =>
 
       i++;
       j++;
+      if (i >= sortNormalBids.length || j >= sortNormalAsks.length) {
+        break;
+      }
     }
   }
+  console.log('complete Normal settlement');
 });
