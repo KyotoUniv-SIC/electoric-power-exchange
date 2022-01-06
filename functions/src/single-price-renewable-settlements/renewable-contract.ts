@@ -68,8 +68,7 @@ module.exports.renewableContract = functions.pubsub
       const equilibriumPrice =
         sortRenewableBids[i].price <= sortRenewableAsks[j].price ? sortRenewableAsks[i].price : sortRenewableBids[j].price;
       // 止まったときの低い方が成約取引量となる
-      const equilibriumAmount =
-        sortRenewableBids[i].amount <= sortRenewableAsks[j].amount ? sortRenewableBids[i].amount : sortRenewableAsks[j].amount;
+      const equilibriumAmount = sumBidAmountHistory[i] <= sumAskAmountHistory[j] ? sumBidAmountHistory[i] : sumAskAmountHistory[j];
 
       await single_price_renewable_settlement.create(
         new SinglePriceRenewableSettlement({
