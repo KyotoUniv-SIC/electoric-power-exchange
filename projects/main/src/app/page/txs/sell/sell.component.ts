@@ -1,7 +1,7 @@
 import { SellOnSubmitEvent } from '../../../view/txs/sell/sell.component';
 import { Component, OnInit } from '@angular/core';
 import { getAuth } from '@angular/fire/auth';
-import { AvailableBalance, NormalAsk, proto, RenewableAsk } from '@local/common';
+import { AvailableBalance, NormalAsk, proto, RenewableAsk, StudentAccount } from '@local/common';
 import { NormalAskApplicationService } from 'projects/shared/src/lib/services/normal-asks/normal-ask.application.service';
 import { RenewableAskApplicationService } from 'projects/shared/src/lib/services/renewable-asks/renewable-ask.application.service';
 import { AvailableBalanceApplicationService } from 'projects/shared/src/lib/services/student-accounts/available-balances/available-balance.application.service';
@@ -15,6 +15,7 @@ import { mergeMap } from 'rxjs/operators';
   styleUrls: ['./sell.component.css'],
 })
 export class SellComponent implements OnInit {
+  studentAccount$: Observable<StudentAccount> | undefined;
   balance$: Observable<AvailableBalance> | undefined;
   price: number | undefined;
   amount: number | undefined;
@@ -32,8 +33,8 @@ export class SellComponent implements OnInit {
     if (!uid) {
       return;
     }
-    const accountID$ = this.studentAccApp.getByUid$(uid);
-    this.balance$ = accountID$.pipe(mergeMap((account) => this.availableBalanceApp.list$(account.id)));
+    this.studentAccount$ = this.studentAccApp.getByUid$(uid);
+    this.balance$ = this.studentAccount$.pipe(mergeMap((account) => this.availableBalanceApp.list$(account.id)));
   }
 
   ngOnInit(): void {}
@@ -42,7 +43,7 @@ export class SellComponent implements OnInit {
       await this.renewableAskApp.create(
         new RenewableAsk({
           type: proto.main.RenewableAskType.SECONDARY,
-          account_id: getAuth().currentUser?.uid,
+          account_id: $event.accountID,
           price: $event.price,
           amount: $event.amount,
         }),
@@ -51,7 +52,7 @@ export class SellComponent implements OnInit {
       await this.normalAskApp.create(
         new NormalAsk({
           type: proto.main.NormalAskType.SECONDARY,
-          account_id: getAuth().currentUser?.uid,
+          account_id: $event.accountID,
           price: $event.price,
           amount: $event.amount,
         }),
