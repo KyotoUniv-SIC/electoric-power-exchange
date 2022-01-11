@@ -4,7 +4,8 @@ import { Timestamp } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { NormalBid } from '@local/common';
 import { NormalBidApplicationService } from 'projects/shared/src/lib/services/normal-bids/normal-bid.application.service';
-import { Observable } from 'rxjs';
+import { StudentAccountApplicationService } from 'projects/shared/src/lib/services/student-accounts/student-account.application.service';
+import { combineLatest, Observable } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 
 @Component({
@@ -16,13 +17,20 @@ export class BidComponent implements OnInit {
   normalBid$: Observable<NormalBid | undefined> | undefined;
   createdAt$: Observable<Date> | undefined;
 
-  constructor(private route: ActivatedRoute, private readonly normalBidApp: NormalBidApplicationService) {
-    const accountID = getAuth().currentUser?.uid;
-    if (!accountID) {
+  constructor(
+    private route: ActivatedRoute,
+    private readonly studentAccApp: StudentAccountApplicationService,
+    private readonly normalBidApp: NormalBidApplicationService,
+  ) {
+    const uid = getAuth().currentUser?.uid;
+    if (!uid) {
       return;
     }
+    const studentAccount$ = this.studentAccApp.getByUid$(uid);
     const orderID$ = this.route.params.pipe(map((params) => params.order_id));
-    this.normalBid$ = orderID$.pipe(mergeMap((orderID) => this.normalBidApp.get$(accountID, orderID)));
+    this.normalBid$ = combineLatest([studentAccount$, orderID$]).pipe(
+      mergeMap(([studentAccount, orderID]) => this.normalBidApp.get$(studentAccount.id, orderID)),
+    );
     this.createdAt$ = this.normalBid$.pipe(map((bid) => (bid?.created_at as Timestamp).toDate()));
   }
 
