@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { getAuth } from '@angular/fire/auth';
 import { Timestamp } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
+import { StudentAccount } from '@local/common';
 import { NormalAskHistoryApplicationService } from 'projects/shared/src/lib/services/normal-ask-histories/normal-ask-history.application.service';
 import { NormalAskApplicationService } from 'projects/shared/src/lib/services/normal-asks/normal-ask.application.service';
 import { NormalBidHistoryApplicationService } from 'projects/shared/src/lib/services/normal-bid-histories/normal-bid-history.application.service';
@@ -11,8 +12,9 @@ import { RenewableAskHistoryApplicationService } from 'projects/shared/src/lib/s
 import { RenewableAskApplicationService } from 'projects/shared/src/lib/services/renewable-asks/renewable-ask.application.service';
 import { RenewableBidHistoryApplicationService } from 'projects/shared/src/lib/services/renewable-bid-histories/renewable-bid-history.application.service';
 import { RenewableBidApplicationService } from 'projects/shared/src/lib/services/renewable-bids/renewable-bid.application.service';
+import { StudentAccountApplicationService } from 'projects/shared/src/lib/services/student-accounts/student-account.application.service';
 import { combineLatest, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, mergeMap } from 'rxjs/operators';
 
 export interface Order {
   id: string;
@@ -40,11 +42,13 @@ export interface History {
   styleUrls: ['./txs.component.css'],
 })
 export class TxsComponent implements OnInit {
+  studentAccount$: Observable<StudentAccount> | undefined;
   orders$: Observable<Order[]> | undefined;
   histories$: Observable<History[]> | undefined;
 
   constructor(
     private route: ActivatedRoute,
+    private readonly studentAccApp: StudentAccountApplicationService,
     private readonly primaryBidApp: PrimaryBidApplicationService,
     private readonly normalBidApp: NormalBidApplicationService,
     private readonly normalAskApp: NormalAskApplicationService,
@@ -55,14 +59,16 @@ export class TxsComponent implements OnInit {
     private readonly renewableBidHistoryApp: RenewableBidHistoryApplicationService,
     private readonly renewableAskHistoryApp: RenewableAskHistoryApplicationService,
   ) {
-    const accountID = getAuth().currentUser?.uid;
-    if (!accountID) {
+    const uid = getAuth().currentUser?.uid;
+    if (!uid) {
       return;
     }
-    const normalBids$ = this.normalBidApp.list$(accountID);
-    const normalAsks$ = this.normalAskApp.list$(accountID);
-    const renewableBids$ = this.renewableBidApp.list$(accountID);
-    const renewableAsks$ = this.renewableAskApp.list$(accountID);
+    this.studentAccount$ = this.studentAccApp.getByUid$(uid);
+
+    const normalBids$ = this.studentAccount$.pipe(mergeMap((account) => this.normalBidApp.list$(account.id)));
+    const normalAsks$ = this.studentAccount$.pipe(mergeMap((account) => this.normalAskApp.list$(account.id)));
+    const renewableBids$ = this.studentAccount$.pipe(mergeMap((account) => this.renewableBidApp.list$(account.id)));
+    const renewableAsks$ = this.studentAccount$.pipe(mergeMap((account) => this.renewableAskApp.list$(account.id)));
 
     this.orders$ = combineLatest([normalBids$, normalAsks$, renewableBids$, renewableAsks$]).pipe(
       map(([normalBids, normalAsks, renewableBids, renewableAsks]) => {
@@ -110,11 +116,11 @@ export class TxsComponent implements OnInit {
       }),
     );
 
-    const primaryBid$ = this.primaryBidApp.list$(accountID);
-    const normalBidHistories$ = this.normalBidHistoryApp.list$(accountID);
-    const normalAskHistories$ = this.normalAskHistoryApp.list$(accountID);
-    const renewableBidHistories$ = this.renewableBidHistoryApp.list$(accountID);
-    const renewableAskHistories$ = this.renewableAskHistoryApp.list$(accountID);
+    const primaryBid$ = this.studentAccount$.pipe(mergeMap((account) => this.primaryBidApp.list$(account.id)));
+    const normalBidHistories$ = this.studentAccount$.pipe(mergeMap((account) => this.normalBidHistoryApp.list$(account.id)));
+    const normalAskHistories$ = this.studentAccount$.pipe(mergeMap((account) => this.normalAskHistoryApp.list$(account.id)));
+    const renewableBidHistories$ = this.studentAccount$.pipe(mergeMap((account) => this.renewableBidHistoryApp.list$(account.id)));
+    const renewableAskHistories$ = this.studentAccount$.pipe(mergeMap((account) => this.renewableAskHistoryApp.list$(account.id)));
 
     this.histories$ = combineLatest([
       primaryBid$,

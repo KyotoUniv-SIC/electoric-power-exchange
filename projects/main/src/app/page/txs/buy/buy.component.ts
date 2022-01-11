@@ -1,6 +1,6 @@
 import { BuyOnSubmitEvent } from '../../../view/txs/buy/buy.component';
 import { Component, OnInit } from '@angular/core';
-import { AvailableBalance, NormalBid, RenewableBid } from '@local/common';
+import { AvailableBalance, NormalBid, RenewableBid, StudentAccount } from '@local/common';
 import { getAuth } from 'firebase/auth';
 import { NormalBidApplicationService } from 'projects/shared/src/lib/services/normal-bids/normal-bid.application.service';
 import { RenewableBidApplicationService } from 'projects/shared/src/lib/services/renewable-bids/renewable-bid.application.service';
@@ -15,6 +15,7 @@ import { mergeMap } from 'rxjs/operators';
   styleUrls: ['./buy.component.css'],
 })
 export class BuyComponent implements OnInit {
+  studentAccount$: Observable<StudentAccount> | undefined;
   balance$: Observable<AvailableBalance> | undefined;
   price: number | undefined;
   amount: number | undefined;
@@ -32,8 +33,8 @@ export class BuyComponent implements OnInit {
     if (!uid) {
       return;
     }
-    const accountID$ = this.studentAccApp.getByUid$(uid);
-    this.balance$ = accountID$.pipe(mergeMap((account) => this.availableBalanceApp.list$(account.id)));
+    this.studentAccount$ = this.studentAccApp.getByUid$(uid);
+    this.balance$ = this.studentAccount$.pipe(mergeMap((account) => this.availableBalanceApp.list$(account.id)));
   }
 
   ngOnInit(): void {}
@@ -42,7 +43,7 @@ export class BuyComponent implements OnInit {
     if ($event.denom == 'spx-1') {
       await this.renewableBidApp.create(
         new RenewableBid({
-          account_id: getAuth().currentUser?.uid,
+          account_id: $event.accountID,
           price: $event.price,
           amount: $event.amount,
         }),
@@ -50,7 +51,7 @@ export class BuyComponent implements OnInit {
     } else {
       await this.normalBidApp.create(
         new NormalBid({
-          account_id: getAuth().currentUser?.uid,
+          account_id: $event.accountID,
           price: $event.price,
           amount: $event.amount,
         }),
