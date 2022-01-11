@@ -9,6 +9,10 @@ import { map } from 'rxjs/operators';
 export class BalanceApplicationService {
   constructor(private readonly balance: BalanceService) {}
 
+  list$(uid: string) {
+    return this.balance.list$(uid);
+  }
+
   getByUid$(uid: string) {
     return this.balance.list$(uid).pipe(map((balances) => balances[0]));
   }
