@@ -6,7 +6,7 @@ import { renewable_bid } from '../renewable-bids';
 import { MarketStatus, SinglePriceRenewableSettlement } from '@local/common';
 import * as functions from 'firebase-functions';
 
-exports.scheduledFunctionCrontab = functions.pubsub
+module.exports.renewableContract = functions.pubsub
   .schedule('0 0 * * *')
   .timeZone('Asia/Tokyo') // Users can choose timezone - default is America/Los_Angeles
   .onRun(async () => {
@@ -68,8 +68,7 @@ exports.scheduledFunctionCrontab = functions.pubsub
       const equilibriumPrice =
         sortRenewableBids[i].price <= sortRenewableAsks[j].price ? sortRenewableAsks[i].price : sortRenewableBids[j].price;
       // 止まったときの低い方が成約取引量となる
-      const equilibriumAmount =
-        sortRenewableBids[i].amount <= sortRenewableAsks[j].amount ? sortRenewableBids[i].amount : sortRenewableAsks[j].amount;
+      const equilibriumAmount = sumBidAmountHistory[i] <= sumAskAmountHistory[j] ? sumBidAmountHistory[i] : sumAskAmountHistory[j];
 
       await single_price_renewable_settlement.create(
         new SinglePriceRenewableSettlement({

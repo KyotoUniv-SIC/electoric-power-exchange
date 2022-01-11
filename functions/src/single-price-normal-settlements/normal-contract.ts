@@ -6,7 +6,7 @@ import { normal_bid } from '../normal-bids';
 import { MarketStatus, SinglePriceNormalSettlement } from '@local/common';
 import * as functions from 'firebase-functions';
 
-exports.scheduledFunctionCrontab = functions.pubsub
+module.exports.normalContract = functions.pubsub
   .schedule('0 0 * * *')
   .timeZone('Asia/Tokyo') // Users can choose timezone - default is America/Los_Angeles
   .onRun(async () => {
@@ -67,7 +67,7 @@ exports.scheduledFunctionCrontab = functions.pubsub
       // 止まったときの高い方の価格が均衡価格となる
       const equilibriumPrice = sortNormalBids[i].price <= sortNormalAsks[j].price ? sortNormalAsks[i].price : sortNormalBids[j].price;
       // 止まったときの低い方が成約取引量となる
-      const equilibriumAmount = sortNormalBids[i].amount <= sortNormalAsks[j].amount ? sortNormalBids[i].amount : sortNormalAsks[j].amount;
+      const equilibriumAmount = sumBidAmountHistory[i] <= sumAskAmountHistory[j] ? sumBidAmountHistory[i] : sumAskAmountHistory[j];
 
       await single_price_normal_settlement.create(
         new SinglePriceNormalSettlement({

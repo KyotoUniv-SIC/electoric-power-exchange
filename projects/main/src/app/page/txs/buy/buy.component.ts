@@ -1,11 +1,13 @@
 import { BuyOnSubmitEvent } from '../../../view/txs/buy/buy.component';
 import { Component, OnInit } from '@angular/core';
-import { AvailableBalance, NormalBid, RenewableBid } from '@local/common';
+import { AvailableBalance, NormalBid, RenewableBid, StudentAccount } from '@local/common';
 import { getAuth } from 'firebase/auth';
 import { NormalBidApplicationService } from 'projects/shared/src/lib/services/normal-bids/normal-bid.application.service';
 import { RenewableBidApplicationService } from 'projects/shared/src/lib/services/renewable-bids/renewable-bid.application.service';
 import { AvailableBalanceApplicationService } from 'projects/shared/src/lib/services/student-accounts/available-balances/available-balance.application.service';
+import { StudentAccountApplicationService } from 'projects/shared/src/lib/services/student-accounts/student-account.application.service';
 import { Observable } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-buy',
@@ -13,6 +15,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./buy.component.css'],
 })
 export class BuyComponent implements OnInit {
+  studentAccount$: Observable<StudentAccount> | undefined;
   balance$: Observable<AvailableBalance> | undefined;
   price: number | undefined;
   amount: number | undefined;
@@ -22,14 +25,16 @@ export class BuyComponent implements OnInit {
     private readonly normalBidApp: NormalBidApplicationService,
     private readonly renewableBidApp: RenewableBidApplicationService,
     private readonly availableBalanceApp: AvailableBalanceApplicationService,
+    private readonly studentAccApp: StudentAccountApplicationService,
   ) {
     this.price = 27;
     this.amount = 1;
-    const accountID = getAuth().currentUser?.uid;
-    if (!accountID) {
+    const uid = getAuth().currentUser?.uid;
+    if (!uid) {
       return;
     }
-    this.balance$ = this.availableBalanceApp.list$(accountID);
+    this.studentAccount$ = this.studentAccApp.getByUid$(uid);
+    this.balance$ = this.studentAccount$.pipe(mergeMap((account) => this.availableBalanceApp.list$(account.id)));
   }
 
   ngOnInit(): void {}
@@ -38,7 +43,7 @@ export class BuyComponent implements OnInit {
     if ($event.denom == 'spx-1') {
       await this.renewableBidApp.create(
         new RenewableBid({
-          account_id: getAuth().currentUser?.uid,
+          account_id: $event.accountID,
           price: $event.price,
           amount: $event.amount,
         }),
@@ -46,7 +51,7 @@ export class BuyComponent implements OnInit {
     } else {
       await this.normalBidApp.create(
         new NormalBid({
-          account_id: getAuth().currentUser?.uid,
+          account_id: $event.accountID,
           price: $event.price,
           amount: $event.amount,
         }),

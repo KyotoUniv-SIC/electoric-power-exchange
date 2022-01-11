@@ -1,17 +1,17 @@
-import { FirestoreDataConverter } from 'firebase/firestore';
 import { AdminAccount } from './admin-account';
+import { FirestoreDataConverter } from 'firebase/firestore';
 
 export class AdminAccountFirestore {
   static collectionID = 'admin_accounts';
   static documentID = 'admin_account_id';
-  static virtualPath = `${AdminAccountFirestore.collectionID}/${AdminAccountFirestore.documentID}`;
+  static virtualPath = `${AdminAccountFirestore.collectionID}/{${AdminAccountFirestore.documentID}}`;
 
   static converter: FirestoreDataConverter<AdminAccount> = {
     toFirestore: (data) => ({ ...data }),
     fromFirestore: (snapshot, options) => {
       const data = snapshot.data(options)!;
       return new AdminAccount(data, data.created_at, data.updated_at);
-    }
+    },
   };
 
   static collectionPath() {
