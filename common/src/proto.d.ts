@@ -1136,6 +1136,12 @@ export namespace main {
         /** MonthlyPayment student_account_id */
         student_account_id?: (string|null);
 
+        /** MonthlyPayment year */
+        year?: (number|null);
+
+        /** MonthlyPayment month */
+        month?: (number|null);
+
         /** MonthlyPayment amount_jpy */
         amount_jpy?: (number|null);
     }
@@ -1154,6 +1160,12 @@ export namespace main {
 
         /** MonthlyPayment student_account_id. */
         public student_account_id: string;
+
+        /** MonthlyPayment year. */
+        public year: number;
+
+        /** MonthlyPayment month. */
+        public month: number;
 
         /** MonthlyPayment amount_jpy. */
         public amount_jpy: number;
@@ -1231,6 +1243,12 @@ export namespace main {
         /** MonthlyUsage student_account_id */
         student_account_id?: (string|null);
 
+        /** MonthlyUsage year */
+        year?: (number|null);
+
+        /** MonthlyUsage month */
+        month?: (number|null);
+
         /** MonthlyUsage amount_kwh */
         amount_kwh?: (number|null);
     }
@@ -1249,6 +1267,12 @@ export namespace main {
 
         /** MonthlyUsage student_account_id. */
         public student_account_id: string;
+
+        /** MonthlyUsage year. */
+        public year: number;
+
+        /** MonthlyUsage month. */
+        public month: number;
 
         /** MonthlyUsage amount_kwh. */
         public amount_kwh: number;
