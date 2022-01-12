@@ -51,6 +51,18 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
   for (const dailyUsage of dailyUsages) {
     usage += dailyUsage.amount_kwh;
   }
-  await monthly_payment.create(new MonthlyPayment({ student_account_id: data.student_account_id, amount_jpy: payment }));
-  await monthly_usage.create(new MonthlyUsage({ student_account_id: data.student_account_id, amount_kwh: usage }));
+  const date = new Date();
+  date.setMonth(date.getMonth() - 1);
+
+  await monthly_payment.create(
+    new MonthlyPayment({
+      student_account_id: data.student_account_id,
+      year: date.getFullYear(),
+      month: date.getMonth(),
+      amount_jpy: payment,
+    }),
+  );
+  await monthly_usage.create(
+    new MonthlyUsage({ student_account_id: data.student_account_id, year: date.getFullYear(), month: date.getMonth(), amount_kwh: usage }),
+  );
 });
