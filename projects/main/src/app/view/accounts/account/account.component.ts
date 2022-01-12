@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { User } from '@firebase/auth';
+import { Balance, MonthlyPayment } from '@local/common';
 
 @Component({
   selector: 'view-account',
@@ -9,6 +10,10 @@ import { User } from '@firebase/auth';
 export class AccountComponent implements OnInit {
   @Input()
   user?: User | null;
+  @Input()
+  monthlyPayments?: MonthlyPayment[] | null;
+  @Input()
+  balances?: Balance | null;
 
   constructor() {}
 
