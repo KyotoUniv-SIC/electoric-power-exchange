@@ -3,10 +3,10 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 /* eslint-disable require-jsdoc */
-import * as admin from 'firebase-admin';
 import { MarketStatus, MarketStatusFirestore } from '@local/common';
+import * as admin from 'firebase-admin';
 
-export * from './controller'
+export * from './controller';
 
 export function collection() {
   return admin
@@ -33,15 +33,23 @@ export async function get(id: string) {
     .then((snapshot) => snapshot.data() as MarketStatus);
 }
 
+export async function getToday() {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return await collection()
+    .orderBy('createdAt', 'desc')
+    .where('createdAt', '>', today)
+    .get()
+    .then((snapshot) => snapshot.docs.map((doc) => doc.data() as MarketStatus));
+}
+
 export async function list() {
   return await collection()
     .get()
     .then((snapshot) => snapshot.docs.map((doc) => doc.data() as MarketStatus));
 }
 
-export async function create(
-  data: MarketStatus
-) {
+export async function create(data: MarketStatus) {
   const doc = document();
   data.id = doc.id;
 
@@ -52,9 +60,7 @@ export async function create(
   await doc.set(data);
 }
 
-export async function update(
-  data: MarketStatus
-) {
+export async function update(data: MarketStatus) {
   const now = admin.firestore.Timestamp.now();
   data.updated_at = now;
 

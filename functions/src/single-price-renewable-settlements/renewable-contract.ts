@@ -1,9 +1,11 @@
 /* eslint-disable camelcase */
 import { single_price_renewable_settlement } from '.';
 import { market_status } from '../market-statuses';
+import { renewable_ask_history } from '../renewable-ask-histories';
 import { renewable_ask } from '../renewable-asks';
+import { renewable_bid_history } from '../renewable-bid-histories';
 import { renewable_bid } from '../renewable-bids';
-import { MarketStatus, SinglePriceRenewableSettlement } from '@local/common';
+import { MarketStatus, RenewableAskHistory, RenewableBidHistory, SinglePriceRenewableSettlement } from '@local/common';
 import * as functions from 'firebase-functions';
 
 module.exports.renewableContract = functions.pubsub
@@ -57,11 +59,35 @@ module.exports.renewableContract = functions.pubsub
 
     // i,j両方が0のとき、成約は0になる
     if (i == 0 && j == 0) {
-      const marketStatus = await market_status.list();
+      const marketStatus = await market_status.getToday();
       if (!marketStatus.length) {
         await market_status.create(new MarketStatus({ is_finished_normal: false, is_finished_renewable: true }));
       } else {
         await market_status.update(new MarketStatus({ is_finished_renewable: true }));
+      }
+
+      for (const bid of sortRenewableBids) {
+        await renewable_bid_history.create(
+          new RenewableBidHistory({
+            account_id: bid.account_id,
+            price: bid.price,
+            amount: bid.amount,
+            is_accepted: false,
+          }),
+        );
+        await renewable_bid.delete_(bid.id);
+      }
+
+      for (const ask of sortRenewableAsks) {
+        await renewable_ask_history.create(
+          new RenewableAskHistory({
+            account_id: ask.account_id,
+            price: ask.price,
+            amount: ask.amount,
+            is_accepted: false,
+          }),
+        );
+        await renewable_ask.delete_(ask.id);
       }
     } else {
       // 止まったときの高い方の価格が均衡価格となる
