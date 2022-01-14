@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { getAuth, User } from '@angular/fire/auth';
+import { Auth, authState, User } from '@angular/fire/auth';
 import { ActivatedRoute } from '@angular/router';
 import { Balance, MonthlyPayment } from '@local/common';
 import { BalanceApplicationService } from 'projects/shared/src/lib/services/student-accounts/balances/balance.application.service';
@@ -14,25 +14,19 @@ import { mergeMap } from 'rxjs/operators';
   styleUrls: ['./account.component.css'],
 })
 export class AccountComponent implements OnInit {
-  user: User | undefined;
+  user$: Observable<User | null> | undefined;
   balances$: Observable<Balance> | undefined;
   monthlyPayments$: Observable<MonthlyPayment[]> | undefined;
 
   constructor(
+    private auth: Auth,
     private route: ActivatedRoute,
     private readonly studentAccApp: StudentAccountApplicationService,
     private readonly balanceApp: BalanceApplicationService,
     private readonly monthlyPaymentApp: MonthlyPaymentApplicationService,
   ) {
-    const auth = getAuth();
-    if (auth.currentUser !== null) {
-      this.user = auth.currentUser;
-    }
-    const uid = auth.currentUser?.uid;
-    if (!uid) {
-      return;
-    }
-    const accountID$ = this.studentAccApp.getByUid$(uid);
+    this.user$ = authState(this.auth);
+    const accountID$ = this.user$.pipe(mergeMap((user) => this.studentAccApp.getByUid$(user?.uid!)));
     this.monthlyPayments$ = accountID$.pipe(mergeMap((account) => this.monthlyPaymentApp.list$(account.id)));
     // Dummy
     this.monthlyPayments$ = of([

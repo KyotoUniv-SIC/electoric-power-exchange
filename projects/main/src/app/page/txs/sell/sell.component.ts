@@ -1,6 +1,6 @@
 import { SellOnSubmitEvent } from '../../../view/txs/sell/sell.component';
 import { Component, OnInit } from '@angular/core';
-import { getAuth } from '@angular/fire/auth';
+import { Auth, authState } from '@angular/fire/auth';
 import { AvailableBalance, NormalAsk, proto, RenewableAsk, StudentAccount } from '@local/common';
 import { NormalAskApplicationService } from 'projects/shared/src/lib/services/normal-asks/normal-ask.application.service';
 import { RenewableAskApplicationService } from 'projects/shared/src/lib/services/renewable-asks/renewable-ask.application.service';
@@ -22,6 +22,7 @@ export class SellComponent implements OnInit {
   denom: string | undefined;
 
   constructor(
+    private auth: Auth,
     private readonly normalAskApp: NormalAskApplicationService,
     private readonly renewableAskApp: RenewableAskApplicationService,
     private readonly availableBalanceApp: AvailableBalanceApplicationService,
@@ -29,11 +30,8 @@ export class SellComponent implements OnInit {
   ) {
     this.price = 27;
     this.amount = 1;
-    const uid = getAuth().currentUser?.uid;
-    if (!uid) {
-      return;
-    }
-    this.studentAccount$ = this.studentAccApp.getByUid$(uid);
+    const user$ = authState(this.auth);
+    this.studentAccount$ = user$.pipe(mergeMap((user) => this.studentAccApp.getByUid$(user?.uid!)));
     this.balance$ = this.studentAccount$.pipe(mergeMap((account) => this.availableBalanceApp.list$(account.id)));
   }
 

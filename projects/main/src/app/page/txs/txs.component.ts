@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { getAuth } from '@angular/fire/auth';
+import { Auth, authState } from '@angular/fire/auth';
 import { Timestamp } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { StudentAccount } from '@local/common';
@@ -47,6 +47,7 @@ export class TxsComponent implements OnInit {
   histories$: Observable<History[]> | undefined;
 
   constructor(
+    private auth: Auth,
     private route: ActivatedRoute,
     private readonly studentAccApp: StudentAccountApplicationService,
     private readonly primaryBidApp: PrimaryBidApplicationService,
@@ -59,11 +60,8 @@ export class TxsComponent implements OnInit {
     private readonly renewableBidHistoryApp: RenewableBidHistoryApplicationService,
     private readonly renewableAskHistoryApp: RenewableAskHistoryApplicationService,
   ) {
-    const uid = getAuth().currentUser?.uid;
-    if (!uid) {
-      return;
-    }
-    this.studentAccount$ = this.studentAccApp.getByUid$(uid);
+    const user$ = authState(this.auth);
+    this.studentAccount$ = user$.pipe(mergeMap((user) => this.studentAccApp.getByUid$(user?.uid!)));
 
     const normalBids$ = this.studentAccount$.pipe(mergeMap((account) => this.normalBidApp.list$(account.id)));
     const normalAsks$ = this.studentAccount$.pipe(mergeMap((account) => this.normalAskApp.list$(account.id)));
