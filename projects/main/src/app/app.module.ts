@@ -10,9 +10,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { getAnalytics, provideAnalytics } from '@angular/fire/analytics';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
-import { getAuth, provideAuth } from '@angular/fire/auth';
-import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-import { provideFunctions, getFunctions } from '@angular/fire/functions';
+import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
+import { connectFirestoreEmulator, getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { provideFunctions, getFunctions, connectFunctionsEmulator } from '@angular/fire/functions';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -40,9 +40,27 @@ const initApp = () => initializeApp(environment.firebase);
     ReactiveFormsModule,
     SharedModule,
     provideFirebaseApp(() => initApp()),
-    provideFirestore(() => getFirestore()),
-    provideFunctions(() => getFunctions()),
-    provideAuth(() => getAuth()),
+    provideFirestore(() => {
+      const db = getFirestore();
+      if (environment.useEmulator) {
+        connectFirestoreEmulator(db, 'localhost', 8080);
+      }
+      return db;
+    }),
+    provideFunctions(() => {
+      const func = getFunctions();
+      if (environment.useEmulator) {
+        connectFunctionsEmulator(func, 'localhost', 5001);
+      }
+      return func;
+    }),
+    provideAuth(() => {
+      const auth = getAuth();
+      if (environment.useEmulator) {
+        connectAuthEmulator(auth, 'http://localhost:9099');
+      }
+      return auth;
+    }),
     provideStorage(() => getStorage()),
     provideAnalytics(() => getAnalytics()),
   ],
