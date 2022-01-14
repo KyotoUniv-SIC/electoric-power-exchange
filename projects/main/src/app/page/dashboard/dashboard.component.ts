@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { getAuth } from '@angular/fire/auth';
+import { Auth, authState } from '@angular/fire/auth';
 import { Timestamp } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
-import { Balance, User } from '@local/common';
+import { Balance } from '@local/common';
 import { BalanceApplicationService } from 'projects/shared/src/lib/services/student-accounts/balances/balance.application.service';
 import { DailyUsageApplicationService } from 'projects/shared/src/lib/services/student-accounts/daily-usages/daily-usage.application.service';
 import { StudentAccountApplicationService } from 'projects/shared/src/lib/services/student-accounts/student-account.application.service';
@@ -29,18 +29,15 @@ export class DashboardComponent implements OnInit {
   usagesPreviousYear$: Observable<number[]> | undefined;
 
   constructor(
+    private auth: Auth,
     private route: ActivatedRoute,
     private readonly studentsApp: StudentAccountApplicationService,
     private readonly studentAccApp: StudentAccountApplicationService,
     private readonly balanceApp: BalanceApplicationService,
     private readonly dailyUsageApp: DailyUsageApplicationService,
   ) {
-    const uid = getAuth().currentUser?.uid;
-    if (!uid) {
-      return;
-    }
-    const accountID$ = this.studentAccApp.getByUid$(uid);
-    accountID$.subscribe((a) => console.log(a));
+    const currentUser$ = authState(this.auth);
+    const studentAccount$ = currentUser$.pipe(mergeMap((user) => this.studentAccApp.getByUid$(user?.uid!)));
     const users$ = this.studentsApp.list$();
     this.rankings$ = users$.pipe(
       mergeMap((users) =>
@@ -60,7 +57,7 @@ export class DashboardComponent implements OnInit {
       ),
       map((rankings) => rankings.sort((first, second) => second.amount - first.amount)),
     );
-    this.rank$ = combineLatest([this.rankings$, accountID$]).pipe(
+    this.rank$ = combineLatest([this.rankings$, studentAccount$]).pipe(
       map(([rankings, account]) =>
         rankings.findIndex((ranking) => {
           ranking.id == account.id;
@@ -72,9 +69,9 @@ export class DashboardComponent implements OnInit {
       }),
     );
     this.rank$.subscribe((a) => console.log(a));
-    this.balances$ = accountID$.pipe(mergeMap((account) => this.balanceApp.getByUid$(account.id)));
+    this.balances$ = studentAccount$.pipe(mergeMap((account) => this.balanceApp.getByUid$(account.id)));
 
-    const usageList$ = accountID$.pipe(mergeMap((account) => this.dailyUsageApp.list$(account.id)));
+    const usageList$ = studentAccount$.pipe(mergeMap((account) => this.dailyUsageApp.list$(account.id)));
     let first = new Date();
     first.setDate(1);
     first.setHours(0, 0, 0, 0);
