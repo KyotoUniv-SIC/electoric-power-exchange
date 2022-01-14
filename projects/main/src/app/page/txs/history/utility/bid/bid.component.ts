@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { getAuth } from '@angular/fire/auth';
+import { Timestamp } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { NormalBidHistory, PrimaryBid } from '@local/common';
 import { NormalBidHistoryApplicationService } from 'projects/shared/src/lib/services/normal-bid-histories/normal-bid-history.application.service';
@@ -16,6 +17,9 @@ import { map, mergeMap } from 'rxjs/operators';
 export class BidComponent implements OnInit {
   normalBid$: Observable<NormalBidHistory | undefined> | undefined;
   primaryBid$: Observable<PrimaryBid | undefined> | undefined;
+  createdAt$: Observable<Date> | undefined;
+  createdAtPrimary$: Observable<Date> | undefined;
+
   constructor(
     private route: ActivatedRoute,
     private readonly studentAccApp: StudentAccountApplicationService,
@@ -31,9 +35,11 @@ export class BidComponent implements OnInit {
     this.normalBid$ = combineLatest([studentAccount$, historyID$]).pipe(
       mergeMap(([studentAccount, historyID]) => this.normalBidApp.get$(studentAccount.id, historyID)),
     );
+    this.createdAt$ = this.normalBid$.pipe(map((bid) => (bid?.created_at as Timestamp).toDate()));
     this.primaryBid$ = combineLatest([studentAccount$, historyID$]).pipe(
       mergeMap(([studentAccount, historyID]) => this.primaryBidApp.get$(studentAccount.id, historyID)),
     );
+    this.createdAtPrimary$ = this.primaryBid$.pipe(map((bid) => (bid?.created_at as Timestamp).toDate()));
   }
 
   ngOnInit(): void {}

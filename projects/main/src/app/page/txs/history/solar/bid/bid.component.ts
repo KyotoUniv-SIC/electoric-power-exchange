@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { getAuth } from '@angular/fire/auth';
+import { Timestamp } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { RenewableBidHistory } from '@local/common';
 import { RenewableBidHistoryApplicationService } from 'projects/shared/src/lib/services/renewable-bid-histories/renewable-bid-history.application.service';
@@ -14,6 +15,8 @@ import { map, mergeMap } from 'rxjs/operators';
 })
 export class BidComponent implements OnInit {
   renewableBid$: Observable<RenewableBidHistory | undefined> | undefined;
+  createdAt$: Observable<Date> | undefined;
+
   constructor(
     private route: ActivatedRoute,
     private readonly studentAccApp: StudentAccountApplicationService,
@@ -28,6 +31,7 @@ export class BidComponent implements OnInit {
     this.renewableBid$ = combineLatest([studentAccount$, historyID$]).pipe(
       mergeMap(([studentAccount, historyID]) => this.renewableBidApp.get$(studentAccount.id, historyID)),
     );
+    this.createdAt$ = this.renewableBid$.pipe(map((bid) => (bid?.created_at as Timestamp).toDate()));
   }
 
   ngOnInit(): void {}

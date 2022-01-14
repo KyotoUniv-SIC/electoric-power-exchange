@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { getAuth } from '@angular/fire/auth';
+import { Timestamp } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { NormalAskHistory } from '@local/common';
 import { NormalAskHistoryApplicationService } from 'projects/shared/src/lib/services/normal-ask-histories/normal-ask-history.application.service';
@@ -14,6 +15,8 @@ import { map, mergeMap } from 'rxjs/operators';
 })
 export class AskComponent implements OnInit {
   normalAsk$: Observable<NormalAskHistory | undefined> | undefined;
+  createdAt$: Observable<Date> | undefined;
+
   constructor(
     private route: ActivatedRoute,
     private readonly studentAccApp: StudentAccountApplicationService,
@@ -28,6 +31,7 @@ export class AskComponent implements OnInit {
     this.normalAsk$ = combineLatest([studentAccount$, historyID$]).pipe(
       mergeMap(([studentAccount, historyID]) => this.normalAskApp.get$(studentAccount.id, historyID)),
     );
+    this.createdAt$ = this.normalAsk$.pipe(map((ask) => (ask?.created_at as Timestamp).toDate()));
   }
 
   ngOnInit(): void {}
