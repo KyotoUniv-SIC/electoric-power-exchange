@@ -58,7 +58,7 @@ export class DashboardComponent implements OnInit {
       map((rankings) => rankings.sort((first, second) => second.amount - first.amount)),
     );
     this.rank$ = combineLatest([this.rankings$, studentAccount$]).pipe(
-      map(([rankings, account]) => rankings.findIndex((ranking) => ranking.id == account.id)),
+      map(([rankings, account]) => rankings.findIndex((ranking) => ranking.id == account.id) + 1),
     );
     this.rank$.subscribe((a) => console.log(a));
     this.balances$ = studentAccount$.pipe(mergeMap((account) => this.balanceApp.getByUid$(account.id)));
