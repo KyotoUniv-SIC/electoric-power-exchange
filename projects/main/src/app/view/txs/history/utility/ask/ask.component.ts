@@ -10,12 +10,10 @@ import { NormalAskHistory } from '@local/common';
 export class AskComponent implements OnInit {
   @Input()
   normalAsk?: NormalAskHistory | null;
+  @Input()
+  createdAt?: Date | null;
 
-  createdAt?: Date;
-
-  constructor() {
-    this.createdAt = (this.normalAsk?.created_at as Timestamp).toDate();
-  }
+  constructor() {}
 
   ngOnInit(): void {}
 }

@@ -1,7 +1,7 @@
 import { BuyOnSubmitEvent } from '../../../view/txs/buy/buy.component';
 import { Component, OnInit } from '@angular/core';
+import { Auth, authState } from '@angular/fire/auth';
 import { AvailableBalance, NormalBid, RenewableBid, StudentAccount } from '@local/common';
-import { getAuth } from 'firebase/auth';
 import { NormalBidApplicationService } from 'projects/shared/src/lib/services/normal-bids/normal-bid.application.service';
 import { RenewableBidApplicationService } from 'projects/shared/src/lib/services/renewable-bids/renewable-bid.application.service';
 import { AvailableBalanceApplicationService } from 'projects/shared/src/lib/services/student-accounts/available-balances/available-balance.application.service';
@@ -22,6 +22,7 @@ export class BuyComponent implements OnInit {
   denom: string | undefined;
 
   constructor(
+    private auth: Auth,
     private readonly normalBidApp: NormalBidApplicationService,
     private readonly renewableBidApp: RenewableBidApplicationService,
     private readonly availableBalanceApp: AvailableBalanceApplicationService,
@@ -29,11 +30,8 @@ export class BuyComponent implements OnInit {
   ) {
     this.price = 27;
     this.amount = 1;
-    const uid = getAuth().currentUser?.uid;
-    if (!uid) {
-      return;
-    }
-    this.studentAccount$ = this.studentAccApp.getByUid$(uid);
+    const user$ = authState(this.auth);
+    this.studentAccount$ = user$.pipe(mergeMap((user) => this.studentAccApp.getByUid$(user?.uid!)));
     this.balance$ = this.studentAccount$.pipe(mergeMap((account) => this.availableBalanceApp.list$(account.id)));
   }
 

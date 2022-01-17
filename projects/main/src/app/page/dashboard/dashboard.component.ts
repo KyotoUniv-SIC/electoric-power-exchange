@@ -66,7 +66,7 @@ export class DashboardComponent implements OnInit {
       ),
     );
 
-    this.balances$ = this.balanceApp.list$(accountID).pipe(map((balances) => balances[0]));
+    this.balances$ = this.balanceApp.getByUid$(accountID);
 
     const usageList$ = this.dailyUsageApp.list$(accountID);
     let first = new Date();

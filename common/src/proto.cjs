@@ -2792,6 +2792,8 @@
              * @interface IMonthlyPayment
              * @property {string|null} [id] MonthlyPayment id
              * @property {string|null} [student_account_id] MonthlyPayment student_account_id
+             * @property {number|null} [year] MonthlyPayment year
+             * @property {number|null} [month] MonthlyPayment month
              * @property {number|null} [amount_jpy] MonthlyPayment amount_jpy
              */
     
@@ -2827,6 +2829,22 @@
             MonthlyPayment.prototype.student_account_id = "";
     
             /**
+             * MonthlyPayment year.
+             * @member {number} year
+             * @memberof main.MonthlyPayment
+             * @instance
+             */
+            MonthlyPayment.prototype.year = 0;
+    
+            /**
+             * MonthlyPayment month.
+             * @member {number} month
+             * @memberof main.MonthlyPayment
+             * @instance
+             */
+            MonthlyPayment.prototype.month = 0;
+    
+            /**
              * MonthlyPayment amount_jpy.
              * @member {number} amount_jpy
              * @memberof main.MonthlyPayment
@@ -2850,8 +2868,12 @@
                     writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
                 if (message.student_account_id != null && Object.hasOwnProperty.call(message, "student_account_id"))
                     writer.uint32(/* id 2, wireType 2 =*/18).string(message.student_account_id);
+                if (message.year != null && Object.hasOwnProperty.call(message, "year"))
+                    writer.uint32(/* id 3, wireType 1 =*/25).double(message.year);
+                if (message.month != null && Object.hasOwnProperty.call(message, "month"))
+                    writer.uint32(/* id 4, wireType 1 =*/33).double(message.month);
                 if (message.amount_jpy != null && Object.hasOwnProperty.call(message, "amount_jpy"))
-                    writer.uint32(/* id 3, wireType 1 =*/25).double(message.amount_jpy);
+                    writer.uint32(/* id 5, wireType 1 =*/41).double(message.amount_jpy);
                 return writer;
             };
     
@@ -2893,6 +2915,12 @@
                         message.student_account_id = reader.string();
                         break;
                     case 3:
+                        message.year = reader.double();
+                        break;
+                    case 4:
+                        message.month = reader.double();
+                        break;
+                    case 5:
                         message.amount_jpy = reader.double();
                         break;
                     default:
@@ -2936,6 +2964,12 @@
                 if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
                     if (!$util.isString(message.student_account_id))
                         return "student_account_id: string expected";
+                if (message.year != null && message.hasOwnProperty("year"))
+                    if (typeof message.year !== "number")
+                        return "year: number expected";
+                if (message.month != null && message.hasOwnProperty("month"))
+                    if (typeof message.month !== "number")
+                        return "month: number expected";
                 if (message.amount_jpy != null && message.hasOwnProperty("amount_jpy"))
                     if (typeof message.amount_jpy !== "number")
                         return "amount_jpy: number expected";
@@ -2958,6 +2992,10 @@
                     message.id = String(object.id);
                 if (object.student_account_id != null)
                     message.student_account_id = String(object.student_account_id);
+                if (object.year != null)
+                    message.year = Number(object.year);
+                if (object.month != null)
+                    message.month = Number(object.month);
                 if (object.amount_jpy != null)
                     message.amount_jpy = Number(object.amount_jpy);
                 return message;
@@ -2979,12 +3017,18 @@
                 if (options.defaults) {
                     object.id = "";
                     object.student_account_id = "";
+                    object.year = 0;
+                    object.month = 0;
                     object.amount_jpy = 0;
                 }
                 if (message.id != null && message.hasOwnProperty("id"))
                     object.id = message.id;
                 if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
                     object.student_account_id = message.student_account_id;
+                if (message.year != null && message.hasOwnProperty("year"))
+                    object.year = options.json && !isFinite(message.year) ? String(message.year) : message.year;
+                if (message.month != null && message.hasOwnProperty("month"))
+                    object.month = options.json && !isFinite(message.month) ? String(message.month) : message.month;
                 if (message.amount_jpy != null && message.hasOwnProperty("amount_jpy"))
                     object.amount_jpy = options.json && !isFinite(message.amount_jpy) ? String(message.amount_jpy) : message.amount_jpy;
                 return object;
@@ -3012,6 +3056,8 @@
              * @interface IMonthlyUsage
              * @property {string|null} [id] MonthlyUsage id
              * @property {string|null} [student_account_id] MonthlyUsage student_account_id
+             * @property {number|null} [year] MonthlyUsage year
+             * @property {number|null} [month] MonthlyUsage month
              * @property {number|null} [amount_kwh] MonthlyUsage amount_kwh
              */
     
@@ -3047,6 +3093,22 @@
             MonthlyUsage.prototype.student_account_id = "";
     
             /**
+             * MonthlyUsage year.
+             * @member {number} year
+             * @memberof main.MonthlyUsage
+             * @instance
+             */
+            MonthlyUsage.prototype.year = 0;
+    
+            /**
+             * MonthlyUsage month.
+             * @member {number} month
+             * @memberof main.MonthlyUsage
+             * @instance
+             */
+            MonthlyUsage.prototype.month = 0;
+    
+            /**
              * MonthlyUsage amount_kwh.
              * @member {number} amount_kwh
              * @memberof main.MonthlyUsage
@@ -3070,8 +3132,12 @@
                     writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
                 if (message.student_account_id != null && Object.hasOwnProperty.call(message, "student_account_id"))
                     writer.uint32(/* id 2, wireType 2 =*/18).string(message.student_account_id);
+                if (message.year != null && Object.hasOwnProperty.call(message, "year"))
+                    writer.uint32(/* id 3, wireType 1 =*/25).double(message.year);
+                if (message.month != null && Object.hasOwnProperty.call(message, "month"))
+                    writer.uint32(/* id 4, wireType 1 =*/33).double(message.month);
                 if (message.amount_kwh != null && Object.hasOwnProperty.call(message, "amount_kwh"))
-                    writer.uint32(/* id 3, wireType 1 =*/25).double(message.amount_kwh);
+                    writer.uint32(/* id 5, wireType 1 =*/41).double(message.amount_kwh);
                 return writer;
             };
     
@@ -3113,6 +3179,12 @@
                         message.student_account_id = reader.string();
                         break;
                     case 3:
+                        message.year = reader.double();
+                        break;
+                    case 4:
+                        message.month = reader.double();
+                        break;
+                    case 5:
                         message.amount_kwh = reader.double();
                         break;
                     default:
@@ -3156,6 +3228,12 @@
                 if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
                     if (!$util.isString(message.student_account_id))
                         return "student_account_id: string expected";
+                if (message.year != null && message.hasOwnProperty("year"))
+                    if (typeof message.year !== "number")
+                        return "year: number expected";
+                if (message.month != null && message.hasOwnProperty("month"))
+                    if (typeof message.month !== "number")
+                        return "month: number expected";
                 if (message.amount_kwh != null && message.hasOwnProperty("amount_kwh"))
                     if (typeof message.amount_kwh !== "number")
                         return "amount_kwh: number expected";
@@ -3178,6 +3256,10 @@
                     message.id = String(object.id);
                 if (object.student_account_id != null)
                     message.student_account_id = String(object.student_account_id);
+                if (object.year != null)
+                    message.year = Number(object.year);
+                if (object.month != null)
+                    message.month = Number(object.month);
                 if (object.amount_kwh != null)
                     message.amount_kwh = Number(object.amount_kwh);
                 return message;
@@ -3199,12 +3281,18 @@
                 if (options.defaults) {
                     object.id = "";
                     object.student_account_id = "";
+                    object.year = 0;
+                    object.month = 0;
                     object.amount_kwh = 0;
                 }
                 if (message.id != null && message.hasOwnProperty("id"))
                     object.id = message.id;
                 if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
                     object.student_account_id = message.student_account_id;
+                if (message.year != null && message.hasOwnProperty("year"))
+                    object.year = options.json && !isFinite(message.year) ? String(message.year) : message.year;
+                if (message.month != null && message.hasOwnProperty("month"))
+                    object.month = options.json && !isFinite(message.month) ? String(message.month) : message.month;
                 if (message.amount_kwh != null && message.hasOwnProperty("amount_kwh"))
                     object.amount_kwh = options.json && !isFinite(message.amount_kwh) ? String(message.amount_kwh) : message.amount_kwh;
                 return object;

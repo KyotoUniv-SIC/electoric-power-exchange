@@ -12,20 +12,12 @@ export class BidComponent implements OnInit {
   normalBid?: NormalBidHistory | null;
   @Input()
   primaryBid?: PrimaryBid | null;
+  @Input()
+  createdAt?: Date | null;
+  @Input()
+  createdAtPrimary?: Date | null;
 
-  createdAt?: Date;
-  createdAtPrimary?: Date;
-
-  constructor() {
-    if (!this.normalBid) {
-      return;
-    }
-    this.createdAt = (this.normalBid.created_at as Timestamp).toDate();
-    if (!this.primaryBid) {
-      return;
-    }
-    this.createdAtPrimary = (this.primaryBid.created_at as Timestamp).toDate();
-  }
+  constructor() {}
 
   ngOnInit(): void {}
 }

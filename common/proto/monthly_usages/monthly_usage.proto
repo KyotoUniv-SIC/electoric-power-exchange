@@ -8,5 +8,7 @@ option (google.firebase.rules.firebase_rules).full_package_names = true;
 message MonthlyUsage {
   string id = 1;
   string student_account_id = 2;
-  double amount_kwh = 3;
+  double year = 3;
+  double month = 4;
+  double amount_kwh = 5;
 }
