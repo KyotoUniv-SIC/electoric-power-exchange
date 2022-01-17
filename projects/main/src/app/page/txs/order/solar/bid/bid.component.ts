@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { getAuth } from '@angular/fire/auth';
+import { Auth, authState } from '@angular/fire/auth';
 import { Timestamp } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { RenewableBid } from '@local/common';
@@ -18,15 +18,13 @@ export class BidComponent implements OnInit {
   createdAt$: Observable<Date> | undefined;
 
   constructor(
+    private auth: Auth,
     private route: ActivatedRoute,
     private readonly studentAccApp: StudentAccountApplicationService,
     private readonly renewableBidApp: RenewableBidApplicationService,
   ) {
-    const uid = getAuth().currentUser?.uid;
-    if (!uid) {
-      return;
-    }
-    const studentAccount$ = this.studentAccApp.getByUid$(uid);
+    const user$ = authState(this.auth);
+    const studentAccount$ = user$.pipe(mergeMap((user) => this.studentAccApp.getByUid$(user?.uid!)));
     const orderID$ = this.route.params.pipe(map((params) => params.order_id));
     this.renewableBid$ = combineLatest([studentAccount$, orderID$]).pipe(
       mergeMap(([studentAccount, orderID]) => this.renewableBidApp.get$(studentAccount.id, orderID)),
