@@ -14,20 +14,22 @@
   </mat-card>
   <mat-card class="mb-20">
     <mat-card-title>Usage Ranking</mat-card-title>
-    <mat-list-item class="flex flex-wrap">
-      <span class="break-all font-bold text-xl">Your Rank:</span>
-      <span class="flex-auto break-all"></span>
-      <span class="break-all font-bold text-xl text-purple-800">#{{ rank }}</span>
-    </mat-list-item>
-    <mat-divider [inset]="true"></mat-divider>
-    <ng-container *ngFor="let ranking of rankings">
+    <mat-list>
       <mat-list-item class="flex flex-wrap">
-        <span class="break-all">{{ ranking.name }}:</span>
+        <span class="break-all font-bold text-xl">Your Rank:</span>
         <span class="flex-auto break-all"></span>
-        <span class="break-all">{{ ranking.amount }}KWh</span>
+        <span class="break-all font-bold text-xl text-purple-800">#{{ rank }}</span>
       </mat-list-item>
       <mat-divider [inset]="true"></mat-divider>
-    </ng-container>
+      <ng-container *ngFor="let ranking of rankings">
+        <mat-list-item class="flex flex-wrap">
+          <span class="break-all">{{ ranking.name }}:</span>
+          <span class="flex-auto break-all"></span>
+          <span class="break-all">{{ ranking.amount }}KWh</span>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
+      </ng-container>
+    </mat-list>
   </mat-card>
   <mat-card class="mb-20">
     <mat-card-title>Energy Sources</mat-card-title>
