@@ -25,7 +25,7 @@
           <mat-list-item class="flex" routerLink="/txs/order/{{ powerType(order.is_solar) }}/{{ txType(order.is_bid) }}/{{ order.id }}">
             <div class="flex-auto">
               <span class="column-name font-bold">Date : </span>
-              <span class="column-value font-bold">{{ order.date }}</span>
+              <span class="column-value font-bold">{{ order.date | date: 'yy/MM/dd HH:mm' }}</span>
             </div>
           </mat-list-item>
           <mat-list-item class="flex" routerLink="/txs/order/{{ powerType(order.is_solar) }}/{{ txType(order.is_bid) }}/{{ order.id }}">
@@ -105,7 +105,7 @@
           >
             <div class="flex-auto">
               <span class="column-name font-bold">Date : </span>
-              <span class="column-value font-bold">{{ history.date }}</span>
+              <span class="column-value font-bold">{{ history.date | date: 'yy/MM/dd HH:mm' }}</span>
             </div>
           </mat-list-item>
           <mat-list-item
