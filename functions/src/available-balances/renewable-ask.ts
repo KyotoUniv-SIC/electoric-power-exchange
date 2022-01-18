@@ -9,15 +9,12 @@ renewable_ask.onCreateHandler.push(async (snapshot, context) => {
 
   if (data.type == proto.main.RenewableAskType.SECONDARY) {
     await available_balance.update(
-      new AvailableBalance(
-        {
-          student_account_id: availableBalance[0].student_account_id,
-          amount_upx: availableBalance[0].amount_upx,
-          amount_spx: availableBalance[0].amount_spx - data.amount,
-        },
-        data.created_at,
-        data.updated_at,
-      ),
+      new AvailableBalance({
+        id: availableBalance[0].id,
+        student_account_id: availableBalance[0].student_account_id,
+        amount_upx: availableBalance[0].amount_upx,
+        amount_spx: availableBalance[0].amount_spx - data.amount,
+      }),
     );
   }
 });
