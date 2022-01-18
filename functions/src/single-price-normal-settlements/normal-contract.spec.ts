@@ -21,8 +21,8 @@ describe('Normal Contract Test', () => {
     ];
     const sortBids = bids.sort((first, second) => second.price - first.price);
     const sortAsks = asks.sort((first, second) => first.price - second.price);
-    let sumBidAmount = 0;
 
+    let sumBidAmount = 0;
     const sumBidAmountHistory = [];
     for (const bid of sortBids) {
       sumBidAmount += bid.amount;
