@@ -9,7 +9,7 @@ import {
 } from '@local/common';
 
 describe('Normal Contract Test', () => {
-  it('Build Settlement', () => {
+  it('Build Transaction Settlement', () => {
     const data = new SinglePriceNormalSettlement({ price: 25, amount: 85 });
     const bids = [
       new NormalBid({ id: 'bid01', account_id: 'test01', price: 15, amount: 40 }),

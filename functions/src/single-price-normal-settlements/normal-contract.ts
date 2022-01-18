@@ -17,10 +17,11 @@ module.exports.normalContract = functions.pubsub
     const marketStatus = await market_status.getToday();
     // bidかaskが0の場合は0成約で終了する
     if (!normalBids.length || !normalAsks.length) {
+      console.log('bid,askの不足でUPX成約は0です。', marketStatus);
       if (!marketStatus.length) {
         await market_status.create(new MarketStatus({ is_finished_normal: true, is_finished_renewable: false }));
       } else {
-        await market_status.update(new MarketStatus({ is_finished_normal: true }));
+        await market_status.update(new MarketStatus({ id: marketStatus[0].id, is_finished_normal: true }));
       }
 
       for (const bid of normalBids) {
