@@ -60,10 +60,11 @@ module.exports.renewableContract = functions.pubsub
     // i,j両方が0のとき、成約は0になる
     if (i == 0 && j == 0) {
       const marketStatus = await market_status.getToday();
+      console.log('SPX成約は0です。', marketStatus);
       if (!marketStatus.length) {
         await market_status.create(new MarketStatus({ is_finished_normal: false, is_finished_renewable: true }));
       } else {
-        await market_status.update(new MarketStatus({ is_finished_renewable: true }));
+        await market_status.update(new MarketStatus({ id: marketStatus[0].id, is_finished_renewable: true }));
       }
 
       for (const bid of sortRenewableBids) {
