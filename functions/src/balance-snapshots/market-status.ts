@@ -31,7 +31,7 @@ market_status.onUpdateHandler.push(async (snapshot, context) => {
     // 電気料金
     const electricity = 1000000;
     const price =
-      ((cost + electricity - income + (purchase - sale) * primaryEanings[0].price) / (purchase + sale)) * primaryEanings[0].price;
+      (cost + electricity - income + (purchase - sale) * primaryEanings[0].price) / ((purchase + sale) * primaryEanings[0].price);
     await discount_price.create(new DiscountPrice({ price: price, amount_purchase: purchase, amount_sale: sale }));
 
     for (const student of students) {
