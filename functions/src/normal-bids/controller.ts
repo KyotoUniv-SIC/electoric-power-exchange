@@ -22,7 +22,7 @@ module.exports.onCreate = f.firestore.document(NormalBidFirestore.virtualPath).o
   }
 });
 
-module.exports.onUpdate = f.firestoreBidFirestore.virtualPath).onUpdate(async (snapshot, context) => {
+module.exports.onUpdate = f.firestore.document(NormalBidFirestore.virtualPath).onUpdate(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     return;
   }

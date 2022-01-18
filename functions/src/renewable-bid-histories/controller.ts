@@ -22,7 +22,7 @@ module.exports.onCreate = f.firestore.document(RenewableBidHistoryFirestore.virt
   }
 });
 
-module.exports.onUpdate = f.firestoret(RenewableBidHistoryFirestore.virtualPath).onUpdate(async (snapshot, context) => {
+module.exports.onUpdate = f.firestore.document(RenewableBidHistoryFirestore.virtualPath).onUpdate(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     return;
   }
@@ -36,7 +36,7 @@ module.exports.onUpdate = f.firestoret(RenewableBidHistoryFirestore.virtualPath)
   }
 });
 
-module.exports.onDelete = f.firestoret(RenewableBidHistoryFirestore.virtualPath).onDelete(async (snapshot, context) => {
+module.exports.onDelete = f.firestore.document(RenewableBidHistoryFirestore.virtualPath).onDelete(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     return;
   }

@@ -22,7 +22,7 @@ module.exports.onCreate = f.firestore.document(RenewableAskHistoryFirestore.virt
   }
 });
 
-module.exports.onUpdate = f.firestoret(RenewableAskHistoryFirestore.virtualPath).onUpdate(async (snapshot, context) => {
+module.exports.onUpdate = f.firestore.document(RenewableAskHistoryFirestore.virtualPath).onUpdate(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     return;
   }
@@ -36,7 +36,7 @@ module.exports.onUpdate = f.firestoret(RenewableAskHistoryFirestore.virtualPath)
   }
 });
 
-module.exports.onDelete = f.firestoret(RenewableAskHistoryFirestore.virtualPath).onDelete(async (snapshot, context) => {
+module.exports.onDelete = f.firestore.document(RenewableAskHistoryFirestore.virtualPath).onDelete(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     return;
   }

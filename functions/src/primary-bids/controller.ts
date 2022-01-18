@@ -22,7 +22,7 @@ module.exports.onCreate = f.firestore.document(PrimaryBidFirestore.virtualPath).
   }
 });
 
-module.exports.onUpdate = f.firestoret(PrimaryBidFirestore.virtualPath).onUpdate(async (snapshot, context) => {
+module.exports.onUpdate = f.firestore.document(PrimaryBidFirestore.virtualPath).onUpdate(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     return;
   }
@@ -36,7 +36,7 @@ module.exports.onUpdate = f.firestoret(PrimaryBidFirestore.virtualPath).onUpdate
   }
 });
 
-module.exports.onDelete = f.firestoret(PrimaryBidFirestore.virtualPath).onDelete(async (snapshot, context) => {
+module.exports.onDelete = f.firestore.document(PrimaryBidFirestore.virtualPath).onDelete(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     return;
   }

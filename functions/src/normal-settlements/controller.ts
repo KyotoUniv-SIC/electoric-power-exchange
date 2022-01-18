@@ -22,7 +22,7 @@ module.exports.onCreate = f.firestore.document(NormalSettlementFirestore.virtual
   }
 });
 
-module.exports.onUpdate = f.firestoreSettlementFirestore.virtualPath).onUpdate(async (snapshot, context) => {
+module.exports.onUpdate = f.firestore.document(NormalSettlementFirestore.virtualPath).onUpdate(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     return;
   }
@@ -36,7 +36,7 @@ module.exports.onUpdate = f.firestoreSettlementFirestore.virtualPath).onUpdate(a
   }
 });
 
-module.exports.onDelete = f.firestoreSettlementFirestore.virtualPath).onDelete(async (snapshot, context) => {
+module.exports.onDelete = f.firestore.document(NormalSettlementFirestore.virtualPath).onDelete(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     return;
   }
