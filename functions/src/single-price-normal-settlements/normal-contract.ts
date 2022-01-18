@@ -8,7 +8,8 @@ import { normal_bid } from '../normal-bids';
 import { MarketStatus, NormalAskHistory, NormalBidHistory, SinglePriceNormalSettlement } from '@local/common';
 import * as functions from 'firebase-functions';
 
-module.exports.normalContract = functions.pubsub
+const f = functions.region('asia-northeast1');
+module.exports.normalContract = f.pubsub
   .schedule('0 0 * * *')
   .timeZone('Asia/Tokyo') // Users can choose timezone - default is America/Los_Angeles
   .onRun(async () => {

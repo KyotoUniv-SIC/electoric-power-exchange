@@ -7,7 +7,8 @@ export const onCreateHandler: FirestoreCreateHandler[] = [];
 export const onUpdateHandler: FirestoreUpdateHandler[] = [];
 export const onDeleteHandler: FirestoreDeleteHandler[] = [];
 
-module.exports.onCreate = functions.firestore.document(NormalBidHistoryFirestore.virtualPath).onCreate(async (snapshot, context) => {
+const f = functions.region('asia-northeast1');
+module.exports.onCreate = f.firestore(NormalBidHistoryFirestore.virtualPath).onCreate(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     return;
   }
@@ -21,7 +22,7 @@ module.exports.onCreate = functions.firestore.document(NormalBidHistoryFirestore
   }
 });
 
-module.exports.onUpdate = functions.firestore.document(NormalBidHistoryFirestore.virtualPath).onUpdate(async (snapshot, context) => {
+module.exports.onUpdate = f.firestoret(NormalBidHistoryFirestore.virtualPath).onUpdate(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     return;
   }
@@ -35,7 +36,7 @@ module.exports.onUpdate = functions.firestore.document(NormalBidHistoryFirestore
   }
 });
 
-module.exports.onDelete = functions.firestore.document(NormalBidHistoryFirestore.virtualPath).onDelete(async (snapshot, context) => {
+module.exports.onDelete = f.firestoret(NormalBidHistoryFirestore.virtualPath).onDelete(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     return;
   }
