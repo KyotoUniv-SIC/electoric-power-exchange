@@ -10,6 +10,7 @@ normal_settlement.onCreateHandler.push(async (snapshot, context) => {
   const bidderBalance = await balance.getLatest(data.bid_id);
   await balance.update(
     new Balance({
+      id: bidderBalance[0].id,
       student_account_id: data.bid_id,
       amount_upx: bidderBalance[0].amount_upx + data.amount,
       amount_spx: bidderBalance[0].amount_spx,
@@ -19,16 +20,17 @@ normal_settlement.onCreateHandler.push(async (snapshot, context) => {
   const sellerBalance = await balance.getLatest(data.ask_id);
   await balance.update(
     new Balance({
+      id: sellerBalance[0].id,
       student_account_id: data.ask_id,
       amount_upx: sellerBalance[0].amount_upx - data.amount,
       amount_spx: sellerBalance[0].amount_spx,
     }),
   );
 
-  const marketStatus = await market_status.list();
+  const marketStatus = await market_status.getToday();
   if (!marketStatus.length) {
     await market_status.create(new MarketStatus({ is_finished_normal: true, is_finished_renewable: false }));
   } else {
-    await market_status.update(new MarketStatus({ is_finished_normal: true }));
+    await market_status.update(new MarketStatus({ id: marketStatus[0].id, is_finished_normal: true }));
   }
 });
