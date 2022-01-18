@@ -19,7 +19,7 @@ module.exports.renewableContract = functions.pubsub
     if (!renewableBids.length || !renewableAsks.length) {
       console.log('bid,askの不足でSPX成約は0です。', marketStatus);
       if (!marketStatus.length) {
-        await market_status.create(new MarketStatus({ is_finished_renewable: true, is_finished_renewable: false }));
+        await market_status.create(new MarketStatus({ is_finished_normal: false, is_finished_renewable: true }));
       } else {
         await market_status.update(new MarketStatus({ id: marketStatus[0].id, is_finished_renewable: true }));
       }
@@ -91,7 +91,7 @@ module.exports.renewableContract = functions.pubsub
     if (i == 0 && j == 0) {
       console.log('SPX成約は0です。', marketStatus);
       if (!marketStatus.length) {
-        await market_status.create(new MarketStatus({ is_finished_renewable: true, is_finished_renewable: false }));
+        await market_status.create(new MarketStatus({ is_finished_normal: false, is_finished_renewable: true }));
       } else {
         await market_status.update(new MarketStatus({ id: marketStatus[0].id, is_finished_renewable: true }));
       }
