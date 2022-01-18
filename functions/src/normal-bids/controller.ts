@@ -36,7 +36,7 @@ module.exports.onUpdate = f.firestore.document(NormalBidFirestore.virtualPath).o
   }
 });
 
-module.exports.onDelete = f.firestoreBidFirestore.virtualPath).onDelete(async (snapshot, context) => {
+module.exports.onDelete = f.firestore.document(NormalBidFirestore.virtualPath).onDelete(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     return;
   }
