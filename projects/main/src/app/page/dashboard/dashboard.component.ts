@@ -21,7 +21,8 @@ export interface Ranking {
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
-  balances$: Observable<Balance> | undefined;
+  balance$: Observable<Balance> | undefined;
+  totalBalance$: Observable<Balance> | undefined;
   rankings$: Observable<Ranking[]> | undefined;
   rank$: Observable<number> | undefined;
   totalUsage$: Observable<number> | undefined;
@@ -60,8 +61,20 @@ export class DashboardComponent implements OnInit {
     this.rank$ = combineLatest([this.rankings$, studentAccount$]).pipe(
       map(([rankings, account]) => rankings.findIndex((ranking) => ranking.id == account.id) + 1),
     );
-    this.rank$.subscribe((a) => console.log(a));
-    this.balances$ = studentAccount$.pipe(mergeMap((account) => this.balanceApp.getByUid$(account.id)));
+    this.balance$ = studentAccount$.pipe(mergeMap((account) => this.balanceApp.getByUid$(account.id)));
+    // const a = users$.pipe(mergeMap((users) => users.map((user) => this.balanceApp.list(user.id))));
+    this.totalBalance$ = users$.pipe(
+      mergeMap((users) => Promise.all(users.map((user) => this.balanceApp.list(user.id).then((balances) => balances[0])))),
+      map((balances) => {
+        let upxTotal = 0;
+        let spxTotal = 0;
+        balances.map((balance) => {
+          upxTotal += balance.amount_upx;
+          spxTotal += balance.amount_spx;
+        });
+        return new Balance({ amount_upx: upxTotal, amount_spx: spxTotal });
+      }),
+    );
 
     const usageList$ = studentAccount$.pipe(mergeMap((account) => this.dailyUsageApp.list$(account.id)));
     let first = new Date();
