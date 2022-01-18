@@ -11,7 +11,9 @@ import { Label, MultiDataSet } from 'ng2-charts';
 })
 export class DashboardComponent implements OnInit {
   @Input()
-  balances?: Balance | null;
+  balance?: Balance | null;
+  @Input()
+  totalBalance?: Balance | null;
   @Input()
   totalUsage?: number | null;
   @Input()
@@ -24,10 +26,16 @@ export class DashboardComponent implements OnInit {
   rank?: number | null;
 
   doughnutChartLabels: Label[] = ['Utility Power', 'Solar Power'];
-  doughnutChartData: MultiDataSet = [
+  balanceData: MultiDataSet = [
     [
-      // this.balances?.amount_upx, this.balances?.amount_spx
+      // this.balance?.amount_upx, this.balance?.amount_spx
       100, 100,
+    ],
+  ];
+  totalBalanceData: MultiDataSet = [
+    [
+      // this.totalBalance?.amount_upx, this.totalBalance?.amount_spx
+      20000, 54000,
     ],
   ];
   doughnutChartType: ChartType = 'doughnut';
