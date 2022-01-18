@@ -1,7 +1,7 @@
 import { Balance, NormalSettlement } from '@local/common';
 
-describe('Change Balance by Settlement', () => {
-  it('Build Settlement', () => {
+describe('Balance Normal Settlement Test', () => {
+  it('Change Balance by Settlement', () => {
     const balances = [
       new Balance({
         id: 'balance01',

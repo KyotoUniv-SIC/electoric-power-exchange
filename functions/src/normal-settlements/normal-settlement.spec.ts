@@ -8,7 +8,7 @@ import {
   SinglePriceNormalSettlement,
 } from '@local/common';
 
-describe('Normal Contract Test', () => {
+describe('Normal Settlement Test', () => {
   it('Build Transaction Settlement', () => {
     const data = new SinglePriceNormalSettlement({ price: 25, amount: 85 });
     const bids = [
