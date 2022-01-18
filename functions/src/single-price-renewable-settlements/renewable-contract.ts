@@ -8,7 +8,8 @@ import { renewable_bid } from '../renewable-bids';
 import { MarketStatus, RenewableAskHistory, RenewableBidHistory, SinglePriceRenewableSettlement } from '@local/common';
 import * as functions from 'firebase-functions';
 
-module.exports.renewableContract = functions.pubsub
+const f = functions.region('asia-northeast1');
+module.exports.renewableContract = f.pubsub
   .schedule('0 0 * * *')
   .timeZone('Asia/Tokyo') // Users can choose timezone - default is America/Los_Angeles
   .onRun(async () => {
