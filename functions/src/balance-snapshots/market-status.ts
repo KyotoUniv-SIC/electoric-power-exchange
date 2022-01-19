@@ -10,11 +10,11 @@ import { Timestamp } from 'firebase/firestore';
 
 market_status.onUpdateHandler.push(async (snapshot, context) => {
   const data = snapshot.after.data()!;
-  let purchase = 0;
-  let sale = 0;
 
   if ((data.created_at as Timestamp).toDate().getDate() == 1 && data.is_finished_normal == true && data.is_finished_renewable == true) {
     const students = await student_account.list();
+    let purchase = 0;
+    let sale = 0;
     for (const student of students) {
       const studentID = student.id;
       const lastMonthBalance = await balance.getLatest(studentID);
