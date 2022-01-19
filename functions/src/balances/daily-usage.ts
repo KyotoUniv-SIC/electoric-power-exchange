@@ -19,7 +19,7 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
       }),
     );
   } else {
-    const spxShortage = accountBalance[0].amount_spx - data.amount_kwh;
+    const spxShortage = data.amount_kwh - accountBalance[0].amount_spx;
     await balance.update(
       new Balance({
         id: accountBalance[0].id,
