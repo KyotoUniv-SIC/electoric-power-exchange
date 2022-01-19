@@ -12,18 +12,48 @@ module.exports.renewableContract = functions.pubsub
   .schedule('0 0 * * *')
   .timeZone('Asia/Tokyo') // Users can choose timezone - default is America/Los_Angeles
   .onRun(async () => {
-    // Bidを価格の高い順に並び替える
     const renewableBids = await renewable_bid.list();
-    if (!renewableBids || !renewableBids.length) {
-      return;
+    const renewableAsks = await renewable_ask.list();
+    const marketStatus = await market_status.getToday();
+    // bidかaskが0の場合は0成約で終了する
+    if (!renewableBids.length || !renewableAsks.length) {
+      console.log('bid,askの不足でSPX成約は0です。', marketStatus);
+      if (!marketStatus.length) {
+        await market_status.create(new MarketStatus({ is_finished_normal: false, is_finished_renewable: true }));
+      } else {
+        await market_status.update(new MarketStatus({ id: marketStatus[0].id, is_finished_renewable: true }));
+      }
+
+      for (const bid of renewableBids) {
+        await renewable_bid_history.create(
+          new RenewableBidHistory({
+            account_id: bid.account_id,
+            price: bid.price,
+            amount: bid.amount,
+            is_accepted: false,
+          }),
+        );
+        await renewable_bid.delete_(bid.id);
+      }
+
+      for (const ask of renewableAsks) {
+        await renewable_ask_history.create(
+          new RenewableAskHistory({
+            account_id: ask.account_id,
+            price: ask.price,
+            amount: ask.amount,
+            is_accepted: false,
+          }),
+        );
+        await renewable_ask.delete_(ask.id);
+        return;
+      }
     }
+
+    // Bidを価格の高い順に並び替える
     const sortRenewableBids = renewableBids.sort((first, second) => second.price - first.price);
 
     // Askを価格の低い順に並び替える
-    const renewableAsks = await renewable_ask.list();
-    if (!renewableAsks || !renewableAsks.length) {
-      return;
-    }
     const sortRenewableAsks = renewableAsks.sort((first, second) => first.price - second.price);
 
     // Bidの量の推移を配列にする
@@ -59,11 +89,11 @@ module.exports.renewableContract = functions.pubsub
 
     // i,j両方が0のとき、成約は0になる
     if (i == 0 && j == 0) {
-      const marketStatus = await market_status.getToday();
+      console.log('SPX成約は0です。', marketStatus);
       if (!marketStatus.length) {
         await market_status.create(new MarketStatus({ is_finished_normal: false, is_finished_renewable: true }));
       } else {
-        await market_status.update(new MarketStatus({ is_finished_renewable: true }));
+        await market_status.update(new MarketStatus({ id: marketStatus[0].id, is_finished_renewable: true }));
       }
 
       for (const bid of sortRenewableBids) {

@@ -16,43 +16,52 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
   const data = snapshot.data()!;
   const tokens = data.amount_upx + data.amount_spx;
 
-  const primaryBid = await primary_bid.getLatest(data.student_account_id);
+  const primaryBids = await primary_bid.getLatest(data.student_account_id);
   const normalBids = await normal_bid_history.listLastMonth(data.student_account_id);
   const normalAsks = await normal_ask_history.listLastMonth(data.student_account_id);
   const renewableBids = await renewable_bid_history.listLastMonth(data.student_account_id);
   const renewableAsks = await renewable_ask_history.listLastMonth(data.student_account_id);
   const dailyUsages = await daily_usage.listLastMonth(data.student_account_id);
 
-  let usage = primaryBid[0].amount - tokens;
-  let payment = primaryBid[0].price * primaryBid[0].amount;
+  let usage = primaryBids[0].amount - tokens;
+  let payment = primaryBids[0].price * primaryBids[0].amount;
 
   const primaryAsks = await primary_ask.listLastMonth();
   const discounts = await discount_price.listLatest();
   tokens >= 0
-    ? payment - (primaryAsks[0].price - discounts[0].price) * tokens
-    : payment + (primaryAsks[0].price + discounts[0].price) * tokens;
+    ? (payment -= (primaryAsks[0].price - discounts[0].price) * tokens)
+    : (payment += (primaryAsks[0].price + discounts[0].price) * tokens);
 
   for (const normalBid of normalBids) {
-    usage += normalBid.amount;
-    payment += normalBid.contract_price * normalBid.amount;
+    if (normalBid.is_accepted == true) {
+      usage += normalBid.amount;
+      payment += normalBid.contract_price * normalBid.amount;
+    }
   }
   for (const normalAsk of normalAsks) {
-    usage -= normalAsk.amount;
-    payment -= normalAsk.contract_price * normalAsk.amount;
+    if (normalAsk.is_accepted == true) {
+      usage -= normalAsk.amount;
+      payment -= normalAsk.contract_price * normalAsk.amount;
+    }
   }
   for (const renewableBid of renewableBids) {
-    usage += renewableBid.amount;
-    payment += renewableBid.contract_price * renewableBid.amount;
+    if (renewableBid.is_accepted == true) {
+      usage += renewableBid.amount;
+      payment += renewableBid.contract_price * renewableBid.amount;
+    }
   }
   for (const renewableAsk of renewableAsks) {
-    usage -= renewableAsk.amount;
-    payment -= renewableAsk.contract_price * renewableAsk.amount;
+    if (renewableAsk.is_accepted == true) {
+      usage -= renewableAsk.amount;
+      payment -= renewableAsk.contract_price * renewableAsk.amount;
+    }
   }
   for (const dailyUsage of dailyUsages) {
     usage += dailyUsage.amount_kwh;
   }
   const date = new Date();
-  date.setMonth(date.getMonth() - 1);
+  // .getMonth()は0-11の整数値をとる
+  // date.setMonth(date.getMonth() - 1);
 
   await monthly_payment.create(
     new MonthlyPayment({
