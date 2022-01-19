@@ -17,8 +17,8 @@ describe('Calculated Payment Test', () => {
     const data = new BalanceSnapshot({
       id: 'balance01',
       student_account_id: 'test01',
-      amount_upx: 100,
-      amount_spx: 100,
+      amount_upx: 10,
+      amount_spx: 0,
     });
     const tokens = data.amount_upx + data.amount_spx;
     const primaryBids = [new PrimaryBid({ id: 'primary01', account_id: 'test01', price: 27, amount: 120 })];
@@ -84,7 +84,6 @@ describe('Calculated Payment Test', () => {
       usage += dailyUsage.amount_kwh;
     }
     const date = new Date();
-    date.setMonth(date.getMonth() - 1);
 
     const monthlyPayment = new MonthlyPayment({
       student_account_id: data.student_account_id,
@@ -98,9 +97,8 @@ describe('Calculated Payment Test', () => {
       month: date.getMonth(),
       amount_kwh: usage,
     });
-    console.log(monthlyPayment);
-    console.log(monthlyUsage);
 
-    expect(true).toBeTruthy;
+    expect(monthlyUsage).toBe(181);
+    expect(monthlyPayment).toBe(2346);
   });
 });
