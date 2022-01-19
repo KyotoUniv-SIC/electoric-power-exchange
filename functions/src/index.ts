@@ -9,7 +9,7 @@ import './balances/renewable-settlemet';
 import './balances/student-account';
 import './monthly-payments/calculate-payment';
 import './normal-settlements/normal-settlement';
-import './primary-asks/primary';
+import './primary-asks/balance-snapshot';
 import './primary-bids/primary';
 import './renewable-asks/primary';
 import './renewable-settlements/renewable-settlement';

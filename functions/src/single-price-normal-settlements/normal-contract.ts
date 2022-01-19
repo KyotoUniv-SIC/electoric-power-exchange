@@ -12,18 +12,48 @@ module.exports.normalContract = functions.pubsub
   .schedule('0 0 * * *')
   .timeZone('Asia/Tokyo') // Users can choose timezone - default is America/Los_Angeles
   .onRun(async () => {
-    // Bidを価格の高い順に並び替える
     const normalBids = await normal_bid.list();
-    if (!normalBids || !normalBids.length) {
-      return;
+    const normalAsks = await normal_ask.list();
+    const marketStatus = await market_status.getToday();
+    // bidかaskが0の場合は0成約で終了する
+    if (!normalBids.length || !normalAsks.length) {
+      console.log('bid,askの不足でUPX成約は0です。', marketStatus);
+      if (!marketStatus.length) {
+        await market_status.create(new MarketStatus({ is_finished_normal: true, is_finished_renewable: false }));
+      } else {
+        await market_status.update(new MarketStatus({ id: marketStatus[0].id, is_finished_normal: true }));
+      }
+
+      for (const bid of normalBids) {
+        await normal_bid_history.create(
+          new NormalBidHistory({
+            account_id: bid.account_id,
+            price: bid.price,
+            amount: bid.amount,
+            is_accepted: false,
+          }),
+        );
+        await normal_bid.delete_(bid.id);
+      }
+
+      for (const ask of normalAsks) {
+        await normal_ask_history.create(
+          new NormalAskHistory({
+            account_id: ask.account_id,
+            price: ask.price,
+            amount: ask.amount,
+            is_accepted: false,
+          }),
+        );
+        await normal_ask.delete_(ask.id);
+        return;
+      }
     }
+
+    // Bidを価格の高い順に並び替える
     const sortNormalBids = normalBids.sort((first, second) => second.price - first.price);
 
     // Askを価格の低い順に並び替える
-    const normalAsks = await normal_ask.list();
-    if (!normalAsks || !normalAsks.length) {
-      return;
-    }
     const sortNormalAsks = normalAsks.sort((first, second) => first.price - second.price);
 
     // Bidの量の推移を配列にする
@@ -59,7 +89,6 @@ module.exports.normalContract = functions.pubsub
 
     // i,j両方が0のとき、成約は0になる
     if (i == 0 && j == 0) {
-      const marketStatus = await market_status.getToday();
       console.log('UPX成約は0です。', marketStatus);
       if (!marketStatus.length) {
         await market_status.create(new MarketStatus({ is_finished_normal: true, is_finished_renewable: false }));
