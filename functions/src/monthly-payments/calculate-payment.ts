@@ -60,7 +60,8 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
     usage += dailyUsage.amount_kwh;
   }
   const date = new Date();
-  date.setMonth(date.getMonth() - 1);
+  // .getMonth()は0-11の整数値をとる
+  // date.setMonth(date.getMonth() - 1);
 
   await monthly_payment.create(
     new MonthlyPayment({
