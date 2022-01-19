@@ -98,7 +98,7 @@ describe('Calculated Payment Test', () => {
       amount_kwh: usage,
     });
 
-    expect(monthlyUsage).toBe(181);
-    expect(monthlyPayment).toBe(2346);
+    expect(monthlyUsage.amount_kwh).toBe(181);
+    expect(monthlyPayment.amount_jpy).toBe(2346);
   });
 });
