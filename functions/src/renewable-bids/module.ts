@@ -3,10 +3,10 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 /* eslint-disable require-jsdoc */
-import * as admin from 'firebase-admin';
 import { RenewableBid, RenewableBidFirestore } from '@local/common';
+import * as admin from 'firebase-admin';
 
-export * from './controller'
+export * from './controller';
 
 export function collection() {
   return admin
@@ -39,9 +39,14 @@ export async function list() {
     .then((snapshot) => snapshot.docs.map((doc) => doc.data() as RenewableBid));
 }
 
-export async function create(
-  data: RenewableBid
-) {
+export async function listValid() {
+  return await collection()
+    .where('is_deleted', '==', false)
+    .get()
+    .then((snapshot) => snapshot.docs.map((doc) => doc.data() as RenewableBid));
+}
+
+export async function create(data: RenewableBid) {
   const doc = document();
   data.id = doc.id;
 
@@ -52,9 +57,7 @@ export async function create(
   await doc.set(data);
 }
 
-export async function update(
-  data: RenewableBid
-) {
+export async function update(data: RenewableBid) {
   const now = admin.firestore.Timestamp.now();
   data.updated_at = now;
 

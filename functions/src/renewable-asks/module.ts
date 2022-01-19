@@ -38,18 +38,10 @@ export async function list() {
     .get()
     .then((snapshot) => snapshot.docs.map((doc) => doc.data() as RenewableAsk));
 }
-export async function listPrimaryLastMonth() {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const lastMonth = new Date();
-  lastMonth.setMonth(lastMonth.getMonth() - 1);
-  lastMonth.setHours(0, 0, 0, 0);
 
+export async function listValid() {
   return await collection()
-    .orderBy('createdAt', 'desc')
-    .where('createdAt', '<', today)
-    .where('createdAt', '>', lastMonth)
-    .where('type', '>', proto.main.RenewableAskType.PRIMARY)
+    .where('is_deleted', '==', false)
     .get()
     .then((snapshot) => snapshot.docs.map((doc) => doc.data() as RenewableAsk));
 }

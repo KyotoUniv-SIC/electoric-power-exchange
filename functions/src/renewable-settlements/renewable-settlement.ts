@@ -10,10 +10,10 @@ import { proto, RenewableAskHistory, RenewableBidHistory, RenewableSettlement } 
 single_price_renewable_settlement.onCreateHandler.push(async (snapshot, context) => {
   const data = snapshot.data()!;
 
-  const renewableBids = await renewable_bid.list();
+  const renewableBids = await renewable_bid.listValid();
   const sortRenewableBids = renewableBids.sort((first, second) => second.price - first.price);
 
-  const renewableAsks = await renewable_ask.list();
+  const renewableAsks = await renewable_ask.listValid();
   const sortRenewableAsks = renewableAsks.sort((first, second) => first.price - second.price);
 
   let i = 0;
