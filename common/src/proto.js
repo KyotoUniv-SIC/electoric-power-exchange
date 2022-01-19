@@ -3958,6 +3958,7 @@ export const main = $root.main = (() => {
          * @property {string|null} [account_id] NormalAsk account_id
          * @property {number|null} [price] NormalAsk price
          * @property {number|null} [amount] NormalAsk amount
+         * @property {boolean|null} [is_deleted] NormalAsk is_deleted
          */
 
         /**
@@ -4016,6 +4017,14 @@ export const main = $root.main = (() => {
         NormalAsk.prototype.amount = 0;
 
         /**
+         * NormalAsk is_deleted.
+         * @member {boolean} is_deleted
+         * @memberof main.NormalAsk
+         * @instance
+         */
+        NormalAsk.prototype.is_deleted = false;
+
+        /**
          * Encodes the specified NormalAsk message. Does not implicitly {@link main.NormalAsk.verify|verify} messages.
          * @function encode
          * @memberof main.NormalAsk
@@ -4037,6 +4046,8 @@ export const main = $root.main = (() => {
                 writer.uint32(/* id 4, wireType 1 =*/33).double(message.price);
             if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
                 writer.uint32(/* id 5, wireType 1 =*/41).double(message.amount);
+            if (message.is_deleted != null && Object.hasOwnProperty.call(message, "is_deleted"))
+                writer.uint32(/* id 6, wireType 0 =*/48).bool(message.is_deleted);
             return writer;
         };
 
@@ -4085,6 +4096,9 @@ export const main = $root.main = (() => {
                     break;
                 case 5:
                     message.amount = reader.double();
+                    break;
+                case 6:
+                    message.is_deleted = reader.bool();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -4142,6 +4156,9 @@ export const main = $root.main = (() => {
             if (message.amount != null && message.hasOwnProperty("amount"))
                 if (typeof message.amount !== "number")
                     return "amount: number expected";
+            if (message.is_deleted != null && message.hasOwnProperty("is_deleted"))
+                if (typeof message.is_deleted !== "boolean")
+                    return "is_deleted: boolean expected";
             return null;
         };
 
@@ -4179,6 +4196,8 @@ export const main = $root.main = (() => {
                 message.price = Number(object.price);
             if (object.amount != null)
                 message.amount = Number(object.amount);
+            if (object.is_deleted != null)
+                message.is_deleted = Boolean(object.is_deleted);
             return message;
         };
 
@@ -4201,6 +4220,7 @@ export const main = $root.main = (() => {
                 object.account_id = "";
                 object.price = 0;
                 object.amount = 0;
+                object.is_deleted = false;
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 object.id = message.id;
@@ -4212,6 +4232,8 @@ export const main = $root.main = (() => {
                 object.price = options.json && !isFinite(message.price) ? String(message.price) : message.price;
             if (message.amount != null && message.hasOwnProperty("amount"))
                 object.amount = options.json && !isFinite(message.amount) ? String(message.amount) : message.amount;
+            if (message.is_deleted != null && message.hasOwnProperty("is_deleted"))
+                object.is_deleted = message.is_deleted;
             return object;
         };
 
@@ -4239,6 +4261,7 @@ export const main = $root.main = (() => {
          * @property {string|null} [account_id] NormalBid account_id
          * @property {number|null} [price] NormalBid price
          * @property {number|null} [amount] NormalBid amount
+         * @property {boolean|null} [is_deleted] NormalBid is_deleted
          */
 
         /**
@@ -4289,6 +4312,14 @@ export const main = $root.main = (() => {
         NormalBid.prototype.amount = 0;
 
         /**
+         * NormalBid is_deleted.
+         * @member {boolean} is_deleted
+         * @memberof main.NormalBid
+         * @instance
+         */
+        NormalBid.prototype.is_deleted = false;
+
+        /**
          * Encodes the specified NormalBid message. Does not implicitly {@link main.NormalBid.verify|verify} messages.
          * @function encode
          * @memberof main.NormalBid
@@ -4308,6 +4339,8 @@ export const main = $root.main = (() => {
                 writer.uint32(/* id 3, wireType 1 =*/25).double(message.price);
             if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
                 writer.uint32(/* id 4, wireType 1 =*/33).double(message.amount);
+            if (message.is_deleted != null && Object.hasOwnProperty.call(message, "is_deleted"))
+                writer.uint32(/* id 5, wireType 0 =*/40).bool(message.is_deleted);
             return writer;
         };
 
@@ -4353,6 +4386,9 @@ export const main = $root.main = (() => {
                     break;
                 case 4:
                     message.amount = reader.double();
+                    break;
+                case 5:
+                    message.is_deleted = reader.bool();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -4401,6 +4437,9 @@ export const main = $root.main = (() => {
             if (message.amount != null && message.hasOwnProperty("amount"))
                 if (typeof message.amount !== "number")
                     return "amount: number expected";
+            if (message.is_deleted != null && message.hasOwnProperty("is_deleted"))
+                if (typeof message.is_deleted !== "boolean")
+                    return "is_deleted: boolean expected";
             return null;
         };
 
@@ -4424,6 +4463,8 @@ export const main = $root.main = (() => {
                 message.price = Number(object.price);
             if (object.amount != null)
                 message.amount = Number(object.amount);
+            if (object.is_deleted != null)
+                message.is_deleted = Boolean(object.is_deleted);
             return message;
         };
 
@@ -4445,6 +4486,7 @@ export const main = $root.main = (() => {
                 object.account_id = "";
                 object.price = 0;
                 object.amount = 0;
+                object.is_deleted = false;
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 object.id = message.id;
@@ -4454,6 +4496,8 @@ export const main = $root.main = (() => {
                 object.price = options.json && !isFinite(message.price) ? String(message.price) : message.price;
             if (message.amount != null && message.hasOwnProperty("amount"))
                 object.amount = options.json && !isFinite(message.amount) ? String(message.amount) : message.amount;
+            if (message.is_deleted != null && message.hasOwnProperty("is_deleted"))
+                object.is_deleted = message.is_deleted;
             return object;
         };
 
@@ -5874,6 +5918,7 @@ export const main = $root.main = (() => {
          * @property {string|null} [account_id] RenewableAsk account_id
          * @property {number|null} [price] RenewableAsk price
          * @property {number|null} [amount] RenewableAsk amount
+         * @property {boolean|null} [is_deleted] RenewableAsk is_deleted
          */
 
         /**
@@ -5932,6 +5977,14 @@ export const main = $root.main = (() => {
         RenewableAsk.prototype.amount = 0;
 
         /**
+         * RenewableAsk is_deleted.
+         * @member {boolean} is_deleted
+         * @memberof main.RenewableAsk
+         * @instance
+         */
+        RenewableAsk.prototype.is_deleted = false;
+
+        /**
          * Encodes the specified RenewableAsk message. Does not implicitly {@link main.RenewableAsk.verify|verify} messages.
          * @function encode
          * @memberof main.RenewableAsk
@@ -5953,6 +6006,8 @@ export const main = $root.main = (() => {
                 writer.uint32(/* id 4, wireType 1 =*/33).double(message.price);
             if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
                 writer.uint32(/* id 5, wireType 1 =*/41).double(message.amount);
+            if (message.is_deleted != null && Object.hasOwnProperty.call(message, "is_deleted"))
+                writer.uint32(/* id 6, wireType 0 =*/48).bool(message.is_deleted);
             return writer;
         };
 
@@ -6001,6 +6056,9 @@ export const main = $root.main = (() => {
                     break;
                 case 5:
                     message.amount = reader.double();
+                    break;
+                case 6:
+                    message.is_deleted = reader.bool();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -6058,6 +6116,9 @@ export const main = $root.main = (() => {
             if (message.amount != null && message.hasOwnProperty("amount"))
                 if (typeof message.amount !== "number")
                     return "amount: number expected";
+            if (message.is_deleted != null && message.hasOwnProperty("is_deleted"))
+                if (typeof message.is_deleted !== "boolean")
+                    return "is_deleted: boolean expected";
             return null;
         };
 
@@ -6095,6 +6156,8 @@ export const main = $root.main = (() => {
                 message.price = Number(object.price);
             if (object.amount != null)
                 message.amount = Number(object.amount);
+            if (object.is_deleted != null)
+                message.is_deleted = Boolean(object.is_deleted);
             return message;
         };
 
@@ -6117,6 +6180,7 @@ export const main = $root.main = (() => {
                 object.account_id = "";
                 object.price = 0;
                 object.amount = 0;
+                object.is_deleted = false;
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 object.id = message.id;
@@ -6128,6 +6192,8 @@ export const main = $root.main = (() => {
                 object.price = options.json && !isFinite(message.price) ? String(message.price) : message.price;
             if (message.amount != null && message.hasOwnProperty("amount"))
                 object.amount = options.json && !isFinite(message.amount) ? String(message.amount) : message.amount;
+            if (message.is_deleted != null && message.hasOwnProperty("is_deleted"))
+                object.is_deleted = message.is_deleted;
             return object;
         };
 
@@ -6155,6 +6221,7 @@ export const main = $root.main = (() => {
          * @property {string|null} [account_id] RenewableBid account_id
          * @property {number|null} [price] RenewableBid price
          * @property {number|null} [amount] RenewableBid amount
+         * @property {boolean|null} [is_deleted] RenewableBid is_deleted
          */
 
         /**
@@ -6205,6 +6272,14 @@ export const main = $root.main = (() => {
         RenewableBid.prototype.amount = 0;
 
         /**
+         * RenewableBid is_deleted.
+         * @member {boolean} is_deleted
+         * @memberof main.RenewableBid
+         * @instance
+         */
+        RenewableBid.prototype.is_deleted = false;
+
+        /**
          * Encodes the specified RenewableBid message. Does not implicitly {@link main.RenewableBid.verify|verify} messages.
          * @function encode
          * @memberof main.RenewableBid
@@ -6224,6 +6299,8 @@ export const main = $root.main = (() => {
                 writer.uint32(/* id 3, wireType 1 =*/25).double(message.price);
             if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
                 writer.uint32(/* id 4, wireType 1 =*/33).double(message.amount);
+            if (message.is_deleted != null && Object.hasOwnProperty.call(message, "is_deleted"))
+                writer.uint32(/* id 5, wireType 0 =*/40).bool(message.is_deleted);
             return writer;
         };
 
@@ -6269,6 +6346,9 @@ export const main = $root.main = (() => {
                     break;
                 case 4:
                     message.amount = reader.double();
+                    break;
+                case 5:
+                    message.is_deleted = reader.bool();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -6317,6 +6397,9 @@ export const main = $root.main = (() => {
             if (message.amount != null && message.hasOwnProperty("amount"))
                 if (typeof message.amount !== "number")
                     return "amount: number expected";
+            if (message.is_deleted != null && message.hasOwnProperty("is_deleted"))
+                if (typeof message.is_deleted !== "boolean")
+                    return "is_deleted: boolean expected";
             return null;
         };
 
@@ -6340,6 +6423,8 @@ export const main = $root.main = (() => {
                 message.price = Number(object.price);
             if (object.amount != null)
                 message.amount = Number(object.amount);
+            if (object.is_deleted != null)
+                message.is_deleted = Boolean(object.is_deleted);
             return message;
         };
 
@@ -6361,6 +6446,7 @@ export const main = $root.main = (() => {
                 object.account_id = "";
                 object.price = 0;
                 object.amount = 0;
+                object.is_deleted = false;
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 object.id = message.id;
@@ -6370,6 +6456,8 @@ export const main = $root.main = (() => {
                 object.price = options.json && !isFinite(message.price) ? String(message.price) : message.price;
             if (message.amount != null && message.hasOwnProperty("amount"))
                 object.amount = options.json && !isFinite(message.amount) ? String(message.amount) : message.amount;
+            if (message.is_deleted != null && message.hasOwnProperty("is_deleted"))
+                object.is_deleted = message.is_deleted;
             return object;
         };
 

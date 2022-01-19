@@ -1604,6 +1604,9 @@ export namespace main {
 
         /** NormalAsk amount */
         amount?: (number|null);
+
+        /** NormalAsk is_deleted */
+        is_deleted?: (boolean|null);
     }
 
     /** Represents a NormalAsk. */
@@ -1629,6 +1632,9 @@ export namespace main {
 
         /** NormalAsk amount. */
         public amount: number;
+
+        /** NormalAsk is_deleted. */
+        public is_deleted: boolean;
 
         /**
          * Encodes the specified NormalAsk message. Does not implicitly {@link main.NormalAsk.verify|verify} messages.
@@ -1708,6 +1714,9 @@ export namespace main {
 
         /** NormalBid amount */
         amount?: (number|null);
+
+        /** NormalBid is_deleted */
+        is_deleted?: (boolean|null);
     }
 
     /** Represents a NormalBid. */
@@ -1730,6 +1739,9 @@ export namespace main {
 
         /** NormalBid amount. */
         public amount: number;
+
+        /** NormalBid is_deleted. */
+        public is_deleted: boolean;
 
         /**
          * Encodes the specified NormalBid message. Does not implicitly {@link main.NormalBid.verify|verify} messages.
@@ -2367,6 +2379,9 @@ export namespace main {
 
         /** RenewableAsk amount */
         amount?: (number|null);
+
+        /** RenewableAsk is_deleted */
+        is_deleted?: (boolean|null);
     }
 
     /** Represents a RenewableAsk. */
@@ -2392,6 +2407,9 @@ export namespace main {
 
         /** RenewableAsk amount. */
         public amount: number;
+
+        /** RenewableAsk is_deleted. */
+        public is_deleted: boolean;
 
         /**
          * Encodes the specified RenewableAsk message. Does not implicitly {@link main.RenewableAsk.verify|verify} messages.
@@ -2471,6 +2489,9 @@ export namespace main {
 
         /** RenewableBid amount */
         amount?: (number|null);
+
+        /** RenewableBid is_deleted */
+        is_deleted?: (boolean|null);
     }
 
     /** Represents a RenewableBid. */
@@ -2493,6 +2514,9 @@ export namespace main {
 
         /** RenewableBid amount. */
         public amount: number;
+
+        /** RenewableBid is_deleted. */
+        public is_deleted: boolean;
 
         /**
          * Encodes the specified RenewableBid message. Does not implicitly {@link main.RenewableBid.verify|verify} messages.
