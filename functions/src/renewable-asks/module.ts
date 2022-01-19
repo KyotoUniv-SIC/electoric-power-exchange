@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 /* eslint-disable require-jsdoc */
-import { proto, RenewableAsk, RenewableAskFirestore } from '@local/common';
+import { RenewableAsk, RenewableAskFirestore } from '@local/common';
 import * as admin from 'firebase-admin';
 
 export * from './controller';
