@@ -10,11 +10,11 @@ import { Timestamp } from 'firebase/firestore';
 
 market_status.onUpdateHandler.push(async (snapshot, context) => {
   const data = snapshot.after.data()!;
-  let purchase = 0;
-  let sale = 0;
 
   if ((data.created_at as Timestamp).toDate().getDate() == 1 && data.is_finished_normal == true && data.is_finished_renewable == true) {
     const students = await student_account.list();
+    let purchase = 0;
+    let sale = 0;
     for (const student of students) {
       const studentID = student.id;
       const lastMonthBalance = await balance.getLatest(studentID);
@@ -31,7 +31,7 @@ market_status.onUpdateHandler.push(async (snapshot, context) => {
     // 電気料金
     const electricity = 1000000;
     const price =
-      ((cost + electricity - income + (purchase - sale) * primaryEanings[0].price) / (purchase + sale)) * primaryEanings[0].price;
+      (cost + electricity - income + (purchase - sale) * primaryEanings[0].price) / ((purchase + sale) * primaryEanings[0].price);
     await discount_price.create(new DiscountPrice({ price: price, amount_purchase: purchase, amount_sale: sale }));
 
     for (const student of students) {
