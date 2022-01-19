@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { RenewableBid } from '@local/common';
 import { Timestamp } from 'firebase/firestore';
 
@@ -12,8 +12,14 @@ export class BidComponent implements OnInit {
   renewableBid?: RenewableBid | null;
   @Input()
   createdAt?: Date | null;
+  @Output()
+  appDelete = new EventEmitter<never>();
 
   constructor() {}
 
   ngOnInit(): void {}
+
+  onClickDelete(): void {
+    this.appDelete.emit();
+  }
 }

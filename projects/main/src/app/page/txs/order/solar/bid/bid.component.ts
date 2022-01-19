@@ -33,4 +33,9 @@ export class BidComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  async onSubmit() {
+    // this.renewableBidApp;
+    // location.reload();
+  }
 }

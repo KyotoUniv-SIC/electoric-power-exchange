@@ -44,6 +44,7 @@ export class SellComponent implements OnInit {
           account_id: $event.accountID,
           price: $event.price,
           amount: $event.amount,
+          is_deleted: false,
         }),
       );
     } else {
@@ -53,6 +54,7 @@ export class SellComponent implements OnInit {
           account_id: $event.accountID,
           price: $event.price,
           amount: $event.amount,
+          is_deleted: false,
         }),
       );
     }
