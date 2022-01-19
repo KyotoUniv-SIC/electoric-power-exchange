@@ -37,8 +37,8 @@ export async function getToday() {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   return await collection()
-    .orderBy('createdAt', 'desc')
-    .where('createdAt', '>', today)
+    .orderBy('created_at', 'desc')
+    .where('created_at', '>', today)
     .get()
     .then((snapshot) => snapshot.docs.map((doc) => doc.data() as MarketStatus));
 }

@@ -48,9 +48,9 @@ export async function listLastMonth(studentAccountID: string) {
   lastMonth.setHours(0, 0, 0, 0);
 
   return await collection(studentAccountID)
-    .orderBy('createdAt', 'desc')
-    .where('createdAt', '<', today)
-    .where('createdAt', '>', lastMonth)
+    .orderBy('created_at', 'desc')
+    .where('created_at', '<', today)
+    .where('created_at', '>', lastMonth)
     .get()
     .then((snapshot) => snapshot.docs.map((doc) => doc.data() as DailyUsage));
 }
@@ -63,9 +63,9 @@ export async function listThisMonth(studentAccountID: string) {
   first.setHours(0, 0, 0, 0);
 
   return await collection(studentAccountID)
-    .orderBy('createdAt', 'desc')
-    .where('createdAt', '<', today)
-    .where('createdAt', '>', first)
+    .orderBy('created_at', 'desc')
+    .where('created_at', '<', today)
+    .where('created_at', '>', first)
     .get()
     .then((snapshot) => snapshot.docs.map((doc) => doc.data() as DailyUsage));
 }

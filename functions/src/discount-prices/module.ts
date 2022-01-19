@@ -41,7 +41,7 @@ export async function list() {
 
 export async function listLatest() {
   return await collection()
-    .orderBy('createdAt', 'desc')
+    .orderBy('created_at', 'desc')
     .get()
     .then((snapshot) => snapshot.docs.map((doc) => doc.data() as DiscountPrice));
 }

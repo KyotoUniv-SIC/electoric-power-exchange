@@ -35,7 +35,7 @@ export async function get(id: string) {
 
 export async function getLatest(studentAccountID: string) {
   return await collection()
-    .orderBy('createdAt', 'desc')
+    .orderBy('created_at', 'desc')
     .where('account_id', '==', studentAccountID)
     .get()
     .then((snapshot) => snapshot.docs.map((doc) => doc.data() as PrimaryBid));

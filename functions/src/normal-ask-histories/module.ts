@@ -48,10 +48,10 @@ export async function listLastMonth(studentAccountID: string) {
   lastMonth.setHours(0, 0, 0, 0);
 
   return await collection()
-    .orderBy('createdAt', 'desc')
+    .orderBy('created_at', 'desc')
     .where('account_id', '==', studentAccountID)
-    .where('createdAt', '<', today)
-    .where('createdAt', '>', lastMonth)
+    .where('created_at', '<', today)
+    .where('created_at', '>', lastMonth)
     .get()
     .then((snapshot) => snapshot.docs.map((doc) => doc.data() as NormalAskHistory));
 }
