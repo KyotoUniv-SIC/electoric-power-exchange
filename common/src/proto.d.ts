@@ -2475,6 +2475,95 @@ export namespace main {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a RenewableBidDelete. */
+    interface IRenewableBidDelete {
+
+        /** RenewableBidDelete id */
+        id?: (string|null);
+
+        /** RenewableBidDelete bid_id */
+        bid_id?: (string|null);
+    }
+
+    /** Represents a RenewableBidDelete. */
+    class RenewableBidDelete implements IRenewableBidDelete {
+
+        /**
+         * Constructs a new RenewableBidDelete.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.IRenewableBidDelete);
+
+        /** RenewableBidDelete id. */
+        public id: string;
+
+        /** RenewableBidDelete bid_id. */
+        public bid_id: string;
+
+        /**
+         * Encodes the specified RenewableBidDelete message. Does not implicitly {@link main.RenewableBidDelete.verify|verify} messages.
+         * @param message RenewableBidDelete message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.IRenewableBidDelete, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified RenewableBidDelete message, length delimited. Does not implicitly {@link main.RenewableBidDelete.verify|verify} messages.
+         * @param message RenewableBidDelete message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.IRenewableBidDelete, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a RenewableBidDelete message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RenewableBidDelete
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.RenewableBidDelete;
+
+        /**
+         * Decodes a RenewableBidDelete message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RenewableBidDelete
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.RenewableBidDelete;
+
+        /**
+         * Verifies a RenewableBidDelete message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RenewableBidDelete message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RenewableBidDelete
+         */
+        public static fromObject(object: { [k: string]: any }): main.RenewableBidDelete;
+
+        /**
+         * Creates a plain object from a RenewableBidDelete message. Also converts values to other types if specified.
+         * @param message RenewableBidDelete
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.RenewableBidDelete, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RenewableBidDelete to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a RenewableBid. */
     interface IRenewableBid {
 

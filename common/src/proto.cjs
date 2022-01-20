@@ -6220,6 +6220,204 @@
             return RenewableAsk;
         })();
     
+        main.RenewableBidDelete = (function() {
+    
+            /**
+             * Properties of a RenewableBidDelete.
+             * @memberof main
+             * @interface IRenewableBidDelete
+             * @property {string|null} [id] RenewableBidDelete id
+             * @property {string|null} [bid_id] RenewableBidDelete bid_id
+             */
+    
+            /**
+             * Constructs a new RenewableBidDelete.
+             * @memberof main
+             * @classdesc Represents a RenewableBidDelete.
+             * @implements IRenewableBidDelete
+             * @constructor
+             * @param {main.IRenewableBidDelete=} [properties] Properties to set
+             */
+            function RenewableBidDelete(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+    
+            /**
+             * RenewableBidDelete id.
+             * @member {string} id
+             * @memberof main.RenewableBidDelete
+             * @instance
+             */
+            RenewableBidDelete.prototype.id = "";
+    
+            /**
+             * RenewableBidDelete bid_id.
+             * @member {string} bid_id
+             * @memberof main.RenewableBidDelete
+             * @instance
+             */
+            RenewableBidDelete.prototype.bid_id = "";
+    
+            /**
+             * Encodes the specified RenewableBidDelete message. Does not implicitly {@link main.RenewableBidDelete.verify|verify} messages.
+             * @function encode
+             * @memberof main.RenewableBidDelete
+             * @static
+             * @param {main.IRenewableBidDelete} message RenewableBidDelete message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            RenewableBidDelete.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                if (message.bid_id != null && Object.hasOwnProperty.call(message, "bid_id"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.bid_id);
+                return writer;
+            };
+    
+            /**
+             * Encodes the specified RenewableBidDelete message, length delimited. Does not implicitly {@link main.RenewableBidDelete.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof main.RenewableBidDelete
+             * @static
+             * @param {main.IRenewableBidDelete} message RenewableBidDelete message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            RenewableBidDelete.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+    
+            /**
+             * Decodes a RenewableBidDelete message from the specified reader or buffer.
+             * @function decode
+             * @memberof main.RenewableBidDelete
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {main.RenewableBidDelete} RenewableBidDelete
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            RenewableBidDelete.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.RenewableBidDelete();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.id = reader.string();
+                        break;
+                    case 2:
+                        message.bid_id = reader.string();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Decodes a RenewableBidDelete message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof main.RenewableBidDelete
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {main.RenewableBidDelete} RenewableBidDelete
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            RenewableBidDelete.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+    
+            /**
+             * Verifies a RenewableBidDelete message.
+             * @function verify
+             * @memberof main.RenewableBidDelete
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            RenewableBidDelete.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.id != null && message.hasOwnProperty("id"))
+                    if (!$util.isString(message.id))
+                        return "id: string expected";
+                if (message.bid_id != null && message.hasOwnProperty("bid_id"))
+                    if (!$util.isString(message.bid_id))
+                        return "bid_id: string expected";
+                return null;
+            };
+    
+            /**
+             * Creates a RenewableBidDelete message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof main.RenewableBidDelete
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {main.RenewableBidDelete} RenewableBidDelete
+             */
+            RenewableBidDelete.fromObject = function fromObject(object) {
+                if (object instanceof $root.main.RenewableBidDelete)
+                    return object;
+                var message = new $root.main.RenewableBidDelete();
+                if (object.id != null)
+                    message.id = String(object.id);
+                if (object.bid_id != null)
+                    message.bid_id = String(object.bid_id);
+                return message;
+            };
+    
+            /**
+             * Creates a plain object from a RenewableBidDelete message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof main.RenewableBidDelete
+             * @static
+             * @param {main.RenewableBidDelete} message RenewableBidDelete
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            RenewableBidDelete.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.id = "";
+                    object.bid_id = "";
+                }
+                if (message.id != null && message.hasOwnProperty("id"))
+                    object.id = message.id;
+                if (message.bid_id != null && message.hasOwnProperty("bid_id"))
+                    object.bid_id = message.bid_id;
+                return object;
+            };
+    
+            /**
+             * Converts this RenewableBidDelete to JSON.
+             * @function toJSON
+             * @memberof main.RenewableBidDelete
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            RenewableBidDelete.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            return RenewableBidDelete;
+        })();
+    
         main.RenewableBid = (function() {
     
             /**
