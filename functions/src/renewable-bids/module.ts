@@ -57,7 +57,7 @@ export async function create(data: RenewableBid) {
   await doc.set(data);
 }
 
-export async function update(data: RenewableBid) {
+export async function update(data: Partial<RenewableBid> & { id: string }) {
   const now = admin.firestore.Timestamp.now();
   data.updated_at = now;
 
