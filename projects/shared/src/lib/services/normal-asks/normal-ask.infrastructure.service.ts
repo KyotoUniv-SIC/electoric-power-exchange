@@ -1,4 +1,4 @@
-import { AutoId } from '../auth/auto-id';
+import { AutoId } from '../auto-id';
 import { INormalAskInfrastructureService } from './normal-ask.service';
 import { Injectable } from '@angular/core';
 import {

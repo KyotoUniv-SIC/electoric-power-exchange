@@ -1,8 +1,8 @@
 import { AccountInfrastructureService } from '../accounts/account.infrastructure.service';
 import { AccountService } from '../accounts/account.service';
+import { AutoId } from '../auto-id';
 import { UserInfrastructureService } from '../users/user.infrastructure.service';
 import { UserService } from '../users/user.service';
-import { AutoId } from './auto-id';
 import { IAccount } from './i-account.model';
 import { IUser } from './i-user.model';
 import { UserRecord } from './user-record';
