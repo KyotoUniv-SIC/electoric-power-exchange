@@ -1,10 +1,10 @@
-export function AutoId() {
+export function autoID() {
   const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
-  let autoId = '';
+  let autoID = '';
 
   for (let i = 0; i < 20; i++) {
-    autoId += CHARS.charAt(Math.floor(Math.random() * CHARS.length));
+    autoID += CHARS.charAt(Math.floor(Math.random() * CHARS.length));
   }
-  return autoId;
+  return autoID;
 }

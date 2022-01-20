@@ -1,4 +1,4 @@
-import { AutoId } from '../auto-id';
+import { autoID } from '../auto-id';
 import { IRenewableAskInfrastructureService } from './renewable-ask.service';
 import { Injectable } from '@angular/core';
 import {
@@ -39,7 +39,7 @@ export class RenewableAskInfrastructureService implements IRenewableAskInfrastru
   document(id?: string) {
     const ref = collection(this.firestore, RenewableAskFirestore.collectionPath());
 
-    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path, AutoId())).withConverter(
+    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path, autoID())).withConverter(
       RenewableAskFirestore.converter,
     );
   }
