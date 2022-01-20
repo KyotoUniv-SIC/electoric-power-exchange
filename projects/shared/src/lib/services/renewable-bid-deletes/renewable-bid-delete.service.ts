@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { RenewableBidDeleteInfrastructureService } from './renewable-bid-delete.infrastructure.service';
+import { Injectable } from '@angular/core';
 import { RenewableBidDelete } from '@local/common';
+import { Observable } from 'rxjs';
 
 export interface IRenewableBidDeleteInfrastructureService {
   get(id: string): Promise<RenewableBidDelete | undefined>;
@@ -34,15 +34,15 @@ export class RenewableBidDeleteService {
   list() {
     return this.iRenewableBidDeleteInfrastructure.list();
   }
-  
+
   list$() {
     return this.iRenewableBidDeleteInfrastructure.list$();
   }
-  
+
   listGroup() {
     return this.iRenewableBidDeleteInfrastructure.listGroup();
   }
-  
+
   listGroup$() {
     return this.iRenewableBidDeleteInfrastructure.listGroup$();
   }
