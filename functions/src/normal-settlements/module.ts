@@ -56,7 +56,7 @@ export async function create(data: NormalSettlement) {
   await doc.set(data);
 }
 
-export async function update(data: NormalSettlement) {
+export async function update(data: Partial<NormalSettlement> & { id: string }) {
   const now = admin.firestore.Timestamp.now();
   data.updated_at = now;
 

@@ -3,6 +3,7 @@ import { Firestore, collection, collectionGroup, query, QueryConstraint, doc, ge
 import { IPrimaryBidInfrastructureService } from './primary-bid.service';
 import { PrimaryBid } from '@local/common';
 import { PrimaryBidFirestore } from '@local/common';
+import { autoID } from '../auto-id';
 
 @Injectable({
   providedIn: 'root',
@@ -29,7 +30,7 @@ export class PrimaryBidInfrastructureService
   document(id?: string) {
     const ref = collection(this.firestore, PrimaryBidFirestore.collectionPath());
 
-    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path)).withConverter(PrimaryBidFirestore.converter);
+    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path, autoID())).withConverter(PrimaryBidFirestore.converter);
   }
 
   get(id: string) {

@@ -67,7 +67,7 @@ export async function create(data: NormalBidHistory) {
   await doc.set(data);
 }
 
-export async function update(data: NormalBidHistory) {
+export async function update(data: Partial<NormalBidHistory> & { id: string }) {
   const now = admin.firestore.Timestamp.now();
   data.updated_at = now;
 

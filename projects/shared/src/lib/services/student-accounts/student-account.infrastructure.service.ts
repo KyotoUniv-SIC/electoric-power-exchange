@@ -1,40 +1,51 @@
-import { Injectable } from '@angular/core';
-import { Firestore, collection, collectionGroup, query, QueryConstraint, doc, getDoc, docData, getDocs, collectionData, setDoc, serverTimestamp } from '@angular/fire/firestore';
+import { autoID } from '../auto-id';
 import { IStudentAccountInfrastructureService } from './student-account.service';
+import { Injectable } from '@angular/core';
+import {
+  Firestore,
+  collection,
+  collectionGroup,
+  query,
+  QueryConstraint,
+  doc,
+  getDoc,
+  docData,
+  getDocs,
+  collectionData,
+  setDoc,
+  serverTimestamp,
+} from '@angular/fire/firestore';
 import { StudentAccount } from '@local/common';
 import { StudentAccountFirestore } from '@local/common';
 
 @Injectable({
   providedIn: 'root',
 })
-export class StudentAccountInfrastructureService
-  implements IStudentAccountInfrastructureService {
-
+export class StudentAccountInfrastructureService implements IStudentAccountInfrastructureService {
   constructor(private readonly firestore: Firestore) {}
 
   collection(...queryConstraints: QueryConstraint[]) {
     const ref = collection(this.firestore, StudentAccountFirestore.collectionPath());
 
-    return (queryConstraints.length > 0
-      ? query(ref, ...queryConstraints) : ref).withConverter(StudentAccountFirestore.converter);
+    return (queryConstraints.length > 0 ? query(ref, ...queryConstraints) : ref).withConverter(StudentAccountFirestore.converter);
   }
 
   collectionGroup(...queryConstraints: QueryConstraint[]) {
     const ref = collectionGroup(this.firestore, StudentAccountFirestore.collectionID);
 
-    return (queryConstraints.length > 0
-      ? query(ref, ...queryConstraints) : ref).withConverter(StudentAccountFirestore.converter);
+    return (queryConstraints.length > 0 ? query(ref, ...queryConstraints) : ref).withConverter(StudentAccountFirestore.converter);
   }
 
   document(id?: string) {
     const ref = collection(this.firestore, StudentAccountFirestore.collectionPath());
 
-    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path)).withConverter(StudentAccountFirestore.converter);
+    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path, autoID())).withConverter(
+      StudentAccountFirestore.converter,
+    );
   }
 
   get(id: string) {
-    return getDoc(this.document(id))
-      .then(snapshot => snapshot.data());
+    return getDoc(this.document(id)).then((snapshot) => snapshot.data());
   }
 
   get$(id: string) {
@@ -42,8 +53,7 @@ export class StudentAccountInfrastructureService
   }
 
   list() {
-    return getDocs(this.collection())
-      .then(snapshots => snapshots.docs.map(doc => doc.data()))
+    return getDocs(this.collection()).then((snapshots) => snapshots.docs.map((doc) => doc.data()));
   }
 
   list$() {
@@ -51,8 +61,7 @@ export class StudentAccountInfrastructureService
   }
 
   listGroup() {
-    return getDocs(this.collectionGroup())
-      .then(snapshots => snapshots.docs.map(doc => doc.data()))
+    return getDocs(this.collectionGroup()).then((snapshots) => snapshots.docs.map((doc) => doc.data()));
   }
 
   listGroup$() {

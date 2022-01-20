@@ -81,7 +81,8 @@ export async function create(data: DailyUsage) {
   await doc.set(data);
 }
 
-export async function update(data: DailyUsage) {
+// eslint-disable-next-line camelcase
+export async function update(data: Partial<DailyUsage>& { id: string } & { student_account_id: string }) {
   const now = admin.firestore.Timestamp.now();
   data.updated_at = now;
 

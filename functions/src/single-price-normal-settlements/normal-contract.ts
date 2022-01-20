@@ -22,7 +22,7 @@ module.exports.normalContract = f.pubsub
       if (!marketStatus.length) {
         await market_status.create(new MarketStatus({ is_finished_normal: true, is_finished_renewable: false }));
       } else {
-        await market_status.update(new MarketStatus({ id: marketStatus[0].id, is_finished_normal: true }));
+        await market_status.update({ id: marketStatus[0].id, is_finished_normal: true });
       }
 
       for (const bid of normalBids) {
@@ -94,7 +94,7 @@ module.exports.normalContract = f.pubsub
       if (!marketStatus.length) {
         await market_status.create(new MarketStatus({ is_finished_normal: true, is_finished_renewable: false }));
       } else {
-        await market_status.update(new MarketStatus({ id: marketStatus[0].id, is_finished_normal: true }));
+        await market_status.update({ id: marketStatus[0].id, is_finished_normal: true });
       }
 
       for (const bid of sortNormalBids) {

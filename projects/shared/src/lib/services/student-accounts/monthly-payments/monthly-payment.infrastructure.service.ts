@@ -3,6 +3,7 @@ import { Firestore, collection, collectionGroup, query, QueryConstraint, doc, ge
 import { IMonthlyPaymentInfrastructureService } from './monthly-payment.service';
 import { MonthlyPayment } from '@local/common';
 import { MonthlyPaymentFirestore } from '@local/common';
+import { autoID } from '../../auto-id';
 
 @Injectable({
   providedIn: 'root',
@@ -29,7 +30,7 @@ export class MonthlyPaymentInfrastructureService
   document(studentAccountID: string, id?: string) {
     const ref = collection(this.firestore, MonthlyPaymentFirestore.collectionPath(studentAccountID));
 
-    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path)).withConverter(MonthlyPaymentFirestore.converter);
+    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path, autoID())).withConverter(MonthlyPaymentFirestore.converter);
   }
 
   get(studentAccountID: string, id: string) {

@@ -3,6 +3,7 @@ import { Firestore, collection, collectionGroup, query, QueryConstraint, doc, ge
 import { IRenewableAskHistoryInfrastructureService } from './renewable-ask-history.service';
 import { RenewableAskHistory } from '@local/common';
 import { RenewableAskHistoryFirestore } from '@local/common';
+import { autoID } from '../auto-id';
 
 @Injectable({
   providedIn: 'root',
@@ -29,7 +30,7 @@ export class RenewableAskHistoryInfrastructureService
   document(id?: string) {
     const ref = collection(this.firestore, RenewableAskHistoryFirestore.collectionPath());
 
-    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path)).withConverter(RenewableAskHistoryFirestore.converter);
+    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path, autoID())).withConverter(RenewableAskHistoryFirestore.converter);
   }
 
   get(id: string) {

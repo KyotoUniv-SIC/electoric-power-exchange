@@ -3,6 +3,7 @@ import { Firestore, collection, collectionGroup, query, QueryConstraint, doc, ge
 import { IBalanceInfrastructureService } from './balance.service';
 import { Balance } from '@local/common';
 import { BalanceFirestore } from '@local/common';
+import { autoID } from '../../auto-id';
 
 @Injectable({
   providedIn: 'root',
@@ -29,7 +30,7 @@ export class BalanceInfrastructureService
   document(studentAccountID: string, id?: string) {
     const ref = collection(this.firestore, BalanceFirestore.collectionPath(studentAccountID));
 
-    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path)).withConverter(BalanceFirestore.converter);
+    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path, autoID())).withConverter(BalanceFirestore.converter);
   }
 
   get(studentAccountID: string, id: string) {

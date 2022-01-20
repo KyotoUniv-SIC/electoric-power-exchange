@@ -1,40 +1,51 @@
-import { Injectable } from '@angular/core';
-import { Firestore, collection, collectionGroup, query, QueryConstraint, doc, getDoc, docData, getDocs, collectionData, setDoc, serverTimestamp } from '@angular/fire/firestore';
+import { autoID } from '../../auto-id';
 import { IAvailableBalanceInfrastructureService } from './available-balance.service';
+import { Injectable } from '@angular/core';
+import {
+  Firestore,
+  collection,
+  collectionGroup,
+  query,
+  QueryConstraint,
+  doc,
+  getDoc,
+  docData,
+  getDocs,
+  collectionData,
+  setDoc,
+  serverTimestamp,
+} from '@angular/fire/firestore';
 import { AvailableBalance } from '@local/common';
 import { AvailableBalanceFirestore } from '@local/common';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AvailableBalanceInfrastructureService
-  implements IAvailableBalanceInfrastructureService {
-
+export class AvailableBalanceInfrastructureService implements IAvailableBalanceInfrastructureService {
   constructor(private readonly firestore: Firestore) {}
 
   collection(studentAccountID: string, ...queryConstraints: QueryConstraint[]) {
     const ref = collection(this.firestore, AvailableBalanceFirestore.collectionPath(studentAccountID));
 
-    return (queryConstraints.length > 0
-      ? query(ref, ...queryConstraints) : ref).withConverter(AvailableBalanceFirestore.converter);
+    return (queryConstraints.length > 0 ? query(ref, ...queryConstraints) : ref).withConverter(AvailableBalanceFirestore.converter);
   }
 
   collectionGroup(...queryConstraints: QueryConstraint[]) {
     const ref = collectionGroup(this.firestore, AvailableBalanceFirestore.collectionID);
 
-    return (queryConstraints.length > 0
-      ? query(ref, ...queryConstraints) : ref).withConverter(AvailableBalanceFirestore.converter);
+    return (queryConstraints.length > 0 ? query(ref, ...queryConstraints) : ref).withConverter(AvailableBalanceFirestore.converter);
   }
 
   document(studentAccountID: string, id?: string) {
     const ref = collection(this.firestore, AvailableBalanceFirestore.collectionPath(studentAccountID));
 
-    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path)).withConverter(AvailableBalanceFirestore.converter);
+    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path, autoID())).withConverter(
+      AvailableBalanceFirestore.converter,
+    );
   }
 
   get(studentAccountID: string, id: string) {
-    return getDoc(this.document(studentAccountID, id))
-      .then(snapshot => snapshot.data());
+    return getDoc(this.document(studentAccountID, id)).then((snapshot) => snapshot.data());
   }
 
   get$(studentAccountID: string, id: string) {
@@ -42,8 +53,7 @@ export class AvailableBalanceInfrastructureService
   }
 
   list(studentAccountID: string) {
-    return getDocs(this.collection(studentAccountID))
-      .then(snapshots => snapshots.docs.map(doc => doc.data()))
+    return getDocs(this.collection(studentAccountID)).then((snapshots) => snapshots.docs.map((doc) => doc.data()));
   }
 
   list$(studentAccountID: string) {
@@ -51,8 +61,7 @@ export class AvailableBalanceInfrastructureService
   }
 
   listGroup() {
-    return getDocs(this.collectionGroup())
-      .then(snapshots => snapshots.docs.map(doc => doc.data()))
+    return getDocs(this.collectionGroup()).then((snapshots) => snapshots.docs.map((doc) => doc.data()));
   }
 
   listGroup$() {

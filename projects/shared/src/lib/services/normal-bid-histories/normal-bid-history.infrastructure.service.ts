@@ -16,6 +16,7 @@ import {
 } from '@angular/fire/firestore';
 import { NormalBidHistory } from '@local/common';
 import { NormalBidHistoryFirestore } from '@local/common';
+import { autoID } from '../auto-id';
 
 @Injectable({
   providedIn: 'root',
@@ -38,7 +39,7 @@ export class NormalBidHistoryInfrastructureService implements INormalBidHistoryI
   document(id?: string) {
     const ref = collection(this.firestore, NormalBidHistoryFirestore.collectionPath());
 
-    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path)).withConverter(NormalBidHistoryFirestore.converter);
+    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path, autoID())).withConverter(NormalBidHistoryFirestore.converter);
   }
 
   get(id: string) {

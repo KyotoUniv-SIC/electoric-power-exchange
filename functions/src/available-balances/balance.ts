@@ -7,9 +7,12 @@ balance.onUpdateHandler.push(async (snapshot, context) => {
   const data = snapshot.after.data()!;
   const availableBalance = await available_balance.getLatest(data.student_account_id);
 
-  await available_balance.update(
-    new AvailableBalance({ id: availableBalance[0].id, amount_upx: data.amount_upx, amount_spx: data.amount_spx }),
-  );
+  await available_balance.update({
+    id: availableBalance[0].id,
+    student_account_id: data.student_account_id,
+    amount_upx: data.amount_upx,
+    amount_spx: data.amount_spx,
+  });
 });
 
 balance.onCreateHandler.push(async (snapshot, context) => {

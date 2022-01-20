@@ -22,7 +22,7 @@ module.exports.renewableContract = f.pubsub
       if (!marketStatus.length) {
         await market_status.create(new MarketStatus({ is_finished_normal: false, is_finished_renewable: true }));
       } else {
-        await market_status.update(new MarketStatus({ id: marketStatus[0].id, is_finished_renewable: true }));
+        await market_status.update({ id: marketStatus[0].id, is_finished_renewable: true });
       }
 
       for (const bid of renewableBids) {
@@ -94,7 +94,7 @@ module.exports.renewableContract = f.pubsub
       if (!marketStatus.length) {
         await market_status.create(new MarketStatus({ is_finished_normal: false, is_finished_renewable: true }));
       } else {
-        await market_status.update(new MarketStatus({ id: marketStatus[0].id, is_finished_renewable: true }));
+        await market_status.update({ id: marketStatus[0].id, is_finished_renewable: true });
       }
 
       for (const bid of sortRenewableBids) {

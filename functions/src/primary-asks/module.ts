@@ -59,7 +59,7 @@ export async function create(data: PrimaryAsk) {
   await doc.set(data);
 }
 
-export async function update(data: PrimaryAsk) {
+export async function update(data: Partial<PrimaryAsk> & { id: string }) {
   const now = admin.firestore.Timestamp.now();
   data.updated_at = now;
 

@@ -57,7 +57,7 @@ export async function create(data: DiscountPrice) {
   await doc.set(data);
 }
 
-export async function update(data: DiscountPrice) {
+export async function update(data: Partial<DiscountPrice> & { id: string }) {
   const now = admin.firestore.Timestamp.now();
   data.updated_at = now;
 
