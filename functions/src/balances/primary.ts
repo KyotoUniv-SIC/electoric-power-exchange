@@ -1,7 +1,6 @@
 /* eslint-disable camelcase */
 import { balance } from '.';
 import { primary_ask } from '../primary-asks';
-import { Balance } from '@local/common';
 
 primary_ask.onCreateHandler.push(async (snapshot, context) => {
   const data = snapshot.data()!;
@@ -9,12 +8,10 @@ primary_ask.onCreateHandler.push(async (snapshot, context) => {
   if (!accountBalance.length) {
     return;
   }
-  await balance.update(
-    new Balance({
-      id: accountBalance[0].id,
-      student_account_id: data.account_id,
-      amount_upx: data.amount,
-      amount_spx: 0,
-    }),
-  );
+  await balance.update({
+    id: accountBalance[0].id,
+    student_account_id: data.account_id,
+    amount_upx: data.amount,
+    amount_spx: 0,
+  });
 });
