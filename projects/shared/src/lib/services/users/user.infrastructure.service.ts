@@ -1,40 +1,49 @@
-import { Injectable } from '@angular/core';
-import { Firestore, collection, collectionGroup, query, QueryConstraint, doc, getDoc, docData, getDocs, collectionData, setDoc, serverTimestamp } from '@angular/fire/firestore';
+import { autoID } from '../auto-id';
 import { IUserInfrastructureService } from './user.service';
+import { Injectable } from '@angular/core';
+import {
+  Firestore,
+  collection,
+  collectionGroup,
+  query,
+  QueryConstraint,
+  doc,
+  getDoc,
+  docData,
+  getDocs,
+  collectionData,
+  setDoc,
+  serverTimestamp,
+} from '@angular/fire/firestore';
 import { User } from '@local/common';
 import { UserFirestore } from '@local/common';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UserInfrastructureService
-  implements IUserInfrastructureService {
-
+export class UserInfrastructureService implements IUserInfrastructureService {
   constructor(private readonly firestore: Firestore) {}
 
   collection(...queryConstraints: QueryConstraint[]) {
     const ref = collection(this.firestore, UserFirestore.collectionPath());
 
-    return (queryConstraints.length > 0
-      ? query(ref, ...queryConstraints) : ref).withConverter(UserFirestore.converter);
+    return (queryConstraints.length > 0 ? query(ref, ...queryConstraints) : ref).withConverter(UserFirestore.converter);
   }
 
   collectionGroup(...queryConstraints: QueryConstraint[]) {
     const ref = collectionGroup(this.firestore, UserFirestore.collectionID);
 
-    return (queryConstraints.length > 0
-      ? query(ref, ...queryConstraints) : ref).withConverter(UserFirestore.converter);
+    return (queryConstraints.length > 0 ? query(ref, ...queryConstraints) : ref).withConverter(UserFirestore.converter);
   }
 
   document(id?: string) {
     const ref = collection(this.firestore, UserFirestore.collectionPath());
 
-    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path)).withConverter(UserFirestore.converter);
+    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path, autoID())).withConverter(UserFirestore.converter);
   }
 
   get(id: string) {
-    return getDoc(this.document(id))
-      .then(snapshot => snapshot.data());
+    return getDoc(this.document(id)).then((snapshot) => snapshot.data());
   }
 
   get$(id: string) {
@@ -42,8 +51,7 @@ export class UserInfrastructureService
   }
 
   list() {
-    return getDocs(this.collection())
-      .then(snapshots => snapshots.docs.map(doc => doc.data()))
+    return getDocs(this.collection()).then((snapshots) => snapshots.docs.map((doc) => doc.data()));
   }
 
   list$() {
@@ -51,8 +59,7 @@ export class UserInfrastructureService
   }
 
   listGroup() {
-    return getDocs(this.collectionGroup())
-      .then(snapshots => snapshots.docs.map(doc => doc.data()))
+    return getDocs(this.collectionGroup()).then((snapshots) => snapshots.docs.map((doc) => doc.data()));
   }
 
   listGroup$() {

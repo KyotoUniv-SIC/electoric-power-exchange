@@ -3,6 +3,7 @@ import { Firestore, collection, collectionGroup, query, QueryConstraint, doc, ge
 import { IChatInfrastructureService } from './chat.service';
 import { Chat } from '@local/common';
 import { ChatFirestore } from '@local/common';
+import { autoID } from '../auto-id';
 
 @Injectable({
   providedIn: 'root',
@@ -29,7 +30,7 @@ export class ChatInfrastructureService
   document(id?: string) {
     const ref = collection(this.firestore, ChatFirestore.collectionPath());
 
-    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path)).withConverter(ChatFirestore.converter);
+    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path, autoID())).withConverter(ChatFirestore.converter);
   }
 
   get(id: string) {

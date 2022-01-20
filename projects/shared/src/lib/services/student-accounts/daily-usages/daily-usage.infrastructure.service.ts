@@ -1,40 +1,49 @@
-import { Injectable } from '@angular/core';
-import { Firestore, collection, collectionGroup, query, QueryConstraint, doc, getDoc, docData, getDocs, collectionData, setDoc, serverTimestamp } from '@angular/fire/firestore';
+import { autoID } from '../../auto-id';
 import { IDailyUsageInfrastructureService } from './daily-usage.service';
+import { Injectable } from '@angular/core';
+import {
+  Firestore,
+  collection,
+  collectionGroup,
+  query,
+  QueryConstraint,
+  doc,
+  getDoc,
+  docData,
+  getDocs,
+  collectionData,
+  setDoc,
+  serverTimestamp,
+} from '@angular/fire/firestore';
 import { DailyUsage } from '@local/common';
 import { DailyUsageFirestore } from '@local/common';
 
 @Injectable({
   providedIn: 'root',
 })
-export class DailyUsageInfrastructureService
-  implements IDailyUsageInfrastructureService {
-
+export class DailyUsageInfrastructureService implements IDailyUsageInfrastructureService {
   constructor(private readonly firestore: Firestore) {}
 
   collection(studentAccountID: string, ...queryConstraints: QueryConstraint[]) {
     const ref = collection(this.firestore, DailyUsageFirestore.collectionPath(studentAccountID));
 
-    return (queryConstraints.length > 0
-      ? query(ref, ...queryConstraints) : ref).withConverter(DailyUsageFirestore.converter);
+    return (queryConstraints.length > 0 ? query(ref, ...queryConstraints) : ref).withConverter(DailyUsageFirestore.converter);
   }
 
   collectionGroup(...queryConstraints: QueryConstraint[]) {
     const ref = collectionGroup(this.firestore, DailyUsageFirestore.collectionID);
 
-    return (queryConstraints.length > 0
-      ? query(ref, ...queryConstraints) : ref).withConverter(DailyUsageFirestore.converter);
+    return (queryConstraints.length > 0 ? query(ref, ...queryConstraints) : ref).withConverter(DailyUsageFirestore.converter);
   }
 
   document(studentAccountID: string, id?: string) {
     const ref = collection(this.firestore, DailyUsageFirestore.collectionPath(studentAccountID));
 
-    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path)).withConverter(DailyUsageFirestore.converter);
+    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path, autoID())).withConverter(DailyUsageFirestore.converter);
   }
 
   get(studentAccountID: string, id: string) {
-    return getDoc(this.document(studentAccountID, id))
-      .then(snapshot => snapshot.data());
+    return getDoc(this.document(studentAccountID, id)).then((snapshot) => snapshot.data());
   }
 
   get$(studentAccountID: string, id: string) {
@@ -42,8 +51,7 @@ export class DailyUsageInfrastructureService
   }
 
   list(studentAccountID: string) {
-    return getDocs(this.collection(studentAccountID))
-      .then(snapshots => snapshots.docs.map(doc => doc.data()))
+    return getDocs(this.collection(studentAccountID)).then((snapshots) => snapshots.docs.map((doc) => doc.data()));
   }
 
   list$(studentAccountID: string) {
@@ -51,8 +59,7 @@ export class DailyUsageInfrastructureService
   }
 
   listGroup() {
-    return getDocs(this.collectionGroup())
-      .then(snapshots => snapshots.docs.map(doc => doc.data()))
+    return getDocs(this.collectionGroup()).then((snapshots) => snapshots.docs.map((doc) => doc.data()));
   }
 
   listGroup$() {

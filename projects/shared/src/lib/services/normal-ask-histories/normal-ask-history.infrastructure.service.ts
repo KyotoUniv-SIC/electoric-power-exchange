@@ -16,6 +16,7 @@ import {
 } from '@angular/fire/firestore';
 import { NormalAskHistory } from '@local/common';
 import { NormalAskHistoryFirestore } from '@local/common';
+import { autoID } from '../auto-id';
 
 @Injectable({
   providedIn: 'root',
@@ -38,7 +39,7 @@ export class NormalAskHistoryInfrastructureService implements INormalAskHistoryI
   document(id?: string) {
     const ref = collection(this.firestore, NormalAskHistoryFirestore.collectionPath());
 
-    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path)).withConverter(NormalAskHistoryFirestore.converter);
+    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path, autoID())).withConverter(NormalAskHistoryFirestore.converter);
   }
 
   get(id: string) {

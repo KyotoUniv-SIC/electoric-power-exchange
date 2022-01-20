@@ -1,40 +1,51 @@
-import { Injectable } from '@angular/core';
-import { Firestore, collection, collectionGroup, query, QueryConstraint, doc, getDoc, docData, getDocs, collectionData, setDoc, serverTimestamp } from '@angular/fire/firestore';
+import { autoID } from '../auto-id';
 import { IRenewableBidHistoryInfrastructureService } from './renewable-bid-history.service';
+import { Injectable } from '@angular/core';
+import {
+  Firestore,
+  collection,
+  collectionGroup,
+  query,
+  QueryConstraint,
+  doc,
+  getDoc,
+  docData,
+  getDocs,
+  collectionData,
+  setDoc,
+  serverTimestamp,
+} from '@angular/fire/firestore';
 import { RenewableBidHistory } from '@local/common';
 import { RenewableBidHistoryFirestore } from '@local/common';
 
 @Injectable({
   providedIn: 'root',
 })
-export class RenewableBidHistoryInfrastructureService
-  implements IRenewableBidHistoryInfrastructureService {
-
+export class RenewableBidHistoryInfrastructureService implements IRenewableBidHistoryInfrastructureService {
   constructor(private readonly firestore: Firestore) {}
 
   collection(...queryConstraints: QueryConstraint[]) {
     const ref = collection(this.firestore, RenewableBidHistoryFirestore.collectionPath());
 
-    return (queryConstraints.length > 0
-      ? query(ref, ...queryConstraints) : ref).withConverter(RenewableBidHistoryFirestore.converter);
+    return (queryConstraints.length > 0 ? query(ref, ...queryConstraints) : ref).withConverter(RenewableBidHistoryFirestore.converter);
   }
 
   collectionGroup(...queryConstraints: QueryConstraint[]) {
     const ref = collectionGroup(this.firestore, RenewableBidHistoryFirestore.collectionID);
 
-    return (queryConstraints.length > 0
-      ? query(ref, ...queryConstraints) : ref).withConverter(RenewableBidHistoryFirestore.converter);
+    return (queryConstraints.length > 0 ? query(ref, ...queryConstraints) : ref).withConverter(RenewableBidHistoryFirestore.converter);
   }
 
   document(id?: string) {
     const ref = collection(this.firestore, RenewableBidHistoryFirestore.collectionPath());
 
-    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path)).withConverter(RenewableBidHistoryFirestore.converter);
+    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path, autoID())).withConverter(
+      RenewableBidHistoryFirestore.converter,
+    );
   }
 
   get(id: string) {
-    return getDoc(this.document(id))
-      .then(snapshot => snapshot.data());
+    return getDoc(this.document(id)).then((snapshot) => snapshot.data());
   }
 
   get$(id: string) {
@@ -42,8 +53,7 @@ export class RenewableBidHistoryInfrastructureService
   }
 
   list() {
-    return getDocs(this.collection())
-      .then(snapshots => snapshots.docs.map(doc => doc.data()))
+    return getDocs(this.collection()).then((snapshots) => snapshots.docs.map((doc) => doc.data()));
   }
 
   list$() {
@@ -51,8 +61,7 @@ export class RenewableBidHistoryInfrastructureService
   }
 
   listGroup() {
-    return getDocs(this.collectionGroup())
-      .then(snapshots => snapshots.docs.map(doc => doc.data()))
+    return getDocs(this.collectionGroup()).then((snapshots) => snapshots.docs.map((doc) => doc.data()));
   }
 
   listGroup$() {
