@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Auth, authState } from '@angular/fire/auth';
 import { Timestamp } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
-import { RenewableBid } from '@local/common';
+import { RenewableBid, RenewableBidDelete } from '@local/common';
+import { DeleteOnSubmitEvent } from 'projects/main/src/app/view/txs/order/solar/bid/bid.component';
+import { RenewableBidDeleteApplicationService } from 'projects/shared/src/lib/services/renewable-bid-deletes/renewable-bid-delete.application.service';
 import { RenewableBidApplicationService } from 'projects/shared/src/lib/services/renewable-bids/renewable-bid.application.service';
 import { StudentAccountApplicationService } from 'projects/shared/src/lib/services/student-accounts/student-account.application.service';
 import { combineLatest, Observable } from 'rxjs';
@@ -22,6 +24,7 @@ export class BidComponent implements OnInit {
     private route: ActivatedRoute,
     private readonly studentAccApp: StudentAccountApplicationService,
     private readonly renewableBidApp: RenewableBidApplicationService,
+    private readonly renewableBidDeleteApp: RenewableBidDeleteApplicationService,
   ) {
     const user$ = authState(this.auth);
     const studentAccount$ = user$.pipe(mergeMap((user) => this.studentAccApp.getByUid$(user?.uid!)));
@@ -34,8 +37,7 @@ export class BidComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  async onSubmit() {
-    // this.renewableBidApp;
-    // location.reload();
+  async onSubmit($event: DeleteOnSubmitEvent) {
+    await this.renewableBidDeleteApp.create(new RenewableBidDelete({ bid_id: $event.bidID }));
   }
 }
