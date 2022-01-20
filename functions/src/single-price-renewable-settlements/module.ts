@@ -56,7 +56,7 @@ export async function create(data: SinglePriceRenewableSettlement) {
   await doc.set(data);
 }
 
-export async function update(data: SinglePriceRenewableSettlement) {
+export async function update(data: Partial<SinglePriceRenewableSettlement> & { id: string }) {
   const now = admin.firestore.Timestamp.now();
   data.updated_at = now;
 

@@ -67,7 +67,7 @@ export async function create(data: RenewableAskHistory) {
   await doc.set(data);
 }
 
-export async function update(data: RenewableAskHistory) {
+export async function update(data: Partial<RenewableAskHistory> & { id: string }) {
   const now = admin.firestore.Timestamp.now();
   data.updated_at = now;
 

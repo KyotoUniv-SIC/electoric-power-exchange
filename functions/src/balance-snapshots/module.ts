@@ -50,7 +50,8 @@ export async function create(data: BalanceSnapshot) {
   await doc.set(data);
 }
 
-export async function update(data: BalanceSnapshot) {
+// eslint-disable-next-line camelcase
+export async function update(data: Partial<BalanceSnapshot>& { id: string } & { student_account_id: string }) {
   const now = admin.firestore.Timestamp.now();
   data.updated_at = now;
 

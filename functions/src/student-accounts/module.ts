@@ -50,7 +50,7 @@ export async function create(data: StudentAccount) {
   await doc.set(data);
 }
 
-export async function update(data: StudentAccount) {
+export async function update(data: Partial<StudentAccount> & { id: string }) {
   const now = admin.firestore.Timestamp.now();
   data.updated_at = now;
 

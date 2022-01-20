@@ -60,7 +60,7 @@ export async function create(data: MarketStatus) {
   await doc.set(data);
 }
 
-export async function update(data: MarketStatus) {
+export async function update(data: Partial<MarketStatus> & { id: string }) {
   const now = admin.firestore.Timestamp.now();
   data.updated_at = now;
 
