@@ -1,4 +1,4 @@
-import { AutoId } from '../auth/auto-id';
+import { autoID } from '../auto-id';
 import { INormalBidInfrastructureService } from './normal-bid.service';
 import { Injectable } from '@angular/core';
 import {
@@ -39,7 +39,7 @@ export class NormalBidInfrastructureService implements INormalBidInfrastructureS
   document(id?: string) {
     const ref = collection(this.firestore, NormalBidFirestore.collectionPath());
 
-    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path, AutoId())).withConverter(NormalBidFirestore.converter);
+    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path, autoID())).withConverter(NormalBidFirestore.converter);
   }
 
   get(id: string) {

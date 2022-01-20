@@ -43,8 +43,8 @@ export async function getLastYear(studentAccountID: string, date: Date) {
   const lastYear1dayAgo = date.setFullYear(date.getFullYear() - 1, date.getMonth() + 1, date.getDate() - 1);
   const lastYear1dayLater = date.setFullYear(date.getFullYear() - 1, date.getMonth() + 1, date.getDate() + 1);
   return await collection(studentAccountID)
-    .where('createdAt', '>', lastYear1dayAgo)
-    .where('createdAt', '<', lastYear1dayLater)
+    .where('created_at', '>', lastYear1dayAgo)
+    .where('created_at', '<', lastYear1dayLater)
     .get()
     .then((snapshot) => snapshot.docs.map((doc) => doc.data() as MonthlyUsage));
 }

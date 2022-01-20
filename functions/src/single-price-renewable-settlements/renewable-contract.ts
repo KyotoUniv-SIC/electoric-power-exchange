@@ -12,8 +12,8 @@ module.exports.renewableContract = functions.pubsub
   .schedule('0 0 * * *')
   .timeZone('Asia/Tokyo') // Users can choose timezone - default is America/Los_Angeles
   .onRun(async () => {
-    const renewableBids = await renewable_bid.list();
-    const renewableAsks = await renewable_ask.list();
+    const renewableBids = await renewable_bid.listValid();
+    const renewableAsks = await renewable_ask.listValid();
     const marketStatus = await market_status.getToday();
     // bidかaskが0の場合は0成約で終了する
     if (!renewableBids.length || !renewableAsks.length) {

@@ -3,23 +3,23 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 /* eslint-disable require-jsdoc */
-import { MarketStatus, MarketStatusFirestore } from '@local/common';
 import * as admin from 'firebase-admin';
+import { RenewableBidDelete, RenewableBidDeleteFirestore } from '@local/common';
 
-export * from './controller';
+export * from './controller'
 
 export function collection() {
   return admin
     .firestore()
-    .collection(MarketStatusFirestore.collectionPath())
-    .withConverter(MarketStatusFirestore.converter as any);
+    .collection(RenewableBidDeleteFirestore.collectionPath())
+    .withConverter(RenewableBidDeleteFirestore.converter as any);
 }
 
 export function collectionGroup() {
   return admin
     .firestore()
-    .collectionGroup(MarketStatusFirestore.collectionID)
-    .withConverter(MarketStatusFirestore.converter as any);
+    .collectionGroup(RenewableBidDeleteFirestore.collectionID)
+    .withConverter(RenewableBidDeleteFirestore.converter as any);
 }
 
 export function document(id?: string) {
@@ -30,26 +30,18 @@ export function document(id?: string) {
 export async function get(id: string) {
   return await document(id)
     .get()
-    .then((snapshot) => snapshot.data() as MarketStatus);
-}
-
-export async function getToday() {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  return await collection()
-    .orderBy('created_at', 'desc')
-    .where('created_at', '>', today)
-    .get()
-    .then((snapshot) => snapshot.docs.map((doc) => doc.data() as MarketStatus));
+    .then((snapshot) => snapshot.data() as RenewableBidDelete);
 }
 
 export async function list() {
   return await collection()
     .get()
-    .then((snapshot) => snapshot.docs.map((doc) => doc.data() as MarketStatus));
+    .then((snapshot) => snapshot.docs.map((doc) => doc.data() as RenewableBidDelete));
 }
 
-export async function create(data: MarketStatus) {
+export async function create(
+  data: RenewableBidDelete
+) {
   const doc = document();
   data.id = doc.id;
 
@@ -60,7 +52,9 @@ export async function create(data: MarketStatus) {
   await doc.set(data);
 }
 
-export async function update(data: MarketStatus) {
+export async function update(
+  data: RenewableBidDelete
+) {
   const now = admin.firestore.Timestamp.now();
   data.updated_at = now;
 

@@ -15,6 +15,7 @@ module.exports.primaryRenewableAsk = functions.pubsub
         type: type,
         price: price,
         amount: amount,
+        is_deleted: false,
       }),
     );
   });

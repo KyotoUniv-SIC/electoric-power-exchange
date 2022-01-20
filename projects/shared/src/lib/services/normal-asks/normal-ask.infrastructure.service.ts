@@ -1,4 +1,4 @@
-import { AutoId } from '../auth/auto-id';
+import { autoID } from '../auto-id';
 import { INormalAskInfrastructureService } from './normal-ask.service';
 import { Injectable } from '@angular/core';
 import {
@@ -39,7 +39,7 @@ export class NormalAskInfrastructureService implements INormalAskInfrastructureS
   document(id?: string) {
     const ref = collection(this.firestore, NormalAskFirestore.collectionPath());
 
-    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path, AutoId())).withConverter(NormalAskFirestore.converter);
+    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path, autoID())).withConverter(NormalAskFirestore.converter);
   }
 
   get(id: string) {

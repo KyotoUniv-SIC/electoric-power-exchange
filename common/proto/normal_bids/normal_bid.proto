@@ -10,4 +10,5 @@ message NormalBid {
   string account_id = 2;
   double price = 3;
   double amount = 4;
+  bool is_deleted = 5;
 }

@@ -70,38 +70,46 @@ export class TxsComponent implements OnInit {
 
     this.orders$ = combineLatest([normalBids$, normalAsks$, renewableBids$, renewableAsks$]).pipe(
       map(([normalBids, normalAsks, renewableBids, renewableAsks]) => {
-        const normalBidList = normalBids.map((bid) => ({
-          id: bid.id,
-          date: (bid.created_at as Timestamp).toDate(),
-          amount: bid.amount,
-          price: bid.price,
-          is_solar: false,
-          is_bid: true,
-        }));
-        const normalAskList = normalAsks.map((ask) => ({
-          id: ask.id,
-          date: (ask.created_at as Timestamp).toDate(),
-          amount: ask.amount,
-          price: ask.price,
-          is_solar: false,
-          is_bid: false,
-        }));
-        const renewableBidList = renewableBids.map((bid) => ({
-          id: bid.id,
-          date: (bid.created_at as Timestamp).toDate(),
-          amount: bid.amount,
-          price: bid.price,
-          is_solar: true,
-          is_bid: true,
-        }));
-        const renewableAskList = renewableAsks.map((ask) => ({
-          id: ask.id,
-          date: (ask.created_at as Timestamp).toDate(),
-          amount: ask.amount,
-          price: ask.price,
-          is_solar: true,
-          is_bid: false,
-        }));
+        const normalBidList = normalBids
+          .filter((bid) => bid.is_deleted == false)
+          .map((bid) => ({
+            id: bid.id,
+            date: (bid.created_at as Timestamp).toDate(),
+            amount: bid.amount,
+            price: bid.price,
+            is_solar: false,
+            is_bid: true,
+          }));
+        const normalAskList = normalAsks
+          .filter((ask) => ask.is_deleted == false)
+          .map((ask) => ({
+            id: ask.id,
+            date: (ask.created_at as Timestamp).toDate(),
+            amount: ask.amount,
+            price: ask.price,
+            is_solar: false,
+            is_bid: false,
+          }));
+        const renewableBidList = renewableBids
+          .filter((bid) => bid.is_deleted == false)
+          .map((bid) => ({
+            id: bid.id,
+            date: (bid.created_at as Timestamp).toDate(),
+            amount: bid.amount,
+            price: bid.price,
+            is_solar: true,
+            is_bid: true,
+          }));
+        const renewableAskList = renewableAsks
+          .filter((ask) => ask.is_deleted == false)
+          .map((ask) => ({
+            id: ask.id,
+            date: (ask.created_at as Timestamp).toDate(),
+            amount: ask.amount,
+            price: ask.price,
+            is_solar: true,
+            is_bid: false,
+          }));
         return normalBidList.concat(normalAskList, renewableBidList, renewableAskList).sort(function (first, second) {
           if (first.date > second.date) {
             return -1;

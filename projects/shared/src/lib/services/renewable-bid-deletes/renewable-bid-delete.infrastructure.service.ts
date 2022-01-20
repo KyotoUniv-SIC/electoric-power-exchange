@@ -1,5 +1,5 @@
 import { autoID } from '../auto-id';
-import { IRenewableAskInfrastructureService } from './renewable-ask.service';
+import { IRenewableBidDeleteInfrastructureService } from './renewable-bid-delete.service';
 import { Injectable } from '@angular/core';
 import {
   Firestore,
@@ -15,32 +15,32 @@ import {
   setDoc,
   serverTimestamp,
 } from '@angular/fire/firestore';
-import { RenewableAsk } from '@local/common';
-import { RenewableAskFirestore } from '@local/common';
+import { RenewableBidDelete } from '@local/common';
+import { RenewableBidDeleteFirestore } from '@local/common';
 
 @Injectable({
   providedIn: 'root',
 })
-export class RenewableAskInfrastructureService implements IRenewableAskInfrastructureService {
+export class RenewableBidDeleteInfrastructureService implements IRenewableBidDeleteInfrastructureService {
   constructor(private readonly firestore: Firestore) {}
 
   collection(...queryConstraints: QueryConstraint[]) {
-    const ref = collection(this.firestore, RenewableAskFirestore.collectionPath());
+    const ref = collection(this.firestore, RenewableBidDeleteFirestore.collectionPath());
 
-    return (queryConstraints.length > 0 ? query(ref, ...queryConstraints) : ref).withConverter(RenewableAskFirestore.converter);
+    return (queryConstraints.length > 0 ? query(ref, ...queryConstraints) : ref).withConverter(RenewableBidDeleteFirestore.converter);
   }
 
   collectionGroup(...queryConstraints: QueryConstraint[]) {
-    const ref = collectionGroup(this.firestore, RenewableAskFirestore.collectionID);
+    const ref = collectionGroup(this.firestore, RenewableBidDeleteFirestore.collectionID);
 
-    return (queryConstraints.length > 0 ? query(ref, ...queryConstraints) : ref).withConverter(RenewableAskFirestore.converter);
+    return (queryConstraints.length > 0 ? query(ref, ...queryConstraints) : ref).withConverter(RenewableBidDeleteFirestore.converter);
   }
 
   document(id?: string) {
-    const ref = collection(this.firestore, RenewableAskFirestore.collectionPath());
+    const ref = collection(this.firestore, RenewableBidDeleteFirestore.collectionPath());
 
     return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path, autoID())).withConverter(
-      RenewableAskFirestore.converter,
+      RenewableBidDeleteFirestore.converter,
     );
   }
 
@@ -68,7 +68,7 @@ export class RenewableAskInfrastructureService implements IRenewableAskInfrastru
     return collectionData(this.collectionGroup());
   }
 
-  create(data: RenewableAsk) {
+  create(data: RenewableBidDelete) {
     const doc = this.document();
     data.id = doc.id;
 

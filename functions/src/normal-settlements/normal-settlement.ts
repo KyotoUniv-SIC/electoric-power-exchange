@@ -10,10 +10,10 @@ import { NormalAskHistory, NormalBidHistory, NormalSettlement, proto } from '@lo
 single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) => {
   const data = snapshot.data()!;
 
-  const normalBids = await normal_bid.list();
+  const normalBids = await normal_bid.listValid();
   const sortNormalBids = normalBids.sort((first, second) => second.price - first.price);
 
-  const normalAsks = await normal_ask.list();
+  const normalAsks = await normal_ask.listValid();
   const sortNormalAsks = normalAsks.sort((first, second) => first.price - second.price);
 
   let i = 0;

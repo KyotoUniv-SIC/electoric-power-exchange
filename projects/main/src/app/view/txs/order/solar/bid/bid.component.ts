@@ -1,6 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { RenewableBid } from '@local/common';
 import { Timestamp } from 'firebase/firestore';
+
+export type DeleteOnSubmitEvent = {
+  bidID: string;
+};
 
 @Component({
   selector: 'view-bid',
@@ -12,8 +16,19 @@ export class BidComponent implements OnInit {
   renewableBid?: RenewableBid | null;
   @Input()
   createdAt?: Date | null;
+  @Output()
+  appDelete: EventEmitter<DeleteOnSubmitEvent>;
 
-  constructor() {}
+  constructor() {
+    this.appDelete = new EventEmitter();
+  }
 
   ngOnInit(): void {}
+
+  onClickDelete() {
+    if (!this.renewableBid?.id) {
+      return;
+    }
+    this.appDelete.emit({ bidID: this.renewableBid?.id });
+  }
 }

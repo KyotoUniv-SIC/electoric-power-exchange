@@ -17,4 +17,5 @@ message NormalAsk {
   string account_id = 3;
   double price = 4;
   double amount = 5;
+  bool is_deleted = 6;
 }

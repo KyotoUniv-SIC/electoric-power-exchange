@@ -12,6 +12,7 @@ import './normal-settlements/normal-settlement';
 import './primary-asks/balance-snapshot';
 import './primary-bids/primary';
 import './renewable-asks/primary';
+import './renewable-bids/renewable-bid-delete';
 import './renewable-settlements/renewable-settlement';
 import './single-price-normal-settlements/normal-contract';
 import './single-price-renewable-settlements/renewable-contract';
@@ -53,6 +54,7 @@ const files = {
   renewable_asks: './renewable-asks',
   renewable_ask_histories: './renewable-ask-histories',
   renewable_bids: './renewable-bids',
+  renewable_bid_deletes: './renewable-bid-deletes',
   renewable_bid_histories: './renewable-bid-histories',
   renewable_settlements: './renewable-settlements',
   normals: './single-price-normal-settlements',

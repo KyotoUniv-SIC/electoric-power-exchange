@@ -12,8 +12,8 @@ module.exports.normalContract = functions.pubsub
   .schedule('0 0 * * *')
   .timeZone('Asia/Tokyo') // Users can choose timezone - default is America/Los_Angeles
   .onRun(async () => {
-    const normalBids = await normal_bid.list();
-    const normalAsks = await normal_ask.list();
+    const normalBids = await normal_bid.listValid();
+    const normalAsks = await normal_ask.listValid();
     const marketStatus = await market_status.getToday();
     // bidかaskが0の場合は0成約で終了する
     if (!normalBids.length || !normalAsks.length) {

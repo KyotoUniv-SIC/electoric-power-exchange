@@ -41,9 +41,9 @@ export async function listLastMonth() {
   lastMonth.setHours(0, 0, 0, 0);
 
   return await collection()
-    .orderBy('createdAt', 'desc')
-    .where('createdAt', '<', today)
-    .where('createdAt', '>', lastMonth)
+    .orderBy('created_at', 'desc')
+    .where('created_at', '<', today)
+    .where('created_at', '>', lastMonth)
     .get()
     .then((snapshot) => snapshot.docs.map((doc) => doc.data() as PrimaryAsk));
 }

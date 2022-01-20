@@ -35,7 +35,7 @@ export async function get(studentAccountID: string, id: string) {
 
 export async function getLatest(studentAccountID: string) {
   return await collection(studentAccountID)
-    .orderBy('createdAt', 'desc')
+    .orderBy('created_at', 'desc')
     .get()
     .then((snapshot) => snapshot.docs.map((doc) => doc.data() as AvailableBalance));
 }
