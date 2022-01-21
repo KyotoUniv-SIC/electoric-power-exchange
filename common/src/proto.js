@@ -3303,6 +3303,204 @@ export const main = $root.main = (() => {
         return MonthlyUsage;
     })();
 
+    main.NormalAskDelete = (function() {
+
+        /**
+         * Properties of a NormalAskDelete.
+         * @memberof main
+         * @interface INormalAskDelete
+         * @property {string|null} [id] NormalAskDelete id
+         * @property {string|null} [ask_id] NormalAskDelete ask_id
+         */
+
+        /**
+         * Constructs a new NormalAskDelete.
+         * @memberof main
+         * @classdesc Represents a NormalAskDelete.
+         * @implements INormalAskDelete
+         * @constructor
+         * @param {main.INormalAskDelete=} [properties] Properties to set
+         */
+        function NormalAskDelete(properties) {
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * NormalAskDelete id.
+         * @member {string} id
+         * @memberof main.NormalAskDelete
+         * @instance
+         */
+        NormalAskDelete.prototype.id = "";
+
+        /**
+         * NormalAskDelete ask_id.
+         * @member {string} ask_id
+         * @memberof main.NormalAskDelete
+         * @instance
+         */
+        NormalAskDelete.prototype.ask_id = "";
+
+        /**
+         * Encodes the specified NormalAskDelete message. Does not implicitly {@link main.NormalAskDelete.verify|verify} messages.
+         * @function encode
+         * @memberof main.NormalAskDelete
+         * @static
+         * @param {main.INormalAskDelete} message NormalAskDelete message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        NormalAskDelete.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+            if (message.ask_id != null && Object.hasOwnProperty.call(message, "ask_id"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.ask_id);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified NormalAskDelete message, length delimited. Does not implicitly {@link main.NormalAskDelete.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof main.NormalAskDelete
+         * @static
+         * @param {main.INormalAskDelete} message NormalAskDelete message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        NormalAskDelete.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a NormalAskDelete message from the specified reader or buffer.
+         * @function decode
+         * @memberof main.NormalAskDelete
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {main.NormalAskDelete} NormalAskDelete
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        NormalAskDelete.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.NormalAskDelete();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.id = reader.string();
+                    break;
+                case 2:
+                    message.ask_id = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a NormalAskDelete message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof main.NormalAskDelete
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {main.NormalAskDelete} NormalAskDelete
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        NormalAskDelete.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a NormalAskDelete message.
+         * @function verify
+         * @memberof main.NormalAskDelete
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        NormalAskDelete.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isString(message.id))
+                    return "id: string expected";
+            if (message.ask_id != null && message.hasOwnProperty("ask_id"))
+                if (!$util.isString(message.ask_id))
+                    return "ask_id: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a NormalAskDelete message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof main.NormalAskDelete
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {main.NormalAskDelete} NormalAskDelete
+         */
+        NormalAskDelete.fromObject = function fromObject(object) {
+            if (object instanceof $root.main.NormalAskDelete)
+                return object;
+            let message = new $root.main.NormalAskDelete();
+            if (object.id != null)
+                message.id = String(object.id);
+            if (object.ask_id != null)
+                message.ask_id = String(object.ask_id);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a NormalAskDelete message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof main.NormalAskDelete
+         * @static
+         * @param {main.NormalAskDelete} message NormalAskDelete
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        NormalAskDelete.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.defaults) {
+                object.id = "";
+                object.ask_id = "";
+            }
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            if (message.ask_id != null && message.hasOwnProperty("ask_id"))
+                object.ask_id = message.ask_id;
+            return object;
+        };
+
+        /**
+         * Converts this NormalAskDelete to JSON.
+         * @function toJSON
+         * @memberof main.NormalAskDelete
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        NormalAskDelete.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return NormalAskDelete;
+    })();
+
     main.NormalBidHistory = (function() {
 
         /**
@@ -4249,6 +4447,204 @@ export const main = $root.main = (() => {
         };
 
         return NormalAsk;
+    })();
+
+    main.NormalBidDelete = (function() {
+
+        /**
+         * Properties of a NormalBidDelete.
+         * @memberof main
+         * @interface INormalBidDelete
+         * @property {string|null} [id] NormalBidDelete id
+         * @property {string|null} [bid_id] NormalBidDelete bid_id
+         */
+
+        /**
+         * Constructs a new NormalBidDelete.
+         * @memberof main
+         * @classdesc Represents a NormalBidDelete.
+         * @implements INormalBidDelete
+         * @constructor
+         * @param {main.INormalBidDelete=} [properties] Properties to set
+         */
+        function NormalBidDelete(properties) {
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * NormalBidDelete id.
+         * @member {string} id
+         * @memberof main.NormalBidDelete
+         * @instance
+         */
+        NormalBidDelete.prototype.id = "";
+
+        /**
+         * NormalBidDelete bid_id.
+         * @member {string} bid_id
+         * @memberof main.NormalBidDelete
+         * @instance
+         */
+        NormalBidDelete.prototype.bid_id = "";
+
+        /**
+         * Encodes the specified NormalBidDelete message. Does not implicitly {@link main.NormalBidDelete.verify|verify} messages.
+         * @function encode
+         * @memberof main.NormalBidDelete
+         * @static
+         * @param {main.INormalBidDelete} message NormalBidDelete message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        NormalBidDelete.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+            if (message.bid_id != null && Object.hasOwnProperty.call(message, "bid_id"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.bid_id);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified NormalBidDelete message, length delimited. Does not implicitly {@link main.NormalBidDelete.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof main.NormalBidDelete
+         * @static
+         * @param {main.INormalBidDelete} message NormalBidDelete message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        NormalBidDelete.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a NormalBidDelete message from the specified reader or buffer.
+         * @function decode
+         * @memberof main.NormalBidDelete
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {main.NormalBidDelete} NormalBidDelete
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        NormalBidDelete.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.NormalBidDelete();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.id = reader.string();
+                    break;
+                case 2:
+                    message.bid_id = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a NormalBidDelete message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof main.NormalBidDelete
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {main.NormalBidDelete} NormalBidDelete
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        NormalBidDelete.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a NormalBidDelete message.
+         * @function verify
+         * @memberof main.NormalBidDelete
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        NormalBidDelete.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isString(message.id))
+                    return "id: string expected";
+            if (message.bid_id != null && message.hasOwnProperty("bid_id"))
+                if (!$util.isString(message.bid_id))
+                    return "bid_id: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a NormalBidDelete message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof main.NormalBidDelete
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {main.NormalBidDelete} NormalBidDelete
+         */
+        NormalBidDelete.fromObject = function fromObject(object) {
+            if (object instanceof $root.main.NormalBidDelete)
+                return object;
+            let message = new $root.main.NormalBidDelete();
+            if (object.id != null)
+                message.id = String(object.id);
+            if (object.bid_id != null)
+                message.bid_id = String(object.bid_id);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a NormalBidDelete message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof main.NormalBidDelete
+         * @static
+         * @param {main.NormalBidDelete} message NormalBidDelete
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        NormalBidDelete.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.defaults) {
+                object.id = "";
+                object.bid_id = "";
+            }
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            if (message.bid_id != null && message.hasOwnProperty("bid_id"))
+                object.bid_id = message.bid_id;
+            return object;
+        };
+
+        /**
+         * Converts this NormalBidDelete to JSON.
+         * @function toJSON
+         * @memberof main.NormalBidDelete
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        NormalBidDelete.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return NormalBidDelete;
     })();
 
     main.NormalBid = (function() {
@@ -5547,6 +5943,204 @@ export const main = $root.main = (() => {
         };
 
         return RenewableBidHistory;
+    })();
+
+    main.RenewableAskDelete = (function() {
+
+        /**
+         * Properties of a RenewableAskDelete.
+         * @memberof main
+         * @interface IRenewableAskDelete
+         * @property {string|null} [id] RenewableAskDelete id
+         * @property {string|null} [ask_id] RenewableAskDelete ask_id
+         */
+
+        /**
+         * Constructs a new RenewableAskDelete.
+         * @memberof main
+         * @classdesc Represents a RenewableAskDelete.
+         * @implements IRenewableAskDelete
+         * @constructor
+         * @param {main.IRenewableAskDelete=} [properties] Properties to set
+         */
+        function RenewableAskDelete(properties) {
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * RenewableAskDelete id.
+         * @member {string} id
+         * @memberof main.RenewableAskDelete
+         * @instance
+         */
+        RenewableAskDelete.prototype.id = "";
+
+        /**
+         * RenewableAskDelete ask_id.
+         * @member {string} ask_id
+         * @memberof main.RenewableAskDelete
+         * @instance
+         */
+        RenewableAskDelete.prototype.ask_id = "";
+
+        /**
+         * Encodes the specified RenewableAskDelete message. Does not implicitly {@link main.RenewableAskDelete.verify|verify} messages.
+         * @function encode
+         * @memberof main.RenewableAskDelete
+         * @static
+         * @param {main.IRenewableAskDelete} message RenewableAskDelete message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RenewableAskDelete.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+            if (message.ask_id != null && Object.hasOwnProperty.call(message, "ask_id"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.ask_id);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified RenewableAskDelete message, length delimited. Does not implicitly {@link main.RenewableAskDelete.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof main.RenewableAskDelete
+         * @static
+         * @param {main.IRenewableAskDelete} message RenewableAskDelete message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RenewableAskDelete.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a RenewableAskDelete message from the specified reader or buffer.
+         * @function decode
+         * @memberof main.RenewableAskDelete
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {main.RenewableAskDelete} RenewableAskDelete
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RenewableAskDelete.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.RenewableAskDelete();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.id = reader.string();
+                    break;
+                case 2:
+                    message.ask_id = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a RenewableAskDelete message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof main.RenewableAskDelete
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {main.RenewableAskDelete} RenewableAskDelete
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RenewableAskDelete.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a RenewableAskDelete message.
+         * @function verify
+         * @memberof main.RenewableAskDelete
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        RenewableAskDelete.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isString(message.id))
+                    return "id: string expected";
+            if (message.ask_id != null && message.hasOwnProperty("ask_id"))
+                if (!$util.isString(message.ask_id))
+                    return "ask_id: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a RenewableAskDelete message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof main.RenewableAskDelete
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {main.RenewableAskDelete} RenewableAskDelete
+         */
+        RenewableAskDelete.fromObject = function fromObject(object) {
+            if (object instanceof $root.main.RenewableAskDelete)
+                return object;
+            let message = new $root.main.RenewableAskDelete();
+            if (object.id != null)
+                message.id = String(object.id);
+            if (object.ask_id != null)
+                message.ask_id = String(object.ask_id);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a RenewableAskDelete message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof main.RenewableAskDelete
+         * @static
+         * @param {main.RenewableAskDelete} message RenewableAskDelete
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        RenewableAskDelete.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.defaults) {
+                object.id = "";
+                object.ask_id = "";
+            }
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            if (message.ask_id != null && message.hasOwnProperty("ask_id"))
+                object.ask_id = message.ask_id;
+            return object;
+        };
+
+        /**
+         * Converts this RenewableAskDelete to JSON.
+         * @function toJSON
+         * @memberof main.RenewableAskDelete
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        RenewableAskDelete.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return RenewableAskDelete;
     })();
 
     /**
