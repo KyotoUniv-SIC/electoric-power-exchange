@@ -3,10 +3,10 @@
     <mat-card-title>Current Usage</mat-card-title>
     <mat-list>
       <mat-list-item class="flex flex-wrap">
-      <span class="break-all font-bold text-xl" >Total Usage:</span>
-      <span class="flex-auto break-all"></span>
-      <span class="break-all font-bold text-xl text-purple-800">{{totalUsage}} kWh</span>
-    </mat-list-item>
+        <span class="break-all font-bold text-xl">Total Usage:</span>
+        <span class="flex-auto break-all"></span>
+        <span class="break-all font-bold text-xl text-purple-800">{{ totalUsage }} kWh</span>
+      </mat-list-item>
     </mat-list>
   </mat-card>
   <mat-card class="mb-20">
@@ -25,7 +25,9 @@
       </mat-list-item>
       <mat-divider [inset]="true"></mat-divider>
     </mat-list>
-    <button mat-flat-button routerLink="/txs/buy" color="accent">Buy More Tokens</button>
+    <div class="text-center mt-10">
+      <button mat-flat-button routerLink="/txs/buy" color="accent">Buy More Tokens</button>
+    </div>
   </mat-card>
   <mat-card class="mb-20">
     <mat-card-title>Usage Ranking</mat-card-title>
@@ -53,10 +55,10 @@
     <mat-card-content>Total</mat-card-content>
     <canvas baseChart [data]="totalBalanceData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"> </canvas>
   </mat-card>
-  <mat-card class="mb-20">
+  <!-- <mat-card class="mb-20">
     <mat-card-title>Notifications</mat-card-title>
     <button mat-flat-button color="accent">More</button>
-  </mat-card>
+  </mat-card> -->
   <mat-card class="mb-20">
     <mat-card-title>Monthly Energy Consumption</mat-card-title>
     <p>kWh</p>
