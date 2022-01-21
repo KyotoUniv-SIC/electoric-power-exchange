@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Auth, authState } from '@angular/fire/auth';
 import { Timestamp } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
-import { NormalBid } from '@local/common';
+import { NormalBid, NormalBidDelete } from '@local/common';
+import { DeleteOnSubmitEvent } from 'projects/main/src/app/view/txs/order/solar/bid/bid.component';
+import { NormalBidDeleteApplicationService } from 'projects/shared/src/lib/services/normal-bid-deletes/normal-bid-delete.application.service';
 import { NormalBidApplicationService } from 'projects/shared/src/lib/services/normal-bids/normal-bid.application.service';
 import { StudentAccountApplicationService } from 'projects/shared/src/lib/services/student-accounts/student-account.application.service';
 import { combineLatest, Observable } from 'rxjs';
@@ -22,6 +24,7 @@ export class BidComponent implements OnInit {
     private route: ActivatedRoute,
     private readonly studentAccApp: StudentAccountApplicationService,
     private readonly normalBidApp: NormalBidApplicationService,
+    private readonly normalBidDeleteApp: NormalBidDeleteApplicationService,
   ) {
     const user$ = authState(this.auth);
     const studentAccount$ = user$.pipe(mergeMap((user) => this.studentAccApp.getByUid$(user?.uid!)));
@@ -33,4 +36,8 @@ export class BidComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  async onSubmit($event: DeleteOnSubmitEvent) {
+    await this.normalBidDeleteApp.create(new NormalBidDelete({ bid_id: $event.bidID }));
+  }
 }
