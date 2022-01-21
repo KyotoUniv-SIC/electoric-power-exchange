@@ -1,6 +1,6 @@
 import { FirestoreCreateHandler, FirestoreDeleteHandler, FirestoreUpdateHandler } from '../triggers';
 import { isTriggeredOnce } from '../triggers/module';
-import { NormalAskDelete, NormalAskDeleteFirestore } from '@local/common';
+import { NormalAskDeleteFirestore } from '@local/common';
 import * as functions from 'firebase-functions';
 
 export const onCreateHandler: FirestoreCreateHandler[] = [];
