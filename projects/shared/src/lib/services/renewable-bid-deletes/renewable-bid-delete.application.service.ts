@@ -21,7 +21,7 @@ export class RenewableBidDeleteApplicationService {
     try {
       this.renewableBidDelete.create(data);
     } catch {
-      this.snackBar.open('Error has occured', undefined, {
+      this.snackBar.open('Error has occurred', undefined, {
         duration: 6000,
       });
       return;
