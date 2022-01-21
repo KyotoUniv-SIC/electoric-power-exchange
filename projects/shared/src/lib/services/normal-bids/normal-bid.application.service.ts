@@ -22,7 +22,7 @@ export class NormalBidApplicationService {
     try {
       this.normalBid.create(data);
     } catch {
-      this.snackBar.open('Error has occured', undefined, {
+      this.snackBar.open('Error has occurred', undefined, {
         duration: 6000,
       });
       return;

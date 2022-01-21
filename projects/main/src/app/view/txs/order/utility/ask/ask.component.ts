@@ -1,6 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
 import { NormalAsk } from '@local/common';
+
+export type DeleteOnSubmitEvent = {
+  askID: string;
+};
 
 @Component({
   selector: 'view-ask',
@@ -12,8 +16,19 @@ export class AskComponent implements OnInit {
   normalAsk?: NormalAsk | null;
   @Input()
   createdAt?: Date | null;
+  @Output()
+  appDelete: EventEmitter<DeleteOnSubmitEvent>;
 
-  constructor() {}
+  constructor() {
+    this.appDelete = new EventEmitter();
+  }
 
   ngOnInit(): void {}
+
+  onClickDelete() {
+    if (!this.normalAsk?.id) {
+      return;
+    }
+    this.appDelete.emit({ askID: this.normalAsk?.id });
+  }
 }

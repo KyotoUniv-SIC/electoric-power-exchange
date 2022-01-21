@@ -1,25 +1,25 @@
-import { RenewableBidDeleteService } from './renewable-bid-delete.service';
+import { NormalBidDeleteService } from './normal-bid-delete.service';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { RenewableBidDelete } from '@local/common';
+import { NormalBidDelete } from '@local/common';
 import { LoadingDialogService } from 'ng-loading-dialog';
 
 @Injectable({
   providedIn: 'root',
 })
-export class RenewableBidDeleteApplicationService {
+export class NormalBidDeleteApplicationService {
   constructor(
-    private readonly renewableBidDelete: RenewableBidDeleteService,
+    private readonly normalBidDelete: NormalBidDeleteService,
     private readonly loadingDialog: LoadingDialogService,
     private readonly snackBar: MatSnackBar,
     private readonly router: Router,
   ) {}
 
-  async create(data: RenewableBidDelete) {
+  async create(data: NormalBidDelete) {
     const dialogRef = this.loadingDialog.open('Requesting Bid Deletion');
     try {
-      this.renewableBidDelete.create(data);
+      this.normalBidDelete.create(data);
     } catch {
       this.snackBar.open('Error has occurred', undefined, {
         duration: 6000,

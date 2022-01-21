@@ -1341,6 +1341,95 @@ export namespace main {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a NormalAskDelete. */
+    interface INormalAskDelete {
+
+        /** NormalAskDelete id */
+        id?: (string|null);
+
+        /** NormalAskDelete ask_id */
+        ask_id?: (string|null);
+    }
+
+    /** Represents a NormalAskDelete. */
+    class NormalAskDelete implements INormalAskDelete {
+
+        /**
+         * Constructs a new NormalAskDelete.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.INormalAskDelete);
+
+        /** NormalAskDelete id. */
+        public id: string;
+
+        /** NormalAskDelete ask_id. */
+        public ask_id: string;
+
+        /**
+         * Encodes the specified NormalAskDelete message. Does not implicitly {@link main.NormalAskDelete.verify|verify} messages.
+         * @param message NormalAskDelete message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.INormalAskDelete, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified NormalAskDelete message, length delimited. Does not implicitly {@link main.NormalAskDelete.verify|verify} messages.
+         * @param message NormalAskDelete message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.INormalAskDelete, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a NormalAskDelete message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns NormalAskDelete
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.NormalAskDelete;
+
+        /**
+         * Decodes a NormalAskDelete message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns NormalAskDelete
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.NormalAskDelete;
+
+        /**
+         * Verifies a NormalAskDelete message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a NormalAskDelete message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns NormalAskDelete
+         */
+        public static fromObject(object: { [k: string]: any }): main.NormalAskDelete;
+
+        /**
+         * Creates a plain object from a NormalAskDelete message. Also converts values to other types if specified.
+         * @param message NormalAskDelete
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.NormalAskDelete, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this NormalAskDelete to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a NormalBidHistory. */
     interface INormalBidHistory {
 
@@ -1695,6 +1784,95 @@ export namespace main {
 
         /**
          * Converts this NormalAsk to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a NormalBidDelete. */
+    interface INormalBidDelete {
+
+        /** NormalBidDelete id */
+        id?: (string|null);
+
+        /** NormalBidDelete bid_id */
+        bid_id?: (string|null);
+    }
+
+    /** Represents a NormalBidDelete. */
+    class NormalBidDelete implements INormalBidDelete {
+
+        /**
+         * Constructs a new NormalBidDelete.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.INormalBidDelete);
+
+        /** NormalBidDelete id. */
+        public id: string;
+
+        /** NormalBidDelete bid_id. */
+        public bid_id: string;
+
+        /**
+         * Encodes the specified NormalBidDelete message. Does not implicitly {@link main.NormalBidDelete.verify|verify} messages.
+         * @param message NormalBidDelete message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.INormalBidDelete, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified NormalBidDelete message, length delimited. Does not implicitly {@link main.NormalBidDelete.verify|verify} messages.
+         * @param message NormalBidDelete message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.INormalBidDelete, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a NormalBidDelete message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns NormalBidDelete
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.NormalBidDelete;
+
+        /**
+         * Decodes a NormalBidDelete message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns NormalBidDelete
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.NormalBidDelete;
+
+        /**
+         * Verifies a NormalBidDelete message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a NormalBidDelete message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns NormalBidDelete
+         */
+        public static fromObject(object: { [k: string]: any }): main.NormalBidDelete;
+
+        /**
+         * Creates a plain object from a NormalBidDelete message. Also converts values to other types if specified.
+         * @param message NormalBidDelete
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.NormalBidDelete, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this NormalBidDelete to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -2224,6 +2402,95 @@ export namespace main {
 
         /**
          * Converts this RenewableBidHistory to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a RenewableAskDelete. */
+    interface IRenewableAskDelete {
+
+        /** RenewableAskDelete id */
+        id?: (string|null);
+
+        /** RenewableAskDelete ask_id */
+        ask_id?: (string|null);
+    }
+
+    /** Represents a RenewableAskDelete. */
+    class RenewableAskDelete implements IRenewableAskDelete {
+
+        /**
+         * Constructs a new RenewableAskDelete.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.IRenewableAskDelete);
+
+        /** RenewableAskDelete id. */
+        public id: string;
+
+        /** RenewableAskDelete ask_id. */
+        public ask_id: string;
+
+        /**
+         * Encodes the specified RenewableAskDelete message. Does not implicitly {@link main.RenewableAskDelete.verify|verify} messages.
+         * @param message RenewableAskDelete message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.IRenewableAskDelete, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified RenewableAskDelete message, length delimited. Does not implicitly {@link main.RenewableAskDelete.verify|verify} messages.
+         * @param message RenewableAskDelete message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.IRenewableAskDelete, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a RenewableAskDelete message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RenewableAskDelete
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.RenewableAskDelete;
+
+        /**
+         * Decodes a RenewableAskDelete message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RenewableAskDelete
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.RenewableAskDelete;
+
+        /**
+         * Verifies a RenewableAskDelete message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RenewableAskDelete message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RenewableAskDelete
+         */
+        public static fromObject(object: { [k: string]: any }): main.RenewableAskDelete;
+
+        /**
+         * Creates a plain object from a RenewableAskDelete message. Also converts values to other types if specified.
+         * @param message RenewableAskDelete
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.RenewableAskDelete, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RenewableAskDelete to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
