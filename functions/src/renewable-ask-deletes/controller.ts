@@ -7,7 +7,7 @@ export const onCreateHandler: FirestoreCreateHandler[] = [];
 export const onUpdateHandler: FirestoreUpdateHandler[] = [];
 export const onDeleteHandler: FirestoreDeleteHandler[] = [];
 
-export const onCreate = functions.firestore.document(RenewableAskDelete, RenewableAskDeleteFirestore.virtualPath).onCreate(async (snapshot, context) => {
+export const onCreate = functions.firestore.document(RenewableAskDeleteFirestore.virtualPath).onCreate(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     return;
   }
@@ -21,7 +21,7 @@ export const onCreate = functions.firestore.document(RenewableAskDelete, Renewab
   }
 });
 
-export const onUpdate = functions.firestore.document(RenewableAskDelete, RenewableAskDeleteFirestore.virtualPath).onUpdate(async (snapshot, context) => {
+export const onUpdate = functions.firestore.document(RenewableAskDeleteFirestore.virtualPath).onUpdate(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     return;
   }
@@ -35,7 +35,7 @@ export const onUpdate = functions.firestore.document(RenewableAskDelete, Renewab
   }
 });
 
-export const onDelete = functions.firestore.document(RenewableAskDelete, RenewableAskDeleteFirestore.virtualPath).onDelete(async (snapshot, context) => {
+export const onDelete = functions.firestore.document(RenewableAskDeleteFirestore.virtualPath).onDelete(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     return;
   }

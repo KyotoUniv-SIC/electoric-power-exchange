@@ -7,7 +7,7 @@ export const onCreateHandler: FirestoreCreateHandler[] = [];
 export const onUpdateHandler: FirestoreUpdateHandler[] = [];
 export const onDeleteHandler: FirestoreDeleteHandler[] = [];
 
-export const onCreate = functions.firestore.document(NormalAskDelete, NormalAskDeleteFirestore.virtualPath).onCreate(async (snapshot, context) => {
+export const onCreate = functions.firestore.document(NormalAskDeleteFirestore.virtualPath).onCreate(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     return;
   }
@@ -21,7 +21,7 @@ export const onCreate = functions.firestore.document(NormalAskDelete, NormalAskD
   }
 });
 
-export const onUpdate = functions.firestore.document(NormalAskDelete, NormalAskDeleteFirestore.virtualPath).onUpdate(async (snapshot, context) => {
+export const onUpdate = functions.firestore.document(NormalAskDeleteFirestore.virtualPath).onUpdate(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     return;
   }
@@ -35,7 +35,7 @@ export const onUpdate = functions.firestore.document(NormalAskDelete, NormalAskD
   }
 });
 
-export const onDelete = functions.firestore.document(NormalAskDelete, NormalAskDeleteFirestore.virtualPath).onDelete(async (snapshot, context) => {
+export const onDelete = functions.firestore.document(NormalAskDeleteFirestore.virtualPath).onDelete(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     return;
   }

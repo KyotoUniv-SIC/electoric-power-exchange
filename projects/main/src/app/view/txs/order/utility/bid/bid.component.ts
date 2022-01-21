@@ -30,4 +30,5 @@ export class BidComponent implements OnInit {
       return;
     }
     this.appDelete.emit({ bidID: this.normalBid?.id });
+  }
 }

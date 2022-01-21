@@ -7,7 +7,7 @@ export const onCreateHandler: FirestoreCreateHandler[] = [];
 export const onUpdateHandler: FirestoreUpdateHandler[] = [];
 export const onDeleteHandler: FirestoreDeleteHandler[] = [];
 
-export const onCreate = functions.firestore.document(NormalBidDelete, NormalBidDeleteFirestore.virtualPath).onCreate(async (snapshot, context) => {
+export const onCreate = functions.firestore.document(NormalBidDeleteFirestore.virtualPath).onCreate(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     return;
   }
@@ -21,30 +21,34 @@ export const onCreate = functions.firestore.document(NormalBidDelete, NormalBidD
   }
 });
 
-export const onUpdate = functions.firestore.document(NormalBidDelete, NormalBidDeleteFirestore.virtualPath).onUpdate(async (snapshot, context) => {
-  if (await isTriggeredOnce(context.eventId)) {
-    return;
-  }
-
-  for (const handler of onUpdateHandler) {
-    try {
-      await handler(snapshot, context);
-    } catch (e) {
-      console.error(e);
+export const onUpdate = functions.firestore
+  .document(NormalBidDeleteFirestore.virtualPath)
+  .onUpdate(async (snapshot, context) => {
+    if (await isTriggeredOnce(context.eventId)) {
+      return;
     }
-  }
-});
 
-export const onDelete = functions.firestore.document(NormalBidDelete, NormalBidDeleteFirestore.virtualPath).onDelete(async (snapshot, context) => {
-  if (await isTriggeredOnce(context.eventId)) {
-    return;
-  }
-
-  for (const handler of onDeleteHandler) {
-    try {
-      await handler(snapshot, context);
-    } catch (e) {
-      console.error(e);
+    for (const handler of onUpdateHandler) {
+      try {
+        await handler(snapshot, context);
+      } catch (e) {
+        console.error(e);
+      }
     }
-  }
-});
+  });
+
+export const onDelete = functions.firestore
+  .document(NormalBidDeleteFirestore.virtualPath)
+  .onDelete(async (snapshot, context) => {
+    if (await isTriggeredOnce(context.eventId)) {
+      return;
+    }
+
+    for (const handler of onDeleteHandler) {
+      try {
+        await handler(snapshot, context);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  });
