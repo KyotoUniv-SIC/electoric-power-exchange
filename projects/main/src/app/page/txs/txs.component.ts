@@ -67,6 +67,7 @@ export class TxsComponent implements OnInit {
     const normalAsks$ = this.studentAccount$.pipe(mergeMap((account) => this.normalAskApp.list$(account.id)));
     const renewableBids$ = this.studentAccount$.pipe(mergeMap((account) => this.renewableBidApp.list$(account.id)));
     const renewableAsks$ = this.studentAccount$.pipe(mergeMap((account) => this.renewableAskApp.list$(account.id)));
+    const now = new Date();
 
     this.orders$ = combineLatest([normalBids$, normalAsks$, renewableBids$, renewableAsks$]).pipe(
       map(([normalBids, normalAsks, renewableBids, renewableAsks]) => {
@@ -74,7 +75,7 @@ export class TxsComponent implements OnInit {
           .filter((bid) => bid.is_deleted == false)
           .map((bid) => ({
             id: bid.id,
-            date: (bid.created_at as Timestamp).toDate(),
+            date: !bid.created_at ? now : (bid.created_at as Timestamp).toDate(),
             amount: bid.amount,
             price: bid.price,
             is_solar: false,
@@ -84,7 +85,7 @@ export class TxsComponent implements OnInit {
           .filter((ask) => ask.is_deleted == false)
           .map((ask) => ({
             id: ask.id,
-            date: (ask.created_at as Timestamp).toDate(),
+            date: !ask.created_at ? now : (ask.created_at as Timestamp).toDate(),
             amount: ask.amount,
             price: ask.price,
             is_solar: false,
@@ -94,7 +95,7 @@ export class TxsComponent implements OnInit {
           .filter((bid) => bid.is_deleted == false)
           .map((bid) => ({
             id: bid.id,
-            date: (bid.created_at as Timestamp).toDate(),
+            date: !bid.created_at ? now : (bid.created_at as Timestamp).toDate(),
             amount: bid.amount,
             price: bid.price,
             is_solar: true,
@@ -104,7 +105,7 @@ export class TxsComponent implements OnInit {
           .filter((ask) => ask.is_deleted == false)
           .map((ask) => ({
             id: ask.id,
-            date: (ask.created_at as Timestamp).toDate(),
+            date: !ask.created_at ? now : (ask.created_at as Timestamp).toDate(),
             amount: ask.amount,
             price: ask.price,
             is_solar: true,
@@ -138,7 +139,7 @@ export class TxsComponent implements OnInit {
       map(([primaryBids, normalBids, normalAsks, renewableBids, renewableAsks]) => {
         const primaryBidList = primaryBids.map((bid) => ({
           id: bid.id,
-          date: (bid.created_at as Timestamp).toDate(),
+          date: !bid.created_at ? now : (bid.created_at as Timestamp).toDate(),
           amount: bid.amount,
           price: bid.price,
           contract_price: bid.price,
@@ -149,7 +150,7 @@ export class TxsComponent implements OnInit {
 
         const normalBidList = normalBids.map((bid) => ({
           id: bid.id,
-          date: (bid.created_at as Timestamp).toDate(),
+          date: !bid.created_at ? now : (bid.created_at as Timestamp).toDate(),
           amount: bid.amount,
           price: bid.price,
           contract_price: bid.contract_price,
@@ -159,7 +160,7 @@ export class TxsComponent implements OnInit {
         }));
         const normalAskList = normalAsks.map((ask) => ({
           id: ask.id,
-          date: (ask.created_at as Timestamp).toDate(),
+          date: !ask.created_at ? now : (ask.created_at as Timestamp).toDate(),
           amount: ask.amount,
           price: ask.price,
           contract_price: ask.contract_price,
@@ -169,7 +170,7 @@ export class TxsComponent implements OnInit {
         }));
         const renewableBidList = renewableBids.map((bid) => ({
           id: bid.id,
-          date: (bid.created_at as Timestamp).toDate(),
+          date: !bid.created_at ? now : (bid.created_at as Timestamp).toDate(),
           amount: bid.amount,
           price: bid.price,
           contract_price: bid.contract_price,
@@ -179,7 +180,7 @@ export class TxsComponent implements OnInit {
         }));
         const renewableAskList = renewableAsks.map((ask) => ({
           id: ask.id,
-          date: (ask.created_at as Timestamp).toDate(),
+          date: !ask.created_at ? now : (ask.created_at as Timestamp).toDate(),
           amount: ask.amount,
           price: ask.price,
           contract_price: ask.contract_price,
