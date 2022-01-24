@@ -4,10 +4,10 @@ import { DailyUsageInfrastructureService } from './daily-usage.infrastructure.se
 import { DailyUsage } from '@local/common';
 
 export interface IDailyUsageInfrastructureService {
-  get(studentAccountID: string, id: string): Promise<DailyUsage | undefined>;
-  get$(studentAccountID: string, id: string): Observable<DailyUsage | undefined>;
-  list(studentAccountID: string): Promise<DailyUsage[]>;
-  list$(studentAccountID: string): Observable<DailyUsage[]>;
+  get(id: string): Promise<DailyUsage | undefined>;
+  get$(id: string): Observable<DailyUsage | undefined>;
+  list(): Promise<DailyUsage[]>;
+  list$(): Observable<DailyUsage[]>;
   listGroup(): Promise<DailyUsage[]>;
   listGroup$(): Observable<DailyUsage[]>;
   create(data: DailyUsage): Promise<void>;
@@ -23,20 +23,20 @@ export class DailyUsageService {
     this.iDailyUsageInfrastructure = dailyUsageInfrastructure;
   }
 
-  get(studentAccountID: string, id: string) {
-    return this.iDailyUsageInfrastructure.get(studentAccountID, id);
+  get(id: string) {
+    return this.iDailyUsageInfrastructure.get(id);
   }
 
-  get$(studentAccountID: string, id: string) {
-    return this.iDailyUsageInfrastructure.get$(studentAccountID, id);
+  get$(id: string) {
+    return this.iDailyUsageInfrastructure.get$(id);
   }
 
-  list(studentAccountID: string) {
-    return this.iDailyUsageInfrastructure.list(studentAccountID);
+  list() {
+    return this.iDailyUsageInfrastructure.list();
   }
   
-  list$(studentAccountID: string) {
-    return this.iDailyUsageInfrastructure.list$(studentAccountID);
+  list$() {
+    return this.iDailyUsageInfrastructure.list$();
   }
   
   listGroup() {
