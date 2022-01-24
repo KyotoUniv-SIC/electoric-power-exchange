@@ -47,8 +47,8 @@ module.exports.renewableContract = f.pubsub
           }),
         );
         await renewable_ask.delete_(ask.id);
-        return;
       }
+      return;
     }
 
     // Bidを価格の高い順に並び替える
