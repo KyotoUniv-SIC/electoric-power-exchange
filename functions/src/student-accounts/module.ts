@@ -33,6 +33,13 @@ export async function get(id: string) {
     .then((snapshot) => snapshot.data() as StudentAccount);
 }
 
+export async function getByRoomID(roomID: string) {
+  return await collection()
+    .where('room_id', '==', roomID)
+    .get()
+    .then((snapshot) => snapshot.docs.map((doc) => doc.data() as StudentAccount));
+}
+
 export async function list() {
   return await collection()
     .get()

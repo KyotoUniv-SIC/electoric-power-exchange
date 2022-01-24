@@ -10,6 +10,7 @@ import { primary_ask } from '../primary-asks';
 import { primary_bid } from '../primary-bids';
 import { renewable_ask_history } from '../renewable-ask-histories';
 import { renewable_bid_history } from '../renewable-bid-histories';
+import { student_account } from '../student-accounts';
 import { MonthlyPayment, MonthlyUsage } from '@local/common';
 
 balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
@@ -21,7 +22,8 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
   const normalAsks = await normal_ask_history.listLastMonth(data.student_account_id);
   const renewableBids = await renewable_bid_history.listLastMonth(data.student_account_id);
   const renewableAsks = await renewable_ask_history.listLastMonth(data.student_account_id);
-  const dailyUsages = await daily_usage.listLastMonth(data.student_account_id);
+  const studentAccount = await student_account.get(data.student_account_id);
+  const dailyUsages = await daily_usage.listLastMonth(studentAccount.room_id);
 
   let usage = primaryBids[0].amount - tokens;
   let payment = primaryBids[0].price * primaryBids[0].amount;

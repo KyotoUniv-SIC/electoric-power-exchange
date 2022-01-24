@@ -40,12 +40,12 @@ describe('Calculated Payment Test', () => {
       new RenewableAskHistory({ account_id: 'test01', price: 40, amount: 50, is_accepted: false, contract_price: 27.5 }),
     ];
     const dailyUsages = [
-      new DailyUsage({ student_account_id: 'test01', amount_kwh: 15 }),
-      new DailyUsage({ student_account_id: 'test01', amount_kwh: 16 }),
-      new DailyUsage({ student_account_id: 'test01', amount_kwh: 17 }),
-      new DailyUsage({ student_account_id: 'test01', amount_kwh: 15 }),
-      new DailyUsage({ student_account_id: 'test01', amount_kwh: 16 }),
-      new DailyUsage({ student_account_id: 'test01', amount_kwh: 17 }),
+      new DailyUsage({ room_id: 'test01', amount_kwh: 15 }),
+      new DailyUsage({ room_id: 'test01', amount_kwh: 16 }),
+      new DailyUsage({ room_id: 'test01', amount_kwh: 17 }),
+      new DailyUsage({ room_id: 'test01', amount_kwh: 15 }),
+      new DailyUsage({ room_id: 'test01', amount_kwh: 16 }),
+      new DailyUsage({ room_id: 'test01', amount_kwh: 17 }),
     ];
     const discounts = [new DiscountPrice({ price: 0.5, amount_purchase: 100, amount_sale: 200 })];
 
