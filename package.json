@@ -12,7 +12,7 @@
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
     "prepare": "husky install",
-    "preinstall": "cd common && npm i && npm run build"
+    "preinstall": "cd common && npm i && npm run build && cd ../functions && npm i && npm run build"
   },
   "private": true,
   "dependencies": {
