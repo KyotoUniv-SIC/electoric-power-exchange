@@ -8,10 +8,16 @@ import './balances/primary';
 import './balances/renewable-settlemet';
 import './balances/student-account';
 import './monthly-payments/calculate-payment';
+import './normal-asks/primary';
+import './normal-asks/renewable-ask-delete';
+import './normal-bids/primary';
+import './normal-bids/renewable-bid-delete';
 import './normal-settlements/normal-settlement';
 import './primary-asks/balance-snapshot';
 import './primary-bids/primary';
 import './renewable-asks/primary';
+import './renewable-asks/renewable-ask-delete';
+import './renewable-bids/primary';
 import './renewable-bids/renewable-bid-delete';
 import './renewable-settlements/renewable-settlement';
 import './single-price-normal-settlements/normal-contract';
@@ -45,13 +51,16 @@ const files = {
   monthly_payments: './monthly-payments',
   monthly_usages: './monthly-usages',
   normal_asks: './normal-asks',
+  normal_ask_deletes: './normal-ask-deletes',
   normal_ask_histories: './normal-ask-histories',
   normal_bids: './normal-bids',
+  normal_bid_deletes: './normal-bid-deletes',
   normal_bid_histories: './normal-bid-histories',
   normal_settlements: './normal-settlements',
   primary_asks: './primary-asks',
   primary_bids: './primary-bids',
   renewable_asks: './renewable-asks',
+  renewable_ask_deletes: './renewable-ask-deletes',
   renewable_ask_histories: './renewable-ask-histories',
   renewable_bids: './renewable-bids',
   renewable_bid_deletes: './renewable-bid-deletes',
