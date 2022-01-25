@@ -3,6 +3,7 @@ import './available-balances/balance';
 import './available-balances/normal-ask';
 import './available-balances/renewable-ask';
 import './balance-snapshots/market-status';
+import './balances/daily-usage';
 import './balances/normal-settlement';
 import './balances/primary';
 import './balances/renewable-settlemet';
@@ -11,12 +12,13 @@ import './monthly-payments/calculate-payment';
 import './normal-settlements/normal-settlement';
 import './primary-asks/balance-snapshot';
 import './primary-bids/primary';
-import './renewable-asks/primary';
+// import './renewable-asks/primary';
 import './renewable-bids/renewable-bid-delete';
 import './renewable-settlements/renewable-settlement';
-import './single-price-normal-settlements/normal-contract';
-import './single-price-renewable-settlements/renewable-contract';
+// import './single-price-normal-settlements/normal-contract';
+// import './single-price-renewable-settlements/renewable-contract';
 import './student-accounts/account';
+import './student-accounts/room-change';
 import * as admin from 'firebase-admin';
 
 // import * as functions from 'firebase-functions';
@@ -57,6 +59,7 @@ const files = {
   renewable_bid_deletes: './renewable-bid-deletes',
   renewable_bid_histories: './renewable-bid-histories',
   renewable_settlements: './renewable-settlements',
+  room_changes: './room-changes',
   normals: './single-price-normal-settlements',
   renewables: './single-price-renewable-settlements',
   student_accounts: './student-accounts',

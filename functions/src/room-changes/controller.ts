@@ -1,13 +1,14 @@
 import { FirestoreCreateHandler, FirestoreDeleteHandler, FirestoreUpdateHandler } from '../triggers';
 import { isTriggeredOnce } from '../triggers/module';
-import { RoomChange, RoomChangeFirestore } from '@local/common';
+import { RoomChangeFirestore } from '@local/common';
 import * as functions from 'firebase-functions';
 
 export const onCreateHandler: FirestoreCreateHandler[] = [];
 export const onUpdateHandler: FirestoreUpdateHandler[] = [];
 export const onDeleteHandler: FirestoreDeleteHandler[] = [];
 
-export const onCreate = functions.firestore.document(RoomChange, RoomChangeFirestore.virtualPath).onCreate(async (snapshot, context) => {
+const f = functions.region('asia-northeast1');
+module.exports.onCreate = f.firestore.document(RoomChangeFirestore.virtualPath).onCreate(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     return;
   }
@@ -21,7 +22,8 @@ export const onCreate = functions.firestore.document(RoomChange, RoomChangeFires
   }
 });
 
-export const onUpdate = functions.firestore.document(RoomChange, RoomChangeFirestore.virtualPath).onUpdate(async (snapshot, context) => {
+
+module.exports.onUpdate = f.firestore.document(RoomChangeFirestore.virtualPath).onUpdate(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     return;
   }
@@ -35,7 +37,7 @@ export const onUpdate = functions.firestore.document(RoomChange, RoomChangeFires
   }
 });
 
-export const onDelete = functions.firestore.document(RoomChange, RoomChangeFirestore.virtualPath).onDelete(async (snapshot, context) => {
+module.exports.onDelete = f.firestore.document(RoomChangeFirestore.virtualPath).onDelete(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     return;
   }
