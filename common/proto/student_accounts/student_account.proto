@@ -8,7 +8,8 @@ option (google.firebase.rules.firebase_rules).full_package_names = true;
 message StudentAccount {
   string id = 1;
   repeated string user_ids = 2;
-  string name = 3;
-  string payment_method = 4;
-  string xrp_address = 5;
+  string room_id = 3;
+  string name = 4;
+  string payment_method = 5;
+  string xrp_address = 6;
 }

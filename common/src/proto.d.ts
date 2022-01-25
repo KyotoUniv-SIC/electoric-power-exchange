@@ -723,8 +723,8 @@ export namespace main {
         /** DailyUsage id */
         id?: (string|null);
 
-        /** DailyUsage student_account_id */
-        student_account_id?: (string|null);
+        /** DailyUsage room_id */
+        room_id?: (string|null);
 
         /** DailyUsage amount_kwh */
         amount_kwh?: (number|null);
@@ -742,8 +742,8 @@ export namespace main {
         /** DailyUsage id. */
         public id: string;
 
-        /** DailyUsage student_account_id. */
-        public student_account_id: string;
+        /** DailyUsage room_id. */
+        public room_id: string;
 
         /** DailyUsage amount_kwh. */
         public amount_kwh: number;
@@ -3351,6 +3351,9 @@ export namespace main {
         /** StudentAccount user_ids */
         user_ids?: (string[]|null);
 
+        /** StudentAccount room_id */
+        room_id?: (string|null);
+
         /** StudentAccount name */
         name?: (string|null);
 
@@ -3375,6 +3378,9 @@ export namespace main {
 
         /** StudentAccount user_ids. */
         public user_ids: string[];
+
+        /** StudentAccount room_id. */
+        public room_id: string;
 
         /** StudentAccount name. */
         public name: string;

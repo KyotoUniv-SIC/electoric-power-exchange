@@ -8,10 +8,10 @@ import * as admin from 'firebase-admin';
 
 export * from './controller';
 
-export function collection(studentAccountID: string) {
+export function collection() {
   return admin
     .firestore()
-    .collection(DailyUsageFirestore.collectionPath(studentAccountID))
+    .collection(DailyUsageFirestore.collectionPath())
     .withConverter(DailyUsageFirestore.converter as any);
 }
 
@@ -22,24 +22,24 @@ export function collectionGroup() {
     .withConverter(DailyUsageFirestore.converter as any);
 }
 
-export function document(studentAccountID: string, id?: string) {
-  const col = collection(studentAccountID);
+export function document(id?: string) {
+  const col = collection();
   return id ? col.doc(id) : col.doc();
 }
 
-export async function get(studentAccountID: string, id: string) {
-  return await document(studentAccountID, id)
+export async function get(id: string) {
+  return await document(id)
     .get()
     .then((snapshot) => snapshot.data() as DailyUsage);
 }
 
-export async function list(studentAccountID: string) {
-  return await collection(studentAccountID)
+export async function list() {
+  return await collection()
     .get()
     .then((snapshot) => snapshot.docs.map((doc) => doc.data() as DailyUsage));
 }
 
-export async function listLastMonth(studentAccountID: string) {
+export async function listLastMonth(roomID: string) {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const lastMonth = new Date();
@@ -47,31 +47,33 @@ export async function listLastMonth(studentAccountID: string) {
   lastMonth.setMonth(lastMonth.getMonth() - 1);
   lastMonth.setHours(0, 0, 0, 0);
 
-  return await collection(studentAccountID)
+  return await collection()
     .orderBy('created_at', 'desc')
     .where('created_at', '<', today)
     .where('created_at', '>', lastMonth)
+    .where('room_id', '==', roomID)
     .get()
     .then((snapshot) => snapshot.docs.map((doc) => doc.data() as DailyUsage));
 }
 
-export async function listThisMonth(studentAccountID: string) {
+export async function listThisMonth(roomID: string) {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const first = new Date();
   first.setDate(1);
   first.setHours(0, 0, 0, 0);
 
-  return await collection(studentAccountID)
+  return await collection()
     .orderBy('created_at', 'desc')
     .where('created_at', '<', today)
     .where('created_at', '>', first)
+    .where('room_id', '==', roomID)
     .get()
     .then((snapshot) => snapshot.docs.map((doc) => doc.data() as DailyUsage));
 }
 
 export async function create(data: DailyUsage) {
-  const doc = document(data.student_account_id);
+  const doc = document();
   data.id = doc.id;
 
   const now = admin.firestore.Timestamp.now();
@@ -81,14 +83,13 @@ export async function create(data: DailyUsage) {
   await doc.set(data);
 }
 
-// eslint-disable-next-line camelcase
-export async function update(data: Partial<DailyUsage>& { id: string } & { student_account_id: string }) {
+export async function update(data: Partial<DailyUsage> & { id: string }) {
   const now = admin.firestore.Timestamp.now();
   data.updated_at = now;
 
-  await document(data.student_account_id, data.id).update(data);
+  await document(data.id).update(data);
 }
 
-export async function delete_(studentAccountID: string, id: string) {
-  await document(studentAccountID, id).delete();
+export async function delete_(id: string) {
+  await document(id).delete();
 }

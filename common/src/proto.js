@@ -1792,7 +1792,7 @@ export const main = $root.main = (() => {
          * @memberof main
          * @interface IDailyUsage
          * @property {string|null} [id] DailyUsage id
-         * @property {string|null} [student_account_id] DailyUsage student_account_id
+         * @property {string|null} [room_id] DailyUsage room_id
          * @property {number|null} [amount_kwh] DailyUsage amount_kwh
          */
 
@@ -1820,12 +1820,12 @@ export const main = $root.main = (() => {
         DailyUsage.prototype.id = "";
 
         /**
-         * DailyUsage student_account_id.
-         * @member {string} student_account_id
+         * DailyUsage room_id.
+         * @member {string} room_id
          * @memberof main.DailyUsage
          * @instance
          */
-        DailyUsage.prototype.student_account_id = "";
+        DailyUsage.prototype.room_id = "";
 
         /**
          * DailyUsage amount_kwh.
@@ -1849,8 +1849,8 @@ export const main = $root.main = (() => {
                 writer = $Writer.create();
             if (message.id != null && Object.hasOwnProperty.call(message, "id"))
                 writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
-            if (message.student_account_id != null && Object.hasOwnProperty.call(message, "student_account_id"))
-                writer.uint32(/* id 2, wireType 2 =*/18).string(message.student_account_id);
+            if (message.room_id != null && Object.hasOwnProperty.call(message, "room_id"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.room_id);
             if (message.amount_kwh != null && Object.hasOwnProperty.call(message, "amount_kwh"))
                 writer.uint32(/* id 3, wireType 1 =*/25).double(message.amount_kwh);
             return writer;
@@ -1891,7 +1891,7 @@ export const main = $root.main = (() => {
                     message.id = reader.string();
                     break;
                 case 2:
-                    message.student_account_id = reader.string();
+                    message.room_id = reader.string();
                     break;
                 case 3:
                     message.amount_kwh = reader.double();
@@ -1934,9 +1934,9 @@ export const main = $root.main = (() => {
             if (message.id != null && message.hasOwnProperty("id"))
                 if (!$util.isString(message.id))
                     return "id: string expected";
-            if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
-                if (!$util.isString(message.student_account_id))
-                    return "student_account_id: string expected";
+            if (message.room_id != null && message.hasOwnProperty("room_id"))
+                if (!$util.isString(message.room_id))
+                    return "room_id: string expected";
             if (message.amount_kwh != null && message.hasOwnProperty("amount_kwh"))
                 if (typeof message.amount_kwh !== "number")
                     return "amount_kwh: number expected";
@@ -1957,8 +1957,8 @@ export const main = $root.main = (() => {
             let message = new $root.main.DailyUsage();
             if (object.id != null)
                 message.id = String(object.id);
-            if (object.student_account_id != null)
-                message.student_account_id = String(object.student_account_id);
+            if (object.room_id != null)
+                message.room_id = String(object.room_id);
             if (object.amount_kwh != null)
                 message.amount_kwh = Number(object.amount_kwh);
             return message;
@@ -1979,13 +1979,13 @@ export const main = $root.main = (() => {
             let object = {};
             if (options.defaults) {
                 object.id = "";
-                object.student_account_id = "";
+                object.room_id = "";
                 object.amount_kwh = 0;
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 object.id = message.id;
-            if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
-                object.student_account_id = message.student_account_id;
+            if (message.room_id != null && message.hasOwnProperty("room_id"))
+                object.room_id = message.room_id;
             if (message.amount_kwh != null && message.hasOwnProperty("amount_kwh"))
                 object.amount_kwh = options.json && !isFinite(message.amount_kwh) ? String(message.amount_kwh) : message.amount_kwh;
             return object;
@@ -8243,6 +8243,7 @@ export const main = $root.main = (() => {
          * @interface IStudentAccount
          * @property {string|null} [id] StudentAccount id
          * @property {Array.<string>|null} [user_ids] StudentAccount user_ids
+         * @property {string|null} [room_id] StudentAccount room_id
          * @property {string|null} [name] StudentAccount name
          * @property {string|null} [payment_method] StudentAccount payment_method
          * @property {string|null} [xrp_address] StudentAccount xrp_address
@@ -8279,6 +8280,14 @@ export const main = $root.main = (() => {
          * @instance
          */
         StudentAccount.prototype.user_ids = $util.emptyArray;
+
+        /**
+         * StudentAccount room_id.
+         * @member {string} room_id
+         * @memberof main.StudentAccount
+         * @instance
+         */
+        StudentAccount.prototype.room_id = "";
 
         /**
          * StudentAccount name.
@@ -8321,12 +8330,14 @@ export const main = $root.main = (() => {
             if (message.user_ids != null && message.user_ids.length)
                 for (let i = 0; i < message.user_ids.length; ++i)
                     writer.uint32(/* id 2, wireType 2 =*/18).string(message.user_ids[i]);
+            if (message.room_id != null && Object.hasOwnProperty.call(message, "room_id"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.room_id);
             if (message.name != null && Object.hasOwnProperty.call(message, "name"))
-                writer.uint32(/* id 3, wireType 2 =*/26).string(message.name);
+                writer.uint32(/* id 4, wireType 2 =*/34).string(message.name);
             if (message.payment_method != null && Object.hasOwnProperty.call(message, "payment_method"))
-                writer.uint32(/* id 4, wireType 2 =*/34).string(message.payment_method);
+                writer.uint32(/* id 5, wireType 2 =*/42).string(message.payment_method);
             if (message.xrp_address != null && Object.hasOwnProperty.call(message, "xrp_address"))
-                writer.uint32(/* id 5, wireType 2 =*/42).string(message.xrp_address);
+                writer.uint32(/* id 6, wireType 2 =*/50).string(message.xrp_address);
             return writer;
         };
 
@@ -8370,12 +8381,15 @@ export const main = $root.main = (() => {
                     message.user_ids.push(reader.string());
                     break;
                 case 3:
-                    message.name = reader.string();
+                    message.room_id = reader.string();
                     break;
                 case 4:
-                    message.payment_method = reader.string();
+                    message.name = reader.string();
                     break;
                 case 5:
+                    message.payment_method = reader.string();
+                    break;
+                case 6:
                     message.xrp_address = reader.string();
                     break;
                 default:
@@ -8423,6 +8437,9 @@ export const main = $root.main = (() => {
                     if (!$util.isString(message.user_ids[i]))
                         return "user_ids: string[] expected";
             }
+            if (message.room_id != null && message.hasOwnProperty("room_id"))
+                if (!$util.isString(message.room_id))
+                    return "room_id: string expected";
             if (message.name != null && message.hasOwnProperty("name"))
                 if (!$util.isString(message.name))
                     return "name: string expected";
@@ -8456,6 +8473,8 @@ export const main = $root.main = (() => {
                 for (let i = 0; i < object.user_ids.length; ++i)
                     message.user_ids[i] = String(object.user_ids[i]);
             }
+            if (object.room_id != null)
+                message.room_id = String(object.room_id);
             if (object.name != null)
                 message.name = String(object.name);
             if (object.payment_method != null)
@@ -8482,6 +8501,7 @@ export const main = $root.main = (() => {
                 object.user_ids = [];
             if (options.defaults) {
                 object.id = "";
+                object.room_id = "";
                 object.name = "";
                 object.payment_method = "";
                 object.xrp_address = "";
@@ -8493,6 +8513,8 @@ export const main = $root.main = (() => {
                 for (let j = 0; j < message.user_ids.length; ++j)
                     object.user_ids[j] = message.user_ids[j];
             }
+            if (message.room_id != null && message.hasOwnProperty("room_id"))
+                object.room_id = message.room_id;
             if (message.name != null && message.hasOwnProperty("name"))
                 object.name = message.name;
             if (message.payment_method != null && message.hasOwnProperty("payment_method"))
