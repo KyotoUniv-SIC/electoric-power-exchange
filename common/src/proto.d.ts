@@ -2294,119 +2294,6 @@ export namespace main {
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a RenewableBidHistory. */
-    interface IRenewableBidHistory {
-
-        /** RenewableBidHistory id */
-        id?: (string|null);
-
-        /** RenewableBidHistory account_id */
-        account_id?: (string|null);
-
-        /** RenewableBidHistory price */
-        price?: (number|null);
-
-        /** RenewableBidHistory amount */
-        amount?: (number|null);
-
-        /** RenewableBidHistory is_accepted */
-        is_accepted?: (boolean|null);
-
-        /** RenewableBidHistory contract_price */
-        contract_price?: (number|null);
-    }
-
-    /** Represents a RenewableBidHistory. */
-    class RenewableBidHistory implements IRenewableBidHistory {
-
-        /**
-         * Constructs a new RenewableBidHistory.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: main.IRenewableBidHistory);
-
-        /** RenewableBidHistory id. */
-        public id: string;
-
-        /** RenewableBidHistory account_id. */
-        public account_id: string;
-
-        /** RenewableBidHistory price. */
-        public price: number;
-
-        /** RenewableBidHistory amount. */
-        public amount: number;
-
-        /** RenewableBidHistory is_accepted. */
-        public is_accepted: boolean;
-
-        /** RenewableBidHistory contract_price. */
-        public contract_price: number;
-
-        /**
-         * Encodes the specified RenewableBidHistory message. Does not implicitly {@link main.RenewableBidHistory.verify|verify} messages.
-         * @param message RenewableBidHistory message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: main.IRenewableBidHistory, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Encodes the specified RenewableBidHistory message, length delimited. Does not implicitly {@link main.RenewableBidHistory.verify|verify} messages.
-         * @param message RenewableBidHistory message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: main.IRenewableBidHistory, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Decodes a RenewableBidHistory message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns RenewableBidHistory
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.RenewableBidHistory;
-
-        /**
-         * Decodes a RenewableBidHistory message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns RenewableBidHistory
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.RenewableBidHistory;
-
-        /**
-         * Verifies a RenewableBidHistory message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a RenewableBidHistory message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns RenewableBidHistory
-         */
-        public static fromObject(object: { [k: string]: any }): main.RenewableBidHistory;
-
-        /**
-         * Creates a plain object from a RenewableBidHistory message. Also converts values to other types if specified.
-         * @param message RenewableBidHistory
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: main.RenewableBidHistory, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this RenewableBidHistory to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
     /** Properties of a RenewableAskDelete. */
     interface IRenewableAskDelete {
 
@@ -2831,6 +2718,119 @@ export namespace main {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a RenewableBidHistory. */
+    interface IRenewableBidHistory {
+
+        /** RenewableBidHistory id */
+        id?: (string|null);
+
+        /** RenewableBidHistory account_id */
+        account_id?: (string|null);
+
+        /** RenewableBidHistory price */
+        price?: (number|null);
+
+        /** RenewableBidHistory amount */
+        amount?: (number|null);
+
+        /** RenewableBidHistory is_accepted */
+        is_accepted?: (boolean|null);
+
+        /** RenewableBidHistory contract_price */
+        contract_price?: (number|null);
+    }
+
+    /** Represents a RenewableBidHistory. */
+    class RenewableBidHistory implements IRenewableBidHistory {
+
+        /**
+         * Constructs a new RenewableBidHistory.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.IRenewableBidHistory);
+
+        /** RenewableBidHistory id. */
+        public id: string;
+
+        /** RenewableBidHistory account_id. */
+        public account_id: string;
+
+        /** RenewableBidHistory price. */
+        public price: number;
+
+        /** RenewableBidHistory amount. */
+        public amount: number;
+
+        /** RenewableBidHistory is_accepted. */
+        public is_accepted: boolean;
+
+        /** RenewableBidHistory contract_price. */
+        public contract_price: number;
+
+        /**
+         * Encodes the specified RenewableBidHistory message. Does not implicitly {@link main.RenewableBidHistory.verify|verify} messages.
+         * @param message RenewableBidHistory message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.IRenewableBidHistory, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified RenewableBidHistory message, length delimited. Does not implicitly {@link main.RenewableBidHistory.verify|verify} messages.
+         * @param message RenewableBidHistory message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.IRenewableBidHistory, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a RenewableBidHistory message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RenewableBidHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.RenewableBidHistory;
+
+        /**
+         * Decodes a RenewableBidHistory message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RenewableBidHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.RenewableBidHistory;
+
+        /**
+         * Verifies a RenewableBidHistory message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RenewableBidHistory message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RenewableBidHistory
+         */
+        public static fromObject(object: { [k: string]: any }): main.RenewableBidHistory;
+
+        /**
+         * Creates a plain object from a RenewableBidHistory message. Also converts values to other types if specified.
+         * @param message RenewableBidHistory
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.RenewableBidHistory, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RenewableBidHistory to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a RenewableBid. */
     interface IRenewableBid {
 
@@ -3040,6 +3040,101 @@ export namespace main {
 
         /**
          * Converts this RenewableSettlement to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a RoomChange. */
+    interface IRoomChange {
+
+        /** RoomChange id */
+        id?: (string|null);
+
+        /** RoomChange student_account_id */
+        student_account_id?: (string|null);
+
+        /** RoomChange room_id */
+        room_id?: (string|null);
+    }
+
+    /** Represents a RoomChange. */
+    class RoomChange implements IRoomChange {
+
+        /**
+         * Constructs a new RoomChange.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.IRoomChange);
+
+        /** RoomChange id. */
+        public id: string;
+
+        /** RoomChange student_account_id. */
+        public student_account_id: string;
+
+        /** RoomChange room_id. */
+        public room_id: string;
+
+        /**
+         * Encodes the specified RoomChange message. Does not implicitly {@link main.RoomChange.verify|verify} messages.
+         * @param message RoomChange message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.IRoomChange, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified RoomChange message, length delimited. Does not implicitly {@link main.RoomChange.verify|verify} messages.
+         * @param message RoomChange message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.IRoomChange, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a RoomChange message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RoomChange
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.RoomChange;
+
+        /**
+         * Decodes a RoomChange message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RoomChange
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.RoomChange;
+
+        /**
+         * Verifies a RoomChange message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RoomChange message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RoomChange
+         */
+        public static fromObject(object: { [k: string]: any }): main.RoomChange;
+
+        /**
+         * Creates a plain object from a RoomChange message. Also converts values to other types if specified.
+         * @param message RoomChange
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.RoomChange, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RoomChange to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
