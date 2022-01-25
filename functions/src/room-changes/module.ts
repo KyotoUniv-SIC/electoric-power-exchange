@@ -3,23 +3,23 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 /* eslint-disable require-jsdoc */
-import { StudentAccount, StudentAccountFirestore } from '@local/common';
 import * as admin from 'firebase-admin';
+import { RoomChange, RoomChangeFirestore } from '@local/common';
 
-export * from './controller';
+export * from './controller'
 
 export function collection() {
   return admin
     .firestore()
-    .collection(StudentAccountFirestore.collectionPath())
-    .withConverter(StudentAccountFirestore.converter as any);
+    .collection(RoomChangeFirestore.collectionPath())
+    .withConverter(RoomChangeFirestore.converter as any);
 }
 
 export function collectionGroup() {
   return admin
     .firestore()
-    .collectionGroup(StudentAccountFirestore.collectionID)
-    .withConverter(StudentAccountFirestore.converter as any);
+    .collectionGroup(RoomChangeFirestore.collectionID)
+    .withConverter(RoomChangeFirestore.converter as any);
 }
 
 export function document(id?: string) {
@@ -30,23 +30,18 @@ export function document(id?: string) {
 export async function get(id: string) {
   return await document(id)
     .get()
-    .then((snapshot) => snapshot.data() as StudentAccount);
-}
-
-export async function getByRoomID(roomID: string) {
-  return await collection()
-    .where('room_id', '==', roomID)
-    .get()
-    .then((snapshot) => snapshot.docs.map((doc) => doc.data() as StudentAccount));
+    .then((snapshot) => snapshot.data() as RoomChange);
 }
 
 export async function list() {
   return await collection()
     .get()
-    .then((snapshot) => snapshot.docs.map((doc) => doc.data() as StudentAccount));
+    .then((snapshot) => snapshot.docs.map((doc) => doc.data() as RoomChange));
 }
 
-export async function create(data: StudentAccount) {
+export async function create(
+  data: RoomChange
+) {
   const doc = document();
   data.id = doc.id;
 
@@ -57,7 +52,9 @@ export async function create(data: StudentAccount) {
   await doc.set(data);
 }
 
-export async function update(data: Partial<StudentAccount> & { id: string }) {
+export async function update(
+  data: Partial<RoomChange> & { id: string }
+) {
   const now = admin.firestore.Timestamp.now();
   data.updated_at = now;
 

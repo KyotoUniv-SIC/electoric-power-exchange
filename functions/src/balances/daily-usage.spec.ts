@@ -2,7 +2,7 @@ import { Balance, DailyUsage } from '@local/common';
 
 describe('Daily Usage Test', () => {
   it('Daily withdrawal', () => {
-    const data = new DailyUsage({ student_account_id: 'test01', amount_kwh: 5 });
+    const data = new DailyUsage({ room_id: 'test01', amount_kwh: 5 });
     // const accountBalance = [new Balance({ student_account_id: 'test01', amount_upx: 100, amount_spx: 100 })];
     const accountBalance = [new Balance({ student_account_id: 'test01', amount_upx: 100, amount_spx: 0 })];
     if (!accountBalance.length) {
@@ -11,7 +11,7 @@ describe('Daily Usage Test', () => {
     if (data.amount_kwh < accountBalance[0].amount_spx) {
       const updatedBalance = new Balance({
         id: accountBalance[0].id,
-        student_account_id: data.student_account_id,
+        student_account_id: accountBalance[0].student_account_id,
         amount_upx: accountBalance[0].amount_upx,
         amount_spx: accountBalance[0].amount_spx - data.amount_kwh,
       });
@@ -21,7 +21,7 @@ describe('Daily Usage Test', () => {
       const spxShortage = data.amount_kwh - accountBalance[0].amount_spx;
       const updatedBalance = new Balance({
         id: accountBalance[0].id,
-        student_account_id: data.student_account_id,
+        student_account_id: accountBalance[0].student_account_id,
         amount_upx: accountBalance[0].amount_upx - spxShortage,
         amount_spx: 0,
       });

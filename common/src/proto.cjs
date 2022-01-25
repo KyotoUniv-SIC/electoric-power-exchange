@@ -1801,7 +1801,7 @@
              * @memberof main
              * @interface IDailyUsage
              * @property {string|null} [id] DailyUsage id
-             * @property {string|null} [student_account_id] DailyUsage student_account_id
+             * @property {string|null} [room_id] DailyUsage room_id
              * @property {number|null} [amount_kwh] DailyUsage amount_kwh
              */
     
@@ -1829,12 +1829,12 @@
             DailyUsage.prototype.id = "";
     
             /**
-             * DailyUsage student_account_id.
-             * @member {string} student_account_id
+             * DailyUsage room_id.
+             * @member {string} room_id
              * @memberof main.DailyUsage
              * @instance
              */
-            DailyUsage.prototype.student_account_id = "";
+            DailyUsage.prototype.room_id = "";
     
             /**
              * DailyUsage amount_kwh.
@@ -1858,8 +1858,8 @@
                     writer = $Writer.create();
                 if (message.id != null && Object.hasOwnProperty.call(message, "id"))
                     writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
-                if (message.student_account_id != null && Object.hasOwnProperty.call(message, "student_account_id"))
-                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.student_account_id);
+                if (message.room_id != null && Object.hasOwnProperty.call(message, "room_id"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.room_id);
                 if (message.amount_kwh != null && Object.hasOwnProperty.call(message, "amount_kwh"))
                     writer.uint32(/* id 3, wireType 1 =*/25).double(message.amount_kwh);
                 return writer;
@@ -1900,7 +1900,7 @@
                         message.id = reader.string();
                         break;
                     case 2:
-                        message.student_account_id = reader.string();
+                        message.room_id = reader.string();
                         break;
                     case 3:
                         message.amount_kwh = reader.double();
@@ -1943,9 +1943,9 @@
                 if (message.id != null && message.hasOwnProperty("id"))
                     if (!$util.isString(message.id))
                         return "id: string expected";
-                if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
-                    if (!$util.isString(message.student_account_id))
-                        return "student_account_id: string expected";
+                if (message.room_id != null && message.hasOwnProperty("room_id"))
+                    if (!$util.isString(message.room_id))
+                        return "room_id: string expected";
                 if (message.amount_kwh != null && message.hasOwnProperty("amount_kwh"))
                     if (typeof message.amount_kwh !== "number")
                         return "amount_kwh: number expected";
@@ -1966,8 +1966,8 @@
                 var message = new $root.main.DailyUsage();
                 if (object.id != null)
                     message.id = String(object.id);
-                if (object.student_account_id != null)
-                    message.student_account_id = String(object.student_account_id);
+                if (object.room_id != null)
+                    message.room_id = String(object.room_id);
                 if (object.amount_kwh != null)
                     message.amount_kwh = Number(object.amount_kwh);
                 return message;
@@ -1988,13 +1988,13 @@
                 var object = {};
                 if (options.defaults) {
                     object.id = "";
-                    object.student_account_id = "";
+                    object.room_id = "";
                     object.amount_kwh = 0;
                 }
                 if (message.id != null && message.hasOwnProperty("id"))
                     object.id = message.id;
-                if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
-                    object.student_account_id = message.student_account_id;
+                if (message.room_id != null && message.hasOwnProperty("room_id"))
+                    object.room_id = message.room_id;
                 if (message.amount_kwh != null && message.hasOwnProperty("amount_kwh"))
                     object.amount_kwh = options.json && !isFinite(message.amount_kwh) ? String(message.amount_kwh) : message.amount_kwh;
                 return object;
@@ -5668,292 +5668,6 @@
             return PrimaryBid;
         })();
     
-        main.RenewableBidHistory = (function() {
-    
-            /**
-             * Properties of a RenewableBidHistory.
-             * @memberof main
-             * @interface IRenewableBidHistory
-             * @property {string|null} [id] RenewableBidHistory id
-             * @property {string|null} [account_id] RenewableBidHistory account_id
-             * @property {number|null} [price] RenewableBidHistory price
-             * @property {number|null} [amount] RenewableBidHistory amount
-             * @property {boolean|null} [is_accepted] RenewableBidHistory is_accepted
-             * @property {number|null} [contract_price] RenewableBidHistory contract_price
-             */
-    
-            /**
-             * Constructs a new RenewableBidHistory.
-             * @memberof main
-             * @classdesc Represents a RenewableBidHistory.
-             * @implements IRenewableBidHistory
-             * @constructor
-             * @param {main.IRenewableBidHistory=} [properties] Properties to set
-             */
-            function RenewableBidHistory(properties) {
-                if (properties)
-                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
-                            this[keys[i]] = properties[keys[i]];
-            }
-    
-            /**
-             * RenewableBidHistory id.
-             * @member {string} id
-             * @memberof main.RenewableBidHistory
-             * @instance
-             */
-            RenewableBidHistory.prototype.id = "";
-    
-            /**
-             * RenewableBidHistory account_id.
-             * @member {string} account_id
-             * @memberof main.RenewableBidHistory
-             * @instance
-             */
-            RenewableBidHistory.prototype.account_id = "";
-    
-            /**
-             * RenewableBidHistory price.
-             * @member {number} price
-             * @memberof main.RenewableBidHistory
-             * @instance
-             */
-            RenewableBidHistory.prototype.price = 0;
-    
-            /**
-             * RenewableBidHistory amount.
-             * @member {number} amount
-             * @memberof main.RenewableBidHistory
-             * @instance
-             */
-            RenewableBidHistory.prototype.amount = 0;
-    
-            /**
-             * RenewableBidHistory is_accepted.
-             * @member {boolean} is_accepted
-             * @memberof main.RenewableBidHistory
-             * @instance
-             */
-            RenewableBidHistory.prototype.is_accepted = false;
-    
-            /**
-             * RenewableBidHistory contract_price.
-             * @member {number} contract_price
-             * @memberof main.RenewableBidHistory
-             * @instance
-             */
-            RenewableBidHistory.prototype.contract_price = 0;
-    
-            /**
-             * Encodes the specified RenewableBidHistory message. Does not implicitly {@link main.RenewableBidHistory.verify|verify} messages.
-             * @function encode
-             * @memberof main.RenewableBidHistory
-             * @static
-             * @param {main.IRenewableBidHistory} message RenewableBidHistory message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            RenewableBidHistory.encode = function encode(message, writer) {
-                if (!writer)
-                    writer = $Writer.create();
-                if (message.id != null && Object.hasOwnProperty.call(message, "id"))
-                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
-                if (message.account_id != null && Object.hasOwnProperty.call(message, "account_id"))
-                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.account_id);
-                if (message.price != null && Object.hasOwnProperty.call(message, "price"))
-                    writer.uint32(/* id 3, wireType 1 =*/25).double(message.price);
-                if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
-                    writer.uint32(/* id 4, wireType 1 =*/33).double(message.amount);
-                if (message.is_accepted != null && Object.hasOwnProperty.call(message, "is_accepted"))
-                    writer.uint32(/* id 5, wireType 0 =*/40).bool(message.is_accepted);
-                if (message.contract_price != null && Object.hasOwnProperty.call(message, "contract_price"))
-                    writer.uint32(/* id 6, wireType 1 =*/49).double(message.contract_price);
-                return writer;
-            };
-    
-            /**
-             * Encodes the specified RenewableBidHistory message, length delimited. Does not implicitly {@link main.RenewableBidHistory.verify|verify} messages.
-             * @function encodeDelimited
-             * @memberof main.RenewableBidHistory
-             * @static
-             * @param {main.IRenewableBidHistory} message RenewableBidHistory message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            RenewableBidHistory.encodeDelimited = function encodeDelimited(message, writer) {
-                return this.encode(message, writer).ldelim();
-            };
-    
-            /**
-             * Decodes a RenewableBidHistory message from the specified reader or buffer.
-             * @function decode
-             * @memberof main.RenewableBidHistory
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @param {number} [length] Message length if known beforehand
-             * @returns {main.RenewableBidHistory} RenewableBidHistory
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            RenewableBidHistory.decode = function decode(reader, length) {
-                if (!(reader instanceof $Reader))
-                    reader = $Reader.create(reader);
-                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.RenewableBidHistory();
-                while (reader.pos < end) {
-                    var tag = reader.uint32();
-                    switch (tag >>> 3) {
-                    case 1:
-                        message.id = reader.string();
-                        break;
-                    case 2:
-                        message.account_id = reader.string();
-                        break;
-                    case 3:
-                        message.price = reader.double();
-                        break;
-                    case 4:
-                        message.amount = reader.double();
-                        break;
-                    case 5:
-                        message.is_accepted = reader.bool();
-                        break;
-                    case 6:
-                        message.contract_price = reader.double();
-                        break;
-                    default:
-                        reader.skipType(tag & 7);
-                        break;
-                    }
-                }
-                return message;
-            };
-    
-            /**
-             * Decodes a RenewableBidHistory message from the specified reader or buffer, length delimited.
-             * @function decodeDelimited
-             * @memberof main.RenewableBidHistory
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {main.RenewableBidHistory} RenewableBidHistory
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            RenewableBidHistory.decodeDelimited = function decodeDelimited(reader) {
-                if (!(reader instanceof $Reader))
-                    reader = new $Reader(reader);
-                return this.decode(reader, reader.uint32());
-            };
-    
-            /**
-             * Verifies a RenewableBidHistory message.
-             * @function verify
-             * @memberof main.RenewableBidHistory
-             * @static
-             * @param {Object.<string,*>} message Plain object to verify
-             * @returns {string|null} `null` if valid, otherwise the reason why it is not
-             */
-            RenewableBidHistory.verify = function verify(message) {
-                if (typeof message !== "object" || message === null)
-                    return "object expected";
-                if (message.id != null && message.hasOwnProperty("id"))
-                    if (!$util.isString(message.id))
-                        return "id: string expected";
-                if (message.account_id != null && message.hasOwnProperty("account_id"))
-                    if (!$util.isString(message.account_id))
-                        return "account_id: string expected";
-                if (message.price != null && message.hasOwnProperty("price"))
-                    if (typeof message.price !== "number")
-                        return "price: number expected";
-                if (message.amount != null && message.hasOwnProperty("amount"))
-                    if (typeof message.amount !== "number")
-                        return "amount: number expected";
-                if (message.is_accepted != null && message.hasOwnProperty("is_accepted"))
-                    if (typeof message.is_accepted !== "boolean")
-                        return "is_accepted: boolean expected";
-                if (message.contract_price != null && message.hasOwnProperty("contract_price"))
-                    if (typeof message.contract_price !== "number")
-                        return "contract_price: number expected";
-                return null;
-            };
-    
-            /**
-             * Creates a RenewableBidHistory message from a plain object. Also converts values to their respective internal types.
-             * @function fromObject
-             * @memberof main.RenewableBidHistory
-             * @static
-             * @param {Object.<string,*>} object Plain object
-             * @returns {main.RenewableBidHistory} RenewableBidHistory
-             */
-            RenewableBidHistory.fromObject = function fromObject(object) {
-                if (object instanceof $root.main.RenewableBidHistory)
-                    return object;
-                var message = new $root.main.RenewableBidHistory();
-                if (object.id != null)
-                    message.id = String(object.id);
-                if (object.account_id != null)
-                    message.account_id = String(object.account_id);
-                if (object.price != null)
-                    message.price = Number(object.price);
-                if (object.amount != null)
-                    message.amount = Number(object.amount);
-                if (object.is_accepted != null)
-                    message.is_accepted = Boolean(object.is_accepted);
-                if (object.contract_price != null)
-                    message.contract_price = Number(object.contract_price);
-                return message;
-            };
-    
-            /**
-             * Creates a plain object from a RenewableBidHistory message. Also converts values to other types if specified.
-             * @function toObject
-             * @memberof main.RenewableBidHistory
-             * @static
-             * @param {main.RenewableBidHistory} message RenewableBidHistory
-             * @param {$protobuf.IConversionOptions} [options] Conversion options
-             * @returns {Object.<string,*>} Plain object
-             */
-            RenewableBidHistory.toObject = function toObject(message, options) {
-                if (!options)
-                    options = {};
-                var object = {};
-                if (options.defaults) {
-                    object.id = "";
-                    object.account_id = "";
-                    object.price = 0;
-                    object.amount = 0;
-                    object.is_accepted = false;
-                    object.contract_price = 0;
-                }
-                if (message.id != null && message.hasOwnProperty("id"))
-                    object.id = message.id;
-                if (message.account_id != null && message.hasOwnProperty("account_id"))
-                    object.account_id = message.account_id;
-                if (message.price != null && message.hasOwnProperty("price"))
-                    object.price = options.json && !isFinite(message.price) ? String(message.price) : message.price;
-                if (message.amount != null && message.hasOwnProperty("amount"))
-                    object.amount = options.json && !isFinite(message.amount) ? String(message.amount) : message.amount;
-                if (message.is_accepted != null && message.hasOwnProperty("is_accepted"))
-                    object.is_accepted = message.is_accepted;
-                if (message.contract_price != null && message.hasOwnProperty("contract_price"))
-                    object.contract_price = options.json && !isFinite(message.contract_price) ? String(message.contract_price) : message.contract_price;
-                return object;
-            };
-    
-            /**
-             * Converts this RenewableBidHistory to JSON.
-             * @function toJSON
-             * @memberof main.RenewableBidHistory
-             * @instance
-             * @returns {Object.<string,*>} JSON object
-             */
-            RenewableBidHistory.prototype.toJSON = function toJSON() {
-                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-            };
-    
-            return RenewableBidHistory;
-        })();
-    
         main.RenewableAskDelete = (function() {
     
             /**
@@ -7012,6 +6726,292 @@
             return RenewableBidDelete;
         })();
     
+        main.RenewableBidHistory = (function() {
+    
+            /**
+             * Properties of a RenewableBidHistory.
+             * @memberof main
+             * @interface IRenewableBidHistory
+             * @property {string|null} [id] RenewableBidHistory id
+             * @property {string|null} [account_id] RenewableBidHistory account_id
+             * @property {number|null} [price] RenewableBidHistory price
+             * @property {number|null} [amount] RenewableBidHistory amount
+             * @property {boolean|null} [is_accepted] RenewableBidHistory is_accepted
+             * @property {number|null} [contract_price] RenewableBidHistory contract_price
+             */
+    
+            /**
+             * Constructs a new RenewableBidHistory.
+             * @memberof main
+             * @classdesc Represents a RenewableBidHistory.
+             * @implements IRenewableBidHistory
+             * @constructor
+             * @param {main.IRenewableBidHistory=} [properties] Properties to set
+             */
+            function RenewableBidHistory(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+    
+            /**
+             * RenewableBidHistory id.
+             * @member {string} id
+             * @memberof main.RenewableBidHistory
+             * @instance
+             */
+            RenewableBidHistory.prototype.id = "";
+    
+            /**
+             * RenewableBidHistory account_id.
+             * @member {string} account_id
+             * @memberof main.RenewableBidHistory
+             * @instance
+             */
+            RenewableBidHistory.prototype.account_id = "";
+    
+            /**
+             * RenewableBidHistory price.
+             * @member {number} price
+             * @memberof main.RenewableBidHistory
+             * @instance
+             */
+            RenewableBidHistory.prototype.price = 0;
+    
+            /**
+             * RenewableBidHistory amount.
+             * @member {number} amount
+             * @memberof main.RenewableBidHistory
+             * @instance
+             */
+            RenewableBidHistory.prototype.amount = 0;
+    
+            /**
+             * RenewableBidHistory is_accepted.
+             * @member {boolean} is_accepted
+             * @memberof main.RenewableBidHistory
+             * @instance
+             */
+            RenewableBidHistory.prototype.is_accepted = false;
+    
+            /**
+             * RenewableBidHistory contract_price.
+             * @member {number} contract_price
+             * @memberof main.RenewableBidHistory
+             * @instance
+             */
+            RenewableBidHistory.prototype.contract_price = 0;
+    
+            /**
+             * Encodes the specified RenewableBidHistory message. Does not implicitly {@link main.RenewableBidHistory.verify|verify} messages.
+             * @function encode
+             * @memberof main.RenewableBidHistory
+             * @static
+             * @param {main.IRenewableBidHistory} message RenewableBidHistory message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            RenewableBidHistory.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                if (message.account_id != null && Object.hasOwnProperty.call(message, "account_id"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.account_id);
+                if (message.price != null && Object.hasOwnProperty.call(message, "price"))
+                    writer.uint32(/* id 3, wireType 1 =*/25).double(message.price);
+                if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
+                    writer.uint32(/* id 4, wireType 1 =*/33).double(message.amount);
+                if (message.is_accepted != null && Object.hasOwnProperty.call(message, "is_accepted"))
+                    writer.uint32(/* id 5, wireType 0 =*/40).bool(message.is_accepted);
+                if (message.contract_price != null && Object.hasOwnProperty.call(message, "contract_price"))
+                    writer.uint32(/* id 6, wireType 1 =*/49).double(message.contract_price);
+                return writer;
+            };
+    
+            /**
+             * Encodes the specified RenewableBidHistory message, length delimited. Does not implicitly {@link main.RenewableBidHistory.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof main.RenewableBidHistory
+             * @static
+             * @param {main.IRenewableBidHistory} message RenewableBidHistory message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            RenewableBidHistory.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+    
+            /**
+             * Decodes a RenewableBidHistory message from the specified reader or buffer.
+             * @function decode
+             * @memberof main.RenewableBidHistory
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {main.RenewableBidHistory} RenewableBidHistory
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            RenewableBidHistory.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.RenewableBidHistory();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.id = reader.string();
+                        break;
+                    case 2:
+                        message.account_id = reader.string();
+                        break;
+                    case 3:
+                        message.price = reader.double();
+                        break;
+                    case 4:
+                        message.amount = reader.double();
+                        break;
+                    case 5:
+                        message.is_accepted = reader.bool();
+                        break;
+                    case 6:
+                        message.contract_price = reader.double();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Decodes a RenewableBidHistory message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof main.RenewableBidHistory
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {main.RenewableBidHistory} RenewableBidHistory
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            RenewableBidHistory.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+    
+            /**
+             * Verifies a RenewableBidHistory message.
+             * @function verify
+             * @memberof main.RenewableBidHistory
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            RenewableBidHistory.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.id != null && message.hasOwnProperty("id"))
+                    if (!$util.isString(message.id))
+                        return "id: string expected";
+                if (message.account_id != null && message.hasOwnProperty("account_id"))
+                    if (!$util.isString(message.account_id))
+                        return "account_id: string expected";
+                if (message.price != null && message.hasOwnProperty("price"))
+                    if (typeof message.price !== "number")
+                        return "price: number expected";
+                if (message.amount != null && message.hasOwnProperty("amount"))
+                    if (typeof message.amount !== "number")
+                        return "amount: number expected";
+                if (message.is_accepted != null && message.hasOwnProperty("is_accepted"))
+                    if (typeof message.is_accepted !== "boolean")
+                        return "is_accepted: boolean expected";
+                if (message.contract_price != null && message.hasOwnProperty("contract_price"))
+                    if (typeof message.contract_price !== "number")
+                        return "contract_price: number expected";
+                return null;
+            };
+    
+            /**
+             * Creates a RenewableBidHistory message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof main.RenewableBidHistory
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {main.RenewableBidHistory} RenewableBidHistory
+             */
+            RenewableBidHistory.fromObject = function fromObject(object) {
+                if (object instanceof $root.main.RenewableBidHistory)
+                    return object;
+                var message = new $root.main.RenewableBidHistory();
+                if (object.id != null)
+                    message.id = String(object.id);
+                if (object.account_id != null)
+                    message.account_id = String(object.account_id);
+                if (object.price != null)
+                    message.price = Number(object.price);
+                if (object.amount != null)
+                    message.amount = Number(object.amount);
+                if (object.is_accepted != null)
+                    message.is_accepted = Boolean(object.is_accepted);
+                if (object.contract_price != null)
+                    message.contract_price = Number(object.contract_price);
+                return message;
+            };
+    
+            /**
+             * Creates a plain object from a RenewableBidHistory message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof main.RenewableBidHistory
+             * @static
+             * @param {main.RenewableBidHistory} message RenewableBidHistory
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            RenewableBidHistory.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.id = "";
+                    object.account_id = "";
+                    object.price = 0;
+                    object.amount = 0;
+                    object.is_accepted = false;
+                    object.contract_price = 0;
+                }
+                if (message.id != null && message.hasOwnProperty("id"))
+                    object.id = message.id;
+                if (message.account_id != null && message.hasOwnProperty("account_id"))
+                    object.account_id = message.account_id;
+                if (message.price != null && message.hasOwnProperty("price"))
+                    object.price = options.json && !isFinite(message.price) ? String(message.price) : message.price;
+                if (message.amount != null && message.hasOwnProperty("amount"))
+                    object.amount = options.json && !isFinite(message.amount) ? String(message.amount) : message.amount;
+                if (message.is_accepted != null && message.hasOwnProperty("is_accepted"))
+                    object.is_accepted = message.is_accepted;
+                if (message.contract_price != null && message.hasOwnProperty("contract_price"))
+                    object.contract_price = options.json && !isFinite(message.contract_price) ? String(message.contract_price) : message.contract_price;
+                return object;
+            };
+    
+            /**
+             * Converts this RenewableBidHistory to JSON.
+             * @function toJSON
+             * @memberof main.RenewableBidHistory
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            RenewableBidHistory.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            return RenewableBidHistory;
+        })();
+    
         main.RenewableBid = (function() {
     
             /**
@@ -7538,6 +7538,226 @@
             };
     
             return RenewableSettlement;
+        })();
+    
+        main.RoomChange = (function() {
+    
+            /**
+             * Properties of a RoomChange.
+             * @memberof main
+             * @interface IRoomChange
+             * @property {string|null} [id] RoomChange id
+             * @property {string|null} [student_account_id] RoomChange student_account_id
+             * @property {string|null} [room_id] RoomChange room_id
+             */
+    
+            /**
+             * Constructs a new RoomChange.
+             * @memberof main
+             * @classdesc Represents a RoomChange.
+             * @implements IRoomChange
+             * @constructor
+             * @param {main.IRoomChange=} [properties] Properties to set
+             */
+            function RoomChange(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+    
+            /**
+             * RoomChange id.
+             * @member {string} id
+             * @memberof main.RoomChange
+             * @instance
+             */
+            RoomChange.prototype.id = "";
+    
+            /**
+             * RoomChange student_account_id.
+             * @member {string} student_account_id
+             * @memberof main.RoomChange
+             * @instance
+             */
+            RoomChange.prototype.student_account_id = "";
+    
+            /**
+             * RoomChange room_id.
+             * @member {string} room_id
+             * @memberof main.RoomChange
+             * @instance
+             */
+            RoomChange.prototype.room_id = "";
+    
+            /**
+             * Encodes the specified RoomChange message. Does not implicitly {@link main.RoomChange.verify|verify} messages.
+             * @function encode
+             * @memberof main.RoomChange
+             * @static
+             * @param {main.IRoomChange} message RoomChange message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            RoomChange.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                if (message.student_account_id != null && Object.hasOwnProperty.call(message, "student_account_id"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.student_account_id);
+                if (message.room_id != null && Object.hasOwnProperty.call(message, "room_id"))
+                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.room_id);
+                return writer;
+            };
+    
+            /**
+             * Encodes the specified RoomChange message, length delimited. Does not implicitly {@link main.RoomChange.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof main.RoomChange
+             * @static
+             * @param {main.IRoomChange} message RoomChange message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            RoomChange.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+    
+            /**
+             * Decodes a RoomChange message from the specified reader or buffer.
+             * @function decode
+             * @memberof main.RoomChange
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {main.RoomChange} RoomChange
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            RoomChange.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.RoomChange();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.id = reader.string();
+                        break;
+                    case 2:
+                        message.student_account_id = reader.string();
+                        break;
+                    case 3:
+                        message.room_id = reader.string();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Decodes a RoomChange message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof main.RoomChange
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {main.RoomChange} RoomChange
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            RoomChange.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+    
+            /**
+             * Verifies a RoomChange message.
+             * @function verify
+             * @memberof main.RoomChange
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            RoomChange.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.id != null && message.hasOwnProperty("id"))
+                    if (!$util.isString(message.id))
+                        return "id: string expected";
+                if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
+                    if (!$util.isString(message.student_account_id))
+                        return "student_account_id: string expected";
+                if (message.room_id != null && message.hasOwnProperty("room_id"))
+                    if (!$util.isString(message.room_id))
+                        return "room_id: string expected";
+                return null;
+            };
+    
+            /**
+             * Creates a RoomChange message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof main.RoomChange
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {main.RoomChange} RoomChange
+             */
+            RoomChange.fromObject = function fromObject(object) {
+                if (object instanceof $root.main.RoomChange)
+                    return object;
+                var message = new $root.main.RoomChange();
+                if (object.id != null)
+                    message.id = String(object.id);
+                if (object.student_account_id != null)
+                    message.student_account_id = String(object.student_account_id);
+                if (object.room_id != null)
+                    message.room_id = String(object.room_id);
+                return message;
+            };
+    
+            /**
+             * Creates a plain object from a RoomChange message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof main.RoomChange
+             * @static
+             * @param {main.RoomChange} message RoomChange
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            RoomChange.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.id = "";
+                    object.student_account_id = "";
+                    object.room_id = "";
+                }
+                if (message.id != null && message.hasOwnProperty("id"))
+                    object.id = message.id;
+                if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
+                    object.student_account_id = message.student_account_id;
+                if (message.room_id != null && message.hasOwnProperty("room_id"))
+                    object.room_id = message.room_id;
+                return object;
+            };
+    
+            /**
+             * Converts this RoomChange to JSON.
+             * @function toJSON
+             * @memberof main.RoomChange
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            RoomChange.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            return RoomChange;
         })();
     
         main.SinglePriceNormalSettlement = (function() {
@@ -8252,6 +8472,7 @@
              * @interface IStudentAccount
              * @property {string|null} [id] StudentAccount id
              * @property {Array.<string>|null} [user_ids] StudentAccount user_ids
+             * @property {string|null} [room_id] StudentAccount room_id
              * @property {string|null} [name] StudentAccount name
              * @property {string|null} [payment_method] StudentAccount payment_method
              * @property {string|null} [xrp_address] StudentAccount xrp_address
@@ -8288,6 +8509,14 @@
              * @instance
              */
             StudentAccount.prototype.user_ids = $util.emptyArray;
+    
+            /**
+             * StudentAccount room_id.
+             * @member {string} room_id
+             * @memberof main.StudentAccount
+             * @instance
+             */
+            StudentAccount.prototype.room_id = "";
     
             /**
              * StudentAccount name.
@@ -8330,12 +8559,14 @@
                 if (message.user_ids != null && message.user_ids.length)
                     for (var i = 0; i < message.user_ids.length; ++i)
                         writer.uint32(/* id 2, wireType 2 =*/18).string(message.user_ids[i]);
+                if (message.room_id != null && Object.hasOwnProperty.call(message, "room_id"))
+                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.room_id);
                 if (message.name != null && Object.hasOwnProperty.call(message, "name"))
-                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.name);
+                    writer.uint32(/* id 4, wireType 2 =*/34).string(message.name);
                 if (message.payment_method != null && Object.hasOwnProperty.call(message, "payment_method"))
-                    writer.uint32(/* id 4, wireType 2 =*/34).string(message.payment_method);
+                    writer.uint32(/* id 5, wireType 2 =*/42).string(message.payment_method);
                 if (message.xrp_address != null && Object.hasOwnProperty.call(message, "xrp_address"))
-                    writer.uint32(/* id 5, wireType 2 =*/42).string(message.xrp_address);
+                    writer.uint32(/* id 6, wireType 2 =*/50).string(message.xrp_address);
                 return writer;
             };
     
@@ -8379,12 +8610,15 @@
                         message.user_ids.push(reader.string());
                         break;
                     case 3:
-                        message.name = reader.string();
+                        message.room_id = reader.string();
                         break;
                     case 4:
-                        message.payment_method = reader.string();
+                        message.name = reader.string();
                         break;
                     case 5:
+                        message.payment_method = reader.string();
+                        break;
+                    case 6:
                         message.xrp_address = reader.string();
                         break;
                     default:
@@ -8432,6 +8666,9 @@
                         if (!$util.isString(message.user_ids[i]))
                             return "user_ids: string[] expected";
                 }
+                if (message.room_id != null && message.hasOwnProperty("room_id"))
+                    if (!$util.isString(message.room_id))
+                        return "room_id: string expected";
                 if (message.name != null && message.hasOwnProperty("name"))
                     if (!$util.isString(message.name))
                         return "name: string expected";
@@ -8465,6 +8702,8 @@
                     for (var i = 0; i < object.user_ids.length; ++i)
                         message.user_ids[i] = String(object.user_ids[i]);
                 }
+                if (object.room_id != null)
+                    message.room_id = String(object.room_id);
                 if (object.name != null)
                     message.name = String(object.name);
                 if (object.payment_method != null)
@@ -8491,6 +8730,7 @@
                     object.user_ids = [];
                 if (options.defaults) {
                     object.id = "";
+                    object.room_id = "";
                     object.name = "";
                     object.payment_method = "";
                     object.xrp_address = "";
@@ -8502,6 +8742,8 @@
                     for (var j = 0; j < message.user_ids.length; ++j)
                         object.user_ids[j] = message.user_ids[j];
                 }
+                if (message.room_id != null && message.hasOwnProperty("room_id"))
+                    object.room_id = message.room_id;
                 if (message.name != null && message.hasOwnProperty("name"))
                     object.name = message.name;
                 if (message.payment_method != null && message.hasOwnProperty("payment_method"))

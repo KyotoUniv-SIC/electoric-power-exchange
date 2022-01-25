@@ -3,8 +3,8 @@ import { Auth, authState } from '@angular/fire/auth';
 import { Timestamp } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { Balance } from '@local/common';
+import { DailyUsageApplicationService } from 'projects/shared/src/lib/services/daily-usages/daily-usage.application.service';
 import { BalanceApplicationService } from 'projects/shared/src/lib/services/student-accounts/balances/balance.application.service';
-import { DailyUsageApplicationService } from 'projects/shared/src/lib/services/student-accounts/daily-usages/daily-usage.application.service';
 import { StudentAccountApplicationService } from 'projects/shared/src/lib/services/student-accounts/student-account.application.service';
 import { combineLatest, Observable } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
@@ -44,7 +44,7 @@ export class DashboardComponent implements OnInit {
       mergeMap((users) =>
         Promise.all(
           users.map((user) =>
-            this.dailyUsageApp.list(user.id).then((usages) => {
+            this.dailyUsageApp.list(user.room_id).then((usages) => {
               let count = 0;
               for (const usage of usages) {
                 if ((usage.created_at as Timestamp).toDate() > first) {
@@ -76,7 +76,7 @@ export class DashboardComponent implements OnInit {
       }),
     );
 
-    const usageList$ = studentAccount$.pipe(mergeMap((account) => this.dailyUsageApp.list$(account.id)));
+    const usageList$ = studentAccount$.pipe(mergeMap((account) => this.dailyUsageApp.list$(account.room_id)));
     let first = new Date();
     first.setDate(1);
     first.setHours(0, 0, 0, 0);
