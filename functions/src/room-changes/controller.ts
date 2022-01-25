@@ -22,6 +22,7 @@ module.exports.onCreate = f.firestore.document(RoomChangeFirestore.virtualPath).
   }
 });
 
+
 module.exports.onUpdate = f.firestore.document(RoomChangeFirestore.virtualPath).onUpdate(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     return;
