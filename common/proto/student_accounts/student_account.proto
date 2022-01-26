@@ -12,4 +12,5 @@ message StudentAccount {
   string name = 4;
   string payment_method = 5;
   string xrp_address = 6;
+  string xrp_public_key = 7;
 }
