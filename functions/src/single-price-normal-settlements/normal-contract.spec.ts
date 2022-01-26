@@ -1,16 +1,9 @@
-import { NormalAsk, NormalBid, SinglePriceNormalSettlement } from '@local/common';
+import { NormalAsk, NormalAskHistory, NormalBidHistory, SinglePriceNormalSettlement } from '@local/common';
 
 describe('Normal Contract Test', () => {
   it('Build Single Price Settlement', () => {
     const expectSettlement = new SinglePriceNormalSettlement({ price: 25, amount: 85 });
-    const bids = [
-      new NormalBid({ id: 'bid01', account_id: 'test01', price: 15, amount: 40 }),
-      new NormalBid({ id: 'bid02', account_id: 'test02', price: 24, amount: 20 }),
-      new NormalBid({ id: 'bid03', account_id: 'test03', price: 27, amount: 15 }),
-      new NormalBid({ id: 'bid04', account_id: 'test04', price: 20, amount: 100 }),
-      new NormalBid({ id: 'bid05', account_id: 'test05', price: 28, amount: 25 }),
-      new NormalBid({ id: 'bid06', account_id: 'test06', price: 25, amount: 50 }),
-    ];
+    const bids: any[] = [];
     const asks = [
       new NormalAsk({ id: 'ask01', account_id: 'test07', price: 32, amount: 40 }),
       new NormalAsk({ id: 'ask02', account_id: 'test08', price: 27, amount: 30 }),
@@ -23,6 +16,30 @@ describe('Normal Contract Test', () => {
     const sortAsks = asks.sort((first, second) => first.price - second.price);
 
     if (!bids.length || !asks.length) {
+      const bidHistory = [];
+      for (const bid of bids) {
+        bidHistory.push(
+          new NormalBidHistory({
+            account_id: bid.account_id,
+            price: bid.price,
+            amount: bid.amount,
+            is_accepted: false,
+          }),
+        );
+      }
+      const askHistory = [];
+      for (const ask of asks) {
+        askHistory.push(
+          new NormalAskHistory({
+            account_id: ask.account_id,
+            price: ask.price,
+            amount: ask.amount,
+            is_accepted: false,
+          }),
+        );
+      }
+      console.log(bidHistory);
+      console.log(askHistory);
       expect(true).toBeTruthy;
       return;
     }

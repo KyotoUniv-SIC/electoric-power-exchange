@@ -13,6 +13,7 @@ module.exports.primaryRenewableAsk = f.pubsub
     const amount = 50;
     await renewable_ask.create(
       new RenewableAsk({
+        account_id: 'admin',
         type: type,
         price: price,
         amount: amount,
