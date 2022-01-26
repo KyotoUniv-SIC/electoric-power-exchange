@@ -61,8 +61,6 @@ export async function create(data: Balance) {
 export async function update(data: Partial<Balance> & { id: string } & { student_account_id: string }) {
   const now = admin.firestore.Timestamp.now();
   data.updated_at = now;
-  const doc = document(data.student_account_id);
-  data.id = doc.id;
 
   await document(data.student_account_id, data.id).update(data);
 }
