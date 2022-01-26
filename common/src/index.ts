@@ -26,10 +26,10 @@ export * from './entities/student-accounts/available-balances';
 export * from './entities/market-statuses';
 export * from './entities/student-accounts/monthly-payments';
 export * from './entities/discount-prices';
-export * from './entities/renewable-bid-deletes';
 export * from './entities/normal-bid-deletes';
 export * from './entities/normal-ask-deletes';
 export * from './entities/renewable-ask-deletes';
 export * from './entities/renewable-bid-deletes';
 export * from './entities/daily-usages';
 export * from "./entities/room-changes";
+
