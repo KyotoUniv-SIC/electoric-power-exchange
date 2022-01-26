@@ -2,13 +2,46 @@
   <mat-card class="mb-20">
     <mat-card-title>Account Detail</mat-card-title>
     <mat-list>
-      <ng-container *ngIf="user === null; then loading; else loaded"></ng-container>
+      <ng-container *ngIf="studentAccount === null; then loading; else loadedStudent"></ng-container>
       <ng-template #loading>
         <mat-progress-spinner [diameter]="60" [mode]="'indeterminate'"></mat-progress-spinner>
       </ng-template>
-      <ng-template #loaded>
+      <ng-template #loadedStudent>
         <mat-divider [inset]="true"></mat-divider>
         <mat-list-item class="flex flex-wrap">
+          <span class="break-all">User ID:</span>
+          <span class="flex-auto break-all"></span>
+          <span class="break-all">{{ studentAccount?.id }}</span>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
+        <mat-list-item class="flex flex-wrap">
+          <span class="break-all">Display Name:</span>
+          <span class="flex-auto break-all"></span>
+          <span class="break-all">{{ studentAccount?.name }}</span>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
+        <mat-list-item class="flex flex-wrap">
+          <span class="break-all">Room ID:</span>
+          <span class="flex-auto break-all"></span>
+          <span class="break-all">{{ studentAccount?.room_id }}</span>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
+        <!-- <mat-list-item class="flex flex-wrap">
+          <span class="break-all">Payment Method:</span>
+          <span class="flex-auto break-all"></span>
+          <span class="break-all">{{ studentAccount?.payment_method }}</span>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
+        <mat-list-item class="flex flex-wrap">
+          <span class="break-all">XRP Address:</span>
+          <span class="flex-auto break-all"></span>
+          <span class="break-all">{{ studentAccount?.xrp_address }}</span>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider> -->
+      </ng-template>
+      <ng-container *ngIf="user === null; then loading; else loadedUser"></ng-container>
+      <ng-template #loadedUser>
+        <!-- <mat-list-item class="flex flex-wrap">
           <span class="break-all">User ID:</span>
           <span class="flex-auto break-all"></span>
           <span class="break-all">{{ user?.uid }}</span>
@@ -19,7 +52,7 @@
           <span class="flex-auto break-all"></span>
           <span class="break-all">{{ user?.displayName }}</span>
         </mat-list-item>
-        <mat-divider [inset]="true"></mat-divider>
+        <mat-divider [inset]="true"></mat-divider> -->
         <mat-list-item class="flex flex-wrap">
           <span class="break-all">Email Address:</span>
           <span class="flex-auto break-all"></span>
