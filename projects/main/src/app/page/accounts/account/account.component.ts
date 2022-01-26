@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Auth, authState, User } from '@angular/fire/auth';
 import { ActivatedRoute } from '@angular/router';
-import { Balance, MonthlyPayment } from '@local/common';
+import { Balance, MonthlyPayment, StudentAccount } from '@local/common';
 import { BalanceApplicationService } from 'projects/shared/src/lib/services/student-accounts/balances/balance.application.service';
 import { MonthlyPaymentApplicationService } from 'projects/shared/src/lib/services/student-accounts/monthly-payments/monthly-payment.application.service';
 import { StudentAccountApplicationService } from 'projects/shared/src/lib/services/student-accounts/student-account.application.service';
@@ -15,6 +15,7 @@ import { mergeMap } from 'rxjs/operators';
 })
 export class AccountComponent implements OnInit {
   user$: Observable<User | null> | undefined;
+  studentAccount$: Observable<StudentAccount> | undefined;
   balances$: Observable<Balance> | undefined;
   monthlyPayments$: Observable<MonthlyPayment[]> | undefined;
 
@@ -26,8 +27,9 @@ export class AccountComponent implements OnInit {
     private readonly monthlyPaymentApp: MonthlyPaymentApplicationService,
   ) {
     this.user$ = authState(this.auth);
-    const accountID$ = this.user$.pipe(mergeMap((user) => this.studentAccApp.getByUid$(user?.uid!)));
-    this.monthlyPayments$ = accountID$.pipe(mergeMap((account) => this.monthlyPaymentApp.list$(account.id)));
+    this.studentAccount$ = this.user$.pipe(mergeMap((user) => this.studentAccApp.getByUid$(user?.uid!)));
+    this.balances$ = this.studentAccount$.pipe(mergeMap((account) => this.balanceApp.getByUid$(account.id)));
+    this.monthlyPayments$ = this.studentAccount$.pipe(mergeMap((account) => this.monthlyPaymentApp.list$(account.id)));
     // Dummy
     this.monthlyPayments$ = of([
       new MonthlyPayment({
@@ -59,7 +61,6 @@ export class AccountComponent implements OnInit {
         amount_jpy: 3600,
       }),
     ]);
-    this.balances$ = accountID$.pipe(mergeMap((account) => this.balanceApp.getByUid$(account.id)));
   }
   ngOnInit(): void {}
 }
