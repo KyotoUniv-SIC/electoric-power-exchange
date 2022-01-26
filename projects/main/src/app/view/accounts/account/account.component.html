@@ -1,7 +1,7 @@
 <div class="w-full lg:mx-auto lg:w-1/3 lg:mt-10">
   <mat-card class="mb-20">
     <mat-card-title>Account Detail</mat-card-title>
-    <mat-list>
+    <mat-nav-list>
       <ng-container *ngIf="studentAccount === null; then loading; else loadedStudent"></ng-container>
       <ng-template #loading>
         <mat-progress-spinner [diameter]="60" [mode]="'indeterminate'"></mat-progress-spinner>
@@ -20,7 +20,7 @@
           <span class="break-all">{{ studentAccount?.name }}</span>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
-        <mat-list-item class="flex flex-wrap">
+        <mat-list-item class="flex flex-wrap" routerLink="/accounts/room">
           <span class="break-all">Room ID:</span>
           <span class="flex-auto break-all"></span>
           <span class="break-all">{{ studentAccount?.room_id }}</span>
@@ -76,8 +76,9 @@
             </ng-template>
           </span>
         </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
       </ng-template>
-    </mat-list>
+    </mat-nav-list>
   </mat-card>
 
   <mat-card class="mb-20">
@@ -91,6 +92,7 @@
           <span class="flex-auto break-all"></span>
           <span class="break-all">{{ balances?.amount_upx }}</span>
         </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
         <mat-list-item class="flex flex-wrap">
           <span class="break-all">Amount SPX:</span>
           <span class="flex-auto break-all"></span>
@@ -114,6 +116,7 @@
             <span class="break-all">{{ monthlyPayment.amount_jpy }} JPY</span>
           </mat-list-item>
         </ng-container>
+        <mat-divider [inset]="true"></mat-divider>
       </mat-list>
     </ng-template>
   </mat-card>
