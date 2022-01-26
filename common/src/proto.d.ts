@@ -13,6 +13,9 @@ export namespace main {
 
         /** AccountPrivate xrp_private_key */
         xrp_private_key?: (string|null);
+
+        /** AccountPrivate xrp_seed */
+        xrp_seed?: (string|null);
     }
 
     /** Represents an AccountPrivate. */
@@ -32,6 +35,9 @@ export namespace main {
 
         /** AccountPrivate xrp_private_key. */
         public xrp_private_key: string;
+
+        /** AccountPrivate xrp_seed. */
+        public xrp_seed: string;
 
         /**
          * Encodes the specified AccountPrivate message. Does not implicitly {@link main.AccountPrivate.verify|verify} messages.

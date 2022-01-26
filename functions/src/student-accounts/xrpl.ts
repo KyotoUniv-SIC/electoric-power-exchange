@@ -23,5 +23,7 @@ student_account.onCreateHandler.push(async (snapshot, context) => {
   const wallet = await createWallet();
 
   await student_account.update({ id: data.id, xrp_address: wallet.classicAddress, xrp_public_key: wallet.publicKey });
-  await account_private.create(new AccountPrivate({ student_account_id: data.id, xrp_private_key: wallet.privateKey }));
+  await account_private.create(
+    new AccountPrivate({ student_account_id: data.id, xrp_private_key: wallet.privateKey, xrp_seed: wallet.seed }),
+  );
 });

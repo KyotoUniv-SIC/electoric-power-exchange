@@ -25,6 +25,7 @@ export const main = $root.main = (() => {
          * @property {string|null} [id] AccountPrivate id
          * @property {string|null} [student_account_id] AccountPrivate student_account_id
          * @property {string|null} [xrp_private_key] AccountPrivate xrp_private_key
+         * @property {string|null} [xrp_seed] AccountPrivate xrp_seed
          */
 
         /**
@@ -67,6 +68,14 @@ export const main = $root.main = (() => {
         AccountPrivate.prototype.xrp_private_key = "";
 
         /**
+         * AccountPrivate xrp_seed.
+         * @member {string} xrp_seed
+         * @memberof main.AccountPrivate
+         * @instance
+         */
+        AccountPrivate.prototype.xrp_seed = "";
+
+        /**
          * Encodes the specified AccountPrivate message. Does not implicitly {@link main.AccountPrivate.verify|verify} messages.
          * @function encode
          * @memberof main.AccountPrivate
@@ -84,6 +93,8 @@ export const main = $root.main = (() => {
                 writer.uint32(/* id 2, wireType 2 =*/18).string(message.student_account_id);
             if (message.xrp_private_key != null && Object.hasOwnProperty.call(message, "xrp_private_key"))
                 writer.uint32(/* id 3, wireType 2 =*/26).string(message.xrp_private_key);
+            if (message.xrp_seed != null && Object.hasOwnProperty.call(message, "xrp_seed"))
+                writer.uint32(/* id 4, wireType 2 =*/34).string(message.xrp_seed);
             return writer;
         };
 
@@ -126,6 +137,9 @@ export const main = $root.main = (() => {
                     break;
                 case 3:
                     message.xrp_private_key = reader.string();
+                    break;
+                case 4:
+                    message.xrp_seed = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -171,6 +185,9 @@ export const main = $root.main = (() => {
             if (message.xrp_private_key != null && message.hasOwnProperty("xrp_private_key"))
                 if (!$util.isString(message.xrp_private_key))
                     return "xrp_private_key: string expected";
+            if (message.xrp_seed != null && message.hasOwnProperty("xrp_seed"))
+                if (!$util.isString(message.xrp_seed))
+                    return "xrp_seed: string expected";
             return null;
         };
 
@@ -192,6 +209,8 @@ export const main = $root.main = (() => {
                 message.student_account_id = String(object.student_account_id);
             if (object.xrp_private_key != null)
                 message.xrp_private_key = String(object.xrp_private_key);
+            if (object.xrp_seed != null)
+                message.xrp_seed = String(object.xrp_seed);
             return message;
         };
 
@@ -212,6 +231,7 @@ export const main = $root.main = (() => {
                 object.id = "";
                 object.student_account_id = "";
                 object.xrp_private_key = "";
+                object.xrp_seed = "";
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 object.id = message.id;
@@ -219,6 +239,8 @@ export const main = $root.main = (() => {
                 object.student_account_id = message.student_account_id;
             if (message.xrp_private_key != null && message.hasOwnProperty("xrp_private_key"))
                 object.xrp_private_key = message.xrp_private_key;
+            if (message.xrp_seed != null && message.hasOwnProperty("xrp_seed"))
+                object.xrp_seed = message.xrp_seed;
             return object;
         };
 
