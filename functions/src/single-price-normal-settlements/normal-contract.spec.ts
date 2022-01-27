@@ -1,9 +1,16 @@
-import { NormalAsk, NormalAskHistory, NormalBidHistory, SinglePriceNormalSettlement } from '@local/common';
+import { NormalAsk, NormalAskHistory, NormalBid, NormalBidHistory, SinglePriceNormalSettlement } from '@local/common';
 
 describe('Normal Contract Test', () => {
   it('Build Single Price Settlement', () => {
     const expectSettlement = new SinglePriceNormalSettlement({ price: 25, amount: 85 });
-    const bids: any[] = [];
+    const bids = [
+      new NormalBid({ id: 'bid01', account_id: 'test01', price: 15, amount: 40 }),
+      new NormalBid({ id: 'bid02', account_id: 'test02', price: 24, amount: 20 }),
+      new NormalBid({ id: 'bid03', account_id: 'test03', price: 27, amount: 15 }),
+      new NormalBid({ id: 'bid04', account_id: 'test04', price: 20, amount: 100 }),
+      new NormalBid({ id: 'bid05', account_id: 'test05', price: 28, amount: 25 }),
+      new NormalBid({ id: 'bid06', account_id: 'test06', price: 25, amount: 50 }),
+    ];
     const asks = [
       new NormalAsk({ id: 'ask01', account_id: 'test07', price: 32, amount: 40 }),
       new NormalAsk({ id: 'ask02', account_id: 'test08', price: 27, amount: 30 }),
@@ -76,9 +83,9 @@ describe('Normal Contract Test', () => {
     const equilibriumPrice = sortBids[i].price <= sortAsks[j].price ? sortAsks[i].price : sortBids[j].price;
     // 止まったときの低い方が成約取引量となる
     const equilibriumAmount = sumBidAmountHistory[i] <= sumAskAmountHistory[j] ? sumBidAmountHistory[i] : sumAskAmountHistory[j];
-    expect(true).toBeTruthy;
 
     const settlement = new SinglePriceNormalSettlement({ price: equilibriumPrice, amount: equilibriumAmount });
+    console.log(settlement);
     expect(settlement).toStrictEqual(expectSettlement);
   });
 });
