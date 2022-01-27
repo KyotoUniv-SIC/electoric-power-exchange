@@ -839,6 +839,226 @@ export const main = $root.main = (() => {
         return Account;
     })();
 
+    main.AdminPrivate = (function() {
+
+        /**
+         * Properties of an AdminPrivate.
+         * @memberof main
+         * @interface IAdminPrivate
+         * @property {string|null} [id] AdminPrivate id
+         * @property {string|null} [admin_account_id] AdminPrivate admin_account_id
+         * @property {string|null} [xrp_seed_hot] AdminPrivate xrp_seed_hot
+         */
+
+        /**
+         * Constructs a new AdminPrivate.
+         * @memberof main
+         * @classdesc Represents an AdminPrivate.
+         * @implements IAdminPrivate
+         * @constructor
+         * @param {main.IAdminPrivate=} [properties] Properties to set
+         */
+        function AdminPrivate(properties) {
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * AdminPrivate id.
+         * @member {string} id
+         * @memberof main.AdminPrivate
+         * @instance
+         */
+        AdminPrivate.prototype.id = "";
+
+        /**
+         * AdminPrivate admin_account_id.
+         * @member {string} admin_account_id
+         * @memberof main.AdminPrivate
+         * @instance
+         */
+        AdminPrivate.prototype.admin_account_id = "";
+
+        /**
+         * AdminPrivate xrp_seed_hot.
+         * @member {string} xrp_seed_hot
+         * @memberof main.AdminPrivate
+         * @instance
+         */
+        AdminPrivate.prototype.xrp_seed_hot = "";
+
+        /**
+         * Encodes the specified AdminPrivate message. Does not implicitly {@link main.AdminPrivate.verify|verify} messages.
+         * @function encode
+         * @memberof main.AdminPrivate
+         * @static
+         * @param {main.IAdminPrivate} message AdminPrivate message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        AdminPrivate.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+            if (message.admin_account_id != null && Object.hasOwnProperty.call(message, "admin_account_id"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.admin_account_id);
+            if (message.xrp_seed_hot != null && Object.hasOwnProperty.call(message, "xrp_seed_hot"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.xrp_seed_hot);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified AdminPrivate message, length delimited. Does not implicitly {@link main.AdminPrivate.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof main.AdminPrivate
+         * @static
+         * @param {main.IAdminPrivate} message AdminPrivate message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        AdminPrivate.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes an AdminPrivate message from the specified reader or buffer.
+         * @function decode
+         * @memberof main.AdminPrivate
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {main.AdminPrivate} AdminPrivate
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        AdminPrivate.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.AdminPrivate();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.id = reader.string();
+                    break;
+                case 2:
+                    message.admin_account_id = reader.string();
+                    break;
+                case 3:
+                    message.xrp_seed_hot = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes an AdminPrivate message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof main.AdminPrivate
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {main.AdminPrivate} AdminPrivate
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        AdminPrivate.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies an AdminPrivate message.
+         * @function verify
+         * @memberof main.AdminPrivate
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        AdminPrivate.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isString(message.id))
+                    return "id: string expected";
+            if (message.admin_account_id != null && message.hasOwnProperty("admin_account_id"))
+                if (!$util.isString(message.admin_account_id))
+                    return "admin_account_id: string expected";
+            if (message.xrp_seed_hot != null && message.hasOwnProperty("xrp_seed_hot"))
+                if (!$util.isString(message.xrp_seed_hot))
+                    return "xrp_seed_hot: string expected";
+            return null;
+        };
+
+        /**
+         * Creates an AdminPrivate message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof main.AdminPrivate
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {main.AdminPrivate} AdminPrivate
+         */
+        AdminPrivate.fromObject = function fromObject(object) {
+            if (object instanceof $root.main.AdminPrivate)
+                return object;
+            let message = new $root.main.AdminPrivate();
+            if (object.id != null)
+                message.id = String(object.id);
+            if (object.admin_account_id != null)
+                message.admin_account_id = String(object.admin_account_id);
+            if (object.xrp_seed_hot != null)
+                message.xrp_seed_hot = String(object.xrp_seed_hot);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from an AdminPrivate message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof main.AdminPrivate
+         * @static
+         * @param {main.AdminPrivate} message AdminPrivate
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        AdminPrivate.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.defaults) {
+                object.id = "";
+                object.admin_account_id = "";
+                object.xrp_seed_hot = "";
+            }
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            if (message.admin_account_id != null && message.hasOwnProperty("admin_account_id"))
+                object.admin_account_id = message.admin_account_id;
+            if (message.xrp_seed_hot != null && message.hasOwnProperty("xrp_seed_hot"))
+                object.xrp_seed_hot = message.xrp_seed_hot;
+            return object;
+        };
+
+        /**
+         * Converts this AdminPrivate to JSON.
+         * @function toJSON
+         * @memberof main.AdminPrivate
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        AdminPrivate.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return AdminPrivate;
+    })();
+
     main.AdminAccount = (function() {
 
         /**
@@ -847,7 +1067,8 @@ export const main = $root.main = (() => {
          * @interface IAdminAccount
          * @property {string|null} [id] AdminAccount id
          * @property {string|null} [name] AdminAccount name
-         * @property {string|null} [xrp_address] AdminAccount xrp_address
+         * @property {string|null} [xrp_address_hot] AdminAccount xrp_address_hot
+         * @property {string|null} [xrp_address_cold] AdminAccount xrp_address_cold
          */
 
         /**
@@ -882,12 +1103,20 @@ export const main = $root.main = (() => {
         AdminAccount.prototype.name = "";
 
         /**
-         * AdminAccount xrp_address.
-         * @member {string} xrp_address
+         * AdminAccount xrp_address_hot.
+         * @member {string} xrp_address_hot
          * @memberof main.AdminAccount
          * @instance
          */
-        AdminAccount.prototype.xrp_address = "";
+        AdminAccount.prototype.xrp_address_hot = "";
+
+        /**
+         * AdminAccount xrp_address_cold.
+         * @member {string} xrp_address_cold
+         * @memberof main.AdminAccount
+         * @instance
+         */
+        AdminAccount.prototype.xrp_address_cold = "";
 
         /**
          * Encodes the specified AdminAccount message. Does not implicitly {@link main.AdminAccount.verify|verify} messages.
@@ -905,8 +1134,10 @@ export const main = $root.main = (() => {
                 writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
             if (message.name != null && Object.hasOwnProperty.call(message, "name"))
                 writer.uint32(/* id 2, wireType 2 =*/18).string(message.name);
-            if (message.xrp_address != null && Object.hasOwnProperty.call(message, "xrp_address"))
-                writer.uint32(/* id 3, wireType 2 =*/26).string(message.xrp_address);
+            if (message.xrp_address_hot != null && Object.hasOwnProperty.call(message, "xrp_address_hot"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.xrp_address_hot);
+            if (message.xrp_address_cold != null && Object.hasOwnProperty.call(message, "xrp_address_cold"))
+                writer.uint32(/* id 4, wireType 2 =*/34).string(message.xrp_address_cold);
             return writer;
         };
 
@@ -948,7 +1179,10 @@ export const main = $root.main = (() => {
                     message.name = reader.string();
                     break;
                 case 3:
-                    message.xrp_address = reader.string();
+                    message.xrp_address_hot = reader.string();
+                    break;
+                case 4:
+                    message.xrp_address_cold = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -991,9 +1225,12 @@ export const main = $root.main = (() => {
             if (message.name != null && message.hasOwnProperty("name"))
                 if (!$util.isString(message.name))
                     return "name: string expected";
-            if (message.xrp_address != null && message.hasOwnProperty("xrp_address"))
-                if (!$util.isString(message.xrp_address))
-                    return "xrp_address: string expected";
+            if (message.xrp_address_hot != null && message.hasOwnProperty("xrp_address_hot"))
+                if (!$util.isString(message.xrp_address_hot))
+                    return "xrp_address_hot: string expected";
+            if (message.xrp_address_cold != null && message.hasOwnProperty("xrp_address_cold"))
+                if (!$util.isString(message.xrp_address_cold))
+                    return "xrp_address_cold: string expected";
             return null;
         };
 
@@ -1013,8 +1250,10 @@ export const main = $root.main = (() => {
                 message.id = String(object.id);
             if (object.name != null)
                 message.name = String(object.name);
-            if (object.xrp_address != null)
-                message.xrp_address = String(object.xrp_address);
+            if (object.xrp_address_hot != null)
+                message.xrp_address_hot = String(object.xrp_address_hot);
+            if (object.xrp_address_cold != null)
+                message.xrp_address_cold = String(object.xrp_address_cold);
             return message;
         };
 
@@ -1034,14 +1273,17 @@ export const main = $root.main = (() => {
             if (options.defaults) {
                 object.id = "";
                 object.name = "";
-                object.xrp_address = "";
+                object.xrp_address_hot = "";
+                object.xrp_address_cold = "";
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 object.id = message.id;
             if (message.name != null && message.hasOwnProperty("name"))
                 object.name = message.name;
-            if (message.xrp_address != null && message.hasOwnProperty("xrp_address"))
-                object.xrp_address = message.xrp_address;
+            if (message.xrp_address_hot != null && message.hasOwnProperty("xrp_address_hot"))
+                object.xrp_address_hot = message.xrp_address_hot;
+            if (message.xrp_address_cold != null && message.hasOwnProperty("xrp_address_cold"))
+                object.xrp_address_cold = message.xrp_address_cold;
             return object;
         };
 
