@@ -22,6 +22,7 @@ import './renewable-settlements/renewable-settlement';
 // import './single-price-renewable-settlements/renewable-contract';
 import './student-accounts/account';
 import './student-accounts/room-change';
+import './student-accounts/xrpl';
 import * as admin from 'firebase-admin';
 
 // import * as functions from 'firebase-functions';
@@ -39,8 +40,10 @@ admin.initializeApp();
 // export const auth_remove_user = auth.removeUser;
 
 const files = {
+  account_privates: './account-privates',
   accounts: './accounts',
   admin_accounts: './admin-accounts',
+  admin_privates: './admin-privates',
   available_balances: './available-balances',
   balance_snapshots: './balance-snapshots',
   balances: './balances',
