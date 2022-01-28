@@ -1,7 +1,12 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+
 /* eslint-disable camelcase */
 import { balance } from '.';
+import { account_private } from '../account-privates';
+import { admin_account } from '../admin-accounts';
 import { market_status } from '../market-statuses';
 import { renewable_settlement } from '../renewable-settlements';
+import { student_account } from '../student-accounts';
 import { MarketStatus } from '@local/common';
 
 renewable_settlement.onCreateHandler.push(async (snapshot, context) => {
@@ -29,4 +34,42 @@ renewable_settlement.onCreateHandler.push(async (snapshot, context) => {
   } else {
     await market_status.update({ id: marketStatus[0].id, is_finished_renewable: true });
   }
+
+  const xrpl = require('xrpl');
+  const TEST_NET = 'wss://s.altnet.rippletest.net:51233';
+  const client = new xrpl.Client(TEST_NET);
+  const adminAccount = await admin_account.getByName('admin');
+  const bidder = await student_account.get(data.bid_id);
+  const seller = await student_account.get(data.ask_id);
+  const sellerPrivate = await account_private.list(data.ask_id);
+  if (!bidder.xrp_address) {
+    console.log(data.bid_id, 'no XRP address');
+    return;
+  }
+  if (!seller.xrp_address) {
+    console.log(data.ask_id, 'no XRP address');
+    return;
+  }
+  await client.connect();
+  const sender = xrpl.Wallet.fromSeed(sellerPrivate[0].xrp_seed);
+  const sendTokenTx = {
+    TransactionType: 'Payment',
+    Account: sender.address,
+    Amount: {
+      currency: 'SPX',
+      value: String(data.amount),
+      issuer: adminAccount[0].xrp_address_cold,
+    },
+    Destination: bidder.xrp_address,
+  };
+  const payPrepared = await client.autofill(sendTokenTx);
+  const paySigned = sender.sign(payPrepared);
+  const payResult = await client.submitAndWait(paySigned.tx_blob);
+  if (payResult.result.meta.TransactionResult == 'tesSUCCESS') {
+    console.log(`Transaction succeeded: https://testnet.xrpl.org/transactions/${paySigned.hash}`);
+  } else {
+    // eslint-disable-next-line no-throw-literal
+    throw `Error sending transaction: ${payResult.result.meta.TransactionResult}`;
+  }
+  client.disconnect();
 });
