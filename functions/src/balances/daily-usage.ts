@@ -17,15 +17,17 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
   if (!studentAccount.length) {
     return;
   }
+  const usage = Number(data.amount_kwh_str);
+  await daily_usage.update({ id: data.id, amount_kwh: usage });
   const accountBalance = await balance.getLatest(studentAccount[0].id);
   const accountPrivate = await account_private.list(studentAccount[0].id);
 
-  if (data.amount_kwh < accountBalance[0].amount_spx) {
+  if (usage < accountBalance[0].amount_spx) {
     await balance.update({
       id: accountBalance[0].id,
       student_account_id: accountBalance[0].student_account_id,
       // amount_upx: accountBalance[0].amount_upx,
-      amount_spx: accountBalance[0].amount_spx - data.amount_kwh,
+      amount_spx: accountBalance[0].amount_spx - usage,
     });
     if (!accountPrivate.length) {
       console.log(studentAccount[0].id, 'no XRP address');
@@ -38,7 +40,7 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
       Account: sender.address,
       Amount: {
         currency: 'SPX',
-        value: String(data.amount_kwh),
+        value: data.amount_kwh_str,
         issuer: adminAccount[0].xrp_address_cold,
       },
       Destination: adminAccount[0].xrp_address_hot,
@@ -54,7 +56,7 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
     }
     client.disconnect();
   } else {
-    const spxShortage = data.amount_kwh - accountBalance[0].amount_spx;
+    const spxShortage = usage - accountBalance[0].amount_spx;
     await balance.update({
       id: accountBalance[0].id,
       student_account_id: accountBalance[0].student_account_id,
