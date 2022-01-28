@@ -27,6 +27,10 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
       // amount_upx: accountBalance[0].amount_upx,
       amount_spx: accountBalance[0].amount_spx - data.amount_kwh,
     });
+    if (!accountPrivate.length) {
+      console.log(studentAccount[0].id, 'no XRP address');
+      return;
+    }
     await client.connect();
     const sender = xrpl.Wallet.fromSeed(accountPrivate[0].xrp_seed);
     const sendTokenTx = {
@@ -57,6 +61,10 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
       amount_upx: accountBalance[0].amount_upx - spxShortage,
       amount_spx: 0,
     });
+    if (!accountPrivate.length) {
+      console.log(studentAccount[0].id, 'no XRP address');
+      return;
+    }
     await client.connect();
     const sender = xrpl.Wallet.fromSeed(accountPrivate[0].xrp_seed);
     const sendSPXTx = {
