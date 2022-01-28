@@ -33,3 +33,4 @@ export * from './entities/renewable-bid-deletes';
 export * from './entities/daily-usages';
 export * from "./entities/room-changes";
 
+export * from "./entities/student-accounts/account-privates";

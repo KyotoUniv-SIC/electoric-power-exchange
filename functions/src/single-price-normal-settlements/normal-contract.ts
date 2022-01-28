@@ -82,8 +82,14 @@ module.exports.normalContract = f.pubsub
         break;
       }
       if (sumBidAmountHistory[i] <= sumAskAmountHistory[j]) {
+        if (!sortNormalBids[i + 1]) {
+          break;
+        }
         i++;
       } else {
+        if (!sortNormalAsks[j + 1]) {
+          break;
+        }
         j++;
       }
     }

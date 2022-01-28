@@ -25,6 +25,248 @@
          */
         var main = {};
     
+        main.AccountPrivate = (function() {
+    
+            /**
+             * Properties of an AccountPrivate.
+             * @memberof main
+             * @interface IAccountPrivate
+             * @property {string|null} [id] AccountPrivate id
+             * @property {string|null} [student_account_id] AccountPrivate student_account_id
+             * @property {string|null} [xrp_private_key] AccountPrivate xrp_private_key
+             * @property {string|null} [xrp_seed] AccountPrivate xrp_seed
+             */
+    
+            /**
+             * Constructs a new AccountPrivate.
+             * @memberof main
+             * @classdesc Represents an AccountPrivate.
+             * @implements IAccountPrivate
+             * @constructor
+             * @param {main.IAccountPrivate=} [properties] Properties to set
+             */
+            function AccountPrivate(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+    
+            /**
+             * AccountPrivate id.
+             * @member {string} id
+             * @memberof main.AccountPrivate
+             * @instance
+             */
+            AccountPrivate.prototype.id = "";
+    
+            /**
+             * AccountPrivate student_account_id.
+             * @member {string} student_account_id
+             * @memberof main.AccountPrivate
+             * @instance
+             */
+            AccountPrivate.prototype.student_account_id = "";
+    
+            /**
+             * AccountPrivate xrp_private_key.
+             * @member {string} xrp_private_key
+             * @memberof main.AccountPrivate
+             * @instance
+             */
+            AccountPrivate.prototype.xrp_private_key = "";
+    
+            /**
+             * AccountPrivate xrp_seed.
+             * @member {string} xrp_seed
+             * @memberof main.AccountPrivate
+             * @instance
+             */
+            AccountPrivate.prototype.xrp_seed = "";
+    
+            /**
+             * Encodes the specified AccountPrivate message. Does not implicitly {@link main.AccountPrivate.verify|verify} messages.
+             * @function encode
+             * @memberof main.AccountPrivate
+             * @static
+             * @param {main.IAccountPrivate} message AccountPrivate message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            AccountPrivate.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                if (message.student_account_id != null && Object.hasOwnProperty.call(message, "student_account_id"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.student_account_id);
+                if (message.xrp_private_key != null && Object.hasOwnProperty.call(message, "xrp_private_key"))
+                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.xrp_private_key);
+                if (message.xrp_seed != null && Object.hasOwnProperty.call(message, "xrp_seed"))
+                    writer.uint32(/* id 4, wireType 2 =*/34).string(message.xrp_seed);
+                return writer;
+            };
+    
+            /**
+             * Encodes the specified AccountPrivate message, length delimited. Does not implicitly {@link main.AccountPrivate.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof main.AccountPrivate
+             * @static
+             * @param {main.IAccountPrivate} message AccountPrivate message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            AccountPrivate.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+    
+            /**
+             * Decodes an AccountPrivate message from the specified reader or buffer.
+             * @function decode
+             * @memberof main.AccountPrivate
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {main.AccountPrivate} AccountPrivate
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            AccountPrivate.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.AccountPrivate();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.id = reader.string();
+                        break;
+                    case 2:
+                        message.student_account_id = reader.string();
+                        break;
+                    case 3:
+                        message.xrp_private_key = reader.string();
+                        break;
+                    case 4:
+                        message.xrp_seed = reader.string();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Decodes an AccountPrivate message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof main.AccountPrivate
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {main.AccountPrivate} AccountPrivate
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            AccountPrivate.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+    
+            /**
+             * Verifies an AccountPrivate message.
+             * @function verify
+             * @memberof main.AccountPrivate
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            AccountPrivate.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.id != null && message.hasOwnProperty("id"))
+                    if (!$util.isString(message.id))
+                        return "id: string expected";
+                if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
+                    if (!$util.isString(message.student_account_id))
+                        return "student_account_id: string expected";
+                if (message.xrp_private_key != null && message.hasOwnProperty("xrp_private_key"))
+                    if (!$util.isString(message.xrp_private_key))
+                        return "xrp_private_key: string expected";
+                if (message.xrp_seed != null && message.hasOwnProperty("xrp_seed"))
+                    if (!$util.isString(message.xrp_seed))
+                        return "xrp_seed: string expected";
+                return null;
+            };
+    
+            /**
+             * Creates an AccountPrivate message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof main.AccountPrivate
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {main.AccountPrivate} AccountPrivate
+             */
+            AccountPrivate.fromObject = function fromObject(object) {
+                if (object instanceof $root.main.AccountPrivate)
+                    return object;
+                var message = new $root.main.AccountPrivate();
+                if (object.id != null)
+                    message.id = String(object.id);
+                if (object.student_account_id != null)
+                    message.student_account_id = String(object.student_account_id);
+                if (object.xrp_private_key != null)
+                    message.xrp_private_key = String(object.xrp_private_key);
+                if (object.xrp_seed != null)
+                    message.xrp_seed = String(object.xrp_seed);
+                return message;
+            };
+    
+            /**
+             * Creates a plain object from an AccountPrivate message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof main.AccountPrivate
+             * @static
+             * @param {main.AccountPrivate} message AccountPrivate
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            AccountPrivate.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.id = "";
+                    object.student_account_id = "";
+                    object.xrp_private_key = "";
+                    object.xrp_seed = "";
+                }
+                if (message.id != null && message.hasOwnProperty("id"))
+                    object.id = message.id;
+                if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
+                    object.student_account_id = message.student_account_id;
+                if (message.xrp_private_key != null && message.hasOwnProperty("xrp_private_key"))
+                    object.xrp_private_key = message.xrp_private_key;
+                if (message.xrp_seed != null && message.hasOwnProperty("xrp_seed"))
+                    object.xrp_seed = message.xrp_seed;
+                return object;
+            };
+    
+            /**
+             * Converts this AccountPrivate to JSON.
+             * @function toJSON
+             * @memberof main.AccountPrivate
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            AccountPrivate.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            return AccountPrivate;
+        })();
+    
         main.AccountantAccount = (function() {
     
             /**
@@ -8476,6 +8718,7 @@
              * @property {string|null} [name] StudentAccount name
              * @property {string|null} [payment_method] StudentAccount payment_method
              * @property {string|null} [xrp_address] StudentAccount xrp_address
+             * @property {string|null} [xrp_public_key] StudentAccount xrp_public_key
              */
     
             /**
@@ -8543,6 +8786,14 @@
             StudentAccount.prototype.xrp_address = "";
     
             /**
+             * StudentAccount xrp_public_key.
+             * @member {string} xrp_public_key
+             * @memberof main.StudentAccount
+             * @instance
+             */
+            StudentAccount.prototype.xrp_public_key = "";
+    
+            /**
              * Encodes the specified StudentAccount message. Does not implicitly {@link main.StudentAccount.verify|verify} messages.
              * @function encode
              * @memberof main.StudentAccount
@@ -8567,6 +8818,8 @@
                     writer.uint32(/* id 5, wireType 2 =*/42).string(message.payment_method);
                 if (message.xrp_address != null && Object.hasOwnProperty.call(message, "xrp_address"))
                     writer.uint32(/* id 6, wireType 2 =*/50).string(message.xrp_address);
+                if (message.xrp_public_key != null && Object.hasOwnProperty.call(message, "xrp_public_key"))
+                    writer.uint32(/* id 7, wireType 2 =*/58).string(message.xrp_public_key);
                 return writer;
             };
     
@@ -8620,6 +8873,9 @@
                         break;
                     case 6:
                         message.xrp_address = reader.string();
+                        break;
+                    case 7:
+                        message.xrp_public_key = reader.string();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -8678,6 +8934,9 @@
                 if (message.xrp_address != null && message.hasOwnProperty("xrp_address"))
                     if (!$util.isString(message.xrp_address))
                         return "xrp_address: string expected";
+                if (message.xrp_public_key != null && message.hasOwnProperty("xrp_public_key"))
+                    if (!$util.isString(message.xrp_public_key))
+                        return "xrp_public_key: string expected";
                 return null;
             };
     
@@ -8710,6 +8969,8 @@
                     message.payment_method = String(object.payment_method);
                 if (object.xrp_address != null)
                     message.xrp_address = String(object.xrp_address);
+                if (object.xrp_public_key != null)
+                    message.xrp_public_key = String(object.xrp_public_key);
                 return message;
             };
     
@@ -8734,6 +8995,7 @@
                     object.name = "";
                     object.payment_method = "";
                     object.xrp_address = "";
+                    object.xrp_public_key = "";
                 }
                 if (message.id != null && message.hasOwnProperty("id"))
                     object.id = message.id;
@@ -8750,6 +9012,8 @@
                     object.payment_method = message.payment_method;
                 if (message.xrp_address != null && message.hasOwnProperty("xrp_address"))
                     object.xrp_address = message.xrp_address;
+                if (message.xrp_public_key != null && message.hasOwnProperty("xrp_public_key"))
+                    object.xrp_public_key = message.xrp_public_key;
                 return object;
             };
     

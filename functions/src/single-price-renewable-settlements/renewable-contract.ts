@@ -82,8 +82,14 @@ module.exports.renewableContract = f.pubsub
         break;
       }
       if (sumBidAmountHistory[i] <= sumAskAmountHistory[j]) {
+        if (!sortRenewableBids[i + 1]) {
+          break;
+        }
         i++;
       } else {
+        if (!sortRenewableAsks[j + 1]) {
+          break;
+        }
         j++;
       }
     }
