@@ -2278,6 +2278,7 @@ export const main = $root.main = (() => {
          * @property {string|null} [id] DailyUsage id
          * @property {string|null} [room_id] DailyUsage room_id
          * @property {number|null} [amount_kwh] DailyUsage amount_kwh
+         * @property {string|null} [amount_kwh_str] DailyUsage amount_kwh_str
          */
 
         /**
@@ -2320,6 +2321,14 @@ export const main = $root.main = (() => {
         DailyUsage.prototype.amount_kwh = 0;
 
         /**
+         * DailyUsage amount_kwh_str.
+         * @member {string} amount_kwh_str
+         * @memberof main.DailyUsage
+         * @instance
+         */
+        DailyUsage.prototype.amount_kwh_str = "";
+
+        /**
          * Encodes the specified DailyUsage message. Does not implicitly {@link main.DailyUsage.verify|verify} messages.
          * @function encode
          * @memberof main.DailyUsage
@@ -2337,6 +2346,8 @@ export const main = $root.main = (() => {
                 writer.uint32(/* id 2, wireType 2 =*/18).string(message.room_id);
             if (message.amount_kwh != null && Object.hasOwnProperty.call(message, "amount_kwh"))
                 writer.uint32(/* id 3, wireType 1 =*/25).double(message.amount_kwh);
+            if (message.amount_kwh_str != null && Object.hasOwnProperty.call(message, "amount_kwh_str"))
+                writer.uint32(/* id 4, wireType 2 =*/34).string(message.amount_kwh_str);
             return writer;
         };
 
@@ -2379,6 +2390,9 @@ export const main = $root.main = (() => {
                     break;
                 case 3:
                     message.amount_kwh = reader.double();
+                    break;
+                case 4:
+                    message.amount_kwh_str = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -2424,6 +2438,9 @@ export const main = $root.main = (() => {
             if (message.amount_kwh != null && message.hasOwnProperty("amount_kwh"))
                 if (typeof message.amount_kwh !== "number")
                     return "amount_kwh: number expected";
+            if (message.amount_kwh_str != null && message.hasOwnProperty("amount_kwh_str"))
+                if (!$util.isString(message.amount_kwh_str))
+                    return "amount_kwh_str: string expected";
             return null;
         };
 
@@ -2445,6 +2462,8 @@ export const main = $root.main = (() => {
                 message.room_id = String(object.room_id);
             if (object.amount_kwh != null)
                 message.amount_kwh = Number(object.amount_kwh);
+            if (object.amount_kwh_str != null)
+                message.amount_kwh_str = String(object.amount_kwh_str);
             return message;
         };
 
@@ -2465,6 +2484,7 @@ export const main = $root.main = (() => {
                 object.id = "";
                 object.room_id = "";
                 object.amount_kwh = 0;
+                object.amount_kwh_str = "";
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 object.id = message.id;
@@ -2472,6 +2492,8 @@ export const main = $root.main = (() => {
                 object.room_id = message.room_id;
             if (message.amount_kwh != null && message.hasOwnProperty("amount_kwh"))
                 object.amount_kwh = options.json && !isFinite(message.amount_kwh) ? String(message.amount_kwh) : message.amount_kwh;
+            if (message.amount_kwh_str != null && message.hasOwnProperty("amount_kwh_str"))
+                object.amount_kwh_str = message.amount_kwh_str;
             return object;
         };
 

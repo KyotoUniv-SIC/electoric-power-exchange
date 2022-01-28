@@ -930,6 +930,9 @@ export namespace main {
 
         /** DailyUsage amount_kwh */
         amount_kwh?: (number|null);
+
+        /** DailyUsage amount_kwh_str */
+        amount_kwh_str?: (string|null);
     }
 
     /** Represents a DailyUsage. */
@@ -949,6 +952,9 @@ export namespace main {
 
         /** DailyUsage amount_kwh. */
         public amount_kwh: number;
+
+        /** DailyUsage amount_kwh_str. */
+        public amount_kwh_str: string;
 
         /**
          * Encodes the specified DailyUsage message. Does not implicitly {@link main.DailyUsage.verify|verify} messages.
