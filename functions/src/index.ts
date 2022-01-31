@@ -8,11 +8,11 @@ import './balances/normal-settlement';
 import './balances/primary';
 import './balances/renewable-settlemet';
 import './balances/student-account';
-import './monthly-payments/calculate-payment';
+import './monthly-payments/balance-snapshot';
 import './normal-asks/normal-ask-delete';
 import './normal-bids/normal-bid-delete';
 import './normal-settlements/normal-settlement';
-import './primary-asks/balance-snapshot';
+import './primary-asks/monthly-usage';
 import './primary-bids/primary';
 import './renewable-asks/renewable-ask-delete';
 // import './renewable-asks/primary';
@@ -49,6 +49,7 @@ const files = {
   balances: './balances',
   daily_usages: './daily-usages',
   discount_prices: './discount-prices',
+  insufficient_balances: './insufficient-balances',
   market_statuses: './market-statuses',
   monthly_payments: './monthly-payments',
   monthly_usages: './monthly-usages',
