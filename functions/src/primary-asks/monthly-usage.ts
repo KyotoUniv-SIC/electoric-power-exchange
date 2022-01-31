@@ -4,19 +4,18 @@
 import { primary_ask } from '.';
 import { admin_account } from '../admin-accounts';
 import { admin_private } from '../admin-privates';
-import { balance_snapshot } from '../balance-snapshots';
 import { monthly_usage } from '../monthly-usages';
 import { student_account } from '../student-accounts';
 import { PrimaryAsk } from '@local/common';
 
-balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
+monthly_usage.onCreateHandler.push(async (snapshot, context) => {
   const data = snapshot.data()!;
   const studentID = data.student_account_id;
   const studentAccount = await student_account.get(studentID);
   const now = new Date();
   const monthlyUsage = await monthly_usage.getLastYear(studentID, now);
-  const usageAmount = !monthlyUsage.length ? 120 : monthlyUsage[0].amount_kwh;
-  const issueAmount = usageAmount * 0.9;
+  const usageAmount = !monthlyUsage.length ? 0 : monthlyUsage[0].amount_kwh;
+  const issueAmount = usageAmount < 120 ? 108 : usageAmount * 0.9;
   await primary_ask.create(
     new PrimaryAsk({
       account_id: studentID,

@@ -1121,6 +1121,101 @@ export namespace main {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of an InsufficientBalance. */
+    interface IInsufficientBalance {
+
+        /** InsufficientBalance id */
+        id?: (string|null);
+
+        /** InsufficientBalance student_account_id */
+        student_account_id?: (string|null);
+
+        /** InsufficientBalance amount */
+        amount?: (number|null);
+    }
+
+    /** Represents an InsufficientBalance. */
+    class InsufficientBalance implements IInsufficientBalance {
+
+        /**
+         * Constructs a new InsufficientBalance.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.IInsufficientBalance);
+
+        /** InsufficientBalance id. */
+        public id: string;
+
+        /** InsufficientBalance student_account_id. */
+        public student_account_id: string;
+
+        /** InsufficientBalance amount. */
+        public amount: number;
+
+        /**
+         * Encodes the specified InsufficientBalance message. Does not implicitly {@link main.InsufficientBalance.verify|verify} messages.
+         * @param message InsufficientBalance message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.IInsufficientBalance, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified InsufficientBalance message, length delimited. Does not implicitly {@link main.InsufficientBalance.verify|verify} messages.
+         * @param message InsufficientBalance message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.IInsufficientBalance, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes an InsufficientBalance message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns InsufficientBalance
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.InsufficientBalance;
+
+        /**
+         * Decodes an InsufficientBalance message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns InsufficientBalance
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.InsufficientBalance;
+
+        /**
+         * Verifies an InsufficientBalance message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an InsufficientBalance message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns InsufficientBalance
+         */
+        public static fromObject(object: { [k: string]: any }): main.InsufficientBalance;
+
+        /**
+         * Creates a plain object from an InsufficientBalance message. Also converts values to other types if specified.
+         * @param message InsufficientBalance
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.InsufficientBalance, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this InsufficientBalance to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a MarketStatus. */
     interface IMarketStatus {
 

@@ -2753,6 +2753,226 @@ export const main = $root.main = (() => {
         return DiscountPrice;
     })();
 
+    main.InsufficientBalance = (function() {
+
+        /**
+         * Properties of an InsufficientBalance.
+         * @memberof main
+         * @interface IInsufficientBalance
+         * @property {string|null} [id] InsufficientBalance id
+         * @property {string|null} [student_account_id] InsufficientBalance student_account_id
+         * @property {number|null} [amount] InsufficientBalance amount
+         */
+
+        /**
+         * Constructs a new InsufficientBalance.
+         * @memberof main
+         * @classdesc Represents an InsufficientBalance.
+         * @implements IInsufficientBalance
+         * @constructor
+         * @param {main.IInsufficientBalance=} [properties] Properties to set
+         */
+        function InsufficientBalance(properties) {
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * InsufficientBalance id.
+         * @member {string} id
+         * @memberof main.InsufficientBalance
+         * @instance
+         */
+        InsufficientBalance.prototype.id = "";
+
+        /**
+         * InsufficientBalance student_account_id.
+         * @member {string} student_account_id
+         * @memberof main.InsufficientBalance
+         * @instance
+         */
+        InsufficientBalance.prototype.student_account_id = "";
+
+        /**
+         * InsufficientBalance amount.
+         * @member {number} amount
+         * @memberof main.InsufficientBalance
+         * @instance
+         */
+        InsufficientBalance.prototype.amount = 0;
+
+        /**
+         * Encodes the specified InsufficientBalance message. Does not implicitly {@link main.InsufficientBalance.verify|verify} messages.
+         * @function encode
+         * @memberof main.InsufficientBalance
+         * @static
+         * @param {main.IInsufficientBalance} message InsufficientBalance message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        InsufficientBalance.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+            if (message.student_account_id != null && Object.hasOwnProperty.call(message, "student_account_id"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.student_account_id);
+            if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
+                writer.uint32(/* id 3, wireType 1 =*/25).double(message.amount);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified InsufficientBalance message, length delimited. Does not implicitly {@link main.InsufficientBalance.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof main.InsufficientBalance
+         * @static
+         * @param {main.IInsufficientBalance} message InsufficientBalance message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        InsufficientBalance.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes an InsufficientBalance message from the specified reader or buffer.
+         * @function decode
+         * @memberof main.InsufficientBalance
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {main.InsufficientBalance} InsufficientBalance
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        InsufficientBalance.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.InsufficientBalance();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.id = reader.string();
+                    break;
+                case 2:
+                    message.student_account_id = reader.string();
+                    break;
+                case 3:
+                    message.amount = reader.double();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes an InsufficientBalance message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof main.InsufficientBalance
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {main.InsufficientBalance} InsufficientBalance
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        InsufficientBalance.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies an InsufficientBalance message.
+         * @function verify
+         * @memberof main.InsufficientBalance
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        InsufficientBalance.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isString(message.id))
+                    return "id: string expected";
+            if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
+                if (!$util.isString(message.student_account_id))
+                    return "student_account_id: string expected";
+            if (message.amount != null && message.hasOwnProperty("amount"))
+                if (typeof message.amount !== "number")
+                    return "amount: number expected";
+            return null;
+        };
+
+        /**
+         * Creates an InsufficientBalance message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof main.InsufficientBalance
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {main.InsufficientBalance} InsufficientBalance
+         */
+        InsufficientBalance.fromObject = function fromObject(object) {
+            if (object instanceof $root.main.InsufficientBalance)
+                return object;
+            let message = new $root.main.InsufficientBalance();
+            if (object.id != null)
+                message.id = String(object.id);
+            if (object.student_account_id != null)
+                message.student_account_id = String(object.student_account_id);
+            if (object.amount != null)
+                message.amount = Number(object.amount);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from an InsufficientBalance message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof main.InsufficientBalance
+         * @static
+         * @param {main.InsufficientBalance} message InsufficientBalance
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        InsufficientBalance.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.defaults) {
+                object.id = "";
+                object.student_account_id = "";
+                object.amount = 0;
+            }
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
+                object.student_account_id = message.student_account_id;
+            if (message.amount != null && message.hasOwnProperty("amount"))
+                object.amount = options.json && !isFinite(message.amount) ? String(message.amount) : message.amount;
+            return object;
+        };
+
+        /**
+         * Converts this InsufficientBalance to JSON.
+         * @function toJSON
+         * @memberof main.InsufficientBalance
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        InsufficientBalance.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return InsufficientBalance;
+    })();
+
     main.MarketStatus = (function() {
 
         /**

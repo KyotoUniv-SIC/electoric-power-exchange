@@ -2,6 +2,7 @@
 import { balance_snapshot } from '.';
 import { balance } from '../balances';
 import { discount_price } from '../discount-prices';
+import { insufficient_balance } from '../insufficient-balances';
 import { market_status } from '../market-statuses';
 import { primary_ask } from '../primary-asks';
 import { student_account } from '../student-accounts';
@@ -18,7 +19,8 @@ market_status.onUpdateHandler.push(async (snapshot, context) => {
     for (const student of students) {
       const studentID = student.id;
       const lastMonthBalance = await balance.getLatest(studentID);
-      const totalBalance = lastMonthBalance[0].amount_spx + lastMonthBalance[0].amount_upx;
+      const insufficiencies = (await insufficient_balance.listLastMonth(studentID)).reduce((sum, element) => sum + element.amount, 0);
+      const totalBalance = lastMonthBalance[0].amount_spx + lastMonthBalance[0].amount_upx - insufficiencies;
       totalBalance >= 0 ? (purchase += totalBalance) : (sale += -totalBalance);
     }
     const primaryEanings = await primary_ask.listLastMonth();

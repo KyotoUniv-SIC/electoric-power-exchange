@@ -1,12 +1,12 @@
 /* eslint-disable require-jsdoc */
 
 /* eslint-disable @typescript-eslint/no-var-requires */
-import { BalanceSnapshot, MonthlyUsage, PrimaryAsk } from '@local/common';
+import { MonthlyUsage, PrimaryAsk } from '@local/common';
 
 jest.setTimeout(30000);
 describe('Primary Ask Test', () => {
-  it('balance snapshot bulid primary ask', async () => {
-    const data = new BalanceSnapshot({ id: 'balance01', student_account_id: 'test01', amount_upx: 100, amount_spx: 100 });
+  it('MonthlyUsage bulid primary ask', async () => {
+    const data = new MonthlyUsage({ student_account_id: 'test01', year: 2021, month: 12, amount_kwh: 110 });
     const studentID = data.student_account_id;
     // const now = new Date();
     const monthlyUsage = [new MonthlyUsage({ student_account_id: 'test01', year: 2020, month: 12, amount_kwh: 125 })];

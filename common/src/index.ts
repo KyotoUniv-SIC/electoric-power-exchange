@@ -35,3 +35,4 @@ export * from "./entities/room-changes";
 
 export * from "./entities/student-accounts/account-privates";
 export * from "./entities/admin-accounts/admin-privates";
+export * from "./entities/student-accounts/insufficient-balances";

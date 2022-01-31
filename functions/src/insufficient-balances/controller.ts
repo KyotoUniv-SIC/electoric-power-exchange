@@ -1,6 +1,6 @@
 import { FirestoreCreateHandler, FirestoreDeleteHandler, FirestoreUpdateHandler } from '../triggers';
 import { isTriggeredOnce } from '../triggers/module';
-import { AdminPrivateFirestore } from '@local/common';
+import { InsufficientBalanceFirestore } from '@local/common';
 import * as functions from 'firebase-functions';
 
 export const onCreateHandler: FirestoreCreateHandler[] = [];
@@ -8,7 +8,7 @@ export const onUpdateHandler: FirestoreUpdateHandler[] = [];
 export const onDeleteHandler: FirestoreDeleteHandler[] = [];
 
 const f = functions.region('asia-northeast1');
-module.exports.onCreate = f.firestore.document(AdminPrivateFirestore.virtualPath).onCreate(async (snapshot, context) => {
+module.exports.onCreate = f.firestore.document(InsufficientBalanceFirestore.virtualPath).onCreate(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     return;
   }
@@ -22,7 +22,7 @@ module.exports.onCreate = f.firestore.document(AdminPrivateFirestore.virtualPath
   }
 });
 
-module.exports.onUpdate = f.firestore.document(AdminPrivateFirestore.virtualPath).onUpdate(async (snapshot, context) => {
+module.exports.onUpdate = f.firestore.document(InsufficientBalanceFirestore.virtualPath).onUpdate(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     return;
   }
@@ -36,7 +36,7 @@ module.exports.onUpdate = f.firestore.document(AdminPrivateFirestore.virtualPath
   }
 });
 
-module.exports.onDelete = f.firestore.document(AdminPrivateFirestore.virtualPath).onDelete(async (snapshot, context) => {
+module.exports.onDelete = f.firestore.document(InsufficientBalanceFirestore.virtualPath).onDelete(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     return;
   }
