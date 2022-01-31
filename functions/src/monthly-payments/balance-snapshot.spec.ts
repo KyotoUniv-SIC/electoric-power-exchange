@@ -2,6 +2,7 @@ import {
   BalanceSnapshot,
   DailyUsage,
   DiscountPrice,
+  InsufficientBalance,
   MonthlyPayment,
   MonthlyUsage,
   NormalAskHistory,
@@ -20,7 +21,11 @@ describe('Calculated Payment Test', () => {
       amount_upx: 10,
       amount_spx: 0,
     });
-    const tokens = data.amount_upx + data.amount_spx;
+    const insufficiencies = [
+      new InsufficientBalance({ id: 'insuff01', student_account_id: 'test01', amount: 10 }),
+      new InsufficientBalance({ id: 'insuff01', student_account_id: 'test01', amount: 5 }),
+    ].reduce((sum, element) => sum + element.amount, 0);
+    const tokens = data.amount_upx + data.amount_spx - insufficiencies;
     const primaryBids = [new PrimaryBid({ id: 'primary01', account_id: 'test01', price: 27, amount: 120 })];
     const primaryAsks = [new PrimaryAsk({ id: 'primary01', account_id: 'test01', price: 27, amount: 120 })];
     const normalBids = [
@@ -98,7 +103,7 @@ describe('Calculated Payment Test', () => {
       amount_kwh: usage,
     });
 
-    expect(monthlyUsage.amount_kwh).toBe(181);
-    expect(monthlyPayment.amount_jpy).toBe(2346);
+    expect(monthlyUsage.amount_kwh).toBe(196);
+    expect(monthlyPayment.amount_jpy).toBe(2473.5);
   });
 });
