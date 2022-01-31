@@ -9,4 +9,5 @@ message DailyUsage {
   string id = 1;
   string room_id = 2;
   double amount_kwh = 3;
+  string amount_kwh_str = 4;
 }

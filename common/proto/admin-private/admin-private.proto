@@ -5,9 +5,8 @@ import "firebase_rules_options.proto";
 
 option (google.firebase.rules.firebase_rules).full_package_names = true;
 
-message AdminAccount {
+message AdminPrivate {
   string id = 1;
-  string name = 2;
-  string xrp_address_hot = 3;
-  string xrp_address_cold = 4;
+  string admin_account_id = 2;
+  string xrp_seed_hot = 3;
 }

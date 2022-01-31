@@ -34,3 +34,4 @@ export * from './entities/daily-usages';
 export * from "./entities/room-changes";
 
 export * from "./entities/student-accounts/account-privates";
+export * from "./entities/admin-accounts/admin-privates";

@@ -319,6 +319,101 @@ export namespace main {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of an AdminPrivate. */
+    interface IAdminPrivate {
+
+        /** AdminPrivate id */
+        id?: (string|null);
+
+        /** AdminPrivate admin_account_id */
+        admin_account_id?: (string|null);
+
+        /** AdminPrivate xrp_seed_hot */
+        xrp_seed_hot?: (string|null);
+    }
+
+    /** Represents an AdminPrivate. */
+    class AdminPrivate implements IAdminPrivate {
+
+        /**
+         * Constructs a new AdminPrivate.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.IAdminPrivate);
+
+        /** AdminPrivate id. */
+        public id: string;
+
+        /** AdminPrivate admin_account_id. */
+        public admin_account_id: string;
+
+        /** AdminPrivate xrp_seed_hot. */
+        public xrp_seed_hot: string;
+
+        /**
+         * Encodes the specified AdminPrivate message. Does not implicitly {@link main.AdminPrivate.verify|verify} messages.
+         * @param message AdminPrivate message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.IAdminPrivate, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified AdminPrivate message, length delimited. Does not implicitly {@link main.AdminPrivate.verify|verify} messages.
+         * @param message AdminPrivate message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.IAdminPrivate, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes an AdminPrivate message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns AdminPrivate
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.AdminPrivate;
+
+        /**
+         * Decodes an AdminPrivate message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns AdminPrivate
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.AdminPrivate;
+
+        /**
+         * Verifies an AdminPrivate message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an AdminPrivate message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns AdminPrivate
+         */
+        public static fromObject(object: { [k: string]: any }): main.AdminPrivate;
+
+        /**
+         * Creates a plain object from an AdminPrivate message. Also converts values to other types if specified.
+         * @param message AdminPrivate
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.AdminPrivate, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this AdminPrivate to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of an AdminAccount. */
     interface IAdminAccount {
 
@@ -328,8 +423,11 @@ export namespace main {
         /** AdminAccount name */
         name?: (string|null);
 
-        /** AdminAccount xrp_address */
-        xrp_address?: (string|null);
+        /** AdminAccount xrp_address_hot */
+        xrp_address_hot?: (string|null);
+
+        /** AdminAccount xrp_address_cold */
+        xrp_address_cold?: (string|null);
     }
 
     /** Represents an AdminAccount. */
@@ -347,8 +445,11 @@ export namespace main {
         /** AdminAccount name. */
         public name: string;
 
-        /** AdminAccount xrp_address. */
-        public xrp_address: string;
+        /** AdminAccount xrp_address_hot. */
+        public xrp_address_hot: string;
+
+        /** AdminAccount xrp_address_cold. */
+        public xrp_address_cold: string;
 
         /**
          * Encodes the specified AdminAccount message. Does not implicitly {@link main.AdminAccount.verify|verify} messages.
@@ -829,6 +930,9 @@ export namespace main {
 
         /** DailyUsage amount_kwh */
         amount_kwh?: (number|null);
+
+        /** DailyUsage amount_kwh_str */
+        amount_kwh_str?: (string|null);
     }
 
     /** Represents a DailyUsage. */
@@ -848,6 +952,9 @@ export namespace main {
 
         /** DailyUsage amount_kwh. */
         public amount_kwh: number;
+
+        /** DailyUsage amount_kwh_str. */
+        public amount_kwh_str: string;
 
         /**
          * Encodes the specified DailyUsage message. Does not implicitly {@link main.DailyUsage.verify|verify} messages.
