@@ -9,18 +9,19 @@ import { student_account } from '../student-accounts';
 
 daily_usage.onCreateHandler.push(async (snapshot, context) => {
   const data = snapshot.data()!;
+  const usage = Number(data.amount_kwh_str);
+  await daily_usage.update({ id: data.id, amount_kwh: usage });
+  const studentAccount = await student_account.getByRoomID(data.room_id);
+  if (!studentAccount.length) {
+    console.log(data.room_id, 'no student');
+    return;
+  }
+  const accountBalance = await balance.getLatest(studentAccount[0].id);
+  const accountPrivate = await account_private.list(studentAccount[0].id);
   const xrpl = require('xrpl');
   const TEST_NET = 'wss://s.altnet.rippletest.net:51233';
   const client = new xrpl.Client(TEST_NET);
   const adminAccount = await admin_account.getByName('admin');
-  const studentAccount = await student_account.getByRoomID(data.room_id);
-  if (!studentAccount.length) {
-    return;
-  }
-  const usage = Number(data.amount_kwh_str);
-  await daily_usage.update({ id: data.id, amount_kwh: usage });
-  const accountBalance = await balance.getLatest(studentAccount[0].id);
-  const accountPrivate = await account_private.list(studentAccount[0].id);
 
   if (usage < accountBalance[0].amount_spx) {
     await balance.update({
