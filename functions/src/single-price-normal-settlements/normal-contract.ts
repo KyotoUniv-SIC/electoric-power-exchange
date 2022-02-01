@@ -18,12 +18,13 @@ module.exports.normalContract = f.pubsub
     const marketStatus = await market_status.getToday();
     // bidかaskが0の場合は0成約で終了する
     if (!normalBids.length || !normalAsks.length) {
-      console.log('bid,askの不足でUPX成約は0です。', marketStatus);
+      console.log('bid,askの不足でUPX成約は0です。');
       if (!marketStatus.length) {
         await market_status.create(new MarketStatus({ is_finished_normal: true, is_finished_renewable: false }));
       } else {
         await market_status.update({ id: marketStatus[0].id, is_finished_normal: true });
       }
+      console.log(marketStatus);
 
       for (const bid of normalBids) {
         await normal_bid_history.create(
@@ -56,6 +57,42 @@ module.exports.normalContract = f.pubsub
 
     // Askを価格の低い順に並び替える
     const sortNormalAsks = normalAsks.sort((first, second) => first.price - second.price);
+
+    // 最高値のBidが最安値のAskより低い場合0成約で終了
+    if (sortNormalBids[0].price < sortNormalAsks[0].price) {
+      console.log('UPX成約はありませんでした。');
+      if (!marketStatus.length) {
+        await market_status.create(new MarketStatus({ is_finished_normal: true, is_finished_renewable: false }));
+      } else {
+        await market_status.update({ id: marketStatus[0].id, is_finished_normal: true });
+      }
+      console.log(marketStatus);
+
+      for (const bid of sortNormalBids) {
+        await normal_bid_history.create(
+          new NormalBidHistory({
+            account_id: bid.account_id,
+            price: bid.price,
+            amount: bid.amount,
+            is_accepted: false,
+          }),
+        );
+        await normal_bid.delete_(bid.id);
+      }
+
+      for (const ask of sortNormalAsks) {
+        await normal_ask_history.create(
+          new NormalAskHistory({
+            account_id: ask.account_id,
+            price: ask.price,
+            amount: ask.amount,
+            is_accepted: false,
+          }),
+        );
+        await normal_ask.delete_(ask.id);
+      }
+      return;
+    }
 
     // Bidの量の推移を配列にする
     let sumBidAmount = 0;
@@ -94,49 +131,15 @@ module.exports.normalContract = f.pubsub
       }
     }
 
-    // i,j両方が0のとき、成約は0になる
-    if (i == 0 && j == 0) {
-      console.log('UPX成約は0です。', marketStatus);
-      if (!marketStatus.length) {
-        await market_status.create(new MarketStatus({ is_finished_normal: true, is_finished_renewable: false }));
-      } else {
-        await market_status.update({ id: marketStatus[0].id, is_finished_normal: true });
-      }
+    // 止まったときの高い方の価格が均衡価格となる
+    const equilibriumPrice = sortNormalBids[i].price <= sortNormalAsks[j].price ? sortNormalAsks[i].price : sortNormalBids[j].price;
+    // 止まったときの低い方が成約取引量となる
+    const equilibriumAmount = sumBidAmountHistory[i] <= sumAskAmountHistory[j] ? sumBidAmountHistory[i] : sumAskAmountHistory[j];
 
-      for (const bid of sortNormalBids) {
-        await normal_bid_history.create(
-          new NormalBidHistory({
-            account_id: bid.account_id,
-            price: bid.price,
-            amount: bid.amount,
-            is_accepted: false,
-          }),
-        );
-        await normal_bid.delete_(bid.id);
-      }
-
-      for (const ask of sortNormalAsks) {
-        await normal_ask_history.create(
-          new NormalAskHistory({
-            account_id: ask.account_id,
-            price: ask.price,
-            amount: ask.amount,
-            is_accepted: false,
-          }),
-        );
-        await normal_ask.delete_(ask.id);
-      }
-    } else {
-      // 止まったときの高い方の価格が均衡価格となる
-      const equilibriumPrice = sortNormalBids[i].price <= sortNormalAsks[j].price ? sortNormalAsks[i].price : sortNormalBids[j].price;
-      // 止まったときの低い方が成約取引量となる
-      const equilibriumAmount = sumBidAmountHistory[i] <= sumAskAmountHistory[j] ? sumBidAmountHistory[i] : sumAskAmountHistory[j];
-
-      await single_price_normal_settlement.create(
-        new SinglePriceNormalSettlement({
-          price: equilibriumPrice,
-          amount: equilibriumAmount,
-        }),
-      );
-    }
+    await single_price_normal_settlement.create(
+      new SinglePriceNormalSettlement({
+        price: equilibriumPrice,
+        amount: equilibriumAmount,
+      }),
+    );
   });
