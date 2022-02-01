@@ -6,7 +6,7 @@ import { insufficient_balance } from '../insufficient-balances';
 import { market_status } from '../market-statuses';
 import { primary_ask } from '../primary-asks';
 import { student_account } from '../student-accounts';
-import { BalanceSnapshot, DiscountPrice } from '@local/common';
+import { BalanceSnapshot, DiscountPrice, PrimaryAsk } from '@local/common';
 import { Timestamp } from 'firebase/firestore';
 
 market_status.onUpdateHandler.push(async (snapshot, context) => {
@@ -35,7 +35,9 @@ market_status.onUpdateHandler.push(async (snapshot, context) => {
     // 電気料金
     const electricity = 1000000;
     const price =
-      (cost + electricity - income + (purchase - sale) * primaryEanings[0].price) / ((purchase + sale) * primaryEanings[0].price);
+      // (cost + electricity - income + (purchase - sale) * primaryEanings[0].price) / ((purchase + sale) * primaryEanings[0].price);
+      (cost + electricity - income + (purchase - sale) * 27) / ((purchase + sale) * 27);
+
     await discount_price.create(new DiscountPrice({ price: price, amount_purchase: purchase, amount_sale: sale }));
 
     for (const student of students) {
