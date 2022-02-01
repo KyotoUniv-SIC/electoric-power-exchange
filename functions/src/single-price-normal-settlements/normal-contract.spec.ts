@@ -2,7 +2,7 @@ import { NormalAsk, NormalAskHistory, NormalBid, NormalBidHistory, SinglePriceNo
 
 describe('Normal Contract Test', () => {
   it('Build Single Price Settlement', () => {
-    const expectSettlement = new SinglePriceNormalSettlement({ price: 25, amount: 85 });
+    const expectSettlement = new SinglePriceNormalSettlement({ price: 30, amount: 30 });
     const bids = [new NormalBid({ id: 'bid01', account_id: 'test01', price: 30, amount: 40 })];
     const asks = [new NormalAsk({ id: 'ask02', account_id: 'test08', price: 27, amount: 30 })];
     const sortBids = bids.sort((first, second) => second.price - first.price);
