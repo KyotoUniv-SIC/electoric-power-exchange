@@ -44,6 +44,7 @@ market_status.onUpdateHandler.push(async (snapshot, context) => {
       const studentID = student.id;
       const lastMonthBalance = await balance.getLatest(studentID);
       await balance_snapshot.create(new BalanceSnapshot(lastMonthBalance[0]));
+      console.log('bss create', lastMonthBalance[0]);
     }
   } else {
     console.log('月初タスク発火なし', data);
