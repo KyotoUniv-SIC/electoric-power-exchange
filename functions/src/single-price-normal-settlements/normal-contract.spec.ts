@@ -2,25 +2,17 @@ import { NormalAsk, NormalAskHistory, NormalBid, NormalBidHistory, SinglePriceNo
 
 describe('Normal Contract Test', () => {
   it('Build Single Price Settlement', () => {
-    const expectSettlement = new SinglePriceNormalSettlement({ price: 25, amount: 85 });
-    const bids = [
-      new NormalBid({ id: 'bid01', account_id: 'test01', price: 15, amount: 40 }),
-      new NormalBid({ id: 'bid02', account_id: 'test02', price: 24, amount: 20 }),
-      new NormalBid({ id: 'bid03', account_id: 'test03', price: 27, amount: 15 }),
-      new NormalBid({ id: 'bid04', account_id: 'test04', price: 20, amount: 100 }),
-      new NormalBid({ id: 'bid05', account_id: 'test05', price: 28, amount: 25 }),
-      new NormalBid({ id: 'bid06', account_id: 'test06', price: 25, amount: 50 }),
-    ];
-    const asks = [
-      new NormalAsk({ id: 'ask01', account_id: 'test07', price: 32, amount: 40 }),
-      new NormalAsk({ id: 'ask02', account_id: 'test08', price: 27, amount: 30 }),
-      new NormalAsk({ id: 'ask03', account_id: 'test09', price: 25, amount: 25 }),
-      new NormalAsk({ id: 'ask04', account_id: 'test10', price: 28, amount: 90 }),
-      new NormalAsk({ id: 'ask05', account_id: 'test11', price: 20, amount: 10 }),
-      new NormalAsk({ id: 'ask06', account_id: 'test12', price: 12, amount: 50 }),
-    ];
+    const expectSettlement = new SinglePriceNormalSettlement({ price: 30, amount: 30 });
+    const bids = [new NormalBid({ id: 'bid01', account_id: 'test01', price: 30, amount: 40 })];
+    const asks = [new NormalAsk({ id: 'ask02', account_id: 'test08', price: 27, amount: 30 })];
     const sortBids = bids.sort((first, second) => second.price - first.price);
     const sortAsks = asks.sort((first, second) => first.price - second.price);
+
+    if (sortBids[0].price < sortAsks[0].price) {
+      console.log('UPX成約はありませんでした。');
+      expect(true).toBeTruthy;
+      return;
+    }
 
     if (!bids.length || !asks.length) {
       const bidHistory = [];
@@ -74,8 +66,14 @@ describe('Normal Contract Test', () => {
         break;
       }
       if (sumBidAmountHistory[i] <= sumAskAmountHistory[j]) {
+        if (!sortBids[i + 1]) {
+          break;
+        }
         i++;
       } else {
+        if (!sortAsks[j + 1]) {
+          break;
+        }
         j++;
       }
     }

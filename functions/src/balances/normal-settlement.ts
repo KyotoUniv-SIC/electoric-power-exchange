@@ -26,6 +26,7 @@ normal_settlement.onCreateHandler.push(async (snapshot, context) => {
   } else {
     await market_status.update({ id: marketStatus[0].id, is_finished_normal: true });
   }
+  console.log(marketStatus);
 
   const xrpl = require('xrpl');
   const TEST_NET = 'wss://s.altnet.rippletest.net:51233';

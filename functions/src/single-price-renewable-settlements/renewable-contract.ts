@@ -18,12 +18,13 @@ module.exports.renewableContract = f.pubsub
     const marketStatus = await market_status.getToday();
     // bidかaskが0の場合は0成約で終了する
     if (!renewableBids.length || !renewableAsks.length) {
-      console.log('bid,askの不足でSPX成約は0です。', marketStatus);
+      console.log('bid,askの不足でSPX成約は0です。');
       if (!marketStatus.length) {
         await market_status.create(new MarketStatus({ is_finished_normal: false, is_finished_renewable: true }));
       } else {
         await market_status.update({ id: marketStatus[0].id, is_finished_renewable: true });
       }
+      console.log(marketStatus);
 
       for (const bid of renewableBids) {
         await renewable_bid_history.create(
@@ -56,6 +57,42 @@ module.exports.renewableContract = f.pubsub
 
     // Askを価格の低い順に並び替える
     const sortRenewableAsks = renewableAsks.sort((first, second) => first.price - second.price);
+
+    // i,j両方が0のとき、成約は0になる
+    if (sortRenewableBids[0].price < sortRenewableAsks[0].price) {
+      console.log('SPX成約はありませんでした。');
+      if (!marketStatus.length) {
+        await market_status.create(new MarketStatus({ is_finished_normal: false, is_finished_renewable: true }));
+      } else {
+        await market_status.update({ id: marketStatus[0].id, is_finished_renewable: true });
+      }
+      console.log(marketStatus);
+
+      for (const bid of sortRenewableBids) {
+        await renewable_bid_history.create(
+          new RenewableBidHistory({
+            account_id: bid.account_id,
+            price: bid.price,
+            amount: bid.amount,
+            is_accepted: false,
+          }),
+        );
+        await renewable_bid.delete_(bid.id);
+      }
+
+      for (const ask of sortRenewableAsks) {
+        await renewable_ask_history.create(
+          new RenewableAskHistory({
+            account_id: ask.account_id,
+            price: ask.price,
+            amount: ask.amount,
+            is_accepted: false,
+          }),
+        );
+        await renewable_ask.delete_(ask.id);
+      }
+      return;
+    }
 
     // Bidの量の推移を配列にする
     let sumBidAmount = 0;
@@ -94,50 +131,16 @@ module.exports.renewableContract = f.pubsub
       }
     }
 
-    // i,j両方が0のとき、成約は0になる
-    if (i == 0 && j == 0) {
-      console.log('SPX成約は0です。', marketStatus);
-      if (!marketStatus.length) {
-        await market_status.create(new MarketStatus({ is_finished_normal: false, is_finished_renewable: true }));
-      } else {
-        await market_status.update({ id: marketStatus[0].id, is_finished_renewable: true });
-      }
+    // 止まったときの高い方の価格が均衡価格となる
+    const equilibriumPrice =
+      sortRenewableBids[i].price <= sortRenewableAsks[j].price ? sortRenewableAsks[i].price : sortRenewableBids[j].price;
+    // 止まったときの低い方が成約取引量となる
+    const equilibriumAmount = sumBidAmountHistory[i] <= sumAskAmountHistory[j] ? sumBidAmountHistory[i] : sumAskAmountHistory[j];
 
-      for (const bid of sortRenewableBids) {
-        await renewable_bid_history.create(
-          new RenewableBidHistory({
-            account_id: bid.account_id,
-            price: bid.price,
-            amount: bid.amount,
-            is_accepted: false,
-          }),
-        );
-        await renewable_bid.delete_(bid.id);
-      }
-
-      for (const ask of sortRenewableAsks) {
-        await renewable_ask_history.create(
-          new RenewableAskHistory({
-            account_id: ask.account_id,
-            price: ask.price,
-            amount: ask.amount,
-            is_accepted: false,
-          }),
-        );
-        await renewable_ask.delete_(ask.id);
-      }
-    } else {
-      // 止まったときの高い方の価格が均衡価格となる
-      const equilibriumPrice =
-        sortRenewableBids[i].price <= sortRenewableAsks[j].price ? sortRenewableAsks[i].price : sortRenewableBids[j].price;
-      // 止まったときの低い方が成約取引量となる
-      const equilibriumAmount = sumBidAmountHistory[i] <= sumAskAmountHistory[j] ? sumBidAmountHistory[i] : sumAskAmountHistory[j];
-
-      await single_price_renewable_settlement.create(
-        new SinglePriceRenewableSettlement({
-          price: equilibriumPrice,
-          amount: equilibriumAmount,
-        }),
-      );
-    }
+    await single_price_renewable_settlement.create(
+      new SinglePriceRenewableSettlement({
+        price: equilibriumPrice,
+        amount: equilibriumAmount,
+      }),
+    );
   });
