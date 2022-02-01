@@ -10,8 +10,8 @@ import * as functions from 'firebase-functions';
 
 const f = functions.region('asia-northeast1');
 module.exports.normalContract = f.pubsub
-  .schedule('every 10 minutes')
-  // .schedule('0 0 * * *')
+  .schedule('0 0 * * *')
+  // .schedule('every 10 minutes')
   .timeZone('Asia/Tokyo') // Users can choose timezone - default is America/Los_Angeles
   .onRun(async () => {
     const normalBids = await normal_bid.listValid();
