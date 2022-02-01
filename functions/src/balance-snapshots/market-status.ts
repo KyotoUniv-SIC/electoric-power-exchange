@@ -42,6 +42,7 @@ market_status.onUpdateHandler.push(async (snapshot, context) => {
       await balance_snapshot.create(new BalanceSnapshot(lastMonthBalance[0]));
     }
   } else {
+    console.log('月初タスク発火なし', data);
     return;
   }
 });
