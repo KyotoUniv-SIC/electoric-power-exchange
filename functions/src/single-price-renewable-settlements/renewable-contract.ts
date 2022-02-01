@@ -10,7 +10,8 @@ import * as functions from 'firebase-functions';
 
 const f = functions.region('asia-northeast1');
 module.exports.renewableContract = f.pubsub
-  .schedule('0 0 * * *')
+  .schedule('every 10 minutes')
+  // .schedule('0 0 * * *')
   .timeZone('Asia/Tokyo') // Users can choose timezone - default is America/Los_Angeles
   .onRun(async () => {
     const renewableBids = await renewable_bid.listValid();
