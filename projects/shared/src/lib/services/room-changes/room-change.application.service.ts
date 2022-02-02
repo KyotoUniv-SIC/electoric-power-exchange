@@ -26,9 +26,14 @@ export class RoomChangeApplicationService {
     } finally {
       dialogRef.close();
     }
-
-    this.snackBar.open('Successful change', undefined, {
-      duration: 6000,
-    });
+    if (!data.room_id_before) {
+      this.snackBar.open('Successful change', undefined, {
+        duration: 6000,
+      });
+    } else {
+      this.snackBar.open('Successful change request. Please wait for confirmation', undefined, {
+        duration: 6000,
+      });
+    }
   }
 }

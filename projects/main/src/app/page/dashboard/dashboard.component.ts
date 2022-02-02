@@ -3,8 +3,10 @@ import { Auth, authState } from '@angular/fire/auth';
 import { Timestamp } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { Balance } from '@local/common';
+import { MultiDataSet } from 'ng2-charts';
 import { DailyUsageApplicationService } from 'projects/shared/src/lib/services/daily-usages/daily-usage.application.service';
 import { BalanceApplicationService } from 'projects/shared/src/lib/services/student-accounts/balances/balance.application.service';
+import { InsufficientBalanceApplicationService } from 'projects/shared/src/lib/services/student-accounts/insufficient-balances/insufficient-balance.application.service';
 import { StudentAccountApplicationService } from 'projects/shared/src/lib/services/student-accounts/student-account.application.service';
 import { combineLatest, Observable } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
@@ -23,6 +25,7 @@ export interface Ranking {
 export class DashboardComponent implements OnInit {
   balance$: Observable<Balance> | undefined;
   totalBalance$: Observable<Balance> | undefined;
+  insufficiency$: Observable<number> | undefined;
   rankings$: Observable<Ranking[]> | undefined;
   rank$: Observable<number> | undefined;
   totalUsage$: Observable<number> | undefined;
@@ -36,7 +39,11 @@ export class DashboardComponent implements OnInit {
     private readonly studentAccApp: StudentAccountApplicationService,
     private readonly balanceApp: BalanceApplicationService,
     private readonly dailyUsageApp: DailyUsageApplicationService,
+    private readonly insufficientBalanceApp: InsufficientBalanceApplicationService,
   ) {
+    const firstday = new Date();
+    firstday.setDate(1);
+    firstday.setHours(0, 0, 0, 0);
     const currentUser$ = authState(this.auth);
     const studentAccount$ = currentUser$.pipe(mergeMap((user) => this.studentAccApp.getByUid$(user?.uid!)));
     const users$ = this.studentsApp.list$();
@@ -62,7 +69,6 @@ export class DashboardComponent implements OnInit {
       map(([rankings, account]) => rankings.findIndex((ranking) => ranking.id == account.id) + 1),
     );
     this.balance$ = studentAccount$.pipe(mergeMap((account) => this.balanceApp.getByUid$(account.id)));
-    // const a = users$.pipe(mergeMap((users) => users.map((user) => this.balanceApp.list(user.id))));
     this.totalBalance$ = users$.pipe(
       mergeMap((users) => Promise.all(users.map((user) => this.balanceApp.list(user.id).then((balances) => balances[0])))),
       map((balances) => {
@@ -73,6 +79,15 @@ export class DashboardComponent implements OnInit {
           spxTotal += balance.amount_spx;
         });
         return new Balance({ amount_upx: upxTotal, amount_spx: spxTotal });
+      }),
+    );
+    this.insufficiency$ = studentAccount$.pipe(mergeMap((account) => this.insufficientBalanceApp.list(account.id))).pipe(
+      map((insufficiencies) => {
+        let sum = 0;
+        for (let insufficiency of insufficiencies) {
+          (insufficiency.created_at as Timestamp).toDate() > firstday ? (sum += insufficiency.amount) : sum;
+        }
+        return sum;
       }),
     );
 

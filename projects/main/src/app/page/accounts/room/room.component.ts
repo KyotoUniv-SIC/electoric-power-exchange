@@ -30,6 +30,8 @@ export class RoomComponent implements OnInit {
   ngOnInit(): void {}
 
   async onSubmit($event: RoomOnSubmitEvent) {
-    await this.roomChangeApp.create(new RoomChange({ student_account_id: $event.studentID, room_id: $event.roomID }));
+    await this.roomChangeApp.create(
+      new RoomChange({ student_account_id: $event.studentID, room_id_before: $event.before, room_id_after: $event.after }),
+    );
   }
 }
