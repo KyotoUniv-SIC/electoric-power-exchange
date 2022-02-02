@@ -8274,7 +8274,8 @@
              * @interface IRoomChange
              * @property {string|null} [id] RoomChange id
              * @property {string|null} [student_account_id] RoomChange student_account_id
-             * @property {string|null} [room_id] RoomChange room_id
+             * @property {string|null} [room_id_before] RoomChange room_id_before
+             * @property {string|null} [room_id_after] RoomChange room_id_after
              */
     
             /**
@@ -8309,12 +8310,20 @@
             RoomChange.prototype.student_account_id = "";
     
             /**
-             * RoomChange room_id.
-             * @member {string} room_id
+             * RoomChange room_id_before.
+             * @member {string} room_id_before
              * @memberof main.RoomChange
              * @instance
              */
-            RoomChange.prototype.room_id = "";
+            RoomChange.prototype.room_id_before = "";
+    
+            /**
+             * RoomChange room_id_after.
+             * @member {string} room_id_after
+             * @memberof main.RoomChange
+             * @instance
+             */
+            RoomChange.prototype.room_id_after = "";
     
             /**
              * Encodes the specified RoomChange message. Does not implicitly {@link main.RoomChange.verify|verify} messages.
@@ -8332,8 +8341,10 @@
                     writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
                 if (message.student_account_id != null && Object.hasOwnProperty.call(message, "student_account_id"))
                     writer.uint32(/* id 2, wireType 2 =*/18).string(message.student_account_id);
-                if (message.room_id != null && Object.hasOwnProperty.call(message, "room_id"))
-                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.room_id);
+                if (message.room_id_before != null && Object.hasOwnProperty.call(message, "room_id_before"))
+                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.room_id_before);
+                if (message.room_id_after != null && Object.hasOwnProperty.call(message, "room_id_after"))
+                    writer.uint32(/* id 4, wireType 2 =*/34).string(message.room_id_after);
                 return writer;
             };
     
@@ -8375,7 +8386,10 @@
                         message.student_account_id = reader.string();
                         break;
                     case 3:
-                        message.room_id = reader.string();
+                        message.room_id_before = reader.string();
+                        break;
+                    case 4:
+                        message.room_id_after = reader.string();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -8418,9 +8432,12 @@
                 if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
                     if (!$util.isString(message.student_account_id))
                         return "student_account_id: string expected";
-                if (message.room_id != null && message.hasOwnProperty("room_id"))
-                    if (!$util.isString(message.room_id))
-                        return "room_id: string expected";
+                if (message.room_id_before != null && message.hasOwnProperty("room_id_before"))
+                    if (!$util.isString(message.room_id_before))
+                        return "room_id_before: string expected";
+                if (message.room_id_after != null && message.hasOwnProperty("room_id_after"))
+                    if (!$util.isString(message.room_id_after))
+                        return "room_id_after: string expected";
                 return null;
             };
     
@@ -8440,8 +8457,10 @@
                     message.id = String(object.id);
                 if (object.student_account_id != null)
                     message.student_account_id = String(object.student_account_id);
-                if (object.room_id != null)
-                    message.room_id = String(object.room_id);
+                if (object.room_id_before != null)
+                    message.room_id_before = String(object.room_id_before);
+                if (object.room_id_after != null)
+                    message.room_id_after = String(object.room_id_after);
                 return message;
             };
     
@@ -8461,14 +8480,17 @@
                 if (options.defaults) {
                     object.id = "";
                     object.student_account_id = "";
-                    object.room_id = "";
+                    object.room_id_before = "";
+                    object.room_id_after = "";
                 }
                 if (message.id != null && message.hasOwnProperty("id"))
                     object.id = message.id;
                 if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
                     object.student_account_id = message.student_account_id;
-                if (message.room_id != null && message.hasOwnProperty("room_id"))
-                    object.room_id = message.room_id;
+                if (message.room_id_before != null && message.hasOwnProperty("room_id_before"))
+                    object.room_id_before = message.room_id_before;
+                if (message.room_id_after != null && message.hasOwnProperty("room_id_after"))
+                    object.room_id_after = message.room_id_after;
                 return object;
             };
     
