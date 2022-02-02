@@ -12,9 +12,10 @@ import { RoomComponent } from './room/room.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { SharedModule } from 'projects/shared/src/common';
+import { XrplComponent } from './xrpl/xrpl.component';
 
 @NgModule({
-  declarations: [AccountComponent, AccountsComponent, CreateComponent, EnterComponent, RoomComponent],
+  declarations: [AccountComponent, AccountsComponent, CreateComponent, EnterComponent, RoomComponent, XrplComponent],
   imports: [CommonModule, SharedModule, AccountsRoutingModule, AccountsModule, AccountModule, CreateModule, EnterModule, RoomModule],
 })
 export class AppAccountsModule {}
