@@ -3357,8 +3357,11 @@ export namespace main {
         /** RoomChange student_account_id */
         student_account_id?: (string|null);
 
-        /** RoomChange room_id */
-        room_id?: (string|null);
+        /** RoomChange room_id_before */
+        room_id_before?: (string|null);
+
+        /** RoomChange room_id_after */
+        room_id_after?: (string|null);
     }
 
     /** Represents a RoomChange. */
@@ -3376,8 +3379,11 @@ export namespace main {
         /** RoomChange student_account_id. */
         public student_account_id: string;
 
-        /** RoomChange room_id. */
-        public room_id: string;
+        /** RoomChange room_id_before. */
+        public room_id_before: string;
+
+        /** RoomChange room_id_after. */
+        public room_id_after: string;
 
         /**
          * Encodes the specified RoomChange message. Does not implicitly {@link main.RoomChange.verify|verify} messages.

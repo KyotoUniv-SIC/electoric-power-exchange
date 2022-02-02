@@ -1,6 +1,6 @@
 import { Ranking } from '../../page/dashboard/dashboard.component';
 import { Component, Input, OnInit } from '@angular/core';
-import { Balance, proto } from '@local/common';
+import { Balance } from '@local/common';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Label, MultiDataSet } from 'ng2-charts';
 
@@ -14,6 +14,8 @@ export class DashboardComponent implements OnInit {
   balance?: Balance | null;
   @Input()
   totalBalance?: Balance | null;
+  @Input()
+  insufficiency?: number | null;
   @Input()
   totalUsage?: number | null;
   @Input()
