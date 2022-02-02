@@ -23,6 +23,11 @@ monthly_usage.onCreateHandler.push(async (snapshot, context) => {
       amount: issueAmount,
     }),
   );
+
+  if (!studentAccount.xrp_address) {
+    console.log(studentAccount.id, 'no XRP address');
+    return;
+  }
   const xrpl = require('xrpl');
   const adminAccount = await admin_account.getByName('admin');
   const adminPrivate = await admin_private.list(adminAccount[0].id);

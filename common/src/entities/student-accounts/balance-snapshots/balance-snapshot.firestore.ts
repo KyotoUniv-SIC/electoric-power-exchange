@@ -1,10 +1,10 @@
-import { StudentAccountFirestore } from '..';
-import { BalanceSnapshot } from './balance-snapshot';
 import { FirestoreDataConverter } from 'firebase/firestore';
+import { BalanceSnapshot } from './balance-snapshot';
+import { StudentAccountFirestore } from '..';
 
 export class BalanceSnapshotFirestore {
-  static collectionID = 'balance-snapshots';
-  static documentID = 'balance-snapshot_id';
+  static collectionID = 'balance_snapshots';
+  static documentID = 'balance_snapshot_id';
   static virtualPath = `${StudentAccountFirestore.virtualPath}/${BalanceSnapshotFirestore.collectionID}/{${BalanceSnapshotFirestore.documentID}}`;
 
   static converter: FirestoreDataConverter<BalanceSnapshot> = {
@@ -12,7 +12,7 @@ export class BalanceSnapshotFirestore {
     fromFirestore: (snapshot, options) => {
       const data = snapshot.data(options)!;
       return new BalanceSnapshot(data, data.created_at, data.updated_at);
-    },
+    }
   };
 
   static collectionPath(studentAccountID: string) {

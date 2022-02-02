@@ -13,6 +13,8 @@ market_status.onUpdateHandler.push(async (snapshot, context) => {
   const data = snapshot.after.data()!;
 
   if ((data.created_at as Timestamp).toDate().getDate() == 1 && data.is_finished_normal == true && data.is_finished_renewable == true) {
+    // if (data.is_finished_normal == true && data.is_finished_renewable == true) {
+    console.log((data.created_at as Timestamp).toDate().getDate());
     const students = await student_account.list();
     let purchase = 0;
     let sale = 0;
@@ -33,13 +35,16 @@ market_status.onUpdateHandler.push(async (snapshot, context) => {
     // 電気料金
     const electricity = 1000000;
     const price =
-      (cost + electricity - income + (purchase - sale) * primaryEanings[0].price) / ((purchase + sale) * primaryEanings[0].price);
+      // (cost + electricity - income + (purchase - sale) * primaryEanings[0].price) / ((purchase + sale) * primaryEanings[0].price);
+      (cost + electricity - income + (purchase - sale) * 27) / ((purchase + sale) * 27);
+
     await discount_price.create(new DiscountPrice({ price: price, amount_purchase: purchase, amount_sale: sale }));
 
     for (const student of students) {
       const studentID = student.id;
       const lastMonthBalance = await balance.getLatest(studentID);
       await balance_snapshot.create(new BalanceSnapshot(lastMonthBalance[0]));
+      console.log('bss create', lastMonthBalance[0]);
     }
   } else {
     console.log('月初タスク発火なし', data);

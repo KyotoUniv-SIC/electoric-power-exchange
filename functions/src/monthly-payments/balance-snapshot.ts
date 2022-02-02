@@ -19,6 +19,7 @@ import { student_account } from '../student-accounts';
 import { MonthlyPayment, MonthlyUsage } from '@local/common';
 
 balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
+  console.log('run balanceSS onCreate');
   const data = snapshot.data()!;
   const insufficiencies = (await insufficient_balance.listLastMonth(data.student_account_id)).reduce(
     (sum, element) => sum + element.amount,
@@ -34,14 +35,18 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
   const studentAccount = await student_account.get(data.student_account_id);
   const dailyUsages = await daily_usage.listLastMonth(studentAccount.room_id);
 
-  let usage = primaryBids[0].amount - tokens;
-  let payment = primaryBids[0].price * primaryBids[0].amount;
+  let usage = !primaryBids.length ? -tokens : primaryBids[0].amount - tokens;
+  let payment = !primaryBids.length ? 0 : primaryBids[0].price * primaryBids[0].amount;
 
   const primaryAsks = await primary_ask.listLastMonth();
   const discounts = await discount_price.listLatest();
-  tokens >= 0
-    ? (payment -= (primaryAsks[0].price - discounts[0].price) * tokens)
-    : (payment += (primaryAsks[0].price + discounts[0].price) * tokens);
+  if (!primaryAsks.length) {
+    tokens >= 0 ? (payment -= (27 - discounts[0].price) * tokens) : (payment += (27 + discounts[0].price) * Math.abs(tokens));
+  } else {
+    tokens >= 0
+      ? (payment -= (primaryAsks[0].price - discounts[0].price) * tokens)
+      : (payment += (primaryAsks[0].price + discounts[0].price) * Math.abs(tokens));
+  }
 
   for (const normalBid of normalBids) {
     if (normalBid.is_accepted == true) {
