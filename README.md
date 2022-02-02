@@ -1,4 +1,4 @@
-# KyotoUniv-SIC EDION
+# KyotoUniv-SIC EDISON
 
 ## Install
 
