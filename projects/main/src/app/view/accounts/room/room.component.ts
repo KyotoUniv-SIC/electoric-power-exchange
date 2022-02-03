@@ -9,7 +9,8 @@ interface Dormitory {
 
 export type RoomOnSubmitEvent = {
   studentID: string;
-  roomID: string;
+  before: string;
+  after: string;
 };
 
 @Component({
@@ -47,6 +48,6 @@ export class RoomComponent implements OnInit {
       alert('ユーザーログイン情報を取得できません');
       return;
     }
-    this.appSubmit.emit({ studentID: this.student?.id, roomID: building + room });
+    this.appSubmit.emit({ studentID: this.student?.id, before: this.student.room_id, after: building + room });
   }
 }

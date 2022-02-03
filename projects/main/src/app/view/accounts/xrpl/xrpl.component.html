@@ -1,0 +1,102 @@
+<div class="w-full lg:mx-auto lg:w-1/3 lg:mt-10">
+  <mat-card class="mb-10">
+    <mat-card-title>XRP Ledger Info</mat-card-title>
+    <mat-nav-list>
+      <ng-container *ngIf="studentAccount === null; then loading; else loadedStudent"></ng-container>
+      <ng-template #loading>
+        <mat-progress-spinner [diameter]="60" [mode]="'indeterminate'"></mat-progress-spinner>
+      </ng-template>
+      <ng-template #loadedStudent>
+        <mat-divider [inset]="true"></mat-divider>
+        <mat-list-item class="flex flex-wrap">
+          <span class="break-all">Display Name:</span>
+          <span class="flex-auto break-all"></span>
+          <span class="break-all">{{ studentAccount?.name }}</span>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
+        <mat-list-item class="flex flex-wrap">
+          <span class="break-all">XRP Address:</span>
+          <span class="flex-auto break-all"></span>
+          <span class="break-all">{{ studentAccount?.id }}</span>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
+      </ng-template>
+    </mat-nav-list>
+  </mat-card>
+
+  <mat-card class="mb-10">
+    <mat-card-title>EDISON Token Balance</mat-card-title>
+    <ng-container *ngIf="trustLine === null; then loading; else loadedBalance"></ng-container>
+    <ng-template #loadedBalance>
+      <mat-list>
+        <ng-container *ngFor="let line of trustLine?.result?.lines">
+          <mat-divider [inset]="true"></mat-divider>
+          <mat-list-item class="flex flex-wrap">
+            <span class="break-all">{{ line?.currency }} Amount:</span>
+            <span class="flex-auto break-all"></span>
+            <span class="break-all">{{ line?.balance }}</span>
+          </mat-list-item>
+          <mat-divider [inset]="true"></mat-divider>
+          <mat-list-item class="flex flex-wrap">
+            <span class="break-all">{{ line?.currency }} Issuer:</span>
+            <span class="flex-auto break-all"></span>
+            <span class="break-all">{{ line?.account }}</span>
+          </mat-list-item>
+        </ng-container>
+        <mat-divider [inset]="true"></mat-divider>
+        <mat-list-item class="flex flex-wrap">
+          <span class="break-all">Validated:</span>
+          <span class="flex-auto break-all"></span>
+          <span class="break-all">
+            <ng-container *ngIf="!trustLine?.result?.validated; then empty; else exist"></ng-container>
+            <ng-template #exist>
+              <mat-chip-list>
+                <mat-chip color="primary" selected>Yes</mat-chip>
+              </mat-chip-list>
+            </ng-template>
+            <ng-template #empty>
+              <mat-chip-list>
+                <mat-chip color="warn" selected>No</mat-chip>
+              </mat-chip-list>
+            </ng-template>
+          </span>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
+      </mat-list>
+    </ng-template>
+  </mat-card>
+
+  <mat-card class="mb-10">
+    <mat-card-title>XRP Balance</mat-card-title>
+    <ng-container *ngIf="xrpLedger === null; then loading; else loadedPayment"></ng-container>
+    <ng-template #loadedPayment>
+      <mat-list>
+        <mat-divider [inset]="true"></mat-divider>
+        <mat-list-item class="flex flex-wrap">
+          <span class="break-all">XRP Amount:</span>
+          <span class="flex-auto break-all"></span>
+          <span class="break-all">{{ calcMicroAmount(xrpLedger?.result?.account_data?.Balance) }}</span>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
+        <mat-list-item class="flex flex-wrap">
+          <span class="break-all">Validated:</span>
+          <span class="flex-auto break-all"></span>
+          <span class="break-all">
+            <ng-container *ngIf="!xrpLedger?.result?.validated; then empty; else exist"></ng-container>
+            <ng-template #exist>
+              <mat-chip-list>
+                <mat-chip color="primary" selected>Yes</mat-chip>
+              </mat-chip-list>
+            </ng-template>
+            <ng-template #empty>
+              <mat-chip-list>
+                <mat-chip color="warn" selected>No</mat-chip>
+              </mat-chip-list>
+            </ng-template>
+          </span>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
+      </mat-list>
+    </ng-template>
+  </mat-card>
+</div>

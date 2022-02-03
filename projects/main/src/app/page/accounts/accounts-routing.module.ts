@@ -4,6 +4,7 @@ import { AccountsComponent } from './accounts.component';
 import { CreateComponent } from './create/create.component';
 import { EnterComponent } from './enter/enter.component';
 import { RoomComponent } from './room/room.component';
+import { XrplComponent } from './xrpl/xrpl.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'enter', component: EnterComponent },
   { path: 'account', component: AccountComponent },
   { path: 'room', component: RoomComponent },
+  { path: 'xrpl', component: XrplComponent },
 ];
 
 @NgModule({

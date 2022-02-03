@@ -24,6 +24,12 @@
         <span class="break-all font-bold text-xl text-purple-800">{{ balance?.amount_spx }}</span>
       </mat-list-item>
       <mat-divider [inset]="true"></mat-divider>
+      <mat-list-item class="flex flex-wrap">
+        <span class="break-all font-bold text-xl">Insufficient Balance:</span>
+        <span class="flex-auto break-all"></span>
+        <span class="break-all font-bold text-xl text-red-600">{{ insufficiency }}</span>
+      </mat-list-item>
+      <mat-divider [inset]="true"></mat-divider>
     </mat-list>
     <div class="text-center mt-10">
       <button mat-flat-button routerLink="/txs/buy" color="accent">Buy More Tokens</button>

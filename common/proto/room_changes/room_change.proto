@@ -8,5 +8,6 @@ option (google.firebase.rules.firebase_rules).full_package_names = true;
 message RoomChange {
   string id = 1;
   string student_account_id = 2;
-  string room_id = 3;
+  string room_id_before = 3;
+  string room_id_after = 4;
 }
