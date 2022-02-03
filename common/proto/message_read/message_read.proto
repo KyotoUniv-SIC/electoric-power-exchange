@@ -5,12 +5,8 @@ import "firebase_rules_options.proto";
 
 option (google.firebase.rules.firebase_rules).full_package_names = true;
 
-message Message {
+message MessageRead {
   string id = 1;
   string chat_id = 2;
-  string account_id = 3;
-  string title = 4;
-  string text = 5;
-  bool is_read = 6;
-  bool is_deleted = 7;
+  string message_id = 3;
 }
