@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Auth, authState } from '@angular/fire/auth';
 import { Timestamp } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
-import { Balance, DailyUsage } from '@local/common';
+import { Balance, DailyUsage, MonthlyUsage } from '@local/common';
 import { ChartDataSets } from 'chart.js';
 import { MultiDataSet } from 'ng2-charts';
 import { DailyUsageApplicationService } from 'projects/shared/src/lib/services/daily-usages/daily-usage.application.service';
 import { BalanceApplicationService } from 'projects/shared/src/lib/services/student-accounts/balances/balance.application.service';
 import { InsufficientBalanceApplicationService } from 'projects/shared/src/lib/services/student-accounts/insufficient-balances/insufficient-balance.application.service';
+import { MonthlyUsageApplicationService } from 'projects/shared/src/lib/services/student-accounts/monthly-usages/monthly-usage.application.service';
 import { StudentAccountApplicationService } from 'projects/shared/src/lib/services/student-accounts/student-account.application.service';
 import { combineLatest, Observable } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
@@ -40,6 +41,7 @@ export class DashboardComponent implements OnInit {
     private readonly studentAccApp: StudentAccountApplicationService,
     private readonly balanceApp: BalanceApplicationService,
     private readonly dailyUsageApp: DailyUsageApplicationService,
+    private readonly monthlyUsageApp: MonthlyUsageApplicationService,
     private readonly insufficientBalanceApp: InsufficientBalanceApplicationService,
   ) {
     let firstDay = new Date();
@@ -92,9 +94,10 @@ export class DashboardComponent implements OnInit {
       }),
     );
 
-    const usageList$ = studentAccount$.pipe(mergeMap((account) => this.dailyUsageApp.list$(account.room_id)));
+    const usageListDaily$ = studentAccount$.pipe(mergeMap((account) => this.dailyUsageApp.list$(account.room_id)));
+    const usageListMonthly$ = studentAccount$.pipe(mergeMap((account) => this.monthlyUsageApp.list$(account.id)));
 
-    this.totalUsage$ = usageList$.pipe(
+    this.totalUsage$ = usageListDaily$.pipe(
       map((usages) => {
         let count = 0;
         for (const usage of usages) {
@@ -103,9 +106,9 @@ export class DashboardComponent implements OnInit {
         return count;
       }),
     );
-    const usages$ = usageList$.pipe(
-      map((usages) => {
-        let data = usages
+    const usages$ = combineLatest([this.totalUsage$, usageListMonthly$]).pipe(
+      map(([totalUsage, monthlyUsages]) => {
+        let data = monthlyUsages
           .filter((usage) => (usage.created_at as Timestamp).toDate() > firstDay)
           .sort(function (first, second) {
             if ((first.created_at as Timestamp).toDate() < (second.created_at as Timestamp).toDate()) {
@@ -116,24 +119,32 @@ export class DashboardComponent implements OnInit {
               return 0;
             }
           });
+
         // .getMonth() 与えた日付の「月」を表す 0 から 11 までの間の整数値
-        let lackBefore = (data[0].created_at as Timestamp).toDate().getMonth();
-        let lackAfter = 11 - (data[data.length - 1].created_at as Timestamp).toDate().getMonth();
+        let lackBefore = !data.length ? new Date().getMonth() : (data[0].created_at as Timestamp).toDate().getMonth();
+        let lackAfter = !data.length
+          ? 11 - new Date().getMonth()
+          : 10 - (data[data.length - 1].created_at as Timestamp).toDate().getMonth();
+        // 前月以前のデータに0を入れる
         for (let i = 0; i < lackBefore; i++) {
-          data.unshift(new DailyUsage({ amount_kwh: 0 }));
+          data.unshift(new MonthlyUsage({ amount_kwh: 0 }));
         }
+        // 今月のデータを追加
+        data.push(new MonthlyUsage({ amount_kwh: totalUsage }));
+        // 来月以降のデータに0を入れる
         for (let i = 0; i < lackAfter; i++) {
-          data.push(new DailyUsage({ amount_kwh: 0 }));
+          data.push(new MonthlyUsage({ amount_kwh: 0 }));
         }
         return data.map((usage) => usage.amount_kwh);
       }),
     );
+
     let lastYearFirst = new Date();
     lastYearFirst.setFullYear(lastYearFirst.getFullYear() - 1);
     lastYearFirst.setHours(0, 0, 0, 0);
     let lastYearEnd = lastYearFirst;
     lastYearEnd.setMonth(lastYearEnd.getMonth() - 1);
-    const usagesPreviousYear$ = usageList$.pipe(
+    const usagesPreviousYear$ = usageListMonthly$.pipe(
       map((usages) => {
         let data = usages
           .filter(
