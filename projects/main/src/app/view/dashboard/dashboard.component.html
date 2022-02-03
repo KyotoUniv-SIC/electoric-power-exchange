@@ -57,27 +57,37 @@
   <mat-card class="mb-20">
     <mat-card-title>Energy Sources</mat-card-title>
     <mat-card-content>Student</mat-card-content>
-    <canvas baseChart [data]="balanceData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"> </canvas>
-    <mat-card-content>Total</mat-card-content>
-    <canvas baseChart [data]="totalBalanceData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"> </canvas>
-  </mat-card>
+    <ng-container *ngIf="balanceData === null; then loading; else loadedBalance"></ng-container>
+    <ng-template #loading>
+      <mat-progress-spinner [diameter]="60" [mode]="'indeterminate'"></mat-progress-spinner>
+    </ng-template>
+    <ng-template #loadedBalance>
+      <canvas baseChart [data]="balanceData!" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"> </canvas> </ng-template
+    ><mat-card-content>Total</mat-card-content>
+    <ng-container *ngIf="balanceData === null; then loading; else loadedTotalBalance"></ng-container>
+    <ng-template #loadedTotalBalance
+      ><canvas baseChart [data]="totalBalanceData!" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"> </canvas> </ng-template
+  ></mat-card>
   <!-- <mat-card class="mb-20">
     <mat-card-title>Notifications</mat-card-title>
     <button mat-flat-button color="accent">More</button>
   </mat-card> -->
   <mat-card class="mb-20">
     <mat-card-title>Monthly Energy Consumption</mat-card-title>
-    <p>kWh</p>
-    <canvas
-      baseChart
-      [datasets]="barChartData"
-      [labels]="barChartLabels"
-      [options]="barChartOptions"
-      [plugins]="barChartPlugins"
-      [legend]="barChartLegend"
-      [chartType]="barChartType"
-    >
-    </canvas>
+    <ng-container *ngIf="usageData === null; then loading; else loadedUsage"></ng-container>
+    <ng-template #loadedUsage>
+      <p>kWh</p>
+      <canvas
+        baseChart
+        [datasets]="usageData!"
+        [labels]="barChartLabels"
+        [options]="barChartOptions"
+        [plugins]="barChartPlugins"
+        [legend]="barChartLegend"
+        [chartType]="barChartType"
+      >
+      </canvas>
+    </ng-template>
   </mat-card>
   <!-- <mat-card class="mb-20">
     <mat-card-title>Transaction Menu</mat-card-title>

@@ -13,33 +13,21 @@ export class DashboardComponent implements OnInit {
   @Input()
   balance?: Balance | null;
   @Input()
-  totalBalance?: Balance | null;
+  balanceData?: MultiDataSet | null;
+  @Input()
+  totalBalanceData?: MultiDataSet | null;
   @Input()
   insufficiency?: number | null;
   @Input()
   totalUsage?: number | null;
   @Input()
-  usages?: number[] | null;
-  @Input()
-  usagesPreviousYear?: number[] | null;
+  usageData?: ChartDataSets[] | null;
   @Input()
   rankings?: Ranking[] | null;
   @Input()
   rank?: number | null;
 
   doughnutChartLabels: Label[] = ['Utility Power', 'Solar Power'];
-  balanceData: MultiDataSet = [
-    [
-      // this.balance?.amount_upx, this.balance?.amount_spx
-      100, 100,
-    ],
-  ];
-  totalBalanceData: MultiDataSet = [
-    [
-      // this.totalBalance?.amount_upx, this.totalBalance?.amount_spx
-      20000, 54000,
-    ],
-  ];
   doughnutChartType: ChartType = 'doughnut';
 
   barChartOptions: ChartOptions = {
@@ -49,11 +37,23 @@ export class DashboardComponent implements OnInit {
   barChartType: ChartType = 'bar';
   barChartLegend = true;
   barChartPlugins = [];
+  // balanceData: MultiDataSet = [
+  //   [
+  //     // this.balance?.amount_upx, this.balance?.amount_spx
+  //     100, 100,
+  //   ],
+  // ];
+  // totalBalanceData: MultiDataSet = [
+  //   [
+  //     // this.totalBalance?.amount_upx, this.totalBalance?.amount_spx
+  //     20000, 54000,
+  //   ],
+  // ];
 
-  barChartData: ChartDataSets[] = [
-    { data: [100, 200, 70, 600, 450, 300, 50, 533, 66, 54], label: 'This year' },
-    { data: [33, 100, 200, 70, 600, 450, 300, 50, 533, 66, 54, 554], label: 'Last year' },
-  ];
+  // barChartData: ChartDataSets[] = [
+  //   { data: [100, 200, 70, 600, 450, 300, 50, 533, 66, 54], label: 'This year' },
+  //   { data: [33, 100, 200, 70, 600, 450, 300, 50, 533, 66, 54, 554], label: 'Last year' },
+  // ];
 
   constructor() {}
 
