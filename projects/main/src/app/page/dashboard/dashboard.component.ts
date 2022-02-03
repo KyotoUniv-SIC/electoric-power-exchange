@@ -41,9 +41,9 @@ export class DashboardComponent implements OnInit {
     private readonly dailyUsageApp: DailyUsageApplicationService,
     private readonly insufficientBalanceApp: InsufficientBalanceApplicationService,
   ) {
-    const firstday = new Date();
-    firstday.setDate(1);
-    firstday.setHours(0, 0, 0, 0);
+    let firstDay = new Date();
+    firstDay.setDate(1);
+    firstDay.setHours(0, 0, 0, 0);
     const currentUser$ = authState(this.auth);
     const studentAccount$ = currentUser$.pipe(mergeMap((user) => this.studentAccApp.getByUid$(user?.uid!)));
     const users$ = this.studentsApp.list$();
@@ -54,9 +54,7 @@ export class DashboardComponent implements OnInit {
             this.dailyUsageApp.list(user.room_id).then((usages) => {
               let count = 0;
               for (const usage of usages) {
-                if ((usage.created_at as Timestamp).toDate() > first) {
-                  count += usage.amount_kwh;
-                }
+                (usage.created_at as Timestamp).toDate() > firstDay ? (count += usage.amount_kwh) : count;
               }
               return { id: user.id, name: user.name, amount: count };
             }),
@@ -83,31 +81,27 @@ export class DashboardComponent implements OnInit {
     );
     this.insufficiency$ = studentAccount$.pipe(mergeMap((account) => this.insufficientBalanceApp.list(account.id))).pipe(
       map((insufficiencies) => {
-        let sum = 0;
+        let count = 0;
         for (let insufficiency of insufficiencies) {
-          (insufficiency.created_at as Timestamp).toDate() > firstday ? (sum += insufficiency.amount) : sum;
+          (insufficiency.created_at as Timestamp).toDate() > firstDay ? (count += insufficiency.amount) : count;
         }
-        return sum;
+        return count;
       }),
     );
 
     const usageList$ = studentAccount$.pipe(mergeMap((account) => this.dailyUsageApp.list$(account.room_id)));
-    let first = new Date();
-    first.setDate(1);
-    first.setHours(0, 0, 0, 0);
+
     this.totalUsage$ = usageList$.pipe(
       map((usages) => {
         let count = 0;
         for (const usage of usages) {
-          if ((usage.created_at as Timestamp).toDate() > first) {
-            count += usage.amount_kwh;
-          }
+          (usage.created_at as Timestamp).toDate() > firstDay ? (count += usage.amount_kwh) : count;
         }
         return count;
       }),
     );
     this.usages$ = usageList$.pipe(
-      map((usages) => usages.filter((usage) => (usage.created_at as Timestamp).toDate() > first).map((usage) => usage.amount_kwh)),
+      map((usages) => usages.filter((usage) => (usage.created_at as Timestamp).toDate() > firstDay).map((usage) => usage.amount_kwh)),
     );
     let lastYearFirst = new Date();
     lastYearFirst.setFullYear(lastYearFirst.getFullYear() - 1);
