@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Auth, authState } from '@angular/fire/auth';
 import { Timestamp } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
-import { Balance } from '@local/common';
+import { Balance, DailyUsage } from '@local/common';
+import { ChartDataSets } from 'chart.js';
 import { MultiDataSet } from 'ng2-charts';
 import { DailyUsageApplicationService } from 'projects/shared/src/lib/services/daily-usages/daily-usage.application.service';
 import { BalanceApplicationService } from 'projects/shared/src/lib/services/student-accounts/balances/balance.application.service';
@@ -24,13 +25,13 @@ export interface Ranking {
 })
 export class DashboardComponent implements OnInit {
   balance$: Observable<Balance> | undefined;
-  totalBalance$: Observable<Balance> | undefined;
+  balanceData$: Observable<MultiDataSet> | undefined;
+  totalBalanceData$: Observable<MultiDataSet> | undefined;
   insufficiency$: Observable<number> | undefined;
+  totalUsage$: Observable<number> | undefined;
+  usageData$: Observable<ChartDataSets[]> | undefined;
   rankings$: Observable<Ranking[]> | undefined;
   rank$: Observable<number> | undefined;
-  totalUsage$: Observable<number> | undefined;
-  usages$: Observable<number[]> | undefined;
-  usagesPreviousYear$: Observable<number[]> | undefined;
 
   constructor(
     private auth: Auth,
@@ -67,7 +68,8 @@ export class DashboardComponent implements OnInit {
       map(([rankings, account]) => rankings.findIndex((ranking) => ranking.id == account.id) + 1),
     );
     this.balance$ = studentAccount$.pipe(mergeMap((account) => this.balanceApp.getByUid$(account.id)));
-    this.totalBalance$ = users$.pipe(
+    this.balanceData$ = this.balance$.pipe(map((balance) => [[balance.amount_upx, balance.amount_spx]]));
+    const totalBalance$ = users$.pipe(
       mergeMap((users) => Promise.all(users.map((user) => this.balanceApp.list(user.id).then((balances) => balances[0])))),
       map((balances) => {
         let upxTotal = 0;
@@ -79,6 +81,7 @@ export class DashboardComponent implements OnInit {
         return new Balance({ amount_upx: upxTotal, amount_spx: spxTotal });
       }),
     );
+    this.totalBalanceData$ = totalBalance$.pipe(map((balance) => [[balance.amount_upx, balance.amount_spx]]));
     this.insufficiency$ = studentAccount$.pipe(mergeMap((account) => this.insufficientBalanceApp.list(account.id))).pipe(
       map((insufficiencies) => {
         let count = 0;
@@ -100,22 +103,64 @@ export class DashboardComponent implements OnInit {
         return count;
       }),
     );
-    this.usages$ = usageList$.pipe(
-      map((usages) => usages.filter((usage) => (usage.created_at as Timestamp).toDate() > firstDay).map((usage) => usage.amount_kwh)),
+    const usages$ = usageList$.pipe(
+      map((usages) => {
+        let data = usages
+          .filter((usage) => (usage.created_at as Timestamp).toDate() > firstDay)
+          .sort(function (first, second) {
+            if ((first.created_at as Timestamp).toDate() < (second.created_at as Timestamp).toDate()) {
+              return -1;
+            } else if ((first.created_at as Timestamp).toDate() > (second.created_at as Timestamp).toDate()) {
+              return 1;
+            } else {
+              return 0;
+            }
+          });
+        // .getMonth() 与えた日付の「月」を表す 0 から 11 までの間の整数値
+        let lackBefore = (data[0].created_at as Timestamp).toDate().getMonth();
+        let lackAfter = 11 - (data[data.length - 1].created_at as Timestamp).toDate().getMonth();
+        for (let i = 0; i < lackBefore; i++) {
+          data.unshift(new DailyUsage({ amount_kwh: 0 }));
+        }
+        for (let i = 0; i < lackAfter; i++) {
+          data.push(new DailyUsage({ amount_kwh: 0 }));
+        }
+        return data.map((usage) => usage.amount_kwh);
+      }),
     );
     let lastYearFirst = new Date();
     lastYearFirst.setFullYear(lastYearFirst.getFullYear() - 1);
     lastYearFirst.setHours(0, 0, 0, 0);
     let lastYearEnd = lastYearFirst;
     lastYearEnd.setMonth(lastYearEnd.getMonth() - 1);
-    this.usagesPreviousYear$ = usageList$.pipe(
-      map((usages) =>
-        usages
+    const usagesPreviousYear$ = usageList$.pipe(
+      map((usages) => {
+        let data = usages
           .filter(
             (usage) => (usage.created_at as Timestamp).toDate() > lastYearFirst && (usage.created_at as Timestamp).toDate() < lastYearEnd,
           )
-          .map((usage) => usage.amount_kwh),
-      ),
+          .sort(function (first, second) {
+            if ((first.created_at as Timestamp).toDate() < (second.created_at as Timestamp).toDate()) {
+              return -1;
+            } else if ((first.created_at as Timestamp).toDate() > (second.created_at as Timestamp).toDate()) {
+              return 1;
+            } else {
+              return 0;
+            }
+          })
+          .map((usage) => usage.amount_kwh);
+        let lack = 12 - data.length;
+        for (let i = 0; i < lack; i++) {
+          data.unshift(0);
+        }
+        return data;
+      }),
+    );
+    this.usageData$ = combineLatest([usages$, usagesPreviousYear$]).pipe(
+      map(([thisYear, lastYear]) => [
+        { data: thisYear, label: 'This year' },
+        { data: lastYear, label: 'Last year' },
+      ]),
     );
   }
 
