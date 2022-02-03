@@ -44,6 +44,7 @@ export class DashboardComponent implements OnInit {
     private readonly monthlyUsageApp: MonthlyUsageApplicationService,
     private readonly insufficientBalanceApp: InsufficientBalanceApplicationService,
   ) {
+    const now = new Date();
     let firstDay = new Date();
     firstDay.setDate(1);
     firstDay.setHours(0, 0, 0, 0);
@@ -121,10 +122,8 @@ export class DashboardComponent implements OnInit {
           });
 
         // .getMonth() 与えた日付の「月」を表す 0 から 11 までの間の整数値
-        let lackBefore = !data.length ? new Date().getMonth() : (data[0].created_at as Timestamp).toDate().getMonth();
-        let lackAfter = !data.length
-          ? 11 - new Date().getMonth()
-          : 10 - (data[data.length - 1].created_at as Timestamp).toDate().getMonth();
+        let lackBefore = !data.length ? now.getMonth() : (data[0].created_at as Timestamp).toDate().getMonth();
+        let lackAfter = !data.length ? 11 - now.getMonth() : 10 - (data[data.length - 1].created_at as Timestamp).toDate().getMonth();
         // 前月以前のデータに0を入れる
         for (let i = 0; i < lackBefore; i++) {
           data.unshift(new MonthlyUsage({ amount_kwh: 0 }));
@@ -139,16 +138,17 @@ export class DashboardComponent implements OnInit {
       }),
     );
 
-    let lastYearFirst = new Date();
-    lastYearFirst.setFullYear(lastYearFirst.getFullYear() - 1);
-    lastYearFirst.setHours(0, 0, 0, 0);
-    let lastYearEnd = lastYearFirst;
-    lastYearEnd.setMonth(lastYearEnd.getMonth() - 1);
+    let lastYearFirstDay = new Date();
+    lastYearFirstDay.setFullYear(lastYearFirstDay.getFullYear() - 1);
+    lastYearFirstDay.setHours(0, 0, 0, 0);
+    let lastYearLastDay = lastYearFirstDay;
+    lastYearLastDay.setMonth(lastYearLastDay.getMonth() - 1);
     const usagesPreviousYear$ = usageListMonthly$.pipe(
       map((usages) => {
         let data = usages
           .filter(
-            (usage) => (usage.created_at as Timestamp).toDate() > lastYearFirst && (usage.created_at as Timestamp).toDate() < lastYearEnd,
+            (usage) =>
+              (usage.created_at as Timestamp).toDate() > lastYearFirstDay && (usage.created_at as Timestamp).toDate() < lastYearLastDay,
           )
           .sort(function (first, second) {
             if ((first.created_at as Timestamp).toDate() < (second.created_at as Timestamp).toDate()) {
