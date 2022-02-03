@@ -18,9 +18,8 @@
       "shared": ["dist/shared/shared", "dist/shared"],
       "crypto": ["./node_modules/crypto-browserify"],
       "stream": ["./node_modules/stream-browserify"],
-      "https": ["./node_modules/stream-http"],
-      "tls": ["./node_modules/tls"],
-      "net": ["./node_modules/net"]
+      "http": ["./node_modules/stream-http"],
+      "https": ["./node_modules/https-browserify"]
     },
     "target": "es2017",
     "module": "es2020",
