@@ -824,8 +824,8 @@ export namespace main {
         /** Chat id */
         id?: (string|null);
 
-        /** Chat name */
-        name?: (string|null);
+        /** Chat title */
+        title?: (string|null);
 
         /** Chat user1 */
         user1?: (string|null);
@@ -846,8 +846,8 @@ export namespace main {
         /** Chat id. */
         public id: string;
 
-        /** Chat name. */
-        public name: string;
+        /** Chat title. */
+        public title: string;
 
         /** Chat user1. */
         public user1: string;
@@ -1513,9 +1513,6 @@ export namespace main {
         /** Message account_id */
         account_id?: (string|null);
 
-        /** Message title */
-        title?: (string|null);
-
         /** Message text */
         text?: (string|null);
 
@@ -1543,9 +1540,6 @@ export namespace main {
 
         /** Message account_id. */
         public account_id: string;
-
-        /** Message title. */
-        public title: string;
 
         /** Message text. */
         public text: string;

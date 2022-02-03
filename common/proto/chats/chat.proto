@@ -7,7 +7,7 @@ option (google.firebase.rules.firebase_rules).full_package_names = true;
 
 message Chat {
   string id = 1;
-  string name = 2;
+  string title = 2;
   string user1 = 3;
   string user2 =4;
 }

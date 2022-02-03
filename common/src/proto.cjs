@@ -2043,7 +2043,7 @@
              * @memberof main
              * @interface IChat
              * @property {string|null} [id] Chat id
-             * @property {string|null} [name] Chat name
+             * @property {string|null} [title] Chat title
              * @property {string|null} [user1] Chat user1
              * @property {string|null} [user2] Chat user2
              */
@@ -2072,12 +2072,12 @@
             Chat.prototype.id = "";
     
             /**
-             * Chat name.
-             * @member {string} name
+             * Chat title.
+             * @member {string} title
              * @memberof main.Chat
              * @instance
              */
-            Chat.prototype.name = "";
+            Chat.prototype.title = "";
     
             /**
              * Chat user1.
@@ -2109,8 +2109,8 @@
                     writer = $Writer.create();
                 if (message.id != null && Object.hasOwnProperty.call(message, "id"))
                     writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
-                if (message.name != null && Object.hasOwnProperty.call(message, "name"))
-                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.name);
+                if (message.title != null && Object.hasOwnProperty.call(message, "title"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.title);
                 if (message.user1 != null && Object.hasOwnProperty.call(message, "user1"))
                     writer.uint32(/* id 3, wireType 2 =*/26).string(message.user1);
                 if (message.user2 != null && Object.hasOwnProperty.call(message, "user2"))
@@ -2153,7 +2153,7 @@
                         message.id = reader.string();
                         break;
                     case 2:
-                        message.name = reader.string();
+                        message.title = reader.string();
                         break;
                     case 3:
                         message.user1 = reader.string();
@@ -2199,9 +2199,9 @@
                 if (message.id != null && message.hasOwnProperty("id"))
                     if (!$util.isString(message.id))
                         return "id: string expected";
-                if (message.name != null && message.hasOwnProperty("name"))
-                    if (!$util.isString(message.name))
-                        return "name: string expected";
+                if (message.title != null && message.hasOwnProperty("title"))
+                    if (!$util.isString(message.title))
+                        return "title: string expected";
                 if (message.user1 != null && message.hasOwnProperty("user1"))
                     if (!$util.isString(message.user1))
                         return "user1: string expected";
@@ -2225,8 +2225,8 @@
                 var message = new $root.main.Chat();
                 if (object.id != null)
                     message.id = String(object.id);
-                if (object.name != null)
-                    message.name = String(object.name);
+                if (object.title != null)
+                    message.title = String(object.title);
                 if (object.user1 != null)
                     message.user1 = String(object.user1);
                 if (object.user2 != null)
@@ -2249,14 +2249,14 @@
                 var object = {};
                 if (options.defaults) {
                     object.id = "";
-                    object.name = "";
+                    object.title = "";
                     object.user1 = "";
                     object.user2 = "";
                 }
                 if (message.id != null && message.hasOwnProperty("id"))
                     object.id = message.id;
-                if (message.name != null && message.hasOwnProperty("name"))
-                    object.name = message.name;
+                if (message.title != null && message.hasOwnProperty("title"))
+                    object.title = message.title;
                 if (message.user1 != null && message.hasOwnProperty("user1"))
                     object.user1 = message.user1;
                 if (message.user2 != null && message.hasOwnProperty("user2"))
@@ -3651,7 +3651,6 @@
              * @property {string|null} [id] Message id
              * @property {string|null} [chat_id] Message chat_id
              * @property {string|null} [account_id] Message account_id
-             * @property {string|null} [title] Message title
              * @property {string|null} [text] Message text
              * @property {boolean|null} [is_read] Message is_read
              * @property {boolean|null} [is_deleted] Message is_deleted
@@ -3697,14 +3696,6 @@
             Message.prototype.account_id = "";
     
             /**
-             * Message title.
-             * @member {string} title
-             * @memberof main.Message
-             * @instance
-             */
-            Message.prototype.title = "";
-    
-            /**
              * Message text.
              * @member {string} text
              * @memberof main.Message
@@ -3746,14 +3737,12 @@
                     writer.uint32(/* id 2, wireType 2 =*/18).string(message.chat_id);
                 if (message.account_id != null && Object.hasOwnProperty.call(message, "account_id"))
                     writer.uint32(/* id 3, wireType 2 =*/26).string(message.account_id);
-                if (message.title != null && Object.hasOwnProperty.call(message, "title"))
-                    writer.uint32(/* id 4, wireType 2 =*/34).string(message.title);
                 if (message.text != null && Object.hasOwnProperty.call(message, "text"))
-                    writer.uint32(/* id 5, wireType 2 =*/42).string(message.text);
+                    writer.uint32(/* id 4, wireType 2 =*/34).string(message.text);
                 if (message.is_read != null && Object.hasOwnProperty.call(message, "is_read"))
-                    writer.uint32(/* id 6, wireType 0 =*/48).bool(message.is_read);
+                    writer.uint32(/* id 5, wireType 0 =*/40).bool(message.is_read);
                 if (message.is_deleted != null && Object.hasOwnProperty.call(message, "is_deleted"))
-                    writer.uint32(/* id 7, wireType 0 =*/56).bool(message.is_deleted);
+                    writer.uint32(/* id 6, wireType 0 =*/48).bool(message.is_deleted);
                 return writer;
             };
     
@@ -3798,15 +3787,12 @@
                         message.account_id = reader.string();
                         break;
                     case 4:
-                        message.title = reader.string();
-                        break;
-                    case 5:
                         message.text = reader.string();
                         break;
-                    case 6:
+                    case 5:
                         message.is_read = reader.bool();
                         break;
-                    case 7:
+                    case 6:
                         message.is_deleted = reader.bool();
                         break;
                     default:
@@ -3853,9 +3839,6 @@
                 if (message.account_id != null && message.hasOwnProperty("account_id"))
                     if (!$util.isString(message.account_id))
                         return "account_id: string expected";
-                if (message.title != null && message.hasOwnProperty("title"))
-                    if (!$util.isString(message.title))
-                        return "title: string expected";
                 if (message.text != null && message.hasOwnProperty("text"))
                     if (!$util.isString(message.text))
                         return "text: string expected";
@@ -3886,8 +3869,6 @@
                     message.chat_id = String(object.chat_id);
                 if (object.account_id != null)
                     message.account_id = String(object.account_id);
-                if (object.title != null)
-                    message.title = String(object.title);
                 if (object.text != null)
                     message.text = String(object.text);
                 if (object.is_read != null)
@@ -3914,7 +3895,6 @@
                     object.id = "";
                     object.chat_id = "";
                     object.account_id = "";
-                    object.title = "";
                     object.text = "";
                     object.is_read = false;
                     object.is_deleted = false;
@@ -3925,8 +3905,6 @@
                     object.chat_id = message.chat_id;
                 if (message.account_id != null && message.hasOwnProperty("account_id"))
                     object.account_id = message.account_id;
-                if (message.title != null && message.hasOwnProperty("title"))
-                    object.title = message.title;
                 if (message.text != null && message.hasOwnProperty("text"))
                     object.text = message.text;
                 if (message.is_read != null && message.hasOwnProperty("is_read"))
