@@ -68,6 +68,9 @@ export class TxsComponent implements OnInit {
     const renewableBids$ = this.studentAccount$.pipe(mergeMap((account) => this.renewableBidApp.list$(account.id)));
     const renewableAsks$ = this.studentAccount$.pipe(mergeMap((account) => this.renewableAskApp.list$(account.id)));
     const now = new Date();
+    let firstDay = new Date();
+    firstDay.setDate(1);
+    firstDay.setHours(0, 0, 0, 0);
 
     this.orders$ = combineLatest([normalBids$, normalAsks$, renewableBids$, renewableAsks$]).pipe(
       map(([normalBids, normalAsks, renewableBids, renewableAsks]) => {
@@ -188,15 +191,18 @@ export class TxsComponent implements OnInit {
           is_solar: true,
           is_bid: false,
         }));
-        return primaryBidList.concat(normalBidList, normalAskList, renewableBidList, renewableAskList).sort(function (first, second) {
-          if (first.date > second.date) {
-            return -1;
-          } else if (first.date < second.date) {
-            return 1;
-          } else {
-            return 0;
-          }
-        });
+        return primaryBidList
+          .concat(normalBidList, normalAskList, renewableBidList, renewableAskList)
+          .filter((history) => history.date > firstDay)
+          .sort(function (first, second) {
+            if (first.date > second.date) {
+              return -1;
+            } else if (first.date < second.date) {
+              return 1;
+            } else {
+              return 0;
+            }
+          });
       }),
     );
   }
