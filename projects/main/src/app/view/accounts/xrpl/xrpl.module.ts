@@ -1,15 +1,14 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { MaterialModule } from '../../../material.module';
 import { XrplComponent } from './xrpl.component';
-
-
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatChipsModule } from '@angular/material/chips';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [
-    XrplComponent
-  ],
-  imports: [
-    CommonModule
-  ]
+  declarations: [XrplComponent],
+  imports: [CommonModule, RouterModule, MaterialModule, FormsModule, MatChipsModule],
+  exports: [XrplComponent],
 })
-export class XrplModule { }
+export class XrplModule {}
