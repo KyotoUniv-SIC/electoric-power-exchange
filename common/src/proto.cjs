@@ -3202,19 +3202,459 @@
             return MarketStatus;
         })();
     
+        main.MessageDelete = (function() {
+    
+            /**
+             * Properties of a MessageDelete.
+             * @memberof main
+             * @interface IMessageDelete
+             * @property {string|null} [id] MessageDelete id
+             * @property {string|null} [chat_id] MessageDelete chat_id
+             * @property {string|null} [message_id] MessageDelete message_id
+             */
+    
+            /**
+             * Constructs a new MessageDelete.
+             * @memberof main
+             * @classdesc Represents a MessageDelete.
+             * @implements IMessageDelete
+             * @constructor
+             * @param {main.IMessageDelete=} [properties] Properties to set
+             */
+            function MessageDelete(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+    
+            /**
+             * MessageDelete id.
+             * @member {string} id
+             * @memberof main.MessageDelete
+             * @instance
+             */
+            MessageDelete.prototype.id = "";
+    
+            /**
+             * MessageDelete chat_id.
+             * @member {string} chat_id
+             * @memberof main.MessageDelete
+             * @instance
+             */
+            MessageDelete.prototype.chat_id = "";
+    
+            /**
+             * MessageDelete message_id.
+             * @member {string} message_id
+             * @memberof main.MessageDelete
+             * @instance
+             */
+            MessageDelete.prototype.message_id = "";
+    
+            /**
+             * Encodes the specified MessageDelete message. Does not implicitly {@link main.MessageDelete.verify|verify} messages.
+             * @function encode
+             * @memberof main.MessageDelete
+             * @static
+             * @param {main.IMessageDelete} message MessageDelete message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            MessageDelete.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                if (message.chat_id != null && Object.hasOwnProperty.call(message, "chat_id"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.chat_id);
+                if (message.message_id != null && Object.hasOwnProperty.call(message, "message_id"))
+                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.message_id);
+                return writer;
+            };
+    
+            /**
+             * Encodes the specified MessageDelete message, length delimited. Does not implicitly {@link main.MessageDelete.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof main.MessageDelete
+             * @static
+             * @param {main.IMessageDelete} message MessageDelete message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            MessageDelete.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+    
+            /**
+             * Decodes a MessageDelete message from the specified reader or buffer.
+             * @function decode
+             * @memberof main.MessageDelete
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {main.MessageDelete} MessageDelete
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            MessageDelete.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.MessageDelete();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.id = reader.string();
+                        break;
+                    case 2:
+                        message.chat_id = reader.string();
+                        break;
+                    case 3:
+                        message.message_id = reader.string();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Decodes a MessageDelete message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof main.MessageDelete
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {main.MessageDelete} MessageDelete
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            MessageDelete.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+    
+            /**
+             * Verifies a MessageDelete message.
+             * @function verify
+             * @memberof main.MessageDelete
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            MessageDelete.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.id != null && message.hasOwnProperty("id"))
+                    if (!$util.isString(message.id))
+                        return "id: string expected";
+                if (message.chat_id != null && message.hasOwnProperty("chat_id"))
+                    if (!$util.isString(message.chat_id))
+                        return "chat_id: string expected";
+                if (message.message_id != null && message.hasOwnProperty("message_id"))
+                    if (!$util.isString(message.message_id))
+                        return "message_id: string expected";
+                return null;
+            };
+    
+            /**
+             * Creates a MessageDelete message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof main.MessageDelete
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {main.MessageDelete} MessageDelete
+             */
+            MessageDelete.fromObject = function fromObject(object) {
+                if (object instanceof $root.main.MessageDelete)
+                    return object;
+                var message = new $root.main.MessageDelete();
+                if (object.id != null)
+                    message.id = String(object.id);
+                if (object.chat_id != null)
+                    message.chat_id = String(object.chat_id);
+                if (object.message_id != null)
+                    message.message_id = String(object.message_id);
+                return message;
+            };
+    
+            /**
+             * Creates a plain object from a MessageDelete message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof main.MessageDelete
+             * @static
+             * @param {main.MessageDelete} message MessageDelete
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            MessageDelete.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.id = "";
+                    object.chat_id = "";
+                    object.message_id = "";
+                }
+                if (message.id != null && message.hasOwnProperty("id"))
+                    object.id = message.id;
+                if (message.chat_id != null && message.hasOwnProperty("chat_id"))
+                    object.chat_id = message.chat_id;
+                if (message.message_id != null && message.hasOwnProperty("message_id"))
+                    object.message_id = message.message_id;
+                return object;
+            };
+    
+            /**
+             * Converts this MessageDelete to JSON.
+             * @function toJSON
+             * @memberof main.MessageDelete
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            MessageDelete.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            return MessageDelete;
+        })();
+    
+        main.MessageRead = (function() {
+    
+            /**
+             * Properties of a MessageRead.
+             * @memberof main
+             * @interface IMessageRead
+             * @property {string|null} [id] MessageRead id
+             * @property {string|null} [chat_id] MessageRead chat_id
+             * @property {string|null} [message_id] MessageRead message_id
+             */
+    
+            /**
+             * Constructs a new MessageRead.
+             * @memberof main
+             * @classdesc Represents a MessageRead.
+             * @implements IMessageRead
+             * @constructor
+             * @param {main.IMessageRead=} [properties] Properties to set
+             */
+            function MessageRead(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+    
+            /**
+             * MessageRead id.
+             * @member {string} id
+             * @memberof main.MessageRead
+             * @instance
+             */
+            MessageRead.prototype.id = "";
+    
+            /**
+             * MessageRead chat_id.
+             * @member {string} chat_id
+             * @memberof main.MessageRead
+             * @instance
+             */
+            MessageRead.prototype.chat_id = "";
+    
+            /**
+             * MessageRead message_id.
+             * @member {string} message_id
+             * @memberof main.MessageRead
+             * @instance
+             */
+            MessageRead.prototype.message_id = "";
+    
+            /**
+             * Encodes the specified MessageRead message. Does not implicitly {@link main.MessageRead.verify|verify} messages.
+             * @function encode
+             * @memberof main.MessageRead
+             * @static
+             * @param {main.IMessageRead} message MessageRead message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            MessageRead.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                if (message.chat_id != null && Object.hasOwnProperty.call(message, "chat_id"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.chat_id);
+                if (message.message_id != null && Object.hasOwnProperty.call(message, "message_id"))
+                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.message_id);
+                return writer;
+            };
+    
+            /**
+             * Encodes the specified MessageRead message, length delimited. Does not implicitly {@link main.MessageRead.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof main.MessageRead
+             * @static
+             * @param {main.IMessageRead} message MessageRead message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            MessageRead.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+    
+            /**
+             * Decodes a MessageRead message from the specified reader or buffer.
+             * @function decode
+             * @memberof main.MessageRead
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {main.MessageRead} MessageRead
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            MessageRead.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.MessageRead();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.id = reader.string();
+                        break;
+                    case 2:
+                        message.chat_id = reader.string();
+                        break;
+                    case 3:
+                        message.message_id = reader.string();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Decodes a MessageRead message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof main.MessageRead
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {main.MessageRead} MessageRead
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            MessageRead.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+    
+            /**
+             * Verifies a MessageRead message.
+             * @function verify
+             * @memberof main.MessageRead
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            MessageRead.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.id != null && message.hasOwnProperty("id"))
+                    if (!$util.isString(message.id))
+                        return "id: string expected";
+                if (message.chat_id != null && message.hasOwnProperty("chat_id"))
+                    if (!$util.isString(message.chat_id))
+                        return "chat_id: string expected";
+                if (message.message_id != null && message.hasOwnProperty("message_id"))
+                    if (!$util.isString(message.message_id))
+                        return "message_id: string expected";
+                return null;
+            };
+    
+            /**
+             * Creates a MessageRead message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof main.MessageRead
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {main.MessageRead} MessageRead
+             */
+            MessageRead.fromObject = function fromObject(object) {
+                if (object instanceof $root.main.MessageRead)
+                    return object;
+                var message = new $root.main.MessageRead();
+                if (object.id != null)
+                    message.id = String(object.id);
+                if (object.chat_id != null)
+                    message.chat_id = String(object.chat_id);
+                if (object.message_id != null)
+                    message.message_id = String(object.message_id);
+                return message;
+            };
+    
+            /**
+             * Creates a plain object from a MessageRead message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof main.MessageRead
+             * @static
+             * @param {main.MessageRead} message MessageRead
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            MessageRead.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.id = "";
+                    object.chat_id = "";
+                    object.message_id = "";
+                }
+                if (message.id != null && message.hasOwnProperty("id"))
+                    object.id = message.id;
+                if (message.chat_id != null && message.hasOwnProperty("chat_id"))
+                    object.chat_id = message.chat_id;
+                if (message.message_id != null && message.hasOwnProperty("message_id"))
+                    object.message_id = message.message_id;
+                return object;
+            };
+    
+            /**
+             * Converts this MessageRead to JSON.
+             * @function toJSON
+             * @memberof main.MessageRead
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            MessageRead.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            return MessageRead;
+        })();
+    
         main.Message = (function() {
     
             /**
              * Properties of a Message.
              * @memberof main
              * @interface IMessage
-             * @property {boolean|null} [status] Message status
-             * @property {string|null} [type] Message type
              * @property {string|null} [id] Message id
              * @property {string|null} [chat_id] Message chat_id
-             * @property {string|null} [sender_account_id] Message sender_account_id
-             * @property {string|null} [recipient_account_id] Message recipient_account_id
+             * @property {string|null} [account_id] Message account_id
+             * @property {string|null} [title] Message title
              * @property {string|null} [text] Message text
+             * @property {boolean|null} [is_read] Message is_read
+             * @property {boolean|null} [is_deleted] Message is_deleted
              */
     
             /**
@@ -3233,22 +3673,6 @@
             }
     
             /**
-             * Message status.
-             * @member {boolean} status
-             * @memberof main.Message
-             * @instance
-             */
-            Message.prototype.status = false;
-    
-            /**
-             * Message type.
-             * @member {string} type
-             * @memberof main.Message
-             * @instance
-             */
-            Message.prototype.type = "";
-    
-            /**
              * Message id.
              * @member {string} id
              * @memberof main.Message
@@ -3265,20 +3689,20 @@
             Message.prototype.chat_id = "";
     
             /**
-             * Message sender_account_id.
-             * @member {string} sender_account_id
+             * Message account_id.
+             * @member {string} account_id
              * @memberof main.Message
              * @instance
              */
-            Message.prototype.sender_account_id = "";
+            Message.prototype.account_id = "";
     
             /**
-             * Message recipient_account_id.
-             * @member {string} recipient_account_id
+             * Message title.
+             * @member {string} title
              * @memberof main.Message
              * @instance
              */
-            Message.prototype.recipient_account_id = "";
+            Message.prototype.title = "";
     
             /**
              * Message text.
@@ -3287,6 +3711,22 @@
              * @instance
              */
             Message.prototype.text = "";
+    
+            /**
+             * Message is_read.
+             * @member {boolean} is_read
+             * @memberof main.Message
+             * @instance
+             */
+            Message.prototype.is_read = false;
+    
+            /**
+             * Message is_deleted.
+             * @member {boolean} is_deleted
+             * @memberof main.Message
+             * @instance
+             */
+            Message.prototype.is_deleted = false;
     
             /**
              * Encodes the specified Message message. Does not implicitly {@link main.Message.verify|verify} messages.
@@ -3300,20 +3740,20 @@
             Message.encode = function encode(message, writer) {
                 if (!writer)
                     writer = $Writer.create();
-                if (message.status != null && Object.hasOwnProperty.call(message, "status"))
-                    writer.uint32(/* id 1, wireType 0 =*/8).bool(message.status);
-                if (message.type != null && Object.hasOwnProperty.call(message, "type"))
-                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.type);
                 if (message.id != null && Object.hasOwnProperty.call(message, "id"))
-                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.id);
+                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
                 if (message.chat_id != null && Object.hasOwnProperty.call(message, "chat_id"))
-                    writer.uint32(/* id 4, wireType 2 =*/34).string(message.chat_id);
-                if (message.sender_account_id != null && Object.hasOwnProperty.call(message, "sender_account_id"))
-                    writer.uint32(/* id 5, wireType 2 =*/42).string(message.sender_account_id);
-                if (message.recipient_account_id != null && Object.hasOwnProperty.call(message, "recipient_account_id"))
-                    writer.uint32(/* id 6, wireType 2 =*/50).string(message.recipient_account_id);
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.chat_id);
+                if (message.account_id != null && Object.hasOwnProperty.call(message, "account_id"))
+                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.account_id);
+                if (message.title != null && Object.hasOwnProperty.call(message, "title"))
+                    writer.uint32(/* id 4, wireType 2 =*/34).string(message.title);
                 if (message.text != null && Object.hasOwnProperty.call(message, "text"))
-                    writer.uint32(/* id 7, wireType 2 =*/58).string(message.text);
+                    writer.uint32(/* id 5, wireType 2 =*/42).string(message.text);
+                if (message.is_read != null && Object.hasOwnProperty.call(message, "is_read"))
+                    writer.uint32(/* id 6, wireType 0 =*/48).bool(message.is_read);
+                if (message.is_deleted != null && Object.hasOwnProperty.call(message, "is_deleted"))
+                    writer.uint32(/* id 7, wireType 0 =*/56).bool(message.is_deleted);
                 return writer;
             };
     
@@ -3349,25 +3789,25 @@
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
                     case 1:
-                        message.status = reader.bool();
-                        break;
-                    case 2:
-                        message.type = reader.string();
-                        break;
-                    case 3:
                         message.id = reader.string();
                         break;
-                    case 4:
+                    case 2:
                         message.chat_id = reader.string();
                         break;
+                    case 3:
+                        message.account_id = reader.string();
+                        break;
+                    case 4:
+                        message.title = reader.string();
+                        break;
                     case 5:
-                        message.sender_account_id = reader.string();
+                        message.text = reader.string();
                         break;
                     case 6:
-                        message.recipient_account_id = reader.string();
+                        message.is_read = reader.bool();
                         break;
                     case 7:
-                        message.text = reader.string();
+                        message.is_deleted = reader.bool();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -3404,27 +3844,27 @@
             Message.verify = function verify(message) {
                 if (typeof message !== "object" || message === null)
                     return "object expected";
-                if (message.status != null && message.hasOwnProperty("status"))
-                    if (typeof message.status !== "boolean")
-                        return "status: boolean expected";
-                if (message.type != null && message.hasOwnProperty("type"))
-                    if (!$util.isString(message.type))
-                        return "type: string expected";
                 if (message.id != null && message.hasOwnProperty("id"))
                     if (!$util.isString(message.id))
                         return "id: string expected";
                 if (message.chat_id != null && message.hasOwnProperty("chat_id"))
                     if (!$util.isString(message.chat_id))
                         return "chat_id: string expected";
-                if (message.sender_account_id != null && message.hasOwnProperty("sender_account_id"))
-                    if (!$util.isString(message.sender_account_id))
-                        return "sender_account_id: string expected";
-                if (message.recipient_account_id != null && message.hasOwnProperty("recipient_account_id"))
-                    if (!$util.isString(message.recipient_account_id))
-                        return "recipient_account_id: string expected";
+                if (message.account_id != null && message.hasOwnProperty("account_id"))
+                    if (!$util.isString(message.account_id))
+                        return "account_id: string expected";
+                if (message.title != null && message.hasOwnProperty("title"))
+                    if (!$util.isString(message.title))
+                        return "title: string expected";
                 if (message.text != null && message.hasOwnProperty("text"))
                     if (!$util.isString(message.text))
                         return "text: string expected";
+                if (message.is_read != null && message.hasOwnProperty("is_read"))
+                    if (typeof message.is_read !== "boolean")
+                        return "is_read: boolean expected";
+                if (message.is_deleted != null && message.hasOwnProperty("is_deleted"))
+                    if (typeof message.is_deleted !== "boolean")
+                        return "is_deleted: boolean expected";
                 return null;
             };
     
@@ -3440,20 +3880,20 @@
                 if (object instanceof $root.main.Message)
                     return object;
                 var message = new $root.main.Message();
-                if (object.status != null)
-                    message.status = Boolean(object.status);
-                if (object.type != null)
-                    message.type = String(object.type);
                 if (object.id != null)
                     message.id = String(object.id);
                 if (object.chat_id != null)
                     message.chat_id = String(object.chat_id);
-                if (object.sender_account_id != null)
-                    message.sender_account_id = String(object.sender_account_id);
-                if (object.recipient_account_id != null)
-                    message.recipient_account_id = String(object.recipient_account_id);
+                if (object.account_id != null)
+                    message.account_id = String(object.account_id);
+                if (object.title != null)
+                    message.title = String(object.title);
                 if (object.text != null)
                     message.text = String(object.text);
+                if (object.is_read != null)
+                    message.is_read = Boolean(object.is_read);
+                if (object.is_deleted != null)
+                    message.is_deleted = Boolean(object.is_deleted);
                 return message;
             };
     
@@ -3471,28 +3911,28 @@
                     options = {};
                 var object = {};
                 if (options.defaults) {
-                    object.status = false;
-                    object.type = "";
                     object.id = "";
                     object.chat_id = "";
-                    object.sender_account_id = "";
-                    object.recipient_account_id = "";
+                    object.account_id = "";
+                    object.title = "";
                     object.text = "";
+                    object.is_read = false;
+                    object.is_deleted = false;
                 }
-                if (message.status != null && message.hasOwnProperty("status"))
-                    object.status = message.status;
-                if (message.type != null && message.hasOwnProperty("type"))
-                    object.type = message.type;
                 if (message.id != null && message.hasOwnProperty("id"))
                     object.id = message.id;
                 if (message.chat_id != null && message.hasOwnProperty("chat_id"))
                     object.chat_id = message.chat_id;
-                if (message.sender_account_id != null && message.hasOwnProperty("sender_account_id"))
-                    object.sender_account_id = message.sender_account_id;
-                if (message.recipient_account_id != null && message.hasOwnProperty("recipient_account_id"))
-                    object.recipient_account_id = message.recipient_account_id;
+                if (message.account_id != null && message.hasOwnProperty("account_id"))
+                    object.account_id = message.account_id;
+                if (message.title != null && message.hasOwnProperty("title"))
+                    object.title = message.title;
                 if (message.text != null && message.hasOwnProperty("text"))
                     object.text = message.text;
+                if (message.is_read != null && message.hasOwnProperty("is_read"))
+                    object.is_read = message.is_read;
+                if (message.is_deleted != null && message.hasOwnProperty("is_deleted"))
+                    object.is_deleted = message.is_deleted;
                 return object;
             };
     
