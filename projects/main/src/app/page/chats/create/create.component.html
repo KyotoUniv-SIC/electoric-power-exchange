@@ -1,1 +1,5 @@
-<p>create works!</p>
+<view-create
+  [studentAccount]="studentAccount$ | async"
+  [studentAccounts]="studentAccounts$ | async"
+  (appSubmit)="onSubmit($event)"
+></view-create>
