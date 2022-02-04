@@ -33,11 +33,15 @@ export class CreateComponent implements OnInit {
       alert('ユーザーログイン情報を取得できません');
       return;
     }
+    if (!title) {
+      alert('タイトルを入力してください');
+      return;
+    }
     if (!this.user) {
       alert('宛先を指定してください');
       return;
     }
-    if (this.user?.id == this.studentAccount?.id) {
+    if (this.user.id == this.studentAccount.id) {
       alert('自分を宛先にはできません');
       return;
     }
