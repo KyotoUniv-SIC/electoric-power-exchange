@@ -38,6 +38,7 @@ export class ChatComponent implements OnInit {
       map((messages) =>
         messages
           .filter((message) => message.is_deleted != true)
+          // 昇順に並び替え（新規作成分はnullになる）
           .sort(function (first, second) {
             if (!first.created_at) {
               return -1;

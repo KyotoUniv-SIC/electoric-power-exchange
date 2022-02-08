@@ -30,15 +30,16 @@ export class ChatsComponent implements OnInit {
       map((chats) =>
         chats
           .filter((chat) => chat.is_deleted != true)
+          // 降順に並び替え（新規作成分はnullになる）
           .sort(function (first, second) {
             if (!first.created_at) {
-              return -1;
-            } else if (!second.created_at) {
               return 1;
+            } else if (!second.created_at) {
+              return -1;
             } else {
-              if ((first.created_at as Timestamp).toDate() < (second.created_at as Timestamp).toDate()) {
+              if ((first.created_at as Timestamp).toDate() > (second.created_at as Timestamp).toDate()) {
                 return -1;
-              } else if ((first.created_at as Timestamp).toDate() > (second.created_at as Timestamp).toDate()) {
+              } else if ((first.created_at as Timestamp).toDate() < (second.created_at as Timestamp).toDate()) {
                 return 1;
               } else {
                 return 0;
