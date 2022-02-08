@@ -827,11 +827,17 @@ export namespace main {
         /** Chat title */
         title?: (string|null);
 
-        /** Chat user1 */
-        user1?: (string|null);
+        /** Chat user1_id */
+        user1_id?: (string|null);
 
-        /** Chat user2 */
-        user2?: (string|null);
+        /** Chat user1_name */
+        user1_name?: (string|null);
+
+        /** Chat user2_id */
+        user2_id?: (string|null);
+
+        /** Chat user2_name */
+        user2_name?: (string|null);
     }
 
     /** Represents a Chat. */
@@ -849,11 +855,17 @@ export namespace main {
         /** Chat title. */
         public title: string;
 
-        /** Chat user1. */
-        public user1: string;
+        /** Chat user1_id. */
+        public user1_id: string;
 
-        /** Chat user2. */
-        public user2: string;
+        /** Chat user1_name. */
+        public user1_name: string;
+
+        /** Chat user2_id. */
+        public user2_id: string;
+
+        /** Chat user2_name. */
+        public user2_name: string;
 
         /**
          * Encodes the specified Chat message. Does not implicitly {@link main.Chat.verify|verify} messages.

@@ -2044,8 +2044,10 @@
              * @interface IChat
              * @property {string|null} [id] Chat id
              * @property {string|null} [title] Chat title
-             * @property {string|null} [user1] Chat user1
-             * @property {string|null} [user2] Chat user2
+             * @property {string|null} [user1_id] Chat user1_id
+             * @property {string|null} [user1_name] Chat user1_name
+             * @property {string|null} [user2_id] Chat user2_id
+             * @property {string|null} [user2_name] Chat user2_name
              */
     
             /**
@@ -2080,20 +2082,36 @@
             Chat.prototype.title = "";
     
             /**
-             * Chat user1.
-             * @member {string} user1
+             * Chat user1_id.
+             * @member {string} user1_id
              * @memberof main.Chat
              * @instance
              */
-            Chat.prototype.user1 = "";
+            Chat.prototype.user1_id = "";
     
             /**
-             * Chat user2.
-             * @member {string} user2
+             * Chat user1_name.
+             * @member {string} user1_name
              * @memberof main.Chat
              * @instance
              */
-            Chat.prototype.user2 = "";
+            Chat.prototype.user1_name = "";
+    
+            /**
+             * Chat user2_id.
+             * @member {string} user2_id
+             * @memberof main.Chat
+             * @instance
+             */
+            Chat.prototype.user2_id = "";
+    
+            /**
+             * Chat user2_name.
+             * @member {string} user2_name
+             * @memberof main.Chat
+             * @instance
+             */
+            Chat.prototype.user2_name = "";
     
             /**
              * Encodes the specified Chat message. Does not implicitly {@link main.Chat.verify|verify} messages.
@@ -2111,10 +2129,14 @@
                     writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
                 if (message.title != null && Object.hasOwnProperty.call(message, "title"))
                     writer.uint32(/* id 2, wireType 2 =*/18).string(message.title);
-                if (message.user1 != null && Object.hasOwnProperty.call(message, "user1"))
-                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.user1);
-                if (message.user2 != null && Object.hasOwnProperty.call(message, "user2"))
-                    writer.uint32(/* id 4, wireType 2 =*/34).string(message.user2);
+                if (message.user1_id != null && Object.hasOwnProperty.call(message, "user1_id"))
+                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.user1_id);
+                if (message.user1_name != null && Object.hasOwnProperty.call(message, "user1_name"))
+                    writer.uint32(/* id 4, wireType 2 =*/34).string(message.user1_name);
+                if (message.user2_id != null && Object.hasOwnProperty.call(message, "user2_id"))
+                    writer.uint32(/* id 5, wireType 2 =*/42).string(message.user2_id);
+                if (message.user2_name != null && Object.hasOwnProperty.call(message, "user2_name"))
+                    writer.uint32(/* id 6, wireType 2 =*/50).string(message.user2_name);
                 return writer;
             };
     
@@ -2156,10 +2178,16 @@
                         message.title = reader.string();
                         break;
                     case 3:
-                        message.user1 = reader.string();
+                        message.user1_id = reader.string();
                         break;
                     case 4:
-                        message.user2 = reader.string();
+                        message.user1_name = reader.string();
+                        break;
+                    case 5:
+                        message.user2_id = reader.string();
+                        break;
+                    case 6:
+                        message.user2_name = reader.string();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -2202,12 +2230,18 @@
                 if (message.title != null && message.hasOwnProperty("title"))
                     if (!$util.isString(message.title))
                         return "title: string expected";
-                if (message.user1 != null && message.hasOwnProperty("user1"))
-                    if (!$util.isString(message.user1))
-                        return "user1: string expected";
-                if (message.user2 != null && message.hasOwnProperty("user2"))
-                    if (!$util.isString(message.user2))
-                        return "user2: string expected";
+                if (message.user1_id != null && message.hasOwnProperty("user1_id"))
+                    if (!$util.isString(message.user1_id))
+                        return "user1_id: string expected";
+                if (message.user1_name != null && message.hasOwnProperty("user1_name"))
+                    if (!$util.isString(message.user1_name))
+                        return "user1_name: string expected";
+                if (message.user2_id != null && message.hasOwnProperty("user2_id"))
+                    if (!$util.isString(message.user2_id))
+                        return "user2_id: string expected";
+                if (message.user2_name != null && message.hasOwnProperty("user2_name"))
+                    if (!$util.isString(message.user2_name))
+                        return "user2_name: string expected";
                 return null;
             };
     
@@ -2227,10 +2261,14 @@
                     message.id = String(object.id);
                 if (object.title != null)
                     message.title = String(object.title);
-                if (object.user1 != null)
-                    message.user1 = String(object.user1);
-                if (object.user2 != null)
-                    message.user2 = String(object.user2);
+                if (object.user1_id != null)
+                    message.user1_id = String(object.user1_id);
+                if (object.user1_name != null)
+                    message.user1_name = String(object.user1_name);
+                if (object.user2_id != null)
+                    message.user2_id = String(object.user2_id);
+                if (object.user2_name != null)
+                    message.user2_name = String(object.user2_name);
                 return message;
             };
     
@@ -2250,17 +2288,23 @@
                 if (options.defaults) {
                     object.id = "";
                     object.title = "";
-                    object.user1 = "";
-                    object.user2 = "";
+                    object.user1_id = "";
+                    object.user1_name = "";
+                    object.user2_id = "";
+                    object.user2_name = "";
                 }
                 if (message.id != null && message.hasOwnProperty("id"))
                     object.id = message.id;
                 if (message.title != null && message.hasOwnProperty("title"))
                     object.title = message.title;
-                if (message.user1 != null && message.hasOwnProperty("user1"))
-                    object.user1 = message.user1;
-                if (message.user2 != null && message.hasOwnProperty("user2"))
-                    object.user2 = message.user2;
+                if (message.user1_id != null && message.hasOwnProperty("user1_id"))
+                    object.user1_id = message.user1_id;
+                if (message.user1_name != null && message.hasOwnProperty("user1_name"))
+                    object.user1_name = message.user1_name;
+                if (message.user2_id != null && message.hasOwnProperty("user2_id"))
+                    object.user2_id = message.user2_id;
+                if (message.user2_name != null && message.hasOwnProperty("user2_name"))
+                    object.user2_name = message.user2_name;
                 return object;
             };
     
