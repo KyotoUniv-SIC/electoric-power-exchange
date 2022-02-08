@@ -23,6 +23,12 @@
           </mat-list-item>
           <mat-divider [inset]="true"></mat-divider>
           <mat-list-item class="flex flex-wrap">
+            <span class="break-all">Date:</span>
+            <span class="flex-auto break-all"></span>
+            <span class="break-all">{{ createdAt }}</span>
+          </mat-list-item>
+          <mat-divider [inset]="true"></mat-divider>
+          <mat-list-item class="flex flex-wrap">
             <span class="break-all">Chat ID:</span>
             <span class="flex-auto break-all"></span>
             <span class="break-all">{{ message?.chat_id }}</span>
@@ -34,11 +40,12 @@
             <span class="break-all">{{ message?.account_id }}</span>
           </mat-list-item>
           <mat-divider [inset]="true"></mat-divider>
-          <mat-list-item class="flex flex-wrap">
+          <!-- <mat-list-item class="flex flex-wrap">
             <span class="break-all">Read:</span>
             <span class="flex-auto break-all"></span>
             <span class="break-all">{{ message?.is_read }}</span>
           </mat-list-item>
+          <mat-divider [inset]="true"></mat-divider> -->
         </mat-list>
         <br /><br />
         <ng-container *ngIf="studentAccount?.id == message?.account_id">
