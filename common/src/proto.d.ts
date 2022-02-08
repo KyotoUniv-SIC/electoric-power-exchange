@@ -818,20 +818,118 @@ export namespace main {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a ChatDelete. */
+    interface IChatDelete {
+
+        /** ChatDelete id */
+        id?: (string|null);
+
+        /** ChatDelete chat_id */
+        chat_id?: (string|null);
+    }
+
+    /** Represents a ChatDelete. */
+    class ChatDelete implements IChatDelete {
+
+        /**
+         * Constructs a new ChatDelete.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.IChatDelete);
+
+        /** ChatDelete id. */
+        public id: string;
+
+        /** ChatDelete chat_id. */
+        public chat_id: string;
+
+        /**
+         * Encodes the specified ChatDelete message. Does not implicitly {@link main.ChatDelete.verify|verify} messages.
+         * @param message ChatDelete message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.IChatDelete, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified ChatDelete message, length delimited. Does not implicitly {@link main.ChatDelete.verify|verify} messages.
+         * @param message ChatDelete message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.IChatDelete, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a ChatDelete message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns ChatDelete
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.ChatDelete;
+
+        /**
+         * Decodes a ChatDelete message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns ChatDelete
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.ChatDelete;
+
+        /**
+         * Verifies a ChatDelete message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a ChatDelete message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns ChatDelete
+         */
+        public static fromObject(object: { [k: string]: any }): main.ChatDelete;
+
+        /**
+         * Creates a plain object from a ChatDelete message. Also converts values to other types if specified.
+         * @param message ChatDelete
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.ChatDelete, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this ChatDelete to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a Chat. */
     interface IChat {
 
         /** Chat id */
         id?: (string|null);
 
-        /** Chat name */
-        name?: (string|null);
+        /** Chat title */
+        title?: (string|null);
 
-        /** Chat user1 */
-        user1?: (string|null);
+        /** Chat user1_id */
+        user1_id?: (string|null);
 
-        /** Chat user2 */
-        user2?: (string|null);
+        /** Chat user1_name */
+        user1_name?: (string|null);
+
+        /** Chat user2_id */
+        user2_id?: (string|null);
+
+        /** Chat user2_name */
+        user2_name?: (string|null);
+
+        /** Chat is_deleted */
+        is_deleted?: (boolean|null);
     }
 
     /** Represents a Chat. */
@@ -846,14 +944,23 @@ export namespace main {
         /** Chat id. */
         public id: string;
 
-        /** Chat name. */
-        public name: string;
+        /** Chat title. */
+        public title: string;
 
-        /** Chat user1. */
-        public user1: string;
+        /** Chat user1_id. */
+        public user1_id: string;
 
-        /** Chat user2. */
-        public user2: string;
+        /** Chat user1_name. */
+        public user1_name: string;
+
+        /** Chat user2_id. */
+        public user2_id: string;
+
+        /** Chat user2_name. */
+        public user2_name: string;
+
+        /** Chat is_deleted. */
+        public is_deleted: boolean;
 
         /**
          * Encodes the specified Chat message. Does not implicitly {@link main.Chat.verify|verify} messages.
@@ -1311,14 +1418,198 @@ export namespace main {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a MessageDelete. */
+    interface IMessageDelete {
+
+        /** MessageDelete id */
+        id?: (string|null);
+
+        /** MessageDelete chat_id */
+        chat_id?: (string|null);
+
+        /** MessageDelete message_id */
+        message_id?: (string|null);
+    }
+
+    /** Represents a MessageDelete. */
+    class MessageDelete implements IMessageDelete {
+
+        /**
+         * Constructs a new MessageDelete.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.IMessageDelete);
+
+        /** MessageDelete id. */
+        public id: string;
+
+        /** MessageDelete chat_id. */
+        public chat_id: string;
+
+        /** MessageDelete message_id. */
+        public message_id: string;
+
+        /**
+         * Encodes the specified MessageDelete message. Does not implicitly {@link main.MessageDelete.verify|verify} messages.
+         * @param message MessageDelete message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.IMessageDelete, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified MessageDelete message, length delimited. Does not implicitly {@link main.MessageDelete.verify|verify} messages.
+         * @param message MessageDelete message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.IMessageDelete, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a MessageDelete message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MessageDelete
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.MessageDelete;
+
+        /**
+         * Decodes a MessageDelete message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MessageDelete
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.MessageDelete;
+
+        /**
+         * Verifies a MessageDelete message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MessageDelete message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MessageDelete
+         */
+        public static fromObject(object: { [k: string]: any }): main.MessageDelete;
+
+        /**
+         * Creates a plain object from a MessageDelete message. Also converts values to other types if specified.
+         * @param message MessageDelete
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.MessageDelete, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MessageDelete to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a MessageRead. */
+    interface IMessageRead {
+
+        /** MessageRead id */
+        id?: (string|null);
+
+        /** MessageRead chat_id */
+        chat_id?: (string|null);
+
+        /** MessageRead message_id */
+        message_id?: (string|null);
+    }
+
+    /** Represents a MessageRead. */
+    class MessageRead implements IMessageRead {
+
+        /**
+         * Constructs a new MessageRead.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.IMessageRead);
+
+        /** MessageRead id. */
+        public id: string;
+
+        /** MessageRead chat_id. */
+        public chat_id: string;
+
+        /** MessageRead message_id. */
+        public message_id: string;
+
+        /**
+         * Encodes the specified MessageRead message. Does not implicitly {@link main.MessageRead.verify|verify} messages.
+         * @param message MessageRead message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.IMessageRead, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified MessageRead message, length delimited. Does not implicitly {@link main.MessageRead.verify|verify} messages.
+         * @param message MessageRead message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.IMessageRead, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a MessageRead message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MessageRead
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.MessageRead;
+
+        /**
+         * Decodes a MessageRead message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MessageRead
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.MessageRead;
+
+        /**
+         * Verifies a MessageRead message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MessageRead message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MessageRead
+         */
+        public static fromObject(object: { [k: string]: any }): main.MessageRead;
+
+        /**
+         * Creates a plain object from a MessageRead message. Also converts values to other types if specified.
+         * @param message MessageRead
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.MessageRead, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MessageRead to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a Message. */
     interface IMessage {
-
-        /** Message status */
-        status?: (boolean|null);
-
-        /** Message type */
-        type?: (string|null);
 
         /** Message id */
         id?: (string|null);
@@ -1326,14 +1617,17 @@ export namespace main {
         /** Message chat_id */
         chat_id?: (string|null);
 
-        /** Message sender_account_id */
-        sender_account_id?: (string|null);
-
-        /** Message recipient_account_id */
-        recipient_account_id?: (string|null);
+        /** Message account_id */
+        account_id?: (string|null);
 
         /** Message text */
         text?: (string|null);
+
+        /** Message is_read */
+        is_read?: (boolean|null);
+
+        /** Message is_deleted */
+        is_deleted?: (boolean|null);
     }
 
     /** Represents a Message. */
@@ -1345,26 +1639,23 @@ export namespace main {
          */
         constructor(properties?: main.IMessage);
 
-        /** Message status. */
-        public status: boolean;
-
-        /** Message type. */
-        public type: string;
-
         /** Message id. */
         public id: string;
 
         /** Message chat_id. */
         public chat_id: string;
 
-        /** Message sender_account_id. */
-        public sender_account_id: string;
-
-        /** Message recipient_account_id. */
-        public recipient_account_id: string;
+        /** Message account_id. */
+        public account_id: string;
 
         /** Message text. */
         public text: string;
+
+        /** Message is_read. */
+        public is_read: boolean;
+
+        /** Message is_deleted. */
+        public is_deleted: boolean;
 
         /**
          * Encodes the specified Message message. Does not implicitly {@link main.Message.verify|verify} messages.

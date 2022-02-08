@@ -7,7 +7,10 @@ option (google.firebase.rules.firebase_rules).full_package_names = true;
 
 message Chat {
   string id = 1;
-  string name = 2;
-  string user1 = 3;
-  string user2 =4;
+  string title = 2;
+  string user1_id = 3;
+  string user1_name = 4;
+  string user2_id = 5;
+  string user2_name = 6;
+  bool is_deleted = 7;
 }

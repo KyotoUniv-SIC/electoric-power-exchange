@@ -8,6 +8,9 @@ import './balances/normal-settlement';
 import './balances/primary';
 import './balances/renewable-settlemet';
 import './balances/student-account';
+import './chats/chat-delete';
+import './messages/message-delete';
+import './messages/message-read';
 import './monthly-payments/balance-snapshot';
 import './normal-asks/normal-ask-delete';
 import './normal-bids/normal-bid-delete';
@@ -47,27 +50,32 @@ const files = {
   available_balances: './available-balances',
   balance_snapshots: './balance-snapshots',
   balances: './balances',
+  chat_deletes: './chat-deletes',
+  chats: './chats',
   daily_usages: './daily-usages',
   discount_prices: './discount-prices',
   insufficient_balances: './insufficient-balances',
   market_statuses: './market-statuses',
+  message_deletes: './message-deletes',
+  message_reads: './message-reads',
+  messages: './messages',
   monthly_payments: './monthly-payments',
   monthly_usages: './monthly-usages',
-  normal_asks: './normal-asks',
   normal_ask_deletes: './normal-ask-deletes',
   normal_ask_histories: './normal-ask-histories',
-  normal_bids: './normal-bids',
+  normal_asks: './normal-asks',
   normal_bid_deletes: './normal-bid-deletes',
   normal_bid_histories: './normal-bid-histories',
+  normal_bids: './normal-bids',
   normal_settlements: './normal-settlements',
   primary_asks: './primary-asks',
   primary_bids: './primary-bids',
-  renewable_asks: './renewable-asks',
   renewable_ask_deletes: './renewable-ask-deletes',
   renewable_ask_histories: './renewable-ask-histories',
-  renewable_bids: './renewable-bids',
+  renewable_asks: './renewable-asks',
   renewable_bid_deletes: './renewable-bid-deletes',
   renewable_bid_histories: './renewable-bid-histories',
+  renewable_bids: './renewable-bids',
   renewable_settlements: './renewable-settlements',
   room_changes: './room-changes',
   normals: './single-price-normal-settlements',
