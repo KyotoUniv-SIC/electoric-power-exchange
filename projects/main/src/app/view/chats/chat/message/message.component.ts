@@ -28,7 +28,7 @@ export class MessageComponent implements OnInit {
   ngOnInit(): void {}
 
   onClickDelete() {
-    if (!this.message?.id) {
+    if (!this.message) {
       return;
     }
     if (this.message.account_id != this.studentAccount?.id) {
