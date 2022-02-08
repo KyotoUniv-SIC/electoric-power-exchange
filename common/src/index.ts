@@ -38,4 +38,4 @@ export * from './entities/student-accounts/balance-snapshots';
 export * from './entities/chats/messages';
 export * from './entities/message-deletes';
 export * from './entities/message-reads';
-export * from "./entities/chat-deletes";
+export * from './entities/chat-deletes';
