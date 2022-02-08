@@ -12,4 +12,5 @@ message Chat {
   string user1_name = 4;
   string user2_id = 5;
   string user2_name = 6;
+  bool is_deleted = 7;
 }

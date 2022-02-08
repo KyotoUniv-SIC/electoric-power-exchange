@@ -818,6 +818,95 @@ export namespace main {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a ChatDelete. */
+    interface IChatDelete {
+
+        /** ChatDelete id */
+        id?: (string|null);
+
+        /** ChatDelete chat_id */
+        chat_id?: (string|null);
+    }
+
+    /** Represents a ChatDelete. */
+    class ChatDelete implements IChatDelete {
+
+        /**
+         * Constructs a new ChatDelete.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.IChatDelete);
+
+        /** ChatDelete id. */
+        public id: string;
+
+        /** ChatDelete chat_id. */
+        public chat_id: string;
+
+        /**
+         * Encodes the specified ChatDelete message. Does not implicitly {@link main.ChatDelete.verify|verify} messages.
+         * @param message ChatDelete message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.IChatDelete, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified ChatDelete message, length delimited. Does not implicitly {@link main.ChatDelete.verify|verify} messages.
+         * @param message ChatDelete message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.IChatDelete, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a ChatDelete message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns ChatDelete
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.ChatDelete;
+
+        /**
+         * Decodes a ChatDelete message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns ChatDelete
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.ChatDelete;
+
+        /**
+         * Verifies a ChatDelete message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a ChatDelete message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns ChatDelete
+         */
+        public static fromObject(object: { [k: string]: any }): main.ChatDelete;
+
+        /**
+         * Creates a plain object from a ChatDelete message. Also converts values to other types if specified.
+         * @param message ChatDelete
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.ChatDelete, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this ChatDelete to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a Chat. */
     interface IChat {
 
@@ -838,6 +927,9 @@ export namespace main {
 
         /** Chat user2_name */
         user2_name?: (string|null);
+
+        /** Chat is_deleted */
+        is_deleted?: (boolean|null);
     }
 
     /** Represents a Chat. */
@@ -866,6 +958,9 @@ export namespace main {
 
         /** Chat user2_name. */
         public user2_name: string;
+
+        /** Chat is_deleted. */
+        public is_deleted: boolean;
 
         /**
          * Encodes the specified Chat message. Does not implicitly {@link main.Chat.verify|verify} messages.

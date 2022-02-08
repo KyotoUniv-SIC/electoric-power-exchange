@@ -2036,6 +2036,204 @@
             return Balance;
         })();
     
+        main.ChatDelete = (function() {
+    
+            /**
+             * Properties of a ChatDelete.
+             * @memberof main
+             * @interface IChatDelete
+             * @property {string|null} [id] ChatDelete id
+             * @property {string|null} [chat_id] ChatDelete chat_id
+             */
+    
+            /**
+             * Constructs a new ChatDelete.
+             * @memberof main
+             * @classdesc Represents a ChatDelete.
+             * @implements IChatDelete
+             * @constructor
+             * @param {main.IChatDelete=} [properties] Properties to set
+             */
+            function ChatDelete(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+    
+            /**
+             * ChatDelete id.
+             * @member {string} id
+             * @memberof main.ChatDelete
+             * @instance
+             */
+            ChatDelete.prototype.id = "";
+    
+            /**
+             * ChatDelete chat_id.
+             * @member {string} chat_id
+             * @memberof main.ChatDelete
+             * @instance
+             */
+            ChatDelete.prototype.chat_id = "";
+    
+            /**
+             * Encodes the specified ChatDelete message. Does not implicitly {@link main.ChatDelete.verify|verify} messages.
+             * @function encode
+             * @memberof main.ChatDelete
+             * @static
+             * @param {main.IChatDelete} message ChatDelete message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            ChatDelete.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                if (message.chat_id != null && Object.hasOwnProperty.call(message, "chat_id"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.chat_id);
+                return writer;
+            };
+    
+            /**
+             * Encodes the specified ChatDelete message, length delimited. Does not implicitly {@link main.ChatDelete.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof main.ChatDelete
+             * @static
+             * @param {main.IChatDelete} message ChatDelete message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            ChatDelete.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+    
+            /**
+             * Decodes a ChatDelete message from the specified reader or buffer.
+             * @function decode
+             * @memberof main.ChatDelete
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {main.ChatDelete} ChatDelete
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            ChatDelete.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.ChatDelete();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.id = reader.string();
+                        break;
+                    case 2:
+                        message.chat_id = reader.string();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Decodes a ChatDelete message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof main.ChatDelete
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {main.ChatDelete} ChatDelete
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            ChatDelete.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+    
+            /**
+             * Verifies a ChatDelete message.
+             * @function verify
+             * @memberof main.ChatDelete
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            ChatDelete.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.id != null && message.hasOwnProperty("id"))
+                    if (!$util.isString(message.id))
+                        return "id: string expected";
+                if (message.chat_id != null && message.hasOwnProperty("chat_id"))
+                    if (!$util.isString(message.chat_id))
+                        return "chat_id: string expected";
+                return null;
+            };
+    
+            /**
+             * Creates a ChatDelete message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof main.ChatDelete
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {main.ChatDelete} ChatDelete
+             */
+            ChatDelete.fromObject = function fromObject(object) {
+                if (object instanceof $root.main.ChatDelete)
+                    return object;
+                var message = new $root.main.ChatDelete();
+                if (object.id != null)
+                    message.id = String(object.id);
+                if (object.chat_id != null)
+                    message.chat_id = String(object.chat_id);
+                return message;
+            };
+    
+            /**
+             * Creates a plain object from a ChatDelete message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof main.ChatDelete
+             * @static
+             * @param {main.ChatDelete} message ChatDelete
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            ChatDelete.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.id = "";
+                    object.chat_id = "";
+                }
+                if (message.id != null && message.hasOwnProperty("id"))
+                    object.id = message.id;
+                if (message.chat_id != null && message.hasOwnProperty("chat_id"))
+                    object.chat_id = message.chat_id;
+                return object;
+            };
+    
+            /**
+             * Converts this ChatDelete to JSON.
+             * @function toJSON
+             * @memberof main.ChatDelete
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            ChatDelete.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            return ChatDelete;
+        })();
+    
         main.Chat = (function() {
     
             /**
@@ -2048,6 +2246,7 @@
              * @property {string|null} [user1_name] Chat user1_name
              * @property {string|null} [user2_id] Chat user2_id
              * @property {string|null} [user2_name] Chat user2_name
+             * @property {boolean|null} [is_deleted] Chat is_deleted
              */
     
             /**
@@ -2114,6 +2313,14 @@
             Chat.prototype.user2_name = "";
     
             /**
+             * Chat is_deleted.
+             * @member {boolean} is_deleted
+             * @memberof main.Chat
+             * @instance
+             */
+            Chat.prototype.is_deleted = false;
+    
+            /**
              * Encodes the specified Chat message. Does not implicitly {@link main.Chat.verify|verify} messages.
              * @function encode
              * @memberof main.Chat
@@ -2137,6 +2344,8 @@
                     writer.uint32(/* id 5, wireType 2 =*/42).string(message.user2_id);
                 if (message.user2_name != null && Object.hasOwnProperty.call(message, "user2_name"))
                     writer.uint32(/* id 6, wireType 2 =*/50).string(message.user2_name);
+                if (message.is_deleted != null && Object.hasOwnProperty.call(message, "is_deleted"))
+                    writer.uint32(/* id 7, wireType 0 =*/56).bool(message.is_deleted);
                 return writer;
             };
     
@@ -2188,6 +2397,9 @@
                         break;
                     case 6:
                         message.user2_name = reader.string();
+                        break;
+                    case 7:
+                        message.is_deleted = reader.bool();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -2242,6 +2454,9 @@
                 if (message.user2_name != null && message.hasOwnProperty("user2_name"))
                     if (!$util.isString(message.user2_name))
                         return "user2_name: string expected";
+                if (message.is_deleted != null && message.hasOwnProperty("is_deleted"))
+                    if (typeof message.is_deleted !== "boolean")
+                        return "is_deleted: boolean expected";
                 return null;
             };
     
@@ -2269,6 +2484,8 @@
                     message.user2_id = String(object.user2_id);
                 if (object.user2_name != null)
                     message.user2_name = String(object.user2_name);
+                if (object.is_deleted != null)
+                    message.is_deleted = Boolean(object.is_deleted);
                 return message;
             };
     
@@ -2292,6 +2509,7 @@
                     object.user1_name = "";
                     object.user2_id = "";
                     object.user2_name = "";
+                    object.is_deleted = false;
                 }
                 if (message.id != null && message.hasOwnProperty("id"))
                     object.id = message.id;
@@ -2305,6 +2523,8 @@
                     object.user2_id = message.user2_id;
                 if (message.user2_name != null && message.hasOwnProperty("user2_name"))
                     object.user2_name = message.user2_name;
+                if (message.is_deleted != null && message.hasOwnProperty("is_deleted"))
+                    object.is_deleted = message.is_deleted;
                 return object;
             };
     
