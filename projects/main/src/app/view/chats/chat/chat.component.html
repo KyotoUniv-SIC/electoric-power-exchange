@@ -1,1 +1,44 @@
-<p>chat works!</p>
+<div class="w-full lg:mx-auto lg:w-1/3 lg:mt-10">
+  <mat-card class="mb-10">
+    <ng-container *ngIf="studentAccount === null; then loading; else loadedStudent"></ng-container>
+    <ng-template #loading>
+      <mat-progress-spinner [diameter]="60" [mode]="'indeterminate'"></mat-progress-spinner>
+    </ng-template>
+    <ng-template #loadedStudent>
+      <ng-container *ngIf="chat === null; then loading; else loadedChat"></ng-container>
+      <ng-template #loadedChat>
+        <ng-container *ngIf="studentAccount?.id == chat?.user1_id; then user1; else user2"></ng-container>
+        <ng-template #user1>
+          <mat-card-title>Chat with {{ chat?.user2_name }}</mat-card-title>
+        </ng-template>
+        <ng-template #user2>
+          <mat-card-title>Chat with {{ chat?.user1_name }}</mat-card-title>
+        </ng-template>
+      </ng-template>
+
+      <ng-container *ngIf="messages === null; then loading; else loadedMessages"></ng-container>
+      <ng-template #loadedMessages>
+        <mat-nav-list>
+          <ng-container *ngIf="(messages?.length || 0) > 0; then exist; else empty"></ng-container>
+          <ng-template #exist>
+            <ng-container *ngFor="let message of messages">
+              <mat-divider [inset]="true"></mat-divider>
+              <ng-container *ngIf="studentAccount?.id == message.account_id; then sender; else notSender"></ng-container>
+              <ng-template #sender>
+                <span class="flex-auto break-all"></span>
+                <span class="break-all">{{ message.text }}</span>
+              </ng-template>
+              <ng-template #notSender>
+                <span class="break-all">{{ message.text }}</span>
+                <span class="flex-auto break-all"></span>
+              </ng-template>
+            </ng-container>
+          </ng-template>
+          <ng-template #empty>
+            <p>There is no message.</p>
+          </ng-template>
+        </mat-nav-list>
+      </ng-template>
+    </ng-template>
+  </mat-card>
+</div>
