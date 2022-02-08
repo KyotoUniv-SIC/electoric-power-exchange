@@ -40,6 +40,7 @@ export class CreateComponent implements OnInit {
         user1_name: $event.user1_name,
         user2_id: $event.user2_id,
         user2_name: $event.user2_name,
+        is_deleted: false,
       }),
     );
   }
