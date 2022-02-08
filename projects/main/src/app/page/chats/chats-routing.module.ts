@@ -12,6 +12,10 @@ const routes: Routes = [
     path: 'create',
     component: CreateComponent,
   },
+  {
+    path: ':chat_id',
+    loadChildren: () => import('./chat/chat.module').then((m) => m.AppChatModule),
+  },
 ];
 
 @NgModule({
