@@ -3,8 +3,10 @@ import { StudentAccount } from '@local/common';
 
 export type ChatOnSubmitEvent = {
   title: string;
-  user1: string;
-  user2: string;
+  user1_id: string;
+  user1_name: string;
+  user2_id: string;
+  user2_name: string;
 };
 
 @Component({
@@ -46,6 +48,12 @@ export class CreateComponent implements OnInit {
       return;
     }
     console.log(this.user?.id!);
-    this.appSubmit.emit({ title: title, user1: this.studentAccount?.id, user2: this.user.id });
+    this.appSubmit.emit({
+      title: title,
+      user1_id: this.studentAccount?.id,
+      user1_name: this.studentAccount?.name,
+      user2_id: this.user.id,
+      user2_name: this.user.name,
+    });
   }
 }

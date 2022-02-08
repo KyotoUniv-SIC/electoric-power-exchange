@@ -42,6 +42,6 @@ export class ChatApplicationService {
   }
 
   list$(uid: string) {
-    return this.chat.list$().pipe(map((params) => params.filter((param) => param.user1 == uid || param.user2 == uid)));
+    return this.chat.list$().pipe(map((params) => params.filter((param) => param.user1_id == uid || param.user2_id == uid)));
   }
 }

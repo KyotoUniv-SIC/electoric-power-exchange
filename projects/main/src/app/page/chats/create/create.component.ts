@@ -33,6 +33,14 @@ export class CreateComponent implements OnInit {
   ngOnInit(): void {}
 
   async onSubmit($event: ChatOnSubmitEvent) {
-    await this.chatApp.create(new Chat({ title: $event.title, user1: $event.user1, user2: $event.user2 }));
+    await this.chatApp.create(
+      new Chat({
+        title: $event.title,
+        user1_id: $event.user1_id,
+        user1_name: $event.user1_name,
+        user2_id: $event.user2_id,
+        user2_name: $event.user2_name,
+      }),
+    );
   }
 }

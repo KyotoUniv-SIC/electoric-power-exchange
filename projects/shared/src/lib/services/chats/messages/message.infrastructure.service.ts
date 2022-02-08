@@ -1,30 +1,39 @@
-import { autoID } from '../auto-id';
-import { Injectable } from '@angular/core';
-import { Firestore, collection, collectionGroup, query, QueryConstraint, doc, getDoc, docData, getDocs, collectionData, setDoc, serverTimestamp } from '@angular/fire/firestore';
+import { autoID } from '../../auto-id';
 import { IMessageInfrastructureService } from './message.service';
+import { Injectable } from '@angular/core';
+import {
+  Firestore,
+  collection,
+  collectionGroup,
+  query,
+  QueryConstraint,
+  doc,
+  getDoc,
+  docData,
+  getDocs,
+  collectionData,
+  setDoc,
+  serverTimestamp,
+} from '@angular/fire/firestore';
 import { Message } from '@local/common';
 import { MessageFirestore } from '@local/common';
 
 @Injectable({
   providedIn: 'root',
 })
-export class MessageInfrastructureService
-  implements IMessageInfrastructureService {
-
+export class MessageInfrastructureService implements IMessageInfrastructureService {
   constructor(private readonly firestore: Firestore) {}
 
   collection(chatID: string, ...queryConstraints: QueryConstraint[]) {
     const ref = collection(this.firestore, MessageFirestore.collectionPath(chatID));
 
-    return (queryConstraints.length > 0
-      ? query(ref, ...queryConstraints) : ref).withConverter(MessageFirestore.converter);
+    return (queryConstraints.length > 0 ? query(ref, ...queryConstraints) : ref).withConverter(MessageFirestore.converter);
   }
 
   collectionGroup(...queryConstraints: QueryConstraint[]) {
     const ref = collectionGroup(this.firestore, MessageFirestore.collectionID);
 
-    return (queryConstraints.length > 0
-      ? query(ref, ...queryConstraints) : ref).withConverter(MessageFirestore.converter);
+    return (queryConstraints.length > 0 ? query(ref, ...queryConstraints) : ref).withConverter(MessageFirestore.converter);
   }
 
   document(chatID: string, id?: string) {
@@ -34,8 +43,7 @@ export class MessageInfrastructureService
   }
 
   get(chatID: string, id: string) {
-    return getDoc(this.document(chatID, id))
-      .then(snapshot => snapshot.data());
+    return getDoc(this.document(chatID, id)).then((snapshot) => snapshot.data());
   }
 
   get$(chatID: string, id: string) {
@@ -43,8 +51,7 @@ export class MessageInfrastructureService
   }
 
   list(chatID: string) {
-    return getDocs(this.collection(chatID))
-      .then(snapshots => snapshots.docs.map(doc => doc.data()))
+    return getDocs(this.collection(chatID)).then((snapshots) => snapshots.docs.map((doc) => doc.data()));
   }
 
   list$(chatID: string) {
@@ -52,8 +59,7 @@ export class MessageInfrastructureService
   }
 
   listGroup() {
-    return getDocs(this.collectionGroup())
-      .then(snapshots => snapshots.docs.map(doc => doc.data()))
+    return getDocs(this.collectionGroup()).then((snapshots) => snapshots.docs.map((doc) => doc.data()));
   }
 
   listGroup$() {

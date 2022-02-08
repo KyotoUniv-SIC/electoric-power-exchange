@@ -31,18 +31,20 @@
         <ng-template #exist>
           <ng-container *ngFor="let chat of chats">
             <mat-divider [inset]="true"></mat-divider>
-            <ng-container *ngIf="studentAccount?.id != chat.user1">
-              <mat-list-item class="flex flex-wrap">
-                <span class="break-all">{{ chat.user1 }}</span>
+            <ng-container *ngIf="studentAccount?.id != chat.user1_id">
+              <mat-list-item class="flex flex-wrap" routerLink="/chats/{{ chat.id }}">
+                <span class="break-all">{{ chat.user1_name }}</span>
                 <span class="flex-auto break-all"></span>
                 <span class="break-all">{{ chat.title }}</span>
+                <span class="flex-auto break-all"></span>
               </mat-list-item>
             </ng-container>
-            <ng-container *ngIf="studentAccount?.id != chat.user2">
-              <mat-list-item class="flex flex-wrap">
-                <span class="break-all">{{ chat.user2 }}</span>
+            <ng-container *ngIf="studentAccount?.id != chat.user2_id">
+              <mat-list-item class="flex flex-wrap" routerLink="/chats/{{ chat.id }}">
+                <span class="break-all">{{ chat.user2_name }}</span>
                 <span class="flex-auto break-all"></span>
                 <span class="break-all">{{ chat.title }}</span>
+                <span class="flex-auto break-all"></span>
               </mat-list-item>
             </ng-container>
           </ng-container>
