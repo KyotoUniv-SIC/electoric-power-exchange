@@ -1,1 +1,6 @@
-<view-message></view-message>
+<view-message
+  [studentAccount]="studentAccount$ | async"
+  [message]="message$ | async"
+  [createdAt]="createdAt$ | async"
+  (appDelete)="onSubmit($event)"
+></view-message>

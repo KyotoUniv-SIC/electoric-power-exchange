@@ -17,7 +17,7 @@ export class MessageApplicationService {
   ) {}
 
   async create(data: Message) {
-    const dialogRef = this.loadingDialog.open('Creating Chat');
+    const dialogRef = this.loadingDialog.open('Creating Message');
     try {
       this.message.create(data);
     } catch {
@@ -29,11 +29,9 @@ export class MessageApplicationService {
       dialogRef.close();
     }
 
-    this.snackBar.open('Successfully Create Chat', undefined, {
+    this.snackBar.open('Successfully Create Message', undefined, {
       duration: 6000,
     });
-
-    await this.router.navigate(['chats']);
   }
 
   get$(chatID: string, id: string) {

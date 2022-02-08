@@ -1,1 +1,52 @@
-<p>message works!</p>
+<div class="w-full lg:mx-auto lg:w-1/3 lg:mt-10">
+  <mat-card class="mb-10">
+    <mat-card-title>Message Detail</mat-card-title>
+    <ng-container *ngIf="studentAccount === null; then loading; else loadedStudent"></ng-container>
+    <ng-template #loading>
+      <mat-progress-spinner [diameter]="60" [mode]="'indeterminate'"></mat-progress-spinner>
+    </ng-template>
+    <ng-template #loadedStudent>
+      <ng-container *ngIf="message === null; then loading; else loadedMessage"></ng-container>
+      <ng-template #loadedMessage>
+        <mat-list>
+          <mat-divider [inset]="true"></mat-divider>
+          <mat-list-item class="flex flex-wrap">
+            <span class="break-all">Message ID:</span>
+            <span class="flex-auto break-all"></span>
+            <span class="break-all">{{ message?.id }}</span>
+          </mat-list-item>
+          <mat-divider [inset]="true"></mat-divider>
+          <mat-list-item class="flex flex-wrap">
+            <span class="break-all">Message:</span>
+            <span class="flex-auto break-all"></span>
+            <span class="break-all">{{ message?.text }}</span>
+          </mat-list-item>
+          <mat-divider [inset]="true"></mat-divider>
+          <mat-list-item class="flex flex-wrap">
+            <span class="break-all">Chat ID:</span>
+            <span class="flex-auto break-all"></span>
+            <span class="break-all">{{ message?.chat_id }}</span>
+          </mat-list-item>
+          <mat-divider [inset]="true"></mat-divider>
+          <mat-list-item class="flex flex-wrap">
+            <span class="break-all">Sender ID:</span>
+            <span class="flex-auto break-all"></span>
+            <span class="break-all">{{ message?.account_id }}</span>
+          </mat-list-item>
+          <mat-divider [inset]="true"></mat-divider>
+          <mat-list-item class="flex flex-wrap">
+            <span class="break-all">Read:</span>
+            <span class="flex-auto break-all"></span>
+            <span class="break-all">{{ message?.is_read }}</span>
+          </mat-list-item>
+        </mat-list>
+        <br /><br />
+        <ng-container *ngIf="studentAccount?.id == message?.account_id">
+          <div class="text-center">
+            <button mat-flat-button color="accent" (click)="onClickDelete()">Delete Message</button>
+          </div>
+        </ng-container>
+      </ng-template>
+    </ng-template>
+  </mat-card>
+</div>

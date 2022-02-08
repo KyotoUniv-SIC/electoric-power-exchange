@@ -25,12 +25,16 @@
               <mat-divider [inset]="true"></mat-divider>
               <ng-container *ngIf="studentAccount?.id == message.account_id; then sender; else notSender"></ng-container>
               <ng-template #sender>
-                <span class="flex-auto break-all"></span>
-                <span class="break-all">{{ message.text }}</span>
+                <mat-list-item class="flex flex-wrap" routerLink="/chats/{{ chat?.id }}/{{ message.id }}">
+                  <span class="flex-auto break-all"></span>
+                  <span class="break-all">{{ message.text }}</span>
+                </mat-list-item>
               </ng-template>
               <ng-template #notSender>
-                <span class="break-all">{{ message.text }}</span>
-                <span class="flex-auto break-all"></span>
+                <mat-list-item class="flex flex-wrap" routerLink="/chats/{{ chat?.id }}/{{ message.id }}">
+                  <span class="break-all">{{ message.text }}</span>
+                  <span class="flex-auto break-all"></span>
+                </mat-list-item>
               </ng-template>
             </ng-container>
           </ng-template>

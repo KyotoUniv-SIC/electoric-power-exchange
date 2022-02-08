@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Message, StudentAccount } from '@local/common';
+
+export type DeleteOnSubmitEvent = {
+  chatID: string;
+  messageID: string;
+};
 
 @Component({
   selector: 'view-message',
@@ -6,7 +12,29 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./message.component.css'],
 })
 export class MessageComponent implements OnInit {
-  constructor() {}
+  @Input()
+  studentAccount?: StudentAccount | null;
+  @Input()
+  message?: Message | null;
+  @Input()
+  createdAt?: Date | null;
+  @Output()
+  appDelete: EventEmitter<DeleteOnSubmitEvent>;
+
+  constructor() {
+    this.appDelete = new EventEmitter();
+  }
 
   ngOnInit(): void {}
+
+  onClickDelete() {
+    if (!this.message?.id) {
+      return;
+    }
+    if (this.message.account_id != this.studentAccount?.id) {
+      alert('自分のMessageのみ削除可能です');
+      return;
+    }
+    this.appDelete.emit({ chatID: this.message.chat_id, messageID: this.message.id });
+  }
 }
