@@ -55,7 +55,7 @@ export class DashboardComponent implements OnInit {
       mergeMap((users) =>
         Promise.all(
           users.map((user) =>
-            this.dailyUsageApp.list(user.room_id).then((usages) => {
+            this.dailyUsageApp.getRoom(user.room_id).then((usages) => {
               let count = 0;
               for (const usage of usages) {
                 (usage.created_at as Timestamp).toDate() > firstDay ? (count += usage.amount_kwh) : count;
@@ -95,7 +95,7 @@ export class DashboardComponent implements OnInit {
       }),
     );
 
-    const usageListDaily$ = studentAccount$.pipe(mergeMap((account) => this.dailyUsageApp.list$(account.room_id)));
+    const usageListDaily$ = studentAccount$.pipe(mergeMap((account) => this.dailyUsageApp.getRoom$(account.room_id)));
     const usageListMonthly$ = studentAccount$.pipe(mergeMap((account) => this.monthlyUsageApp.list$(account.id)));
 
     this.totalUsage$ = usageListDaily$.pipe(
@@ -107,10 +107,12 @@ export class DashboardComponent implements OnInit {
         return count;
       }),
     );
+
+    const beggingThisYear = new Date(now.getFullYear(), 1, 1);
     const usages$ = combineLatest([this.totalUsage$, usageListMonthly$]).pipe(
       map(([totalUsage, monthlyUsages]) => {
         let data = monthlyUsages
-          .filter((usage) => (usage.created_at as Timestamp).toDate() > firstDay)
+          .filter((usage) => (usage.created_at as Timestamp).toDate() > beggingThisYear)
           .sort(function (first, second) {
             if ((first.created_at as Timestamp).toDate() < (second.created_at as Timestamp).toDate()) {
               return -1;
@@ -138,17 +140,14 @@ export class DashboardComponent implements OnInit {
       }),
     );
 
-    let lastYearFirstDay = new Date();
-    lastYearFirstDay.setFullYear(lastYearFirstDay.getFullYear() - 1);
-    lastYearFirstDay.setHours(0, 0, 0, 0);
-    let lastYearLastDay = lastYearFirstDay;
-    lastYearLastDay.setMonth(lastYearLastDay.getMonth() - 1);
+    const beginningPreviousYear = new Date(now.getFullYear() - 1, 1, 1);
     const usagesPreviousYear$ = usageListMonthly$.pipe(
       map((usages) => {
         let data = usages
           .filter(
             (usage) =>
-              (usage.created_at as Timestamp).toDate() > lastYearFirstDay && (usage.created_at as Timestamp).toDate() < lastYearLastDay,
+              (usage.created_at as Timestamp).toDate() > beginningPreviousYear &&
+              (usage.created_at as Timestamp).toDate() < beggingThisYear,
           )
           .sort(function (first, second) {
             if ((first.created_at as Timestamp).toDate() < (second.created_at as Timestamp).toDate()) {
