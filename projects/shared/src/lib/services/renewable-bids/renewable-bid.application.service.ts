@@ -41,7 +41,11 @@ export class RenewableBidApplicationService {
     return this.renewableBid.get$(id).pipe(map((param) => (param?.account_id == uid ? param : undefined)));
   }
 
-  list$(uid: string) {
+  list$() {
+    return this.renewableBid.list$();
+  }
+
+  listUid$(uid: string) {
     return this.renewableBid.list$().pipe(map((params) => params.filter((param) => param.account_id == uid)));
   }
 }
