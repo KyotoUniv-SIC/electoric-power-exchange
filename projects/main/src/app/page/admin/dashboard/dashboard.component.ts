@@ -9,6 +9,7 @@ import {
   SinglePriceNormalSettlement,
   SinglePriceRenewableSettlement,
 } from '@local/common';
+import { MultiDataSet } from 'ng2-charts';
 import { DailyUsageApplicationService } from 'projects/shared/src/lib/services/daily-usages/daily-usage.application.service';
 import { NormalAskApplicationService } from 'projects/shared/src/lib/services/normal-asks/normal-ask.application.service';
 import { NormalBidApplicationService } from 'projects/shared/src/lib/services/normal-bids/normal-bid.application.service';
@@ -16,6 +17,7 @@ import { RenewableAskApplicationService } from 'projects/shared/src/lib/services
 import { RenewableBidApplicationService } from 'projects/shared/src/lib/services/renewable-bids/renewable-bid.application.service';
 import { SinglePriceNormalSettlementApplicationService } from 'projects/shared/src/lib/services/single-price-normal-settlements/single-price-normal-settlement.application.service';
 import { SinglePriceRenewableSettlementApplicationService } from 'projects/shared/src/lib/services/single-price-renewable-settlements/single-price-renewable-settlement.application.service';
+import { BalanceApplicationService } from 'projects/shared/src/lib/services/student-accounts/balances/balance.application.service';
 import { StudentAccountApplicationService } from 'projects/shared/src/lib/services/student-accounts/student-account.application.service';
 import { Observable } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
@@ -26,16 +28,20 @@ import { map, mergeMap } from 'rxjs/operators';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
+  totalBalanceData$: Observable<MultiDataSet> | undefined;
   rankings$: Observable<Ranking[]> | undefined;
   normalAsks$: Observable<NormalAsk[]> | undefined;
   normalBids$: Observable<NormalBid[]> | undefined;
   renewableAsks$: Observable<RenewableAsk[]> | undefined;
   renewableBids$: Observable<RenewableBid[]> | undefined;
   singlePriceNormal$: Observable<SinglePriceNormalSettlement> | undefined;
+  singlePriceNormalDate$: Observable<Date> | undefined;
   singlePriceRenewable$: Observable<SinglePriceRenewableSettlement> | undefined;
+  singlePriceRenewableDate$: Observable<Date> | undefined;
 
   constructor(
     private readonly studentsApp: StudentAccountApplicationService,
+    private readonly balanceApp: BalanceApplicationService,
     private readonly dailyUsageApp: DailyUsageApplicationService,
     private readonly normalAskApp: NormalAskApplicationService,
     private readonly normalBidApp: NormalBidApplicationService,
@@ -49,6 +55,20 @@ export class DashboardComponent implements OnInit {
     firstDay.setDate(1);
     firstDay.setHours(0, 0, 0, 0);
     const users$ = this.studentsApp.list$();
+
+    this.totalBalanceData$ = users$.pipe(
+      mergeMap((users) => Promise.all(users.map((user) => this.balanceApp.list(user.id).then((balances) => balances[0])))),
+      map((balances) => {
+        let upxTotal = 0;
+        let spxTotal = 0;
+        balances.map((balance) => {
+          upxTotal += balance.amount_upx;
+          spxTotal += balance.amount_spx;
+        });
+        return [[upxTotal, spxTotal]];
+      }),
+    );
+
     this.rankings$ = users$.pipe(
       mergeMap((users) =>
         Promise.all(
@@ -70,7 +90,9 @@ export class DashboardComponent implements OnInit {
     this.renewableAsks$ = this.renewableAskApp.list$().pipe(map((asks) => asks.filter((ask) => ask.is_deleted != true)));
     this.renewableBids$ = this.renewableBidApp.list$().pipe(map((bids) => bids.filter((bid) => bid.is_deleted != true)));
     this.singlePriceNormal$ = this.singlePriceNormalApp.getLatest$();
+    this.singlePriceNormalDate$ = this.singlePriceNormal$.pipe(map((single) => (single.market_date as Timestamp).toDate()));
     this.singlePriceRenewable$ = this.singlePriceRenewableApp.getLatest$();
+    this.singlePriceRenewableDate$ = this.singlePriceRenewable$.pipe(map((single) => (single.market_date as Timestamp).toDate()));
 
     // to Do MonthlyUsageをまとめたもの
     // Firestoreに作っておくのが良さそう

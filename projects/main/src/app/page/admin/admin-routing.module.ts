@@ -6,7 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   { path: '', component: AdminComponent },
-  { path: 'dashborad', component: DashboardComponent },
+  { path: 'dashboard', component: DashboardComponent },
   { path: 'xrpl', component: XrplComponent },
 ];
 

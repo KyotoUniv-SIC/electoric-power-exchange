@@ -1,9 +1,12 @@
 <view-dashboard
+  [totalBalanceData]="totalBalanceData$ | async"
   [rankings]="rankings$ | async"
   [normalAsks]="normalAsks$ | async"
   [normalBids]="normalBids$ | async"
   [renewableAsks]="renewableAsks$ | async"
   [renewableBids]="renewableBids$ | async"
   [singlePriceNormal]="singlePriceNormal$ | async"
+  [singlePriceNormalDate]="singlePriceNormalDate$ | async"
   [singlePriceRenewable]="singlePriceRenewable$ | async"
+  [singlePriceRenewableDate]="singlePriceRenewableDate$ | async"
 ></view-dashboard>
