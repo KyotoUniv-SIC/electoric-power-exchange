@@ -105,7 +105,7 @@ export class DashboardComponent implements OnInit {
     );
 
     const usageListDaily$ = studentAccount$.pipe(mergeMap((account) => this.dailyUsageApp.getRoom$(account.room_id)));
-    const usageListDailyTotal$ = studentAccount$.pipe(mergeMap((account) => this.dailyUsageApp.list$()));
+    const usageListDailyTotal$ = this.dailyUsageApp.list$();
     const usageListMonthly$ = studentAccount$.pipe(mergeMap((account) => this.monthlyUsageApp.list$(account.id)));
 
     this.totalUsage$ = usageListDaily$.pipe(
@@ -128,7 +128,7 @@ export class DashboardComponent implements OnInit {
       }),
     );
 
-    const beggingThisYear = new Date(now.getFullYear(), 1, 1);
+    const beggingThisYear = new Date(now.getFullYear(), 0, 1);
     const usages$ = combineLatest([this.totalUsage$, usageListMonthly$]).pipe(
       map(([totalUsage, monthlyUsages]) => {
         let data = monthlyUsages
@@ -160,7 +160,7 @@ export class DashboardComponent implements OnInit {
       }),
     );
 
-    const beginningPreviousYear = new Date(now.getFullYear() - 1, 1, 1);
+    const beginningPreviousYear = new Date(now.getFullYear() - 1, 0, 1);
     const usagesPreviousYear$ = usageListMonthly$.pipe(
       map((usages) => {
         let data = usages

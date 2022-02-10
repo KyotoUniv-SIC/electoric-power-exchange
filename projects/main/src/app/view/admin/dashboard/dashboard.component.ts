@@ -8,7 +8,7 @@ import {
   SinglePriceNormalSettlement,
   SinglePriceRenewableSettlement,
 } from '@local/common';
-import { ChartType } from 'chart.js';
+import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Label, MultiDataSet } from 'ng2-charts';
 
 @Component({
@@ -19,6 +19,8 @@ import { Label, MultiDataSet } from 'ng2-charts';
 export class DashboardComponent implements OnInit {
   @Input()
   totalBalanceData?: MultiDataSet | null;
+  @Input()
+  totalUsageData?: ChartDataSets[] | null;
   @Input()
   rankings?: Ranking[] | null;
   @Input()
@@ -40,6 +42,14 @@ export class DashboardComponent implements OnInit {
 
   doughnutChartLabels: Label[] = ['Utility Power', 'Solar Power'];
   doughnutChartType: ChartType = 'doughnut';
+
+  barChartOptions: ChartOptions = {
+    responsive: true,
+  };
+  barChartLabels: Label[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  barChartType: ChartType = 'bar';
+  barChartLegend = true;
+  barChartPlugins = [];
 
   constructor() {}
 

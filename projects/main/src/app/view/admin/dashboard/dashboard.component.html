@@ -114,6 +114,7 @@
       </ng-container>
     </mat-list>
   </mat-card>
+
   <mat-card class="mb-20">
     <mat-card-title>Usage Ranking</mat-card-title>
     <mat-list>
@@ -128,5 +129,23 @@
         <mat-divider [inset]="true"></mat-divider>
       </ng-container>
     </mat-list>
+  </mat-card>
+
+  <mat-card class="mb-20">
+    <mat-card-title>Monthly Energy Consumption</mat-card-title>
+    <ng-container *ngIf="totalUsageData === null; then loading; else loadedUsage"></ng-container>
+    <ng-template #loadedUsage>
+      <p>kWh</p>
+      <canvas
+        baseChart
+        [datasets]="totalUsageData!"
+        [labels]="barChartLabels"
+        [options]="barChartOptions"
+        [plugins]="barChartPlugins"
+        [legend]="barChartLegend"
+        [chartType]="barChartType"
+      >
+      </canvas>
+    </ng-template>
   </mat-card>
 </div>
