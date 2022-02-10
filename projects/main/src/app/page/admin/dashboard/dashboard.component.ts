@@ -9,6 +9,7 @@ import {
   SinglePriceNormalSettlement,
   SinglePriceRenewableSettlement,
 } from '@local/common';
+import { ChartDataSets } from 'chart.js';
 import { MultiDataSet } from 'ng2-charts';
 import { DailyUsageApplicationService } from 'projects/shared/src/lib/services/daily-usages/daily-usage.application.service';
 import { NormalAskApplicationService } from 'projects/shared/src/lib/services/normal-asks/normal-ask.application.service';
@@ -19,7 +20,7 @@ import { SinglePriceNormalSettlementApplicationService } from 'projects/shared/s
 import { SinglePriceRenewableSettlementApplicationService } from 'projects/shared/src/lib/services/single-price-renewable-settlements/single-price-renewable-settlement.application.service';
 import { BalanceApplicationService } from 'projects/shared/src/lib/services/student-accounts/balances/balance.application.service';
 import { StudentAccountApplicationService } from 'projects/shared/src/lib/services/student-accounts/student-account.application.service';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 
 @Component({
@@ -29,6 +30,7 @@ import { map, mergeMap } from 'rxjs/operators';
 })
 export class DashboardComponent implements OnInit {
   totalBalanceData$: Observable<MultiDataSet> | undefined;
+  totalUsageData$: Observable<ChartDataSets[]> | undefined;
   rankings$: Observable<Ranking[]> | undefined;
   normalAsks$: Observable<NormalAsk[]> | undefined;
   normalBids$: Observable<NormalBid[]> | undefined;
@@ -69,6 +71,50 @@ export class DashboardComponent implements OnInit {
       }),
     );
 
+    const usageListDailyTotal$ = this.dailyUsageApp.list$();
+    const thisYear$ = usageListDailyTotal$.pipe(
+      map((usages) => {
+        let list = [];
+        for (let i = 0; i < 12; i++) {
+          const thisMonth = new Date(now.getFullYear(), i, 1);
+          const nextMonth = new Date(now.getFullYear(), i + 1, 1);
+          let usage = usages.reduce(
+            (sum, element) =>
+              thisMonth < (element.created_at as Timestamp).toDate() && (element.created_at as Timestamp).toDate() < nextMonth
+                ? sum + element.amount_kwh
+                : sum,
+            0,
+          );
+          list.push(usage);
+        }
+        return list;
+      }),
+    );
+    const lastYear$ = usageListDailyTotal$.pipe(
+      map((usages) => {
+        let list = [];
+        for (let i = 0; i < 12; i++) {
+          const thisMonth = new Date(now.getFullYear() - 1, i, 1);
+          const nextMonth = new Date(now.getFullYear() - 1, i + 1, 1);
+          let usage = usages.reduce(
+            (sum, element) =>
+              thisMonth < (element.created_at as Timestamp).toDate() && (element.created_at as Timestamp).toDate() < nextMonth
+                ? sum + element.amount_kwh
+                : sum,
+            0,
+          );
+          list.push(usage);
+        }
+        return list;
+      }),
+    );
+    this.totalUsageData$ = combineLatest([thisYear$, lastYear$]).pipe(
+      map(([thisYear, lastYear]) => [
+        { data: thisYear, label: 'This year' },
+        { data: lastYear, label: 'Last year' },
+      ]),
+    );
+
     this.rankings$ = users$.pipe(
       mergeMap((users) =>
         Promise.all(
@@ -93,9 +139,6 @@ export class DashboardComponent implements OnInit {
     this.singlePriceNormalDate$ = this.singlePriceNormal$.pipe(map((single) => (single.market_date as Timestamp).toDate()));
     this.singlePriceRenewable$ = this.singlePriceRenewableApp.getLatest$();
     this.singlePriceRenewableDate$ = this.singlePriceRenewable$.pipe(map((single) => (single.market_date as Timestamp).toDate()));
-
-    // to Do MonthlyUsageをまとめたもの
-    // Firestoreに作っておくのが良さそう
   }
 
   ngOnInit(): void {}
