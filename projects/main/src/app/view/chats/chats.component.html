@@ -1,4 +1,59 @@
-<div class="flex flex-col w-96">
-  <h2>Chats</h2>
-  <h3>準備中</h3>
+<div class="w-full lg:mx-auto lg:w-1/3 lg:mt-10">
+  <mat-card class="mb-10">
+    <ng-container *ngIf="studentAccount === null; then loading; else loadedStudent"></ng-container>
+    <ng-template #loading>
+      <mat-progress-spinner [diameter]="60" [mode]="'indeterminate'"></mat-progress-spinner>
+    </ng-template>
+    <ng-template #loadedStudent>
+      <mat-card-title>{{ studentAccount?.name }}'s Chats</mat-card-title>
+      <mat-list>
+        <mat-divider [inset]="true"></mat-divider>
+        <mat-list-item class="flex flex-wrap">
+          <span class="break-all">Your ID:</span>
+          <span class="flex-auto break-all"></span>
+          <span class="break-all">{{ studentAccount?.id }}</span>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider
+      ></mat-list>
+      <br /><br />
+      <div class="text-center">
+        <button mat-flat-button color="accent" routerLink="/chats/create">Create New Chat</button>
+      </div>
+    </ng-template>
+  </mat-card>
+
+  <mat-card class="mb-10">
+    <ng-container *ngIf="chats === null; then loading; else loadedChats"></ng-container>
+    <ng-template #loadedChats>
+      <mat-card-title>Chats List</mat-card-title>
+      <mat-nav-list>
+        <ng-container *ngIf="(chats?.length || 0) > 0; then exist; else empty"></ng-container>
+        <ng-template #exist>
+          <ng-container *ngFor="let chat of chats">
+            <mat-divider [inset]="true"></mat-divider>
+            <ng-container *ngIf="studentAccount?.id != chat.user1_id">
+              <mat-list-item class="flex flex-wrap" routerLink="/chats/{{ chat.id }}">
+                <span class="break-all">{{ chat.user1_name }}</span>
+                <span class="flex-auto break-all"></span>
+                <span class="break-all">{{ chat.title }}</span>
+                <span class="flex-auto break-all"></span>
+              </mat-list-item>
+            </ng-container>
+            <ng-container *ngIf="studentAccount?.id != chat.user2_id">
+              <mat-list-item class="flex flex-wrap" routerLink="/chats/{{ chat.id }}">
+                <span class="break-all">{{ chat.user2_name }}</span>
+                <span class="flex-auto break-all"></span>
+                <span class="break-all">{{ chat.title }}</span>
+                <span class="flex-auto break-all"></span>
+              </mat-list-item>
+            </ng-container>
+          </ng-container>
+          <mat-divider [inset]="true"></mat-divider>
+        </ng-template>
+        <ng-template #empty>
+          <p>There is no chat.</p>
+        </ng-template>
+      </mat-nav-list>
+    </ng-template>
+  </mat-card>
 </div>

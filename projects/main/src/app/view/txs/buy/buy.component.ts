@@ -51,7 +51,7 @@ export class BuyComponent implements OnInit {
       alert('トークンの種類を指定してください。\nUPX=電力会社、SPX=太陽光発電');
       return;
     }
-    if (!this.studentAccount?.id) {
+    if (!this.studentAccount) {
       alert('ユーザーログイン情報を取得できません');
       return;
     }

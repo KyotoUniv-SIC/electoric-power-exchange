@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Chat, StudentAccount } from '@local/common';
 
 @Component({
   selector: 'view-chats',
@@ -6,6 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./chats.component.css'],
 })
 export class ChatsComponent implements OnInit {
+  @Input()
+  studentAccount?: StudentAccount | null;
+  @Input()
+  chats?: Chat[] | null;
+
   constructor() {}
 
   ngOnInit(): void {}

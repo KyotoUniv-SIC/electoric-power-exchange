@@ -1,4 +1,4 @@
-import { proto } from '../..';
+import { proto } from '../../..';
 import { FieldValue, Timestamp } from 'firebase/firestore';
 
 export class Message extends proto.main.Message {

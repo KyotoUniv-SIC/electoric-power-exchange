@@ -1,1 +1,7 @@
-<p>chat works!</p>
+<view-chat
+  [studentAccount]="studentAccount$ | async"
+  [chat]="chat$ | async"
+  [messages]="messages$ | async"
+  (appSubmit)="onSubmit($event)"
+  (appDelete)="onDelete($event)"
+></view-chat>

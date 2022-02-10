@@ -6,11 +6,10 @@ import "firebase_rules_options.proto";
 option (google.firebase.rules.firebase_rules).full_package_names = true;
 
 message Message {
-  bool status = 1;
-  string type = 2;
-  string id = 3;
-  string chat_id =4;
-  string sender_account_id = 5;
-  string recipient_account_id = 6;
-  string text = 7;
+  string id = 1;
+  string chat_id = 2;
+  string account_id = 3;
+  string text = 4;
+  bool is_read = 5;
+  bool is_deleted = 6;
 }

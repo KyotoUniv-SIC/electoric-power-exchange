@@ -1,0 +1,12 @@
+syntax = "proto3";
+package main;
+
+import "firebase_rules_options.proto";
+
+option (google.firebase.rules.firebase_rules).full_package_names = true;
+
+message MessageRead {
+  string id = 1;
+  string chat_id = 2;
+  string message_id = 3;
+}
