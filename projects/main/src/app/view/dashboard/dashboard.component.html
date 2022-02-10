@@ -28,7 +28,7 @@
   </mat-card>
 
   <mat-card class="mb-20">
-    <mat-card-title>Contract Price</mat-card-title>
+    <mat-card-title>Latest Contract Price</mat-card-title>
     <mat-list>
       <mat-list-item class="flex flex-wrap">
         <span class="break-all font-bold text-xl">Latest UPX Price:</span>
@@ -65,7 +65,7 @@
   </mat-card>
 
   <mat-card class="mb-20">
-    <mat-card-title>Current Usage</mat-card-title>
+    <mat-card-title>This Month's Usage</mat-card-title>
     <mat-list>
       <mat-list-item class="flex flex-wrap">
         <span class="break-all font-bold text-xl">Total Usage:</span>
@@ -121,7 +121,7 @@
     <button mat-flat-button color="accent">More</button>
   </mat-card> -->
   <mat-card class="mb-20">
-    <mat-card-title>Monthly Energy Consumption</mat-card-title>
+    <mat-card-title>Monthly Electricity Usages</mat-card-title>
     <ng-container *ngIf="usageData === null; then loading; else loadedUsage"></ng-container>
     <ng-template #loadedUsage>
       <p>kWh</p>

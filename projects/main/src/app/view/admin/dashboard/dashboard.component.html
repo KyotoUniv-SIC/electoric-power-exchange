@@ -1,7 +1,7 @@
 <div class="w-full lg:mx-auto lg:w-1/3 lg:mt-10">
   <h1>Administrator Dashboard</h1>
   <mat-card class="mt-10 mb-20">
-    <mat-card-title>Total Energy Sources</mat-card-title>
+    <mat-card-title>All Account Balance</mat-card-title>
     <ng-container *ngIf="totalBalanceData === null; then loading; else loadedTotalBalance"></ng-container>
     <ng-template #loading>
       <mat-progress-spinner [diameter]="60" [mode]="'indeterminate'"></mat-progress-spinner>
@@ -11,7 +11,7 @@
     </ng-template>
   </mat-card>
   <mat-card class="mb-20">
-    <mat-card-title>Contract Price</mat-card-title>
+    <mat-card-title>Latest Contract Price</mat-card-title>
     <mat-list>
       <mat-list-item class="flex flex-wrap">
         <span class="break-all font-bold text-xl">Latest UPX Price:</span>
@@ -132,7 +132,7 @@
   </mat-card>
 
   <mat-card class="mb-20">
-    <mat-card-title>Monthly Energy Consumption</mat-card-title>
+    <mat-card-title>Monthly Electricity Usages</mat-card-title>
     <ng-container *ngIf="totalUsageData === null; then loading; else loadedUsage"></ng-container>
     <ng-template #loadedUsage>
       <p>kWh</p>
