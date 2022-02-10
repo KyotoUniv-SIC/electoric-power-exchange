@@ -63,10 +63,10 @@ export class TxsComponent implements OnInit {
     const user$ = authState(this.auth);
     this.studentAccount$ = user$.pipe(mergeMap((user) => this.studentAccApp.getByUid$(user?.uid!)));
 
-    const normalBids$ = this.studentAccount$.pipe(mergeMap((account) => this.normalBidApp.list$(account.id)));
-    const normalAsks$ = this.studentAccount$.pipe(mergeMap((account) => this.normalAskApp.list$(account.id)));
-    const renewableBids$ = this.studentAccount$.pipe(mergeMap((account) => this.renewableBidApp.list$(account.id)));
-    const renewableAsks$ = this.studentAccount$.pipe(mergeMap((account) => this.renewableAskApp.list$(account.id)));
+    const normalBids$ = this.studentAccount$.pipe(mergeMap((account) => this.normalBidApp.listUid$(account.id)));
+    const normalAsks$ = this.studentAccount$.pipe(mergeMap((account) => this.normalAskApp.listUid$(account.id)));
+    const renewableBids$ = this.studentAccount$.pipe(mergeMap((account) => this.renewableBidApp.listUid$(account.id)));
+    const renewableAsks$ = this.studentAccount$.pipe(mergeMap((account) => this.renewableAskApp.listUid$(account.id)));
     const now = new Date();
     let firstDay = new Date();
     firstDay.setDate(1);

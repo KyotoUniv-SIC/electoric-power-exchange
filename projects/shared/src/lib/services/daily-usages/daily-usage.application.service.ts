@@ -8,10 +8,19 @@ import { map } from 'rxjs/operators';
 })
 export class DailyUsageApplicationService {
   constructor(private readonly dailyUsage: DailyUsageService) {}
-  list(roomID: string) {
+  list() {
+    return this.dailyUsage.list();
+  }
+
+  getRoom(roomID: string) {
     return this.dailyUsage.list().then((params) => params.filter((param) => param.room_id == roomID));
   }
-  list$(roomID: string) {
+
+  list$() {
+    return this.dailyUsage.list$();
+  }
+
+  getRoom$(roomID: string) {
     return this.dailyUsage.list$().pipe(map((params) => params.filter((param) => param.room_id == roomID)));
   }
 }

@@ -41,7 +41,11 @@ export class RenewableAskApplicationService {
     return this.renewableAsk.get$(id).pipe(map((param) => (param?.account_id == uid ? param : undefined)));
   }
 
-  list$(uid: string) {
+  list$() {
+    return this.renewableAsk.list$();
+  }
+
+  listUid$(uid: string) {
     return this.renewableAsk.list$().pipe(map((params) => params.filter((param) => param.account_id == uid)));
   }
 }

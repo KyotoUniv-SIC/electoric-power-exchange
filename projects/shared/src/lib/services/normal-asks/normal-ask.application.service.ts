@@ -41,7 +41,11 @@ export class NormalAskApplicationService {
     return this.normalAsk.get$(id).pipe(map((param) => (param?.account_id == uid ? param : undefined)));
   }
 
-  list$(uid: string) {
+  list$() {
+    return this.normalAsk.list$();
+  }
+
+  listUid$(uid: string) {
     return this.normalAsk.list$().pipe(map((params) => params.filter((param) => param.account_id == uid)));
   }
 }

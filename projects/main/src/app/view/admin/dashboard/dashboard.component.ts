@@ -1,7 +1,14 @@
-import { Ranking } from '../../page/dashboard/dashboard.component';
+import { Ranking } from '../../../page/dashboard/dashboard.component';
 import { Component, Input, OnInit } from '@angular/core';
-import { Balance, SinglePriceNormalSettlement, SinglePriceRenewableSettlement } from '@local/common';
-import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
+import {
+  NormalAsk,
+  NormalBid,
+  RenewableAsk,
+  RenewableBid,
+  SinglePriceNormalSettlement,
+  SinglePriceRenewableSettlement,
+} from '@local/common';
+import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Label, MultiDataSet } from 'ng2-charts';
 
 @Component({
@@ -11,23 +18,19 @@ import { Label, MultiDataSet } from 'ng2-charts';
 })
 export class DashboardComponent implements OnInit {
   @Input()
-  balance?: Balance | null;
-  @Input()
-  balanceData?: MultiDataSet | null;
-  @Input()
   totalBalanceData?: MultiDataSet | null;
   @Input()
-  insufficiency?: number | null;
-  @Input()
-  totalUsage?: number | null;
-  @Input()
-  totalUsageAverage?: number | null;
-  @Input()
-  usageData?: ChartDataSets[] | null;
+  totalUsageData?: ChartDataSets[] | null;
   @Input()
   rankings?: Ranking[] | null;
   @Input()
-  rank?: number | null;
+  normalAsks?: NormalAsk[] | null;
+  @Input()
+  normalBids?: NormalBid[] | null;
+  @Input()
+  renewableAsks?: RenewableAsk[] | null;
+  @Input()
+  renewableBids?: RenewableBid[] | null;
   @Input()
   singlePriceNormal?: SinglePriceNormalSettlement | null;
   @Input()
@@ -47,23 +50,6 @@ export class DashboardComponent implements OnInit {
   barChartType: ChartType = 'bar';
   barChartLegend = true;
   barChartPlugins = [];
-  // balanceData: MultiDataSet = [
-  //   [
-  //     // this.balance?.amount_upx, this.balance?.amount_spx
-  //     100, 100,
-  //   ],
-  // ];
-  // totalBalanceData: MultiDataSet = [
-  //   [
-  //     // this.totalBalance?.amount_upx, this.totalBalance?.amount_spx
-  //     20000, 54000,
-  //   ],
-  // ];
-
-  // barChartData: ChartDataSets[] = [
-  //   { data: [100, 200, 70, 600, 450, 300, 50, 533, 66, 54], label: 'This year' },
-  //   { data: [33, 100, 200, 70, 600, 450, 300, 50, 533, 66, 54, 554], label: 'Last year' },
-  // ];
 
   constructor() {}
 

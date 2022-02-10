@@ -41,7 +41,11 @@ export class NormalBidApplicationService {
     return this.normalBid.get$(id).pipe(map((param) => (param?.account_id == uid ? param : undefined)));
   }
 
-  list$(uid: string) {
+  list$() {
+    return this.normalBid.list$();
+  }
+
+  listUid$(uid: string) {
     return this.normalBid.list$().pipe(map((params) => params.filter((param) => param.account_id == uid)));
   }
 }

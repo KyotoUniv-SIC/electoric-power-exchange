@@ -1,15 +1,6 @@
 <div class="w-full lg:mx-auto lg:w-1/3 lg:mt-10">
+  <h1>Student Dashboard</h1>
   <mat-card class="mt-10 mb-20">
-    <mat-card-title>Current Usage</mat-card-title>
-    <mat-list>
-      <mat-list-item class="flex flex-wrap">
-        <span class="break-all font-bold text-xl">Total Usage:</span>
-        <span class="flex-auto break-all"></span>
-        <span class="break-all font-bold text-xl text-purple-800">{{ totalUsage }} kWh</span>
-      </mat-list-item>
-    </mat-list>
-  </mat-card>
-  <mat-card class="mb-20">
     <mat-card-title>Account Balance</mat-card-title>
     <mat-list>
       <mat-list-item class="flex flex-wrap">
@@ -35,6 +26,61 @@
       <button mat-flat-button routerLink="/txs/buy" color="accent">Buy More Tokens</button>
     </div>
   </mat-card>
+
+  <mat-card class="mb-20">
+    <mat-card-title>Latest Contract Price</mat-card-title>
+    <mat-list>
+      <mat-list-item class="flex flex-wrap">
+        <span class="break-all font-bold text-xl">Latest UPX Price:</span>
+        <span class="flex-auto break-all"></span>
+        <span class="break-all font-bold text-xl text-yellow-400">{{ singlePriceNormal?.price }} JPY</span>
+      </mat-list-item>
+      <mat-list-item class="flex flex-wrap">
+        <span class="break-all font-bold text-xl">Contract Amount:</span>
+        <span class="flex-auto break-all"></span>
+        <span class="break-all font-bold text-xl text-yellow-400">{{ singlePriceNormal?.amount }} UPX</span>
+      </mat-list-item>
+      <mat-list-item class="flex flex-wrap">
+        <span class="break-all font-bold text-xl">Market Date:</span>
+        <span class="flex-auto break-all"></span>
+        <span class="break-all font-bold text-xl text-yellow-400">{{ singlePriceNormalDate | date: 'yy/MM/dd' }}</span>
+      </mat-list-item>
+      <mat-divider [inset]="true"></mat-divider>
+      <mat-list-item class="flex flex-wrap">
+        <span class="break-all font-bold text-xl">UPX Balance:</span>
+        <span class="flex-auto break-all"></span>
+        <span class="break-all font-bold text-xl text-purple-800">{{ singlePriceRenewable?.price }} JPY</span>
+      </mat-list-item>
+      <mat-list-item class="flex flex-wrap">
+        <span class="break-all font-bold text-xl">Contract Amount:</span>
+        <span class="flex-auto break-all"></span>
+        <span class="break-all font-bold text-xl text-purple-800">{{ singlePriceRenewable?.amount }} SPX</span>
+      </mat-list-item>
+      <mat-list-item class="flex flex-wrap">
+        <span class="break-all font-bold text-xl">Market Date:</span>
+        <span class="flex-auto break-all"></span>
+        <span class="break-all font-bold text-xl text-purple-800">{{ singlePriceRenewableDate | date: 'yy/MM/dd' }}</span>
+      </mat-list-item>
+    </mat-list>
+  </mat-card>
+
+  <mat-card class="mb-20">
+    <mat-card-title>This Month's Usage</mat-card-title>
+    <mat-list>
+      <mat-list-item class="flex flex-wrap">
+        <span class="break-all font-bold text-xl">Total Usage:</span>
+        <span class="flex-auto break-all"></span>
+        <span class="break-all font-bold text-xl text-purple-800">{{ totalUsage }} kWh</span>
+      </mat-list-item>
+      <mat-divider [inset]="true"></mat-divider>
+      <mat-list-item class="flex flex-wrap">
+        <span class="break-all font-bold text-xl">Students' Average:</span>
+        <span class="flex-auto break-all"></span>
+        <span class="break-all font-bold text-xl text-yellow-400">{{ totalUsageAverage }} kWh</span>
+      </mat-list-item>
+    </mat-list>
+  </mat-card>
+
   <mat-card class="mb-20">
     <mat-card-title>Usage Ranking</mat-card-title>
     <mat-list>
@@ -62,18 +108,20 @@
       <mat-progress-spinner [diameter]="60" [mode]="'indeterminate'"></mat-progress-spinner>
     </ng-template>
     <ng-template #loadedBalance>
-      <canvas baseChart [data]="balanceData!" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"> </canvas> </ng-template
-    ><mat-card-content>Total</mat-card-content>
-    <ng-container *ngIf="balanceData === null; then loading; else loadedTotalBalance"></ng-container>
-    <ng-template #loadedTotalBalance
-      ><canvas baseChart [data]="totalBalanceData!" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"> </canvas> </ng-template
-  ></mat-card>
+      <canvas baseChart [data]="balanceData!" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"> </canvas>
+    </ng-template>
+    <mat-card-content>Total</mat-card-content>
+    <ng-container *ngIf="totalBalanceData === null; then loading; else loadedTotalBalance"></ng-container>
+    <ng-template #loadedTotalBalance>
+      <canvas baseChart [data]="totalBalanceData!" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"> </canvas>
+    </ng-template>
+  </mat-card>
   <!-- <mat-card class="mb-20">
     <mat-card-title>Notifications</mat-card-title>
     <button mat-flat-button color="accent">More</button>
   </mat-card> -->
   <mat-card class="mb-20">
-    <mat-card-title>Monthly Energy Consumption</mat-card-title>
+    <mat-card-title>Monthly Electricity Usages</mat-card-title>
     <ng-container *ngIf="usageData === null; then loading; else loadedUsage"></ng-container>
     <ng-template #loadedUsage>
       <p>kWh</p>
@@ -89,189 +137,4 @@
       </canvas>
     </ng-template>
   </mat-card>
-  <!-- <mat-card class="mb-20">
-    <mat-card-title>Transaction Menu</mat-card-title>
-    <div class="flex mt-10">
-      <div class="flex-auto"></div>
-      <div class="flex-auto">
-        <button mat-flat-button color="accent" routerLink="/txs/buy">Buy Electricity</button>
-      </div>
-      <div class="flex-auto">
-        <button mat-flat-button color="primary" routerLink="/txs/sell">Sell Electricity</button>
-      </div>
-    </div>
-  </mat-card>
-
-  <mat-card class="mb-20">
-    <mat-card-title>Order</mat-card-title>
-    <mat-nav-list>
-      <ng-container *ngIf="!orders?.length">No order</ng-container>
-      <ng-container *ngFor="let order of orders">
-        <mat-list-item class="flex" routerLink="/txs/order/{{ powerType(order.is_solar) }}/{{ txType(order.is_bid) }}/{{ order.id }}">
-          <div class="flex-auto">
-            <span class="column-name font-bold">Date : </span>
-            <span class="column-value font-bold">{{ order.date }}</span>
-          </div>
-        </mat-list-item>
-        <mat-list-item class="flex" routerLink="/txs/order/{{ powerType(order.is_solar) }}/{{ txType(order.is_bid) }}/{{ order.id }}">
-          <ng-container *ngIf="order.is_solar === true; then solar; else utility"></ng-container>
-          <ng-template #solar>
-            <div class="flex-auto">
-              <mat-chip-list>
-                <mat-chip color="primary" selected>SPX</mat-chip>
-              </mat-chip-list>
-            </div>
-            <div class="flex-auto">
-              <ng-container *ngIf="order.is_bid === true; then solarBid; else solarAsk"></ng-container>
-              <ng-template #solarBid>
-                <mat-chip-list>
-                  <span color="primary" class="column-value font-bold">Bid</span>
-                </mat-chip-list>
-              </ng-template>
-              <ng-template #solarAsk>
-                <mat-chip-list>
-                  <span color="accent" class="column-value font-bold">Ask</span>
-                </mat-chip-list>
-              </ng-template>
-            </div>
-            <div class="flex-auto">
-              <span class="font-bold">amount : </span>
-              <span class="font-bold">{{ order.amount }}</span>
-              <span class="font-bold">SPX</span>
-            </div>
-          </ng-template>
-          <ng-template #utility>
-            <div class="flex-auto">
-              <mat-chip-list>
-                <mat-chip color="accent" selected>UPX</mat-chip>
-              </mat-chip-list>
-            </div>
-            <div class="flex-auto">
-              <ng-container *ngIf="order.is_bid === true; then utilityBid; else utilityAsk"></ng-container>
-              <ng-template #utilityBid>
-                <mat-chip-list>
-                  <span class="column-value font-bold">Bid</span>
-                </mat-chip-list>
-              </ng-template>
-              <ng-template #utilityAsk>
-                <mat-chip-list>
-                  <span color="accent" class="column-value font-bold">Ask</span>
-                </mat-chip-list>
-              </ng-template>
-            </div>
-            <div class="flex-auto">
-              <span class="font-bold">amount : </span>
-              <span class="font-bold">{{ order.amount }}</span>
-              <span class="font-bold">UPX</span>
-            </div>
-          </ng-template>
-          <div class="flex-auto">
-            <span class="font-bold">Price : </span>
-            <span class="font-bold">{{ order.price }}</span>
-            <span class="font-bold">JPY</span>
-          </div>
-        </mat-list-item>
-        <mat-divider [inset]="true"></mat-divider>
-      </ng-container>
-    </mat-nav-list>
-  </mat-card>
-
-  <mat-card>
-    <mat-card-title>Transaction History</mat-card-title>
-    <mat-nav-list>
-      <ng-container *ngIf="!histories?.length">No History</ng-container>
-      <ng-container *ngFor="let history of histories">
-        <mat-list-item
-          class="flex"
-          routerLink="/txs/history/{{ powerType(history.is_solar) }}/{{ txType(history.is_bid) }}/{{ history.id }}"
-        >
-          <div class="flex-auto">
-            <span class="column-name font-bold">Date : </span>
-            <span class="column-value font-bold">{{ history.date }}</span>
-          </div>
-        </mat-list-item>
-        <mat-list-item
-          class="flex"
-          routerLink="/txs/history/{{ powerType(history.is_solar) }}/{{ txType(history.is_bid) }}/{{ history.id }}"
-        >
-          <ng-container *ngIf="history.is_solar === true; then solar; else utility"></ng-container>
-          <ng-template #solar>
-            <div class="flex-auto">
-              <mat-chip-list>
-                <mat-chip color="primary" selected>SPX</mat-chip>
-              </mat-chip-list>
-            </div>
-            <div class="flex-auto">
-              <ng-container *ngIf="history.is_bid === true; then solarBid; else solarAsk"></ng-container>
-              <ng-template #solarBid>
-                <mat-chip-list>
-                  <span class="column-value font-bold">Bid</span>
-                </mat-chip-list>
-              </ng-template>
-              <ng-template #solarAsk>
-                <mat-chip-list>
-                  <span class="column-value font-bold">Ask</span>
-                </mat-chip-list>
-              </ng-template>
-            </div>
-            <div class="flex-auto">
-              <span class="font-bold">amount : </span>
-              <span class="font-bold">{{ history.amount }}</span>
-              <span class="font-bold">SPX</span>
-            </div>
-          </ng-template>
-
-          <ng-template #utility>
-            <div class="flex-auto">
-              <mat-chip-list>
-                <mat-chip color="accent" selected>UPX</mat-chip>
-              </mat-chip-list>
-            </div>
-            <div class="flex-auto">
-              <ng-container *ngIf="history.is_bid === true; then utilityBid; else utilityAsk"></ng-container>
-              <ng-template #utilityBid>
-                <mat-chip-list>
-                  <span color="primary" class="column-value font-bold">Bid</span>
-                </mat-chip-list>
-              </ng-template>
-              <ng-template #utilityAsk>
-                <mat-chip-list>
-                  <span color="accent" class="column-value font-bold">Ask</span>
-                </mat-chip-list>
-              </ng-template>
-            </div>
-            <div class="flex-auto">
-              <span class="font-bold">amount : </span>
-              <span class="font-bold">{{ history.amount }}</span>
-              <span class="font-bold">UPX</span>
-            </div>
-          </ng-template>
-
-          <div class="flex-auto">
-            <span class="font-bold">Price : </span>
-            <span class="font-bold">{{ history.price }}</span>
-            <span class="font-bold">JPY</span>
-          </div>
-          <div class="flex-auto">
-            <span class="font-bold">Contract Price : </span>
-            <span class="font-bold">{{ history.contract_price }}</span>
-          </div>
-          <div class="flex-auto">
-            <ng-container *ngIf="history.is_accepted === true; then accept; else reject"></ng-container>
-            <ng-template #accept>
-              <mat-chip-list>
-                <mat-chip color="primary" selected>Accepted</mat-chip>
-              </mat-chip-list>
-            </ng-template>
-            <ng-template #reject>
-              <mat-chip-list>
-                <mat-chip color="warn" selected>Rejected</mat-chip>
-              </mat-chip-list>
-            </ng-template>
-          </div>
-        </mat-list-item>
-        <mat-divider [inset]="true"></mat-divider>
-      </ng-container>
-    </mat-nav-list>
-  </mat-card> -->
 </div>
