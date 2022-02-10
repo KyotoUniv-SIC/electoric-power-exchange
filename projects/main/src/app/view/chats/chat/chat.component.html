@@ -48,7 +48,7 @@
         </mat-nav-list>
 
         <form class="mt-10" (submit)="onSubmit(textRef.value)">
-          <mat-form-field class="break-all w-full lg:mx-auto lg:w-1/3" appearance="fill">
+          <mat-form-field class="break-all w-full" appearance="fill">
             <mat-label>Input Message</mat-label>
             <input #textRef matInput type="text" [(ngModel)]="text" name="text" required />
           </mat-form-field>
