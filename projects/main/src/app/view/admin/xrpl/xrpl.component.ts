@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { AdminAccount } from '@local/common';
 
 @Component({
   selector: 'view-xrpl',
@@ -6,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./xrpl.component.css'],
 })
 export class XrplComponent implements OnInit {
+  @Input()
+  adminAccount?: AdminAccount | null;
+
   constructor() {}
 
   ngOnInit(): void {}
