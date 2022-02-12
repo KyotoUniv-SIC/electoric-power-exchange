@@ -17,7 +17,7 @@ export class AdminAccountApplicationService {
     return this.adminAccount.list$();
   }
 
-  getByNeme$(name: string) {
+  getByName$(name: string) {
     return this.adminAccount.list$().pipe(map((admins) => admins.filter((admin) => (admin.name = name))));
   }
 }
