@@ -177,7 +177,7 @@ export class AuthApplicationService {
       dialogRef.close();
     }
 
-    this.location.back();
+    await this.router.navigate(['']);
   }
 
   async signOut() {
