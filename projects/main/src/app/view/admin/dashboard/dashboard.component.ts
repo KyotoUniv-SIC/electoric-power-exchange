@@ -1,6 +1,7 @@
 import { Ranking } from '../../../page/dashboard/dashboard.component';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
+  Balance,
   NormalAsk,
   NormalBid,
   RenewableAsk,
@@ -17,6 +18,8 @@ import { Label, MultiDataSet } from 'ng2-charts';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
+  @Input()
+  balances?: Balance[] | null;
   @Input()
   totalBalanceData?: MultiDataSet | null;
   @Input()
@@ -39,6 +42,8 @@ export class DashboardComponent implements OnInit {
   singlePriceRenewable?: SinglePriceRenewableSettlement | null;
   @Input()
   singlePriceRenewableDate?: Date | null;
+  @Output()
+  appDownloadbalance: EventEmitter<Balance[]>;
 
   doughnutChartLabels: Label[] = ['Utility Power', 'Solar Power'];
   doughnutChartType: ChartType = 'doughnut';
@@ -51,7 +56,17 @@ export class DashboardComponent implements OnInit {
   barChartLegend = true;
   barChartPlugins = [];
 
-  constructor() {}
+  constructor() {
+    this.appDownloadbalance = new EventEmitter();
+  }
 
   ngOnInit(): void {}
+
+  onDownloadBalance() {
+    if (!this.balances) {
+      alert('Balance情報を取得できません');
+      return;
+    }
+    this.appDownloadbalance.emit(this.balances);
+  }
 }

@@ -2,6 +2,7 @@ import { Ranking } from '../../dashboard/dashboard.component';
 import { Component, OnInit } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
 import {
+  Balance,
   NormalAsk,
   NormalBid,
   RenewableAsk,
@@ -29,6 +30,7 @@ import { map, mergeMap } from 'rxjs/operators';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
+  balances$: Observable<Balance[]>;
   totalBalanceData$: Observable<MultiDataSet> | undefined;
   totalUsageData$: Observable<ChartDataSets[]> | undefined;
   rankings$: Observable<Ranking[]> | undefined;
@@ -58,6 +60,9 @@ export class DashboardComponent implements OnInit {
     firstDay.setHours(0, 0, 0, 0);
     const users$ = this.studentsApp.list$();
 
+    this.balances$ = users$.pipe(
+      mergeMap((users) => Promise.all(users.map((user) => this.balanceApp.list(user.id).then((balances) => balances[0])))),
+    );
     this.totalBalanceData$ = users$.pipe(
       mergeMap((users) => Promise.all(users.map((user) => this.balanceApp.list(user.id).then((balances) => balances[0])))),
       map((balances) => {

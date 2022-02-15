@@ -8,6 +8,12 @@
     </ng-template>
     <ng-template #loadedTotalBalance>
       <canvas baseChart [data]="totalBalanceData!" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"> </canvas>
+      <div class="flex mt-10">
+        <div class="flex-auto"></div>
+        <div class="flex-auto">
+          <button mat-flat-button color="accent" (click)="onDownloadBalance()">Downoad CSV</button>
+        </div>
+      </div>
     </ng-template>
   </mat-card>
   <mat-card class="mb-20">

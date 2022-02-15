@@ -1,4 +1,5 @@
 <view-dashboard
+  [balances]="balances$ | async"
   [totalBalanceData]="totalBalanceData$ | async"
   [totalUsageData]="totalUsageData$ | async"
   [rankings]="rankings$ | async"
