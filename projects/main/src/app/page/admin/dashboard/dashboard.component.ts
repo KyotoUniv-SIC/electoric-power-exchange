@@ -147,4 +147,8 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  async onDownloadBalances($event: Balance[]) {
+    // ここでJSON=>CSVの変換とダウンロードを行う
+  }
 }

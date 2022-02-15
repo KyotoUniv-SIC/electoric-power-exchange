@@ -43,7 +43,13 @@ export class DashboardComponent implements OnInit {
   @Input()
   singlePriceRenewableDate?: Date | null;
   @Output()
-  appDownloadbalance: EventEmitter<Balance[]>;
+  appDownloadBalances: EventEmitter<Balance[]>;
+  @Output()
+  appDownloadOrders: EventEmitter<Balance[]>;
+  @Output()
+  appDownloadUserUsages: EventEmitter<Balance[]>;
+  @Output()
+  appDownloadMonthlyUsages: EventEmitter<Balance[]>;
 
   doughnutChartLabels: Label[] = ['Utility Power', 'Solar Power'];
   doughnutChartType: ChartType = 'doughnut';
@@ -57,16 +63,22 @@ export class DashboardComponent implements OnInit {
   barChartPlugins = [];
 
   constructor() {
-    this.appDownloadbalance = new EventEmitter();
+    this.appDownloadBalances = new EventEmitter();
+    this.appDownloadOrders = new EventEmitter();
+    this.appDownloadUserUsages = new EventEmitter();
+    this.appDownloadMonthlyUsages = new EventEmitter();
   }
 
   ngOnInit(): void {}
 
-  onDownloadBalance() {
+  onDownloadBalances() {
     if (!this.balances) {
       alert('Balance情報を取得できません');
       return;
     }
-    this.appDownloadbalance.emit(this.balances);
+    this.appDownloadBalances.emit(this.balances);
   }
+  onDownloadOrders() {}
+  onDownloadUserUsages() {}
+  onDownloadMonthlyUsages() {}
 }
