@@ -1,1 +1,26 @@
-<p>accounts works!</p>
+<div class="w-full lg:mx-auto lg:w-1/3 lg:mt-10">
+  <mat-card class="mb-20">
+    <mat-card-title>Account Menu</mat-card-title>
+    <div class="flex mt-10">
+      <div class="flex-auto"></div>
+      <div class="flex-auto">
+        <button mat-flat-button color="accent" routerLink="/accounts/account">Account Detail</button>
+      </div>
+      <div class="flex-auto">
+        <button mat-flat-button color="primary" routerLink="/accounts/xrpl">Account XRP Ledger</button>
+      </div>
+    </div>
+    <div class="flex mt-10">
+      <div class="flex-auto"></div>
+      <div class="flex-auto">
+        <button mat-flat-button color="accent" routerLink="/accounts/create">Create Account</button>
+      </div>
+      <div class="flex-auto">
+        <button mat-flat-button color="primary" routerLink="/accounts/enter">Log In</button>
+      </div>
+      <div class="flex-auto">
+        <button mat-flat-button color="warn" routerLink="/accounts/room">Room Change</button>
+      </div>
+    </div>
+  </mat-card>
+</div>
