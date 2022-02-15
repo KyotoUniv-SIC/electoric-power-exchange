@@ -16,8 +16,8 @@ import { mergeMap } from 'rxjs/operators';
 export class AccountComponent implements OnInit {
   user$: Observable<User | null> | undefined;
   studentAccount$: Observable<StudentAccount> | undefined;
-  balances$: Observable<Balance> | undefined;
-  monthlyPayments$: Observable<MonthlyPayment[]> | undefined;
+  balances$: Observable<Balance | null> | undefined;
+  monthlyPayments$: Observable<MonthlyPayment[] | null> | undefined;
 
   constructor(
     private auth: Auth,
@@ -28,8 +28,11 @@ export class AccountComponent implements OnInit {
   ) {
     this.user$ = authState(this.auth);
     this.studentAccount$ = this.user$.pipe(mergeMap((user) => this.studentAccApp.getByUid$(user?.uid!)));
-    this.balances$ = this.studentAccount$.pipe(mergeMap((account) => this.balanceApp.getByUid$(account.id)));
-    this.monthlyPayments$ = this.studentAccount$.pipe(mergeMap((account) => this.monthlyPaymentApp.list$(account.id)));
+    this.balances$ = this.studentAccount$.pipe(mergeMap((account) => (!account ? of(null) : this.balanceApp.getByUid$(account.id))));
+    this.monthlyPayments$ = this.studentAccount$.pipe(
+      mergeMap((account) => (!account ? of(null) : this.monthlyPaymentApp.list$(account.id))),
+    );
+
     // Dummy
     // this.monthlyPayments$ = of([
     //   new MonthlyPayment({

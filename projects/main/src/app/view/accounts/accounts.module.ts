@@ -1,11 +1,13 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { AccountsComponent } from "./accounts.component";
+import { MaterialModule } from '../../material.module';
+import { AccountsComponent } from './accounts.component';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [AccountsComponent],
-  imports: [CommonModule, RouterModule],
-  exports: [AccountsComponent]
+  imports: [CommonModule, RouterModule, FormsModule, MaterialModule],
+  exports: [AccountsComponent],
 })
 export class AccountsModule {}
