@@ -2,11 +2,11 @@
   <mat-card class="mb-10">
     <mat-card-title>XRP Ledger Info</mat-card-title>
     <mat-nav-list>
-      <ng-container *ngIf="adminAccount === null; then loading; else loadedStudent"></ng-container>
+      <ng-container *ngIf="adminAccount === null; then loading; else loadedAdmin"></ng-container>
       <ng-template #loading>
         <mat-progress-spinner [diameter]="60" [mode]="'indeterminate'"></mat-progress-spinner>
       </ng-template>
-      <ng-template #loadedStudent>
+      <ng-template #loadedAdmin>
         <mat-divider [inset]="true"></mat-divider>
         <mat-list-item class="flex flex-wrap">
           <span class="break-all">Display Name:</span>
@@ -26,8 +26,8 @@
 
   <mat-card class="mb-10">
     <mat-card-title>EDISON Token Hot Wallet Balance</mat-card-title>
-    <ng-container *ngIf="trustLineHot === null; then loading; else loadedBalance"></ng-container>
-    <ng-template #loadedBalance>
+    <ng-container *ngIf="trustLineHot === null; then loading; else loadedHotBalance"></ng-container>
+    <ng-template #loadedHotBalance>
       <mat-list>
         <ng-container *ngFor="let line of trustLineHot?.result?.lines">
           <mat-divider [inset]="true"></mat-divider>
@@ -68,8 +68,8 @@
 
   <mat-card class="mb-10">
     <mat-card-title>EDISON Token Cold Wallet Balance</mat-card-title>
-    <ng-container *ngIf="trustLineHot === null; then loading; else loadedBalance"></ng-container>
-    <ng-template #loadedBalance>
+    <ng-container *ngIf="trustLineCold === null; then loading; else loadedColdBalance"></ng-container>
+    <ng-template #loadedColdBalance>
       <mat-list>
         <ng-container *ngFor="let line of trustLineCold?.result?.lines">
           <mat-divider [inset]="true"></mat-divider>
@@ -110,8 +110,8 @@
 
   <mat-card class="mb-10">
     <mat-card-title>XRP Hot Wallet Balance</mat-card-title>
-    <ng-container *ngIf="xrpLedgerHot === null; then loading; else loadedPayment"></ng-container>
-    <ng-template #loadedPayment>
+    <ng-container *ngIf="xrpLedgerHot === null; then loading; else loadedHotXRP"></ng-container>
+    <ng-template #loadedHotXRP>
       <mat-list>
         <mat-divider [inset]="true"></mat-divider>
         <mat-list-item class="flex flex-wrap">
@@ -144,8 +144,8 @@
 
   <mat-card class="mb-10">
     <mat-card-title>XRP Cold Wallet Balance</mat-card-title>
-    <ng-container *ngIf="xrpLedgerCold === null; then loading; else loadedPayment"></ng-container>
-    <ng-template #loadedPayment>
+    <ng-container *ngIf="xrpLedgerCold === null; then loading; else loadedColdXRP"></ng-container>
+    <ng-template #loadedColdXRP>
       <mat-list>
         <mat-divider [inset]="true"></mat-divider>
         <mat-list-item class="flex flex-wrap">
