@@ -24,7 +24,7 @@ export class XrplComponent implements OnInit {
     const TEST_NET = 'wss://s.altnet.rippletest.net:51233';
     const client = new xrpl.Client(TEST_NET);
     this.xrpLedgerHot$ = this.adminAccount$.pipe(
-      mergeMap(async (admin)=>{
+      mergeMap(async (admin) => {
         await client.connect();
         const info = await client.request({
           command: 'account_info',
@@ -32,12 +32,12 @@ export class XrplComponent implements OnInit {
           ledger_index: 'validated',
         });
         return info;
-      })
+      }),
     );
     this.xrpLedgerHot$.subscribe((a) => console.log(a));
 
     this.xrpLedgerCold$ = this.adminAccount$.pipe(
-      mergeMap(async (admin)=>{
+      mergeMap(async (admin) => {
         await client.connect();
         const info = await client.request({
           command: 'account_info',
@@ -45,22 +45,22 @@ export class XrplComponent implements OnInit {
           ledger_index: 'validated',
         });
         return info;
-      })
+      }),
     );
     this.xrpLedgerCold$.subscribe((a) => console.log(a));
 
     this.trustLineHot$ = this.adminAccount$.pipe(
-        mergeMap(async (admin) => {
-          await client.connect();
-          const line = await client.request({
-            command: 'account_lines',
-            account: admin.xrp_address_hot,
-            ledger_index: 'validated',
-          });
-          return line;
-        }),
+      mergeMap(async (admin) => {
+        await client.connect();
+        const line = await client.request({
+          command: 'account_lines',
+          account: admin.xrp_address_hot,
+          ledger_index: 'validated',
+        });
+        return line;
+      }),
     );
-    this.trustLineHot$.subscribe((a) => console.log(a));
+    this.trustLineHot$.subscribe((a) => console.log(a.result));
 
     this.trustLineCold$ = this.adminAccount$.pipe(
       mergeMap(async (admin) => {
@@ -72,10 +72,11 @@ export class XrplComponent implements OnInit {
         });
         return line;
       }),
+      map((trustLineCold) => trustLineCold.result.lines.filter((line: { balance: string }) => line.balance != '0')),
     );
     this.trustLineCold$.subscribe((a) => console.log(a));
 
-    client.disconnect()
+    client.disconnect();
   }
 
   ngOnInit(): void {}

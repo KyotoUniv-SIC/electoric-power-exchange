@@ -65,13 +65,13 @@
       </mat-list>
     </ng-template>
   </mat-card>
-
+  <p>{{ trustLineCold?.result }}</p>
   <mat-card class="mb-10">
     <mat-card-title>EDISON Token Cold Wallet Balance</mat-card-title>
     <ng-container *ngIf="trustLineCold === null; then loading; else loadedColdBalance"></ng-container>
     <ng-template #loadedColdBalance>
       <mat-list>
-        <ng-container *ngFor="let line of trustLineCold?.result?.lines">
+        <ng-container *ngFor="let line of trustLineCold">
           <mat-divider [inset]="true"></mat-divider>
           <mat-list-item class="flex flex-wrap">
             <span class="break-all">{{ line?.currency }} Amount:</span>
@@ -90,7 +90,7 @@
           <span class="break-all">Validated:</span>
           <span class="flex-auto break-all"></span>
           <span class="break-all">
-            <ng-container *ngIf="!trustLineCold?.result?.validated; then empty; else exist"></ng-container>
+            <ng-container *ngIf="!trustLineCold; then empty; else exist"></ng-container>
             <ng-template #exist>
               <mat-chip-list>
                 <mat-chip color="primary" selected>Yes</mat-chip>
@@ -176,4 +176,3 @@
     </ng-template>
   </mat-card>
 </div>
-

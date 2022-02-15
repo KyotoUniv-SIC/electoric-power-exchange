@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AdminAccount } from '@local/common';
 
+
 @Component({
   selector: 'view-xrpl',
   templateUrl: './xrpl.component.html',
