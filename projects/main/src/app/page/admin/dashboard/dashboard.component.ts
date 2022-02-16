@@ -32,6 +32,8 @@ import { map, mergeMap } from 'rxjs/operators';
 export class DashboardComponent implements OnInit {
   balances$: Observable<Balance[]>;
   totalBalanceData$: Observable<MultiDataSet> | undefined;
+  totalUsageThisYear$: Observable<number[]> | undefined;
+  totalUsageLastYear$: Observable<number[]> | undefined;
   totalUsageData$: Observable<ChartDataSets[]> | undefined;
   rankings$: Observable<Ranking[]> | undefined;
   normalAsks$: Observable<NormalAsk[]> | undefined;
@@ -77,7 +79,7 @@ export class DashboardComponent implements OnInit {
     );
 
     const usageListDailyTotal$ = this.dailyUsageApp.list$();
-    const thisYear$ = usageListDailyTotal$.pipe(
+    this.totalUsageThisYear$ = usageListDailyTotal$.pipe(
       map((usages) => {
         let list = [];
         for (let i = 0; i < 12; i++) {
@@ -95,7 +97,7 @@ export class DashboardComponent implements OnInit {
         return list;
       }),
     );
-    const lastYear$ = usageListDailyTotal$.pipe(
+    this.totalUsageLastYear$ = usageListDailyTotal$.pipe(
       map((usages) => {
         let list = [];
         for (let i = 0; i < 12; i++) {
@@ -113,7 +115,7 @@ export class DashboardComponent implements OnInit {
         return list;
       }),
     );
-    this.totalUsageData$ = combineLatest([thisYear$, lastYear$]).pipe(
+    this.totalUsageData$ = combineLatest([this.totalUsageThisYear$, this.totalUsageLastYear$]).pipe(
       map(([thisYear, lastYear]) => [
         { data: thisYear, label: 'This year' },
         { data: lastYear, label: 'Last year' },
@@ -148,7 +150,45 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  jsonToCsv(json: any[], delimiter: string | undefined) {
+    var header = Object.keys(json[0]).join(delimiter) + '\n';
+    var body = json
+      .map(function (d) {
+        return Object.keys(d)
+          .map(function (key) {
+            return d[key];
+          })
+          .join(delimiter);
+      })
+      .join('\n');
+    return header + body;
+  }
+
+  downloadCsv(csv: string, title: string) {
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = (window.URL || window.webkitURL).createObjectURL(blob);
+    const link = document.createElement('a');
+    link.download = title + '.csv';
+    link.href = url;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
   async onDownloadBalances($event: Balance[]) {
     // ここでJSON=>CSVの変換とダウンロードを行う
+    const data = $event.map((balance) => ({
+      student_account_id: balance.student_account_id,
+      amount_upx: balance.amount_upx,
+      amount_spx: balance.amount_spx,
+    }));
+    const csv = this.jsonToCsv(data, ',');
+    this.downloadCsv(csv, 'balances');
   }
+
+  async onDownloadOrders($event: [NormalBid[], NormalAsk[], RenewableBid[], RenewableAsk[]]) {}
+
+  async onDownloadUserUsages($event: Ranking[]) {}
+
+  async onDownloadMonthlyUsages($event: [number[], number[]]) {}
 }
