@@ -32,6 +32,24 @@
         <ng-container *ngFor="let line of trustLineHot?.result?.lines">
           <mat-divider [inset]="true"></mat-divider>
           <mat-list-item class="flex flex-wrap">
+            <span class="break-all">Validated:</span>
+            <span class="flex-auto break-all"></span>
+            <span class="break-all">
+              <ng-container *ngIf="!trustLineHot?.result?.validated; then empty; else exist"></ng-container>
+              <ng-template #exist>
+                <mat-chip-list>
+                  <mat-chip color="primary" selected>Yes</mat-chip>
+                </mat-chip-list>
+              </ng-template>
+              <ng-template #empty>
+                <mat-chip-list>
+                  <mat-chip color="warn" selected>No</mat-chip>
+                </mat-chip-list>
+              </ng-template>
+            </span>
+          </mat-list-item>
+          <mat-divider [inset]="true"></mat-divider>
+          <mat-list-item class="flex flex-wrap">
             <span class="break-all">{{ line?.currency }} Amount:</span>
             <span class="flex-auto break-all"></span>
             <span class="break-all">{{ line?.balance }}</span>
@@ -43,24 +61,6 @@
             <span class="break-all">{{ line?.account }}</span>
           </mat-list-item>
         </ng-container>
-        <mat-divider [inset]="true"></mat-divider>
-        <mat-list-item class="flex flex-wrap">
-          <span class="break-all">Validated:</span>
-          <span class="flex-auto break-all"></span>
-          <span class="break-all">
-            <ng-container *ngIf="!trustLineHot?.result?.validated; then empty; else exist"></ng-container>
-            <ng-template #exist>
-              <mat-chip-list>
-                <mat-chip color="primary" selected>Yes</mat-chip>
-              </mat-chip-list>
-            </ng-template>
-            <ng-template #empty>
-              <mat-chip-list>
-                <mat-chip color="warn" selected>No</mat-chip>
-              </mat-chip-list>
-            </ng-template>
-          </span>
-        </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
       </mat-list>
     </ng-template>
@@ -73,21 +73,6 @@
     <ng-container *ngIf="trustLineCold === null; then loading; else loadedColdBalance"></ng-container>
     <ng-template #loadedColdBalance>
       <mat-list>
-        <ng-container *ngFor="let line of trustLineCold?.result?.lines">
-          <mat-divider [inset]="true"></mat-divider>
-          <mat-list-item class="flex flex-wrap">
-            <span class="break-all">{{ line?.currency }} Amount:</span>
-            <span class="flex-auto break-all"></span>
-            <span class="break-all">{{ line?.balance }}</span>
-          </mat-list-item>
-          <mat-divider [inset]="true"></mat-divider>
-          <mat-list-item class="flex flex-wrap">
-            <span class="break-all">{{ line?.currency }} Issuer:</span>
-            <span class="flex-auto break-all"></span>
-            <span class="break-all">{{ line?.account }}</span>
-          </mat-list-item>
-        </ng-container>
-        <mat-divider [inset]="true"></mat-divider>
         <mat-list-item class="flex flex-wrap">
           <span class="break-all">Validated:</span>
           <span class="flex-auto break-all"></span>
@@ -105,6 +90,24 @@
             </ng-template>
           </span>
         </mat-list-item>
+        <ng-container *ngFor="let line of trustLineCold?.result?.lines">
+          <mat-divider [inset]="true"></mat-divider>
+
+          <mat-divider [inset]="true"></mat-divider>
+          <mat-list-item class="flex flex-wrap">
+            <span class="break-all">{{ line?.currency }} Amount:</span>
+            <span class="flex-auto break-all"></span>
+            <span class="break-all">{{ line?.balance }}</span>
+          </mat-list-item>
+          <mat-divider [inset]="true"></mat-divider>
+          <mat-list-item class="flex flex-wrap">
+            <span class="break-all">{{ line?.currency }} Issuer:</span>
+            <span class="flex-auto break-all"></span>
+            <span class="break-all">{{ line?.account }}</span>
+          </mat-list-item>
+        </ng-container>
+        <mat-divider [inset]="true"></mat-divider>
+
         <mat-divider [inset]="true"></mat-divider>
       </mat-list>
     </ng-template>
@@ -117,12 +120,6 @@
     <ng-container *ngIf="xrpLedgerHot === null; then loading; else loadedHotXRP"></ng-container>
     <ng-template #loadedHotXRP>
       <mat-list>
-        <mat-divider [inset]="true"></mat-divider>
-        <mat-list-item class="flex flex-wrap">
-          <span class="break-all">XRP Amount:</span>
-          <span class="flex-auto break-all"></span>
-          <span class="break-all">{{ calcMicroAmount(xrpLedgerHot?.result?.account_data?.Balance) }}</span>
-        </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
         <mat-list-item class="flex flex-wrap">
           <span class="break-all">Validated:</span>
@@ -142,6 +139,12 @@
           </span>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
+        <mat-list-item class="flex flex-wrap">
+          <span class="break-all">XRP Amount:</span>
+          <span class="flex-auto break-all"></span>
+          <span class="break-all">{{ calcMicroAmount(xrpLedgerHot?.result?.account_data?.Balance) }}</span>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
       </mat-list>
     </ng-template>
   </mat-card>
@@ -151,12 +154,6 @@
     <ng-container *ngIf="xrpLedgerCold === null; then loading; else loadedColdXRP"></ng-container>
     <ng-template #loadedColdXRP>
       <mat-list>
-        <mat-divider [inset]="true"></mat-divider>
-        <mat-list-item class="flex flex-wrap">
-          <span class="break-all">XRP Amount:</span>
-          <span class="flex-auto break-all"></span>
-          <span class="break-all">{{ calcMicroAmount(xrpLedgerCold?.result?.account_data?.Balance) }}</span>
-        </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
         <mat-list-item class="flex flex-wrap">
           <span class="break-all">Validated:</span>
@@ -174,6 +171,12 @@
               </mat-chip-list>
             </ng-template>
           </span>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
+        <mat-list-item class="flex flex-wrap">
+          <span class="break-all">XRP Amount:</span>
+          <span class="flex-auto break-all"></span>
+          <span class="break-all">{{ calcMicroAmount(xrpLedgerCold?.result?.account_data?.Balance) }}</span>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
       </mat-list>
