@@ -65,7 +65,9 @@
       </mat-list>
     </ng-template>
   </mat-card>
-  <p>{{ trustLineCold?.result }}</p>
+</div>
+
+<div class="w-full lg:mx-auto lg:w-1/3 lg:mt-10 overflow-scroll h-80">
   <mat-card class="mb-10">
     <mat-card-title>EDISON Token Cold Wallet Balance</mat-card-title>
     <ng-container *ngIf="trustLineCold === null; then loading; else loadedColdBalance"></ng-container>
@@ -107,7 +109,9 @@
       </mat-list>
     </ng-template>
   </mat-card>
+</div>
 
+<div class="w-full lg:mx-auto lg:w-1/3 lg:mt-10">
   <mat-card class="mb-10">
     <mat-card-title>XRP Hot Wallet Balance</mat-card-title>
     <ng-container *ngIf="xrpLedgerHot === null; then loading; else loadedHotXRP"></ng-container>
