@@ -1,4 +1,5 @@
 import { Ranking } from '../../dashboard/dashboard.component';
+import { Order } from '../../txs/txs.component';
 import { Component, OnInit } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
 import {
@@ -23,19 +24,46 @@ import { StudentAccountApplicationService } from 'projects/shared/src/lib/servic
 import { combineLatest, Observable } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 
+export interface BalanceData {
+  student_account_id: string;
+  // toDo
+  // student_account_name: string;
+  amount_upx: number;
+  amount_spx: number;
+}
+
+export interface MonthlyUsageData {
+  year: number;
+  jan: number;
+  feb: number;
+  mar: number;
+  apr: number;
+  may: number;
+  jun: number;
+  jul: number;
+  aug: number;
+  sep: number;
+  oct: number;
+  nov: number;
+  dec: number;
+}
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
+  balances$: Observable<BalanceData[]>;
   totalBalanceData$: Observable<MultiDataSet> | undefined;
+  totalUsage$: Observable<MonthlyUsageData[]> | undefined;
   totalUsageData$: Observable<ChartDataSets[]> | undefined;
   rankings$: Observable<Ranking[]> | undefined;
   normalAsks$: Observable<NormalAsk[]> | undefined;
   normalBids$: Observable<NormalBid[]> | undefined;
   renewableAsks$: Observable<RenewableAsk[]> | undefined;
   renewableBids$: Observable<RenewableBid[]> | undefined;
+  orders$: Observable<Order[]> | undefined;
   singlePriceNormal$: Observable<SinglePriceNormalSettlement> | undefined;
   singlePriceNormalDate$: Observable<Date> | undefined;
   singlePriceRenewable$: Observable<SinglePriceRenewableSettlement> | undefined;
@@ -58,6 +86,16 @@ export class DashboardComponent implements OnInit {
     firstDay.setHours(0, 0, 0, 0);
     const users$ = this.studentsApp.list$();
 
+    this.balances$ = users$.pipe(
+      mergeMap((users) => Promise.all(users.map((user) => this.balanceApp.list(user.id).then((balances) => balances[0])))),
+      map((balance) =>
+        balance.map((balance) => ({
+          student_account_id: balance.student_account_id,
+          amount_upx: balance.amount_upx,
+          amount_spx: balance.amount_spx,
+        })),
+      ),
+    );
     this.totalBalanceData$ = users$.pipe(
       mergeMap((users) => Promise.all(users.map((user) => this.balanceApp.list(user.id).then((balances) => balances[0])))),
       map((balances) => {
@@ -72,7 +110,7 @@ export class DashboardComponent implements OnInit {
     );
 
     const usageListDailyTotal$ = this.dailyUsageApp.list$();
-    const thisYear$ = usageListDailyTotal$.pipe(
+    const totalUsageThisYear$ = usageListDailyTotal$.pipe(
       map((usages) => {
         let list = [];
         for (let i = 0; i < 12; i++) {
@@ -90,7 +128,7 @@ export class DashboardComponent implements OnInit {
         return list;
       }),
     );
-    const lastYear$ = usageListDailyTotal$.pipe(
+    const totalUsageLastYear$ = usageListDailyTotal$.pipe(
       map((usages) => {
         let list = [];
         for (let i = 0; i < 12; i++) {
@@ -108,7 +146,41 @@ export class DashboardComponent implements OnInit {
         return list;
       }),
     );
-    this.totalUsageData$ = combineLatest([thisYear$, lastYear$]).pipe(
+    this.totalUsage$ = combineLatest([totalUsageThisYear$, totalUsageLastYear$]).pipe(
+      map(([thisYear, lastYear]) => [
+        {
+          year: now.getFullYear() - 1,
+          jan: lastYear[0],
+          feb: lastYear[1],
+          mar: lastYear[2],
+          apr: lastYear[3],
+          may: lastYear[4],
+          jun: lastYear[5],
+          jul: lastYear[6],
+          aug: lastYear[7],
+          sep: lastYear[8],
+          oct: lastYear[9],
+          nov: lastYear[10],
+          dec: lastYear[11],
+        },
+        {
+          year: now.getFullYear(),
+          jan: thisYear[0],
+          feb: thisYear[1],
+          mar: thisYear[2],
+          apr: thisYear[3],
+          may: thisYear[4],
+          jun: thisYear[5],
+          jul: thisYear[6],
+          aug: thisYear[7],
+          sep: thisYear[8],
+          oct: thisYear[9],
+          nov: thisYear[10],
+          dec: thisYear[11],
+        },
+      ]),
+    );
+    this.totalUsageData$ = combineLatest([totalUsageThisYear$, totalUsageLastYear$]).pipe(
       map(([thisYear, lastYear]) => [
         { data: thisYear, label: 'This year' },
         { data: lastYear, label: 'Last year' },
@@ -135,6 +207,60 @@ export class DashboardComponent implements OnInit {
     this.normalBids$ = this.normalBidApp.list$().pipe(map((bids) => bids.filter((bid) => bid.is_deleted != true)));
     this.renewableAsks$ = this.renewableAskApp.list$().pipe(map((asks) => asks.filter((ask) => ask.is_deleted != true)));
     this.renewableBids$ = this.renewableBidApp.list$().pipe(map((bids) => bids.filter((bid) => bid.is_deleted != true)));
+    this.orders$ = combineLatest([this.normalBids$, this.normalAsks$, this.renewableBids$, this.renewableAsks$]).pipe(
+      map(([normalBids, normalAsks, renewableBids, renewableAsks]) => {
+        const normalBidList = normalBids
+          .filter((bid) => bid.is_deleted == false)
+          .map((bid) => ({
+            id: bid.id,
+            date: !bid.created_at ? now : (bid.created_at as Timestamp).toDate(),
+            amount: bid.amount,
+            price: bid.price,
+            is_solar: false,
+            is_bid: true,
+          }));
+        const normalAskList = normalAsks
+          .filter((ask) => ask.is_deleted == false)
+          .map((ask) => ({
+            id: ask.id,
+            date: !ask.created_at ? now : (ask.created_at as Timestamp).toDate(),
+            amount: ask.amount,
+            price: ask.price,
+            is_solar: false,
+            is_bid: false,
+          }));
+        const renewableBidList = renewableBids
+          .filter((bid) => bid.is_deleted == false)
+          .map((bid) => ({
+            id: bid.id,
+            date: !bid.created_at ? now : (bid.created_at as Timestamp).toDate(),
+            amount: bid.amount,
+            price: bid.price,
+            is_solar: true,
+            is_bid: true,
+          }));
+        const renewableAskList = renewableAsks
+          .filter((ask) => ask.is_deleted == false)
+          .map((ask) => ({
+            id: ask.id,
+            date: !ask.created_at ? now : (ask.created_at as Timestamp).toDate(),
+            amount: ask.amount,
+            price: ask.price,
+            is_solar: true,
+            is_bid: false,
+          }));
+        return normalBidList.concat(normalAskList, renewableBidList, renewableAskList).sort(function (first, second) {
+          if (first.date > second.date) {
+            return -1;
+          } else if (first.date < second.date) {
+            return 1;
+          } else {
+            return 0;
+          }
+        });
+      }),
+    );
+
     this.singlePriceNormal$ = this.singlePriceNormalApp.getLatest$();
     this.singlePriceNormalDate$ = this.singlePriceNormal$.pipe(map((single) => (single.market_date as Timestamp).toDate()));
     this.singlePriceRenewable$ = this.singlePriceRenewableApp.getLatest$();
@@ -142,4 +268,50 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  jsonToCsv(json: any[], delimiter: string | undefined) {
+    var header = Object.keys(json[0]).join(delimiter) + '\n';
+    var body = json
+      .map(function (d) {
+        return Object.keys(d)
+          .map(function (key) {
+            return d[key];
+          })
+          .join(delimiter);
+      })
+      .join('\n');
+    return header + body;
+  }
+
+  downloadCsv(csv: string, title: string) {
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = (window.URL || window.webkitURL).createObjectURL(blob);
+    const link = document.createElement('a');
+    link.download = title + '.csv';
+    link.href = url;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  async onDownloadBalances($event: BalanceData[]) {
+    // ここでJSON=>CSVの変換とダウンロードを行う
+    const csv = this.jsonToCsv($event, ',');
+    this.downloadCsv(csv, 'balances');
+  }
+
+  async onDownloadOrders($event: Order[]) {
+    const csv = this.jsonToCsv($event, ',');
+    this.downloadCsv(csv, 'orders');
+  }
+
+  async onDownloadUserUsages($event: Ranking[]) {
+    const csv = this.jsonToCsv($event, ',');
+    this.downloadCsv(csv, 'users_usages');
+  }
+
+  async onDownloadMonthlyUsages($event: MonthlyUsageData[]) {
+    const csv = this.jsonToCsv($event, ',');
+    this.downloadCsv(csv, 'monthly_usages');
+  }
 }

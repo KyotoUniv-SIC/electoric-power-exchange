@@ -35,6 +35,7 @@
     "@ngrx/store-devtools": "^12.4.0",
     "chart.js": "^2.9.3",
     "crypto-browserify": "^3.12.0",
+    "csv": "^6.0.5",
     "firebase": "^9.0.0",
     "https-browserify": "^1.0.0",
     "ng-loading-dialog": "^12.0.5",

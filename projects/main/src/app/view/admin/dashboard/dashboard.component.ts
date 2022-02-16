@@ -1,5 +1,7 @@
+import { BalanceData, MonthlyUsageData } from '../../../page/admin/dashboard/dashboard.component';
 import { Ranking } from '../../../page/dashboard/dashboard.component';
-import { Component, Input, OnInit } from '@angular/core';
+import { Order } from '../../../page/txs/txs.component';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   NormalAsk,
   NormalBid,
@@ -18,7 +20,11 @@ import { Label, MultiDataSet } from 'ng2-charts';
 })
 export class DashboardComponent implements OnInit {
   @Input()
+  balances?: BalanceData[] | null;
+  @Input()
   totalBalanceData?: MultiDataSet | null;
+  @Input()
+  totalUsage?: MonthlyUsageData[] | null;
   @Input()
   totalUsageData?: ChartDataSets[] | null;
   @Input()
@@ -32,6 +38,8 @@ export class DashboardComponent implements OnInit {
   @Input()
   renewableBids?: RenewableBid[] | null;
   @Input()
+  orders?: Order[] | null;
+  @Input()
   singlePriceNormal?: SinglePriceNormalSettlement | null;
   @Input()
   singlePriceNormalDate?: Date | null;
@@ -39,6 +47,14 @@ export class DashboardComponent implements OnInit {
   singlePriceRenewable?: SinglePriceRenewableSettlement | null;
   @Input()
   singlePriceRenewableDate?: Date | null;
+  @Output()
+  appDownloadBalances: EventEmitter<BalanceData[]>;
+  @Output()
+  appDownloadOrders: EventEmitter<Order[]>;
+  @Output()
+  appDownloadUserUsages: EventEmitter<Ranking[]>;
+  @Output()
+  appDownloadMonthlyUsages: EventEmitter<MonthlyUsageData[]>;
 
   doughnutChartLabels: Label[] = ['Utility Power', 'Solar Power'];
   doughnutChartType: ChartType = 'doughnut';
@@ -51,7 +67,41 @@ export class DashboardComponent implements OnInit {
   barChartLegend = true;
   barChartPlugins = [];
 
-  constructor() {}
+  constructor() {
+    this.appDownloadBalances = new EventEmitter();
+    this.appDownloadOrders = new EventEmitter();
+    this.appDownloadUserUsages = new EventEmitter();
+    this.appDownloadMonthlyUsages = new EventEmitter();
+  }
 
   ngOnInit(): void {}
+
+  onDownloadBalances() {
+    if (!this.balances) {
+      alert('Balance情報を取得できません');
+      return;
+    }
+    this.appDownloadBalances.emit(this.balances);
+  }
+  onDownloadOrders() {
+    if (!this.orders) {
+      alert('Order情報を取得できません');
+      return;
+    }
+    this.appDownloadOrders.emit(this.orders);
+  }
+  onDownloadUserUsages() {
+    if (!this.rankings) {
+      alert('使用量情報を取得できません');
+      return;
+    }
+    this.appDownloadUserUsages.emit(this.rankings);
+  }
+  onDownloadMonthlyUsages() {
+    if (!this.totalUsage) {
+      alert('使用量情報を取得できません');
+      return;
+    }
+    this.appDownloadMonthlyUsages.emit(this.totalUsage);
+  }
 }
