@@ -1,7 +1,8 @@
+import { BalanceData, MonthlyUsageData } from '../../../page/admin/dashboard/dashboard.component';
 import { Ranking } from '../../../page/dashboard/dashboard.component';
+import { Order } from '../../../page/txs/txs.component';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
-  Balance,
   NormalAsk,
   NormalBid,
   RenewableAsk,
@@ -19,13 +20,11 @@ import { Label, MultiDataSet } from 'ng2-charts';
 })
 export class DashboardComponent implements OnInit {
   @Input()
-  balances?: Balance[] | null;
+  balances?: BalanceData[] | null;
   @Input()
   totalBalanceData?: MultiDataSet | null;
   @Input()
-  totalUsageThisYear?: number[] | null;
-  @Input()
-  totalUsageLastYear?: number[] | null;
+  totalUsage?: MonthlyUsageData[] | null;
   @Input()
   totalUsageData?: ChartDataSets[] | null;
   @Input()
@@ -39,6 +38,8 @@ export class DashboardComponent implements OnInit {
   @Input()
   renewableBids?: RenewableBid[] | null;
   @Input()
+  orders?: Order[] | null;
+  @Input()
   singlePriceNormal?: SinglePriceNormalSettlement | null;
   @Input()
   singlePriceNormalDate?: Date | null;
@@ -47,13 +48,13 @@ export class DashboardComponent implements OnInit {
   @Input()
   singlePriceRenewableDate?: Date | null;
   @Output()
-  appDownloadBalances: EventEmitter<Balance[]>;
+  appDownloadBalances: EventEmitter<BalanceData[]>;
   @Output()
-  appDownloadOrders: EventEmitter<[NormalBid[], NormalAsk[], RenewableBid[], RenewableAsk[]]>;
+  appDownloadOrders: EventEmitter<Order[]>;
   @Output()
   appDownloadUserUsages: EventEmitter<Ranking[]>;
   @Output()
-  appDownloadMonthlyUsages: EventEmitter<[number[], number[]]>;
+  appDownloadMonthlyUsages: EventEmitter<MonthlyUsageData[]>;
 
   doughnutChartLabels: Label[] = ['Utility Power', 'Solar Power'];
   doughnutChartType: ChartType = 'doughnut';
@@ -83,11 +84,11 @@ export class DashboardComponent implements OnInit {
     this.appDownloadBalances.emit(this.balances);
   }
   onDownloadOrders() {
-    if (!this.normalAsks || !this.normalBids || !this.renewableAsks || !this.renewableBids) {
+    if (!this.orders) {
       alert('Order情報を取得できません');
       return;
     }
-    this.appDownloadOrders.emit([this.normalBids, this.normalAsks, this.renewableBids, this.renewableAsks]);
+    this.appDownloadOrders.emit(this.orders);
   }
   onDownloadUserUsages() {
     if (!this.rankings) {
@@ -97,10 +98,10 @@ export class DashboardComponent implements OnInit {
     this.appDownloadUserUsages.emit(this.rankings);
   }
   onDownloadMonthlyUsages() {
-    if (!this.totalUsageThisYear || !this.totalUsageLastYear) {
+    if (!this.totalUsage) {
       alert('使用量情報を取得できません');
       return;
     }
-    this.appDownloadMonthlyUsages.emit([this.totalUsageThisYear, this.totalUsageLastYear]);
+    this.appDownloadMonthlyUsages.emit(this.totalUsage);
   }
 }
