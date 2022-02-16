@@ -34,7 +34,6 @@ export class XrplComponent implements OnInit {
         return info;
       }),
     );
-    this.xrpLedgerHot$.subscribe((a) => console.log(a));
 
     this.xrpLedgerCold$ = this.adminAccount$.pipe(
       mergeMap(async (admin) => {
@@ -47,7 +46,6 @@ export class XrplComponent implements OnInit {
         return info;
       }),
     );
-    this.xrpLedgerCold$.subscribe((a) => console.log(a));
 
     this.trustLineHot$ = this.adminAccount$.pipe(
       mergeMap(async (admin) => {
@@ -60,7 +58,6 @@ export class XrplComponent implements OnInit {
         return line;
       }),
     );
-    this.trustLineHot$.subscribe((a) => console.log(a.result));
 
     this.trustLineCold$ = this.adminAccount$.pipe(
       mergeMap(async (admin) => {
@@ -72,9 +69,16 @@ export class XrplComponent implements OnInit {
         });
         return line;
       }),
-      map((trustLineCold) => trustLineCold.result.lines.filter((line: { balance: string }) => line.balance != '0')),
+
+      map((trustLineCold) => {
+        const linesFiltered = trustLineCold.result.lines.filter((line: { balance: string }) => line.balance != '0');
+        return {
+          id: trustLineCold.id,
+          result: { lines: linesFiltered, validated: trustLineCold.result.validated },
+          type: trustLineCold.type,
+        };
+      }),
     );
-    this.trustLineCold$.subscribe((a) => console.log(a));
 
     client.disconnect();
   }
