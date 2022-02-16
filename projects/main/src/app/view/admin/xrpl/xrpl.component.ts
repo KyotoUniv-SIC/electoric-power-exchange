@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AdminAccount } from '@local/common';
 
-
 @Component({
   selector: 'view-xrpl',
   templateUrl: './xrpl.component.html',
@@ -18,7 +17,6 @@ export class XrplComponent implements OnInit {
   trustLineHot?: any | null;
   @Input()
   trustLineCold?: any | null;
-
 
   constructor() {}
 
