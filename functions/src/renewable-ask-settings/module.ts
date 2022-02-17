@@ -3,10 +3,10 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 /* eslint-disable require-jsdoc */
-import * as admin from 'firebase-admin';
 import { RenewableAskSetting, RenewableAskSettingFirestore } from '@local/common';
+import * as admin from 'firebase-admin';
 
-export * from './controller'
+export * from './controller';
 
 export function collection() {
   return admin
@@ -33,15 +33,20 @@ export async function get(id: string) {
     .then((snapshot) => snapshot.data() as RenewableAskSetting);
 }
 
+export async function getLatest() {
+  return await collection()
+    .orderBy('created_at', 'desc')
+    .get()
+    .then((snapshot) => snapshot.docs.map((doc) => doc.data() as RenewableAskSetting)[0]);
+}
+
 export async function list() {
   return await collection()
     .get()
     .then((snapshot) => snapshot.docs.map((doc) => doc.data() as RenewableAskSetting));
 }
 
-export async function create(
-  data: RenewableAskSetting
-) {
+export async function create(data: RenewableAskSetting) {
   const doc = document();
   data.id = doc.id;
 
@@ -52,9 +57,7 @@ export async function create(
   await doc.set(data);
 }
 
-export async function update(
-  data: Partial<RenewableAskSetting> & { id: string }
-) {
+export async function update(data: Partial<RenewableAskSetting> & { id: string }) {
   const now = admin.firestore.Timestamp.now();
   data.updated_at = now;
 
