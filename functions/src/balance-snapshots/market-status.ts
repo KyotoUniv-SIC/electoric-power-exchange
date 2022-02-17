@@ -15,7 +15,7 @@ import { Timestamp } from 'firebase/firestore';
 market_status.onUpdateHandler.push(async (snapshot, context) => {
   const data = snapshot.after.data()!;
 
-  if ((data.created_at as Timestamp).toDate().getDate() == 1 && data.is_finished_normal == true && data.is_finished_renewable == true) {
+  if ((data.created_at as Timestamp).toDate().getDate() == 26 && data.is_finished_normal == true && data.is_finished_renewable == true) {
     // if (data.is_finished_normal == true && data.is_finished_renewable == true) {
     console.log((data.created_at as Timestamp).toDate().getDate());
     const students = await student_account.list();
