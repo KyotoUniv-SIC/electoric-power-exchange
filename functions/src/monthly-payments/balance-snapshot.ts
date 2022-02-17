@@ -83,7 +83,7 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
     new MonthlyPayment({
       student_account_id: data.student_account_id,
       year: date.getFullYear(),
-      month: date.getMonth(),
+      month: date.getMonth() + 1,
       amount_jpy: payment,
     }),
   );
