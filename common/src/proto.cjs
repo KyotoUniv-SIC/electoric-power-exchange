@@ -848,226 +848,6 @@
             return Account;
         })();
     
-        main.AdminPrivate = (function() {
-    
-            /**
-             * Properties of an AdminPrivate.
-             * @memberof main
-             * @interface IAdminPrivate
-             * @property {string|null} [id] AdminPrivate id
-             * @property {string|null} [admin_account_id] AdminPrivate admin_account_id
-             * @property {string|null} [xrp_seed_hot] AdminPrivate xrp_seed_hot
-             */
-    
-            /**
-             * Constructs a new AdminPrivate.
-             * @memberof main
-             * @classdesc Represents an AdminPrivate.
-             * @implements IAdminPrivate
-             * @constructor
-             * @param {main.IAdminPrivate=} [properties] Properties to set
-             */
-            function AdminPrivate(properties) {
-                if (properties)
-                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
-                            this[keys[i]] = properties[keys[i]];
-            }
-    
-            /**
-             * AdminPrivate id.
-             * @member {string} id
-             * @memberof main.AdminPrivate
-             * @instance
-             */
-            AdminPrivate.prototype.id = "";
-    
-            /**
-             * AdminPrivate admin_account_id.
-             * @member {string} admin_account_id
-             * @memberof main.AdminPrivate
-             * @instance
-             */
-            AdminPrivate.prototype.admin_account_id = "";
-    
-            /**
-             * AdminPrivate xrp_seed_hot.
-             * @member {string} xrp_seed_hot
-             * @memberof main.AdminPrivate
-             * @instance
-             */
-            AdminPrivate.prototype.xrp_seed_hot = "";
-    
-            /**
-             * Encodes the specified AdminPrivate message. Does not implicitly {@link main.AdminPrivate.verify|verify} messages.
-             * @function encode
-             * @memberof main.AdminPrivate
-             * @static
-             * @param {main.IAdminPrivate} message AdminPrivate message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            AdminPrivate.encode = function encode(message, writer) {
-                if (!writer)
-                    writer = $Writer.create();
-                if (message.id != null && Object.hasOwnProperty.call(message, "id"))
-                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
-                if (message.admin_account_id != null && Object.hasOwnProperty.call(message, "admin_account_id"))
-                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.admin_account_id);
-                if (message.xrp_seed_hot != null && Object.hasOwnProperty.call(message, "xrp_seed_hot"))
-                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.xrp_seed_hot);
-                return writer;
-            };
-    
-            /**
-             * Encodes the specified AdminPrivate message, length delimited. Does not implicitly {@link main.AdminPrivate.verify|verify} messages.
-             * @function encodeDelimited
-             * @memberof main.AdminPrivate
-             * @static
-             * @param {main.IAdminPrivate} message AdminPrivate message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            AdminPrivate.encodeDelimited = function encodeDelimited(message, writer) {
-                return this.encode(message, writer).ldelim();
-            };
-    
-            /**
-             * Decodes an AdminPrivate message from the specified reader or buffer.
-             * @function decode
-             * @memberof main.AdminPrivate
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @param {number} [length] Message length if known beforehand
-             * @returns {main.AdminPrivate} AdminPrivate
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            AdminPrivate.decode = function decode(reader, length) {
-                if (!(reader instanceof $Reader))
-                    reader = $Reader.create(reader);
-                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.AdminPrivate();
-                while (reader.pos < end) {
-                    var tag = reader.uint32();
-                    switch (tag >>> 3) {
-                    case 1:
-                        message.id = reader.string();
-                        break;
-                    case 2:
-                        message.admin_account_id = reader.string();
-                        break;
-                    case 3:
-                        message.xrp_seed_hot = reader.string();
-                        break;
-                    default:
-                        reader.skipType(tag & 7);
-                        break;
-                    }
-                }
-                return message;
-            };
-    
-            /**
-             * Decodes an AdminPrivate message from the specified reader or buffer, length delimited.
-             * @function decodeDelimited
-             * @memberof main.AdminPrivate
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {main.AdminPrivate} AdminPrivate
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            AdminPrivate.decodeDelimited = function decodeDelimited(reader) {
-                if (!(reader instanceof $Reader))
-                    reader = new $Reader(reader);
-                return this.decode(reader, reader.uint32());
-            };
-    
-            /**
-             * Verifies an AdminPrivate message.
-             * @function verify
-             * @memberof main.AdminPrivate
-             * @static
-             * @param {Object.<string,*>} message Plain object to verify
-             * @returns {string|null} `null` if valid, otherwise the reason why it is not
-             */
-            AdminPrivate.verify = function verify(message) {
-                if (typeof message !== "object" || message === null)
-                    return "object expected";
-                if (message.id != null && message.hasOwnProperty("id"))
-                    if (!$util.isString(message.id))
-                        return "id: string expected";
-                if (message.admin_account_id != null && message.hasOwnProperty("admin_account_id"))
-                    if (!$util.isString(message.admin_account_id))
-                        return "admin_account_id: string expected";
-                if (message.xrp_seed_hot != null && message.hasOwnProperty("xrp_seed_hot"))
-                    if (!$util.isString(message.xrp_seed_hot))
-                        return "xrp_seed_hot: string expected";
-                return null;
-            };
-    
-            /**
-             * Creates an AdminPrivate message from a plain object. Also converts values to their respective internal types.
-             * @function fromObject
-             * @memberof main.AdminPrivate
-             * @static
-             * @param {Object.<string,*>} object Plain object
-             * @returns {main.AdminPrivate} AdminPrivate
-             */
-            AdminPrivate.fromObject = function fromObject(object) {
-                if (object instanceof $root.main.AdminPrivate)
-                    return object;
-                var message = new $root.main.AdminPrivate();
-                if (object.id != null)
-                    message.id = String(object.id);
-                if (object.admin_account_id != null)
-                    message.admin_account_id = String(object.admin_account_id);
-                if (object.xrp_seed_hot != null)
-                    message.xrp_seed_hot = String(object.xrp_seed_hot);
-                return message;
-            };
-    
-            /**
-             * Creates a plain object from an AdminPrivate message. Also converts values to other types if specified.
-             * @function toObject
-             * @memberof main.AdminPrivate
-             * @static
-             * @param {main.AdminPrivate} message AdminPrivate
-             * @param {$protobuf.IConversionOptions} [options] Conversion options
-             * @returns {Object.<string,*>} Plain object
-             */
-            AdminPrivate.toObject = function toObject(message, options) {
-                if (!options)
-                    options = {};
-                var object = {};
-                if (options.defaults) {
-                    object.id = "";
-                    object.admin_account_id = "";
-                    object.xrp_seed_hot = "";
-                }
-                if (message.id != null && message.hasOwnProperty("id"))
-                    object.id = message.id;
-                if (message.admin_account_id != null && message.hasOwnProperty("admin_account_id"))
-                    object.admin_account_id = message.admin_account_id;
-                if (message.xrp_seed_hot != null && message.hasOwnProperty("xrp_seed_hot"))
-                    object.xrp_seed_hot = message.xrp_seed_hot;
-                return object;
-            };
-    
-            /**
-             * Converts this AdminPrivate to JSON.
-             * @function toJSON
-             * @memberof main.AdminPrivate
-             * @instance
-             * @returns {Object.<string,*>} JSON object
-             */
-            AdminPrivate.prototype.toJSON = function toJSON() {
-                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-            };
-    
-            return AdminPrivate;
-        })();
-    
         main.AdminAccount = (function() {
     
             /**
@@ -1308,6 +1088,226 @@
             };
     
             return AdminAccount;
+        })();
+    
+        main.AdminPrivate = (function() {
+    
+            /**
+             * Properties of an AdminPrivate.
+             * @memberof main
+             * @interface IAdminPrivate
+             * @property {string|null} [id] AdminPrivate id
+             * @property {string|null} [admin_account_id] AdminPrivate admin_account_id
+             * @property {string|null} [xrp_seed_hot] AdminPrivate xrp_seed_hot
+             */
+    
+            /**
+             * Constructs a new AdminPrivate.
+             * @memberof main
+             * @classdesc Represents an AdminPrivate.
+             * @implements IAdminPrivate
+             * @constructor
+             * @param {main.IAdminPrivate=} [properties] Properties to set
+             */
+            function AdminPrivate(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+    
+            /**
+             * AdminPrivate id.
+             * @member {string} id
+             * @memberof main.AdminPrivate
+             * @instance
+             */
+            AdminPrivate.prototype.id = "";
+    
+            /**
+             * AdminPrivate admin_account_id.
+             * @member {string} admin_account_id
+             * @memberof main.AdminPrivate
+             * @instance
+             */
+            AdminPrivate.prototype.admin_account_id = "";
+    
+            /**
+             * AdminPrivate xrp_seed_hot.
+             * @member {string} xrp_seed_hot
+             * @memberof main.AdminPrivate
+             * @instance
+             */
+            AdminPrivate.prototype.xrp_seed_hot = "";
+    
+            /**
+             * Encodes the specified AdminPrivate message. Does not implicitly {@link main.AdminPrivate.verify|verify} messages.
+             * @function encode
+             * @memberof main.AdminPrivate
+             * @static
+             * @param {main.IAdminPrivate} message AdminPrivate message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            AdminPrivate.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                if (message.admin_account_id != null && Object.hasOwnProperty.call(message, "admin_account_id"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.admin_account_id);
+                if (message.xrp_seed_hot != null && Object.hasOwnProperty.call(message, "xrp_seed_hot"))
+                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.xrp_seed_hot);
+                return writer;
+            };
+    
+            /**
+             * Encodes the specified AdminPrivate message, length delimited. Does not implicitly {@link main.AdminPrivate.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof main.AdminPrivate
+             * @static
+             * @param {main.IAdminPrivate} message AdminPrivate message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            AdminPrivate.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+    
+            /**
+             * Decodes an AdminPrivate message from the specified reader or buffer.
+             * @function decode
+             * @memberof main.AdminPrivate
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {main.AdminPrivate} AdminPrivate
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            AdminPrivate.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.AdminPrivate();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.id = reader.string();
+                        break;
+                    case 2:
+                        message.admin_account_id = reader.string();
+                        break;
+                    case 3:
+                        message.xrp_seed_hot = reader.string();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Decodes an AdminPrivate message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof main.AdminPrivate
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {main.AdminPrivate} AdminPrivate
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            AdminPrivate.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+    
+            /**
+             * Verifies an AdminPrivate message.
+             * @function verify
+             * @memberof main.AdminPrivate
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            AdminPrivate.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.id != null && message.hasOwnProperty("id"))
+                    if (!$util.isString(message.id))
+                        return "id: string expected";
+                if (message.admin_account_id != null && message.hasOwnProperty("admin_account_id"))
+                    if (!$util.isString(message.admin_account_id))
+                        return "admin_account_id: string expected";
+                if (message.xrp_seed_hot != null && message.hasOwnProperty("xrp_seed_hot"))
+                    if (!$util.isString(message.xrp_seed_hot))
+                        return "xrp_seed_hot: string expected";
+                return null;
+            };
+    
+            /**
+             * Creates an AdminPrivate message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof main.AdminPrivate
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {main.AdminPrivate} AdminPrivate
+             */
+            AdminPrivate.fromObject = function fromObject(object) {
+                if (object instanceof $root.main.AdminPrivate)
+                    return object;
+                var message = new $root.main.AdminPrivate();
+                if (object.id != null)
+                    message.id = String(object.id);
+                if (object.admin_account_id != null)
+                    message.admin_account_id = String(object.admin_account_id);
+                if (object.xrp_seed_hot != null)
+                    message.xrp_seed_hot = String(object.xrp_seed_hot);
+                return message;
+            };
+    
+            /**
+             * Creates a plain object from an AdminPrivate message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof main.AdminPrivate
+             * @static
+             * @param {main.AdminPrivate} message AdminPrivate
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            AdminPrivate.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.id = "";
+                    object.admin_account_id = "";
+                    object.xrp_seed_hot = "";
+                }
+                if (message.id != null && message.hasOwnProperty("id"))
+                    object.id = message.id;
+                if (message.admin_account_id != null && message.hasOwnProperty("admin_account_id"))
+                    object.admin_account_id = message.admin_account_id;
+                if (message.xrp_seed_hot != null && message.hasOwnProperty("xrp_seed_hot"))
+                    object.xrp_seed_hot = message.xrp_seed_hot;
+                return object;
+            };
+    
+            /**
+             * Converts this AdminPrivate to JSON.
+             * @function toJSON
+             * @memberof main.AdminPrivate
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            AdminPrivate.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            return AdminPrivate;
         })();
     
         main.AvailableBalance = (function() {
@@ -5546,6 +5546,226 @@
             return NormalAskHistory;
         })();
     
+        main.NormalAskSetting = (function() {
+    
+            /**
+             * Properties of a NormalAskSetting.
+             * @memberof main
+             * @interface INormalAskSetting
+             * @property {string|null} [id] NormalAskSetting id
+             * @property {number|null} [price] NormalAskSetting price
+             * @property {number|null} [amount] NormalAskSetting amount
+             */
+    
+            /**
+             * Constructs a new NormalAskSetting.
+             * @memberof main
+             * @classdesc Represents a NormalAskSetting.
+             * @implements INormalAskSetting
+             * @constructor
+             * @param {main.INormalAskSetting=} [properties] Properties to set
+             */
+            function NormalAskSetting(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+    
+            /**
+             * NormalAskSetting id.
+             * @member {string} id
+             * @memberof main.NormalAskSetting
+             * @instance
+             */
+            NormalAskSetting.prototype.id = "";
+    
+            /**
+             * NormalAskSetting price.
+             * @member {number} price
+             * @memberof main.NormalAskSetting
+             * @instance
+             */
+            NormalAskSetting.prototype.price = 0;
+    
+            /**
+             * NormalAskSetting amount.
+             * @member {number} amount
+             * @memberof main.NormalAskSetting
+             * @instance
+             */
+            NormalAskSetting.prototype.amount = 0;
+    
+            /**
+             * Encodes the specified NormalAskSetting message. Does not implicitly {@link main.NormalAskSetting.verify|verify} messages.
+             * @function encode
+             * @memberof main.NormalAskSetting
+             * @static
+             * @param {main.INormalAskSetting} message NormalAskSetting message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            NormalAskSetting.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                if (message.price != null && Object.hasOwnProperty.call(message, "price"))
+                    writer.uint32(/* id 4, wireType 1 =*/33).double(message.price);
+                if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
+                    writer.uint32(/* id 5, wireType 1 =*/41).double(message.amount);
+                return writer;
+            };
+    
+            /**
+             * Encodes the specified NormalAskSetting message, length delimited. Does not implicitly {@link main.NormalAskSetting.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof main.NormalAskSetting
+             * @static
+             * @param {main.INormalAskSetting} message NormalAskSetting message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            NormalAskSetting.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+    
+            /**
+             * Decodes a NormalAskSetting message from the specified reader or buffer.
+             * @function decode
+             * @memberof main.NormalAskSetting
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {main.NormalAskSetting} NormalAskSetting
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            NormalAskSetting.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.NormalAskSetting();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.id = reader.string();
+                        break;
+                    case 4:
+                        message.price = reader.double();
+                        break;
+                    case 5:
+                        message.amount = reader.double();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Decodes a NormalAskSetting message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof main.NormalAskSetting
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {main.NormalAskSetting} NormalAskSetting
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            NormalAskSetting.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+    
+            /**
+             * Verifies a NormalAskSetting message.
+             * @function verify
+             * @memberof main.NormalAskSetting
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            NormalAskSetting.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.id != null && message.hasOwnProperty("id"))
+                    if (!$util.isString(message.id))
+                        return "id: string expected";
+                if (message.price != null && message.hasOwnProperty("price"))
+                    if (typeof message.price !== "number")
+                        return "price: number expected";
+                if (message.amount != null && message.hasOwnProperty("amount"))
+                    if (typeof message.amount !== "number")
+                        return "amount: number expected";
+                return null;
+            };
+    
+            /**
+             * Creates a NormalAskSetting message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof main.NormalAskSetting
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {main.NormalAskSetting} NormalAskSetting
+             */
+            NormalAskSetting.fromObject = function fromObject(object) {
+                if (object instanceof $root.main.NormalAskSetting)
+                    return object;
+                var message = new $root.main.NormalAskSetting();
+                if (object.id != null)
+                    message.id = String(object.id);
+                if (object.price != null)
+                    message.price = Number(object.price);
+                if (object.amount != null)
+                    message.amount = Number(object.amount);
+                return message;
+            };
+    
+            /**
+             * Creates a plain object from a NormalAskSetting message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof main.NormalAskSetting
+             * @static
+             * @param {main.NormalAskSetting} message NormalAskSetting
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            NormalAskSetting.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.id = "";
+                    object.price = 0;
+                    object.amount = 0;
+                }
+                if (message.id != null && message.hasOwnProperty("id"))
+                    object.id = message.id;
+                if (message.price != null && message.hasOwnProperty("price"))
+                    object.price = options.json && !isFinite(message.price) ? String(message.price) : message.price;
+                if (message.amount != null && message.hasOwnProperty("amount"))
+                    object.amount = options.json && !isFinite(message.amount) ? String(message.amount) : message.amount;
+                return object;
+            };
+    
+            /**
+             * Converts this NormalAskSetting to JSON.
+             * @function toJSON
+             * @memberof main.NormalAskSetting
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            NormalAskSetting.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            return NormalAskSetting;
+        })();
+    
         /**
          * NormalAskType enum.
          * @name main.NormalAskType
@@ -7614,6 +7834,226 @@
             };
     
             return RenewableAskHistory;
+        })();
+    
+        main.RenewableAskSetting = (function() {
+    
+            /**
+             * Properties of a RenewableAskSetting.
+             * @memberof main
+             * @interface IRenewableAskSetting
+             * @property {string|null} [id] RenewableAskSetting id
+             * @property {number|null} [price] RenewableAskSetting price
+             * @property {number|null} [amount] RenewableAskSetting amount
+             */
+    
+            /**
+             * Constructs a new RenewableAskSetting.
+             * @memberof main
+             * @classdesc Represents a RenewableAskSetting.
+             * @implements IRenewableAskSetting
+             * @constructor
+             * @param {main.IRenewableAskSetting=} [properties] Properties to set
+             */
+            function RenewableAskSetting(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+    
+            /**
+             * RenewableAskSetting id.
+             * @member {string} id
+             * @memberof main.RenewableAskSetting
+             * @instance
+             */
+            RenewableAskSetting.prototype.id = "";
+    
+            /**
+             * RenewableAskSetting price.
+             * @member {number} price
+             * @memberof main.RenewableAskSetting
+             * @instance
+             */
+            RenewableAskSetting.prototype.price = 0;
+    
+            /**
+             * RenewableAskSetting amount.
+             * @member {number} amount
+             * @memberof main.RenewableAskSetting
+             * @instance
+             */
+            RenewableAskSetting.prototype.amount = 0;
+    
+            /**
+             * Encodes the specified RenewableAskSetting message. Does not implicitly {@link main.RenewableAskSetting.verify|verify} messages.
+             * @function encode
+             * @memberof main.RenewableAskSetting
+             * @static
+             * @param {main.IRenewableAskSetting} message RenewableAskSetting message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            RenewableAskSetting.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                if (message.price != null && Object.hasOwnProperty.call(message, "price"))
+                    writer.uint32(/* id 4, wireType 1 =*/33).double(message.price);
+                if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
+                    writer.uint32(/* id 5, wireType 1 =*/41).double(message.amount);
+                return writer;
+            };
+    
+            /**
+             * Encodes the specified RenewableAskSetting message, length delimited. Does not implicitly {@link main.RenewableAskSetting.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof main.RenewableAskSetting
+             * @static
+             * @param {main.IRenewableAskSetting} message RenewableAskSetting message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            RenewableAskSetting.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+    
+            /**
+             * Decodes a RenewableAskSetting message from the specified reader or buffer.
+             * @function decode
+             * @memberof main.RenewableAskSetting
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {main.RenewableAskSetting} RenewableAskSetting
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            RenewableAskSetting.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.RenewableAskSetting();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.id = reader.string();
+                        break;
+                    case 4:
+                        message.price = reader.double();
+                        break;
+                    case 5:
+                        message.amount = reader.double();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Decodes a RenewableAskSetting message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof main.RenewableAskSetting
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {main.RenewableAskSetting} RenewableAskSetting
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            RenewableAskSetting.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+    
+            /**
+             * Verifies a RenewableAskSetting message.
+             * @function verify
+             * @memberof main.RenewableAskSetting
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            RenewableAskSetting.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.id != null && message.hasOwnProperty("id"))
+                    if (!$util.isString(message.id))
+                        return "id: string expected";
+                if (message.price != null && message.hasOwnProperty("price"))
+                    if (typeof message.price !== "number")
+                        return "price: number expected";
+                if (message.amount != null && message.hasOwnProperty("amount"))
+                    if (typeof message.amount !== "number")
+                        return "amount: number expected";
+                return null;
+            };
+    
+            /**
+             * Creates a RenewableAskSetting message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof main.RenewableAskSetting
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {main.RenewableAskSetting} RenewableAskSetting
+             */
+            RenewableAskSetting.fromObject = function fromObject(object) {
+                if (object instanceof $root.main.RenewableAskSetting)
+                    return object;
+                var message = new $root.main.RenewableAskSetting();
+                if (object.id != null)
+                    message.id = String(object.id);
+                if (object.price != null)
+                    message.price = Number(object.price);
+                if (object.amount != null)
+                    message.amount = Number(object.amount);
+                return message;
+            };
+    
+            /**
+             * Creates a plain object from a RenewableAskSetting message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof main.RenewableAskSetting
+             * @static
+             * @param {main.RenewableAskSetting} message RenewableAskSetting
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            RenewableAskSetting.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.id = "";
+                    object.price = 0;
+                    object.amount = 0;
+                }
+                if (message.id != null && message.hasOwnProperty("id"))
+                    object.id = message.id;
+                if (message.price != null && message.hasOwnProperty("price"))
+                    object.price = options.json && !isFinite(message.price) ? String(message.price) : message.price;
+                if (message.amount != null && message.hasOwnProperty("amount"))
+                    object.amount = options.json && !isFinite(message.amount) ? String(message.amount) : message.amount;
+                return object;
+            };
+    
+            /**
+             * Converts this RenewableAskSetting to JSON.
+             * @function toJSON
+             * @memberof main.RenewableAskSetting
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            RenewableAskSetting.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            return RenewableAskSetting;
         })();
     
         /**
