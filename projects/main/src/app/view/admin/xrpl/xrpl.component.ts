@@ -9,8 +9,20 @@ import { AdminAccount } from '@local/common';
 export class XrplComponent implements OnInit {
   @Input()
   adminAccount?: AdminAccount | null;
+  @Input()
+  xrpLedgerHot?: any | null;
+  @Input()
+  xrpLedgerCold?: any | null;
+  @Input()
+  trustLineHot?: any | null;
+  @Input()
+  trustLineCold?: any | null;
 
   constructor() {}
 
   ngOnInit(): void {}
+
+  calcMicroAmount(amount: any) {
+    return Number(amount) * 10 ** -6;
+  }
 }
