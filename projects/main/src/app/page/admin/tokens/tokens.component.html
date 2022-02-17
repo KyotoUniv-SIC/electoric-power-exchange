@@ -1,0 +1,6 @@
+<view-tokens
+  [normalSetting]="normalSetting$ | async"
+  [renewableSetting]="renewableSetting$ | async"
+  (appSubmitNormal)="onSubmitNormal($event)"
+  (appSubmitRenewable)="onSubmitRenewable($event)"
+></view-tokens>

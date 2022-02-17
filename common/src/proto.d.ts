@@ -319,101 +319,6 @@ export namespace main {
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of an AdminPrivate. */
-    interface IAdminPrivate {
-
-        /** AdminPrivate id */
-        id?: (string|null);
-
-        /** AdminPrivate admin_account_id */
-        admin_account_id?: (string|null);
-
-        /** AdminPrivate xrp_seed_hot */
-        xrp_seed_hot?: (string|null);
-    }
-
-    /** Represents an AdminPrivate. */
-    class AdminPrivate implements IAdminPrivate {
-
-        /**
-         * Constructs a new AdminPrivate.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: main.IAdminPrivate);
-
-        /** AdminPrivate id. */
-        public id: string;
-
-        /** AdminPrivate admin_account_id. */
-        public admin_account_id: string;
-
-        /** AdminPrivate xrp_seed_hot. */
-        public xrp_seed_hot: string;
-
-        /**
-         * Encodes the specified AdminPrivate message. Does not implicitly {@link main.AdminPrivate.verify|verify} messages.
-         * @param message AdminPrivate message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: main.IAdminPrivate, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Encodes the specified AdminPrivate message, length delimited. Does not implicitly {@link main.AdminPrivate.verify|verify} messages.
-         * @param message AdminPrivate message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: main.IAdminPrivate, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Decodes an AdminPrivate message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns AdminPrivate
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.AdminPrivate;
-
-        /**
-         * Decodes an AdminPrivate message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns AdminPrivate
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.AdminPrivate;
-
-        /**
-         * Verifies an AdminPrivate message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates an AdminPrivate message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns AdminPrivate
-         */
-        public static fromObject(object: { [k: string]: any }): main.AdminPrivate;
-
-        /**
-         * Creates a plain object from an AdminPrivate message. Also converts values to other types if specified.
-         * @param message AdminPrivate
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: main.AdminPrivate, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this AdminPrivate to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
     /** Properties of an AdminAccount. */
     interface IAdminAccount {
 
@@ -510,6 +415,101 @@ export namespace main {
 
         /**
          * Converts this AdminAccount to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of an AdminPrivate. */
+    interface IAdminPrivate {
+
+        /** AdminPrivate id */
+        id?: (string|null);
+
+        /** AdminPrivate admin_account_id */
+        admin_account_id?: (string|null);
+
+        /** AdminPrivate xrp_seed_hot */
+        xrp_seed_hot?: (string|null);
+    }
+
+    /** Represents an AdminPrivate. */
+    class AdminPrivate implements IAdminPrivate {
+
+        /**
+         * Constructs a new AdminPrivate.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.IAdminPrivate);
+
+        /** AdminPrivate id. */
+        public id: string;
+
+        /** AdminPrivate admin_account_id. */
+        public admin_account_id: string;
+
+        /** AdminPrivate xrp_seed_hot. */
+        public xrp_seed_hot: string;
+
+        /**
+         * Encodes the specified AdminPrivate message. Does not implicitly {@link main.AdminPrivate.verify|verify} messages.
+         * @param message AdminPrivate message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.IAdminPrivate, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified AdminPrivate message, length delimited. Does not implicitly {@link main.AdminPrivate.verify|verify} messages.
+         * @param message AdminPrivate message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.IAdminPrivate, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes an AdminPrivate message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns AdminPrivate
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.AdminPrivate;
+
+        /**
+         * Decodes an AdminPrivate message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns AdminPrivate
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.AdminPrivate;
+
+        /**
+         * Verifies an AdminPrivate message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an AdminPrivate message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns AdminPrivate
+         */
+        public static fromObject(object: { [k: string]: any }): main.AdminPrivate;
+
+        /**
+         * Creates a plain object from an AdminPrivate message. Also converts values to other types if specified.
+         * @param message AdminPrivate
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.AdminPrivate, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this AdminPrivate to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -2263,6 +2263,101 @@ export namespace main {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a NormalAskSetting. */
+    interface INormalAskSetting {
+
+        /** NormalAskSetting id */
+        id?: (string|null);
+
+        /** NormalAskSetting price */
+        price?: (number|null);
+
+        /** NormalAskSetting amount */
+        amount?: (number|null);
+    }
+
+    /** Represents a NormalAskSetting. */
+    class NormalAskSetting implements INormalAskSetting {
+
+        /**
+         * Constructs a new NormalAskSetting.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.INormalAskSetting);
+
+        /** NormalAskSetting id. */
+        public id: string;
+
+        /** NormalAskSetting price. */
+        public price: number;
+
+        /** NormalAskSetting amount. */
+        public amount: number;
+
+        /**
+         * Encodes the specified NormalAskSetting message. Does not implicitly {@link main.NormalAskSetting.verify|verify} messages.
+         * @param message NormalAskSetting message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.INormalAskSetting, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified NormalAskSetting message, length delimited. Does not implicitly {@link main.NormalAskSetting.verify|verify} messages.
+         * @param message NormalAskSetting message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.INormalAskSetting, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a NormalAskSetting message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns NormalAskSetting
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.NormalAskSetting;
+
+        /**
+         * Decodes a NormalAskSetting message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns NormalAskSetting
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.NormalAskSetting;
+
+        /**
+         * Verifies a NormalAskSetting message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a NormalAskSetting message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns NormalAskSetting
+         */
+        public static fromObject(object: { [k: string]: any }): main.NormalAskSetting;
+
+        /**
+         * Creates a plain object from a NormalAskSetting message. Also converts values to other types if specified.
+         * @param message NormalAskSetting
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.NormalAskSetting, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this NormalAskSetting to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** NormalAskType enum. */
     enum NormalAskType {
         UNKNOWN = 0,
@@ -3098,6 +3193,101 @@ export namespace main {
 
         /**
          * Converts this RenewableAskHistory to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a RenewableAskSetting. */
+    interface IRenewableAskSetting {
+
+        /** RenewableAskSetting id */
+        id?: (string|null);
+
+        /** RenewableAskSetting price */
+        price?: (number|null);
+
+        /** RenewableAskSetting amount */
+        amount?: (number|null);
+    }
+
+    /** Represents a RenewableAskSetting. */
+    class RenewableAskSetting implements IRenewableAskSetting {
+
+        /**
+         * Constructs a new RenewableAskSetting.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.IRenewableAskSetting);
+
+        /** RenewableAskSetting id. */
+        public id: string;
+
+        /** RenewableAskSetting price. */
+        public price: number;
+
+        /** RenewableAskSetting amount. */
+        public amount: number;
+
+        /**
+         * Encodes the specified RenewableAskSetting message. Does not implicitly {@link main.RenewableAskSetting.verify|verify} messages.
+         * @param message RenewableAskSetting message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.IRenewableAskSetting, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified RenewableAskSetting message, length delimited. Does not implicitly {@link main.RenewableAskSetting.verify|verify} messages.
+         * @param message RenewableAskSetting message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.IRenewableAskSetting, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a RenewableAskSetting message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RenewableAskSetting
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.RenewableAskSetting;
+
+        /**
+         * Decodes a RenewableAskSetting message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RenewableAskSetting
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.RenewableAskSetting;
+
+        /**
+         * Verifies a RenewableAskSetting message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RenewableAskSetting message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RenewableAskSetting
+         */
+        public static fromObject(object: { [k: string]: any }): main.RenewableAskSetting;
+
+        /**
+         * Creates a plain object from a RenewableAskSetting message. Also converts values to other types if specified.
+         * @param message RenewableAskSetting
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.RenewableAskSetting, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RenewableAskSetting to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
