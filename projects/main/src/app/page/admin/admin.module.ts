@@ -7,9 +7,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { XrplComponent } from './xrpl/xrpl.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { TokensComponent } from './tokens/tokens.component';
 
 @NgModule({
-  declarations: [AdminComponent, DashboardComponent, XrplComponent],
+  declarations: [AdminComponent, DashboardComponent, XrplComponent, TokensComponent],
   imports: [CommonModule, AdminRoutingModule, AdminModule, DashboardModule, XrplModule],
 })
 export class AppAdminModule {}
