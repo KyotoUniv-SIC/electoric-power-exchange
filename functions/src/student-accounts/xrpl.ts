@@ -69,8 +69,8 @@ student_account.onCreateHandler.push(async (snapshot, context) => {
     }
 
     // 最初のトークン付与
-    // アカウント作成時、30UPXトークン付与する仕様に（精算には含めていない）
-    const sender = xrpl.Wallet.fromSeed(adminPrivate[0].xrp_seed_hot);
+    // アカウント作成時、15UPXトークン付与する仕様に（精算には含めていない）
+    // const sender = xrpl.Wallet.fromSeed(adminPrivate[0].xrp_seed_hot);
     // const sendSPXTx = {
     //   TransactionType: 'Payment',
     //   Account: sender.address,
@@ -90,25 +90,25 @@ student_account.onCreateHandler.push(async (snapshot, context) => {
     //   // eslint-disable-next-line no-throw-literal
     //   throw `Error sending transaction: ${payResultSPX.result.meta.TransactionResult}`;
     // }
-    const sendUPXTx = {
-      TransactionType: 'Payment',
-      Account: sender.address,
-      Amount: {
-        currency: 'UPX',
-        value: String(15),
-        issuer: adminAccount[0].xrp_address_cold,
-      },
-      Destination: wallet.address,
-    };
-    const payPreparedUPX = await client.autofill(sendUPXTx);
-    const paySignedUPX = sender.sign(payPreparedUPX);
-    const payResultUPX = await client.submitAndWait(paySignedUPX.tx_blob);
-    if (payResultUPX.result.meta.TransactionResult == 'tesSUCCESS') {
-      console.log(`Transaction succeeded: https://testnet.xrpl.org/transactions/${paySignedUPX.hash}`);
-    } else {
-      // eslint-disable-next-line no-throw-literal
-      throw `Error sending transaction: ${payResultUPX.result.meta.TransactionResult}`;
-    }
+    // const sendUPXTx = {
+    //   TransactionType: 'Payment',
+    //   Account: sender.address,
+    //   Amount: {
+    //     currency: 'UPX',
+    //     value: String(15),
+    //     issuer: adminAccount[0].xrp_address_cold,
+    //   },
+    //   Destination: wallet.address,
+    // };
+    // const payPreparedUPX = await client.autofill(sendUPXTx);
+    // const paySignedUPX = sender.sign(payPreparedUPX);
+    // const payResultUPX = await client.submitAndWait(paySignedUPX.tx_blob);
+    // if (payResultUPX.result.meta.TransactionResult == 'tesSUCCESS') {
+    //   console.log(`Transaction succeeded: https://testnet.xrpl.org/transactions/${paySignedUPX.hash}`);
+    // } else {
+    //   // eslint-disable-next-line no-throw-literal
+    //   throw `Error sending transaction: ${payResultUPX.result.meta.TransactionResult}`;
+    // }
     client.disconnect();
     return wallet;
   }
