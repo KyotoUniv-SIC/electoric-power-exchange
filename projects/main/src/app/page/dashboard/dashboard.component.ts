@@ -32,7 +32,7 @@ export class DashboardComponent implements OnInit {
   totalBalanceData$: Observable<MultiDataSet> | undefined;
   insufficiency$: Observable<number> | undefined;
   totalUsage$: Observable<number> | undefined;
-  totalUsageAverage$: Observable<number> | undefined;
+  totalUsageAverage$: Observable<string> | undefined;
   usageData$: Observable<ChartDataSets[]> | undefined;
   rankings$: Observable<Ranking[]> | undefined;
   rank$: Observable<number> | undefined;
@@ -124,7 +124,7 @@ export class DashboardComponent implements OnInit {
         for (const usage of usages) {
           (usage.created_at as Timestamp).toDate() > firstDay ? (count += usage.amount_kwh) : count;
         }
-        return count / (20 + 26 + 28);
+        return (count / (20 + 26 + 28)).toFixed(2);
       }),
     );
 

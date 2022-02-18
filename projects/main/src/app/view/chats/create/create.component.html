@@ -6,8 +6,11 @@
       <mat-progress-spinner [diameter]="60" [mode]="'indeterminate'"></mat-progress-spinner>
     </ng-template>
     <ng-template #loadedStudent>
-      <mat-card-title>Create New Chat</mat-card-title>
-
+      <mat-card-title>New Chat</mat-card-title>
+      <mat-card-content>
+        <p>Create a new chat with a title and a destination.</p>
+        <p>It is possible to create multiple chats for the same user.</p>
+      </mat-card-content>
       <ng-container *ngIf="(studentAccounts?.length || 0) > 0; then exist; else empty"></ng-container>
       <ng-template #exist>
         <form (submit)="onSubmit(titleRef.value)">
