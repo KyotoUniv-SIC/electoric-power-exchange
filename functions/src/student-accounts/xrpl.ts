@@ -6,7 +6,6 @@
 import { student_account } from '.';
 import { account_private } from '../account-privates';
 import { admin_account } from '../admin-accounts';
-import { admin_private } from '../admin-privates';
 import { monthly_payment } from '../monthly-payments';
 import { monthly_usage } from '../monthly-usages';
 import { AccountPrivate, MonthlyPayment, MonthlyUsage } from '@local/common';
@@ -14,7 +13,7 @@ import { AccountPrivate, MonthlyPayment, MonthlyUsage } from '@local/common';
 student_account.onCreateHandler.push(async (snapshot, context) => {
   const data = snapshot.data()!;
   const adminAccount = await admin_account.getByName('admin');
-  const adminPrivate = await admin_private.list(adminAccount[0].id);
+  // const adminPrivate = await admin_private.list(adminAccount[0].id);
   const xrpl = require('xrpl');
   async function createWallet() {
     const TEST_NET = 'wss://s.altnet.rippletest.net:51233';
