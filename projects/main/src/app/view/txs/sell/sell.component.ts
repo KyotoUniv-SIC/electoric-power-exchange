@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { AvailableBalance, StudentAccount } from '@local/common';
+import { AvailableBalance, SinglePriceNormalSettlement, SinglePriceRenewableSettlement, StudentAccount } from '@local/common';
 
 interface Token {
   value: string;
@@ -21,19 +21,25 @@ export type SellOnSubmitEvent = {
 export class SellComponent implements OnInit {
   @Input()
   studentAccount?: StudentAccount | null;
-
   @Input()
   balance?: AvailableBalance | null;
+  @Input()
+  insufficiency?: number | null;
+  @Input()
+  singlePriceNormal?: SinglePriceNormalSettlement | null;
+  @Input()
+  singlePriceNormalDate?: Date | null;
+  @Input()
+  singlePriceRenewable?: SinglePriceRenewableSettlement | null;
+  @Input()
+  singlePriceRenewableDate?: Date | null;
 
   @Input()
   accountID?: string | null;
-
   @Input()
   price?: number | null;
-
   @Input()
   amount?: number | null;
-
   @Input()
   denom?: string | null;
 

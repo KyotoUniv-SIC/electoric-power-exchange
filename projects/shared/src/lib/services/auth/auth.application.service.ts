@@ -127,7 +127,7 @@ export class AuthApplicationService {
       SecondDialogRef.close();
     }
 
-    this.location.back();
+    await this.router.navigate(['/accounts/account']);
   }
 
   async signin(data: { type: 'email'; email: string; password: string } | { type: 'google' } | { type: 'facebook' }) {
