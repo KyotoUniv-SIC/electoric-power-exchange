@@ -2,6 +2,10 @@
   <h1>Sell Tokens</h1>
   <mat-card class="mb-10">
     <mat-card-title>Available Balance</mat-card-title>
+    <mat-card-content>
+      <p>Displays the currently available UPX and SPX balances.</p>
+      <p>Refer to this Available Balance when creating an ask request.</p>
+    </mat-card-content>
     <mat-list>
       <mat-list-item class="flex flex-wrap">
         <span class="break-all">Utility Power Token:</span>
@@ -28,6 +32,10 @@
 
   <mat-card class="mb-10">
     <mat-card-title>Latest Contract Price</mat-card-title>
+    <mat-card-content>
+      <p>Displays the latest contracted price.</p>
+      <p>If there were no contract, the last transaction price with constraints will be displayed here.</p>
+    </mat-card-content>
     <mat-list>
       <mat-list-item class="flex flex-wrap">
         <span class="break-all">Latest UPX Price:</span>
@@ -66,6 +74,13 @@
   <form (submit)="onSubmit(accountID || '', priceRef.value, amountRef.value, denomRef.value)">
     <mat-card class="mb-10">
       <mat-card-title>Token Market - Sell</mat-card-title>
+      <mat-card-content>
+        <p>Create a Ask request for the day's single-price auction.</p>
+        <p>
+          At midnight every day, the market will set the intersection of the sell curve and the buy curve as the contract price and contract
+          quantity.
+        </p>
+      </mat-card-content>
       <mat-list>
         <h3 matSubheader>Token Price</h3>
         <mat-list-item class="flex flex-wrap">
@@ -114,9 +129,9 @@
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
       </mat-list>
+      <div class="text-center mt-10">
+        <button mat-flat-button color="primary">Sell Request</button>
+      </div>
     </mat-card>
-    <div class="text-center">
-      <button mat-flat-button color="primary">Sell Request</button>
-    </div>
   </form>
 </div>
