@@ -9,8 +9,7 @@ import { admin_account } from '../admin-accounts';
 import { admin_private } from '../admin-privates';
 import { monthly_payment } from '../monthly-payments';
 import { monthly_usage } from '../monthly-usages';
-import { primary_ask } from '../primary-asks';
-import { AccountPrivate, MonthlyPayment, MonthlyUsage, PrimaryAsk } from '@local/common';
+import { AccountPrivate, MonthlyPayment, MonthlyUsage } from '@local/common';
 
 student_account.onCreateHandler.push(async (snapshot, context) => {
   const data = snapshot.data()!;
