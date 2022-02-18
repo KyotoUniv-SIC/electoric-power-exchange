@@ -83,6 +83,7 @@ const files = {
   normals: './single-price-normal-settlements',
   renewables: './single-price-renewable-settlements',
   student_accounts: './student-accounts',
+  dummy_usage: './daily-usages/dummy-usage',
   primary_normal: './normal-asks/primaryAdditional',
   primary_renewable: './renewable-asks/primary',
   normal_contract: './single-price-normal-settlements/normal-contract',
