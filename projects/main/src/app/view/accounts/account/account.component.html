@@ -120,7 +120,7 @@
             <mat-list-item class="flex flex-wrap">
               <span class="break-all">{{ monthlyPayment.year }}/{{ monthlyPayment.month }}:</span>
               <span class="flex-auto break-all"></span>
-              <span class="break-all">{{ monthlyPayment.amount_jpy }} JPY</span>
+              <span class="break-all">{{ monthlyPayment.amount_jpy.toFixed(2) }} JPY</span>
             </mat-list-item>
           </ng-container>
           <mat-divider [inset]="true"></mat-divider>
