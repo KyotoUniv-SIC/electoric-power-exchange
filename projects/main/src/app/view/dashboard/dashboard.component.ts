@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit {
   @Input()
   totalUsage?: number | null;
   @Input()
-  totalUsageAverage?: number | null;
+  totalUsageAverage?: string | null;
   @Input()
   usageData?: ChartDataSets[] | null;
   @Input()
