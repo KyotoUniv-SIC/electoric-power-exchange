@@ -7,8 +7,10 @@ import { student_account } from '.';
 import { account_private } from '../account-privates';
 import { admin_account } from '../admin-accounts';
 import { admin_private } from '../admin-privates';
+import { monthly_payment } from '../monthly-payments';
+import { monthly_usage } from '../monthly-usages';
 import { primary_ask } from '../primary-asks';
-import { AccountPrivate, PrimaryAsk } from '@local/common';
+import { AccountPrivate, MonthlyPayment, MonthlyUsage, PrimaryAsk } from '@local/common';
 
 student_account.onCreateHandler.push(async (snapshot, context) => {
   const data = snapshot.data()!;
@@ -67,7 +69,8 @@ student_account.onCreateHandler.push(async (snapshot, context) => {
       throw `Error sending transaction: ${tsResultRenewable.result.meta.TransactionResult}`;
     }
 
-    // アカウント作成時、20UPXトークン付与する仕様に（精算には含めていない）
+    // 最初のトークン付与
+    // アカウント作成時、30UPXトークン付与する仕様に（精算には含めていない）
     const sender = xrpl.Wallet.fromSeed(adminPrivate[0].xrp_seed_hot);
     // const sendSPXTx = {
     //   TransactionType: 'Payment',
@@ -93,7 +96,7 @@ student_account.onCreateHandler.push(async (snapshot, context) => {
       Account: sender.address,
       Amount: {
         currency: 'UPX',
-        value: String(20),
+        value: String(15),
         issuer: adminAccount[0].xrp_address_cold,
       },
       Destination: wallet.address,
@@ -116,5 +119,9 @@ student_account.onCreateHandler.push(async (snapshot, context) => {
   await account_private.create(
     new AccountPrivate({ student_account_id: data.id, xrp_private_key: wallet.privateKey, xrp_seed: wallet.seed }),
   );
-  await primary_ask.create(new PrimaryAsk({ account_id: data.id, price: 27, amount: 20 }));
+  // トークン付与に応じたPrimaryAskを作成
+  await primary_ask.create(new PrimaryAsk({ account_id: data.id, price: 27, amount: 15 }));
+  // テストでは前月の実績を作成しておく
+  await monthly_usage.create(new MonthlyUsage({ student_account_id: data.id, year: 2022, month: 1, amount_kwh: 15 }));
+  await monthly_payment.create(new MonthlyPayment({ student_account_id: data.id, year: 2022, month: 1, amount_jpy: 405 }));
 });
