@@ -5,7 +5,7 @@ import { balance } from '../balances';
 import { insufficient_balance } from '../insufficient-balances';
 import { normal_ask_setting } from '../normal-ask-settings';
 import { student_account } from '../student-accounts';
-import { NormalAsk, NormalAskSetting } from '@local/common';
+import { NormalAsk, NormalAskSetting, proto } from '@local/common';
 import * as functions from 'firebase-functions';
 
 const f = functions.region('asia-northeast1');
@@ -28,6 +28,7 @@ module.exports.primaryRenewableAsk = f.pubsub
       if (amountUPX < amountInsufficient) {
         await normal_ask.create(
           new NormalAsk({
+            type: proto.main.NormalAskType.SECONDARY,
             account_id: adminAccount[0].id,
             price: 27,
             amount: amountInsufficient - amountUPX,
@@ -47,6 +48,7 @@ module.exports.primaryRenewableAsk = f.pubsub
       if (amountUPX < amountInsufficient) {
         await normal_ask.create(
           new NormalAsk({
+            type: proto.main.NormalAskType.SECONDARY,
             account_id: adminAccount[0].id,
             price: setting.price,
             amount: amountInsufficient - amountUPX,
@@ -57,6 +59,7 @@ module.exports.primaryRenewableAsk = f.pubsub
     } else {
       await normal_ask.create(
         new NormalAsk({
+          type: proto.main.NormalAskType.SECONDARY,
           account_id: adminAccount[0].id,
           price: setting.price,
           amount: setting.amount,
