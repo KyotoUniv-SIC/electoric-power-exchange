@@ -119,8 +119,6 @@ student_account.onCreateHandler.push(async (snapshot, context) => {
   await account_private.create(
     new AccountPrivate({ student_account_id: data.id, xrp_private_key: wallet.privateKey, xrp_seed: wallet.seed }),
   );
-  // トークン付与に応じたPrimaryAskを作成
-  await primary_ask.create(new PrimaryAsk({ account_id: data.id, price: 27, amount: 15 }));
   // テストでは前月の実績を作成しておく
   await monthly_usage.create(new MonthlyUsage({ student_account_id: data.id, year: 2022, month: 1, amount_kwh: 15 }));
   await monthly_payment.create(new MonthlyPayment({ student_account_id: data.id, year: 2022, month: 1, amount_jpy: 405 }));
