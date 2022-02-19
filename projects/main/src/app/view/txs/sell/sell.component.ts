@@ -66,7 +66,7 @@ export class SellComponent implements OnInit {
       return;
     }
     if (denom == 'spx-1' && Number(amount) > this.balance?.amount_spx!) {
-      alert('UPXの残高が足りません。');
+      alert('SPXの残高が足りません。');
       return;
     }
     this.appSubmit.emit({ accountID: this.studentAccount?.id, price: Number(price), amount: Number(amount), denom });
