@@ -132,9 +132,9 @@ module.exports.renewableContract = f.pubsub
       }
     }
 
-    // 止まったときの高い方の価格が均衡価格となる
+    // 止まったときの低い方の価格が均衡価格となる
     const equilibriumPrice =
-      sortRenewableBids[i].price <= sortRenewableAsks[j].price ? sortRenewableAsks[i].price : sortRenewableBids[j].price;
+      sortRenewableBids[i].price <= sortRenewableAsks[j].price ? sortRenewableBids[i].price : sortRenewableAsks[j].price;
     // 止まったときの低い方が成約取引量となる
     const equilibriumAmount = sumBidAmountHistory[i] <= sumAskAmountHistory[j] ? sumBidAmountHistory[i] : sumAskAmountHistory[j];
 
