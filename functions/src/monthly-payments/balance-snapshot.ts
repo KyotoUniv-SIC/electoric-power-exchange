@@ -88,7 +88,12 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
     }),
   );
   await monthly_usage.create(
-    new MonthlyUsage({ student_account_id: data.student_account_id, year: date.getFullYear(), month: date.getMonth(), amount_kwh: usage }),
+    new MonthlyUsage({
+      student_account_id: data.student_account_id,
+      year: date.getFullYear(),
+      month: date.getMonth() + 1,
+      amount_kwh: usage,
+    }),
   );
 
   const accountPrivate = await account_private.list(data.student_account_id);
