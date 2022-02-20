@@ -3,12 +3,15 @@ import { Timestamp } from 'firebase/firestore';
 
 describe('Balance SnapShot Test', () => {
   it('dummy', () => {
-    const date = new Date();
-    date.setDate(1);
+    const dateOrg = new Timestamp(1645282821, 114000000);
+    const dateJST = dateOrg.toDate();
+    dateJST.setHours(dateJST.getHours() + 9);
+    console.log(dateJST);
+    console.log(dateJST.getDate());
     const data = new MarketStatus(
       { is_finished_normal: true, is_finished_renewable: true },
-      Timestamp.fromDate(date),
-      Timestamp.fromDate(date),
+      Timestamp.fromDate(dateJST),
+      Timestamp.fromDate(dateJST),
     );
     const students = [
       new StudentAccount({ id: 'test01' }),
@@ -48,7 +51,7 @@ describe('Balance SnapShot Test', () => {
       new PrimaryAsk({ id: 'primary03', account_id: 'test03', price: 27, amount: 150 }),
       new PrimaryAsk({ id: 'primary04', account_id: 'test04', price: 27, amount: 140 }),
     ];
-    if ((data.created_at as Timestamp).toDate().getDate() == 1 && data.is_finished_normal == true && data.is_finished_renewable == true) {
+    if (dateJST.getDate() == 20 && data.is_finished_normal == true && data.is_finished_renewable == true) {
       let purchase = 0;
       let sale = 0;
       for (const student of students) {
@@ -81,6 +84,7 @@ describe('Balance SnapShot Test', () => {
       expect(discount.amount_sale).toBe(100);
       expect(balanceSnapshots).toEqual(balances);
     } else {
+      console.log((data.created_at as Timestamp).toDate().getDate());
       expect(false).toBe(true);
     }
   });

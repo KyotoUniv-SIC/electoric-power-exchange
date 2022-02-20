@@ -14,8 +14,11 @@ import { Timestamp } from 'firebase/firestore';
 
 market_status.onUpdateHandler.push(async (snapshot, context) => {
   const data = snapshot.after.data()!;
+  // FirebaseではUTCで判定されるのでJSTに変更
+  const dateJST = (data.created_at as Timestamp).toDate();
+  dateJST.setHours(dateJST.getHours() + 9);
 
-  if ((data.created_at as Timestamp).toDate().getDate() == 26 && data.is_finished_normal == true && data.is_finished_renewable == true) {
+  if (dateJST.getDate() == 26 && data.is_finished_normal == true && data.is_finished_renewable == true) {
     // if (data.is_finished_normal == true && data.is_finished_renewable == true) {
     console.log((data.created_at as Timestamp).toDate().getDate());
     const students = await student_account.list();
@@ -63,7 +66,7 @@ market_status.onUpdateHandler.push(async (snapshot, context) => {
       console.log('bss create', lastMonthBalance[0]);
     }
   } else {
-    console.log('月初タスク発火なし', data);
+    console.log('月初タスク発火なし', data, (data.created_at as Timestamp).toDate().getDate());
     return;
   }
 });
