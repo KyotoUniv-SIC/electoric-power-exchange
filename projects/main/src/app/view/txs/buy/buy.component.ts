@@ -70,7 +70,7 @@ export class BuyComponent implements OnInit {
   }
 
   tokens: Token[] = [
-    { value: 'upx-0', viewValue: 'upx' },
-    { value: 'spx-1', viewValue: 'spx' },
+    { value: 'upx-0', viewValue: 'UPX' },
+    { value: 'spx-1', viewValue: 'SPX' },
   ];
 }
