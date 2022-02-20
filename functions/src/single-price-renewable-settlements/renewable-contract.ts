@@ -114,17 +114,23 @@ module.exports.renewableContract = f.pubsub
     // 階段状の累積受給曲線を歩調を合わせて登ることで均衡価格を発見
     let i = 0;
     let j = 0;
+    let equilibriumPrice = 0;
+    let equilibriumAmount = 0;
     const condition = true;
     while (condition) {
       if (sortRenewableBids[i].price <= sortRenewableAsks[j].price) {
         break;
       }
       if (sumBidAmountHistory[i] <= sumAskAmountHistory[j]) {
+        equilibriumPrice = sortRenewableAsks[j].price;
+        equilibriumAmount = sumBidAmountHistory[i];
         if (!sortRenewableBids[i + 1]) {
           break;
         }
         i++;
       } else {
+        equilibriumPrice = sortRenewableBids[i].price;
+        equilibriumAmount = sumAskAmountHistory[j];
         if (!sortRenewableAsks[j + 1]) {
           break;
         }
@@ -133,10 +139,10 @@ module.exports.renewableContract = f.pubsub
     }
 
     // 止まったときの低い方の価格が均衡価格となる
-    const equilibriumPrice =
-      sortRenewableBids[i].price <= sortRenewableAsks[j].price ? sortRenewableBids[i].price : sortRenewableAsks[j].price;
+    // const equilibriumPrice =
+    //   sortRenewableBids[i].price <= sortRenewableAsks[j].price ? sortRenewableBids[i].price : sortRenewableAsks[j].price;
     // 止まったときの低い方が成約取引量となる
-    const equilibriumAmount = sumBidAmountHistory[i] <= sumAskAmountHistory[j] ? sumBidAmountHistory[i] : sumAskAmountHistory[j];
+    // const equilibriumAmount = sumBidAmountHistory[i] <= sumAskAmountHistory[j] ? sumBidAmountHistory[i] : sumAskAmountHistory[j];
 
     await single_price_renewable_settlement.create(
       new SinglePriceRenewableSettlement({
