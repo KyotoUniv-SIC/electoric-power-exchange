@@ -9,7 +9,7 @@ import { student_account } from '../student-accounts';
 
 primary_ask.onCreateHandler.push(async (snapshot, context) => {
   const data = snapshot.data()!;
-  const studentID = data.student_account_id;
+  const studentID = data.account_id;
   const studentAccount = await student_account.get(studentID);
   const accountBalance = await balance.getLatest(data.account_id);
   if (!accountBalance.length) {
