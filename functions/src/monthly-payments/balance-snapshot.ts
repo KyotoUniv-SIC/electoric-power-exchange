@@ -12,7 +12,6 @@ import { monthly_usage } from '../monthly-usages';
 import { normal_ask_history } from '../normal-ask-histories';
 import { normal_bid_history } from '../normal-bid-histories';
 import { primary_ask } from '../primary-asks';
-import { primary_bid } from '../primary-bids';
 import { renewable_ask_history } from '../renewable-ask-histories';
 import { renewable_bid_history } from '../renewable-bid-histories';
 import { student_account } from '../student-accounts';
@@ -27,7 +26,7 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
   );
   const tokens = data.amount_upx + data.amount_spx - insufficiencies;
 
-  const primaryBids = await primary_bid.getLatest(data.student_account_id);
+  const primaryAsks = await primary_ask.listLastMonth();
   const normalBids = await normal_bid_history.listLastMonth(data.student_account_id);
   const normalAsks = await normal_ask_history.listLastMonth(data.student_account_id);
   const renewableBids = await renewable_bid_history.listLastMonth(data.student_account_id);
@@ -35,10 +34,9 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
   const studentAccount = await student_account.get(data.student_account_id);
   const dailyUsages = await daily_usage.listLastMonth(studentAccount.room_id);
 
-  let usage = !primaryBids.length ? -tokens : primaryBids[0].amount - tokens;
-  let payment = !primaryBids.length ? 0 : primaryBids[0].price * primaryBids[0].amount;
+  let usage = !primaryAsks.length ? -tokens : primaryAsks.reduce((previous, current) => previous + current.amount, 0) - tokens;
+  let payment = !primaryAsks.length ? 0 : primaryAsks.reduce((previous, current) => previous + current.price * current.amount, 0);
 
-  const primaryAsks = await primary_ask.listLastMonth();
   const discounts = await discount_price.listLatest();
   if (!primaryAsks.length) {
     tokens >= 0 ? (payment -= (27 - discounts[0].price) * tokens) : (payment += (27 + discounts[0].price) * Math.abs(tokens));
