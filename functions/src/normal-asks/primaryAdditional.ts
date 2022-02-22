@@ -38,7 +38,7 @@ module.exports.primaryNormalAsk = f.pubsub
       if (amountInsufficient) {
         await normal_ask.create(
           new NormalAsk({
-            type: proto.main.NormalAskType.SECONDARY,
+            type: proto.main.NormalAskType.PRIMARYADDITIONAL,
             account_id: adminAccount[0].id,
             price: 27,
             amount: amountInsufficient,
@@ -69,7 +69,7 @@ module.exports.primaryNormalAsk = f.pubsub
       if (amountInsufficient) {
         await normal_ask.create(
           new NormalAsk({
-            type: proto.main.NormalAskType.SECONDARY,
+            type: proto.main.NormalAskType.PRIMARYADDITIONAL,
             account_id: adminAccount[0].id,
             price: setting.price,
             amount: amountInsufficient,
