@@ -9,7 +9,7 @@ import * as functions from 'firebase-functions';
 
 const f = functions.region('asia-northeast1');
 module.exports.primaryNormalAsk = f.pubsub
-  .schedule('0 17 * * *')
+  .schedule('0 12 * * *')
   .timeZone('Asia/Tokyo') // Users can choose timezone - default is America/Los_Angeles
   .onRun(async () => {
     const setting = await normal_ask_setting.getLatest();
