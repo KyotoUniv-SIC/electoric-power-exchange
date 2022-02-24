@@ -17,40 +17,6 @@ describe('Primary Ask Test', () => {
       price: 27,
       amount: issueAmount,
     });
-    // const xrpl = require('xrpl');
-    // const issuerAddress = 'rQK41zJnYwZet2ffHrGnVuuYE5rD6pGAhU';
-    // const TEST_NET = 'wss://s.altnet.rippletest.net:51233';
-    // const client = new xrpl.Client(TEST_NET);
-    // await client.connect();
-    // const admin = xrpl.Wallet.fromSeed('safVZqWMxC6jNWNZFXRbq1diwNKzr');
-    // // 作成しただけのWallet
-    // // const testAddress = 'rKDej1Ym1btvM3qrNXFUdrPpnp8UBuE5rz';
-    // // FundしたWallet
-    // // const testAddress = 'rDnFWrGiPUp7Ns4Gyovt6HEBvZfmuC6iXm';
-    // // TrustSetまでしたWallet
-    // const testAddress = 'rNE3M6cWwERrwzvaXxQLqgN76sZQ9aFV8Q';
-    // const sendTokenTx = {
-    //   TransactionType: 'Payment',
-    //   Account: admin.address,
-    //   Amount: {
-    //     currency: 'UPX',
-    //     value: String(issueAmount),
-    //     issuer: issuerAddress,
-    //   },
-    //   Destination: testAddress,
-    // };
-    // const payPrepared = await client.autofill(sendTokenTx);
-    // const paySigned = admin.sign(payPrepared);
-
-    // console.log(`Sending ${issueAmount} ${'UPX'} to ${testAddress}...`);
-    // const payResult = await client.submitAndWait(paySigned.tx_blob);
-    // if (payResult.result.meta.TransactionResult == 'tesSUCCESS') {
-    //   console.log(`Transaction succeeded: https://testnet.xrpl.org/transactions/${paySigned.hash}`);
-    // } else {
-    //   // eslint-disable-next-line no-throw-literal
-    //   throw `Error sending transaction: ${payResult.result.meta.TransactionResult}`;
-    // }
-    // client.disconnect();
     expect(primaryAsk.amount).toBe(112.5);
   });
 });
