@@ -8,10 +8,10 @@
     <ng-template #loadedChat>
       <ng-container *ngIf="studentAccount?.id == chat?.user1_id; then user1; else user2"></ng-container>
       <ng-template #user1>
-        <h1>Chat with {{ chat?.user2_name }}</h1>
+        <h2>Chat with {{ chat?.user2_name }}</h2>
       </ng-template>
       <ng-template #user2>
-        <h1>Chat with {{ chat?.user1_name }}</h1>
+        <h2>Chat with {{ chat?.user1_name }}</h2>
       </ng-template>
     </ng-template>
     <mat-card class="mb-10">
