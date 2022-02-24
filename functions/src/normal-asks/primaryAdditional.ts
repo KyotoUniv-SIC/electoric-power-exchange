@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import { normal_ask } from '.';
 import { admin_account } from '../admin-accounts';
+import { balance } from '../balances';
 import { insufficient_balance } from '../insufficient-balances';
 import { normal_ask_setting } from '../normal-ask-settings';
 import { student_account } from '../student-accounts';
@@ -20,9 +21,11 @@ module.exports.primaryNormalAsk = f.pubsub
       let amountInsufficient = 0;
       for (const student of students) {
         // amountUPX += (await balance.list(student.id))[0].amount_upx;
-        for (const insufficient of await insufficient_balance.list(student.id)) {
+        for (const insufficient of await insufficient_balance.listThisMonth(student.id)) {
           amountInsufficient += insufficient.amount;
         }
+        const tokenBalance = await balance.list(student.id);
+        amountInsufficient -= tokenBalance[0].amount_upx + tokenBalance[0].amount_spx;
       }
       // if (amountUPX < amountInsufficient) {
       //   await normal_ask.create(
