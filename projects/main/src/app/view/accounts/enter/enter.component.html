@@ -43,17 +43,15 @@
           </mat-icon>
         </button>
       </mat-form-field>
-      <div class="flex flex-row">
-        <span class="flex-auto"> </span>
+      <div>
         <div>
           <br />
           <button mat-flat-button class="w-full" color="primary" type="submit" [disabled]="formRef.invalid">Sign In</button>
           <br /><br />
-          <p>
+          <p class="text-right">
             No account? <strong class="underline 2px"><a class="text-blue-700" routerLink="/accounts/create">Sign Up</a></strong>
           </p>
         </div>
-        <span class="flex-auto"> </span>
       </div>
     </form>
   </mat-card>

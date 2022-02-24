@@ -10,26 +10,26 @@
     </mat-card-content>
     <mat-list>
       <mat-list-item class="flex flex-wrap">
-        <span class="break-all font-bold text-xl">UPX Balance:</span>
+        <span class="break-all text-xl">UPX Balance:</span>
         <span class="flex-auto break-all"></span>
-        <span class="break-all font-bold text-xl text-yellow-400">{{ balance?.amount_upx }}</span>
+        <span class="break-all text-xl text-yellow-400">{{ balance?.amount_upx }}</span>
       </mat-list-item>
       <mat-divider [inset]="true"></mat-divider>
       <mat-list-item class="flex flex-wrap">
-        <span class="break-all font-bold text-xl">SPX Balance:</span>
+        <span class="break-all text-xl">SPX Balance:</span>
         <span class="flex-auto break-all"></span>
-        <span class="break-all font-bold text-xl text-purple-800">{{ balance?.amount_spx }}</span>
+        <span class="break-all text-xl text-purple-800">{{ balance?.amount_spx }}</span>
       </mat-list-item>
       <mat-divider [inset]="true"></mat-divider>
       <mat-list-item class="flex flex-wrap">
-        <span class="break-all font-bold text-xl">Insufficient Balance:</span>
+        <span class="break-all text-xl">Insufficient Balance:</span>
         <span class="flex-auto break-all"></span>
-        <span class="break-all font-bold text-xl text-red-600">{{ insufficiency }}</span>
+        <span class="break-all text-xl text-red-600">{{ insufficiency }}</span>
       </mat-list-item>
       <mat-divider [inset]="true"></mat-divider>
     </mat-list>
-    <div class="text-center mt-10">
-      <button mat-flat-button routerLink="/txs/buy" color="accent">Buy More Tokens</button>
+    <div class="mt-10">
+      <button mat-flat-button class="w-full" routerLink="/txs/buy" color="accent">Buy More Tokens</button>
     </div>
   </mat-card>
 
@@ -41,35 +41,35 @@
     </mat-card-content>
     <mat-list>
       <mat-list-item class="flex flex-wrap">
-        <span class="break-all font-bold text-xl">Latest UPX Price:</span>
+        <span class="break-all text-xl">Latest UPX Price:</span>
         <span class="flex-auto break-all"></span>
-        <span class="break-all font-bold text-xl text-yellow-400">{{ singlePriceNormal?.price }} JPY</span>
+        <span class="break-all text-xl text-yellow-400">{{ singlePriceNormal?.price }} JPY</span>
       </mat-list-item>
       <mat-list-item class="flex flex-wrap">
-        <span class="break-all font-bold text-xl">Contract Amount:</span>
+        <span class="break-all text-xl">Contract Amount:</span>
         <span class="flex-auto break-all"></span>
-        <span class="break-all font-bold text-xl text-yellow-400">{{ singlePriceNormal?.amount }} UPX</span>
+        <span class="break-all text-xl text-yellow-400">{{ singlePriceNormal?.amount }} UPX</span>
       </mat-list-item>
       <mat-list-item class="flex flex-wrap">
-        <span class="break-all font-bold text-xl">Market Date:</span>
+        <span class="break-all text-xl">Market Date:</span>
         <span class="flex-auto break-all"></span>
-        <span class="break-all font-bold text-xl text-yellow-400">{{ singlePriceNormalDate | date: 'yy/MM/dd' }}</span>
+        <span class="break-all text-xl text-yellow-400">{{ singlePriceNormalDate | date: 'yy/MM/dd' }}</span>
       </mat-list-item>
       <mat-divider [inset]="true"></mat-divider>
       <mat-list-item class="flex flex-wrap">
-        <span class="break-all font-bold text-xl">Latest SPX Price:</span>
+        <span class="break-all text-xl">Latest SPX Price:</span>
         <span class="flex-auto break-all"></span>
-        <span class="break-all font-bold text-xl text-purple-800">{{ singlePriceRenewable?.price }} JPY</span>
+        <span class="break-all text-xl text-purple-800">{{ singlePriceRenewable?.price }} JPY</span>
       </mat-list-item>
       <mat-list-item class="flex flex-wrap">
-        <span class="break-all font-bold text-xl">Contract Amount:</span>
+        <span class="break-all text-xl">Contract Amount:</span>
         <span class="flex-auto break-all"></span>
-        <span class="break-all font-bold text-xl text-purple-800">{{ singlePriceRenewable?.amount }} SPX</span>
+        <span class="break-all text-xl text-purple-800">{{ singlePriceRenewable?.amount }} SPX</span>
       </mat-list-item>
       <mat-list-item class="flex flex-wrap">
-        <span class="break-all font-bold text-xl">Market Date:</span>
+        <span class="break-all text-xl">Market Date:</span>
         <span class="flex-auto break-all"></span>
-        <span class="break-all font-bold text-xl text-purple-800">{{ singlePriceRenewableDate | date: 'yy/MM/dd' }}</span>
+        <span class="break-all text-xl text-purple-800">{{ singlePriceRenewableDate | date: 'yy/MM/dd' }}</span>
       </mat-list-item>
     </mat-list>
   </mat-card>
@@ -82,15 +82,15 @@
     </mat-card-content>
     <mat-list>
       <mat-list-item class="flex flex-wrap">
-        <span class="break-all font-bold text-xl">Total Usage:</span>
+        <span class="break-all text-xl">Total Usage:</span>
         <span class="flex-auto break-all"></span>
-        <span class="break-all font-bold text-xl text-purple-800">{{ totalUsage }} kWh</span>
+        <span class="break-all text-xl text-purple-800">{{ totalUsage }} kWh</span>
       </mat-list-item>
       <mat-divider [inset]="true"></mat-divider>
       <mat-list-item class="flex flex-wrap">
-        <span class="break-all font-bold text-xl">Students' Average:</span>
+        <span class="break-all text-xl">Students' Average:</span>
         <span class="flex-auto break-all"></span>
-        <span class="break-all font-bold text-xl text-yellow-400">{{ totalUsageAverage }} kWh</span>
+        <span class="break-all text-xl text-yellow-400">{{ totalUsageAverage }} kWh</span>
       </mat-list-item>
     </mat-list>
   </mat-card>
@@ -102,9 +102,9 @@
     </mat-card-content>
     <mat-list>
       <mat-list-item class="flex flex-wrap">
-        <span class="break-all font-bold text-xl">Your Rank:</span>
+        <span class="break-all text-xl">Your Rank:</span>
         <span class="flex-auto break-all"></span>
-        <span class="break-all font-bold text-xl text-purple-800">#{{ rank }}</span>
+        <span class="break-all text-xl text-purple-800">#{{ rank }}</span>
       </mat-list-item>
       <mat-divider [inset]="true"></mat-divider>
       <ng-container *ngFor="let ranking of rankings">

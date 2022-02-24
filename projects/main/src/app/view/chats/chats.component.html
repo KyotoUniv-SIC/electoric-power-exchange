@@ -6,7 +6,6 @@
       <mat-progress-spinner [diameter]="60" [mode]="'indeterminate'"></mat-progress-spinner>
     </ng-template>
     <ng-template #loadedStudent>
-      <mat-card-title>{{ studentAccount?.name }}'s Chats</mat-card-title>
       <mat-card-content>
         <p>Chats allows users to exchange simple messages with each other.</p>
       </mat-card-content>
@@ -20,8 +19,8 @@
         <mat-divider [inset]="true"></mat-divider
       ></mat-list>
       <br /><br />
-      <div class="text-center">
-        <button mat-flat-button color="accent" routerLink="/chats/create">Create New Chat</button>
+      <div>
+        <button mat-flat-button class="w-full" color="accent" routerLink="/chats/create">Create New Chat</button>
       </div>
     </ng-template>
   </mat-card>
