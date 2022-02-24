@@ -18,7 +18,7 @@ market_status.onUpdateHandler.push(async (snapshot, context) => {
   const dateJST = (data.created_at as Timestamp).toDate();
   dateJST.setHours(dateJST.getHours() + 9);
 
-  if (dateJST.getDate() == 26 && data.is_finished_normal == true && data.is_finished_renewable == true) {
+  if (dateJST.getDate() == 1 && data.is_finished_normal == true && data.is_finished_renewable == true) {
     // if (data.is_finished_normal == true && data.is_finished_renewable == true) {
     console.log((data.created_at as Timestamp).toDate().getDate());
     const students = await student_account.list();
