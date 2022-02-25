@@ -25,7 +25,7 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
   );
   const tokens = data.amount_upx + data.amount_spx - insufficiencies;
 
-  const primaryAsks = await primary_ask.listLastMonth();
+  const primaryAsks = await primary_ask.listLastMonthByID(data.student_account_id);
   const normalBids = await normal_bid_history.listLastMonth(data.student_account_id);
   const normalAsks = await normal_ask_history.listLastMonth(data.student_account_id);
   const renewableBids = await renewable_bid_history.listLastMonth(data.student_account_id);
