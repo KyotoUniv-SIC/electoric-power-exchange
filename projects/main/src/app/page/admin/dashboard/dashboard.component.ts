@@ -1,5 +1,4 @@
 import { Ranking } from '../../dashboard/dashboard.component';
-import { Order } from '../../txs/txs.component';
 import { Component, OnInit } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
 import {
@@ -110,6 +109,7 @@ export class DashboardComponent implements OnInit {
         ),
       ),
     );
+
     this.totalBalanceData$ = users$.pipe(
       mergeMap((users) => Promise.all(users.map((user) => this.balanceApp.list(user.id).then((balances) => balances[0])))),
       map((balances) => {
@@ -227,18 +227,23 @@ export class DashboardComponent implements OnInit {
           .filter((bid) => bid.is_deleted == false)
           .map((bid) => ({
             id: bid.id,
-            student_account_name: users.find((user) => user.id == bid.account_id)?.name,
+            student_account_name: !users.find((user) => user.id == bid.account_id)?.name
+              ? 'System'
+              : users.find((user) => user.id == bid.account_id)?.name,
             date: !bid.created_at ? now.toLocaleString() : (bid.created_at as Timestamp).toDate().toLocaleString(),
             amount: bid.amount,
             price: bid.price,
             power_type: 'utility',
             order_type: 'bid',
           }));
+
         const normalAskList = normalAsks
           .filter((ask) => ask.is_deleted == false)
           .map((ask) => ({
             id: ask.id,
-            student_account_name: users.find((user) => user.id == ask.account_id)?.name,
+            student_account_name: !users.find((user) => user.id == ask.account_id)?.name
+              ? 'System'
+              : users.find((user) => user.id == ask.account_id)?.name,
             date: !ask.created_at ? now.toLocaleString() : (ask.created_at as Timestamp).toDate().toLocaleString(),
             amount: ask.amount,
             price: ask.price,
@@ -249,18 +254,23 @@ export class DashboardComponent implements OnInit {
           .filter((bid) => bid.is_deleted == false)
           .map((bid) => ({
             id: bid.id,
-            student_account_name: users.find((user) => user.id == bid.account_id)?.name,
+            student_account_name: !users.find((user) => user.id == bid.account_id)?.name
+              ? 'System'
+              : users.find((user) => user.id == bid.account_id)?.name,
             date: !bid.created_at ? now.toLocaleString() : (bid.created_at as Timestamp).toDate().toLocaleString(),
             amount: bid.amount,
             price: bid.price,
             power_type: 'solar',
             order_type: 'bid',
           }));
+
         const renewableAskList = renewableAsks
           .filter((ask) => ask.is_deleted == false)
           .map((ask) => ({
             id: ask.id,
-            student_account_name: users.find((user) => user.id == ask.account_id)?.name,
+            student_account_name: !users.find((user) => user.id == ask.account_id)?.name
+              ? 'System'
+              : users.find((user) => user.id == ask.account_id)?.name,
             date: !ask.created_at ? now.toLocaleString() : (ask.created_at as Timestamp).toDate().toLocaleString(),
             amount: ask.amount,
             price: ask.price,
