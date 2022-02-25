@@ -11,8 +11,7 @@ import {
   SinglePriceRenewableSettlement,
 } from '@local/common';
 import { ChartDataSets } from 'chart.js';
-import { promises } from 'dns';
-import { balance } from 'functions/src/balances';
+
 import { MultiDataSet } from 'ng2-charts';
 import { DailyUsageApplicationService } from 'projects/shared/src/lib/services/daily-usages/daily-usage.application.service';
 import { NormalAskApplicationService } from 'projects/shared/src/lib/services/normal-asks/normal-ask.application.service';
