@@ -1,27 +1,86 @@
 <div class="w-full lg:mx-auto lg:w-1/3 lg:mt-10">
   <h1>Sell Tokens</h1>
-  <mat-card>
+  <mat-card class="mb-10">
     <mat-card-title>Available Balance</mat-card-title>
+    <mat-card-content>
+      <p>Displays the currently available UPX and SPX balances.</p>
+      <p>Refer to this Available Balance when creating an ask request.</p>
+    </mat-card-content>
     <mat-list>
       <mat-list-item class="flex flex-wrap">
         <span class="break-all">Utility Power Token:</span>
         <span class="flex-auto break-all"></span>
-        <span class="break-all">{{ balance?.amount_upx }} upx</span>
+        <span class="break-all text-yellow-400">{{ balance?.amount_upx }} upx</span>
       </mat-list-item>
       <mat-divider [inset]="true"></mat-divider>
       <mat-list-item class="flex flex-wrap">
         <span class="break-all">Solar Power Token:</span>
         <span class="flex-auto break-all"></span>
-        <span class="break-all">{{ balance?.amount_spx }} spx</span>
+        <span class="break-all text-purple-800">{{ balance?.amount_spx }} spx</span>
       </mat-list-item>
       <mat-divider [inset]="true"></mat-divider>
+      <ng-container *ngIf="insufficiency">
+        <mat-list-item class="flex flex-wrap">
+          <span class="break-all">Solar Power Token:</span>
+          <span class="flex-auto break-all"></span>
+          <span class="break-all text-red-600">{{ insufficiency }} </span>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
+      </ng-container>
     </mat-list>
   </mat-card>
-  <br />
+
+  <mat-card class="mb-10">
+    <mat-card-title>Latest Contract Price</mat-card-title>
+    <mat-card-content>
+      <p>Displays the latest contracted price.</p>
+      <p>If there were no contract, the last transaction price with constraints will be displayed here.</p>
+    </mat-card-content>
+    <mat-list>
+      <mat-list-item class="flex flex-wrap">
+        <span class="break-all">Latest UPX Price:</span>
+        <span class="flex-auto break-all"></span>
+        <span class="break-all text-yellow-400">{{ singlePriceNormal?.price }} JPY</span>
+      </mat-list-item>
+      <mat-list-item class="flex flex-wrap">
+        <span class="break-all">Contract Amount:</span>
+        <span class="flex-auto break-all"></span>
+        <span class="break-all text-yellow-400">{{ singlePriceNormal?.amount }} UPX</span>
+      </mat-list-item>
+      <mat-list-item class="flex flex-wrap">
+        <span class="break-all">Market Date:</span>
+        <span class="flex-auto break-all"></span>
+        <span class="break-all text-yellow-400">{{ singlePriceNormalDate | date: 'yy/MM/dd' }}</span>
+      </mat-list-item>
+      <mat-divider [inset]="true"></mat-divider>
+      <mat-list-item class="flex flex-wrap">
+        <span class="break-all">UPX Balance:</span>
+        <span class="flex-auto break-all"></span>
+        <span class="break-all text-purple-800">{{ singlePriceRenewable?.price }} JPY</span>
+      </mat-list-item>
+      <mat-list-item class="flex flex-wrap">
+        <span class="break-all">Contract Amount:</span>
+        <span class="flex-auto break-all"></span>
+        <span class="break-all text-purple-800">{{ singlePriceRenewable?.amount }} SPX</span>
+      </mat-list-item>
+      <mat-list-item class="flex flex-wrap">
+        <span class="break-all">Market Date:</span>
+        <span class="flex-auto break-all"></span>
+        <span class="break-all text-purple-800">{{ singlePriceRenewableDate | date: 'yy/MM/dd' }}</span>
+      </mat-list-item>
+    </mat-list>
+  </mat-card>
 
   <form (submit)="onSubmit(accountID || '', priceRef.value, amountRef.value, denomRef.value)">
-    <mat-card>
+    <mat-card class="mb-10">
       <mat-card-title>Token Market - Sell</mat-card-title>
+      <mat-card-content>
+        <p>Create a Ask request for the day's single-price auction.</p>
+        <p>
+          At 0:00 every day, the market will set the intersection of the sell curve and the buy curve as the contract price and contract
+          quantity.
+        </p>
+      </mat-card-content>
       <mat-list>
         <h3 matSubheader>Token Price</h3>
         <mat-list-item class="flex flex-wrap">
@@ -70,10 +129,9 @@
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
       </mat-list>
+      <div class="text-center mt-10">
+        <button mat-flat-button color="primary">Sell Request</button>
+      </div>
     </mat-card>
-    <br /><br />
-    <div class="text-center">
-      <button mat-flat-button color="primary">Sell Request</button>
-    </div>
   </form>
 </div>

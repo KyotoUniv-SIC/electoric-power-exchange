@@ -24,7 +24,11 @@
         <mat-list-item class="flex flex-wrap" routerLink="/accounts/room">
           <span class="break-all">Room ID:</span>
           <span class="flex-auto break-all"></span>
-          <span class="break-all">{{ studentAccount?.room_id }}</span>
+          <ng-container *ngIf="!studentAccount?.room_id; then emptyRoom; else existRoom"></ng-container>
+          <ng-template #emptyRoom><span class="break-all text-red-600">Click to enter the room number</span></ng-template>
+          <ng-template #existRoom
+            ><span class="break-all">{{ studentAccount?.room_id }}</span></ng-template
+          >
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
         <!-- <mat-list-item class="flex flex-wrap">
@@ -36,7 +40,7 @@
         <mat-list-item class="flex flex-wrap" routerLink="/accounts/xrpl">
           <span class="break-all">XRP Address:</span>
           <span class="flex-auto break-all"></span>
-          <span class="break-all">{{ studentAccount?.xrp_address }}</span>
+          <span class="break-all text-purple-800">{{ studentAccount?.xrp_address }}</span>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
       </ng-template>
@@ -116,7 +120,7 @@
             <mat-list-item class="flex flex-wrap">
               <span class="break-all">{{ monthlyPayment.year }}/{{ monthlyPayment.month }}:</span>
               <span class="flex-auto break-all"></span>
-              <span class="break-all">{{ monthlyPayment.amount_jpy }} JPY</span>
+              <span class="break-all">{{ monthlyPayment.amount_jpy.toFixed(2) }} JPY</span>
             </mat-list-item>
           </ng-container>
           <mat-divider [inset]="true"></mat-divider>

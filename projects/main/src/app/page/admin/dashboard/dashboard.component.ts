@@ -11,6 +11,8 @@ import {
   SinglePriceRenewableSettlement,
 } from '@local/common';
 import { ChartDataSets } from 'chart.js';
+import { promises } from 'dns';
+import { balance } from 'functions/src/balances';
 import { MultiDataSet } from 'ng2-charts';
 import { DailyUsageApplicationService } from 'projects/shared/src/lib/services/daily-usages/daily-usage.application.service';
 import { NormalAskApplicationService } from 'projects/shared/src/lib/services/normal-asks/normal-ask.application.service';
@@ -26,8 +28,7 @@ import { map, mergeMap } from 'rxjs/operators';
 
 export interface BalanceData {
   student_account_id: string;
-  // toDo
-  // student_account_name: string;
+  student_account_name: string;
   amount_upx: number;
   amount_spx: number;
 }
@@ -88,12 +89,17 @@ export class DashboardComponent implements OnInit {
 
     this.balances$ = users$.pipe(
       mergeMap((users) => Promise.all(users.map((user) => this.balanceApp.list(user.id).then((balances) => balances[0])))),
-      map((balance) =>
-        balance.map((balance) => ({
-          student_account_id: balance.student_account_id,
-          amount_upx: balance.amount_upx,
-          amount_spx: balance.amount_spx,
-        })),
+      mergeMap((balances) =>
+        Promise.all(
+          balances.map((balance) =>
+            this.studentsApp.get(balance.student_account_id).then((student) => ({
+              student_account_id: balance.student_account_id,
+              student_account_name: !student ? 'no name' : student.name,
+              amount_upx: balance.amount_upx,
+              amount_spx: balance.amount_spx,
+            })),
+          ),
+        ),
       ),
     );
     this.totalBalanceData$ = users$.pipe(
