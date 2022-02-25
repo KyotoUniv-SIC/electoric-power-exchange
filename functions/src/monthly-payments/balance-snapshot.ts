@@ -14,7 +14,7 @@ import { normal_bid_history } from '../normal-bid-histories';
 import { primary_ask } from '../primary-asks';
 import { renewable_ask_history } from '../renewable-ask-histories';
 import { renewable_bid_history } from '../renewable-bid-histories';
-import { Balance, MonthlyPayment, MonthlyUsage } from '@local/common';
+import { MonthlyPayment, MonthlyUsage } from '@local/common';
 
 balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
   console.log('run balanceSS onCreate');
@@ -72,9 +72,7 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
   // date.setMonth(date.getMonth() - 1);
 
   const latestBalance = await balance.getLatest(data.student_account_id);
-  await balance.update(
-    new Balance({ id: latestBalance[0].id, student_account_id: latestBalance[0].student_account_id, amount_spx: 0, amount_upx: 0 }),
-  );
+  await balance.update({ id: latestBalance[0].id, student_account_id: latestBalance[0].student_account_id, amount_spx: 0, amount_upx: 0 });
 
   await monthly_payment.create(
     new MonthlyPayment({
