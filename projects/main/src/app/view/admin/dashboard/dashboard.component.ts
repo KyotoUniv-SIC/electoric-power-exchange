@@ -1,4 +1,4 @@
-import { BalanceData, MonthlyUsageData } from '../../../page/admin/dashboard/dashboard.component';
+import { BalanceData, MonthlyUsageData, OrderData } from '../../../page/admin/dashboard/dashboard.component';
 import { Ranking } from '../../../page/dashboard/dashboard.component';
 import { Order } from '../../../page/txs/txs.component';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
@@ -38,7 +38,7 @@ export class DashboardComponent implements OnInit {
   @Input()
   renewableBids?: RenewableBid[] | null;
   @Input()
-  orders?: Order[] | null;
+  orders?: OrderData[] | null;
   @Input()
   singlePriceNormal?: SinglePriceNormalSettlement | null;
   @Input()
@@ -50,7 +50,7 @@ export class DashboardComponent implements OnInit {
   @Output()
   appDownloadBalances: EventEmitter<BalanceData[]>;
   @Output()
-  appDownloadOrders: EventEmitter<Order[]>;
+  appDownloadOrders: EventEmitter<OrderData[]>;
   @Output()
   appDownloadUserUsages: EventEmitter<Ranking[]>;
   @Output()
