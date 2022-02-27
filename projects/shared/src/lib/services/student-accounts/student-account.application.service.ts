@@ -8,6 +8,14 @@ import { map } from 'rxjs/operators';
 export class StudentAccountApplicationService {
   constructor(private readonly studentAccount: StudentAccountService) {}
 
+  get(id: string) {
+    return this.studentAccount.get(id);
+  }
+
+  get$(id: string) {
+    return this.studentAccount.get$(id);
+  }
+
   list() {
     return this.studentAccount.list();
   }
