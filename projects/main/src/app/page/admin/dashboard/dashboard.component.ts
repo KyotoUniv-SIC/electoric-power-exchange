@@ -312,7 +312,7 @@ export class DashboardComponent implements OnInit {
   }
 
   downloadCsv(csv: string, title: string) {
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
     const url = (window.URL || window.webkitURL).createObjectURL(blob);
     const link = document.createElement('a');
     link.download = title + '.csv';
@@ -326,11 +326,13 @@ export class DashboardComponent implements OnInit {
     // ここでJSON=>CSVの変換とダウンロードを行う
     const csv = this.jsonToCsv($event, ',');
     this.downloadCsv(csv, 'balances');
+    console.log(csv);
   }
 
   async onDownloadOrders($event: OrderData[]) {
     const csv = this.jsonToCsv($event, ',');
     this.downloadCsv(csv, 'orders');
+    console.log($event);
   }
 
   async onDownloadUserUsages($event: Ranking[]) {
