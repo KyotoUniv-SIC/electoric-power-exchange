@@ -118,7 +118,7 @@ module.exports.normalContract = f.pubsub
     let equilibriumAmount = 0;
     const condition = true;
     while (condition) {
-      if (sortNormalBids[i].price <= sortNormalAsks[j].price) {
+      if (sortNormalBids[i].price < sortNormalAsks[j].price) {
         break;
       }
       if (sumBidAmountHistory[i] <= sumAskAmountHistory[j]) {
