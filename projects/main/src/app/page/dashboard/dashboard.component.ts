@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Auth, authState } from '@angular/fire/auth';
 import { Timestamp } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
-import { Balance, DailyUsage, MonthlyUsage, SinglePriceNormalSettlement, SinglePriceRenewableSettlement } from '@local/common';
+import { Balance, MonthlyUsage, SinglePriceNormalSettlement, SinglePriceRenewableSettlement } from '@local/common';
 import { ChartDataSets } from 'chart.js';
 import { MultiDataSet } from 'ng2-charts';
 import { DailyUsageApplicationService } from 'projects/shared/src/lib/services/daily-usages/daily-usage.application.service';

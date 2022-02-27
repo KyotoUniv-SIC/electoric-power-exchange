@@ -36,7 +36,6 @@ export class XrplComponent implements OnInit {
         return info;
       }),
     );
-    this.xrpLedger$.subscribe((a) => console.log(a));
     this.trustLine$ = this.studentAccount$.pipe(
       mergeMap(async (student) => {
         await client.connect();
@@ -45,7 +44,6 @@ export class XrplComponent implements OnInit {
           account: student.xrp_address,
           ledger_index: 'validated',
         });
-        console.log(line);
         return line;
       }),
     );

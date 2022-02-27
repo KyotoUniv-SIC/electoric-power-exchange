@@ -326,13 +326,11 @@ export class DashboardComponent implements OnInit {
     // ここでJSON=>CSVの変換とダウンロードを行う
     const csv = this.jsonToCsv($event, ',');
     this.downloadCsv(csv, 'balances');
-    console.log(csv);
   }
 
   async onDownloadOrders($event: OrderData[]) {
     const csv = this.jsonToCsv($event, ',');
     this.downloadCsv(csv, 'orders');
-    console.log($event);
   }
 
   async onDownloadUserUsages($event: Ranking[]) {
