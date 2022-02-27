@@ -53,6 +53,11 @@ export class SellComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit(accountID: string, price: string, amount: string, denom: string) {
+    const now = new Date();
+    if (0 < now.getHours() && now.getHours() < 11) {
+      alert('現在、EDISONでは、0-11時のAskの入札ができません');
+      return;
+    }
     if (!denom) {
       alert('トークンの種類を指定してください。\nUPX=電力会社、SPX=太陽光発電');
       return;
@@ -66,7 +71,7 @@ export class SellComponent implements OnInit {
       return;
     }
     if (denom == 'spx-1' && Number(amount) > this.balance?.amount_spx!) {
-      alert('UPXの残高が足りません。');
+      alert('SPXの残高が足りません。');
       return;
     }
     this.appSubmit.emit({ accountID: this.studentAccount?.id, price: Number(price), amount: Number(amount), denom });
@@ -77,7 +82,7 @@ export class SellComponent implements OnInit {
     return price * amount;
   }
   tokens: Token[] = [
-    { value: 'upx-0', viewValue: 'upx' },
-    { value: 'spx-1', viewValue: 'spx' },
+    { value: 'upx-0', viewValue: 'UPX' },
+    { value: 'spx-1', viewValue: 'SPX' },
   ];
 }

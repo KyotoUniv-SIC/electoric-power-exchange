@@ -21,7 +21,7 @@ single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) =>
   const condition = true;
   while (condition) {
     if (sortNormalBids[i].price < data.price || sortNormalAsks[j].price > data.price) {
-      for (; i < sortNormalBids.length - 1; i++) {
+      for (; i < sortNormalBids.length; i++) {
         await normal_bid_history.create(
           new NormalBidHistory({
             account_id: sortNormalBids[i].account_id,
@@ -34,7 +34,7 @@ single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) =>
         await normal_bid.delete_(sortNormalBids[i].id);
       }
 
-      for (; j < sortNormalAsks.length - 1; j++) {
+      for (; j < sortNormalAsks.length; j++) {
         await normal_ask_history.create(
           new NormalAskHistory({
             type: sortNormalAsks[j].type as unknown as proto.main.NormalAskHistoryType,

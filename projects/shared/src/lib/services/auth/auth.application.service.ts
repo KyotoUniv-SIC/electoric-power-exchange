@@ -183,7 +183,7 @@ export class AuthApplicationService {
   async signOut() {
     await this.auth.signOut();
     this.snackBar.open('サインアウトしました', undefined, { duration: 6000 });
-    await this.router.navigate(['']);
+    await this.router.navigate(['/accounts/enter']);
   }
 
   async resetPassword(email: string) {

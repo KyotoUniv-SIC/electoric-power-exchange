@@ -38,7 +38,7 @@ describe('Normal Settlement Test', () => {
     const condition = true;
     while (condition) {
       if (sortNormalBids[i].price < data.price || sortNormalAsks[j].price > data.price) {
-        for (; i < sortNormalBids.length - 1; i++) {
+        for (; i < sortNormalBids.length; i++) {
           bidHistory.push(
             new NormalBidHistory({
               account_id: sortNormalBids[i].account_id,
@@ -50,7 +50,7 @@ describe('Normal Settlement Test', () => {
           );
         }
 
-        for (; j < sortNormalAsks.length - 1; j++) {
+        for (; j < sortNormalAsks.length; j++) {
           askHistory.push(
             new NormalAskHistory({
               type: sortNormalAsks[j].type as unknown as proto.main.NormalAskHistoryType,

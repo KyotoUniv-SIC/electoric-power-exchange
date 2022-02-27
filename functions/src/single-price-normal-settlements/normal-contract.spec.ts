@@ -60,27 +60,29 @@ describe('Normal Contract Test', () => {
     // 階段状の累積受給曲線を歩調を合わせて登ることで均衡価格を発見
     let i = 0;
     let j = 0;
+    let equilibriumPrice = 0;
+    let equilibriumAmount = 0;
     const condition = true;
     while (condition) {
       if (sortBids[i].price <= sortAsks[j].price) {
         break;
       }
       if (sumBidAmountHistory[i] <= sumAskAmountHistory[j]) {
+        equilibriumPrice = sortAsks[j].price;
+        equilibriumAmount = sumBidAmountHistory[i];
         if (!sortBids[i + 1]) {
           break;
         }
         i++;
       } else {
+        equilibriumPrice = sortBids[i].price;
+        equilibriumAmount = sumAskAmountHistory[j];
         if (!sortAsks[j + 1]) {
           break;
         }
         j++;
       }
     }
-    // 止まったときの高い方の価格が均衡価格となる
-    const equilibriumPrice = sortBids[i].price <= sortAsks[j].price ? sortAsks[i].price : sortBids[j].price;
-    // 止まったときの低い方が成約取引量となる
-    const equilibriumAmount = sumBidAmountHistory[i] <= sumAskAmountHistory[j] ? sumBidAmountHistory[i] : sumAskAmountHistory[j];
 
     const settlement = new SinglePriceNormalSettlement({ price: equilibriumPrice, amount: equilibriumAmount });
     console.log(settlement);

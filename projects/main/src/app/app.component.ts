@@ -17,6 +17,5 @@ export class AppComponent {
 
   async onSubmit() {
     this.authApp.signOut();
-    location.reload();
   }
 }

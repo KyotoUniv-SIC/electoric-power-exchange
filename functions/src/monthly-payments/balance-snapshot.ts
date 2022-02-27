@@ -5,17 +5,15 @@ import { monthly_payment } from '.';
 import { account_private } from '../account-privates';
 import { admin_account } from '../admin-accounts';
 import { balance_snapshot } from '../balance-snapshots';
-import { daily_usage } from '../daily-usages';
+import { balance } from '../balances';
 import { discount_price } from '../discount-prices';
 import { insufficient_balance } from '../insufficient-balances';
 import { monthly_usage } from '../monthly-usages';
 import { normal_ask_history } from '../normal-ask-histories';
 import { normal_bid_history } from '../normal-bid-histories';
 import { primary_ask } from '../primary-asks';
-import { primary_bid } from '../primary-bids';
 import { renewable_ask_history } from '../renewable-ask-histories';
 import { renewable_bid_history } from '../renewable-bid-histories';
-import { student_account } from '../student-accounts';
 import { MonthlyPayment, MonthlyUsage } from '@local/common';
 
 balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
@@ -27,18 +25,15 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
   );
   const tokens = data.amount_upx + data.amount_spx - insufficiencies;
 
-  const primaryBids = await primary_bid.getLatest(data.student_account_id);
+  const primaryAsks = await primary_ask.listLastMonthByID(data.student_account_id);
   const normalBids = await normal_bid_history.listLastMonth(data.student_account_id);
   const normalAsks = await normal_ask_history.listLastMonth(data.student_account_id);
   const renewableBids = await renewable_bid_history.listLastMonth(data.student_account_id);
   const renewableAsks = await renewable_ask_history.listLastMonth(data.student_account_id);
-  const studentAccount = await student_account.get(data.student_account_id);
-  const dailyUsages = await daily_usage.listLastMonth(studentAccount.room_id);
 
-  let usage = !primaryBids.length ? -tokens : primaryBids[0].amount - tokens;
-  let payment = !primaryBids.length ? 0 : primaryBids[0].price * primaryBids[0].amount;
+  let usage = !primaryAsks.length ? -tokens : primaryAsks.reduce((previous, current) => previous + current.amount, 0) - tokens;
+  let payment = !primaryAsks.length ? 0 : primaryAsks.reduce((previous, current) => previous + current.price * current.amount, 0);
 
-  const primaryAsks = await primary_ask.listLastMonth();
   const discounts = await discount_price.listLatest();
   if (!primaryAsks.length) {
     tokens >= 0 ? (payment -= (27 - discounts[0].price) * tokens) : (payment += (27 + discounts[0].price) * Math.abs(tokens));
@@ -72,12 +67,12 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
       payment -= renewableAsk.contract_price * renewableAsk.amount;
     }
   }
-  for (const dailyUsage of dailyUsages) {
-    usage += dailyUsage.amount_kwh;
-  }
   const date = new Date();
   // .getMonth()は0-11の整数値をとる
   // date.setMonth(date.getMonth() - 1);
+
+  const latestBalance = await balance.getLatest(data.student_account_id);
+  await balance.update({ id: latestBalance[0].id, student_account_id: latestBalance[0].student_account_id, amount_spx: 0, amount_upx: 0 });
 
   await monthly_payment.create(
     new MonthlyPayment({
@@ -88,7 +83,12 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
     }),
   );
   await monthly_usage.create(
-    new MonthlyUsage({ student_account_id: data.student_account_id, year: date.getFullYear(), month: date.getMonth(), amount_kwh: usage }),
+    new MonthlyUsage({
+      student_account_id: data.student_account_id,
+      year: date.getFullYear(),
+      month: date.getMonth(),
+      amount_kwh: usage,
+    }),
   );
 
   const accountPrivate = await account_private.list(data.student_account_id);
@@ -102,8 +102,8 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
   const adminAccount = await admin_account.getByName('admin');
   await client.connect();
   const sender = xrpl.Wallet.fromSeed(accountPrivate[0].xrp_seed);
-  const amountSPX = data.amount_spx - insufficiencies;
-  const amountUPX = amountSPX > 0 ? data.amount_upx : data.amount_upx + amountSPX;
+  const amountSPX = data.amount_spx;
+  const amountUPX = data.amount_upx;
   if (amountSPX > 0) {
     const sendTokenTx = {
       TransactionType: 'Payment',

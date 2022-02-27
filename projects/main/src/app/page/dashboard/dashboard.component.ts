@@ -128,24 +128,13 @@ export class DashboardComponent implements OnInit {
       }),
     );
 
-    const beggingThisYear = new Date(now.getFullYear(), 0, 1);
     const usages$ = combineLatest([this.totalUsage$, usageListMonthly$]).pipe(
       map(([totalUsage, monthlyUsages]) => {
-        let data = monthlyUsages
-          .filter((usage) => (usage.created_at as Timestamp).toDate() > beggingThisYear)
-          .sort(function (first, second) {
-            if ((first.created_at as Timestamp).toDate() < (second.created_at as Timestamp).toDate()) {
-              return -1;
-            } else if ((first.created_at as Timestamp).toDate() > (second.created_at as Timestamp).toDate()) {
-              return 1;
-            } else {
-              return 0;
-            }
-          });
+        let data = monthlyUsages.filter((usage) => usage.year == now.getFullYear()).sort((first, second) => first.month - second.month);
 
         // .getMonth() 与えた日付の「月」を表す 0 から 11 までの間の整数値
-        let lackBefore = !data.length ? now.getMonth() : (data[0].created_at as Timestamp).toDate().getMonth();
-        let lackAfter = !data.length ? 11 - now.getMonth() : 10 - (data[data.length - 1].created_at as Timestamp).toDate().getMonth();
+        let lackBefore = !data.length ? now.getMonth() : data[0].month - 1;
+        let lackAfter = !data.length ? 11 - now.getMonth() : 12 - data[data.length - 1].month;
         // 前月以前のデータに0を入れる
         for (let i = 0; i < lackBefore; i++) {
           data.unshift(new MonthlyUsage({ amount_kwh: 0 }));
@@ -160,24 +149,11 @@ export class DashboardComponent implements OnInit {
       }),
     );
 
-    const beginningPreviousYear = new Date(now.getFullYear() - 1, 0, 1);
     const usagesPreviousYear$ = usageListMonthly$.pipe(
       map((usages) => {
         let data = usages
-          .filter(
-            (usage) =>
-              (usage.created_at as Timestamp).toDate() > beginningPreviousYear &&
-              (usage.created_at as Timestamp).toDate() < beggingThisYear,
-          )
-          .sort(function (first, second) {
-            if ((first.created_at as Timestamp).toDate() < (second.created_at as Timestamp).toDate()) {
-              return -1;
-            } else if ((first.created_at as Timestamp).toDate() > (second.created_at as Timestamp).toDate()) {
-              return 1;
-            } else {
-              return 0;
-            }
-          })
+          .filter((usage) => usage.year == now.getFullYear() - 1)
+          .sort((first, second) => first.month - second.month)
           .map((usage) => usage.amount_kwh);
         let lack = 12 - data.length;
         for (let i = 0; i < lack; i++) {

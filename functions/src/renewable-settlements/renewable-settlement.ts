@@ -21,7 +21,7 @@ single_price_renewable_settlement.onCreateHandler.push(async (snapshot, context)
   const condition = true;
   while (condition) {
     if (sortRenewableBids[i].price < data.price || sortRenewableAsks[j].price > data.price) {
-      for (; i < sortRenewableBids.length - 1; i++) {
+      for (; i < sortRenewableBids.length; i++) {
         await renewable_bid_history.create(
           new RenewableBidHistory({
             account_id: sortRenewableBids[i].account_id,
@@ -34,7 +34,7 @@ single_price_renewable_settlement.onCreateHandler.push(async (snapshot, context)
         await renewable_bid.delete_(sortRenewableBids[i].id);
       }
 
-      for (; j < sortRenewableAsks.length - 1; j++) {
+      for (; j < sortRenewableAsks.length; j++) {
         await renewable_ask_history.create(
           new RenewableAskHistory({
             type: sortRenewableAsks[j].type as unknown as proto.main.RenewableAskHistoryType,

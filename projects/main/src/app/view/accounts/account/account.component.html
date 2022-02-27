@@ -1,7 +1,14 @@
 <div class="w-full lg:mx-auto lg:w-1/3 lg:mt-10">
-  <h1>Account Info</h1>
+  <h2>Account Info</h2>
   <mat-card class="mb-20">
-    <mat-card-title>Account Detail</mat-card-title>
+    <mat-card-content>
+      <p>Click on "Room ID" to set or change the room number.</p>
+      <p>
+        Click on "XRP Address" to get info on the XRP Ledger. However, it is not possible to connect to XRP via KUINS-Air. Please be
+        careful.
+      </p>
+      <p>If "Account Verified" is Unverified, please check your email and reload it.</p>
+    </mat-card-content>
     <mat-nav-list>
       <ng-container *ngIf="studentAccount === null; then loading; else loadedStudent"></ng-container>
       <ng-template #loading>
@@ -88,6 +95,9 @@
 
   <mat-card class="mb-20">
     <mat-card-title>Balance</mat-card-title>
+    <mat-card-content>
+      <p>It shows the balance recognized by EDISON. If the information is different from that of XRP Ledger, please contact support.</p>
+    </mat-card-content>
     <ng-container *ngIf="balances === null; then loading; else loadedBalance"></ng-container>
     <ng-template #loadedBalance>
       <mat-list>
@@ -110,6 +120,9 @@
 
   <mat-card class="mb-20">
     <mat-card-title>Monthly Payments</mat-card-title>
+    <mat-card-content>
+      <p>It shows the electricity rates recorded by EDISON for the previous month.</p>
+    </mat-card-content>
     <ng-container *ngIf="monthlyPayments === null; then loading; else loadedPayment"></ng-container>
     <ng-template #loadedPayment>
       <mat-list>
