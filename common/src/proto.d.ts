@@ -1026,6 +1026,107 @@ export namespace main {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a DailyPayment. */
+    interface IDailyPayment {
+
+        /** DailyPayment id */
+        id?: (string|null);
+
+        /** DailyPayment student_account_id */
+        student_account_id?: (string|null);
+
+        /** DailyPayment date */
+        date?: (number|null);
+
+        /** DailyPayment amount_jpy */
+        amount_jpy?: (number|null);
+    }
+
+    /** Represents a DailyPayment. */
+    class DailyPayment implements IDailyPayment {
+
+        /**
+         * Constructs a new DailyPayment.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.IDailyPayment);
+
+        /** DailyPayment id. */
+        public id: string;
+
+        /** DailyPayment student_account_id. */
+        public student_account_id: string;
+
+        /** DailyPayment date. */
+        public date: number;
+
+        /** DailyPayment amount_jpy. */
+        public amount_jpy: number;
+
+        /**
+         * Encodes the specified DailyPayment message. Does not implicitly {@link main.DailyPayment.verify|verify} messages.
+         * @param message DailyPayment message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.IDailyPayment, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified DailyPayment message, length delimited. Does not implicitly {@link main.DailyPayment.verify|verify} messages.
+         * @param message DailyPayment message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.IDailyPayment, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a DailyPayment message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns DailyPayment
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.DailyPayment;
+
+        /**
+         * Decodes a DailyPayment message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns DailyPayment
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.DailyPayment;
+
+        /**
+         * Verifies a DailyPayment message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a DailyPayment message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns DailyPayment
+         */
+        public static fromObject(object: { [k: string]: any }): main.DailyPayment;
+
+        /**
+         * Creates a plain object from a DailyPayment message. Also converts values to other types if specified.
+         * @param message DailyPayment
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.DailyPayment, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this DailyPayment to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a DailyUsage. */
     interface IDailyUsage {
 
