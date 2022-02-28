@@ -47,7 +47,6 @@ export class CreateComponent implements OnInit {
       alert('自分を宛先にはできません');
       return;
     }
-    console.log(this.user?.id!);
     this.appSubmit.emit({
       title: title,
       user1_id: this.studentAccount?.id,
