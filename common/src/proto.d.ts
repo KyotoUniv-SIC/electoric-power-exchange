@@ -1035,11 +1035,17 @@ export namespace main {
         /** DailyPayment student_account_id */
         student_account_id?: (string|null);
 
+        /** DailyPayment year */
+        year?: (number|null);
+
+        /** DailyPayment month */
+        month?: (number|null);
+
         /** DailyPayment date */
         date?: (number|null);
 
-        /** DailyPayment amount_jpy */
-        amount_jpy?: (number|null);
+        /** DailyPayment amount_kwh */
+        amount_kwh?: (number|null);
     }
 
     /** Represents a DailyPayment. */
@@ -1057,11 +1063,17 @@ export namespace main {
         /** DailyPayment student_account_id. */
         public student_account_id: string;
 
+        /** DailyPayment year. */
+        public year: number;
+
+        /** DailyPayment month. */
+        public month: number;
+
         /** DailyPayment date. */
         public date: number;
 
-        /** DailyPayment amount_jpy. */
-        public amount_jpy: number;
+        /** DailyPayment amount_kwh. */
+        public amount_kwh: number;
 
         /**
          * Encodes the specified DailyPayment message. Does not implicitly {@link main.DailyPayment.verify|verify} messages.

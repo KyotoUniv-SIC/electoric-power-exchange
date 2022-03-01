@@ -11,5 +11,5 @@ message DailyPayment{
   double year = 3;
   double month = 4;
   double date = 5;
-  double amount_jpy = 6;
+  double amount_kwh = 6;
 }
