@@ -8,6 +8,8 @@ option (google.firebase.rules.firebase_rules).full_package_names = true;
 message DailyPayment{
   string id = 1;
   string student_account_id = 2;
-  double date = 3;
-  double amount_jpy = 4;
+  double year = 3;
+  double month = 4;
+  double date = 5;
+  double amount_jpy = 6;
 }
