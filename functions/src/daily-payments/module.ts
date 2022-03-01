@@ -3,10 +3,10 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 /* eslint-disable require-jsdoc */
-import * as admin from 'firebase-admin';
 import { DailyPayment, DailyPaymentFirestore } from '@local/common';
+import * as admin from 'firebase-admin';
 
-export * from './controller'
+export * from './controller';
 
 export function collection(studentAccountID: string) {
   return admin
@@ -39,9 +39,7 @@ export async function list(studentAccountID: string) {
     .then((snapshot) => snapshot.docs.map((doc) => doc.data() as DailyPayment));
 }
 
-export async function create(
-  data: DailyPayment
-) {
+export async function create(data: DailyPayment) {
   const doc = document(data.student_account_iddata.id);
   data.id = doc.id;
 
@@ -52,9 +50,8 @@ export async function create(
   await doc.set(data);
 }
 
-export async function update(
-  data: Partial<DailyPayment> & { id: string }
-) {
+// eslint-disable-next-line camelcase
+export async function update(data: Partial<DailyPayment> & { id: string } & { student_account_id: string }) {
   const now = admin.firestore.Timestamp.now();
   data.updated_at = now;
 
