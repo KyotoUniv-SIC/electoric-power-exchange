@@ -40,7 +40,7 @@ export async function list(studentAccountID: string) {
 }
 
 export async function create(data: DailyPayment) {
-  const doc = document(data.student_account_iddata.id);
+  const doc = document(data.student_account_id);
   data.id = doc.id;
 
   const now = admin.firestore.Timestamp.now();
