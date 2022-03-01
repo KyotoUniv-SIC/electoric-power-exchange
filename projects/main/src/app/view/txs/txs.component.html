@@ -1,5 +1,5 @@
 <div class="w-full lg:mx-auto lg:w-1/3 lg:mt-10">
-  <h1>Transactions</h1>
+  <h2>Transactions</h2>
   <mat-card class="mb-20">
     <mat-card-title>Transaction Menu</mat-card-title>
     <mat-card-content>
@@ -124,8 +124,24 @@
             routerLink="/txs/history/{{ powerType(history.is_solar) }}/{{ txType(history.is_bid) }}/{{ history.id }}"
           >
             <div class="flex-auto">
-              <span class="column-name font-bold">Date : </span>
               <span class="column-value font-bold">{{ history.date | date: 'yy/MM/dd HH:mm' }}</span>
+            </div>
+            <div class="flex-auto">
+              <ng-container *ngIf="history.is_accepted === true; then accept; else reject"></ng-container>
+              <ng-template #accept>
+                <mat-chip-list>
+                  <mat-chip color="primary" selected>Accepted</mat-chip>
+                </mat-chip-list>
+              </ng-template>
+              <ng-template #reject>
+                <mat-chip-list>
+                  <mat-chip color="warn" selected>Rejected</mat-chip>
+                </mat-chip-list>
+              </ng-template>
+            </div>
+            <div class="flex-auto">
+              <span class="font-bold">Contract Price : </span>
+              <span class="font-bold">{{ history.contract_price }}</span>
             </div>
           </mat-list-item>
           <mat-list-item
@@ -155,7 +171,6 @@
               <div class="flex-auto">
                 <span class="font-bold">amount : </span>
                 <span class="font-bold">{{ history.amount }}</span>
-                <span class="font-bold">SPX</span>
               </div>
             </ng-template>
 
@@ -181,31 +196,12 @@
               <div class="flex-auto">
                 <span class="font-bold">amount : </span>
                 <span class="font-bold">{{ history.amount }}</span>
-                <span class="font-bold">UPX</span>
               </div>
             </ng-template>
 
             <div class="flex-auto">
               <span class="font-bold">Price : </span>
               <span class="font-bold">{{ history.price }}</span>
-              <span class="font-bold">JPY</span>
-            </div>
-            <div class="flex-auto">
-              <span class="font-bold">Contract Price : </span>
-              <span class="font-bold">{{ history.contract_price }}</span>
-            </div>
-            <div class="flex-auto">
-              <ng-container *ngIf="history.is_accepted === true; then accept; else reject"></ng-container>
-              <ng-template #accept>
-                <mat-chip-list>
-                  <mat-chip color="primary" selected>Accepted</mat-chip>
-                </mat-chip-list>
-              </ng-template>
-              <ng-template #reject>
-                <mat-chip-list>
-                  <mat-chip color="warn" selected>Rejected</mat-chip>
-                </mat-chip-list>
-              </ng-template>
             </div>
           </mat-list-item>
           <mat-divider [inset]="true"></mat-divider>

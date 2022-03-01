@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>manual0225.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="edison-%E6%A6%82%E8%A6%81">EDISON 概要</h1>
+<p>2022/02/26 <a href="https://cauchye.com/">株式会社 CauchyE</a> 大村瀬奈 作成</p>
+<h2 id="edison-%E4%B8%BB%E8%A6%81%E7%94%BB%E9%9D%A2">EDISON 主要画面</h2>
+<p>EDISON のテスト(2022/02/21-26)時点での EDISON の主要な画面の説明です。本番環境では異なる可能性があります。</p>
+<h3 id="%E3%83%88%E3%83%83%E3%83%97%E3%83%9A%E3%83%BC%E3%82%B8">トップページ</h3>
+<p>EDISON プロジェクトのランディングページです。ソーシャルイノベーションセンター、CauchyE の WEB サイト、GitHub ページのリンクに加え、EDISON の簡単な説明を記載しています。</p>
+<img src='lp.png' width=50%>
+<h3 id="%E7%99%BB%E9%8C%B2%E7%94%BB%E9%9D%A2">登録画面</h3>
+<p>アカウント作成画面です。名前（4 文字以上なら大体の形式が可能）、メールアドレス、パスワードを入力してアカウントを作成するためのページです。ログインしていない場合は上のヘッダーから、また、トップページのリンクからもアクセス可能です。</p>
+<img src='accounts-create.png' width=50%>
+<h3 id="%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3%E7%94%BB%E9%9D%A2">ログイン画面</h3>
+<p>すでにアカウントを作成している場合、ログインするためのページです。ログインしていない場合は上のヘッダーからアクセス可能です。メールアドレスとパスワードを入力してログインします。</p>
+<img src='accounts-enter.png' width=50%>
+<h3 id="%E3%82%A2%E3%82%AB%E3%82%A6%E3%83%B3%E3%83%88%E3%81%AE%E6%A9%9F%E8%83%BD">アカウントの機能</h3>
+<h4 id="%E3%82%A2%E3%82%AB%E3%82%A6%E3%83%B3%E3%83%88%E7%AE%A1%E7%90%86%E7%94%BB%E9%9D%A2">アカウント管理画面</h4>
+<p>アカウントの情報、残高に加え、今までの電気料金の月額を確認できるページです。
+Room ID をクリックすると部屋番号を設定するページに、XRP Address をクリックすると次項の XRP Ledger のページに遷移します。</p>
+<img src='accounts-account.png' width=50%>
+<h4 id="xrp-ledger">XRP Ledger</h4>
+<p>現在ログインしているアカウントの XRP Ledger ブロックチェーン上に記録されている情報をリアルタイムで取得するページです。
+KUINS のセキュリティルールの問題で KUINS-Air 経由では情報の取得ができません。</p>
+<ul>
+<li>Account on EDISON
+EDISON に記録されている XRP Adress の情報</li>
+<li>EDISON Token Balance
+どのくらいの量の UPX・SPX を保有しているか</li>
+<li>XRP Balance
+成約した取引を実行する際に手数料として使用される XRP の残高
+ごく少量の XRP が使用されます。</li>
+</ul>
+<img src='accounts-xrpl.png' width=50%>
+<h3 id="%E3%83%80%E3%83%83%E3%82%B7%E3%83%A5%E3%83%9C%E3%83%BC%E3%83%89">ダッシュボード</h3>
+<p>EDISON における重要な情報を一括で閲覧できるダッシュボードのページです。
+以下の項目についてこのページで確認することができます。</p>
+<ul>
+<li>現在のアカウントの残高</li>
+<li>直近の取引価格</li>
+<li>今月の電気使用量（個人・全体）</li>
+<li>電気使用量のランキング</li>
+<li>保有しているトークンの割合（個人・全体）</li>
+<li>月間の電気使用量の推移（前年・本年）</li>
+</ul>
+<img src='dashboard.png' width=50%>
+<h3 id="%E3%83%88%E3%83%A9%E3%83%B3%E3%82%B6%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3%E7%94%BB%E9%9D%A2">トランザクション画面</h3>
+<h4 id="%E3%83%88%E3%83%A9%E3%83%B3%E3%82%B6%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3%E4%B8%80%E8%A6%A7">トランザクション一覧</h4>
+<p>トークンの売り注文・買い注文を行うページへのリンクに加え、以下の情報を確認することが可能なページです。</p>
+<ul>
+<li>
+<p>本日の注文</p>
+<ul>
+<li>売り注文</li>
+<li>買い注文</li>
+</ul>
+</li>
+<li>
+<p>今までの注文の履歴</p>
+<ul>
+<li>売り注文（成約したのかどうか）</li>
+<li>買い注文（成約したのかどうか）</li>
+<li>月初のトークン付与</li>
+</ul>
+</li>
+</ul>
+<p>各注文や注文の履歴をクリックすることで詳細な情報を表示するページに遷移します。注文は取り消すことも可能です。</p>
+<img src='txs.png' width=50%>
+<h4 id="%E8%B2%B7%E3%81%84%E6%B3%A8%E6%96%87%E7%94%BB%E9%9D%A2">買い注文画面</h4>
+<p>買い注文を行うことができるページです。自分が今回の取引で利用可能な残高（UPX, SPX, ある場合は残高不足）と最新の取引価格が表示され、トークンの種類と価格、数量を決めて売り注文を発行できます。</p>
+<img src='txs-buy.png' width=50%>
+<h4 id="%E5%A3%B2%E3%82%8A%E6%B3%A8%E6%96%87%E7%94%BB%E9%9D%A2">売り注文画面</h4>
+<p>売り注文を行うことができるページです。表示されている内容は買い注文のページと同様ですが、電力使用量に相当する残高引き落としの都合で、0-11 時は売り注文を行う事ができません。</p>
+<img src='txs-buy.png' width=50%>
+<h3 id="%E9%80%9A%E7%9F%A5%E7%94%BB%E9%9D%A2">通知画面</h3>
+<h4 id="%E4%B8%80%E8%A6%A7%E7%94%BB%E9%9D%A2">一覧画面</h4>
+<p>自分宛てのメッセージの一覧画面です。
+メッセージのタイトルと宛先の確認と新規メッセージの作成が可能です。</p>
+<img src='chats.png' width=50%>
+<h4 id="%E8%A9%B3%E7%B4%B0%E7%94%BB%E9%9D%A2">詳細画面</h4>
+<p>メッセージの詳細画面です。いままでのメッセージのやり取りの確認が可能です。メッセージへの返信やメッセージのクローズもこの画面で行います。</p>
+<img src='chats-chat.png' width=50%>
+<h3 id="%E7%AE%A1%E7%90%86%E8%80%85%E7%94%BB%E9%9D%A2">管理者画面</h3>
+<h4 id="%E3%83%80%E3%83%83%E3%82%B7%E3%83%A5%E3%83%9C%E3%83%BC%E3%83%89%E7%AE%A1%E7%90%86%E8%80%85">ダッシュボード（管理者）</h4>
+<p>EDISON の 管理における重要な情報を一括で閲覧できる管理者用のダッシュボードのページです。情報については Download CSV ボタンにより CSV 形式でのダウンロードも可能です。
+以下の項目についてこのページで確認することができます。</p>
+<ul>
+<li>EDISON のすべてのアカウントの合計残高
+<ul>
+<li>Download CSV で個別の残高情報を取得可能</li>
+</ul>
+</li>
+<li>直近の取引価格</li>
+<li>現在の入札状況
+<ul>
+<li>Download CSV ですべての入札の詳細な情報を取得可能</li>
+</ul>
+</li>
+<li>電気使用量のランキング</li>
+<li>月間の合計電気使用量の推移（前年・本年）
+<ul>
+<li>Download CSV で詳細な使用量情報を取得可能</li>
+</ul>
+</li>
+</ul>
+<img src='admin-dashboard.png' width=50%>
+<h4 id="xrp-ledger%E7%AE%A1%E7%90%86%E8%80%85">XRP Ledger（管理者）</h4>
+<p>管理者アカウントの XRP Ledger ブロックチェーン上に記録されている情報をリアルタイムで取得するページです。
+以下の内容について表示されています。
+KUINS のセキュリティルールの問題で KUINS-Air 経由では情報の取得ができません。</p>
+<ul>
+<li>EDISON Token Hot Wallet Balance
+システムがあと、どのくらいのトークンを発行できるか</li>
+<li>EDISON Token Cold Wallet Balance
+誰がどのくらいの量の UPX・SPX を保有しているか</li>
+<li>XRP Hot Wallet Balance
+学生との間でシステムが取引をする際に手数料として使用される XRP の残高</li>
+<li>XRP Cold Wallet Balance
+トークンを追加発行する場合に手数料として使用される XRP の残高</li>
+</ul>
+<img src='admin-xrpl.png' width=50%>
+
+</body>
+</html>

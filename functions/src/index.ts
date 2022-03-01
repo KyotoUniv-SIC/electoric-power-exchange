@@ -6,7 +6,7 @@ import './balance-snapshots/market-status';
 import './balances/daily-usage';
 import './balances/normal-settlement';
 import './balances/primary';
-import './balances/renewable-settlemet';
+import './balances/renewable-settlement';
 import './balances/student-account';
 import './chats/chat-delete';
 import './messages/message-delete';

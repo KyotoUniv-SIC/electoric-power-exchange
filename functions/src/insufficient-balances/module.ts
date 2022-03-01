@@ -39,6 +39,21 @@ export async function list(studentAccountID: string) {
     .then((snapshot) => snapshot.docs.map((doc) => doc.data() as InsufficientBalance));
 }
 
+export async function listThisMonth(studentAccountID: string) {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const first = new Date();
+  first.setDate(1);
+  first.setHours(0, 0, 0, 0);
+
+  return await collection(studentAccountID)
+    .orderBy('created_at', 'desc')
+    .where('created_at', '<', today)
+    .where('created_at', '>', first)
+    .get()
+    .then((snapshot) => snapshot.docs.map((doc) => doc.data() as InsufficientBalance));
+}
+
 export async function listLastMonth(studentAccountID: string) {
   const today = new Date();
   today.setHours(0, 0, 0, 0);

@@ -20,7 +20,7 @@
   "dependencies": {
     "@local/common": "file:common",
     "firebase-admin": "^9.11.1",
-    "firebase-functions": "^3.16.0",
+    "firebase-functions": "^3.18.1",
     "xrpl": "^2.1.1"
   },
   "devDependencies": {
