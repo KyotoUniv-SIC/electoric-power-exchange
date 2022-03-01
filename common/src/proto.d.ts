@@ -1026,6 +1026,101 @@ export namespace main {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a CostSetting. */
+    interface ICostSetting {
+
+        /** CostSetting id */
+        id?: (string|null);
+
+        /** CostSetting system */
+        system?: (number|null);
+
+        /** CostSetting electricity */
+        electricity?: (number|null);
+    }
+
+    /** Represents a CostSetting. */
+    class CostSetting implements ICostSetting {
+
+        /**
+         * Constructs a new CostSetting.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.ICostSetting);
+
+        /** CostSetting id. */
+        public id: string;
+
+        /** CostSetting system. */
+        public system: number;
+
+        /** CostSetting electricity. */
+        public electricity: number;
+
+        /**
+         * Encodes the specified CostSetting message. Does not implicitly {@link main.CostSetting.verify|verify} messages.
+         * @param message CostSetting message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.ICostSetting, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified CostSetting message, length delimited. Does not implicitly {@link main.CostSetting.verify|verify} messages.
+         * @param message CostSetting message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.ICostSetting, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a CostSetting message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns CostSetting
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.CostSetting;
+
+        /**
+         * Decodes a CostSetting message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns CostSetting
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.CostSetting;
+
+        /**
+         * Verifies a CostSetting message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a CostSetting message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns CostSetting
+         */
+        public static fromObject(object: { [k: string]: any }): main.CostSetting;
+
+        /**
+         * Creates a plain object from a CostSetting message. Also converts values to other types if specified.
+         * @param message CostSetting
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.CostSetting, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this CostSetting to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a DailyUsage. */
     interface IDailyUsage {
 
@@ -4120,113 +4215,6 @@ export namespace main {
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a SolarPower. */
-    interface ISolarPower {
-
-        /** SolarPower id */
-        id?: (string|null);
-
-        /** SolarPower student_account_id */
-        student_account_id?: (string|null);
-
-        /** SolarPower amount_kwh */
-        amount_kwh?: (number|null);
-
-        /** SolarPower price */
-        price?: (number|null);
-
-        /** SolarPower denom */
-        denom?: (string|null);
-    }
-
-    /** Represents a SolarPower. */
-    class SolarPower implements ISolarPower {
-
-        /**
-         * Constructs a new SolarPower.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: main.ISolarPower);
-
-        /** SolarPower id. */
-        public id: string;
-
-        /** SolarPower student_account_id. */
-        public student_account_id: string;
-
-        /** SolarPower amount_kwh. */
-        public amount_kwh: number;
-
-        /** SolarPower price. */
-        public price: number;
-
-        /** SolarPower denom. */
-        public denom: string;
-
-        /**
-         * Encodes the specified SolarPower message. Does not implicitly {@link main.SolarPower.verify|verify} messages.
-         * @param message SolarPower message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: main.ISolarPower, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Encodes the specified SolarPower message, length delimited. Does not implicitly {@link main.SolarPower.verify|verify} messages.
-         * @param message SolarPower message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: main.ISolarPower, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Decodes a SolarPower message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns SolarPower
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.SolarPower;
-
-        /**
-         * Decodes a SolarPower message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns SolarPower
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.SolarPower;
-
-        /**
-         * Verifies a SolarPower message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a SolarPower message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns SolarPower
-         */
-        public static fromObject(object: { [k: string]: any }): main.SolarPower;
-
-        /**
-         * Creates a plain object from a SolarPower message. Also converts values to other types if specified.
-         * @param message SolarPower
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: main.SolarPower, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this SolarPower to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
     /** Properties of a StudentAccount. */
     interface IStudentAccount {
 
@@ -4346,131 +4334,6 @@ export namespace main {
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a Transaction. */
-    interface ITransaction {
-
-        /** Transaction status */
-        status?: (boolean|null);
-
-        /** Transaction id */
-        id?: (string|null);
-
-        /** Transaction sender_account_id */
-        sender_account_id?: (string|null);
-
-        /** Transaction sender_xrp_address */
-        sender_xrp_address?: (string|null);
-
-        /** Transaction recipient_account_id */
-        recipient_account_id?: (string|null);
-
-        /** Transaction recipient_xrp_address */
-        recipient_xrp_address?: (string|null);
-
-        /** Transaction amount */
-        amount?: (number|null);
-
-        /** Transaction denom */
-        denom?: (string|null);
-    }
-
-    /** Represents a Transaction. */
-    class Transaction implements ITransaction {
-
-        /**
-         * Constructs a new Transaction.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: main.ITransaction);
-
-        /** Transaction status. */
-        public status: boolean;
-
-        /** Transaction id. */
-        public id: string;
-
-        /** Transaction sender_account_id. */
-        public sender_account_id: string;
-
-        /** Transaction sender_xrp_address. */
-        public sender_xrp_address: string;
-
-        /** Transaction recipient_account_id. */
-        public recipient_account_id: string;
-
-        /** Transaction recipient_xrp_address. */
-        public recipient_xrp_address: string;
-
-        /** Transaction amount. */
-        public amount: number;
-
-        /** Transaction denom. */
-        public denom: string;
-
-        /**
-         * Encodes the specified Transaction message. Does not implicitly {@link main.Transaction.verify|verify} messages.
-         * @param message Transaction message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: main.ITransaction, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Encodes the specified Transaction message, length delimited. Does not implicitly {@link main.Transaction.verify|verify} messages.
-         * @param message Transaction message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: main.ITransaction, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Decodes a Transaction message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns Transaction
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.Transaction;
-
-        /**
-         * Decodes a Transaction message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns Transaction
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.Transaction;
-
-        /**
-         * Verifies a Transaction message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a Transaction message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns Transaction
-         */
-        public static fromObject(object: { [k: string]: any }): main.Transaction;
-
-        /**
-         * Creates a plain object from a Transaction message. Also converts values to other types if specified.
-         * @param message Transaction
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: main.Transaction, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this Transaction to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
     /** Properties of a User. */
     interface IUser {
 
@@ -4561,113 +4424,6 @@ export namespace main {
 
         /**
          * Converts this User to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of an UtilityPower. */
-    interface IUtilityPower {
-
-        /** UtilityPower id */
-        id?: (string|null);
-
-        /** UtilityPower student_account_id */
-        student_account_id?: (string|null);
-
-        /** UtilityPower amount_kwh */
-        amount_kwh?: (number|null);
-
-        /** UtilityPower price */
-        price?: (number|null);
-
-        /** UtilityPower denom */
-        denom?: (string|null);
-    }
-
-    /** Represents an UtilityPower. */
-    class UtilityPower implements IUtilityPower {
-
-        /**
-         * Constructs a new UtilityPower.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: main.IUtilityPower);
-
-        /** UtilityPower id. */
-        public id: string;
-
-        /** UtilityPower student_account_id. */
-        public student_account_id: string;
-
-        /** UtilityPower amount_kwh. */
-        public amount_kwh: number;
-
-        /** UtilityPower price. */
-        public price: number;
-
-        /** UtilityPower denom. */
-        public denom: string;
-
-        /**
-         * Encodes the specified UtilityPower message. Does not implicitly {@link main.UtilityPower.verify|verify} messages.
-         * @param message UtilityPower message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: main.IUtilityPower, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Encodes the specified UtilityPower message, length delimited. Does not implicitly {@link main.UtilityPower.verify|verify} messages.
-         * @param message UtilityPower message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: main.IUtilityPower, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Decodes an UtilityPower message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns UtilityPower
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.UtilityPower;
-
-        /**
-         * Decodes an UtilityPower message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns UtilityPower
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.UtilityPower;
-
-        /**
-         * Verifies an UtilityPower message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates an UtilityPower message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns UtilityPower
-         */
-        public static fromObject(object: { [k: string]: any }): main.UtilityPower;
-
-        /**
-         * Creates a plain object from an UtilityPower message. Also converts values to other types if specified.
-         * @param message UtilityPower
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: main.UtilityPower, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this UtilityPower to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
