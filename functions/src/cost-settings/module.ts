@@ -3,10 +3,10 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 /* eslint-disable require-jsdoc */
-import * as admin from 'firebase-admin';
 import { CostSetting, CostSettingFirestore } from '@local/common';
+import * as admin from 'firebase-admin';
 
-export * from './controller'
+export * from './controller';
 
 export function collection() {
   return admin
@@ -33,15 +33,20 @@ export async function get(id: string) {
     .then((snapshot) => snapshot.data() as CostSetting | undefined);
 }
 
+export async function getLatest() {
+  return await collection()
+    .orderBy('created_at', 'desc')
+    .get()
+    .then((snapshot) => snapshot.docs.map((doc) => doc.data() as CostSetting)[0]);
+}
+
 export async function list() {
   return await collection()
     .get()
     .then((snapshot) => snapshot.docs.map((doc) => doc.data() as CostSetting));
 }
 
-export async function create(
-  data: CostSetting
-) {
+export async function create(data: CostSetting) {
   const doc = document(data.id);
   data.id = doc.id;
 
@@ -52,9 +57,7 @@ export async function create(
   await doc.set(data);
 }
 
-export async function update(
-  data: Partial<CostSetting> & { id: string }
-) {
+export async function update(data: Partial<CostSetting> & { id: string }) {
   const now = admin.firestore.Timestamp.now();
   data.updated_at = now;
 
