@@ -114,4 +114,60 @@
       </div>
     </mat-card>
   </form>
+
+  <mat-card class="mt-20 mb-10">
+    <mat-card-title>System Cost Settings</mat-card-title>
+    <mat-card-content>
+      <p>
+        Set the cost of the EDISON system to be used for month-end reimbursement and the electricity rate the university will pay to the
+        power company.
+      </p>
+    </mat-card-content>
+    <ng-container *ngIf="costSetting === null; then loading; else loadedCost"></ng-container>
+    <ng-template #loadedCost>
+      <mat-list>
+        <mat-list-item class="flex flex-wrap">
+          <span class="break-all">EDISON System Cost:</span>
+          <span class="flex-auto break-all"></span>
+          <span class="break-all">{{ costSetting?.system }} JPY</span>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
+        <mat-list-item class="flex flex-wrap">
+          <span class="break-all">Electricity Cost:</span>
+          <span class="flex-auto break-all"></span>
+          <span class="break-all">{{ costSetting?.electricity }} JPY</span>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
+      </mat-list>
+    </ng-template>
+  </mat-card>
+
+  <form (submit)="onSubmitCost(systemRef.value, electricityRef.value)">
+    <mat-card class="mb-10">
+      <mat-card-title>Change Cost Settings</mat-card-title>
+      <mat-list>
+        <mat-list-item style="height: auto" class="flex flex-wrap">
+          <span class="break-all">System Cost Price:</span>
+          <span class="flex-auto break-all"></span>
+          <mat-form-field class="break-all">
+            <mat-label>Input Number</mat-label>
+            <input #systemRef matInput type="number" name="system" required />
+          </mat-form-field>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
+        <mat-list-item style="height: auto" class="flex flex-wrap">
+          <span class="break-all">Electricity Cost Price:</span>
+          <span class="flex-auto break-all"></span>
+          <mat-form-field class="break-all">
+            <mat-label>Input Number</mat-label>
+            <input #electricityRef matInput type="number" name="electricity" required />
+          </mat-form-field>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
+      </mat-list>
+      <div class="text-center mt-10">
+        <button mat-flat-button color="accent">Submit</button>
+      </div>
+    </mat-card>
+  </form>
 </div>
