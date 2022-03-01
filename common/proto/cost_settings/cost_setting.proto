@@ -1,0 +1,12 @@
+syntax = "proto3";
+package main;
+
+import "firebase_rules_options.proto";
+
+option (google.firebase.rules.firebase_rules).full_package_names = true;
+
+message CostSetting {
+  string id = 1;
+  double system = 2;
+  double electricity = 3;
+}
