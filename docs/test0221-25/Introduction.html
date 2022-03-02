@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Introduction.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="kyotouniv-sic-edison-introduction">KyotoUniv-SIC EDISON Introduction</h1>
+<p><a href="https://edison-dev-1c1b5.web.app/">https://edison-dev-1c1b5.web.app/</a></p>
+<h2 id="%E3%82%A2%E3%82%AB%E3%82%A6%E3%83%B3%E3%83%88%E9%96%8B%E8%A8%AD">アカウント開設</h2>
+<h3 id="%E3%82%A2%E3%82%AB%E3%82%A6%E3%83%B3%E3%83%88%E3%81%AE%E4%BD%9C%E6%88%90">アカウントの作成</h3>
+<p>下記のページにアクセスし、アカウントを作成します。Name は他の人からわかりやすい名前を入れてください。E-mail はメール認証があるため、メールを確認することができる有効なメールアドレスを入力する必要があります。次に 8 文字以上の Password を設定してください。</p>
+<p><a href="https://edison-dev-1c1b5.web.app/accounts/create">https://edison-dev-1c1b5.web.app/accounts/create</a></p>
+<p>メールアドレスとパスワードがログインする際に必要なものになります。</p>
+<p>次回以降は以下のページよりログインができます。</p>
+<p><a href="https://edison-dev-1c1b5.web.app/accounts/enter">https://edison-dev-1c1b5.web.app/accounts/enter</a></p>
+<p>ログアウトはページ上部の EDISON のバーの右端のボタンでログアウトできます。</p>
+<p>アカウントを作成すると、Account Detail のページに遷移します。しばらく待っていると、Display Name や、XRP Address などの情報が表示されます。</p>
+<h3 id="%E9%83%A8%E5%B1%8B%E7%95%AA%E5%8F%B7%E3%81%AE%E8%A8%AD%E5%AE%9A">部屋番号の設定</h3>
+<p>アカウント詳細ページの Room ID をクリックすると、部屋番号の設定に移ります。本来であればここで自分の所属する寮と部屋番号を設定していただきますが、今回のテストでは以下の部屋番号のうち、自分の使用量が設定されている部屋を選択してください。</p>
+<ul>
+<li>東一条館 101 5kWh/day (楠本・ゼルダ・新藤)</li>
+<li>東一条館 102 10kWh/day (大木)</li>
+<li>東一条館 103 15kWh/day (佐田)</li>
+</ul>
+<p>部屋番号を入力し、Submit を押し、暫く待つと Currently Registered Room のところに higashi10X と表示されるので、これで部屋番号の設定は完了です。</p>
+<h3 id="%E3%83%A1%E3%83%BC%E3%83%AB%E3%82%A2%E3%83%89%E3%83%AC%E3%82%B9%E3%81%AE%E7%A2%BA%E8%AA%8D">メールアドレスの確認</h3>
+<p>アカウント作成の際に入力したメールアドレスに認証メールが送られているので、メール内リンクをクリックして認証してください。この作業のあと、EDISON を開いているページを再読み込みすると Account Verified の項が Verified になります。</p>
+<p>この状態にすることで、EDISON の各種機能が利用可能になります。</p>
+<div style="page-break-before:always"></div>
+<h2 id="edison-%E3%81%AE%E5%90%84%E7%A8%AE%E6%A9%9F%E8%83%BD">EDISON の各種機能</h2>
+<p>EDISON には以下の機能があります。各種機能にはページ上部 EDISON バーの左端のハンバーガーアイコンよりアクセス可能です。</p>
+<ul>
+<li>Home</li>
+<li>Dashboard</li>
+<li>Transactions
+<ul>
+<li>Buy Token</li>
+<li>Sell Token</li>
+</ul>
+</li>
+<li>Chat</li>
+<li>Account Info
+<ul>
+<li>XRP Ledger</li>
+</ul>
+</li>
+</ul>
+<p>以下、各種機能について簡単な説明です。</p>
+<h3 id="home">Home</h3>
+<p>KyotoUniv-SIC EDION のランディングページです。EDISON の説明の他、このアプリで取引を行うトークンである UPX・SPX の説明などを記載しています。</p>
+<h3 id="dashboard">Dashboard</h3>
+<p>EDISON の各種情報が確認可能なダッシュボードです。ここでは以下の情報が確認可能です。</p>
+<ul>
+<li>アカウントが持っているトークンの残高</li>
+<li>UPX・SPX トークンの最新の取引価格</li>
+<li>今月の電気使用量
+<ul>
+<li>自分の電気使用量</li>
+<li>平均電気使用量</li>
+<li>ランキング</li>
+</ul>
+</li>
+<li>UPX・SPX トークンの内訳
+<ul>
+<li>自分の所有しているトークンの内訳</li>
+<li>EDISON 利用者全体の内訳</li>
+</ul>
+</li>
+<li>電気使用量の月次データの推移</li>
+</ul>
+<h4 id="account-balance">Account Balance</h4>
+<p>自分が所有しているアカウントの残高です。UPX は電力会社の電気を 1kWh 使用する権利のトークン、SPX はソーラーの電気を 1kWh 使用する権利のトークンです。毎日、10 時ごろに前日使用した電気の量と同量のトークンが SPX を優先して消費されます。</p>
+<p>もし、残高がこの消費よりも少ない場合には、UPX・SPX の残高がマイナスになるのではなく、Insufficient Balance として足りなかったトークン数が記録されます。
+これは月末の精算 (テストでは 26 日)の精算の際に使用され、これを上回る量のトークンを保有していた場合、相殺して当月の電気料金が計算されます。</p>
+<div style="page-break-before:always"></div>
+<h4 id="latest-contract-price">Latest Contract Price</h4>
+<p>最新のシングルプライスオークションの約定価格と約定取引量が表示されます。
+Market Date は基本的に前日となりますが、もし約定した取引がなかった場合、過去に遡って最新の約定価格と約定取引量が表示されています。</p>
+<h4 id="this-months-usage">This Month's Usage</h4>
+<p>自身の当月の合計電気使用量と学生寮全体の平均使用量が表示されています。平均は学生寮 74 部屋すべての平均値です。（テストではこれにダミーの部屋 3 部屋も含まれています。）</p>
+<h4 id="monthly-electricity-usages">Monthly Electricity Usages</h4>
+<p>前年と今年の月間電気使用量がグラフで表示されます。テストでは 2 月のところにすでに 15kWh が表示されています。これをベースに今回のテストでの各々の電気使用量を設定しています。</p>
+<h3 id="transactions">Transactions</h3>
+<p>EDISON の今回のテストではアカウント作成時に 15UPX トークンが 27 円/UPX で付与されます。
+これは前月と同じ電気使用量のユーザーによっては十分なトークンですが、前月の 2 倍、3 倍使用するユーザーにとっては足りない量です。そのため、取引を行いトークンを取得する必要があります。
+もし、トークンが余った状態やトークンが不足する状態で精算を迎えた場合はそれぞれ割り引かれて計算されます。詳細については添付資料を御覧ください。</p>
+<p>オークションについてはブラインド入札のシングルプライスオークションとなっています。詳細については省きますが、大まかには以下のとおりです。</p>
+<ul>
+<li>それぞれの売り手の応札情報から作成した売り応札曲線</li>
+<li>それぞれの買い手の応札情報から作成した買い応札曲線</li>
+</ul>
+<p>これら二つの曲線の交点で落札価格と落札量が決まります。交点より左側にある応札（落札価格より安値の売りと落札価格より高値の買い）はすべて成約し、交点より右側の考察は全て成約されません。</p>
+<p><img src="spa.png" alt="Single Price Auction"></p>
+<div style="page-break-before:always"></div>
+<p>買い注文（Bid）は 24 時間作成できますが、電気使用量の引き落としの都合から、現状、売り注文（Ask）を 0 時から 11 時の間は作成することはできません。
+シングルプライスオークションは毎日 0 時に実施され、約定価格と約定取引量が決定され、それぞれの取引が実行されます。</p>
+<h4 id="transactions-%E5%90%84%E7%A8%AE%E8%A1%A8%E7%A4%BA">Transactions 各種表示</h4>
+<ul>
+<li>Order</li>
+</ul>
+<p>当日に作成した買い注文と売り注文が表示されます。クリックすることで詳細ページに飛び、削除が可能です。</p>
+<p>翌日 0 時のシングルプライスオークションにはここに表示されている Bid, Ask が対象になります。</p>
+<ul>
+<li>History</li>
+</ul>
+<p>Bid, Ask がどのように処理されたかの履歴です。成約した場合は Accepted、成約しなかった場合は Rejected と表示されます。Contract Price（成約価格）も表示されますが、オークションの特性上、同じ価格でも成約しない取引が発生します。</p>
+<p>月初のトークン付与、アカウント作成時のトークン付与は Bid の履歴として表示されます。詳細には Primary Transaction と表示されます。</p>
+<h4 id="buy-sell-tokens">Buy, Sell Tokens</h4>
+<p>トークンのシングルプライスオークションに関する買い注文（Bid）と売り注文（Ask）を作成することができます。
+一番下のカードにトークンの種類と 1 トークンあたりの価格、トークン量を指定し、Request ボタンをクリックすることで作成できます。</p>
+<p>前述のように現在の仕様では 0 時-11 時間売り注文を作成することができないのでご注意ください。
+参加者のほか、管理者が毎日 SPX トークンの売り注文を発行します。（テストでは毎日 4SPX、初日は 27.5 円で一日ごとに 0.1 円増加）UPX トークンは EDISON 全体で不足する際に不足する量のみ売り注文が発行されます。</p>
+<h3 id="chat">Chat</h3>
+<p>EDISON には簡単なチャット機能が実装されています。ユーザーとタイトルを設定し、チャットを開始します。同じユーザーに対し、複数のチャットを作成することも可能です。</p>
+<h3 id="account-info">Account Info</h3>
+<p>大まかにはアカウント作成の項で説明したとおりです。Monthly Payment の項には EDISON が精算した前月までの電気料金が表示されます。</p>
+<h4 id="xrp-ledger">XRP Ledger</h4>
+<p>Account Detail &gt; XRP Address で Ripple のブロックチェーンである XRP Ledger の情報を取得できます。現在は、XRP Ledger のテストネットに接続されます。
+ここでは XRP Ledger に記録されている UPX, SPX の残高と暗号通貨 XRP の残高を確認できます。
+XRP はアカウント作成の際に 1000XRP 付与されています。この XRP はトランザクションを Ripple のブロックチェーンに記録する手数料としてごく少量が消費されます。
+現在テスト中の機能であり、まれに EDISON の残高と一致しないことがあります。</p>
+
+</body>
+</html>
