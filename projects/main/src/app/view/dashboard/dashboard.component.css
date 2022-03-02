@@ -7,3 +7,10 @@ summary:hover {
   cursor: pointer; /* カーソルを指マークに */
   background-color: #EFEFEF;
 }
+
+.spx {
+  color: #b67cb6;
+}
+.upx {
+  color: #6c8fb6;
+}
