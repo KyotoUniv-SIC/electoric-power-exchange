@@ -2,12 +2,15 @@
   <h2>Student Dashboard</h2>
   <mat-card class="mb-20">
     <mat-card-title>Account Balance</mat-card-title>
+    <details>
+    <summary>Read More</summary>
     <mat-card-content>
       <p>UPX is a token that allows you to use 1kwh of electricity from the power company.</p>
       <p>SPX is a token that allows you to use 1kwh of electricity from solar power.</p>
       <p>Every day at around 10:00 a.m., a token for the previous day's electricity usage will be debited, giving priority to the SPX.</p>
       <p>If the token is insufficient, it will be recorded as "Insufficient Balance" and used for reimbursement at the end of the month.</p>
     </mat-card-content>
+    </details>
     <mat-list>
       <mat-list-item class="flex flex-wrap">
         <span class="break-all text-xl">UPX Balance:</span>
@@ -35,10 +38,13 @@
 
   <mat-card class="mb-20">
     <mat-card-title>Latest Contract Price</mat-card-title>
-    <mat-card-content>
-      <p>Displays the latest contracted price.</p>
-      <p>If there were no contract, the last transaction price with constraints will be displayed here.</p>
-    </mat-card-content>
+    <details>
+      <summary>Read More</summary>
+      <mat-card-content>
+        <p>Displays the latest contracted price.</p>
+        <p>If there were no contract, the last transaction price with constraints will be displayed here.</p>
+      </mat-card-content>
+    </details>
     <mat-list>
       <mat-list-item class="flex flex-wrap">
         <span class="break-all text-xl">Latest UPX Price:</span>
@@ -76,10 +82,13 @@
 
   <mat-card class="mb-20">
     <mat-card-title>This Month's Usage</mat-card-title>
-    <mat-card-content>
-      <p>Displays the current month's electricity usage for the rooms associated with your account.</p>
-      <p>It also shows the average usage of all the rooms in the student dormitories.</p>
-    </mat-card-content>
+    <details>
+      <summary>Read More</summary>
+      <mat-card-content>
+        <p>Displays the current month's electricity usage for the rooms associated with your account.</p>
+        <p>It also shows the average usage of all the rooms in the student dormitories.</p>
+      </mat-card-content>
+    </details>
     <mat-list>
       <mat-list-item class="flex flex-wrap">
         <span class="break-all text-xl">Total Usage:</span>
@@ -97,9 +106,12 @@
 
   <mat-card class="mb-20">
     <mat-card-title>Usage Ranking</mat-card-title>
-    <mat-card-content>
-      <p>Displays the ranking of electricity usage.</p>
-    </mat-card-content>
+    <details>
+      <summary>Read More</summary>
+      <mat-card-content>
+        <p>Displays the ranking of electricity usage.</p>
+      </mat-card-content>
+    </details>
     <mat-list>
       <mat-list-item class="flex flex-wrap">
         <span class="break-all text-xl">Your Rank:</span>
@@ -120,9 +132,12 @@
 
   <mat-card class="mb-20">
     <mat-card-title>Energy Sources</mat-card-title>
-    <mat-card-content>
-      <p>Displays a breakdown of the tokens you own and the overall breakdown.</p>
-    </mat-card-content>
+    <details>
+      <summary>Read More</summary>
+      <mat-card-content>
+        <p>Displays a breakdown of the tokens you own and the overall breakdown.</p>
+      </mat-card-content>
+    </details>
     <mat-card-content>Student</mat-card-content>
     <ng-container *ngIf="balanceData === null; then loading; else loadedBalance"></ng-container>
     <ng-template #loading>
@@ -143,9 +158,12 @@
   </mat-card> -->
   <mat-card class="mb-20">
     <mat-card-title>Monthly Electricity Usages</mat-card-title>
-    <mat-card-content>
-      <p>Displays monthly data on electricity usage for this year and last year.</p>
-    </mat-card-content>
+    <details>
+      <summary>Read More</summary>
+      <mat-card-content>
+        <p>Displays monthly data on electricity usage for this year and last year.</p>
+      </mat-card-content>
+    </details>
     <ng-container *ngIf="usageData === null; then loading; else loadedUsage"></ng-container>
     <ng-template #loadedUsage>
       <p>kWh</p>
