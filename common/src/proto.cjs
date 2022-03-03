@@ -2542,6 +2542,226 @@
             return Chat;
         })();
     
+        main.CostSetting = (function() {
+    
+            /**
+             * Properties of a CostSetting.
+             * @memberof main
+             * @interface ICostSetting
+             * @property {string|null} [id] CostSetting id
+             * @property {number|null} [system] CostSetting system
+             * @property {number|null} [electricity] CostSetting electricity
+             */
+    
+            /**
+             * Constructs a new CostSetting.
+             * @memberof main
+             * @classdesc Represents a CostSetting.
+             * @implements ICostSetting
+             * @constructor
+             * @param {main.ICostSetting=} [properties] Properties to set
+             */
+            function CostSetting(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+    
+            /**
+             * CostSetting id.
+             * @member {string} id
+             * @memberof main.CostSetting
+             * @instance
+             */
+            CostSetting.prototype.id = "";
+    
+            /**
+             * CostSetting system.
+             * @member {number} system
+             * @memberof main.CostSetting
+             * @instance
+             */
+            CostSetting.prototype.system = 0;
+    
+            /**
+             * CostSetting electricity.
+             * @member {number} electricity
+             * @memberof main.CostSetting
+             * @instance
+             */
+            CostSetting.prototype.electricity = 0;
+    
+            /**
+             * Encodes the specified CostSetting message. Does not implicitly {@link main.CostSetting.verify|verify} messages.
+             * @function encode
+             * @memberof main.CostSetting
+             * @static
+             * @param {main.ICostSetting} message CostSetting message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            CostSetting.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                if (message.system != null && Object.hasOwnProperty.call(message, "system"))
+                    writer.uint32(/* id 2, wireType 1 =*/17).double(message.system);
+                if (message.electricity != null && Object.hasOwnProperty.call(message, "electricity"))
+                    writer.uint32(/* id 3, wireType 1 =*/25).double(message.electricity);
+                return writer;
+            };
+    
+            /**
+             * Encodes the specified CostSetting message, length delimited. Does not implicitly {@link main.CostSetting.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof main.CostSetting
+             * @static
+             * @param {main.ICostSetting} message CostSetting message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            CostSetting.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+    
+            /**
+             * Decodes a CostSetting message from the specified reader or buffer.
+             * @function decode
+             * @memberof main.CostSetting
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {main.CostSetting} CostSetting
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            CostSetting.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.CostSetting();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.id = reader.string();
+                        break;
+                    case 2:
+                        message.system = reader.double();
+                        break;
+                    case 3:
+                        message.electricity = reader.double();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Decodes a CostSetting message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof main.CostSetting
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {main.CostSetting} CostSetting
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            CostSetting.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+    
+            /**
+             * Verifies a CostSetting message.
+             * @function verify
+             * @memberof main.CostSetting
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            CostSetting.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.id != null && message.hasOwnProperty("id"))
+                    if (!$util.isString(message.id))
+                        return "id: string expected";
+                if (message.system != null && message.hasOwnProperty("system"))
+                    if (typeof message.system !== "number")
+                        return "system: number expected";
+                if (message.electricity != null && message.hasOwnProperty("electricity"))
+                    if (typeof message.electricity !== "number")
+                        return "electricity: number expected";
+                return null;
+            };
+    
+            /**
+             * Creates a CostSetting message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof main.CostSetting
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {main.CostSetting} CostSetting
+             */
+            CostSetting.fromObject = function fromObject(object) {
+                if (object instanceof $root.main.CostSetting)
+                    return object;
+                var message = new $root.main.CostSetting();
+                if (object.id != null)
+                    message.id = String(object.id);
+                if (object.system != null)
+                    message.system = Number(object.system);
+                if (object.electricity != null)
+                    message.electricity = Number(object.electricity);
+                return message;
+            };
+    
+            /**
+             * Creates a plain object from a CostSetting message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof main.CostSetting
+             * @static
+             * @param {main.CostSetting} message CostSetting
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            CostSetting.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.id = "";
+                    object.system = 0;
+                    object.electricity = 0;
+                }
+                if (message.id != null && message.hasOwnProperty("id"))
+                    object.id = message.id;
+                if (message.system != null && message.hasOwnProperty("system"))
+                    object.system = options.json && !isFinite(message.system) ? String(message.system) : message.system;
+                if (message.electricity != null && message.hasOwnProperty("electricity"))
+                    object.electricity = options.json && !isFinite(message.electricity) ? String(message.electricity) : message.electricity;
+                return object;
+            };
+    
+            /**
+             * Converts this CostSetting to JSON.
+             * @function toJSON
+             * @memberof main.CostSetting
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            CostSetting.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            return CostSetting;
+        })();
+    
         main.DailyUsage = (function() {
     
             /**
@@ -5611,9 +5831,9 @@
                 if (message.id != null && Object.hasOwnProperty.call(message, "id"))
                     writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
                 if (message.price != null && Object.hasOwnProperty.call(message, "price"))
-                    writer.uint32(/* id 4, wireType 1 =*/33).double(message.price);
+                    writer.uint32(/* id 2, wireType 1 =*/17).double(message.price);
                 if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
-                    writer.uint32(/* id 5, wireType 1 =*/41).double(message.amount);
+                    writer.uint32(/* id 3, wireType 1 =*/25).double(message.amount);
                 return writer;
             };
     
@@ -5651,10 +5871,10 @@
                     case 1:
                         message.id = reader.string();
                         break;
-                    case 4:
+                    case 2:
                         message.price = reader.double();
                         break;
-                    case 5:
+                    case 3:
                         message.amount = reader.double();
                         break;
                     default:
@@ -7901,9 +8121,9 @@
                 if (message.id != null && Object.hasOwnProperty.call(message, "id"))
                     writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
                 if (message.price != null && Object.hasOwnProperty.call(message, "price"))
-                    writer.uint32(/* id 4, wireType 1 =*/33).double(message.price);
+                    writer.uint32(/* id 2, wireType 1 =*/17).double(message.price);
                 if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
-                    writer.uint32(/* id 5, wireType 1 =*/41).double(message.amount);
+                    writer.uint32(/* id 3, wireType 1 =*/25).double(message.amount);
                 return writer;
             };
     
@@ -7941,10 +8161,10 @@
                     case 1:
                         message.id = reader.string();
                         break;
-                    case 4:
+                    case 2:
                         message.price = reader.double();
                         break;
-                    case 5:
+                    case 3:
                         message.amount = reader.double();
                         break;
                     default:
@@ -10070,270 +10290,6 @@
             return SinglePriceRenewableSettlement;
         })();
     
-        main.SolarPower = (function() {
-    
-            /**
-             * Properties of a SolarPower.
-             * @memberof main
-             * @interface ISolarPower
-             * @property {string|null} [id] SolarPower id
-             * @property {string|null} [student_account_id] SolarPower student_account_id
-             * @property {number|null} [amount_kwh] SolarPower amount_kwh
-             * @property {number|null} [price] SolarPower price
-             * @property {string|null} [denom] SolarPower denom
-             */
-    
-            /**
-             * Constructs a new SolarPower.
-             * @memberof main
-             * @classdesc Represents a SolarPower.
-             * @implements ISolarPower
-             * @constructor
-             * @param {main.ISolarPower=} [properties] Properties to set
-             */
-            function SolarPower(properties) {
-                if (properties)
-                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
-                            this[keys[i]] = properties[keys[i]];
-            }
-    
-            /**
-             * SolarPower id.
-             * @member {string} id
-             * @memberof main.SolarPower
-             * @instance
-             */
-            SolarPower.prototype.id = "";
-    
-            /**
-             * SolarPower student_account_id.
-             * @member {string} student_account_id
-             * @memberof main.SolarPower
-             * @instance
-             */
-            SolarPower.prototype.student_account_id = "";
-    
-            /**
-             * SolarPower amount_kwh.
-             * @member {number} amount_kwh
-             * @memberof main.SolarPower
-             * @instance
-             */
-            SolarPower.prototype.amount_kwh = 0;
-    
-            /**
-             * SolarPower price.
-             * @member {number} price
-             * @memberof main.SolarPower
-             * @instance
-             */
-            SolarPower.prototype.price = 0;
-    
-            /**
-             * SolarPower denom.
-             * @member {string} denom
-             * @memberof main.SolarPower
-             * @instance
-             */
-            SolarPower.prototype.denom = "";
-    
-            /**
-             * Encodes the specified SolarPower message. Does not implicitly {@link main.SolarPower.verify|verify} messages.
-             * @function encode
-             * @memberof main.SolarPower
-             * @static
-             * @param {main.ISolarPower} message SolarPower message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            SolarPower.encode = function encode(message, writer) {
-                if (!writer)
-                    writer = $Writer.create();
-                if (message.id != null && Object.hasOwnProperty.call(message, "id"))
-                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
-                if (message.student_account_id != null && Object.hasOwnProperty.call(message, "student_account_id"))
-                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.student_account_id);
-                if (message.amount_kwh != null && Object.hasOwnProperty.call(message, "amount_kwh"))
-                    writer.uint32(/* id 3, wireType 1 =*/25).double(message.amount_kwh);
-                if (message.price != null && Object.hasOwnProperty.call(message, "price"))
-                    writer.uint32(/* id 4, wireType 1 =*/33).double(message.price);
-                if (message.denom != null && Object.hasOwnProperty.call(message, "denom"))
-                    writer.uint32(/* id 5, wireType 2 =*/42).string(message.denom);
-                return writer;
-            };
-    
-            /**
-             * Encodes the specified SolarPower message, length delimited. Does not implicitly {@link main.SolarPower.verify|verify} messages.
-             * @function encodeDelimited
-             * @memberof main.SolarPower
-             * @static
-             * @param {main.ISolarPower} message SolarPower message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            SolarPower.encodeDelimited = function encodeDelimited(message, writer) {
-                return this.encode(message, writer).ldelim();
-            };
-    
-            /**
-             * Decodes a SolarPower message from the specified reader or buffer.
-             * @function decode
-             * @memberof main.SolarPower
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @param {number} [length] Message length if known beforehand
-             * @returns {main.SolarPower} SolarPower
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            SolarPower.decode = function decode(reader, length) {
-                if (!(reader instanceof $Reader))
-                    reader = $Reader.create(reader);
-                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.SolarPower();
-                while (reader.pos < end) {
-                    var tag = reader.uint32();
-                    switch (tag >>> 3) {
-                    case 1:
-                        message.id = reader.string();
-                        break;
-                    case 2:
-                        message.student_account_id = reader.string();
-                        break;
-                    case 3:
-                        message.amount_kwh = reader.double();
-                        break;
-                    case 4:
-                        message.price = reader.double();
-                        break;
-                    case 5:
-                        message.denom = reader.string();
-                        break;
-                    default:
-                        reader.skipType(tag & 7);
-                        break;
-                    }
-                }
-                return message;
-            };
-    
-            /**
-             * Decodes a SolarPower message from the specified reader or buffer, length delimited.
-             * @function decodeDelimited
-             * @memberof main.SolarPower
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {main.SolarPower} SolarPower
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            SolarPower.decodeDelimited = function decodeDelimited(reader) {
-                if (!(reader instanceof $Reader))
-                    reader = new $Reader(reader);
-                return this.decode(reader, reader.uint32());
-            };
-    
-            /**
-             * Verifies a SolarPower message.
-             * @function verify
-             * @memberof main.SolarPower
-             * @static
-             * @param {Object.<string,*>} message Plain object to verify
-             * @returns {string|null} `null` if valid, otherwise the reason why it is not
-             */
-            SolarPower.verify = function verify(message) {
-                if (typeof message !== "object" || message === null)
-                    return "object expected";
-                if (message.id != null && message.hasOwnProperty("id"))
-                    if (!$util.isString(message.id))
-                        return "id: string expected";
-                if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
-                    if (!$util.isString(message.student_account_id))
-                        return "student_account_id: string expected";
-                if (message.amount_kwh != null && message.hasOwnProperty("amount_kwh"))
-                    if (typeof message.amount_kwh !== "number")
-                        return "amount_kwh: number expected";
-                if (message.price != null && message.hasOwnProperty("price"))
-                    if (typeof message.price !== "number")
-                        return "price: number expected";
-                if (message.denom != null && message.hasOwnProperty("denom"))
-                    if (!$util.isString(message.denom))
-                        return "denom: string expected";
-                return null;
-            };
-    
-            /**
-             * Creates a SolarPower message from a plain object. Also converts values to their respective internal types.
-             * @function fromObject
-             * @memberof main.SolarPower
-             * @static
-             * @param {Object.<string,*>} object Plain object
-             * @returns {main.SolarPower} SolarPower
-             */
-            SolarPower.fromObject = function fromObject(object) {
-                if (object instanceof $root.main.SolarPower)
-                    return object;
-                var message = new $root.main.SolarPower();
-                if (object.id != null)
-                    message.id = String(object.id);
-                if (object.student_account_id != null)
-                    message.student_account_id = String(object.student_account_id);
-                if (object.amount_kwh != null)
-                    message.amount_kwh = Number(object.amount_kwh);
-                if (object.price != null)
-                    message.price = Number(object.price);
-                if (object.denom != null)
-                    message.denom = String(object.denom);
-                return message;
-            };
-    
-            /**
-             * Creates a plain object from a SolarPower message. Also converts values to other types if specified.
-             * @function toObject
-             * @memberof main.SolarPower
-             * @static
-             * @param {main.SolarPower} message SolarPower
-             * @param {$protobuf.IConversionOptions} [options] Conversion options
-             * @returns {Object.<string,*>} Plain object
-             */
-            SolarPower.toObject = function toObject(message, options) {
-                if (!options)
-                    options = {};
-                var object = {};
-                if (options.defaults) {
-                    object.id = "";
-                    object.student_account_id = "";
-                    object.amount_kwh = 0;
-                    object.price = 0;
-                    object.denom = "";
-                }
-                if (message.id != null && message.hasOwnProperty("id"))
-                    object.id = message.id;
-                if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
-                    object.student_account_id = message.student_account_id;
-                if (message.amount_kwh != null && message.hasOwnProperty("amount_kwh"))
-                    object.amount_kwh = options.json && !isFinite(message.amount_kwh) ? String(message.amount_kwh) : message.amount_kwh;
-                if (message.price != null && message.hasOwnProperty("price"))
-                    object.price = options.json && !isFinite(message.price) ? String(message.price) : message.price;
-                if (message.denom != null && message.hasOwnProperty("denom"))
-                    object.denom = message.denom;
-                return object;
-            };
-    
-            /**
-             * Converts this SolarPower to JSON.
-             * @function toJSON
-             * @memberof main.SolarPower
-             * @instance
-             * @returns {Object.<string,*>} JSON object
-             */
-            SolarPower.prototype.toJSON = function toJSON() {
-                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-            };
-    
-            return SolarPower;
-        })();
-    
         main.StudentAccount = (function() {
     
             /**
@@ -10659,336 +10615,6 @@
             return StudentAccount;
         })();
     
-        main.Transaction = (function() {
-    
-            /**
-             * Properties of a Transaction.
-             * @memberof main
-             * @interface ITransaction
-             * @property {boolean|null} [status] Transaction status
-             * @property {string|null} [id] Transaction id
-             * @property {string|null} [sender_account_id] Transaction sender_account_id
-             * @property {string|null} [sender_xrp_address] Transaction sender_xrp_address
-             * @property {string|null} [recipient_account_id] Transaction recipient_account_id
-             * @property {string|null} [recipient_xrp_address] Transaction recipient_xrp_address
-             * @property {number|null} [amount] Transaction amount
-             * @property {string|null} [denom] Transaction denom
-             */
-    
-            /**
-             * Constructs a new Transaction.
-             * @memberof main
-             * @classdesc Represents a Transaction.
-             * @implements ITransaction
-             * @constructor
-             * @param {main.ITransaction=} [properties] Properties to set
-             */
-            function Transaction(properties) {
-                if (properties)
-                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
-                            this[keys[i]] = properties[keys[i]];
-            }
-    
-            /**
-             * Transaction status.
-             * @member {boolean} status
-             * @memberof main.Transaction
-             * @instance
-             */
-            Transaction.prototype.status = false;
-    
-            /**
-             * Transaction id.
-             * @member {string} id
-             * @memberof main.Transaction
-             * @instance
-             */
-            Transaction.prototype.id = "";
-    
-            /**
-             * Transaction sender_account_id.
-             * @member {string} sender_account_id
-             * @memberof main.Transaction
-             * @instance
-             */
-            Transaction.prototype.sender_account_id = "";
-    
-            /**
-             * Transaction sender_xrp_address.
-             * @member {string} sender_xrp_address
-             * @memberof main.Transaction
-             * @instance
-             */
-            Transaction.prototype.sender_xrp_address = "";
-    
-            /**
-             * Transaction recipient_account_id.
-             * @member {string} recipient_account_id
-             * @memberof main.Transaction
-             * @instance
-             */
-            Transaction.prototype.recipient_account_id = "";
-    
-            /**
-             * Transaction recipient_xrp_address.
-             * @member {string} recipient_xrp_address
-             * @memberof main.Transaction
-             * @instance
-             */
-            Transaction.prototype.recipient_xrp_address = "";
-    
-            /**
-             * Transaction amount.
-             * @member {number} amount
-             * @memberof main.Transaction
-             * @instance
-             */
-            Transaction.prototype.amount = 0;
-    
-            /**
-             * Transaction denom.
-             * @member {string} denom
-             * @memberof main.Transaction
-             * @instance
-             */
-            Transaction.prototype.denom = "";
-    
-            /**
-             * Encodes the specified Transaction message. Does not implicitly {@link main.Transaction.verify|verify} messages.
-             * @function encode
-             * @memberof main.Transaction
-             * @static
-             * @param {main.ITransaction} message Transaction message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            Transaction.encode = function encode(message, writer) {
-                if (!writer)
-                    writer = $Writer.create();
-                if (message.status != null && Object.hasOwnProperty.call(message, "status"))
-                    writer.uint32(/* id 1, wireType 0 =*/8).bool(message.status);
-                if (message.id != null && Object.hasOwnProperty.call(message, "id"))
-                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.id);
-                if (message.sender_account_id != null && Object.hasOwnProperty.call(message, "sender_account_id"))
-                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.sender_account_id);
-                if (message.sender_xrp_address != null && Object.hasOwnProperty.call(message, "sender_xrp_address"))
-                    writer.uint32(/* id 4, wireType 2 =*/34).string(message.sender_xrp_address);
-                if (message.recipient_account_id != null && Object.hasOwnProperty.call(message, "recipient_account_id"))
-                    writer.uint32(/* id 5, wireType 2 =*/42).string(message.recipient_account_id);
-                if (message.recipient_xrp_address != null && Object.hasOwnProperty.call(message, "recipient_xrp_address"))
-                    writer.uint32(/* id 6, wireType 2 =*/50).string(message.recipient_xrp_address);
-                if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
-                    writer.uint32(/* id 7, wireType 1 =*/57).double(message.amount);
-                if (message.denom != null && Object.hasOwnProperty.call(message, "denom"))
-                    writer.uint32(/* id 8, wireType 2 =*/66).string(message.denom);
-                return writer;
-            };
-    
-            /**
-             * Encodes the specified Transaction message, length delimited. Does not implicitly {@link main.Transaction.verify|verify} messages.
-             * @function encodeDelimited
-             * @memberof main.Transaction
-             * @static
-             * @param {main.ITransaction} message Transaction message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            Transaction.encodeDelimited = function encodeDelimited(message, writer) {
-                return this.encode(message, writer).ldelim();
-            };
-    
-            /**
-             * Decodes a Transaction message from the specified reader or buffer.
-             * @function decode
-             * @memberof main.Transaction
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @param {number} [length] Message length if known beforehand
-             * @returns {main.Transaction} Transaction
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            Transaction.decode = function decode(reader, length) {
-                if (!(reader instanceof $Reader))
-                    reader = $Reader.create(reader);
-                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.Transaction();
-                while (reader.pos < end) {
-                    var tag = reader.uint32();
-                    switch (tag >>> 3) {
-                    case 1:
-                        message.status = reader.bool();
-                        break;
-                    case 2:
-                        message.id = reader.string();
-                        break;
-                    case 3:
-                        message.sender_account_id = reader.string();
-                        break;
-                    case 4:
-                        message.sender_xrp_address = reader.string();
-                        break;
-                    case 5:
-                        message.recipient_account_id = reader.string();
-                        break;
-                    case 6:
-                        message.recipient_xrp_address = reader.string();
-                        break;
-                    case 7:
-                        message.amount = reader.double();
-                        break;
-                    case 8:
-                        message.denom = reader.string();
-                        break;
-                    default:
-                        reader.skipType(tag & 7);
-                        break;
-                    }
-                }
-                return message;
-            };
-    
-            /**
-             * Decodes a Transaction message from the specified reader or buffer, length delimited.
-             * @function decodeDelimited
-             * @memberof main.Transaction
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {main.Transaction} Transaction
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            Transaction.decodeDelimited = function decodeDelimited(reader) {
-                if (!(reader instanceof $Reader))
-                    reader = new $Reader(reader);
-                return this.decode(reader, reader.uint32());
-            };
-    
-            /**
-             * Verifies a Transaction message.
-             * @function verify
-             * @memberof main.Transaction
-             * @static
-             * @param {Object.<string,*>} message Plain object to verify
-             * @returns {string|null} `null` if valid, otherwise the reason why it is not
-             */
-            Transaction.verify = function verify(message) {
-                if (typeof message !== "object" || message === null)
-                    return "object expected";
-                if (message.status != null && message.hasOwnProperty("status"))
-                    if (typeof message.status !== "boolean")
-                        return "status: boolean expected";
-                if (message.id != null && message.hasOwnProperty("id"))
-                    if (!$util.isString(message.id))
-                        return "id: string expected";
-                if (message.sender_account_id != null && message.hasOwnProperty("sender_account_id"))
-                    if (!$util.isString(message.sender_account_id))
-                        return "sender_account_id: string expected";
-                if (message.sender_xrp_address != null && message.hasOwnProperty("sender_xrp_address"))
-                    if (!$util.isString(message.sender_xrp_address))
-                        return "sender_xrp_address: string expected";
-                if (message.recipient_account_id != null && message.hasOwnProperty("recipient_account_id"))
-                    if (!$util.isString(message.recipient_account_id))
-                        return "recipient_account_id: string expected";
-                if (message.recipient_xrp_address != null && message.hasOwnProperty("recipient_xrp_address"))
-                    if (!$util.isString(message.recipient_xrp_address))
-                        return "recipient_xrp_address: string expected";
-                if (message.amount != null && message.hasOwnProperty("amount"))
-                    if (typeof message.amount !== "number")
-                        return "amount: number expected";
-                if (message.denom != null && message.hasOwnProperty("denom"))
-                    if (!$util.isString(message.denom))
-                        return "denom: string expected";
-                return null;
-            };
-    
-            /**
-             * Creates a Transaction message from a plain object. Also converts values to their respective internal types.
-             * @function fromObject
-             * @memberof main.Transaction
-             * @static
-             * @param {Object.<string,*>} object Plain object
-             * @returns {main.Transaction} Transaction
-             */
-            Transaction.fromObject = function fromObject(object) {
-                if (object instanceof $root.main.Transaction)
-                    return object;
-                var message = new $root.main.Transaction();
-                if (object.status != null)
-                    message.status = Boolean(object.status);
-                if (object.id != null)
-                    message.id = String(object.id);
-                if (object.sender_account_id != null)
-                    message.sender_account_id = String(object.sender_account_id);
-                if (object.sender_xrp_address != null)
-                    message.sender_xrp_address = String(object.sender_xrp_address);
-                if (object.recipient_account_id != null)
-                    message.recipient_account_id = String(object.recipient_account_id);
-                if (object.recipient_xrp_address != null)
-                    message.recipient_xrp_address = String(object.recipient_xrp_address);
-                if (object.amount != null)
-                    message.amount = Number(object.amount);
-                if (object.denom != null)
-                    message.denom = String(object.denom);
-                return message;
-            };
-    
-            /**
-             * Creates a plain object from a Transaction message. Also converts values to other types if specified.
-             * @function toObject
-             * @memberof main.Transaction
-             * @static
-             * @param {main.Transaction} message Transaction
-             * @param {$protobuf.IConversionOptions} [options] Conversion options
-             * @returns {Object.<string,*>} Plain object
-             */
-            Transaction.toObject = function toObject(message, options) {
-                if (!options)
-                    options = {};
-                var object = {};
-                if (options.defaults) {
-                    object.status = false;
-                    object.id = "";
-                    object.sender_account_id = "";
-                    object.sender_xrp_address = "";
-                    object.recipient_account_id = "";
-                    object.recipient_xrp_address = "";
-                    object.amount = 0;
-                    object.denom = "";
-                }
-                if (message.status != null && message.hasOwnProperty("status"))
-                    object.status = message.status;
-                if (message.id != null && message.hasOwnProperty("id"))
-                    object.id = message.id;
-                if (message.sender_account_id != null && message.hasOwnProperty("sender_account_id"))
-                    object.sender_account_id = message.sender_account_id;
-                if (message.sender_xrp_address != null && message.hasOwnProperty("sender_xrp_address"))
-                    object.sender_xrp_address = message.sender_xrp_address;
-                if (message.recipient_account_id != null && message.hasOwnProperty("recipient_account_id"))
-                    object.recipient_account_id = message.recipient_account_id;
-                if (message.recipient_xrp_address != null && message.hasOwnProperty("recipient_xrp_address"))
-                    object.recipient_xrp_address = message.recipient_xrp_address;
-                if (message.amount != null && message.hasOwnProperty("amount"))
-                    object.amount = options.json && !isFinite(message.amount) ? String(message.amount) : message.amount;
-                if (message.denom != null && message.hasOwnProperty("denom"))
-                    object.denom = message.denom;
-                return object;
-            };
-    
-            /**
-             * Converts this Transaction to JSON.
-             * @function toJSON
-             * @memberof main.Transaction
-             * @instance
-             * @returns {Object.<string,*>} JSON object
-             */
-            Transaction.prototype.toJSON = function toJSON() {
-                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-            };
-    
-            return Transaction;
-        })();
-    
         main.User = (function() {
     
             /**
@@ -11224,270 +10850,6 @@
             };
     
             return User;
-        })();
-    
-        main.UtilityPower = (function() {
-    
-            /**
-             * Properties of an UtilityPower.
-             * @memberof main
-             * @interface IUtilityPower
-             * @property {string|null} [id] UtilityPower id
-             * @property {string|null} [student_account_id] UtilityPower student_account_id
-             * @property {number|null} [amount_kwh] UtilityPower amount_kwh
-             * @property {number|null} [price] UtilityPower price
-             * @property {string|null} [denom] UtilityPower denom
-             */
-    
-            /**
-             * Constructs a new UtilityPower.
-             * @memberof main
-             * @classdesc Represents an UtilityPower.
-             * @implements IUtilityPower
-             * @constructor
-             * @param {main.IUtilityPower=} [properties] Properties to set
-             */
-            function UtilityPower(properties) {
-                if (properties)
-                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
-                            this[keys[i]] = properties[keys[i]];
-            }
-    
-            /**
-             * UtilityPower id.
-             * @member {string} id
-             * @memberof main.UtilityPower
-             * @instance
-             */
-            UtilityPower.prototype.id = "";
-    
-            /**
-             * UtilityPower student_account_id.
-             * @member {string} student_account_id
-             * @memberof main.UtilityPower
-             * @instance
-             */
-            UtilityPower.prototype.student_account_id = "";
-    
-            /**
-             * UtilityPower amount_kwh.
-             * @member {number} amount_kwh
-             * @memberof main.UtilityPower
-             * @instance
-             */
-            UtilityPower.prototype.amount_kwh = 0;
-    
-            /**
-             * UtilityPower price.
-             * @member {number} price
-             * @memberof main.UtilityPower
-             * @instance
-             */
-            UtilityPower.prototype.price = 0;
-    
-            /**
-             * UtilityPower denom.
-             * @member {string} denom
-             * @memberof main.UtilityPower
-             * @instance
-             */
-            UtilityPower.prototype.denom = "";
-    
-            /**
-             * Encodes the specified UtilityPower message. Does not implicitly {@link main.UtilityPower.verify|verify} messages.
-             * @function encode
-             * @memberof main.UtilityPower
-             * @static
-             * @param {main.IUtilityPower} message UtilityPower message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            UtilityPower.encode = function encode(message, writer) {
-                if (!writer)
-                    writer = $Writer.create();
-                if (message.id != null && Object.hasOwnProperty.call(message, "id"))
-                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
-                if (message.student_account_id != null && Object.hasOwnProperty.call(message, "student_account_id"))
-                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.student_account_id);
-                if (message.amount_kwh != null && Object.hasOwnProperty.call(message, "amount_kwh"))
-                    writer.uint32(/* id 3, wireType 1 =*/25).double(message.amount_kwh);
-                if (message.price != null && Object.hasOwnProperty.call(message, "price"))
-                    writer.uint32(/* id 4, wireType 1 =*/33).double(message.price);
-                if (message.denom != null && Object.hasOwnProperty.call(message, "denom"))
-                    writer.uint32(/* id 5, wireType 2 =*/42).string(message.denom);
-                return writer;
-            };
-    
-            /**
-             * Encodes the specified UtilityPower message, length delimited. Does not implicitly {@link main.UtilityPower.verify|verify} messages.
-             * @function encodeDelimited
-             * @memberof main.UtilityPower
-             * @static
-             * @param {main.IUtilityPower} message UtilityPower message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            UtilityPower.encodeDelimited = function encodeDelimited(message, writer) {
-                return this.encode(message, writer).ldelim();
-            };
-    
-            /**
-             * Decodes an UtilityPower message from the specified reader or buffer.
-             * @function decode
-             * @memberof main.UtilityPower
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @param {number} [length] Message length if known beforehand
-             * @returns {main.UtilityPower} UtilityPower
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            UtilityPower.decode = function decode(reader, length) {
-                if (!(reader instanceof $Reader))
-                    reader = $Reader.create(reader);
-                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.UtilityPower();
-                while (reader.pos < end) {
-                    var tag = reader.uint32();
-                    switch (tag >>> 3) {
-                    case 1:
-                        message.id = reader.string();
-                        break;
-                    case 2:
-                        message.student_account_id = reader.string();
-                        break;
-                    case 3:
-                        message.amount_kwh = reader.double();
-                        break;
-                    case 4:
-                        message.price = reader.double();
-                        break;
-                    case 5:
-                        message.denom = reader.string();
-                        break;
-                    default:
-                        reader.skipType(tag & 7);
-                        break;
-                    }
-                }
-                return message;
-            };
-    
-            /**
-             * Decodes an UtilityPower message from the specified reader or buffer, length delimited.
-             * @function decodeDelimited
-             * @memberof main.UtilityPower
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {main.UtilityPower} UtilityPower
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            UtilityPower.decodeDelimited = function decodeDelimited(reader) {
-                if (!(reader instanceof $Reader))
-                    reader = new $Reader(reader);
-                return this.decode(reader, reader.uint32());
-            };
-    
-            /**
-             * Verifies an UtilityPower message.
-             * @function verify
-             * @memberof main.UtilityPower
-             * @static
-             * @param {Object.<string,*>} message Plain object to verify
-             * @returns {string|null} `null` if valid, otherwise the reason why it is not
-             */
-            UtilityPower.verify = function verify(message) {
-                if (typeof message !== "object" || message === null)
-                    return "object expected";
-                if (message.id != null && message.hasOwnProperty("id"))
-                    if (!$util.isString(message.id))
-                        return "id: string expected";
-                if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
-                    if (!$util.isString(message.student_account_id))
-                        return "student_account_id: string expected";
-                if (message.amount_kwh != null && message.hasOwnProperty("amount_kwh"))
-                    if (typeof message.amount_kwh !== "number")
-                        return "amount_kwh: number expected";
-                if (message.price != null && message.hasOwnProperty("price"))
-                    if (typeof message.price !== "number")
-                        return "price: number expected";
-                if (message.denom != null && message.hasOwnProperty("denom"))
-                    if (!$util.isString(message.denom))
-                        return "denom: string expected";
-                return null;
-            };
-    
-            /**
-             * Creates an UtilityPower message from a plain object. Also converts values to their respective internal types.
-             * @function fromObject
-             * @memberof main.UtilityPower
-             * @static
-             * @param {Object.<string,*>} object Plain object
-             * @returns {main.UtilityPower} UtilityPower
-             */
-            UtilityPower.fromObject = function fromObject(object) {
-                if (object instanceof $root.main.UtilityPower)
-                    return object;
-                var message = new $root.main.UtilityPower();
-                if (object.id != null)
-                    message.id = String(object.id);
-                if (object.student_account_id != null)
-                    message.student_account_id = String(object.student_account_id);
-                if (object.amount_kwh != null)
-                    message.amount_kwh = Number(object.amount_kwh);
-                if (object.price != null)
-                    message.price = Number(object.price);
-                if (object.denom != null)
-                    message.denom = String(object.denom);
-                return message;
-            };
-    
-            /**
-             * Creates a plain object from an UtilityPower message. Also converts values to other types if specified.
-             * @function toObject
-             * @memberof main.UtilityPower
-             * @static
-             * @param {main.UtilityPower} message UtilityPower
-             * @param {$protobuf.IConversionOptions} [options] Conversion options
-             * @returns {Object.<string,*>} Plain object
-             */
-            UtilityPower.toObject = function toObject(message, options) {
-                if (!options)
-                    options = {};
-                var object = {};
-                if (options.defaults) {
-                    object.id = "";
-                    object.student_account_id = "";
-                    object.amount_kwh = 0;
-                    object.price = 0;
-                    object.denom = "";
-                }
-                if (message.id != null && message.hasOwnProperty("id"))
-                    object.id = message.id;
-                if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
-                    object.student_account_id = message.student_account_id;
-                if (message.amount_kwh != null && message.hasOwnProperty("amount_kwh"))
-                    object.amount_kwh = options.json && !isFinite(message.amount_kwh) ? String(message.amount_kwh) : message.amount_kwh;
-                if (message.price != null && message.hasOwnProperty("price"))
-                    object.price = options.json && !isFinite(message.price) ? String(message.price) : message.price;
-                if (message.denom != null && message.hasOwnProperty("denom"))
-                    object.denom = message.denom;
-                return object;
-            };
-    
-            /**
-             * Converts this UtilityPower to JSON.
-             * @function toJSON
-             * @memberof main.UtilityPower
-             * @instance
-             * @returns {Object.<string,*>} JSON object
-             */
-            UtilityPower.prototype.toJSON = function toJSON() {
-                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-            };
-    
-            return UtilityPower;
         })();
     
         return main;
