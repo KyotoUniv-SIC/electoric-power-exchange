@@ -23,27 +23,33 @@ single_price_renewable_settlement.onCreateHandler.push(async (snapshot, context)
     if (sortRenewableBids[i].price < data.price || sortRenewableAsks[j].price > data.price) {
       for (; i < sortRenewableBids.length; i++) {
         await renewable_bid_history.create(
-          new RenewableBidHistory({
-            account_id: sortRenewableBids[i].account_id,
-            price: sortRenewableBids[i].price,
-            amount: sortRenewableBids[i].amount,
-            is_accepted: false,
-            contract_price: data.price,
-          }),
+          new RenewableBidHistory(
+            {
+              account_id: sortRenewableBids[i].account_id,
+              price: sortRenewableBids[i].price,
+              amount: sortRenewableBids[i].amount,
+              is_accepted: false,
+              contract_price: data.price,
+            },
+            sortRenewableBids[i].created_at,
+          ),
         );
         await renewable_bid.delete_(sortRenewableBids[i].id);
       }
 
       for (; j < sortRenewableAsks.length; j++) {
         await renewable_ask_history.create(
-          new RenewableAskHistory({
-            type: sortRenewableAsks[j].type as unknown as proto.main.RenewableAskHistoryType,
-            account_id: sortRenewableAsks[j].account_id,
-            price: sortRenewableAsks[j].price,
-            amount: sortRenewableAsks[j].amount,
-            is_accepted: false,
-            contract_price: data.price,
-          }),
+          new RenewableAskHistory(
+            {
+              type: sortRenewableAsks[j].type as unknown as proto.main.RenewableAskHistoryType,
+              account_id: sortRenewableAsks[j].account_id,
+              price: sortRenewableAsks[j].price,
+              amount: sortRenewableAsks[j].amount,
+              is_accepted: false,
+              contract_price: data.price,
+            },
+            sortRenewableAsks[j].created_at,
+          ),
         );
         await renewable_ask.delete_(sortRenewableAsks[j].id);
       }
@@ -61,25 +67,31 @@ single_price_renewable_settlement.onCreateHandler.push(async (snapshot, context)
       );
 
       await renewable_bid_history.create(
-        new RenewableBidHistory({
-          account_id: sortRenewableBids[i].account_id,
-          price: sortRenewableBids[i].price,
-          amount: sortRenewableBids[i].amount,
-          is_accepted: true,
-          contract_price: data.price,
-        }),
+        new RenewableBidHistory(
+          {
+            account_id: sortRenewableBids[i].account_id,
+            price: sortRenewableBids[i].price,
+            amount: sortRenewableBids[i].amount,
+            is_accepted: true,
+            contract_price: data.price,
+          },
+          sortRenewableBids[i].created_at,
+        ),
       );
       await renewable_bid.delete_(sortRenewableBids[i].id);
 
       await renewable_ask_history.create(
-        new RenewableAskHistory({
-          type: sortRenewableAsks[j].type as unknown as proto.main.RenewableAskHistoryType,
-          account_id: sortRenewableAsks[j].account_id,
-          price: sortRenewableAsks[j].price,
-          amount: sortRenewableBids[i].amount,
-          is_accepted: true,
-          contract_price: data.price,
-        }),
+        new RenewableAskHistory(
+          {
+            type: sortRenewableAsks[j].type as unknown as proto.main.RenewableAskHistoryType,
+            account_id: sortRenewableAsks[j].account_id,
+            price: sortRenewableAsks[j].price,
+            amount: sortRenewableBids[i].amount,
+            is_accepted: true,
+            contract_price: data.price,
+          },
+          sortRenewableAsks[j].created_at,
+        ),
       );
       await renewable_ask.delete_(sortRenewableAsks[j].id);
 
@@ -99,25 +111,31 @@ single_price_renewable_settlement.onCreateHandler.push(async (snapshot, context)
       );
 
       await renewable_bid_history.create(
-        new RenewableBidHistory({
-          account_id: sortRenewableBids[i].account_id,
-          price: sortRenewableBids[i].price,
-          amount: sortRenewableAsks[j].amount,
-          is_accepted: true,
-          contract_price: data.price,
-        }),
+        new RenewableBidHistory(
+          {
+            account_id: sortRenewableBids[i].account_id,
+            price: sortRenewableBids[i].price,
+            amount: sortRenewableAsks[j].amount,
+            is_accepted: true,
+            contract_price: data.price,
+          },
+          sortRenewableBids[i].created_at,
+        ),
       );
       await renewable_bid.delete_(sortRenewableBids[i].id);
 
       await renewable_ask_history.create(
-        new RenewableAskHistory({
-          type: sortRenewableAsks[j].type as unknown as proto.main.RenewableAskHistoryType,
-          account_id: sortRenewableAsks[j].account_id,
-          price: sortRenewableAsks[j].price,
-          amount: sortRenewableAsks[j].amount,
-          is_accepted: true,
-          contract_price: data.price,
-        }),
+        new RenewableAskHistory(
+          {
+            type: sortRenewableAsks[j].type as unknown as proto.main.RenewableAskHistoryType,
+            account_id: sortRenewableAsks[j].account_id,
+            price: sortRenewableAsks[j].price,
+            amount: sortRenewableAsks[j].amount,
+            is_accepted: true,
+            contract_price: data.price,
+          },
+          sortRenewableAsks[j].created_at,
+        ),
       );
       await renewable_ask.delete_(sortRenewableAsks[j].id);
 
@@ -137,26 +155,32 @@ single_price_renewable_settlement.onCreateHandler.push(async (snapshot, context)
       );
 
       await renewable_bid_history.create(
-        new RenewableBidHistory({
-          account_id: sortRenewableBids[i].account_id,
-          price: sortRenewableBids[i].price,
-          amount: sortRenewableBids[i].amount,
-          is_accepted: true,
-          contract_price: data.price,
-        }),
+        new RenewableBidHistory(
+          {
+            account_id: sortRenewableBids[i].account_id,
+            price: sortRenewableBids[i].price,
+            amount: sortRenewableBids[i].amount,
+            is_accepted: true,
+            contract_price: data.price,
+          },
+          sortRenewableBids[i].created_at,
+        ),
       );
 
       await renewable_bid.delete_(sortRenewableBids[i].id);
 
       await renewable_ask_history.create(
-        new RenewableAskHistory({
-          type: sortRenewableAsks[j].type as unknown as proto.main.RenewableAskHistoryType,
-          account_id: sortRenewableAsks[j].account_id,
-          price: sortRenewableAsks[j].price,
-          amount: sortRenewableBids[i].amount,
-          is_accepted: true,
-          contract_price: data.price,
-        }),
+        new RenewableAskHistory(
+          {
+            type: sortRenewableAsks[j].type as unknown as proto.main.RenewableAskHistoryType,
+            account_id: sortRenewableAsks[j].account_id,
+            price: sortRenewableAsks[j].price,
+            amount: sortRenewableBids[i].amount,
+            is_accepted: true,
+            contract_price: data.price,
+          },
+          sortRenewableAsks[j].created_at,
+        ),
       );
       await renewable_ask.delete_(sortRenewableAsks[j].id);
 

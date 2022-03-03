@@ -23,27 +23,33 @@ single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) =>
     if (sortNormalBids[i].price < data.price || sortNormalAsks[j].price > data.price) {
       for (; i < sortNormalBids.length; i++) {
         await normal_bid_history.create(
-          new NormalBidHistory({
-            account_id: sortNormalBids[i].account_id,
-            price: sortNormalBids[i].price,
-            amount: sortNormalBids[i].amount,
-            is_accepted: false,
-            contract_price: data.price,
-          }),
+          new NormalBidHistory(
+            {
+              account_id: sortNormalBids[i].account_id,
+              price: sortNormalBids[i].price,
+              amount: sortNormalBids[i].amount,
+              is_accepted: false,
+              contract_price: data.price,
+            },
+            sortNormalBids[i].created_at,
+          ),
         );
         await normal_bid.delete_(sortNormalBids[i].id);
       }
 
       for (; j < sortNormalAsks.length; j++) {
         await normal_ask_history.create(
-          new NormalAskHistory({
-            type: sortNormalAsks[j].type as unknown as proto.main.NormalAskHistoryType,
-            account_id: sortNormalAsks[j].account_id,
-            price: sortNormalAsks[j].price,
-            amount: sortNormalAsks[j].amount,
-            is_accepted: false,
-            contract_price: data.price,
-          }),
+          new NormalAskHistory(
+            {
+              type: sortNormalAsks[j].type as unknown as proto.main.NormalAskHistoryType,
+              account_id: sortNormalAsks[j].account_id,
+              price: sortNormalAsks[j].price,
+              amount: sortNormalAsks[j].amount,
+              is_accepted: false,
+              contract_price: data.price,
+            },
+            sortNormalAsks[j].created_at,
+          ),
         );
         await normal_ask.delete_(sortNormalAsks[j].id);
       }
@@ -61,25 +67,31 @@ single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) =>
       );
 
       await normal_bid_history.create(
-        new NormalBidHistory({
-          account_id: sortNormalBids[i].account_id,
-          price: sortNormalBids[i].price,
-          amount: sortNormalBids[i].amount,
-          is_accepted: true,
-          contract_price: data.price,
-        }),
+        new NormalBidHistory(
+          {
+            account_id: sortNormalBids[i].account_id,
+            price: sortNormalBids[i].price,
+            amount: sortNormalBids[i].amount,
+            is_accepted: true,
+            contract_price: data.price,
+          },
+          sortNormalBids[i].created_at,
+        ),
       );
       await normal_bid.delete_(sortNormalBids[i].id);
 
       await normal_ask_history.create(
-        new NormalAskHistory({
-          type: sortNormalAsks[j].type as unknown as proto.main.NormalAskHistoryType,
-          account_id: sortNormalAsks[j].account_id,
-          price: sortNormalAsks[j].price,
-          amount: sortNormalBids[i].amount,
-          is_accepted: true,
-          contract_price: data.price,
-        }),
+        new NormalAskHistory(
+          {
+            type: sortNormalAsks[j].type as unknown as proto.main.NormalAskHistoryType,
+            account_id: sortNormalAsks[j].account_id,
+            price: sortNormalAsks[j].price,
+            amount: sortNormalBids[i].amount,
+            is_accepted: true,
+            contract_price: data.price,
+          },
+          sortNormalAsks[j].created_at,
+        ),
       );
       await normal_ask.delete_(sortNormalAsks[j].id);
 
@@ -99,25 +111,31 @@ single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) =>
       );
 
       await normal_bid_history.create(
-        new NormalBidHistory({
-          account_id: sortNormalBids[i].account_id,
-          price: sortNormalBids[i].price,
-          amount: sortNormalAsks[j].amount,
-          is_accepted: true,
-          contract_price: data.price,
-        }),
+        new NormalBidHistory(
+          {
+            account_id: sortNormalBids[i].account_id,
+            price: sortNormalBids[i].price,
+            amount: sortNormalAsks[j].amount,
+            is_accepted: true,
+            contract_price: data.price,
+          },
+          sortNormalBids[i].created_at,
+        ),
       );
       await normal_bid.delete_(sortNormalBids[i].id);
 
       await normal_ask_history.create(
-        new NormalAskHistory({
-          type: sortNormalAsks[j].type as unknown as proto.main.NormalAskHistoryType,
-          account_id: sortNormalAsks[j].account_id,
-          price: sortNormalAsks[j].price,
-          amount: sortNormalAsks[j].amount,
-          is_accepted: true,
-          contract_price: data.price,
-        }),
+        new NormalAskHistory(
+          {
+            type: sortNormalAsks[j].type as unknown as proto.main.NormalAskHistoryType,
+            account_id: sortNormalAsks[j].account_id,
+            price: sortNormalAsks[j].price,
+            amount: sortNormalAsks[j].amount,
+            is_accepted: true,
+            contract_price: data.price,
+          },
+          sortNormalAsks[j].created_at,
+        ),
       );
       await normal_ask.delete_(sortNormalAsks[j].id);
 
@@ -137,26 +155,32 @@ single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) =>
       );
 
       await normal_bid_history.create(
-        new NormalBidHistory({
-          account_id: sortNormalBids[i].account_id,
-          price: sortNormalBids[i].price,
-          amount: sortNormalBids[i].amount,
-          is_accepted: true,
-          contract_price: data.price,
-        }),
+        new NormalBidHistory(
+          {
+            account_id: sortNormalBids[i].account_id,
+            price: sortNormalBids[i].price,
+            amount: sortNormalBids[i].amount,
+            is_accepted: true,
+            contract_price: data.price,
+          },
+          sortNormalBids[i].created_at,
+        ),
       );
 
       await normal_bid.delete_(sortNormalBids[i].id);
 
       await normal_ask_history.create(
-        new NormalAskHistory({
-          type: sortNormalAsks[j].type as unknown as proto.main.NormalAskHistoryType,
-          account_id: sortNormalAsks[j].account_id,
-          price: sortNormalAsks[j].price,
-          amount: sortNormalBids[i].amount,
-          is_accepted: true,
-          contract_price: data.price,
-        }),
+        new NormalAskHistory(
+          {
+            type: sortNormalAsks[j].type as unknown as proto.main.NormalAskHistoryType,
+            account_id: sortNormalAsks[j].account_id,
+            price: sortNormalAsks[j].price,
+            amount: sortNormalBids[i].amount,
+            is_accepted: true,
+            contract_price: data.price,
+          },
+          sortNormalAsks[j].created_at,
+        ),
       );
       await normal_ask.delete_(sortNormalAsks[j].id);
 
