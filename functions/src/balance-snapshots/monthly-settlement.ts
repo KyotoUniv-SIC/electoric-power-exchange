@@ -5,23 +5,19 @@ import { balance } from '../balances';
 import { cost_setting } from '../cost-settings';
 import { discount_price } from '../discount-prices';
 import { insufficient_balance } from '../insufficient-balances';
-import { market_status } from '../market-statuses';
 import { normal_ask_history } from '../normal-ask-histories';
 import { primary_ask } from '../primary-asks';
 import { renewable_ask_history } from '../renewable-ask-histories';
 import { student_account } from '../student-accounts';
 import { BalanceSnapshot, DiscountPrice } from '@local/common';
-import { Timestamp } from 'firebase/firestore';
+import * as functions from 'firebase-functions';
 
-market_status.onUpdateHandler.push(async (snapshot, context) => {
-  const data = snapshot.after.data()!;
-  // FirebaseではUTCで判定されるのでJSTに変更
-  const dateJST = (data.created_at as Timestamp).toDate();
-  dateJST.setHours(dateJST.getHours() + 9);
-
-  if (dateJST.getDate() == 1 && data.is_finished_normal == true && data.is_finished_renewable == true) {
-    // if (data.is_finished_normal == true && data.is_finished_renewable == true) {
-    console.log((data.created_at as Timestamp).toDate().getDate());
+const f = functions.region('asia-northeast1');
+module.exports.monthlySettlement = f.pubsub
+  .schedule('0 9 1 * *')
+  // .schedule('every 10 minutes')
+  .timeZone('Asia/Tokyo') // Users can choose timezone - default is America/Los_Angeles
+  .onRun(async () => {
     const students = await student_account.list();
     let purchase = 0;
     let sale = 0;
@@ -67,10 +63,5 @@ market_status.onUpdateHandler.push(async (snapshot, context) => {
       const studentID = student.id;
       const lastMonthBalance = await balance.getLatest(studentID);
       await balance_snapshot.create(new BalanceSnapshot(lastMonthBalance[0]));
-      console.log('bss create', lastMonthBalance[0]);
     }
-  } else {
-    console.log('月初タスク発火なし', data, (data.created_at as Timestamp).toDate().getDate());
-    return;
-  }
-});
+  });
