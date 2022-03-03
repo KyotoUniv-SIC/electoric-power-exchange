@@ -5,10 +5,8 @@ import "firebase_rules_options.proto";
 
 option (google.firebase.rules.firebase_rules).full_package_names = true;
 
-message SolarPower {
+message CostSetting {
   string id = 1;
-  string student_account_id = 2;
-  double amount_kwh = 3;
-  double price = 4;
-  string denom =5;
+  double system = 2;
+  double electricity = 3;
 }

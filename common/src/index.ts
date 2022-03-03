@@ -41,3 +41,4 @@ export * from './entities/message-reads';
 export * from './entities/chat-deletes';
 export * from "./entities/normal-ask-settings";
 export * from "./entities/renewable-ask-settings";
+export * from "./entities/cost-settings";

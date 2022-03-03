@@ -2,6 +2,7 @@
 import { balance_snapshot } from '.';
 import { admin_account } from '../admin-accounts';
 import { balance } from '../balances';
+import { cost_setting } from '../cost-settings';
 import { discount_price } from '../discount-prices';
 import { insufficient_balance } from '../insufficient-balances';
 import { normal_ask_history } from '../normal-ask-histories';
@@ -45,10 +46,12 @@ module.exports.monthlySettlement = f.pubsub
         income += ask.price * ask.amount;
       }
     }
+
+    const setting = await cost_setting.getLatest();
     // システム運用コスト
-    const cost = 0;
+    const cost = !setting ? 0 : setting.system;
     // 電気料金
-    const electricity = 150000;
+    const electricity = !setting ? 150000 : setting.electricity;
 
     const price =
       // (cost + electricity - income + (purchase - sale) * primaryEanings[0].price) / ((purchase + sale) * primaryEanings[0].price);
