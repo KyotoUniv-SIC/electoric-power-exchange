@@ -1,4 +1,5 @@
 # Single Price Auction
+
 Single Price Auction is a pricing method of auction by deciding a single execution price. Unlike Multi Price Auction, this method makes consumers and producers trade the goods at a single price.
 
 ## How to set the price
