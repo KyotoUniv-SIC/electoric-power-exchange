@@ -2,7 +2,7 @@
 import './available-balances/balance';
 import './available-balances/normal-ask';
 import './available-balances/renewable-ask';
-import './balance-snapshots/market-status';
+import './balance-snapshots/monthly-settlement';
 import './balances/daily-usage';
 import './balances/normal-settlement';
 import './balances/primary';
@@ -87,6 +87,7 @@ const files = {
   primary_renewable: './renewable-asks/primary',
   normal_contract: './single-price-normal-settlements/normal-contract',
   renewable_contract: './single-price-renewable-settlements/renewable-contract',
+  monthly_settlement: './balance-snapshots/monthly-settlement',
 };
 
 const loadFunctions = (filesObj: any) => {

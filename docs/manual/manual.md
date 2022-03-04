@@ -12,6 +12,8 @@ EDISON プロジェクトのランディングページです。ソーシャル�
 
 <img src='lp.png' width=50%>
 
+<div style="page-break-before:always"></div>
+
 ### 登録画面
 
 アカウント作成画面です。名前（4 文字以上なら大体の形式が可能）、メールアドレス、パスワードを入力してアカウントを作成するためのページです。ログインしていない場合は上のヘッダーから、また、トップページのリンクからもアクセス可能です。
@@ -23,6 +25,8 @@ EDISON プロジェクトのランディングページです。ソーシャル�
 すでにアカウントを作成している場合、ログインするためのページです。ログインしていない場合は上のヘッダーからアクセス可能です。メールアドレスとパスワードを入力してログインします。
 
 <img src='accounts-enter.png' width=50%>
+
+<div style="page-break-before:always"></div>
 
 ### アカウントの機能
 
@@ -47,6 +51,8 @@ KUINS のセキュリティルールの問題で KUINS-Air 経由では情報の
   ごく少量の XRP が使用されます。
 
 <img src='accounts-xrpl.png' width=50%>
+
+<div style="page-break-before:always"></div>
 
 ### ダッシュボード
 
@@ -80,6 +86,8 @@ EDISON における重要な情報を一括で閲覧できるダッシュボー�
 
 各注文や注文の履歴をクリックすることで詳細な情報を表示するページに遷移します。注文は取り消すことも可能です。
 
+<div style="page-break-before:always"></div>
+
 <img src='txs.png' width=50%>
 
 #### 買い注文画面
@@ -87,6 +95,8 @@ EDISON における重要な情報を一括で閲覧できるダッシュボー�
 買い注文を行うことができるページです。自分が今回の取引で利用可能な残高（UPX, SPX, ある場合は残高不足）と最新の取引価格が表示され、トークンの種類と価格、数量を決めて売り注文を発行できます。
 
 <img src='txs-buy.png' width=50%>
+
+<div style="page-break-before:always"></div>
 
 #### 売り注文画面
 
@@ -102,6 +112,8 @@ EDISON における重要な情報を一括で閲覧できるダッシュボー�
 メッセージのタイトルと宛先の確認と新規メッセージの作成が可能です。
 
 <img src='chats.png' width=50%>
+
+<div style="page-break-before:always"></div>
 
 #### 詳細画面
 
@@ -126,6 +138,8 @@ EDISON の 管理における重要な情報を一括で閲覧できる管理者
   - Download CSV で詳細な使用量情報を取得可能
 
 <img src='admin-dashboard.png' width=50%>
+
+<div style="page-break-before:always"></div>
 
 #### XRP Ledger（管理者）
 

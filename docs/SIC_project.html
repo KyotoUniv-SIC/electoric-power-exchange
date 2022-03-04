@@ -1,0 +1,415 @@
+<!DOCTYPE html><html><head>
+      <title>SIC_project</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:////home/user/.vscode-server/extensions/shd101wyy.markdown-preview-enhanced-0.6.2/node_modules/@shd101wyy/mume/dependencies/katex/katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      <h1 class="mume-header" id="%E4%BA%AC%E9%83%BD%E5%A4%A7%E5%AD%A6%E3%82%BD%E3%83%BC%E3%82%B7%E3%83%A3%E3%83%AB%E3%82%A4%E3%83%8E%E3%83%99%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC-%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E3%83%81%E3%82%A7%E3%83%BC%E3%83%B3%E5%AE%9F%E8%A8%BC%E5%AE%9F%E9%A8%93%E4%BA%8B%E6%A5%AD">&#x4EAC;&#x90FD;&#x5927;&#x5B66;&#x30BD;&#x30FC;&#x30B7;&#x30E3;&#x30EB;&#x30A4;&#x30CE;&#x30D9;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x30BB;&#x30F3;&#x30BF;&#x30FC; &#x30D6;&#x30ED;&#x30C3;&#x30AF;&#x30C1;&#x30A7;&#x30FC;&#x30F3;&#x5B9F;&#x8A3C;&#x5B9F;&#x9A13;&#x4E8B;&#x696D;</h1>
+
+<p>Author: <a href="https://cauchye.com/">&#x682A;&#x5F0F;&#x4F1A;&#x793E; CauchyE</a> <a href="https://twitter.com/crypto_senna">&#x5927;&#x6751;&#x702C;&#x5948;</a></p>
+<h2 class="mume-header" id="%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E3%83%81%E3%82%A7%E3%83%BC%E3%83%B3%E5%AE%9F%E8%A8%BC%E5%AE%9F%E9%A8%93%E4%BA%8B%E6%A5%AD">&#x30D6;&#x30ED;&#x30C3;&#x30AF;&#x30C1;&#x30A7;&#x30FC;&#x30F3;&#x5B9F;&#x8A3C;&#x5B9F;&#x9A13;&#x4E8B;&#x696D;</h2>
+
+<p>&#x682A;&#x5F0F;&#x4F1A;&#x793E; CauchyE &#x3068;&#x4EAC;&#x90FD;&#x5927;&#x5B66;&#x30BD;&#x30FC;&#x30B7;&#x30E3;&#x30EB;&#x30A4;&#x30CE;&#x30D9;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x30BB;&#x30F3;&#x30BF;&#x30FC;&#xFF08;&#x4EE5;&#x4E0B;&#x3001;KyotoUniv-SIC&#xFF09;&#x306E;&#x5171;&#x540C;&#x4E8B;&#x696D;&#x3067;&#x306F;&#x4EE5;&#x4E0B;&#x306E; 2 &#x3064;&#x3092;&#x73FE;&#x5728;&#x3001;&#x5B9F;&#x65BD;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<ul>
+<li>
+<p>&#x30EA;&#x30C3;&#x30D7;&#x30EB;&#x306E;&#x30D0;&#x30EA;&#x30C7;&#x30FC;&#x30BF;&#x30FC;&#x30CE;&#x30FC;&#x30C9;&#x306E;&#x7BA1;&#x7406;&#x53CA;&#x3073; XRP &#x53D6;&#x5F15;&#x30C7;&#x30FC;&#x30BF;&#x306E;&#x5206;&#x6790;&#x306B;&#x3088;&#x308B;&#x30D0;&#x30D6;&#x30EB;&#x5F62;&#x6210;&#x3068;&#x5D29;&#x58CA;&#x306E;&#x4E88;&#x6E2C;&#x306B;&#x95A2;&#x3059;&#x308B;&#x7814;&#x7A76;&#x4E8B;&#x696D;</p>
+</li>
+<li>
+<p>&#x30EA;&#x30C3;&#x30D7;&#x30EB; &#x30D6;&#x30ED;&#x30C3;&#x30AF;&#x30C1;&#x30A7;&#x30FC;&#x30F3;(XRP Ledger)&#x306B;&#x3088;&#x308B;&#x96FB;&#x529B;&#x7BA1;&#x7406;&#x30B7;&#x30B9;&#x30C6;&#x30E0;&#x306E;&#x69CB;&#x7BC9;&#x3068;&#x5B9F;&#x8A3C;&#x5B9F;&#x9A13;&#x4E8B;&#x696D;</p>
+</li>
+</ul>
+<h2 class="mume-header" id="xrp-ledger-%E9%81%8B%E7%94%A8%E3%81%A8%E5%8F%96%E5%BC%95%E3%83%87%E3%83%BC%E3%82%BF%E3%82%92%E7%94%A8%E3%81%84%E3%81%9F%E7%A0%94%E7%A9%B6%E4%BA%8B%E6%A5%AD">XRP Ledger &#x904B;&#x7528;&#x3068;&#x53D6;&#x5F15;&#x30C7;&#x30FC;&#x30BF;&#x3092;&#x7528;&#x3044;&#x305F;&#x7814;&#x7A76;&#x4E8B;&#x696D;</h2>
+
+<p>&#x73FE;&#x5728;&#x3001;&#x7C73;&#x30EA;&#x30C3;&#x30D7;&#x30EB;&#x304C;&#x5C55;&#x958B;&#x3059;&#x308B;&#x5927;&#x5B66;&#x30D6;&#x30ED;&#x30C3;&#x30AF;&#x30C1;&#x30A7;&#x30FC;&#x30F3;&#x7814;&#x7A76;&#x30A4;&#x30CB;&#x30B7;&#x30A2;&#x30C1;&#x30D6;&#xFF08;University Blockchain Research Initiative&#xFF1A;UBRI&#xFF09;&#x306B;&#x56FD;&#x5185;&#x3067;&#x306F;&#x6771;&#x4EAC;&#x5927;&#x5B66;&#x3068;&#x4EAC;&#x90FD;&#x5927;&#x5B66;&#x306E; 2 &#x6821;&#x304C;&#x52A0;&#x5165;&#x3057;&#x3066;&#x304A;&#x308A;&#x3001;&#x4EAC;&#x90FD;&#x5927;&#x5B66;&#x3067;&#x306F;&#x3053;&#x308C;&#x306B; KyotoUniv-SIC &#x306E;<a href="https://blockchain.innovationkyoto.org/">&#x30D6;&#x30ED;&#x30C3;&#x30AF;&#x30C1;&#x30A7;&#x30FC;&#x30F3;&#x7814;&#x7A76;&#x30BB;&#x30F3;&#x30BF;&#x30FC;</a>&#x304C;&#x53C2;&#x52A0;&#x3057;&#x3066;&#x304A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x3053;&#x306E; UBRI &#x3078;&#x306E;&#x52A0;&#x5165;&#x306B;&#x4F34;&#x3044;&#x3001;KyotoUniv-SIC &#x3067;&#x306F; 2019 &#x5E74; 11 &#x6708; 13 &#x65E5;&#x306B;&#x65E5;&#x672C;&#x306E;&#x5927;&#x5B66;&#x3068;&#x3057;&#x3066;&#x306F;&#x521D;&#x306E;&#x30EA;&#x30C3;&#x30D7;&#x30EB;&#x30D6;&#x30ED;&#x30C3;&#x30AF;&#x30C1;&#x30A7;&#x30FC;&#x30F3; (XRP Ledger)&#x306E;&#x30D0;&#x30EA;&#x30C7;&#x30FC;&#x30BF;&#x30FC;&#x30CE;&#x30FC;&#x30C9;&#x3092;&#x904B;&#x7528;&#x958B;&#x59CB;&#x3057;&#x3066;&#x304A;&#x308A;&#x3001;&#x3053;&#x308C;&#x306E;&#x7BA1;&#x7406;&#x30FB;&#x904B;&#x7528;&#x3092;&#x682A;&#x5F0F;&#x4F1A;&#x793E; CauchyE &#x304C;&#x53D7;&#x8A17;&#x3057;&#x3001;&#x5B9F;&#x65BD;&#x3057;&#x3066;&#x304A;&#x308A;&#x307E;&#x3059;&#x3002;&#x3053;&#x306E;&#x30CE;&#x30FC;&#x30C9;&#x306F;&#x30D0;&#x30EA;&#x30C7;&#x30FC;&#x30BF;&#x3068;&#x3057;&#x3066;&#x30CD;&#x30C3;&#x30C8;&#x30EF;&#x30FC;&#x30AF;&#x306B;&#x53C2;&#x52A0;&#x3057;&#x3001;&#x30C8;&#x30E9;&#x30F3;&#x30B6;&#x30AF;&#x30B7;&#x30E7;&#x30F3;&#x306E;&#x691C;&#x8A3C;&#x3084;&#x627F;&#x8A8D;&#x3092;&#x62C5;&#x3046;&#x5F79;&#x5272;&#x3092;&#x6301;&#x3061;&#x307E;&#x3059;&#x3002;</p>
+<p>XRP Ledger &#x30D0;&#x30EA;&#x30C7;&#x30FC;&#x30BF;&#x30FC;&#x306E;&#x8A73;&#x7D30;<br>
+<a href="https://xrpscan.com/validator/nHB2BdLXomCawHvWno5qBtajQvKe1hCpF2e9XGToW92znxaztUn7">https://xrpscan.com/validator/nHB2BdLXomCawHvWno5qBtajQvKe1hCpF2e9XGToW92znxaztUn7</a></p>
+<p>Leader board<br>
+<a href="https://xrpscan.com/validators">https://xrpscan.com/validators</a></p>
+<p>&#x307E;&#x305F;&#x3001;KyotoUniv-SIC &#x30D6;&#x30ED;&#x30C3;&#x30AF;&#x30C1;&#x30A7;&#x30FC;&#x30F3;&#x7814;&#x7A76;&#x30BB;&#x30F3;&#x30BF;&#x30FC;&#x306E;&#x6C60;&#x7530;&#x88D5;&#x4E00;&#x7814;&#x7A76;&#x5BA4;&#x3067;&#x306F;&#x3053;&#x306E;&#x30D0;&#x30EA;&#x30C7;&#x30FC;&#x30BF;&#x304C;&#x6301;&#x3064; XRP &#x306E;&#x53D6;&#x5F15;&#x30C7;&#x30FC;&#x30BF;&#x3092;&#x89E3;&#x6790;&#x3059;&#x308B;&#x3053;&#x3068;&#x3067;&#x30D0;&#x30D6;&#x30EB;&#x5F62;&#x6210;&#x3068;&#x5D29;&#x58CA;&#x3092;&#x6570;&#x7406;&#x7684;&#x306B;&#x4E88;&#x6E2C;&#x3059;&#x308B;&#x305F;&#x3081;&#x306E;&#x7814;&#x7A76;&#x3092;&#x5B9F;&#x65BD;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;&#x307E;&#x305F;&#x3001;&#x6A5F;&#x68B0;&#x5B66;&#x7FD2;&#x306B;&#x3088;&#x308B;&#x8A50;&#x6B3A;&#x3084;&#x8CC7;&#x91D1;&#x6D17;&#x6D44;&#x306A;&#x3069;&#x306E;&#x7570;&#x5E38;&#x691C;&#x51FA;&#x306E;&#x7814;&#x7A76;&#x3082;&#x5B9F;&#x65BD;&#x3057;&#x3066;&#x304A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<h2 class="mume-header" id="%E9%9B%BB%E5%8A%9B%E7%AE%A1%E7%90%86%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AE%E6%A7%8B%E7%AF%89%E3%81%A8%E5%AE%9F%E8%A8%BC%E5%AE%9F%E9%A8%93%E4%BA%8B%E6%A5%AD">&#x96FB;&#x529B;&#x7BA1;&#x7406;&#x30B7;&#x30B9;&#x30C6;&#x30E0;&#x306E;&#x69CB;&#x7BC9;&#x3068;&#x5B9F;&#x8A3C;&#x5B9F;&#x9A13;&#x4E8B;&#x696D;</h2>
+
+<p>&#x96FB;&#x529B;&#x7BA1;&#x7406;&#x30B7;&#x30B9;&#x30C6;&#x30E0;&#x306E;&#x69CB;&#x7BC9;&#x3068;&#x5B9F;&#x8A3C;&#x5B9F;&#x9A13;&#x4E8B;&#x696D;&#x3067;&#x306F; EDISON (Energy DIstribution SystemON KyotoUniv-SIC) &#x3068;&#x3044;&#x3046; 1Kwh &#x3042;&#x305F;&#x308A;&#x306E;&#x96FB;&#x529B;&#x3092;&#x30C8;&#x30FC;&#x30AF;&#x30F3;&#x5316;&#x3057;&#x3001;&#x5229;&#x7528;&#x8005;&#x540C;&#x58EB;&#x3067;&#x53D6;&#x5F15;&#x3067;&#x304D;&#x308B;&#x96FB;&#x529B;&#x7BA1;&#x7406;&#x30B7;&#x30B9;&#x30C6;&#x30E0;&#x306E;&#x69CB;&#x7BC9;&#x306B;&#x5411;&#x3051;&#x3066;&#x3001;&#x958B;&#x767A;&#x3092;&#x884C;&#x3063;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<p>EDISON &#x306F;&#x3053;&#x308C;&#x307E;&#x3067;&#x306E;&#x6708;&#x672B;&#x306B;&#x96FB;&#x6C17;&#x4F7F;&#x7528;&#x91CF;&#x306B;&#x5FDC;&#x3058;&#x305F;&#x96FB;&#x6C17;&#x6599;&#x91D1;&#x3092;&#x652F;&#x6255;&#x3046;&#x30B7;&#x30B9;&#x30C6;&#x30E0;&#x3067;&#x306F;&#x306A;&#x304F;&#x3001;&#x96FB;&#x6C17;&#x4F7F;&#x7528;&#x6A29;&#x3092;&#x30C8;&#x30FC;&#x30AF;&#x30F3;&#x3068;&#x3057;&#x3066;&#x53D6;&#x5F15;&#x3057;&#x3001;&#x6D88;&#x8CBB;&#x3059;&#x308B;&#x30B7;&#x30B9;&#x30C6;&#x30E0;&#x3067;&#x3059;&#x3002;EDISON &#x3067;&#x306F;&#x4EE5;&#x4E0B;&#x306E; 2 &#x7A2E;&#x985E;&#x306E;&#x30C8;&#x30FC;&#x30AF;&#x30F3;&#x304C;&#x5B9F;&#x88C5;&#x3055;&#x308C;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<ul>
+<li>SPX (Solar Power XRP Token): KyotoUniv-SIC &#x306E;&#x5EFA;&#x7269;&#x306E;&#x30BD;&#x30FC;&#x30E9;&#x30FC;&#x30D1;&#x30CD;&#x30EB;&#x3067;&#x767A;&#x96FB;&#x3055;&#x308C;&#x305F;&#x96FB;&#x6C17; 1kWh &#x3092;&#x6D88;&#x8CBB;&#x3067;&#x304D;&#x308B;&#x30C8;&#x30FC;&#x30AF;&#x30F3;</li>
+<li>UPX (Utility Power XRP Token): &#x96FB;&#x529B;&#x4F1A;&#x793E;&#x304B;&#x3089;&#x8CFC;&#x5165;&#x3057;&#x305F;&#x96FB;&#x6C17; 1kWh &#x3092;&#x6D88;&#x8CBB;&#x3067;&#x304D;&#x308B;&#x30C8;&#x30FC;&#x30AF;&#x30F3;</li>
+</ul>
+<p>&#x5229;&#x7528;&#x8005;&#x306F;&#x3053;&#x308C;&#x3089; 2 &#x3064;&#x306E;&#x30C8;&#x30FC;&#x30AF;&#x30F3;&#x3092;&#x5229;&#x7528;&#x8005;&#x540C;&#x58EB;&#x306E;&#x5E02;&#x5834;&#x3067;&#x53D6;&#x5F15;&#x3057;&#x3001;&#x65E5;&#x3005;&#x306E;&#x96FB;&#x6C17;&#x6D88;&#x8CBB;&#x306B;&#x4F7F;&#x7528;&#x3057;&#x307E;&#x3059;&#x3002;&#x5927;&#x5B66;&#x304B;&#x3089;&#x306E;&#x8CA9;&#x58F2;&#x4FA1;&#x683C;&#x306F;</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>S</mi><mi>P</mi><mi>X</mi><mo>&gt;</mo><mi>U</mi><mi>P</mi><mi>X</mi></mrow><annotation encoding="application/x-tex">SPX&gt;UPX</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7224em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">SPX</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">U</span><span class="mord mathnormal" style="margin-right:0.07847em;">PX</span></span></span></span></span></p>
+<p>&#x3068;&#x3057;&#x3001;&#x96FB;&#x6C17;&#x4F7F;&#x7528;&#x91CF;&#x3084;&#x305D;&#x306E;&#x4E2D;&#x306B;&#x304A;&#x3051;&#x308B; SPX &#x306E;&#x5272;&#x5408;&#x3092;&#x30EA;&#x30FC;&#x30C0;&#x30FC;&#x30DC;&#x30FC;&#x30C9;&#x3067;&#x306E;&#x8868;&#x793A;&#x3092;&#x884C;&#x3044;&#x307E;&#x3059;&#x3002;&#x307E;&#x305F;&#x3001;&#x4F55;&#x3089;&#x304B;&#x306E;&#x5F62;&#x3067;&#x306E;&#x30A4;&#x30F3;&#x30BB;&#x30F3;&#x30C6;&#x30A3;&#x30D6;&#x3092;&#x4ED8;&#x4E0E;&#x3059;&#x308B;&#x3053;&#x3068;&#x3067;&#x3001;&#x5229;&#x7528;&#x8005;&#x306B;&#x5BFE;&#x3057;&#x3001;&#x96FB;&#x6C17;&#x4F7F;&#x7528;&#x91CF;&#x3084;&#x30AF;&#x30EA;&#x30FC;&#x30F3;&#x30A8;&#x30CD;&#x30EB;&#x30AE;&#x30FC;&#x306E;&#x5272;&#x5408;&#x3092;&#x53EF;&#x8996;&#x5316;&#x3059;&#x308B;&#x3053;&#x3068;&#x3067;&#x7701;&#x30A8;&#x30CD;&#x610F;&#x8B58;&#x306E;&#x5411;&#x4E0A;&#x3084;&#x96FB;&#x6C17;&#x6599;&#x91D1;&#x306E;&#x900F;&#x660E;&#x5316;&#x3092;&#x56F3;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x3053;&#x306E;&#x30B7;&#x30B9;&#x30C6;&#x30E0;&#x306E;&#x53D6;&#x5F15;&#x306B;&#x306F; XRP Ledger&#xFF08;&#x30EA;&#x30C3;&#x30D7;&#x30EB;&#x306E;&#x30D6;&#x30ED;&#x30C3;&#x30AF;&#x30C1;&#x30A7;&#x30FC;&#x30F3;&#xFF09;&#x3092;&#x7528;&#x3044;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;&#x307E;&#x305F;&#x3001;&#x30BD;&#x30D5;&#x30C8;&#x30A6;&#x30A7;&#x30A2;&#x5074;&#x306F; Google &#x306B;&#x3088;&#x3063;&#x3066;&#x958B;&#x767A;&#x3055;&#x308C;&#x3066;&#x3044;&#x308B;&#x30D5;&#x30ED;&#x30F3;&#x30C8;&#x30A8;&#x30F3;&#x30C9; Web &#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x30D5;&#x30EC;&#x30FC;&#x30E0;&#x30EF;&#x30FC;&#x30AF;&#x3067;&#x3042;&#x308B; Angular &#x3068;&#x3001;Google Cloud &#x4E0A;&#x306E;&#x30C7;&#x30FC;&#x30BF;&#x30D9;&#x30FC;&#x30B9;&#x3067;&#x3042;&#x308B; Firestore &#x3092;&#x7528;&#x3044;&#x3066;&#x958B;&#x767A;&#x3092;&#x884C;&#x3063;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<p><a href="https://github.com/KyotoUniv-SIC/electoric-power-exchange">https://github.com/KyotoUniv-SIC/electoric-power-exchange</a></p>
+<h2 class="mume-header" id="%E4%BB%8A%E5%BE%8C%E3%81%AE%E3%82%B9%E3%82%B1%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB">&#x4ECA;&#x5F8C;&#x306E;&#x30B9;&#x30B1;&#x30B8;&#x30E5;&#x30FC;&#x30EB;</h2>
+
+<ul>
+<li>2022 &#x5E74; 1 &#x6708;~ 3 &#x6708; EDISON &#x30C6;&#x30B9;&#x30C8;&#x516C;&#x958B;</li>
+<li>2022 &#x5E74; 4 &#x6708;~ 2023 &#x5E74; 3 &#x6708; EDISON &#x5B9F;&#x8A3C;&#x5B9F;&#x9A13;</li>
+<li>2023 &#x5E74; ~ University of Pennsylvania &#x3068;&#x306E;&#x5171;&#x540C;&#x7814;&#x7A76;&#xFF1F;</li>
+</ul>
+<p>&#x4ECA;&#x5F8C;&#x306E;&#x30BF;&#x30A4;&#x30E0;&#x30B9;&#x30B1;&#x30B8;&#x30E5;&#x30FC;&#x30EB;&#x3068;&#x3057;&#x3066;&#x306F;&#x3001;2022 &#x5E74; 1 &#x6708;&#xFF5E; 3 &#x6708;&#x306B; EDISON &#x306E;&#x30C6;&#x30B9;&#x30C8;&#x3092;&#x5B9F;&#x65BD;&#x4E88;&#x5B9A;&#x3068;&#x306A;&#x3063;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;&#x8A66;&#x9A13;&#x7684;&#x306B;&#x30B7;&#x30B9;&#x30C6;&#x30E0;&#x3092;&#x7A3C;&#x50CD;&#x3057;&#x3001;&#x4E0D;&#x5177;&#x5408;&#x306E;&#x6539;&#x5584;&#x3084;&#x30B7;&#x30B9;&#x30C6;&#x30E0;&#x6539;&#x826F;&#x3092;&#x884C;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x305D;&#x306E;&#x30C6;&#x30B9;&#x30C8;&#x3092;&#x7D4C;&#x3066;&#x3001;2022 &#x5E74;&#x5EA6;&#x306B;&#x5B9F;&#x969B;&#x306B; KyotoUniv-SIC &#x6240;&#x7BA1;&#x306E;&#x5B66;&#x751F;&#x5BEE;&#x306E;&#x5BEE;&#x751F;&#x306B;&#x5229;&#x7528;&#x3057;&#x3066;&#x3082;&#x3089;&#x3046;&#x5F62;&#x3067;&#x306E;&#x5B9F;&#x8A3C;&#x5B9F;&#x9A13;&#x3092;&#x5B9F;&#x65BD;&#x3059;&#x308B;&#x4E88;&#x5B9A;&#x3067;&#x3059;&#x3002;&#x5B9F;&#x8A3C;&#x5B9F;&#x9A13;&#x3067;&#x306F;&#x30C7;&#x30FC;&#x30BF;&#x53CE;&#x96C6;&#x3092;&#x884C;&#x3044;&#x3001;&#x5229;&#x7528;&#x8005;&#x306E;&#x884C;&#x52D5;&#x306B;&#x3069;&#x306E;&#x3088;&#x3046;&#x306A;&#x5909;&#x5316;&#x304C;&#x73FE;&#x308C;&#x305F;&#x304B;&#x306B;&#x3064;&#x3044;&#x3066;&#x5206;&#x6790;&#x3059;&#x308B;&#x4E88;&#x5B9A;&#x3067;&#x3059;&#x3002;</p>
+<p>&#x307E;&#x305F;&#x3001;&#x540C;&#x3058;&#x304F; UBRI &#x306B;&#x6240;&#x5C5E;&#x3059;&#x308B; University of Pennsylvania &#x306E; Dr. Dorit Aviv &#x306E;&#x30C1;&#x30FC;&#x30E0;(<a href="https://thermal-architecture.org/blockpenn">BlockPenn</a>)&#x3067;&#x306F;&#x500B;&#x4EBA;&#x304C;&#x74B0;&#x5883;&#x306B;&#x4E0E;&#x3048;&#x308B;&#x8CA0;&#x8377;&#x3092;&#x30DD;&#x30A4;&#x30F3;&#x30C8;&#x3067;&#x8A55;&#x4FA1;&#x3059;&#x308B;&#x30B7;&#x30B9;&#x30C6;&#x30E0;&#x3092;&#x30B9;&#x30DE;&#x30FC;&#x30C8;&#x30B3;&#x30F3;&#x30C8;&#x30E9;&#x30AF;&#x30C8;&#x3067;&#x5B9F;&#x88C5;&#x3059;&#x308B;&#x7814;&#x7A76;&#x304C;&#x5B9F;&#x65BD;&#x3055;&#x308C;&#x3066;&#x304A;&#x308A;&#x3001;&#x6642;&#x671F;&#x306F;&#x672A;&#x5B9A;&#x3067;&#x3059;&#x304C;&#x3001;&#x5171;&#x540C;&#x7814;&#x7A76;&#x3092;&#x4E88;&#x5B9A;&#x3057;&#x3066;&#x304A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<h2 class="mume-header" id="edison-%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E5%8F%96%E5%BC%95%E3%81%AE%E8%A9%B3%E7%B4%B0">EDISON &#x306B;&#x304A;&#x3051;&#x308B;&#x53D6;&#x5F15;&#x306E;&#x8A73;&#x7D30;</h2>
+
+<p>EDISON &#x306E;&#x30B7;&#x30B9;&#x30C6;&#x30E0;&#x306B;&#x304A;&#x3051;&#x308B;&#x96FB;&#x6C17;&#x4F7F;&#x7528;&#x6A29;&#x53D6;&#x5F15;</p>
+<h3 class="mume-header" id="%E6%9C%88%E5%88%9D%E3%81%AE%E3%83%88%E3%83%BC%E3%82%AF%E3%83%B3%E7%99%BA%E8%A1%8C">&#x6708;&#x521D;&#x306E;&#x30C8;&#x30FC;&#x30AF;&#x30F3;&#x767A;&#x884C;</h3>
+
+<p>&#x524D;&#x8FF0;&#x306E;&#x3088;&#x3046;&#x306B;&#x30C8;&#x30FC;&#x30AF;&#x30F3; 1 &#x500B;&#x306F;&#x96FB;&#x529B;&#x91CF; 1kwh &#x3092;&#x6D88;&#x8CBB;&#x3067;&#x304D;&#x308B;&#x6A29;&#x5229;&#x3068;&#x3057;&#x307E;&#x3059;&#x3002;<br>
+UPX &#x306E;&#x30C8;&#x30FC;&#x30AF;&#x30F3;&#x4FA1;&#x683C;<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>U</mi><mo>&#x2C9;</mo></mover></mrow><annotation encoding="application/x-tex">\bar{U}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8201em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8201em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">U</span></span><span style="top:-3.2523em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2222em;"><span class="mord">&#x2C9;</span></span></span></span></span></span></span></span></span></span>(&#x5186;/kWh)&#x306F;&#x96FB;&#x6C17;&#x4F1A;&#x793E;&#x306E;&#x96FB;&#x6C17;&#x6599;&#x91D1;&#x3068;&#x540C;&#x3058; <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>27</mn></mrow><annotation encoding="application/x-tex">27</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">27</span></span></span></span> (&#x5186;/kWh)&#x3068;&#x3057;&#x307E;&#x3059;&#x3002;<br>
+SPX &#x306B;&#x3064;&#x3044;&#x3066;&#x306F;&#x6708;&#x521D;&#x306E;&#x767A;&#x884C;&#x306F;&#x306A;&#x304F;&#x3001;&#x6BCE;&#x65E5;&#x306E;&#x767A;&#x96FB;&#x91CF;&#x306B;&#x5FDC;&#x3058;&#x3066;&#x3001;&#x7BA1;&#x7406;&#x8005;&#x304C;&#x5E02;&#x5834;&#x3067;&#x8CA9;&#x58F2;&#x3057;&#x307E;&#x3059;</p>
+<p>&#x6708;&#x521D;&#x306E;&#x30C8;&#x30FC;&#x30AF;&#x30F3;&#x767A;&#x884C;&#x6570;&#x306F;&#xFF0C;&#x4EBA;&#x6570; &#xD7; &#x524D;&#x5E74;&#x540C;&#x6708;&#x306E;&#x4E00;&#x4EBA;&#x5F53;&#x305F;&#x308A;&#x306E;&#x5E73;&#x5747;&#x4F7F;&#x7528;&#x96FB;&#x529B;&#x91CF;&#x306E;&#x4E00;&#x5B9A;&#x5272;&#x5408;(&#x4F8B;&#x3048;&#x3070; 90%)&#x306B;&#x76F8;&#x5F53;&#x3059;&#x308B;<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span>&#x3067;&#x3059;&#x3002;<br>
+&#x3053;&#x306E;&#x6642;&#x70B9;&#x3067;&#x306E;&#x30B7;&#x30B9;&#x30C6;&#x30E0;&#x306E;&#x53CE;&#x5165;&#x306F;<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo>=</mo><mi>N</mi><mover accent="true"><mi>U</mi><mo>&#x2C9;</mo></mover></mrow><annotation encoding="application/x-tex">I=N\bar{U}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8201em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8201em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">U</span></span><span style="top:-3.2523em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2222em;"><span class="mord">&#x2C9;</span></span></span></span></span></span></span></span></span></span>&#x3068;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<h3 class="mume-header" id="%E6%9C%88%E4%B8%AD%E3%81%AE%E3%83%88%E3%83%BC%E3%82%AF%E3%83%B3%E7%99%BA%E8%A1%8C%E3%81%A8%E5%8F%96%E5%BC%95">&#x6708;&#x4E2D;&#x306E;&#x30C8;&#x30FC;&#x30AF;&#x30F3;&#x767A;&#x884C;&#x3068;&#x53D6;&#x5F15;</h3>
+
+<p>&#x6708;&#x4E2D;&#x306B;&#x306F; KyotoUniv-SIC &#x306E;&#x30BD;&#x30FC;&#x30E9;&#x30FC;&#x30D1;&#x30CD;&#x30EB;&#x3067;&#x767A;&#x96FB;&#x3055;&#x308C;&#x305F;&#x96FB;&#x6C17;&#x3092; SPX &#x30C8;&#x30FC;&#x30AF;&#x30F3;&#x3068;&#x3057;&#x3066;&#x5E02;&#x5834;&#x306B;&#x3066;&#x8CA9;&#x58F2;&#x3057;&#x307E;&#x3059;&#x3002;&#x5168;&#x4F53;&#x3067;&#x30C8;&#x30FC;&#x30AF;&#x30F3;&#x304C;&#x4E0D;&#x8DB3;&#x3059;&#x308B;&#x5834;&#x5408;&#x306F;&#x6708;&#x521D;&#x767A;&#x884C;&#x30C8;&#x30FC;&#x30AF;&#x30F3;&#x3068;&#x6BD4;&#x3079;&#x3066;&#x4FA1;&#x683C;&#x3092;&#x9AD8;&#x304F;&#x8A2D;&#x5B9A;&#x3057;&#x305F; UPX &#x30C8;&#x30FC;&#x30AF;&#x30F3;&#x3082;&#x8CA9;&#x58F2;&#x3057;&#x307E;&#x3059;&#x3002;&#x3053;&#x308C;&#x306B;&#x3088;&#x308B;&#x30B7;&#x30B9;&#x30C6;&#x30E0;&#x306E;&#x53CE;&#x5165;&#x3092;<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span></span></span></span>&#x3068;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x5229;&#x7528;&#x8005;&#x540C;&#x58EB;&#x306F;&#x30B7;&#x30F3;&#x30B0;&#x30EB;&#x30D7;&#x30E9;&#x30A4;&#x30B9;&#x30AA;&#x30FC;&#x30AF;&#x30B7;&#x30E7;&#x30F3;&#x3092;&#x63A1;&#x7528;&#x3057;&#x305F;&#x3001;&#x96FB;&#x6C17;&#x4F7F;&#x7528;&#x6A29;&#x53D6;&#x5F15;&#x5E02;&#x5834;&#x306B;&#x3088;&#x308B;&#x53D6;&#x5F15;&#x3092;&#x884C;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<h4 class="mume-header" id="%E3%82%B7%E3%83%B3%E3%82%B0%E3%83%AB%E3%83%97%E3%83%A9%E3%82%A4%E3%82%B9%E3%82%AA%E3%83%BC%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3%E6%96%B9%E5%BC%8F">&#x30B7;&#x30F3;&#x30B0;&#x30EB;&#x30D7;&#x30E9;&#x30A4;&#x30B9;&#x30AA;&#x30FC;&#x30AF;&#x30B7;&#x30E7;&#x30F3;&#x65B9;&#x5F0F;</h4>
+
+<ul>
+<li>&#x305D;&#x308C;&#x305E;&#x308C;&#x306E;&#x58F2;&#x308A;&#x624B;&#x306E;&#x5FDC;&#x672D;&#x60C5;&#x5831;&#x304B;&#x3089;&#x4F5C;&#x6210;&#x3057;&#x305F;&#x58F2;&#x308A;&#x5FDC;&#x672D;&#x66F2;&#x7DDA;</li>
+<li>&#x305D;&#x308C;&#x305E;&#x308C;&#x306E;&#x8CB7;&#x3044;&#x624B;&#x306E;&#x5FDC;&#x672D;&#x60C5;&#x5831;&#x304B;&#x3089;&#x4F5C;&#x6210;&#x3057;&#x305F;&#x8CB7;&#x3044;&#x5FDC;&#x672D;&#x66F2;&#x7DDA;</li>
+</ul>
+<p>&#x3053;&#x308C;&#x3089;&#x4E8C;&#x3064;&#x306E;&#x66F2;&#x7DDA;&#x306E;&#x4EA4;&#x70B9;&#x3067;&#x843D;&#x672D;&#x4FA1;&#x683C;&#x3068;&#x843D;&#x672D;&#x91CF;&#x304C;&#x6C7A;&#x307E;&#x308A;&#x307E;&#x3059;&#x3002;&#x4EA4;&#x70B9;&#x3088;&#x308A;&#x5DE6;&#x5074;&#x306B;&#x3042;&#x308B;&#x5FDC;&#x672D;&#xFF08;&#x843D;&#x672D;&#x4FA1;&#x683C;&#x3088;&#x308A;&#x5B89;&#x5024;&#x306E;&#x58F2;&#x308A;&#x3068;&#x843D;&#x672D;&#x4FA1;&#x683C;&#x3088;&#x308A;&#x9AD8;&#x5024;&#x306E;&#x8CB7;&#x3044;&#xFF09;&#x306F;&#x3059;&#x3079;&#x3066;&#x6210;&#x7D04;&#x3057;&#x3001;&#x4EA4;&#x70B9;&#x3088;&#x308A;&#x53F3;&#x5074;&#x306E;&#x8003;&#x5BDF;&#x306F;&#x5168;&#x3066;&#x6210;&#x7D04;&#x3055;&#x308C;&#x307E;&#x305B;&#x3093;&#x3002;</p>
+<p><img src="spa.png" alt="Single Price Auction"></p>
+<h3 class="mume-header" id="%E6%9C%88%E6%9C%AB%E3%81%AE%E7%B2%BE%E7%AE%97">&#x6708;&#x672B;&#x306E;&#x7CBE;&#x7B97;</h3>
+
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span>&#x500B;&#x306E;&#x4F59;&#x5270;&#x30C8;&#x30FC;&#x30AF;&#x30F3;&#x306F;&#xFF0C;&#x30B7;&#x30B9;&#x30C6;&#x30E0;&#x5074;&#x304C;&#x4FA1;&#x683C;<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi></mrow><annotation encoding="application/x-tex">p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">p</span></span></span></span>&#x3067;&#x8CB7;&#x3044;&#x53D6;&#x308A;&#x3001;<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">m</span></span></span></span>&#x500B;&#x306E;&#x4E0D;&#x8DB3;&#x30C8;&#x30FC;&#x30AF;&#x30F3;&#x306F;&#xFF0C;&#x30B7;&#x30B9;&#x30C6;&#x30E0;&#x5074;&#x304C;&#x4FA1;&#x683C;<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi></mrow><annotation encoding="application/x-tex">q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">q</span></span></span></span>&#x3067;&#x8CA9;&#x58F2;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>&lt;</mo><mover accent="true"><mi>U</mi><mo>&#x2C9;</mo></mover><mo>&lt;</mo><mi>q</mi></mrow><annotation encoding="application/x-tex">p&lt; \bar{U}&lt; q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7335em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">p</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8592em;vertical-align:-0.0391em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8201em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">U</span></span><span style="top:-3.2523em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2222em;"><span class="mord">&#x2C9;</span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">q</span></span></span></span>&#x3068;&#x3059;&#x308B;&#x3068;&#x3001;</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable width="100%"><mtr><mtd width="50%"></mtd><mtd><mrow><mi>p</mi><mo>=</mo><mo stretchy="false">(</mo><mn>1</mn><mo>&#x2212;</mo><mi>r</mi><mo stretchy="false">)</mo><mover accent="true"><mi>U</mi><mo>&#x2C9;</mo></mover></mrow></mtd><mtd width="50%"></mtd><mtd><mtext>(1)</mtext></mtd></mtr></mtable><annotation encoding="application/x-tex">p = (1 - r) \bar{U} \tag{1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">p</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0701em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mclose">)</span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8201em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">U</span></span><span style="top:-3.2523em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2222em;"><span class="mord">&#x2C9;</span></span></span></span></span></span></span></span><span class="tag"><span class="strut" style="height:1.0701em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">(</span><span class="mord"><span class="mord">1</span></span><span class="mord">)</span></span></span></span></span></span></p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable width="100%"><mtr><mtd width="50%"></mtd><mtd><mrow><mi>q</mi><mo>=</mo><mo stretchy="false">(</mo><mn>1</mn><mo>+</mo><mi>r</mi><mo stretchy="false">)</mo><mover accent="true"><mi>U</mi><mo>&#x2C9;</mo></mover></mrow></mtd><mtd width="50%"></mtd><mtd><mtext>(2)</mtext></mtd></mtr></mtable><annotation encoding="application/x-tex">q = (1 + r) \bar{U} \tag{2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">q</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0701em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mclose">)</span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8201em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">U</span></span><span style="top:-3.2523em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2222em;"><span class="mord">&#x2C9;</span></span></span></span></span></span></span></span><span class="tag"><span class="strut" style="height:1.0701em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">(</span><span class="mord"><span class="mord">2</span></span><span class="mord">)</span></span></span></span></span></span></p>
+<p>&#x30B7;&#x30B9;&#x30C6;&#x30E0;&#x306E;&#x904B;&#x7528;&#x30B3;&#x30B9;&#x30C8;&#x3092;<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span></span></span></span>&#x3001;&#x30B7;&#x30B9;&#x30C6;&#x30E0;&#x304C;&#x96FB;&#x529B;&#x4F1A;&#x793E;&#x306B;&#x652F;&#x6255;&#x3046;&#x96FB;&#x6C17;&#x6599;&#x91D1;&#x3092;<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi></mrow><annotation encoding="application/x-tex">E</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span></span></span></span>&#x3068;&#x3057;&#x3001;&#x30B7;&#x30B9;&#x30C6;&#x30E0;&#x306E;&#x53CE;&#x652F;&#x3092; 0 &#x3068;&#x3059;&#x308B;&#x3068;&#x3001;</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable width="100%"><mtr><mtd width="50%"></mtd><mtd><mrow><mi>I</mi><mo>+</mo><mi>S</mi><mo>&#x2212;</mo><mi>C</mi><mo>&#x2212;</mo><mi>E</mi><mo>&#x2212;</mo><mi>n</mi><mi>p</mi><mo>+</mo><mi>m</mi><mi>q</mi><mo>=</mo><mn>0</mn></mrow></mtd><mtd width="50%"></mtd><mtd><mtext>(3)</mtext></mtd></mtr></mtable><annotation encoding="application/x-tex">I + S - C - E - np + mq = 0 \tag{3}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">n</span><span class="mord mathnormal">p</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">m</span><span class="mord mathnormal" style="margin-right:0.03588em;">q</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span><span class="tag"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">(</span><span class="mord"><span class="mord">3</span></span><span class="mord">)</span></span></span></span></span></span></p>
+<p>&#x3068;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;&#x5F0F;(1)~(3)&#x3088;&#x308A;</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable width="100%"><mtr><mtd width="50%"></mtd><mtd><mrow><mi>r</mi><mo>=</mo><mfrac><mrow><mo>&#x2212;</mo><mo stretchy="false">(</mo><mi>I</mi><mo>+</mo><mi>S</mi><mo>&#x2212;</mo><mi>C</mi><mo>&#x2212;</mo><mi>E</mi><mo>&#x2212;</mo><mi>n</mi><mover accent="true"><mi>U</mi><mo>&#x2C9;</mo></mover><mo>+</mo><mi>m</mi><mover accent="true"><mi>U</mi><mo>&#x2C9;</mo></mover><mo stretchy="false">)</mo></mrow><mrow><mo stretchy="false">(</mo><mi>n</mi><mo>+</mo><mi>m</mi><mo stretchy="false">)</mo><mover accent="true"><mi>U</mi><mo>&#x2C9;</mo></mover></mrow></mfrac></mrow></mtd><mtd width="50%"></mtd><mtd><mtext>(4)</mtext></mtd></mtr></mtable><annotation encoding="application/x-tex">r = \frac{- (I + S - C - E - n\bar{U} + m\bar{U})}{(n+m)\bar{U}}   \tag{4}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.4572em;vertical-align:-0.9601em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.4971em;"><span style="top:-2.2899em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal">m</span><span class="mclose">)</span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8201em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">U</span></span><span style="top:-3.2523em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2222em;"><span class="mord">&#x2C9;</span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">&#x2212;</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal">n</span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8201em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">U</span></span><span style="top:-3.2523em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2222em;"><span class="mord">&#x2C9;</span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal">m</span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8201em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">U</span></span><span style="top:-3.2523em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2222em;"><span class="mord">&#x2C9;</span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.9601em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span><span class="tag"><span class="strut" style="height:2.4572em;vertical-align:-0.9601em;"></span><span class="mord text"><span class="mord">(</span><span class="mord"><span class="mord">4</span></span><span class="mord">)</span></span></span></span></span></span></p>
+<p>&#x3068;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<h2 class="mume-header" id="%E6%9C%AC%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E9%81%8B%E5%96%B6%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B-%E7%B5%8C%E7%90%86%E5%81%B4%E3%81%AE%E4%BB%95%E8%A8%B3%E6%A5%AD%E5%8B%99">&#x672C;&#x30B7;&#x30B9;&#x30C6;&#x30E0;&#x904B;&#x55B6;&#x306B;&#x95A2;&#x3059;&#x308B;&#x3001;&#x7D4C;&#x7406;&#x5074;&#x306E;&#x4ED5;&#x8A33;&#x696D;&#x52D9;</h2>
+
+<p>&#x4E0B;&#x8A18;&#x306E; 2 &#x30D1;&#x30BF;&#x30FC;&#x30F3;&#x3092;&#x60F3;&#x5B9A;&#x3002;</p>
+<p>&#x2460; &#x539F;&#x5247;&#x51E6;&#x7406;</p>
+<ul>
+<li>&#x6708;&#x521D;&#x30FB;&#x6708;&#x4E2D;&#x306E;&#x30C8;&#x30FC;&#x30AF;&#x30F3;&#x8CA9;&#x58F2;&#x6642;&#x306B;&#x672A;&#x53CE;&#x5165;&#x91D1;/&#x96D1;&#x53CE;&#x5165;&#x51E6;&#x7406;&#x3002;</li>
+<li>&#x6708;&#x672B;&#x306B;&#x73FE;&#x91D1;&#x3092;&#x5FB4;&#x53CE;&#x3057;&#x305F;&#x3068;&#x304D;&#x306F;&#x3001;&#x73FE;&#x91D1;/&#x672A;&#x53CE;&#x5165;&#x91D1;&#x51E6;&#x7406;&#x3002;</li>
+</ul>
+<p>&#x2461; &#x7C21;&#x6613;&#x51E6;&#x7406;</p>
+<ul>
+<li>&#x6708;&#x672B;&#x306E;&#x73FE;&#x91D1;&#x5FB4;&#x53CE;&#x6642;&#x306B;&#x307E;&#x3068;&#x3081;&#x3066;&#x73FE;&#x91D1;/&#x96D1;&#x53CE;&#x5165;&#x51E6;&#x7406;&#x3002;</li>
+</ul>
+<h2 class="mume-header" id="%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97">&#x30ED;&#x30FC;&#x30C9;&#x30DE;&#x30C3;&#x30D7;</h2>
+
+<h3 class="mume-header" id="edison-%E3%82%A2%E3%83%97%E3%83%AA">EDISON &#x30A2;&#x30D7;&#x30EA;</h3>
+
+<p>1 &#x6708;&#x672B;&#x73FE;&#x5728;&#x3001;messsage &#x6A5F;&#x80FD;&#x3092;&#x9664;&#x304D;&#x3001;&#x307B;&#x307C;&#x5B8C;&#x6210;&#x3002;XRP Ledger &#x63A5;&#x7D9A;&#x306B;&#x95A2;&#x3059;&#x308B;&#x6A5F;&#x80FD;&#x8FFD;&#x52A0;&#x306F;&#x3042;&#x308B;&#x3082;&#x306E;&#x306E;&#x3001;&#x5F8C;&#x306F;&#x52D5;&#x4F5C;&#x691C;&#x8A3C;&#x304C;&#x4E3B;&#x306A;&#x30BF;&#x30B9;&#x30AF;&#x306B;&#x306A;&#x308B;&#x3002;</p>
+<p>=&gt;<br>
+Message &#x6A5F;&#x80FD;&#x3082;&#x5B8C;&#x6210;&#x3002;Admin Dashboard &#x306E;&#x307F;&#x672A;&#x5B8C;&#x6210;&#x3002;&#x52D5;&#x4F5C;&#x78BA;&#x8A8D;&#x3082; XRP Ledger &#x3092;&#x542B;&#x3081;&#x3066;&#x3001;&#x4E00;&#x901A;&#x308A;&#x306F;&#x53D6;&#x308C;&#x3066;&#x3044;&#x308B;&#x3002;</p>
+<h3 class="mume-header" id="%E3%83%86%E3%82%B9%E3%83%88">&#x30C6;&#x30B9;&#x30C8;</h3>
+
+<p>2 &#x6708;&#x5F8C;&#x534A;&#x304B;&#x3089;&#x5B9F;&#x65BD;&#x3002;&#x73FE;&#x6BB5;&#x968E;&#x306E; EDISON &#x30A2;&#x30D7;&#x30EA;&#x3067;&#x30C6;&#x30B9;&#x30C8;&#x306F;&#x53EF;&#x80FD;&#x3060;&#x304C;&#x3001;&#x8868;&#x793A;&#x304C;&#x898B;&#x3065;&#x3089;&#x3044;&#x7B87;&#x6240;&#x304C;&#x3042;&#x308B;&#x3068;&#x601D;&#x3046;&#x306E;&#x3067;&#x3001;CauchyE &#x5185;&#x3067;&#x30C6;&#x30B9;&#x30C8;&#x307E;&#x3067;&#x306B;&#x691C;&#x8A3C;&#x3092;&#x884C;&#x3046;&#x4E88;&#x5B9A;&#x3002;</p>
+<p>=&gt;<br>
+&#x5C11;&#x3057;&#x8ABF;&#x6574;&#x3002;&#x57FA;&#x672C;&#x7684;&#x306B;&#x30A2;&#x30D7;&#x30EA;&#x306F;&#x82F1;&#x8A9E;&#x3001;&#x30A2;&#x30E9;&#x30FC;&#x30C8;&#x306F;&#x65E5;&#x672C;&#x8A9E;&#x3067;&#x51FA;&#x308B;&#x72B6;&#x614B;&#x3002;</p>
+<h3 class="mume-header" id="%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E3%81%AE%E5%8F%96%E5%BE%97">&#x30C9;&#x30E1;&#x30A4;&#x30F3;&#x306E;&#x53D6;&#x5F97;</h3>
+
+<p>&#x73FE;&#x72B6;&#x306E; URL &#x306F;&#x4EE5;&#x4E0B;&#x306E;&#x3082;&#x306E;<br>
+<a href="https://edison-dev-1c1b5.web.app/">https://edison-dev-1c1b5.web.app/</a><br>
+<a href="http://xn--n9ji9c6lua2c8gzi1b0ed.com">&#x30B5;&#x30FC;&#x30D3;&#x30B9;&#x30ED;&#x30FC;&#x30F3;&#x30C1;&#x307E;&#x3067;&#x306B;.com</a> &#x306E; URL &#x304C;&#x3042;&#x308B;&#x3068;&#x671B;&#x307E;&#x3057;&#x3044;&#x3002;</p>
+<h3 class="mume-header" id="xrp-ledger-%E3%83%A1%E3%82%A4%E3%83%B3%E3%83%8D%E3%83%83%E3%83%88%E3%81%B8%E3%81%AE%E6%8E%A5%E7%B6%9A">XRP Ledger &#x30E1;&#x30A4;&#x30F3;&#x30CD;&#x30C3;&#x30C8;&#x3078;&#x306E;&#x63A5;&#x7D9A;</h3>
+
+<h4 class="mume-header" id="%E8%B2%A1%E6%94%BF%E9%9D%A2%E3%81%AE%E5%95%8F%E9%A1%8C">&#x8CA1;&#x653F;&#x9762;&#x306E;&#x554F;&#x984C;</h4>
+
+<ul>
+<li>XRP Ledger &#x3067;&#x306F;&#x5341;&#x5206;&#x306A;&#x6E96;&#x5099;&#x91D1;&#x304C;&#x306A;&#x3044;&#x3068;&#x30A2;&#x30AB;&#x30A6;&#x30F3;&#x30C8;&#x3068;&#x3057;&#x3066;&#x8A8D;&#x8B58;&#x3055;&#x308C;&#x306A;&#x3044;&#x3002;&#x6700;&#x4F4E;&#x6E96;&#x5099;&#x91D1; 10XRP &#xFF0B;&#x30C8;&#x30E9;&#x30B9;&#x30C8;&#x30E9;&#x30A4;&#x30F3;&#x6570;*2XRP&#x3002;&#x3053;&#x308C;&#x306F;&#x5B66;&#x751F;&#x30A2;&#x30AB;&#x30A6;&#x30F3;&#x30C8;&#x3082;&#x540C;&#x69D8;&#x3002;&#x6771;&#x4E00;&#x6761;&#x9928; 20&#x3001;&#x5EE3;&#x5FD7;&#x623F; 26&#x3001;&#x8239;&#x54F2;&#x623F; 28 &#x306E;&#x5408;&#x8A08; 74 &#x90E8;&#x5C4B; + &#x7BA1;&#x7406;&#x8005; 2 &#x30A2;&#x30AB;&#x30A6;&#x30F3;&#x30C8;&#x304C;&#x5FC5;&#x8981;&#x3060;&#x3068;&#x601D;&#x308F;&#x308C;&#x308B;&#x3002;</li>
+<li>&#x30C8;&#x30E9;&#x30B9;&#x30C8;&#x30E9;&#x30A4;&#x30F3;&#x304C;&#x306A;&#x3044;&#x3068;&#x30C8;&#x30FC;&#x30AF;&#x30F3;&#x3068;&#x3057;&#x3066;&#x53D6;&#x5F15;&#x3067;&#x304D;&#x306A;&#x3044;&#x3002;&#xFF08;&#x4F8B;&#x3048;&#x3070; USD &#x30C8;&#x30FC;&#x30AF;&#x30F3;&#x306F;&#x591A;&#x6570;&#x306E;&#x767A;&#x884C;&#x8005;&#x304C;&#x3044;&#x308B;&#x306E;&#x3067;&#x3001;&#x767A;&#x884C;&#x8005;&#x30A2;&#x30C9;&#x30EC;&#x30B9;&#x306B;&#x901A;&#x8CA8;&#x30B3;&#x30FC;&#x30C9;&#x3092;&#x7D10;&#x3064;&#x3051;&#x308B;&#x5FC5;&#x8981;&#x304C;&#x3042;&#x308B;&#x3002;&#xFF09;UPX, SPX &#x4E21;&#x65B9;&#x306B;&#x5FC5;&#x8981;&#x3002;TxFee &#x306F;&#x305D;&#x308C;&#x305E;&#x308C; 0.000012XRP</li>
+</ul>
+<p>=&gt;</p>
+<ul>
+<li>
+<p>&#x73FE;&#x72B6;&#x306F;&#x30C6;&#x30B9;&#x30C8;&#x30CD;&#x30C3;&#x30C8;&#x3067;&#x52D5;&#x4F5C;&#x3059;&#x308B;&#x306E;&#x3067;&#x3001;&#x30A2;&#x30AB;&#x30A6;&#x30F3;&#x30C8;&#x4F5C;&#x6210;&#x6642;&#x306B; 1000XRP &#x304C;&#x4ED8;&#x4E0E;&#x3055;&#x308C;&#x3001;&#x540C;&#x6642;&#x306B; UPX&#x3001;SPX &#x306E;&#x30C8;&#x30E9;&#x30B9;&#x30C8;&#x30E9;&#x30A4;&#x30F3;&#x3082;&#x4F5C;&#x6210;&#x3055;&#x308C;&#x308B;&#x3002;&#xFF08;&#x8A66;&#x9A13;&#x7684;&#x306B; 50UPX, 50SPX &#x3092;&#x4ED8;&#x4E0E;&#xFF09;</p>
+</li>
+<li>
+<p>&#x30E1;&#x30A4;&#x30F3;&#x30CD;&#x30C3;&#x30C8;&#x3067;&#x306F; XRP Ledger &#x30A2;&#x30AB;&#x30A6;&#x30F3;&#x30C8;&#x3092;&#x4F5C;&#x6210;&#x3001;&#x5B66;&#x751F;&#x306B;&#x4F5C;&#x6210;&#x3057;&#x305F;&#x30A2;&#x30C9;&#x30EC;&#x30B9;&#x5B9B;&#x306B; XRP &#x3092;&#x5165;&#x91D1;&#x3057;&#x3066;&#x8CB0;&#x3046;&#x5FC5;&#x8981;&#x304C;&#x3042;&#x308B;&#x3002;</p>
+</li>
+</ul>
+<h4 class="mume-header" id="%E6%8A%80%E8%A1%93%E7%9A%84%E3%81%AA%E5%95%8F%E9%A1%8C">&#x6280;&#x8853;&#x7684;&#x306A;&#x554F;&#x984C;</h4>
+
+<ul>
+<li>&#x30AA;&#x30FC;&#x30AF;&#x30B7;&#x30E7;&#x30F3;&#x6A5F;&#x80FD;&#x3084;&#x6B8B;&#x9AD8;&#x7BA1;&#x7406;&#x306E;&#x691C;&#x8A3C;&#x304C;&#x5B8C;&#x4E86;&#x3057;&#x3066;&#x3044;&#x306A;&#x3044;&#x305F;&#x3081;&#x3001;&#x73FE;&#x72B6;&#x30E1;&#x30A4;&#x30F3;&#x30CD;&#x30C3;&#x30C8;&#x306B;&#x4E57;&#x305B;&#x308B;&#x306E;&#x306F;&#x53B3;&#x3057;&#x3044;&#x3068;&#x601D;&#x308F;&#x308C;&#x308B;&#x3002;</li>
+<li>8 &#x6708;&#x306E;&#x767A;&#x8868;&#x307E;&#x3067;&#x3067;&#x3001;&#x30C6;&#x30B9;&#x30C8;&#x304C;&#x5341;&#x5206;&#x306B;&#x3067;&#x304D;&#x305F;&#x6BB5;&#x968E;&#x3067;&#x3084;&#x308A;&#x305F;&#x3044;&#x3068;&#x8003;&#x3048;&#x3066;&#x3044;&#x308B;&#x3002;&#x6708;&#x672B;&#x7DE0;&#x3081;&#x306E;&#x96FB;&#x6C17;&#x6599;&#x91D1;&#x30B7;&#x30B9;&#x30C6;&#x30E0;&#x306A;&#x306E;&#x3067;&#x3001;7 &#x6708;&#x304B; 8 &#x6708;&#x306E; 1 &#x65E5;&#x304B;&#x3089;&#x306E;&#x5B9F;&#x88C5;&#x306B;&#x3057;&#x305F;&#x3044;&#x3002;</li>
+<li>&#x73FE;&#x72B6;&#x3001;&#x30A2;&#x30D7;&#x30EA;&#x304B;&#x3089;&#x30A2;&#x30AB;&#x30A6;&#x30F3;&#x30C8;&#x3092;&#x8AB0;&#x3067;&#x3082;&#x4F5C;&#x6210;&#x3067;&#x304D;&#x308B;&#x304C;&#x3001;&#x4E0A;&#x8A18;&#x306E;&#x3088;&#x3046;&#x306B; XRP Ledger &#x3067;&#x30A6;&#x30A9;&#x30EC;&#x30C3;&#x30C8;&#x3092;&#x6709;&#x52B9;&#x5316;&#x3059;&#x308B;&#x306E;&#x306B; XRP &#x304C;&#x5FC5;&#x8981;&#x306A;&#x305F;&#x3081;&#x3001;&#x30A2;&#x30AB;&#x30A6;&#x30F3;&#x30C8;&#x3092;&#x3069;&#x306E;&#x3088;&#x3046;&#x306B;&#x767A;&#x884C;&#x3059;&#x308B;&#x306E;&#x304B;&#x3092;&#x6C7A;&#x5B9A;&#x3059;&#x308B;&#x5FC5;&#x8981;&#x304C;&#x3042;&#x308B;&#x3002;</li>
+</ul>
+<h3 class="mume-header" id="%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3">&#x30BB;&#x30AD;&#x30E5;&#x30EA;&#x30C6;&#x30A3;</h3>
+
+<p>XRP Ledger &#x30E1;&#x30A4;&#x30F3;&#x30CD;&#x30C3;&#x30C8;&#x306B;&#x63A5;&#x7D9A;&#x3059;&#x308B;&#x969B;&#x306B;&#x3001;&#x4FA1;&#x5024;&#x306E;&#x3042;&#x308B; XRP &#x3092;&#x4FDD;&#x6709;&#x3057;&#x3066;&#x3044;&#x308B;&#x30A2;&#x30AB;&#x30A6;&#x30F3;&#x30C8;&#x306E;&#x60C5;&#x5831;&#x3092;&#x30B5;&#x30FC;&#x30D0;&#x30FC;&#xFF08;Google Firestore&#xFF09;&#x306B;&#x7F6E;&#x304F;&#x5FC5;&#x8981;&#x304C;&#x3042;&#x308B;&#x306E;&#x3067;&#x3001;&#x30B5;&#x30FC;&#x30D0;&#x30FC;&#x306E;&#x30BB;&#x30AD;&#x30E5;&#x30EA;&#x30C6;&#x30A3;&#x3092;&#x898B;&#x76F4;&#x3059;&#x5FC5;&#x8981;&#x3042;&#x308A;&#x3002;<br>
+&#x307E;&#x305F;&#x3001;&#x30B3;&#x30FC;&#x30EB;&#x30C9;&#x30A2;&#x30C9;&#x30EC;&#x30B9;&#xFF08;&#x30C8;&#x30FC;&#x30AF;&#x30F3;&#x3092;&#x767A;&#x884C;&#x3059;&#x308B;&#x30A2;&#x30C9;&#x30EC;&#x30B9;&#xFF09;&#x306E;&#x79D8;&#x5BC6;&#x9375;&#x306F;&#x30AA;&#x30D5;&#x30E9;&#x30A4;&#x30F3;&#x3067;&#x7BA1;&#x7406;&#x3059;&#x308B;&#x3053;&#x3068;&#x304C;&#x63A8;&#x5968;&#x3055;&#x308C;&#x3066;&#x3044;&#x308B;&#x306E;&#x3067;&#x3053;&#x308C;&#x306E;&#x7BA1;&#x7406;&#x306B;&#x3064;&#x3044;&#x3066;&#x3082;&#x8B70;&#x8AD6;&#x304C;&#x5FC5;&#x8981;&#x3002;</p>
+<p>=&gt;</p>
+<p>&#x30B3;&#x30FC;&#x30EB;&#x30C9;&#x30A6;&#x30A9;&#x30EC;&#x30C3;&#x30C8;&#x306E;&#x79D8;&#x5BC6;&#x9375;&#x306F;&#x8FFD;&#x52A0;&#x3067;&#x30C8;&#x30FC;&#x30AF;&#x30F3;&#x3092;&#x767A;&#x884C;&#x3059;&#x308B;&#x969B;&#x306B;&#x5FC5;&#x8981;&#x306B;&#x306A;&#x308B;&#x306E;&#x3067;&#x3001;CauchyE &#x62C5;&#x5F53;&#x8005;&#x3067;&#x306E;&#x30AA;&#x30D5;&#x30E9;&#x30A4;&#x30F3;&#x7BA1;&#x7406;&#x3068;&#x3059;&#x308B;&#x4E88;&#x5B9A;&#x3002;XRP Ledger &#x30A2;&#x30AB;&#x30A6;&#x30F3;&#x30C8;&#x306E;&#x79D8;&#x5BC6;&#x9375;&#x306F; Google Firebase &#x306B;&#x6697;&#x53F7;&#x5316;&#x3057;&#x3066;&#x7F6E;&#x304F;&#x4E88;&#x5B9A;&#x3002;</p>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>
