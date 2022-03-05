@@ -13,9 +13,14 @@ module.exports.primaryNormalAsk = f.pubsub
   .schedule('0 12 * * *')
   .timeZone('Asia/Tokyo') // Users can choose timezone - default is America/Los_Angeles
   .onRun(async () => {
+    const now = new Date();
     const setting = await normal_ask_setting.getLatest();
     const adminAccount = await admin_account.getByName('admin');
     const students = await student_account.list();
+    if (now.getDate() == 1) {
+      await normal_ask_setting.create(new NormalAskSetting({ price: 27 }));
+      return;
+    }
     if (!setting) {
       // const amountUPX = 0;
       let amountInsufficient = 0;

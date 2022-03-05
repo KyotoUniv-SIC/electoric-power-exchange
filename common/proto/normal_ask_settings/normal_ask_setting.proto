@@ -7,6 +7,6 @@ option (google.firebase.rules.firebase_rules).full_package_names = true;
 
 message NormalAskSetting {
   string id = 1;
-  double price = 4;
-  double amount = 5;
+  double price = 2;
+  double amount = 3;
 }

@@ -1,6 +1,7 @@
-import { SetNormalOnSubmitEvent, SetRenewableOnSubmitEvent } from '../../../view/admin/tokens/tokens.component';
+import { SetCostOnSubmitEvent, SetNormalOnSubmitEvent, SetRenewableOnSubmitEvent } from '../../../view/admin/tokens/tokens.component';
 import { Component, OnInit } from '@angular/core';
-import { NormalAskSetting, RenewableAskSetting } from '@local/common';
+import { CostSetting, NormalAskSetting, RenewableAskSetting } from '@local/common';
+import { CostSettingApplicationService } from 'projects/shared/src/lib/services/cost-settings/cost-setting.application.service';
 import { NormalAskSettingApplicationService } from 'projects/shared/src/lib/services/normal-ask-settings/normal-ask-setting.application.service';
 import { RenewableAskSettingApplicationService } from 'projects/shared/src/lib/services/renewable-ask-settings/renewable-ask-setting.application.service';
 import { Observable } from 'rxjs';
@@ -13,13 +14,16 @@ import { Observable } from 'rxjs';
 export class TokensComponent implements OnInit {
   normalSetting$: Observable<NormalAskSetting> | undefined;
   renewableSetting$: Observable<RenewableAskSetting> | undefined;
+  costSetting$: Observable<CostSetting> | undefined;
 
   constructor(
     private readonly normalAskSettingApp: NormalAskSettingApplicationService,
     private readonly renewableAskSettingApp: RenewableAskSettingApplicationService,
+    private readonly costSettingApp: CostSettingApplicationService,
   ) {
     this.normalSetting$ = this.normalAskSettingApp.getLatest$();
     this.renewableSetting$ = this.renewableAskSettingApp.getLatest$();
+    this.costSetting$ = this.costSettingApp.getLatest$();
   }
 
   ngOnInit(): void {}
@@ -30,5 +34,9 @@ export class TokensComponent implements OnInit {
 
   async onSubmitRenewable($event: SetRenewableOnSubmitEvent) {
     await this.renewableAskSettingApp.create(new RenewableAskSetting({ price: $event.price, amount: $event.amount }));
+  }
+
+  async onSubmitCost($event: SetCostOnSubmitEvent) {
+    await this.costSettingApp.create(new CostSetting({ system: $event.system, electricity: $event.electricity }));
   }
 }
