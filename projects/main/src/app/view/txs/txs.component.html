@@ -2,10 +2,13 @@
   <h2>Transactions</h2>
   <mat-card class="mb-20">
     <mat-card-title>Transaction Menu</mat-card-title>
-    <mat-card-content>
-      <p>Please use the following page to create a Bid or Ask for the auction.</p>
-      <p>The auction will be held at 0:00 everyday in the form of a single-price auction.</p>
-    </mat-card-content>
+    <details>
+      <summary>Read More</summary>
+      <mat-card-content>
+        <p>Please use the following page to create a Bid or Ask for the auction.</p>
+        <p>The auction will be held at 0:00 everyday in the form of a single-price auction.</p>
+      </mat-card-content>
+    </details>
     <div class="flex mt-10">
       <div class="flex-auto"></div>
       <div class="flex-auto">
@@ -19,10 +22,13 @@
 
   <mat-card class="mb-20">
     <mat-card-title>Order</mat-card-title>
-    <mat-card-content>
-      <p>It shows your Bid, Ask for today's auction.</p>
-      <p>You can cancel the auction from the detail page.</p>
-    </mat-card-content>
+    <details>
+      <summary>Read More</summary>
+      <mat-card-content>
+        <p>It shows your Bid, Ask for today's auction.</p>
+        <p>You can cancel the auction from the detail page.</p>
+      </mat-card-content>
+    </details>
     <mat-nav-list>
       <ng-container *ngIf="orders === null; then loading; else loadedOrder"></ng-container>
       <ng-template #loading>
@@ -105,13 +111,16 @@
 
   <mat-card class="mb-10">
     <mat-card-title>Transaction History</mat-card-title>
-    <mat-card-content>
-      <p>It shows the history of BId and Ask for this month.</p>
-      <p>
-        In addition to the Bid and Ask you created, it also shows the history of the UPX granted at the time of account creation and at the
-        beginning of the month.
-      </p>
-    </mat-card-content>
+    <details>
+      <summary>Read More</summary>
+      <mat-card-content>
+        <p>It shows the history of BId and Ask for this month.</p>
+        <p>
+          In addition to the Bid and Ask you created, it also shows the history of the UPX granted at the time of account creation and at the
+          beginning of the month.
+        </p>
+      </mat-card-content>
+    </details>
     <mat-nav-list>
       <ng-container *ngIf="histories === null; then loading; else loadedHistory"></ng-container>
       <ng-template #loadedHistory>
