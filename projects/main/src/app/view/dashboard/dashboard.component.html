@@ -108,17 +108,18 @@
       </mat-card-content>
     </details>
     <mat-list>
+      <mat-card class="flex flex-wrap" style="padding: 0px; border: 2.5px solid black; border-radius: 10px;">
+        <mat-list-item class="flex flex-wrap">
+          <span class="break-all text-xl" style="font-size:medium">Total Usage:</span>
+          <span class="flex-auto break-all"></span>
+          <span class="break-all text-xl" style="font-size:x-large">{{ totalUsage }}</span>
+          <span class="break-all text-xl" style="margin-left: 10px; font-size:small;">kWh</span>
+        </mat-list-item>
+      </mat-card>
       <mat-list-item class="flex flex-wrap">
-        <span class="break-all text-xl">Total Usage:</span>
+        <span class="break-all text-xl" style="font-size:medium">Students' Average:</span>
         <span class="flex-auto break-all"></span>
-        <span class="break-all text-xl">{{ totalUsage }}</span>
-        <span class="break-all text-xl" style="margin-left: 10px; font-size:small;">kWh</span>
-      </mat-list-item>
-      <mat-divider [inset]="true"></mat-divider>
-      <mat-list-item class="flex flex-wrap">
-        <span class="break-all text-xl">Students' Average:</span>
-        <span class="flex-auto break-all"></span>
-        <span class="break-all text-xl">{{ totalUsageAverage }}</span>
+        <span class="break-all text-xl" style="font-size:x-large">{{ totalUsageAverage }}</span>
         <span class="break-all text-xl" style="margin-left: 10px; font-size:small;">kWh</span>
       </mat-list-item>
     </mat-list>
