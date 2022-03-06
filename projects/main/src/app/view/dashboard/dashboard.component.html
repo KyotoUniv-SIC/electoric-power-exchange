@@ -162,7 +162,7 @@
         <p>Displays a breakdown of the tokens you own and the overall breakdown.</p>
       </mat-card-content>
     </details>
-    <mat-card-content>Student</mat-card-content>
+    <mat-card-content style="font-size:large; margin-top:15px">Student</mat-card-content>
     <ng-container *ngIf="balanceData === null; then loading; else loadedBalance"></ng-container>
     <ng-template #loading>
       <mat-progress-spinner [diameter]="60" [mode]="'indeterminate'"></mat-progress-spinner>
@@ -170,7 +170,7 @@
     <ng-template #loadedBalance>
       <canvas baseChart [data]="balanceData!" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" [colors]="pieColors"> </canvas>
     </ng-template>
-    <mat-card-content>Total</mat-card-content>
+    <mat-card-content style="font-size:large; margin-top:15px">Total</mat-card-content>
     <ng-container *ngIf="totalBalanceData === null; then loading; else loadedTotalBalance"></ng-container>
     <ng-template #loadedTotalBalance>
       <canvas baseChart [data]="totalBalanceData!" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" [colors]="pieColors"> </canvas>
