@@ -2,7 +2,7 @@ import { Ranking } from '../../page/dashboard/dashboard.component';
 import { Component, Input, OnInit } from '@angular/core';
 import { Balance, SinglePriceNormalSettlement, SinglePriceRenewableSettlement } from '@local/common';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
-import { Label, MultiDataSet } from 'ng2-charts';
+import { Label, MultiDataSet, Color } from 'ng2-charts';
 
 @Component({
   selector: 'view-dashboard',
@@ -39,6 +39,11 @@ export class DashboardComponent implements OnInit {
 
   doughnutChartLabels: Label[] = ['Utility Power', 'Solar Power'];
   doughnutChartType: ChartType = 'doughnut';
+  pieColors: Color[] = [
+    {
+      backgroundColor: ['#6c8fb6', '#b67cb6'],
+    },
+  ];
 
   barChartOptions: ChartOptions = {
     responsive: true,

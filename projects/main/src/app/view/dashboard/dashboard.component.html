@@ -168,12 +168,12 @@
       <mat-progress-spinner [diameter]="60" [mode]="'indeterminate'"></mat-progress-spinner>
     </ng-template>
     <ng-template #loadedBalance>
-      <canvas baseChart [data]="balanceData!" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"> </canvas>
+      <canvas baseChart [data]="balanceData!" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" [colors]="pieColors"> </canvas>
     </ng-template>
     <mat-card-content>Total</mat-card-content>
     <ng-container *ngIf="totalBalanceData === null; then loading; else loadedTotalBalance"></ng-container>
     <ng-template #loadedTotalBalance>
-      <canvas baseChart [data]="totalBalanceData!" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"> </canvas>
+      <canvas baseChart [data]="totalBalanceData!" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" [colors]="pieColors"> </canvas>
     </ng-template>
   </mat-card>
   <!-- <mat-card class="mb-20">
