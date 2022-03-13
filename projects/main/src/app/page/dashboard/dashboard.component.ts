@@ -60,6 +60,7 @@ export class DashboardComponent implements OnInit {
     const currentUser$ = authState(this.auth);
     const studentAccount$ = currentUser$.pipe(mergeMap((user) => this.studentAccApp.getByUid$(user?.uid!)));
     const users$ = this.studentsApp.list$();
+    let tmp = 0;
     this.rankings$ = users$.pipe(
       mergeMap((users) =>
         Promise.all(
@@ -74,11 +75,18 @@ export class DashboardComponent implements OnInit {
           ),
         ),
       ),
-      map((rankings) => rankings.sort((first, second) => second.amount - first.amount)),
+      map((rankings) =>
+        rankings
+          .sort((first, second) => second.amount - first.amount)
+          .forEach((rankings) => {
+            if (rankings.amount !== tmp) {
+              this.rank$ = this.rank$?.pipe(map((rank) => rank + 1));
+              tmp = rankings.amount;
+            }
+          }),
+      ),
     );
-    this.rank$ = combineLatest([this.rankings$, studentAccount$]).pipe(
-      map(([rankings, account]) => rankings.findIndex((ranking) => ranking.id == account.id) + 1),
-    );
+
     this.balance$ = studentAccount$.pipe(mergeMap((account) => this.balanceApp.getByUid$(account.id)));
     this.balanceData$ = this.balance$.pipe(map((balance) => [[balance.amount_upx, balance.amount_spx]]));
     const totalBalance$ = users$.pipe(
