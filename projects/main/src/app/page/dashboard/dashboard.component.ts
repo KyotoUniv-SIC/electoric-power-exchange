@@ -76,41 +76,20 @@ export class DashboardComponent implements OnInit {
           ),
         ),
       ),
+      map((rankings) => rankings.sort((first, second) => second.amount - first.amount)),
     );
-    this.rank$ = this.rank$?.pipe(
-      map((count) => {
-            this.rankings$.forEach((item, index) => {
-              if (item.amount !== tmp) {
-                tmp = item.amount;
-              }
-              index+1;
-            }),
-          ),
-        );
-      }),
-    );
-
-    // this.rank$ = combineLatest([this.rankings$, studentAccount$]).pipe(
-    //   map(([rankings, account]) => rankings.findIndex((ranking) => ranking.id == account.id) + 1),
-
-    // this.rank$ = this.rank$.pipe(
-    //   map((rank) =>
-    //     rank=count
-    //     this.rankings$?.pipe(
-    //       map((rankings) =>
-    //         rankings.forEach((item, index) => {
-    //           if (item.amount !== tmp) {
-    //             count = index + 1;
-    //             tmp = item.amount;
-    //             this.rank$ = this.rank$?.pipe(map((rank) => (rank = count)));
-    //           }
-    //         }),
-    //       ),
-    //     ),
-    //   ),
-    // );
-
-    this.balance$ = studentAccount$.pipe(mergeMap((account) => this.balanceApp.getByUid$(account.id)));
+    this.rankings$?.pipe(
+      map((rankings) =>
+        rankings.forEach((item, index) => {
+          if (item.amount !== tmp) {
+            count = index + 1;
+            tmp = item.amount;
+            this.rank$ = this.rank$?.pipe(map((rank) => (rank = count)));
+          }
+        }),
+      ),
+    ),
+      (this.balance$ = studentAccount$.pipe(mergeMap((account) => this.balanceApp.getByUid$(account.id))));
     this.balanceData$ = this.balance$.pipe(map((balance) => [[balance.amount_upx, balance.amount_spx]]));
     const totalBalance$ = users$.pipe(
       mergeMap((users) => Promise.all(users.map((user) => this.balanceApp.list(user.id).then((balances) => balances[0])))),
