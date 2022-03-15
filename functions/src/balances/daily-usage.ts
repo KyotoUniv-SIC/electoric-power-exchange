@@ -4,10 +4,11 @@
 import { balance } from '.';
 import { account_private } from '../account-privates';
 import { admin_account } from '../admin-accounts';
+import { daily_payment } from '../daily-payments';
 import { daily_usage } from '../daily-usages';
 import { insufficient_balance } from '../insufficient-balances';
 import { student_account } from '../student-accounts';
-import { InsufficientBalance } from '@local/common';
+import { InsufficientBalance, DailyPayment } from '@local/common';
 
 daily_usage.onCreateHandler.push(async (snapshot, context) => {
   const data = snapshot.data()!;
@@ -30,6 +31,17 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
     const TEST_NET = 'wss://s.altnet.rippletest.net:51233';
     const client = new xrpl.Client(TEST_NET);
     const adminAccount = await admin_account.getByName('admin');
+    const date = new Date();
+
+    await daily_payment.create(
+      new DailyPayment({
+        student_account_id: student.id,
+        year: date.getFullYear(),
+        month: date.getMonth() + 1,
+        date: date.getDate(),
+        amount_kwh: usage,
+      }),
+    );
 
     if (usage <= accountBalance[0].amount_spx) {
       await balance.update({
