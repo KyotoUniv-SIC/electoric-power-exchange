@@ -1,7 +1,7 @@
 import { Balance, BalanceSnapshot, DiscountPrice, MarketStatus, PrimaryAsk, StudentAccount } from '@local/common';
 import { Timestamp } from 'firebase/firestore';
 
-describe('Balance SnapShot Test', () => {
+describe('Monthly Settlement Test', () => {
   it('dummy', () => {
     const dateOrg = new Timestamp(1645282821, 114000000);
     const dateJST = dateOrg.toDate();
