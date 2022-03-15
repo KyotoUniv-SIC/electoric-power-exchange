@@ -29,24 +29,30 @@ module.exports.normalContract = f.pubsub
 
       for (const bid of normalBids) {
         await normal_bid_history.create(
-          new NormalBidHistory({
-            account_id: bid.account_id,
-            price: bid.price,
-            amount: bid.amount,
-            is_accepted: false,
-          }),
+          new NormalBidHistory(
+            {
+              account_id: bid.account_id,
+              price: bid.price,
+              amount: bid.amount,
+              is_accepted: false,
+            },
+            bid.created_at,
+          ),
         );
         await normal_bid.delete_(bid.id);
       }
 
       for (const ask of normalAsks) {
         await normal_ask_history.create(
-          new NormalAskHistory({
-            account_id: ask.account_id,
-            price: ask.price,
-            amount: ask.amount,
-            is_accepted: false,
-          }),
+          new NormalAskHistory(
+            {
+              account_id: ask.account_id,
+              price: ask.price,
+              amount: ask.amount,
+              is_accepted: false,
+            },
+            ask.created_at,
+          ),
         );
         await normal_ask.delete_(ask.id);
       }
@@ -71,24 +77,30 @@ module.exports.normalContract = f.pubsub
 
       for (const bid of sortNormalBids) {
         await normal_bid_history.create(
-          new NormalBidHistory({
-            account_id: bid.account_id,
-            price: bid.price,
-            amount: bid.amount,
-            is_accepted: false,
-          }),
+          new NormalBidHistory(
+            {
+              account_id: bid.account_id,
+              price: bid.price,
+              amount: bid.amount,
+              is_accepted: false,
+            },
+            bid.created_at,
+          ),
         );
         await normal_bid.delete_(bid.id);
       }
 
       for (const ask of sortNormalAsks) {
         await normal_ask_history.create(
-          new NormalAskHistory({
-            account_id: ask.account_id,
-            price: ask.price,
-            amount: ask.amount,
-            is_accepted: false,
-          }),
+          new NormalAskHistory(
+            {
+              account_id: ask.account_id,
+              price: ask.price,
+              amount: ask.amount,
+              is_accepted: false,
+            },
+            ask.created_at,
+          ),
         );
         await normal_ask.delete_(ask.id);
       }
