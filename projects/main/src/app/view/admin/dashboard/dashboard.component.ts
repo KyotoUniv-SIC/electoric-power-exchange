@@ -1,6 +1,5 @@
 import { BalanceData, MonthlyUsageData, OrderData } from '../../../page/admin/dashboard/dashboard.component';
 import { Ranking } from '../../../page/dashboard/dashboard.component';
-import { Order } from '../../../page/txs/txs.component';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   NormalAsk,
@@ -11,7 +10,7 @@ import {
   SinglePriceRenewableSettlement,
 } from '@local/common';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
-import { Label, MultiDataSet } from 'ng2-charts';
+import { Color, Label, MultiDataSet } from 'ng2-charts';
 
 @Component({
   selector: 'view-dashboard',
@@ -58,6 +57,11 @@ export class DashboardComponent implements OnInit {
 
   doughnutChartLabels: Label[] = ['Utility Power', 'Solar Power'];
   doughnutChartType: ChartType = 'doughnut';
+  doughnutColors: Color[] = [
+    {
+      backgroundColor: ['#6c8fb6', '#b67cb6'],
+    },
+  ];
 
   barChartOptions: ChartOptions = {
     responsive: true,
@@ -66,6 +70,14 @@ export class DashboardComponent implements OnInit {
   barChartType: ChartType = 'bar';
   barChartLegend = true;
   barChartPlugins = [];
+  barColors: Color[] = [
+    {
+      backgroundColor: '#6c8fb6',
+    },
+    {
+      backgroundColor: '#b67cb6',
+    },
+  ];
 
   constructor() {
     this.appDownloadBalances = new EventEmitter();
