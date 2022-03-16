@@ -39,7 +39,7 @@ export class DashboardComponent implements OnInit {
 
   doughnutChartLabels: Label[] = ['Utility Power', 'Solar Power'];
   doughnutChartType: ChartType = 'doughnut';
-  pieColors: Color[] = [
+  doughnutColors: Color[] = [
     {
       backgroundColor: ['#6c8fb6', '#b67cb6'],
     },
@@ -52,23 +52,14 @@ export class DashboardComponent implements OnInit {
   barChartType: ChartType = 'bar';
   barChartLegend = true;
   barChartPlugins = [];
-  // balanceData: MultiDataSet = [
-  //   [
-  //     // this.balance?.amount_upx, this.balance?.amount_spx
-  //     100, 100,
-  //   ],
-  // ];
-  // totalBalanceData: MultiDataSet = [
-  //   [
-  //     // this.totalBalance?.amount_upx, this.totalBalance?.amount_spx
-  //     20000, 54000,
-  //   ],
-  // ];
-
-  // barChartData: ChartDataSets[] = [
-  //   { data: [100, 200, 70, 600, 450, 300, 50, 533, 66, 54], label: 'This year' },
-  //   { data: [33, 100, 200, 70, 600, 450, 300, 50, 533, 66, 54, 554], label: 'Last year' },
-  // ];
+  barColors: Color[] = [
+    {
+      backgroundColor: '#6c8fb6',
+    },
+    {
+      backgroundColor: '#b67cb6',
+    },
+  ];
 
   constructor() {}
 

@@ -3,29 +3,31 @@
   <mat-card class="mb-20">
     <mat-card-title>Account Balance</mat-card-title>
     <details>
-    <summary>Read More</summary>
-    <mat-card-content>
-      <p>UPX is a token that allows you to use 1kwh of electricity from the power company.</p>
-      <p>SPX is a token that allows you to use 1kwh of electricity from solar power.</p>
-      <p>Every day at around 10:00 a.m., a token for the previous day's electricity usage will be debited, giving priority to the SPX.</p>
-      <p>If the token is insufficient, it will be recorded as "Insufficient Balance" and used for reimbursement at the end of the month.</p>
-    </mat-card-content>
+      <summary>Read More</summary>
+      <mat-card-content>
+        <p>UPX is a token that allows you to use 1kwh of electricity from the power company.</p>
+        <p>SPX is a token that allows you to use 1kwh of electricity from solar power.</p>
+        <p>Every day at around 10:00 a.m., a token for the previous day's electricity usage will be debited, giving priority to the SPX.</p>
+        <p>
+          If the token is insufficient, it will be recorded as "Insufficient Balance" and used for reimbursement at the end of the month.
+        </p>
+      </mat-card-content>
     </details>
     <mat-list>
-      <mat-list-item class="flex flex-wrap" style="padding: auto; margin-bottom: 4px; border: 2.5px solid #6c8fb6; border-radius: 10px;">
+      <mat-list-item class="flex flex-wrap" style="padding: auto; margin-bottom: 4px; border: 2.5px solid #6c8fb6; border-radius: 10px">
         <span class="break-all text-xl" style="color: #6c8fb6">UPX:</span>
         <span class="flex-auto break-all"></span>
-        <span class="break-all text-xl" style="font-size:x-large;">{{ balance?.amount_upx }}</span>
+        <span class="break-all text-xl" style="font-size: x-large">{{ balance?.amount_upx }}</span>
       </mat-list-item>
-      <mat-list-item class="flex flex-wrap" style="padding: auto; margin-bottom: 4px; border: 2.5px solid #b67cb6; border-radius: 10px;">
+      <mat-list-item class="flex flex-wrap" style="padding: auto; margin-bottom: 4px; border: 2.5px solid #b67cb6; border-radius: 10px">
         <span class="break-all text-xl" style="color: #b67cb6">SPX:</span>
         <span class="flex-auto break-all"></span>
-        <span class="break-all text-xl" style="font-size:x-large;">{{ balance?.amount_spx }}</span>
+        <span class="break-all text-xl" style="font-size: x-large">{{ balance?.amount_spx }}</span>
       </mat-list-item>
-      <mat-list-item class="flex flex-wrap" style="padding: auto;">
+      <mat-list-item class="flex flex-wrap" style="padding: auto">
         <span class="break-all text-xl">Insufficient Balance:</span>
         <span class="flex-auto break-all"></span>
-        <span class="break-all text-xl" style="font-size:x-large;">{{ insufficiency }}</span>
+        <span class="break-all text-xl" style="font-size: x-large">{{ insufficiency }}</span>
       </mat-list-item>
       <mat-divider [inset]="true"></mat-divider>
     </mat-list>
@@ -44,52 +46,52 @@
       </mat-card-content>
     </details>
     <mat-list>
-      <mat-card class="flex flex-wrap" style="padding: 0px; margin-bottom: 10px; border: 2.5px solid #6c8fb6; border-radius: 10px;">
+      <mat-card class="flex flex-wrap" style="padding: 0px; margin-bottom: 10px; border: 2.5px solid #6c8fb6; border-radius: 10px">
         <mat-list-item>
           <span class="break-all text-xl" style="color: #6c8fb6">UPX</span>
         </mat-list-item>
         <mat-list-item class="flex flex-wrap">
-          <span class="break-all text-xl" style="font-size:medium">Latest UPX Price:</span>
+          <span class="break-all text-xl" style="font-size: medium">Latest UPX Price:</span>
           <span class="flex-auto break-all"></span>
-          <span class="break-all text-xl" style="font-size:x-large;">{{ singlePriceNormal?.price }}</span>
-          <span class="break-all text-xl" style="margin-left: 10px; font-size:small;">JPY</span>
+          <span class="break-all text-xl" style="font-size: x-large">{{ singlePriceNormal?.price }}</span>
+          <span class="break-all text-xl" style="margin-left: 10px; font-size: small">JPY</span>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
         <mat-list-item class="flex flex-wrap">
-          <span class="break-all text-xl" style="font-size:medium">Contract Amount:</span>
+          <span class="break-all text-xl" style="font-size: medium">Contract Amount:</span>
           <span class="flex-auto break-all"></span>
-          <span class="break-all text-xl" style="font-size:x-large;">{{ singlePriceNormal?.amount }}</span>
-          <span class="break-all text-xl" style="margin-left: 10px; font-size:small;">UPX</span>
+          <span class="break-all text-xl" style="font-size: x-large">{{ singlePriceNormal?.amount }}</span>
+          <span class="break-all text-xl" style="margin-left: 10px; font-size: small">UPX</span>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
         <mat-list-item class="flex flex-wrap">
-          <span class="break-all text-xl" style="font-size:medium">Market Date:</span>
+          <span class="break-all text-xl" style="font-size: medium">Market Date:</span>
           <span class="flex-auto break-all"></span>
-          <span class="break-all text-xl" style="font-size:x-large">{{ singlePriceNormalDate | date: 'yy/MM/dd' }}</span>
+          <span class="break-all text-xl" style="font-size: x-large">{{ singlePriceNormalDate | date: 'yy/MM/dd' }}</span>
         </mat-list-item>
       </mat-card>
-      <mat-card class="flex flex-wrap" style="padding: 0px; border: 2.5px solid #b67cb6; border-radius: 10px;">
+      <mat-card class="flex flex-wrap" style="padding: 0px; border: 2.5px solid #b67cb6; border-radius: 10px">
         <mat-list-item>
           <span class="break-all text-xl" style="color: #b67cb6">SPX</span>
         </mat-list-item>
         <mat-list-item class="flex flex-wrap">
-          <span class="break-all text-xl" style="font-size:medium">Latest SPX Price:</span>
+          <span class="break-all text-xl" style="font-size: medium">Latest SPX Price:</span>
           <span class="flex-auto break-all"></span>
-          <span class="break-all text-xl" style="font-size:x-large;">{{ singlePriceRenewable?.price }}</span>
-          <span class="break-all text-xl" style="margin-left: 10px; font-size:small;">JPY</span>
+          <span class="break-all text-xl" style="font-size: x-large">{{ singlePriceRenewable?.price }}</span>
+          <span class="break-all text-xl" style="margin-left: 10px; font-size: small">JPY</span>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
         <mat-list-item class="flex flex-wrap">
-          <span class="break-all text-xl" style="font-size:medium">Contract Amount:</span>
+          <span class="break-all text-xl" style="font-size: medium">Contract Amount:</span>
           <span class="flex-auto break-all"></span>
-          <span class="break-all text-xl" style="font-size:x-large">{{ singlePriceRenewable?.amount }}</span>
-          <span class="break-all text-xl" style="margin-left: 10px; font-size:small;">SPX</span>
+          <span class="break-all text-xl" style="font-size: x-large">{{ singlePriceRenewable?.amount }}</span>
+          <span class="break-all text-xl" style="margin-left: 10px; font-size: small">SPX</span>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
         <mat-list-item class="flex flex-wrap">
-          <span class="break-all text-xl" style="font-size:medium">Market Date:</span>
+          <span class="break-all text-xl" style="font-size: medium">Market Date:</span>
           <span class="flex-auto break-all"></span>
-          <span class="break-all text-xl" style="font-size:x-large">{{ singlePriceRenewableDate | date: 'yy/MM/dd' }}</span>
+          <span class="break-all text-xl" style="font-size: x-large">{{ singlePriceRenewableDate | date: 'yy/MM/dd' }}</span>
         </mat-list-item>
       </mat-card>
     </mat-list>
@@ -105,19 +107,19 @@
       </mat-card-content>
     </details>
     <mat-list>
-      <mat-card class="flex flex-wrap" style="padding: 0px; border: 2.5px solid black;">
+      <mat-card class="flex flex-wrap" style="padding: 0px; border: 2.5px solid black">
         <mat-list-item class="flex flex-wrap">
-          <span class="break-all text-xl" style="font-size:medium">Total Usage:</span>
+          <span class="break-all text-xl" style="font-size: medium">Total Usage:</span>
           <span class="flex-auto break-all"></span>
-          <span class="break-all text-xl" style="font-size:x-large">{{ totalUsage }}</span>
-          <span class="break-all text-xl" style="margin-left: 10px; font-size:small;">kWh</span>
+          <span class="break-all text-xl" style="font-size: x-large">{{ totalUsage }}</span>
+          <span class="break-all text-xl" style="margin-left: 10px; font-size: small">kWh</span>
         </mat-list-item>
       </mat-card>
       <mat-list-item class="flex flex-wrap">
-        <span class="break-all text-xl" style="font-size:medium">Students' Average:</span>
+        <span class="break-all text-xl" style="font-size: medium">Students' Average:</span>
         <span class="flex-auto break-all"></span>
-        <span class="break-all text-xl" style="font-size:x-large">{{ totalUsageAverage }}</span>
-        <span class="break-all text-xl" style="margin-left: 10px; font-size:small;">kWh</span>
+        <span class="break-all text-xl" style="font-size: x-large">{{ totalUsageAverage }}</span>
+        <span class="break-all text-xl" style="margin-left: 10px; font-size: small">kWh</span>
       </mat-list-item>
     </mat-list>
   </mat-card>
@@ -131,20 +133,20 @@
       </mat-card-content>
     </details>
     <mat-list>
-      <mat-card class="flex flex-wrap" style="padding: 0px; border: 2.5px solid black;">
+      <mat-card class="flex flex-wrap" style="padding: 0px; border: 2.5px solid black">
         <mat-list-item class="flex flex-wrap">
-          <span class="break-all text-xl" style="font-size:medium">Your Rank:</span>
+          <span class="break-all text-xl" style="font-size: medium">Your Rank:</span>
           <span class="flex-auto break-all"></span>
-          <span class="break-all text-xl"style="font-size:x-large">#{{ rank }}</span>
+          <span class="break-all text-xl" style="font-size: x-large">#{{ rank }}</span>
         </mat-list-item>
       </mat-card>
       <mat-divider [inset]="true"></mat-divider>
       <ng-container *ngFor="let ranking of rankings">
         <mat-list-item class="flex flex-wrap">
-          <span class="break-all" style="font-size:medium">{{ ranking.name }}:</span>
+          <span class="break-all" style="font-size: medium">{{ ranking.name }}:</span>
           <span class="flex-auto break-all"></span>
-          <span class="break-all" style="font-size:medium">{{ ranking.amount }}</span>
-          <span class="break-all text-xl" style="margin-left: 10px; font-size:small;">kWh</span>
+          <span class="break-all" style="font-size: medium">{{ ranking.amount }}</span>
+          <span class="break-all text-xl" style="margin-left: 10px; font-size: small">kWh</span>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
       </ng-container>
@@ -159,18 +161,20 @@
         <p>Displays a breakdown of the tokens you own and the overall breakdown.</p>
       </mat-card-content>
     </details>
-    <mat-card-content style="font-size:large; margin-top:15px">Student</mat-card-content>
+    <mat-card-content style="font-size: large; margin-top: 15px">Student</mat-card-content>
     <ng-container *ngIf="balanceData === null; then loading; else loadedBalance"></ng-container>
     <ng-template #loading>
       <mat-progress-spinner [diameter]="60" [mode]="'indeterminate'"></mat-progress-spinner>
     </ng-template>
     <ng-template #loadedBalance>
-      <canvas baseChart [data]="balanceData!" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" [colors]="pieColors"> </canvas>
+      <canvas baseChart [data]="balanceData!" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" [colors]="doughnutColors">
+      </canvas>
     </ng-template>
-    <mat-card-content style="font-size:large; margin-top:15px">Total</mat-card-content>
+    <mat-card-content style="font-size: large; margin-top: 15px">Total</mat-card-content>
     <ng-container *ngIf="totalBalanceData === null; then loading; else loadedTotalBalance"></ng-container>
     <ng-template #loadedTotalBalance>
-      <canvas baseChart [data]="totalBalanceData!" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" [colors]="pieColors"> </canvas>
+      <canvas baseChart [data]="totalBalanceData!" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" [colors]="doughnutColors">
+      </canvas>
     </ng-template>
   </mat-card>
   <!-- <mat-card class="mb-20">
@@ -196,6 +200,7 @@
         [plugins]="barChartPlugins"
         [legend]="barChartLegend"
         [chartType]="barChartType"
+        [colors]="barColors"
       >
       </canvas>
     </ng-template>
