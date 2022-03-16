@@ -32,38 +32,6 @@ export class AccountComponent implements OnInit {
     this.monthlyPayments$ = this.studentAccount$.pipe(
       mergeMap((account) => (!account ? of(null) : this.monthlyPaymentApp.list$(account.id))),
     );
-
-    // Dummy
-    // this.monthlyPayments$ = of([
-    //   new MonthlyPayment({
-    //     id: '01',
-    //     student_account_id: 'test',
-    //     year: 2020,
-    //     month: 9,
-    //     amount_jpy: 3000,
-    //   }),
-    //   new MonthlyPayment({
-    //     id: '01',
-    //     student_account_id: 'test',
-    //     year: 2020,
-    //     month: 10,
-    //     amount_jpy: 2400,
-    //   }),
-    //   new MonthlyPayment({
-    //     id: '01',
-    //     student_account_id: 'test',
-    //     year: 2020,
-    //     month: 11,
-    //     amount_jpy: 2700,
-    //   }),
-    //   new MonthlyPayment({
-    //     id: '01',
-    //     student_account_id: 'test',
-    //     year: 2020,
-    //     month: 12,
-    //     amount_jpy: 3600,
-    //   }),
-    // ]);
   }
   ngOnInit(): void {}
 }
