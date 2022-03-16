@@ -12,10 +12,10 @@
     <div class="flex mt-10">
       <div class="flex-auto"></div>
       <div class="flex-auto">
-        <button mat-flat-button style="background-color: #6c8fb6; color: white;"  routerLink="/txs/buy">Buy Electricity</button>
+        <button mat-flat-button style="background-color: #6c8fb6; color: white" routerLink="/txs/buy">Buy Electricity</button>
       </div>
       <div class="flex-auto">
-        <button mat-flat-button style="background-color: #b67cb6; color: white;" routerLink="/txs/sell">Sell Electricity</button>
+        <button mat-flat-button style="background-color: #b67cb6; color: white" routerLink="/txs/sell">Sell Electricity</button>
       </div>
     </div>
   </mat-card>
@@ -116,8 +116,8 @@
       <mat-card-content>
         <p>It shows the history of BId and Ask for this month.</p>
         <p>
-          In addition to the Bid and Ask you created, it also shows the history of the UPX granted at the time of account creation and at the
-          beginning of the month.
+          In addition to the Bid and Ask you created, it also shows the history of the UPX granted at the time of account creation and at
+          the beginning of the month.
         </p>
       </mat-card-content>
     </details>
@@ -132,11 +132,11 @@
             class="flex"
             routerLink="/txs/history/{{ powerType(history.is_solar) }}/{{ txType(history.is_bid) }}/{{ history.id }}"
           >
-            <div class="w-full">
+            <div class="flex-auto">
               <span class="column-value">{{ history.date | date: 'yy/MM/dd HH:mm' }}</span>
               <span class="flex-auto break-all"></span>
             </div>
-            <div >
+            <div class="flex-auto">
               <ng-container *ngIf="history.is_accepted === true; then accept; else reject"></ng-container>
               <ng-template #accept>
                 <mat-chip-list>
