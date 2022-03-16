@@ -1,20 +1,20 @@
-# Single Price Auction
-Single Price Auction is a pricing method that provides in a single price. Unlike Multi Price Auction, this method makes consumers and producers to trade the goods at a single price. 
+# Single-price Auction
+
+Single-price Auction is a pricing method of auction by deciding a single execution price. Unlike Multi-price Auction, this method makes consumers and producers trade the goods at a single price.
 
 ## How to set the price
 
-In Single Price Auction, we investigate bidding price of each consumer and producer, and align each one's bidding price on a graph. Following the supply-demand curve, we put each bars in a row. 
+In Single-price Auction, we investigate the bid/ask price of each participant. Then, we combine every bid/ask price curve and align them on the same graph individually. Following the supply-demand curve, we put each bar in a row.
 
 picture 1.
+![Single-price Auction](spa_curve.png)
 
-As you can see, we align each one's bidding price on a same graph.
-
-The Intersection point A stands for equilibrium price, and every trade on this Single price auction is traded on the price of point A. The price of bidders on the left would be dragged to the point A, so that they can trade on a single price, while the price of bidders on the right side will be declined. 
+The intersection point is an equilibrium point and also is execution price. Every trade on this Single price auction will be traded on the price of this point. The prices on the left side of the intersection point would be dragged to the intersection point so that they can trade on a single price, while the prices on the right side of the point will be declined.
 
 ## Advantage of single price auction
 
-The very advantage of single price auction is that every consumer and producer on this trade can derive benefit.
-As you can figure out on the graph, if bidders are on the left side of point A, consumers can buy goods cheaper than they expected, while the producers can provide goods in a more expensive price than they expected. 
-However, in case of the right side of the graph, since consumers are trying to buy goods cheaper than the equilibrium price and producers are trying to sell goods more expensive than the equilibrium price, the deals will be declined. 
+The very advantage of Single-price auction is that every consumer and producer on this trade can derive benefit.
+On the left side of the point, consumers can buy goods cheaper than they bid, while producers can sell their goods at higher prices than the price they asked.
+However, in the case of the right of the intersection point, since consumers are trying to buy goods cheaper than the equilibrium price and producers are trying to sell goods more expensive than the equilibrium price, the deals are declined.
 
-By doing this, every participants of this deal can berive benefits. 
+By applying Single-price Auction, every participant on this deal can get a good share.
