@@ -17,6 +17,7 @@ import { map, mergeMap } from 'rxjs/operators';
 
 export interface Ranking {
   id: string;
+  rank: number;
   name: string;
   amount: number;
 }
@@ -35,7 +36,7 @@ export class DashboardComponent implements OnInit {
   totalUsageAverage$: Observable<string> | undefined;
   usageData$: Observable<ChartDataSets[]> | undefined;
   rankings$: Observable<Ranking[]> | undefined;
-  rank$: Observable<number> | undefined;
+  rank$: Observable<number | undefined> | undefined;
   singlePriceNormal$: Observable<SinglePriceNormalSettlement> | undefined;
   singlePriceNormalDate$: Observable<Date> | undefined;
   singlePriceRenewable$: Observable<SinglePriceRenewableSettlement> | undefined;
@@ -74,10 +75,27 @@ export class DashboardComponent implements OnInit {
           ),
         ),
       ),
-      map((rankings) => rankings.sort((first, second) => second.amount - first.amount)),
+      // mapはforEachの機能に加えて新しい配列を返します（forEachは何も返さず、必ずvoidになる）
+      map((rankings) => {
+        let count = 0;
+        let tmp = 0;
+        // ここでランキングをソートして、順位をrankに入れる
+        let sortedRanking = rankings
+          .sort((first, second) => second.amount - first.amount)
+          .map((item, index) => {
+            if (item.amount !== tmp) {
+              count = index + 1;
+              tmp = item.amount;
+            }
+            // ここのreturnは86行目{}を受けてreturnしてます (85行目Array.map()の返り値)
+            return { id: item.id, rank: count, name: item.name, amount: item.amount };
+          });
+        //  ここのreturnは79行目{}を受けてreturnしてます (79行目Observable.map()の返り値)
+        return sortedRanking;
+      }),
     );
     this.rank$ = combineLatest([this.rankings$, studentAccount$]).pipe(
-      map(([rankings, account]) => rankings.findIndex((ranking) => ranking.id == account.id) + 1),
+      map(([rankings, account]) => rankings.find((ranking) => ranking.id == account.id)?.rank),
     );
     this.balance$ = studentAccount$.pipe(mergeMap((account) => this.balanceApp.getByUid$(account.id)));
     this.balanceData$ = this.balance$.pipe(map((balance) => [[balance.amount_upx, balance.amount_spx]]));

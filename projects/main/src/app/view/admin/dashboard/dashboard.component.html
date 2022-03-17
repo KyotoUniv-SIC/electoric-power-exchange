@@ -126,7 +126,7 @@
     <mat-list>
       <ng-container *ngFor="let ranking of rankings; let i = index">
         <mat-list-item class="flex flex-wrap">
-          <span class="break-all">{{ i + 1 }}</span>
+          <span class="break-all">{{ ranking.rank }}</span>
           <span class="flex-auto break-all"></span>
           <span class="break-all">{{ ranking.name }}</span>
           <span class="flex-auto break-all"></span>

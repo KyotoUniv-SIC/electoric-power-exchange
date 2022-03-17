@@ -215,7 +215,25 @@ export class DashboardComponent implements OnInit {
           ),
         ),
       ),
-      map((rankings) => rankings.sort((first, second) => second.amount - first.amount)),
+      // projects/main/src/app/page/dashboard/dashboard.component.ts からのコピペ
+      // mapはforEachの機能に加えて新しい配列を返します（forEachは何も返さず、必ずvoidになる）
+      map((rankings) => {
+        let count = 0;
+        let tmp = 0;
+        // ここでランキングをソートして、順位をrankに入れる
+        let sortedRanking = rankings
+          .sort((first, second) => second.amount - first.amount)
+          .map((item, index) => {
+            if (item.amount !== tmp) {
+              count = index + 1;
+              tmp = item.amount;
+            }
+            // ここのreturnは86行目{}を受けてreturnしてます (85行目Array.map()の返り値)
+            return { id: item.id, rank: count, name: item.name, amount: item.amount };
+          });
+        //  ここのreturnは79行目{}を受けてreturnしてます (79行目Observable.map()の返り値)
+        return sortedRanking;
+      }),
     );
     this.normalAsks$ = this.normalAskApp.list$().pipe(map((asks) => asks.filter((ask) => ask.is_deleted != true)));
     this.normalBids$ = this.normalBidApp.list$().pipe(map((bids) => bids.filter((bid) => bid.is_deleted != true)));
