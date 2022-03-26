@@ -2,85 +2,101 @@
   <h2>Buy Tokens</h2>
   <mat-card class="mb-10">
     <mat-card-title>Available Balance</mat-card-title>
-    <mat-card-content>
-      <p>Displays the currently available UPX and SPX balances.</p>
-      <p>Refer to this Available Balance when creating an ask request.</p>
-    </mat-card-content>
+    <details>
+      <summary>Read More</summary>
+      <mat-card-content>
+        <p>Displays the currently available UPX and SPX balances.</p>
+        <p>Refer to this Available Balance when creating an ask request.</p>
+      </mat-card-content>
+    </details>
     <mat-list>
-      <mat-list-item class="flex flex-wrap">
-        <span class="break-all">Utility Power Token:</span>
+      <mat-list-item class="flex flex-wrap" style="padding: auto; margin-bottom: 4px; border: 2.5px solid #6c8fb6; border-radius: 10px;">
+        <span class="break-all text-xl" style="color: #6c8fb6">UPX:</span>
         <span class="flex-auto break-all"></span>
-        <span class="break-all text-yellow-400">{{ balance?.amount_upx }} upx</span>
+        <span class="break-all text-xl" style="font-size:x-large;">{{ balance?.amount_upx }}</span>
       </mat-list-item>
-      <mat-divider [inset]="true"></mat-divider>
-      <mat-list-item class="flex flex-wrap">
-        <span class="break-all">Solar Power Token:</span>
+      <mat-list-item class="flex flex-wrap" style="padding: auto; margin-bottom: 4px; border: 2.5px solid #b67cb6; border-radius: 10px;">
+        <span class="break-all text-xl" style="color: #b67cb6">SPX:</span>
         <span class="flex-auto break-all"></span>
-        <span class="break-all text-purple-800">{{ balance?.amount_spx }} spx</span>
+        <span class="break-all text-xl" style="font-size:x-large;">{{ balance?.amount_spx }}</span>
       </mat-list-item>
-      <mat-divider [inset]="true"></mat-divider>
-      <ng-container *ngIf="insufficiency">
-        <mat-list-item class="flex flex-wrap">
-          <span class="break-all">Insufficient Balance:</span>
-          <span class="flex-auto break-all"></span>
-          <span class="break-all text-red-600">{{ insufficiency }} </span>
-        </mat-list-item>
-        <mat-divider [inset]="true"></mat-divider>
-      </ng-container>
     </mat-list>
   </mat-card>
 
   <mat-card class="mb-10">
     <mat-card-title>Latest Contract Price</mat-card-title>
-    <mat-card-content>
-      <p>Displays the latest contracted price.</p>
-      <p>If there were no contract, the last transaction price with constraints will be displayed here.</p>
-    </mat-card-content>
+    <details>
+      <summary>Read More</summary>
+      <mat-card-content>
+        <p>Displays the latest contracted price.</p>
+        <p>If there were no contract, the last transaction price with constraints will be displayed here.</p>
+      </mat-card-content>
+    </details>
     <mat-list>
-      <mat-list-item class="flex flex-wrap">
-        <span class="break-all">Latest UPX Price:</span>
-        <span class="flex-auto break-all"></span>
-        <span class="break-all text-yellow-400">{{ singlePriceNormal?.price }} JPY</span>
-      </mat-list-item>
-      <mat-list-item class="flex flex-wrap">
-        <span class="break-all">Contract Amount:</span>
-        <span class="flex-auto break-all"></span>
-        <span class="break-all text-yellow-400">{{ singlePriceNormal?.amount }} UPX</span>
-      </mat-list-item>
-      <mat-list-item class="flex flex-wrap">
-        <span class="break-all">Market Date:</span>
-        <span class="flex-auto break-all"></span>
-        <span class="break-all text-yellow-400">{{ singlePriceNormalDate | date: 'yy/MM/dd' }}</span>
-      </mat-list-item>
-      <mat-divider [inset]="true"></mat-divider>
-      <mat-list-item class="flex flex-wrap">
-        <span class="break-all">Latest SPX Price:</span>
-        <span class="flex-auto break-all"></span>
-        <span class="break-all text-purple-800">{{ singlePriceRenewable?.price }} JPY</span>
-      </mat-list-item>
-      <mat-list-item class="flex flex-wrap">
-        <span class="break-all">Contract Amount:</span>
-        <span class="flex-auto break-all"></span>
-        <span class="break-all text-purple-800">{{ singlePriceRenewable?.amount }} SPX</span>
-      </mat-list-item>
-      <mat-list-item class="flex flex-wrap">
-        <span class="break-all">Market Date:</span>
-        <span class="flex-auto break-all"></span>
-        <span class="break-all text-purple-800">{{ singlePriceRenewableDate | date: 'yy/MM/dd' }}</span>
-      </mat-list-item>
+      <mat-card class="flex flex-wrap" style="padding: 0px; margin-bottom: 10px; border: 2.5px solid #6c8fb6; border-radius: 10px;">
+        <mat-list-item>
+          <span class="break-all text-xl" style="color: #6c8fb6">UPX</span>
+        </mat-list-item>
+        <mat-list-item class="flex flex-wrap">
+          <span class="break-all text-xl" style="font-size:medium">Latest UPX Price:</span>
+          <span class="flex-auto break-all"></span>
+          <span class="break-all text-xl" style="font-size:x-large;">{{ singlePriceNormal?.price }}</span>
+          <span class="break-all text-xl" style="margin-left: 10px; font-size:small;">JPY</span>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
+        <mat-list-item class="flex flex-wrap">
+          <span class="break-all text-xl" style="font-size:medium">Contract Amount:</span>
+          <span class="flex-auto break-all"></span>
+          <span class="break-all text-xl" style="font-size:x-large;">{{ singlePriceNormal?.amount }}</span>
+          <span class="break-all text-xl" style="margin-left: 10px; font-size:small;">UPX</span>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
+        <mat-list-item class="flex flex-wrap">
+          <span class="break-all text-xl" style="font-size:medium">Market Date:</span>
+          <span class="flex-auto break-all"></span>
+          <span class="break-all text-xl" style="font-size:x-large">{{ singlePriceNormalDate | date: 'yy/MM/dd' }}</span>
+        </mat-list-item>
+      </mat-card>
+      <mat-card class="flex flex-wrap" style="padding: 0px; border: 2.5px solid #b67cb6; border-radius: 10px;">
+        <mat-list-item>
+          <span class="break-all text-xl" style="color: #b67cb6">SPX</span>
+        </mat-list-item>
+        <mat-list-item class="flex flex-wrap">
+          <span class="break-all text-xl" style="font-size:medium">Latest SPX Price:</span>
+          <span class="flex-auto break-all"></span>
+          <span class="break-all text-xl" style="font-size:x-large;">{{ singlePriceRenewable?.price }}</span>
+          <span class="break-all text-xl" style="margin-left: 10px; font-size:small;">JPY</span>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
+        <mat-list-item class="flex flex-wrap">
+          <span class="break-all text-xl" style="font-size:medium">Contract Amount:</span>
+          <span class="flex-auto break-all"></span>
+          <span class="break-all text-xl" style="font-size:x-large">{{ singlePriceRenewable?.amount }}</span>
+          <span class="break-all text-xl" style="margin-left: 10px; font-size:small;">SPX</span>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
+        <mat-list-item class="flex flex-wrap">
+          <span class="break-all text-xl" style="font-size:medium">Market Date:</span>
+          <span class="flex-auto break-all"></span>
+          <span class="break-all text-xl" style="font-size:x-large">{{ singlePriceRenewableDate | date: 'yy/MM/dd' }}</span>
+        </mat-list-item>
+      </mat-card>
     </mat-list>
   </mat-card>
 
   <form (submit)="onSubmit(accountID || '', priceRef.value, amountRef.value, denomRef.value)">
     <mat-card class="mb-10">
       <mat-card-title>Token Market - Buy</mat-card-title>
-      <mat-card-content>
-        <p>Create a Bid request for the day's single-price auction.</p>
-        <p>
-          At 0:00 every day, the market will set the intersection of the sell curve and the buy curve as the contract price and contract
-          quantity.
-        </p>
+      <details>
+        <summary>Read More</summary>
+        <mat-card-content>
+          <p>Create a Bid request for the day's single-price auction.</p>
+          <p>
+            At 0:00 every day, the market will set the intersection of the sell curve and the buy curve as the contract price and contract
+            quantity.
+          </p>
       </mat-card-content>
+      </details>
       <mat-list>
         <h3 matSubheader>Token Price</h3>
         <mat-list-item class="flex flex-wrap">

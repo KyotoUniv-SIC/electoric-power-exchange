@@ -2,27 +2,33 @@
   <h2>Transactions</h2>
   <mat-card class="mb-20">
     <mat-card-title>Transaction Menu</mat-card-title>
-    <mat-card-content>
-      <p>Please use the following page to create a Bid or Ask for the auction.</p>
-      <p>The auction will be held at 0:00 everyday in the form of a single-price auction.</p>
-    </mat-card-content>
+    <details>
+      <summary>Read More</summary>
+      <mat-card-content>
+        <p>Please use the following page to create a Bid or Ask for the auction.</p>
+        <p>The auction will be held at 0:00 everyday in the form of a single-price auction.</p>
+      </mat-card-content>
+    </details>
     <div class="flex mt-10">
       <div class="flex-auto"></div>
       <div class="flex-auto">
-        <button mat-flat-button color="accent" routerLink="/txs/buy">Buy Electricity</button>
+        <button mat-flat-button style="background-color: #6c8fb6; color: white" routerLink="/txs/buy">Buy Electricity</button>
       </div>
       <div class="flex-auto">
-        <button mat-flat-button color="primary" routerLink="/txs/sell">Sell Electricity</button>
+        <button mat-flat-button style="background-color: #b67cb6; color: white" routerLink="/txs/sell">Sell Electricity</button>
       </div>
     </div>
   </mat-card>
 
   <mat-card class="mb-20">
     <mat-card-title>Order</mat-card-title>
-    <mat-card-content>
-      <p>It shows your Bid, Ask for today's auction.</p>
-      <p>You can cancel the auction from the detail page.</p>
-    </mat-card-content>
+    <details>
+      <summary>Read More</summary>
+      <mat-card-content>
+        <p>It shows your Bid, Ask for today's auction.</p>
+        <p>You can cancel the auction from the detail page.</p>
+      </mat-card-content>
+    </details>
     <mat-nav-list>
       <ng-container *ngIf="orders === null; then loading; else loadedOrder"></ng-container>
       <ng-template #loading>
@@ -105,13 +111,16 @@
 
   <mat-card class="mb-10">
     <mat-card-title>Transaction History</mat-card-title>
-    <mat-card-content>
-      <p>It shows the history of BId and Ask for this month.</p>
-      <p>
-        In addition to the Bid and Ask you created, it also shows the history of the UPX granted at the time of account creation and at the
-        beginning of the month.
-      </p>
-    </mat-card-content>
+    <details>
+      <summary>Read More</summary>
+      <mat-card-content>
+        <p>It shows the history of BId and Ask for this month.</p>
+        <p>
+          In addition to the Bid and Ask you created, it also shows the history of the UPX granted at the time of account creation and at
+          the beginning of the month.
+        </p>
+      </mat-card-content>
+    </details>
     <mat-nav-list>
       <ng-container *ngIf="histories === null; then loading; else loadedHistory"></ng-container>
       <ng-template #loadedHistory>
@@ -124,7 +133,8 @@
             routerLink="/txs/history/{{ powerType(history.is_solar) }}/{{ txType(history.is_bid) }}/{{ history.id }}"
           >
             <div class="flex-auto">
-              <span class="column-value font-bold">{{ history.date | date: 'yy/MM/dd HH:mm' }}</span>
+              <span class="column-value">{{ history.date | date: 'yy/MM/dd HH:mm' }}</span>
+              <span class="flex-auto break-all"></span>
             </div>
             <div class="flex-auto">
               <ng-container *ngIf="history.is_accepted === true; then accept; else reject"></ng-container>
@@ -140,8 +150,8 @@
               </ng-template>
             </div>
             <div class="flex-auto">
-              <span class="font-bold">Contract Price : </span>
-              <span class="font-bold">{{ history.contract_price }}</span>
+              <span>Contract Price : </span>
+              <span>{{ history.contract_price }}</span>
             </div>
           </mat-list-item>
           <mat-list-item
@@ -159,18 +169,18 @@
                 <ng-container *ngIf="history.is_bid === true; then solarBid; else solarAsk"></ng-container>
                 <ng-template #solarBid>
                   <mat-chip-list>
-                    <span class="column-value font-bold">Bid</span>
+                    <span class="column-value">Bid</span>
                   </mat-chip-list>
                 </ng-template>
                 <ng-template #solarAsk>
                   <mat-chip-list>
-                    <span class="column-value font-bold">Ask</span>
+                    <span class="column-value">Ask</span>
                   </mat-chip-list>
                 </ng-template>
               </div>
               <div class="flex-auto">
-                <span class="font-bold">amount : </span>
-                <span class="font-bold">{{ history.amount }}</span>
+                <span>amount : </span>
+                <span>{{ history.amount }}</span>
               </div>
             </ng-template>
 
@@ -184,24 +194,24 @@
                 <ng-container *ngIf="history.is_bid === true; then utilityBid; else utilityAsk"></ng-container>
                 <ng-template #utilityBid>
                   <mat-chip-list>
-                    <span color="primary" class="column-value font-bold">Bid</span>
+                    <span color="primary" class="column-value">Bid</span>
                   </mat-chip-list>
                 </ng-template>
                 <ng-template #utilityAsk>
                   <mat-chip-list>
-                    <span color="accent" class="column-value font-bold">Ask</span>
+                    <span color="accent" class="column-value">Ask</span>
                   </mat-chip-list>
                 </ng-template>
               </div>
               <div class="flex-auto">
-                <span class="font-bold">amount : </span>
-                <span class="font-bold">{{ history.amount }}</span>
+                <span>amount : </span>
+                <span>{{ history.amount }}</span>
               </div>
             </ng-template>
 
             <div class="flex-auto">
-              <span class="font-bold">Price : </span>
-              <span class="font-bold">{{ history.price }}</span>
+              <span>Price : </span>
+              <span>{{ history.price }}</span>
             </div>
           </mat-list-item>
           <mat-divider [inset]="true"></mat-divider>

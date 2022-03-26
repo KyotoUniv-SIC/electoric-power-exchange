@@ -27,7 +27,7 @@
             "polyfills": "projects/main/src/polyfills.ts",
             "tsConfig": "projects/main/tsconfig.app.json",
             "assets": ["projects/main/src/favicon.ico", "projects/main/src/assets"],
-            "styles": ["./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css", "projects/main/src/styles.css"],
+            "styles": ["./node_modules/@angular/material/prebuilt-themes/indigo-pink.css", "projects/main/src/styles.css"],
             "scripts": [],
             "allowedCommonJsDependencies": ["chart.js"]
           },

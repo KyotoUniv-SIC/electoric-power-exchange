@@ -1,0 +1,11 @@
+summary {
+  cursor: pointer;
+  transition: 0.2s; /* 変化を滑らかに */
+}
+/* ホバー時のスタイル */
+summary:hover {
+  cursor: pointer; /* カーソルを指マークに */
+  background-color: #EFEFEF;
+}
+
+
