@@ -4,6 +4,7 @@ import { Timestamp } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { Balance, MonthlyUsage, SinglePriceNormalSettlement, SinglePriceRenewableSettlement } from '@local/common';
 import { ChartDataSets } from 'chart.js';
+import { balance } from 'functions/src/balances';
 import { MultiDataSet } from 'ng2-charts';
 import { DailyUsageApplicationService } from 'projects/shared/src/lib/services/daily-usages/daily-usage.application.service';
 import { SinglePriceNormalSettlementApplicationService } from 'projects/shared/src/lib/services/single-price-normal-settlements/single-price-normal-settlement.application.service';
@@ -121,6 +122,27 @@ export class DashboardComponent implements OnInit {
         return count;
       }),
     );
+    let case1: boolean = false;
+    let case2: boolean = false;
+    let case3: boolean = false;
+
+    if (this.balance$?.amount_upx >= this.insufficiency$) {
+      case1 = true;
+      const upx_balance = this.balance$?.amount_upx - this.insufficiency$;
+      const spx_balance = this.balance$?.amount_spx;
+    } else if (
+      this.insufficiency$ > this.balance$?.amount_upx &&
+      this.balance$?.amount_upx + this.balance$?.amount_spx >= this.insufficiency$
+    ) {
+      case2 = true;
+      const upx_balance = 0;
+      const spx_balance = this.balance$?.amount_upx + this.balance$?.amount_spx - this.insufficiency$;
+    } else if (this.insufficiency$ > this.balance$?.amount_spx + this.balance$?.amount_upx) {
+      case3 = true;
+      const upx_balance = 0;
+      const spx_balance = 0;
+      const insufficient_balance = this.insufficiency$ - this.balance$?.amount_spx - this.balance$?.amount_upx;
+    }
 
     const usageListDaily$ = studentAccount$.pipe(mergeMap((account) => this.dailyUsageApp.getRoom$(account.room_id)));
     const usageListDailyTotal$ = this.dailyUsageApp.list$();
