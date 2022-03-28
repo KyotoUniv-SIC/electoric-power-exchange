@@ -37,6 +37,10 @@ export class DashboardComponent implements OnInit {
   @Input()
   singlePriceRenewableDate?: Date | null;
 
+  case1: boolean = false;
+  case2: boolean = false;
+  case3: boolean = false;
+
   doughnutChartLabels: Label[] = ['Utility Power', 'Solar Power'];
   doughnutChartType: ChartType = 'doughnut';
   doughnutColors: Color[] = [
@@ -61,7 +65,22 @@ export class DashboardComponent implements OnInit {
     },
   ];
 
-  constructor() {}
+  constructor() {
+    if (this.balance?.amount_upx >= this.insufficiency) {
+      this.case1 = true;
+      const upx_balance = this.balance?.amount_upx - this.insufficiency;
+      const spx_balance = this.balance?.amount_spx;
+    } else if (this.insufficiency > balance?.amount_upx && balance?.amount_upx + balance?.amount_spx >= this.insufficiency) {
+      this.case2 = true;
+      const upx_balance = 0;
+      const spx_balance = this.balance?.amount_upx + this.balance?.amount_spx - this.insufficiency;
+    } else if (this.insufficiency > this.balance?.amount_spx + this.balance?.amount_upx) {
+      this.case3 = true;
+      const upx_balance = 0;
+      const spx_balance = 0;
+      const insufficient_balance = this.insufficiency - this.balance?.amount_spx - this.balance?.amount_upx;
+    }
+  }
 
   ngOnInit(): void {}
 }
