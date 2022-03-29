@@ -29,6 +29,12 @@ export class DashboardComponent implements OnInit {
   @Input()
   rank?: number | null;
   @Input()
+  amountUPX?: number | null;
+  @Input()
+  amountSPX?: number | null;
+  @Input()
+  amountInsufficiency?: number | null;
+  @Input()
   singlePriceNormal?: SinglePriceNormalSettlement | null;
   @Input()
   singlePriceNormalDate?: Date | null;

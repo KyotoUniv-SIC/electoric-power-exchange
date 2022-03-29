@@ -42,6 +42,9 @@ export class DashboardComponent implements OnInit {
   singlePriceNormalDate$: Observable<Date> | undefined;
   singlePriceRenewable$: Observable<SinglePriceRenewableSettlement> | undefined;
   singlePriceRenewableDate$: Observable<Date> | undefined;
+  amountUPX$: Observable<number> | undefined;
+  amountSPX$: Observable<number> | undefined;
+  amountInsufficiency$: Observable<number> | undefined;
 
   constructor(
     private auth: Auth,
@@ -122,27 +125,24 @@ export class DashboardComponent implements OnInit {
         return count;
       }),
     );
-    let case1: boolean = false;
-    let case2: boolean = false;
-    let case3: boolean = false;
 
-    if (this.balance$?.amount_upx >= this.insufficiency$) {
-      case1 = true;
-      const upx_balance = this.balance$?.amount_upx - this.insufficiency$;
-      const spx_balance = this.balance$?.amount_spx;
-    } else if (
-      this.insufficiency$ > this.balance$?.amount_upx &&
-      this.balance$?.amount_upx + this.balance$?.amount_spx >= this.insufficiency$
-    ) {
-      case2 = true;
-      const upx_balance = 0;
-      const spx_balance = this.balance$?.amount_upx + this.balance$?.amount_spx - this.insufficiency$;
-    } else if (this.insufficiency$ > this.balance$?.amount_spx + this.balance$?.amount_upx) {
-      case3 = true;
-      const upx_balance = 0;
-      const spx_balance = 0;
-      const insufficient_balance = this.insufficiency$ - this.balance$?.amount_spx - this.balance$?.amount_upx;
-    }
+    this.amountUPX$ = combineLatest([this.balance$, this.insufficiency$]).pipe(
+      map(([balance, insufficiency]) => (balance.amount_upx < insufficiency ? 0 : balance.amount_upx - insufficiency)),
+    );
+    this.amountSPX$ = combineLatest([this.balance$, this.insufficiency$]).pipe(
+      map(([balance, insufficiency]) =>
+        balance.amount_spx + balance.amount_upx < insufficiency
+          ? 0
+          : balance.amount_upx < insufficiency
+          ? balance.amount_spx + balance.amount_upx - insufficiency
+          : balance.amount_spx,
+      ),
+    );
+    this.amountInsufficiency$ = combineLatest([this.balance$, this.insufficiency$]).pipe(
+      map(([balance, insufficiency]) =>
+        balance.amount_upx + balance.amount_spx < insufficiency ? insufficiency - balance.amount_upx - balance.amount_spx : 0,
+      ),
+    );
 
     const usageListDaily$ = studentAccount$.pipe(mergeMap((account) => this.dailyUsageApp.getRoom$(account.room_id)));
     const usageListDailyTotal$ = this.dailyUsageApp.list$();
