@@ -33,7 +33,12 @@ export class BuyComponent implements OnInit {
   singlePriceRenewable?: SinglePriceRenewableSettlement | null;
   @Input()
   singlePriceRenewableDate?: Date | null;
-
+  @Input()
+  amountUPX?: number | null;
+  @Input()
+  amountSPX?: number | null;
+  @Input()
+  amountInsufficiency?: number | null;
   @Input()
   accountID?: string | null;
   @Input()
