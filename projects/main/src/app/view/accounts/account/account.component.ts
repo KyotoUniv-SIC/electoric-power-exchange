@@ -15,8 +15,17 @@ export class AccountComponent implements OnInit {
   @Input()
   monthlyPayments?: MonthlyPayment[] | null;
   @Input()
+  balance?: Balance | null;
+  @Input()
   balances?: Balance | null;
-
+  @Input()
+  insufficiency?: number | null;
+  @Input()
+  amountUPX?: number | null;
+  @Input()
+  amountSPX?: number | null;
+  @Input()
+  amountInsufficiency?: number | null;
   constructor() {}
 
   ngOnInit(): void {}
