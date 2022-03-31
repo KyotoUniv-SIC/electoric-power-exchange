@@ -19,6 +19,12 @@ export class DashboardComponent implements OnInit {
   @Input()
   insufficiency?: number | null;
   @Input()
+  amountUPX?: number | null;
+  @Input()
+  amountSPX?: number | null;
+  @Input()
+  amountInsufficiency?: number | null;
+  @Input()
   totalUsage?: number | null;
   @Input()
   totalUsageAverage?: string | null;

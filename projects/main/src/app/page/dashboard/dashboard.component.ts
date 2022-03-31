@@ -32,6 +32,9 @@ export class DashboardComponent implements OnInit {
   balanceData$: Observable<MultiDataSet> | undefined;
   totalBalanceData$: Observable<MultiDataSet> | undefined;
   insufficiency$: Observable<number> | undefined;
+  amountUPX$: Observable<number> | undefined;
+  amountSPX$: Observable<number> | undefined;
+  amountInsufficiency$: Observable<number> | undefined;
   totalUsage$: Observable<number> | undefined;
   totalUsageAverage$: Observable<string> | undefined;
   usageData$: Observable<ChartDataSets[]> | undefined;
@@ -120,6 +123,23 @@ export class DashboardComponent implements OnInit {
         }
         return count;
       }),
+    );
+    this.amountUPX$ = combineLatest([this.balance$, this.insufficiency$]).pipe(
+      map(([balance, insufficiency]) => (balance.amount_upx < insufficiency ? 0 : balance.amount_upx - insufficiency)),
+    );
+    this.amountSPX$ = combineLatest([this.balance$, this.insufficiency$]).pipe(
+      map(([balance, insufficiency]) =>
+        balance.amount_spx + balance.amount_upx < insufficiency
+          ? 0
+          : balance.amount_upx < insufficiency
+          ? balance.amount_spx + balance.amount_upx - insufficiency
+          : balance.amount_spx,
+      ),
+    );
+    this.amountInsufficiency$ = combineLatest([this.balance$, this.insufficiency$]).pipe(
+      map(([balance, insufficiency]) =>
+        balance.amount_upx + balance.amount_spx < insufficiency ? insufficiency - balance.amount_upx - balance.amount_spx : 0,
+      ),
     );
 
     const usageListDaily$ = studentAccount$.pipe(mergeMap((account) => this.dailyUsageApp.getRoom$(account.room_id)));
