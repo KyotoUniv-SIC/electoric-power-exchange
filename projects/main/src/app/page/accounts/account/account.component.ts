@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Auth, authState, User } from '@angular/fire/auth';
 import { ActivatedRoute } from '@angular/router';
 import { Balance, MonthlyPayment, StudentAccount } from '@local/common';
+import { Timestamp } from 'firebase/firestore';
 import { BalanceApplicationService } from 'projects/shared/src/lib/services/student-accounts/balances/balance.application.service';
+import { InsufficientBalanceApplicationService } from 'projects/shared/src/lib/services/student-accounts/insufficient-balances/insufficient-balance.application.service';
 import { MonthlyPaymentApplicationService } from 'projects/shared/src/lib/services/student-accounts/monthly-payments/monthly-payment.application.service';
 import { StudentAccountApplicationService } from 'projects/shared/src/lib/services/student-accounts/student-account.application.service';
 import { combineLatest, Observable, of } from 'rxjs';
@@ -14,44 +16,66 @@ import { map, mergeMap } from 'rxjs/operators';
   styleUrls: ['./account.component.css'],
 })
 export class AccountComponent implements OnInit {
-  balance$: Observable<Balance> | undefined;
   user$: Observable<User | null> | undefined;
   studentAccount$: Observable<StudentAccount> | undefined;
   balances$: Observable<Balance | null> | undefined;
   monthlyPayments$: Observable<MonthlyPayment[] | null> | undefined;
   insufficiency$: Observable<number> | undefined;
-  amountUPX$: Observable<number> | undefined;
-  amountSPX$: Observable<number> | undefined;
-  amountInsufficiency$: Observable<number> | undefined;
+  amountUPX$: Observable<number | null> | undefined;
+  amountSPX$: Observable<number | null> | undefined;
+  amountInsufficiency$: Observable<number | null> | undefined;
 
   constructor(
     private auth: Auth,
     private route: ActivatedRoute,
     private readonly studentAccApp: StudentAccountApplicationService,
     private readonly balanceApp: BalanceApplicationService,
+    private readonly insufficientBalanceApp: InsufficientBalanceApplicationService,
     private readonly monthlyPaymentApp: MonthlyPaymentApplicationService,
   ) {
+    const now = new Date();
+    let firstDay = new Date();
+    firstDay.setDate(1);
+    firstDay.setHours(0, 0, 0, 0);
     this.user$ = authState(this.auth);
     this.studentAccount$ = this.user$.pipe(mergeMap((user) => this.studentAccApp.getByUid$(user?.uid!)));
     this.balances$ = this.studentAccount$.pipe(mergeMap((account) => (!account ? of(null) : this.balanceApp.getByUid$(account.id))));
     this.monthlyPayments$ = this.studentAccount$.pipe(
       mergeMap((account) => (!account ? of(null) : this.monthlyPaymentApp.list$(account.id))),
     );
-    this.amountUPX$ = combineLatest([this.balance$, this.insufficiency$]).pipe(
-      map(([balance, insufficiency]) => (balance.amount_upx < insufficiency ? 0 : balance.amount_upx - insufficiency)),
+
+    this.insufficiency$ = this.studentAccount$.pipe(mergeMap((account) => this.insufficientBalanceApp.list(account.id))).pipe(
+      map((insufficiencies) => {
+        let count = 0;
+        for (let insufficiency of insufficiencies) {
+          (insufficiency.created_at as Timestamp).toDate() > firstDay ? (count += insufficiency.amount) : count;
+        }
+        return count;
+      }),
     );
-    this.amountSPX$ = combineLatest([this.balance$, this.insufficiency$]).pipe(
-      map(([balance, insufficiency]) =>
-        balance.amount_spx + balance.amount_upx < insufficiency
-          ? 0
-          : balance.amount_upx < insufficiency
-          ? balance.amount_spx + balance.amount_upx - insufficiency
-          : balance.amount_spx,
+    this.amountUPX$ = combineLatest([this.balances$, this.insufficiency$]).pipe(
+      map(([balances, insufficiency]) =>
+        balances == null ? null : balances.amount_upx < insufficiency ? 0 : balances.amount_upx - insufficiency,
       ),
     );
-    this.amountInsufficiency$ = combineLatest([this.balance$, this.insufficiency$]).pipe(
-      map(([balance, insufficiency]) =>
-        balance.amount_upx + balance.amount_spx < insufficiency ? insufficiency - balance.amount_upx - balance.amount_spx : 0,
+    this.amountSPX$ = combineLatest([this.balances$, this.insufficiency$]).pipe(
+      map(([balances, insufficiency]) =>
+        balances == null
+          ? null
+          : balances.amount_spx + balances.amount_upx < insufficiency
+          ? 0
+          : balances.amount_upx < insufficiency
+          ? balances.amount_spx + balances.amount_upx - insufficiency
+          : balances.amount_spx,
+      ),
+    );
+    this.amountInsufficiency$ = combineLatest([this.balances$, this.insufficiency$]).pipe(
+      map(([balances, insufficiency]) =>
+        balances == null
+          ? null
+          : balances.amount_upx + balances.amount_spx < insufficiency
+          ? insufficiency - balances.amount_upx - balances.amount_spx
+          : 0,
       ),
     );
   }

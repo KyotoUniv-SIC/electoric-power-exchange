@@ -15,8 +15,6 @@ export class AccountComponent implements OnInit {
   @Input()
   monthlyPayments?: MonthlyPayment[] | null;
   @Input()
-  balance?: Balance | null;
-  @Input()
   balances?: Balance | null;
   @Input()
   insufficiency?: number | null;
