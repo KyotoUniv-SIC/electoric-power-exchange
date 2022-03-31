@@ -18,7 +18,7 @@ import { SinglePriceRenewableSettlementApplicationService } from 'projects/share
 import { AvailableBalanceApplicationService } from 'projects/shared/src/lib/services/student-accounts/available-balances/available-balance.application.service';
 import { InsufficientBalanceApplicationService } from 'projects/shared/src/lib/services/student-accounts/insufficient-balances/insufficient-balance.application.service';
 import { StudentAccountApplicationService } from 'projects/shared/src/lib/services/student-accounts/student-account.application.service';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 
 @Component({
@@ -30,6 +30,9 @@ export class SellComponent implements OnInit {
   studentAccount$: Observable<StudentAccount> | undefined;
   balance$: Observable<AvailableBalance> | undefined;
   insufficiency$: Observable<number> | undefined;
+  amountUPX$: Observable<number> | undefined;
+  amountSPX$: Observable<number> | undefined;
+  amountInsufficiency$: Observable<number> | undefined;
   singlePriceNormal$: Observable<SinglePriceNormalSettlement> | undefined;
   singlePriceNormalDate$: Observable<Date> | undefined;
   singlePriceRenewable$: Observable<SinglePriceRenewableSettlement> | undefined;
@@ -64,6 +67,23 @@ export class SellComponent implements OnInit {
         }
         return count;
       }),
+    );
+    this.amountUPX$ = combineLatest([this.balance$, this.insufficiency$]).pipe(
+      map(([balance, insufficiency]) => (balance.amount_upx < insufficiency ? 0 : balance.amount_upx - insufficiency)),
+    );
+    this.amountSPX$ = combineLatest([this.balance$, this.insufficiency$]).pipe(
+      map(([balance, insufficiency]) =>
+        balance.amount_spx + balance.amount_upx < insufficiency
+          ? 0
+          : balance.amount_upx < insufficiency
+          ? balance.amount_spx + balance.amount_upx - insufficiency
+          : balance.amount_spx,
+      ),
+    );
+    this.amountInsufficiency$ = combineLatest([this.balance$, this.insufficiency$]).pipe(
+      map(([balance, insufficiency]) =>
+        balance.amount_upx + balance.amount_spx < insufficiency ? insufficiency - balance.amount_upx - balance.amount_spx : 0,
+      ),
     );
     this.singlePriceNormal$ = this.singlePriceNormalApp.getLatest$();
     this.singlePriceNormalDate$ = this.singlePriceNormal$.pipe(map((single) => (single.market_date as Timestamp).toDate()));
