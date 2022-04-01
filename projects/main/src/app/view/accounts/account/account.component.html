@@ -114,11 +114,13 @@
           <span class="break-all">{{ amountSPX }}</span>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
-        <mat-list-item class="flex flex-wrap">
-          <span class="break-all">Insufficient Balance:</span>
-          <span class="flex-auto break-all"></span>
-          <span class="break-all">{{ amountInsufficiency }}</span>
-        </mat-list-item>
+        <ng-container *ngIf="amountInsufficiency">
+          <mat-list-item class="flex flex-wrap">
+            <span class="break-all">Insufficient Balance:</span>
+            <span class="flex-auto break-all"></span>
+            <span class="break-all">{{ amountInsufficiency }}</span>
+          </mat-list-item>
+        </ng-container>
         <mat-divider [inset]="true"></mat-divider>
       </mat-list>
     </ng-template>
