@@ -22,9 +22,11 @@ export class BuyComponent implements OnInit {
   @Input()
   studentAccount?: StudentAccount | null;
   @Input()
-  balance?: AvailableBalance | null;
+  amountUPX?: number | null;
   @Input()
-  insufficiency?: number | null;
+  amountSPX?: number | null;
+  @Input()
+  amountInsufficiency?: number | null;
   @Input()
   singlePriceNormal?: SinglePriceNormalSettlement | null;
   @Input()
