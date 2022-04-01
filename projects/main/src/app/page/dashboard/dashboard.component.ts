@@ -28,10 +28,8 @@ export interface Ranking {
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
-  balance$: Observable<Balance> | undefined;
   balanceData$: Observable<MultiDataSet> | undefined;
   totalBalanceData$: Observable<MultiDataSet> | undefined;
-  insufficiency$: Observable<number> | undefined;
   amountUPX$: Observable<number> | undefined;
   amountSPX$: Observable<number> | undefined;
   amountInsufficiency$: Observable<number> | undefined;
@@ -100,8 +98,8 @@ export class DashboardComponent implements OnInit {
     this.rank$ = combineLatest([this.rankings$, studentAccount$]).pipe(
       map(([rankings, account]) => rankings.find((ranking) => ranking.id == account.id)?.rank),
     );
-    this.balance$ = studentAccount$.pipe(mergeMap((account) => this.balanceApp.getByUid$(account.id)));
-    this.balanceData$ = this.balance$.pipe(map((balance) => [[balance.amount_upx, balance.amount_spx]]));
+    const balance$ = studentAccount$.pipe(mergeMap((account) => this.balanceApp.getByUid$(account.id)));
+    this.balanceData$ = balance$.pipe(map((balance) => [[balance.amount_upx, balance.amount_spx]]));
     const totalBalance$ = users$.pipe(
       mergeMap((users) => Promise.all(users.map((user) => this.balanceApp.list(user.id).then((balances) => balances[0])))),
       map((balances) => {
@@ -115,7 +113,7 @@ export class DashboardComponent implements OnInit {
       }),
     );
     this.totalBalanceData$ = totalBalance$.pipe(map((balance) => [[balance.amount_upx, balance.amount_spx]]));
-    this.insufficiency$ = studentAccount$.pipe(mergeMap((account) => this.insufficientBalanceApp.list(account.id))).pipe(
+    const insufficiency$ = studentAccount$.pipe(mergeMap((account) => this.insufficientBalanceApp.list(account.id))).pipe(
       map((insufficiencies) => {
         let count = 0;
         for (let insufficiency of insufficiencies) {
@@ -124,10 +122,10 @@ export class DashboardComponent implements OnInit {
         return count;
       }),
     );
-    this.amountUPX$ = combineLatest([this.balance$, this.insufficiency$]).pipe(
+    this.amountUPX$ = combineLatest([balance$, insufficiency$]).pipe(
       map(([balance, insufficiency]) => (balance.amount_upx < insufficiency ? 0 : balance.amount_upx - insufficiency)),
     );
-    this.amountSPX$ = combineLatest([this.balance$, this.insufficiency$]).pipe(
+    this.amountSPX$ = combineLatest([balance$, insufficiency$]).pipe(
       map(([balance, insufficiency]) =>
         balance.amount_spx + balance.amount_upx < insufficiency
           ? 0
@@ -136,7 +134,7 @@ export class DashboardComponent implements OnInit {
           : balance.amount_spx,
       ),
     );
-    this.amountInsufficiency$ = combineLatest([this.balance$, this.insufficiency$]).pipe(
+    this.amountInsufficiency$ = combineLatest([balance$, insufficiency$]).pipe(
       map(([balance, insufficiency]) =>
         balance.amount_upx + balance.amount_spx < insufficiency ? insufficiency - balance.amount_upx - balance.amount_spx : 0,
       ),

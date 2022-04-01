@@ -11,13 +11,9 @@ import { Label, MultiDataSet, Color } from 'ng2-charts';
 })
 export class DashboardComponent implements OnInit {
   @Input()
-  balance?: Balance | null;
-  @Input()
   balanceData?: MultiDataSet | null;
   @Input()
   totalBalanceData?: MultiDataSet | null;
-  @Input()
-  insufficiency?: number | null;
   @Input()
   amountUPX?: number | null;
   @Input()
