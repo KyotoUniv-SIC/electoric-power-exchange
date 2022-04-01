@@ -28,8 +28,6 @@ import { map, mergeMap } from 'rxjs/operators';
 })
 export class SellComponent implements OnInit {
   studentAccount$: Observable<StudentAccount> | undefined;
-  balance$: Observable<AvailableBalance> | undefined;
-  insufficiency$: Observable<number> | undefined;
   amountUPX$: Observable<number> | undefined;
   amountSPX$: Observable<number> | undefined;
   amountInsufficiency$: Observable<number> | undefined;
@@ -58,8 +56,8 @@ export class SellComponent implements OnInit {
     firstDay.setHours(0, 0, 0, 0);
     const user$ = authState(this.auth);
     this.studentAccount$ = user$.pipe(mergeMap((user) => this.studentAccApp.getByUid$(user?.uid!)));
-    this.balance$ = this.studentAccount$.pipe(mergeMap((account) => this.availableBalanceApp.list$(account.id)));
-    this.insufficiency$ = this.studentAccount$.pipe(mergeMap((account) => this.insufficientBalanceApp.list(account.id))).pipe(
+    const balance$ = this.studentAccount$.pipe(mergeMap((account) => this.availableBalanceApp.list$(account.id)));
+    const insufficiency$ = this.studentAccount$.pipe(mergeMap((account) => this.insufficientBalanceApp.list(account.id))).pipe(
       map((insufficiencies) => {
         let count = 0;
         for (let insufficiency of insufficiencies) {
@@ -68,10 +66,10 @@ export class SellComponent implements OnInit {
         return count;
       }),
     );
-    this.amountUPX$ = combineLatest([this.balance$, this.insufficiency$]).pipe(
+    this.amountUPX$ = combineLatest([balance$, insufficiency$]).pipe(
       map(([balance, insufficiency]) => (balance.amount_upx < insufficiency ? 0 : balance.amount_upx - insufficiency)),
     );
-    this.amountSPX$ = combineLatest([this.balance$, this.insufficiency$]).pipe(
+    this.amountSPX$ = combineLatest([balance$, insufficiency$]).pipe(
       map(([balance, insufficiency]) =>
         balance.amount_spx + balance.amount_upx < insufficiency
           ? 0
@@ -80,7 +78,7 @@ export class SellComponent implements OnInit {
           : balance.amount_spx,
       ),
     );
-    this.amountInsufficiency$ = combineLatest([this.balance$, this.insufficiency$]).pipe(
+    this.amountInsufficiency$ = combineLatest([balance$, insufficiency$]).pipe(
       map(([balance, insufficiency]) =>
         balance.amount_upx + balance.amount_spx < insufficiency ? insufficiency - balance.amount_upx - balance.amount_spx : 0,
       ),

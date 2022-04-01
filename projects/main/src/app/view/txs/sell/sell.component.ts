@@ -22,10 +22,6 @@ export class SellComponent implements OnInit {
   @Input()
   studentAccount?: StudentAccount | null;
   @Input()
-  balance?: AvailableBalance | null;
-  @Input()
-  insufficiency?: number | null;
-  @Input()
   amountUPX?: number | null;
   @Input()
   amountSPX?: number | null;
