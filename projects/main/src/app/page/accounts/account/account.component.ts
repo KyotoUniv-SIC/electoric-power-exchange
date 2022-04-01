@@ -18,6 +18,7 @@ import { map, mergeMap } from 'rxjs/operators';
 export class AccountComponent implements OnInit {
   user$: Observable<User | null> | undefined;
   studentAccount$: Observable<StudentAccount> | undefined;
+  balances$: Observable<Balance | null> | undefined;
 
   amountUPX$: Observable<number | null> | undefined;
   amountSPX$: Observable<number | null> | undefined;
@@ -38,7 +39,7 @@ export class AccountComponent implements OnInit {
     firstDay.setHours(0, 0, 0, 0);
     this.user$ = authState(this.auth);
     this.studentAccount$ = this.user$.pipe(mergeMap((user) => this.studentAccApp.getByUid$(user?.uid!)));
-    const balances$ = this.studentAccount$.pipe(mergeMap((account) => (!account ? of(null) : this.balanceApp.getByUid$(account.id))));
+    this.balances$ = this.studentAccount$.pipe(mergeMap((account) => (!account ? of(null) : this.balanceApp.getByUid$(account.id))));
     const insufficiency$ = this.studentAccount$.pipe(mergeMap((account) => this.insufficientBalanceApp.list(account.id))).pipe(
       map((insufficiencies) => {
         let count = 0;
@@ -48,12 +49,12 @@ export class AccountComponent implements OnInit {
         return count;
       }),
     );
-    this.amountUPX$ = combineLatest([balances$, insufficiency$]).pipe(
+    this.amountUPX$ = combineLatest([this.balances$, insufficiency$]).pipe(
       map(([balances, insufficiency]) =>
         balances == null ? null : balances.amount_upx < insufficiency ? 0 : balances.amount_upx - insufficiency,
       ),
     );
-    this.amountSPX$ = combineLatest([balances$, insufficiency$]).pipe(
+    this.amountSPX$ = combineLatest([this.balances$, insufficiency$]).pipe(
       map(([balances, insufficiency]) =>
         balances == null
           ? null
@@ -64,7 +65,7 @@ export class AccountComponent implements OnInit {
           : balances.amount_spx,
       ),
     );
-    this.amountInsufficiency$ = combineLatest([balances$, insufficiency$]).pipe(
+    this.amountInsufficiency$ = combineLatest([this.balances$, insufficiency$]).pipe(
       map(([balances, insufficiency]) =>
         balances == null
           ? null
