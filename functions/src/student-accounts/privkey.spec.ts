@@ -8,11 +8,12 @@ describe('xrpl', () => {
     const mnemonic = '';
     const seed = await bip39.mnemonicToSeed(mnemonic);
     const node = bip32.fromSeed(seed);
+    // eslint-disable-next-line quotes
     const child = node.derivePath("44'/144'/0'/0/0");
     const privKeyString = child.privateKey?.toString('hex');
     console.log('privkey', privKeyString);
     if (privKeyString) {
-      // inpit XRP_seed
+      // input XRP_seed
       const encrypted = crypto.AES.encrypt('', privKeyString);
       console.log('encrypted', encrypted.toString());
       const decrypted = crypto.AES.decrypt(encrypted.toString(), privKeyString);
