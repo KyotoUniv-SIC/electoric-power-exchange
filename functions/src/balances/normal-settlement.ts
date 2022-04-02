@@ -39,17 +39,17 @@ normal_settlement.onCreateHandler.push(async (snapshot, context) => {
   if (data.ask_id == adminAccount[0].id) {
     const adminPrivate = await admin_private.list(adminAccount[0].id);
     const config = functions.config();
-    const xrpl = config['xrpl'];
-    const privkey = xrpl.private_key;
+    const confXrpl = config['xrpl'];
+    const privkey = confXrpl.private_key;
 
     const encryptedSeed = adminPrivate[0].xrp_seed_hot;
-    const decryptSeed = crypto.AES.decrypt(encryptedSeed, privkey).toString(crypto.enc.Utf8);
+    const decryptedSeed = crypto.AES.decrypt(encryptedSeed, privkey).toString(crypto.enc.Utf8);
     if (!bidder.xrp_address) {
       console.log(data.bid_id, 'no XRP address');
       return;
     }
     await client.connect();
-    const sender = xrpl.Wallet.fromSeed(decryptSeed);
+    const sender = xrpl.Wallet.fromSeed(decryptedSeed);
     const sendTokenTx = {
       TransactionType: 'Payment',
       Account: sender.address,
