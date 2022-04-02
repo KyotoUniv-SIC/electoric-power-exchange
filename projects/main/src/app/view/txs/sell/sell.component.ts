@@ -22,9 +22,11 @@ export class SellComponent implements OnInit {
   @Input()
   studentAccount?: StudentAccount | null;
   @Input()
-  balance?: AvailableBalance | null;
+  amountUPX?: number | null;
   @Input()
-  insufficiency?: number | null;
+  amountSPX?: number | null;
+  @Input()
+  amountInsufficiency?: number | null;
   @Input()
   singlePriceNormal?: SinglePriceNormalSettlement | null;
   @Input()
@@ -66,11 +68,11 @@ export class SellComponent implements OnInit {
       alert('ユーザーログイン情報を取得できません');
       return;
     }
-    if (denom == 'upx-0' && Number(amount) > this.balance?.amount_upx!) {
+    if (denom == 'upx-0' && Number(amount) > this.amountUPX!) {
       alert('UPXの残高が足りません。');
       return;
     }
-    if (denom == 'spx-1' && Number(amount) > this.balance?.amount_spx!) {
+    if (denom == 'spx-1' && Number(amount) > this.amountSPX!) {
       alert('SPXの残高が足りません。');
       return;
     }

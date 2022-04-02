@@ -13,9 +13,15 @@ export class AccountComponent implements OnInit {
   @Input()
   studentAccount?: StudentAccount | null;
   @Input()
+  balances?: Balance | null;
+  @Input()
   monthlyPayments?: MonthlyPayment[] | null;
   @Input()
-  balances?: Balance | null;
+  amountUPX?: number | null;
+  @Input()
+  amountSPX?: number | null;
+  @Input()
+  amountInsufficiency?: number | null;
 
   constructor() {}
 
