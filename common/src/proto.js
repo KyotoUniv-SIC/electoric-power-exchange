@@ -16,6 +16,226 @@ export const main = $root.main = (() => {
      */
     const main = {};
 
+    main.AccountPrivate = (function() {
+
+        /**
+         * Properties of an AccountPrivate.
+         * @memberof main
+         * @interface IAccountPrivate
+         * @property {string|null} [id] AccountPrivate id
+         * @property {string|null} [student_account_id] AccountPrivate student_account_id
+         * @property {string|null} [xrp_seed] AccountPrivate xrp_seed
+         */
+
+        /**
+         * Constructs a new AccountPrivate.
+         * @memberof main
+         * @classdesc Represents an AccountPrivate.
+         * @implements IAccountPrivate
+         * @constructor
+         * @param {main.IAccountPrivate=} [properties] Properties to set
+         */
+        function AccountPrivate(properties) {
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * AccountPrivate id.
+         * @member {string} id
+         * @memberof main.AccountPrivate
+         * @instance
+         */
+        AccountPrivate.prototype.id = "";
+
+        /**
+         * AccountPrivate student_account_id.
+         * @member {string} student_account_id
+         * @memberof main.AccountPrivate
+         * @instance
+         */
+        AccountPrivate.prototype.student_account_id = "";
+
+        /**
+         * AccountPrivate xrp_seed.
+         * @member {string} xrp_seed
+         * @memberof main.AccountPrivate
+         * @instance
+         */
+        AccountPrivate.prototype.xrp_seed = "";
+
+        /**
+         * Encodes the specified AccountPrivate message. Does not implicitly {@link main.AccountPrivate.verify|verify} messages.
+         * @function encode
+         * @memberof main.AccountPrivate
+         * @static
+         * @param {main.IAccountPrivate} message AccountPrivate message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        AccountPrivate.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+            if (message.student_account_id != null && Object.hasOwnProperty.call(message, "student_account_id"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.student_account_id);
+            if (message.xrp_seed != null && Object.hasOwnProperty.call(message, "xrp_seed"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.xrp_seed);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified AccountPrivate message, length delimited. Does not implicitly {@link main.AccountPrivate.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof main.AccountPrivate
+         * @static
+         * @param {main.IAccountPrivate} message AccountPrivate message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        AccountPrivate.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes an AccountPrivate message from the specified reader or buffer.
+         * @function decode
+         * @memberof main.AccountPrivate
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {main.AccountPrivate} AccountPrivate
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        AccountPrivate.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.AccountPrivate();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.id = reader.string();
+                    break;
+                case 2:
+                    message.student_account_id = reader.string();
+                    break;
+                case 3:
+                    message.xrp_seed = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes an AccountPrivate message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof main.AccountPrivate
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {main.AccountPrivate} AccountPrivate
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        AccountPrivate.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies an AccountPrivate message.
+         * @function verify
+         * @memberof main.AccountPrivate
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        AccountPrivate.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isString(message.id))
+                    return "id: string expected";
+            if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
+                if (!$util.isString(message.student_account_id))
+                    return "student_account_id: string expected";
+            if (message.xrp_seed != null && message.hasOwnProperty("xrp_seed"))
+                if (!$util.isString(message.xrp_seed))
+                    return "xrp_seed: string expected";
+            return null;
+        };
+
+        /**
+         * Creates an AccountPrivate message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof main.AccountPrivate
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {main.AccountPrivate} AccountPrivate
+         */
+        AccountPrivate.fromObject = function fromObject(object) {
+            if (object instanceof $root.main.AccountPrivate)
+                return object;
+            let message = new $root.main.AccountPrivate();
+            if (object.id != null)
+                message.id = String(object.id);
+            if (object.student_account_id != null)
+                message.student_account_id = String(object.student_account_id);
+            if (object.xrp_seed != null)
+                message.xrp_seed = String(object.xrp_seed);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from an AccountPrivate message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof main.AccountPrivate
+         * @static
+         * @param {main.AccountPrivate} message AccountPrivate
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        AccountPrivate.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.defaults) {
+                object.id = "";
+                object.student_account_id = "";
+                object.xrp_seed = "";
+            }
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
+                object.student_account_id = message.student_account_id;
+            if (message.xrp_seed != null && message.hasOwnProperty("xrp_seed"))
+                object.xrp_seed = message.xrp_seed;
+            return object;
+        };
+
+        /**
+         * Converts this AccountPrivate to JSON.
+         * @function toJSON
+         * @memberof main.AccountPrivate
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        AccountPrivate.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return AccountPrivate;
+    })();
+
     main.AccountantAccount = (function() {
 
         /**
@@ -234,248 +454,6 @@ export const main = $root.main = (() => {
         };
 
         return AccountantAccount;
-    })();
-
-    main.AccountPrivate = (function() {
-
-        /**
-         * Properties of an AccountPrivate.
-         * @memberof main
-         * @interface IAccountPrivate
-         * @property {string|null} [id] AccountPrivate id
-         * @property {string|null} [student_account_id] AccountPrivate student_account_id
-         * @property {string|null} [xrp_private_key] AccountPrivate xrp_private_key
-         * @property {string|null} [xrp_seed] AccountPrivate xrp_seed
-         */
-
-        /**
-         * Constructs a new AccountPrivate.
-         * @memberof main
-         * @classdesc Represents an AccountPrivate.
-         * @implements IAccountPrivate
-         * @constructor
-         * @param {main.IAccountPrivate=} [properties] Properties to set
-         */
-        function AccountPrivate(properties) {
-            if (properties)
-                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
-                        this[keys[i]] = properties[keys[i]];
-        }
-
-        /**
-         * AccountPrivate id.
-         * @member {string} id
-         * @memberof main.AccountPrivate
-         * @instance
-         */
-        AccountPrivate.prototype.id = "";
-
-        /**
-         * AccountPrivate student_account_id.
-         * @member {string} student_account_id
-         * @memberof main.AccountPrivate
-         * @instance
-         */
-        AccountPrivate.prototype.student_account_id = "";
-
-        /**
-         * AccountPrivate xrp_private_key.
-         * @member {string} xrp_private_key
-         * @memberof main.AccountPrivate
-         * @instance
-         */
-        AccountPrivate.prototype.xrp_private_key = "";
-
-        /**
-         * AccountPrivate xrp_seed.
-         * @member {string} xrp_seed
-         * @memberof main.AccountPrivate
-         * @instance
-         */
-        AccountPrivate.prototype.xrp_seed = "";
-
-        /**
-         * Encodes the specified AccountPrivate message. Does not implicitly {@link main.AccountPrivate.verify|verify} messages.
-         * @function encode
-         * @memberof main.AccountPrivate
-         * @static
-         * @param {main.IAccountPrivate} message AccountPrivate message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        AccountPrivate.encode = function encode(message, writer) {
-            if (!writer)
-                writer = $Writer.create();
-            if (message.id != null && Object.hasOwnProperty.call(message, "id"))
-                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
-            if (message.student_account_id != null && Object.hasOwnProperty.call(message, "student_account_id"))
-                writer.uint32(/* id 2, wireType 2 =*/18).string(message.student_account_id);
-            if (message.xrp_private_key != null && Object.hasOwnProperty.call(message, "xrp_private_key"))
-                writer.uint32(/* id 3, wireType 2 =*/26).string(message.xrp_private_key);
-            if (message.xrp_seed != null && Object.hasOwnProperty.call(message, "xrp_seed"))
-                writer.uint32(/* id 4, wireType 2 =*/34).string(message.xrp_seed);
-            return writer;
-        };
-
-        /**
-         * Encodes the specified AccountPrivate message, length delimited. Does not implicitly {@link main.AccountPrivate.verify|verify} messages.
-         * @function encodeDelimited
-         * @memberof main.AccountPrivate
-         * @static
-         * @param {main.IAccountPrivate} message AccountPrivate message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        AccountPrivate.encodeDelimited = function encodeDelimited(message, writer) {
-            return this.encode(message, writer).ldelim();
-        };
-
-        /**
-         * Decodes an AccountPrivate message from the specified reader or buffer.
-         * @function decode
-         * @memberof main.AccountPrivate
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @param {number} [length] Message length if known beforehand
-         * @returns {main.AccountPrivate} AccountPrivate
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        AccountPrivate.decode = function decode(reader, length) {
-            if (!(reader instanceof $Reader))
-                reader = $Reader.create(reader);
-            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.AccountPrivate();
-            while (reader.pos < end) {
-                let tag = reader.uint32();
-                switch (tag >>> 3) {
-                case 1:
-                    message.id = reader.string();
-                    break;
-                case 2:
-                    message.student_account_id = reader.string();
-                    break;
-                case 3:
-                    message.xrp_private_key = reader.string();
-                    break;
-                case 4:
-                    message.xrp_seed = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Decodes an AccountPrivate message from the specified reader or buffer, length delimited.
-         * @function decodeDelimited
-         * @memberof main.AccountPrivate
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {main.AccountPrivate} AccountPrivate
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        AccountPrivate.decodeDelimited = function decodeDelimited(reader) {
-            if (!(reader instanceof $Reader))
-                reader = new $Reader(reader);
-            return this.decode(reader, reader.uint32());
-        };
-
-        /**
-         * Verifies an AccountPrivate message.
-         * @function verify
-         * @memberof main.AccountPrivate
-         * @static
-         * @param {Object.<string,*>} message Plain object to verify
-         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-         */
-        AccountPrivate.verify = function verify(message) {
-            if (typeof message !== "object" || message === null)
-                return "object expected";
-            if (message.id != null && message.hasOwnProperty("id"))
-                if (!$util.isString(message.id))
-                    return "id: string expected";
-            if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
-                if (!$util.isString(message.student_account_id))
-                    return "student_account_id: string expected";
-            if (message.xrp_private_key != null && message.hasOwnProperty("xrp_private_key"))
-                if (!$util.isString(message.xrp_private_key))
-                    return "xrp_private_key: string expected";
-            if (message.xrp_seed != null && message.hasOwnProperty("xrp_seed"))
-                if (!$util.isString(message.xrp_seed))
-                    return "xrp_seed: string expected";
-            return null;
-        };
-
-        /**
-         * Creates an AccountPrivate message from a plain object. Also converts values to their respective internal types.
-         * @function fromObject
-         * @memberof main.AccountPrivate
-         * @static
-         * @param {Object.<string,*>} object Plain object
-         * @returns {main.AccountPrivate} AccountPrivate
-         */
-        AccountPrivate.fromObject = function fromObject(object) {
-            if (object instanceof $root.main.AccountPrivate)
-                return object;
-            let message = new $root.main.AccountPrivate();
-            if (object.id != null)
-                message.id = String(object.id);
-            if (object.student_account_id != null)
-                message.student_account_id = String(object.student_account_id);
-            if (object.xrp_private_key != null)
-                message.xrp_private_key = String(object.xrp_private_key);
-            if (object.xrp_seed != null)
-                message.xrp_seed = String(object.xrp_seed);
-            return message;
-        };
-
-        /**
-         * Creates a plain object from an AccountPrivate message. Also converts values to other types if specified.
-         * @function toObject
-         * @memberof main.AccountPrivate
-         * @static
-         * @param {main.AccountPrivate} message AccountPrivate
-         * @param {$protobuf.IConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        AccountPrivate.toObject = function toObject(message, options) {
-            if (!options)
-                options = {};
-            let object = {};
-            if (options.defaults) {
-                object.id = "";
-                object.student_account_id = "";
-                object.xrp_private_key = "";
-                object.xrp_seed = "";
-            }
-            if (message.id != null && message.hasOwnProperty("id"))
-                object.id = message.id;
-            if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
-                object.student_account_id = message.student_account_id;
-            if (message.xrp_private_key != null && message.hasOwnProperty("xrp_private_key"))
-                object.xrp_private_key = message.xrp_private_key;
-            if (message.xrp_seed != null && message.hasOwnProperty("xrp_seed"))
-                object.xrp_seed = message.xrp_seed;
-            return object;
-        };
-
-        /**
-         * Converts this AccountPrivate to JSON.
-         * @function toJSON
-         * @memberof main.AccountPrivate
-         * @instance
-         * @returns {Object.<string,*>} JSON object
-         */
-        AccountPrivate.prototype.toJSON = function toJSON() {
-            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-        };
-
-        return AccountPrivate;
     })();
 
     /**
@@ -1543,248 +1521,6 @@ export const main = $root.main = (() => {
         return AvailableBalance;
     })();
 
-    main.Balance = (function() {
-
-        /**
-         * Properties of a Balance.
-         * @memberof main
-         * @interface IBalance
-         * @property {string|null} [id] Balance id
-         * @property {string|null} [student_account_id] Balance student_account_id
-         * @property {number|null} [amount_upx] Balance amount_upx
-         * @property {number|null} [amount_spx] Balance amount_spx
-         */
-
-        /**
-         * Constructs a new Balance.
-         * @memberof main
-         * @classdesc Represents a Balance.
-         * @implements IBalance
-         * @constructor
-         * @param {main.IBalance=} [properties] Properties to set
-         */
-        function Balance(properties) {
-            if (properties)
-                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
-                        this[keys[i]] = properties[keys[i]];
-        }
-
-        /**
-         * Balance id.
-         * @member {string} id
-         * @memberof main.Balance
-         * @instance
-         */
-        Balance.prototype.id = "";
-
-        /**
-         * Balance student_account_id.
-         * @member {string} student_account_id
-         * @memberof main.Balance
-         * @instance
-         */
-        Balance.prototype.student_account_id = "";
-
-        /**
-         * Balance amount_upx.
-         * @member {number} amount_upx
-         * @memberof main.Balance
-         * @instance
-         */
-        Balance.prototype.amount_upx = 0;
-
-        /**
-         * Balance amount_spx.
-         * @member {number} amount_spx
-         * @memberof main.Balance
-         * @instance
-         */
-        Balance.prototype.amount_spx = 0;
-
-        /**
-         * Encodes the specified Balance message. Does not implicitly {@link main.Balance.verify|verify} messages.
-         * @function encode
-         * @memberof main.Balance
-         * @static
-         * @param {main.IBalance} message Balance message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        Balance.encode = function encode(message, writer) {
-            if (!writer)
-                writer = $Writer.create();
-            if (message.id != null && Object.hasOwnProperty.call(message, "id"))
-                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
-            if (message.student_account_id != null && Object.hasOwnProperty.call(message, "student_account_id"))
-                writer.uint32(/* id 2, wireType 2 =*/18).string(message.student_account_id);
-            if (message.amount_upx != null && Object.hasOwnProperty.call(message, "amount_upx"))
-                writer.uint32(/* id 3, wireType 1 =*/25).double(message.amount_upx);
-            if (message.amount_spx != null && Object.hasOwnProperty.call(message, "amount_spx"))
-                writer.uint32(/* id 4, wireType 1 =*/33).double(message.amount_spx);
-            return writer;
-        };
-
-        /**
-         * Encodes the specified Balance message, length delimited. Does not implicitly {@link main.Balance.verify|verify} messages.
-         * @function encodeDelimited
-         * @memberof main.Balance
-         * @static
-         * @param {main.IBalance} message Balance message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        Balance.encodeDelimited = function encodeDelimited(message, writer) {
-            return this.encode(message, writer).ldelim();
-        };
-
-        /**
-         * Decodes a Balance message from the specified reader or buffer.
-         * @function decode
-         * @memberof main.Balance
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @param {number} [length] Message length if known beforehand
-         * @returns {main.Balance} Balance
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        Balance.decode = function decode(reader, length) {
-            if (!(reader instanceof $Reader))
-                reader = $Reader.create(reader);
-            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.Balance();
-            while (reader.pos < end) {
-                let tag = reader.uint32();
-                switch (tag >>> 3) {
-                case 1:
-                    message.id = reader.string();
-                    break;
-                case 2:
-                    message.student_account_id = reader.string();
-                    break;
-                case 3:
-                    message.amount_upx = reader.double();
-                    break;
-                case 4:
-                    message.amount_spx = reader.double();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Decodes a Balance message from the specified reader or buffer, length delimited.
-         * @function decodeDelimited
-         * @memberof main.Balance
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {main.Balance} Balance
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        Balance.decodeDelimited = function decodeDelimited(reader) {
-            if (!(reader instanceof $Reader))
-                reader = new $Reader(reader);
-            return this.decode(reader, reader.uint32());
-        };
-
-        /**
-         * Verifies a Balance message.
-         * @function verify
-         * @memberof main.Balance
-         * @static
-         * @param {Object.<string,*>} message Plain object to verify
-         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-         */
-        Balance.verify = function verify(message) {
-            if (typeof message !== "object" || message === null)
-                return "object expected";
-            if (message.id != null && message.hasOwnProperty("id"))
-                if (!$util.isString(message.id))
-                    return "id: string expected";
-            if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
-                if (!$util.isString(message.student_account_id))
-                    return "student_account_id: string expected";
-            if (message.amount_upx != null && message.hasOwnProperty("amount_upx"))
-                if (typeof message.amount_upx !== "number")
-                    return "amount_upx: number expected";
-            if (message.amount_spx != null && message.hasOwnProperty("amount_spx"))
-                if (typeof message.amount_spx !== "number")
-                    return "amount_spx: number expected";
-            return null;
-        };
-
-        /**
-         * Creates a Balance message from a plain object. Also converts values to their respective internal types.
-         * @function fromObject
-         * @memberof main.Balance
-         * @static
-         * @param {Object.<string,*>} object Plain object
-         * @returns {main.Balance} Balance
-         */
-        Balance.fromObject = function fromObject(object) {
-            if (object instanceof $root.main.Balance)
-                return object;
-            let message = new $root.main.Balance();
-            if (object.id != null)
-                message.id = String(object.id);
-            if (object.student_account_id != null)
-                message.student_account_id = String(object.student_account_id);
-            if (object.amount_upx != null)
-                message.amount_upx = Number(object.amount_upx);
-            if (object.amount_spx != null)
-                message.amount_spx = Number(object.amount_spx);
-            return message;
-        };
-
-        /**
-         * Creates a plain object from a Balance message. Also converts values to other types if specified.
-         * @function toObject
-         * @memberof main.Balance
-         * @static
-         * @param {main.Balance} message Balance
-         * @param {$protobuf.IConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        Balance.toObject = function toObject(message, options) {
-            if (!options)
-                options = {};
-            let object = {};
-            if (options.defaults) {
-                object.id = "";
-                object.student_account_id = "";
-                object.amount_upx = 0;
-                object.amount_spx = 0;
-            }
-            if (message.id != null && message.hasOwnProperty("id"))
-                object.id = message.id;
-            if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
-                object.student_account_id = message.student_account_id;
-            if (message.amount_upx != null && message.hasOwnProperty("amount_upx"))
-                object.amount_upx = options.json && !isFinite(message.amount_upx) ? String(message.amount_upx) : message.amount_upx;
-            if (message.amount_spx != null && message.hasOwnProperty("amount_spx"))
-                object.amount_spx = options.json && !isFinite(message.amount_spx) ? String(message.amount_spx) : message.amount_spx;
-            return object;
-        };
-
-        /**
-         * Converts this Balance to JSON.
-         * @function toJSON
-         * @memberof main.Balance
-         * @instance
-         * @returns {Object.<string,*>} JSON object
-         */
-        Balance.prototype.toJSON = function toJSON() {
-            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-        };
-
-        return Balance;
-    })();
-
     main.BalanceSnapshot = (function() {
 
         /**
@@ -2025,6 +1761,248 @@ export const main = $root.main = (() => {
         };
 
         return BalanceSnapshot;
+    })();
+
+    main.Balance = (function() {
+
+        /**
+         * Properties of a Balance.
+         * @memberof main
+         * @interface IBalance
+         * @property {string|null} [id] Balance id
+         * @property {string|null} [student_account_id] Balance student_account_id
+         * @property {number|null} [amount_upx] Balance amount_upx
+         * @property {number|null} [amount_spx] Balance amount_spx
+         */
+
+        /**
+         * Constructs a new Balance.
+         * @memberof main
+         * @classdesc Represents a Balance.
+         * @implements IBalance
+         * @constructor
+         * @param {main.IBalance=} [properties] Properties to set
+         */
+        function Balance(properties) {
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * Balance id.
+         * @member {string} id
+         * @memberof main.Balance
+         * @instance
+         */
+        Balance.prototype.id = "";
+
+        /**
+         * Balance student_account_id.
+         * @member {string} student_account_id
+         * @memberof main.Balance
+         * @instance
+         */
+        Balance.prototype.student_account_id = "";
+
+        /**
+         * Balance amount_upx.
+         * @member {number} amount_upx
+         * @memberof main.Balance
+         * @instance
+         */
+        Balance.prototype.amount_upx = 0;
+
+        /**
+         * Balance amount_spx.
+         * @member {number} amount_spx
+         * @memberof main.Balance
+         * @instance
+         */
+        Balance.prototype.amount_spx = 0;
+
+        /**
+         * Encodes the specified Balance message. Does not implicitly {@link main.Balance.verify|verify} messages.
+         * @function encode
+         * @memberof main.Balance
+         * @static
+         * @param {main.IBalance} message Balance message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Balance.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+            if (message.student_account_id != null && Object.hasOwnProperty.call(message, "student_account_id"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.student_account_id);
+            if (message.amount_upx != null && Object.hasOwnProperty.call(message, "amount_upx"))
+                writer.uint32(/* id 3, wireType 1 =*/25).double(message.amount_upx);
+            if (message.amount_spx != null && Object.hasOwnProperty.call(message, "amount_spx"))
+                writer.uint32(/* id 4, wireType 1 =*/33).double(message.amount_spx);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified Balance message, length delimited. Does not implicitly {@link main.Balance.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof main.Balance
+         * @static
+         * @param {main.IBalance} message Balance message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Balance.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a Balance message from the specified reader or buffer.
+         * @function decode
+         * @memberof main.Balance
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {main.Balance} Balance
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Balance.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.Balance();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.id = reader.string();
+                    break;
+                case 2:
+                    message.student_account_id = reader.string();
+                    break;
+                case 3:
+                    message.amount_upx = reader.double();
+                    break;
+                case 4:
+                    message.amount_spx = reader.double();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a Balance message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof main.Balance
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {main.Balance} Balance
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Balance.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a Balance message.
+         * @function verify
+         * @memberof main.Balance
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        Balance.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isString(message.id))
+                    return "id: string expected";
+            if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
+                if (!$util.isString(message.student_account_id))
+                    return "student_account_id: string expected";
+            if (message.amount_upx != null && message.hasOwnProperty("amount_upx"))
+                if (typeof message.amount_upx !== "number")
+                    return "amount_upx: number expected";
+            if (message.amount_spx != null && message.hasOwnProperty("amount_spx"))
+                if (typeof message.amount_spx !== "number")
+                    return "amount_spx: number expected";
+            return null;
+        };
+
+        /**
+         * Creates a Balance message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof main.Balance
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {main.Balance} Balance
+         */
+        Balance.fromObject = function fromObject(object) {
+            if (object instanceof $root.main.Balance)
+                return object;
+            let message = new $root.main.Balance();
+            if (object.id != null)
+                message.id = String(object.id);
+            if (object.student_account_id != null)
+                message.student_account_id = String(object.student_account_id);
+            if (object.amount_upx != null)
+                message.amount_upx = Number(object.amount_upx);
+            if (object.amount_spx != null)
+                message.amount_spx = Number(object.amount_spx);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a Balance message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof main.Balance
+         * @static
+         * @param {main.Balance} message Balance
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        Balance.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.defaults) {
+                object.id = "";
+                object.student_account_id = "";
+                object.amount_upx = 0;
+                object.amount_spx = 0;
+            }
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
+                object.student_account_id = message.student_account_id;
+            if (message.amount_upx != null && message.hasOwnProperty("amount_upx"))
+                object.amount_upx = options.json && !isFinite(message.amount_upx) ? String(message.amount_upx) : message.amount_upx;
+            if (message.amount_spx != null && message.hasOwnProperty("amount_spx"))
+                object.amount_spx = options.json && !isFinite(message.amount_spx) ? String(message.amount_spx) : message.amount_spx;
+            return object;
+        };
+
+        /**
+         * Converts this Balance to JSON.
+         * @function toJSON
+         * @memberof main.Balance
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        Balance.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return Balance;
     })();
 
     main.ChatDelete = (function() {
@@ -5415,6 +5393,292 @@ export const main = $root.main = (() => {
         return NormalAskDelete;
     })();
 
+    main.NormalBidHistory = (function() {
+
+        /**
+         * Properties of a NormalBidHistory.
+         * @memberof main
+         * @interface INormalBidHistory
+         * @property {string|null} [id] NormalBidHistory id
+         * @property {string|null} [account_id] NormalBidHistory account_id
+         * @property {number|null} [price] NormalBidHistory price
+         * @property {number|null} [amount] NormalBidHistory amount
+         * @property {boolean|null} [is_accepted] NormalBidHistory is_accepted
+         * @property {number|null} [contract_price] NormalBidHistory contract_price
+         */
+
+        /**
+         * Constructs a new NormalBidHistory.
+         * @memberof main
+         * @classdesc Represents a NormalBidHistory.
+         * @implements INormalBidHistory
+         * @constructor
+         * @param {main.INormalBidHistory=} [properties] Properties to set
+         */
+        function NormalBidHistory(properties) {
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * NormalBidHistory id.
+         * @member {string} id
+         * @memberof main.NormalBidHistory
+         * @instance
+         */
+        NormalBidHistory.prototype.id = "";
+
+        /**
+         * NormalBidHistory account_id.
+         * @member {string} account_id
+         * @memberof main.NormalBidHistory
+         * @instance
+         */
+        NormalBidHistory.prototype.account_id = "";
+
+        /**
+         * NormalBidHistory price.
+         * @member {number} price
+         * @memberof main.NormalBidHistory
+         * @instance
+         */
+        NormalBidHistory.prototype.price = 0;
+
+        /**
+         * NormalBidHistory amount.
+         * @member {number} amount
+         * @memberof main.NormalBidHistory
+         * @instance
+         */
+        NormalBidHistory.prototype.amount = 0;
+
+        /**
+         * NormalBidHistory is_accepted.
+         * @member {boolean} is_accepted
+         * @memberof main.NormalBidHistory
+         * @instance
+         */
+        NormalBidHistory.prototype.is_accepted = false;
+
+        /**
+         * NormalBidHistory contract_price.
+         * @member {number} contract_price
+         * @memberof main.NormalBidHistory
+         * @instance
+         */
+        NormalBidHistory.prototype.contract_price = 0;
+
+        /**
+         * Encodes the specified NormalBidHistory message. Does not implicitly {@link main.NormalBidHistory.verify|verify} messages.
+         * @function encode
+         * @memberof main.NormalBidHistory
+         * @static
+         * @param {main.INormalBidHistory} message NormalBidHistory message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        NormalBidHistory.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+            if (message.account_id != null && Object.hasOwnProperty.call(message, "account_id"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.account_id);
+            if (message.price != null && Object.hasOwnProperty.call(message, "price"))
+                writer.uint32(/* id 3, wireType 1 =*/25).double(message.price);
+            if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
+                writer.uint32(/* id 4, wireType 1 =*/33).double(message.amount);
+            if (message.is_accepted != null && Object.hasOwnProperty.call(message, "is_accepted"))
+                writer.uint32(/* id 5, wireType 0 =*/40).bool(message.is_accepted);
+            if (message.contract_price != null && Object.hasOwnProperty.call(message, "contract_price"))
+                writer.uint32(/* id 6, wireType 1 =*/49).double(message.contract_price);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified NormalBidHistory message, length delimited. Does not implicitly {@link main.NormalBidHistory.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof main.NormalBidHistory
+         * @static
+         * @param {main.INormalBidHistory} message NormalBidHistory message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        NormalBidHistory.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a NormalBidHistory message from the specified reader or buffer.
+         * @function decode
+         * @memberof main.NormalBidHistory
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {main.NormalBidHistory} NormalBidHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        NormalBidHistory.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.NormalBidHistory();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.id = reader.string();
+                    break;
+                case 2:
+                    message.account_id = reader.string();
+                    break;
+                case 3:
+                    message.price = reader.double();
+                    break;
+                case 4:
+                    message.amount = reader.double();
+                    break;
+                case 5:
+                    message.is_accepted = reader.bool();
+                    break;
+                case 6:
+                    message.contract_price = reader.double();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a NormalBidHistory message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof main.NormalBidHistory
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {main.NormalBidHistory} NormalBidHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        NormalBidHistory.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a NormalBidHistory message.
+         * @function verify
+         * @memberof main.NormalBidHistory
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        NormalBidHistory.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isString(message.id))
+                    return "id: string expected";
+            if (message.account_id != null && message.hasOwnProperty("account_id"))
+                if (!$util.isString(message.account_id))
+                    return "account_id: string expected";
+            if (message.price != null && message.hasOwnProperty("price"))
+                if (typeof message.price !== "number")
+                    return "price: number expected";
+            if (message.amount != null && message.hasOwnProperty("amount"))
+                if (typeof message.amount !== "number")
+                    return "amount: number expected";
+            if (message.is_accepted != null && message.hasOwnProperty("is_accepted"))
+                if (typeof message.is_accepted !== "boolean")
+                    return "is_accepted: boolean expected";
+            if (message.contract_price != null && message.hasOwnProperty("contract_price"))
+                if (typeof message.contract_price !== "number")
+                    return "contract_price: number expected";
+            return null;
+        };
+
+        /**
+         * Creates a NormalBidHistory message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof main.NormalBidHistory
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {main.NormalBidHistory} NormalBidHistory
+         */
+        NormalBidHistory.fromObject = function fromObject(object) {
+            if (object instanceof $root.main.NormalBidHistory)
+                return object;
+            let message = new $root.main.NormalBidHistory();
+            if (object.id != null)
+                message.id = String(object.id);
+            if (object.account_id != null)
+                message.account_id = String(object.account_id);
+            if (object.price != null)
+                message.price = Number(object.price);
+            if (object.amount != null)
+                message.amount = Number(object.amount);
+            if (object.is_accepted != null)
+                message.is_accepted = Boolean(object.is_accepted);
+            if (object.contract_price != null)
+                message.contract_price = Number(object.contract_price);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a NormalBidHistory message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof main.NormalBidHistory
+         * @static
+         * @param {main.NormalBidHistory} message NormalBidHistory
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        NormalBidHistory.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.defaults) {
+                object.id = "";
+                object.account_id = "";
+                object.price = 0;
+                object.amount = 0;
+                object.is_accepted = false;
+                object.contract_price = 0;
+            }
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            if (message.account_id != null && message.hasOwnProperty("account_id"))
+                object.account_id = message.account_id;
+            if (message.price != null && message.hasOwnProperty("price"))
+                object.price = options.json && !isFinite(message.price) ? String(message.price) : message.price;
+            if (message.amount != null && message.hasOwnProperty("amount"))
+                object.amount = options.json && !isFinite(message.amount) ? String(message.amount) : message.amount;
+            if (message.is_accepted != null && message.hasOwnProperty("is_accepted"))
+                object.is_accepted = message.is_accepted;
+            if (message.contract_price != null && message.hasOwnProperty("contract_price"))
+                object.contract_price = options.json && !isFinite(message.contract_price) ? String(message.contract_price) : message.contract_price;
+            return object;
+        };
+
+        /**
+         * Converts this NormalBidHistory to JSON.
+         * @function toJSON
+         * @memberof main.NormalBidHistory
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        NormalBidHistory.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return NormalBidHistory;
+    })();
+
     /**
      * NormalAskHistoryType enum.
      * @name main.NormalAskHistoryType
@@ -5757,6 +6021,226 @@ export const main = $root.main = (() => {
         return NormalAskHistory;
     })();
 
+    main.NormalAskSetting = (function() {
+
+        /**
+         * Properties of a NormalAskSetting.
+         * @memberof main
+         * @interface INormalAskSetting
+         * @property {string|null} [id] NormalAskSetting id
+         * @property {number|null} [price] NormalAskSetting price
+         * @property {number|null} [amount] NormalAskSetting amount
+         */
+
+        /**
+         * Constructs a new NormalAskSetting.
+         * @memberof main
+         * @classdesc Represents a NormalAskSetting.
+         * @implements INormalAskSetting
+         * @constructor
+         * @param {main.INormalAskSetting=} [properties] Properties to set
+         */
+        function NormalAskSetting(properties) {
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * NormalAskSetting id.
+         * @member {string} id
+         * @memberof main.NormalAskSetting
+         * @instance
+         */
+        NormalAskSetting.prototype.id = "";
+
+        /**
+         * NormalAskSetting price.
+         * @member {number} price
+         * @memberof main.NormalAskSetting
+         * @instance
+         */
+        NormalAskSetting.prototype.price = 0;
+
+        /**
+         * NormalAskSetting amount.
+         * @member {number} amount
+         * @memberof main.NormalAskSetting
+         * @instance
+         */
+        NormalAskSetting.prototype.amount = 0;
+
+        /**
+         * Encodes the specified NormalAskSetting message. Does not implicitly {@link main.NormalAskSetting.verify|verify} messages.
+         * @function encode
+         * @memberof main.NormalAskSetting
+         * @static
+         * @param {main.INormalAskSetting} message NormalAskSetting message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        NormalAskSetting.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+            if (message.price != null && Object.hasOwnProperty.call(message, "price"))
+                writer.uint32(/* id 2, wireType 1 =*/17).double(message.price);
+            if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
+                writer.uint32(/* id 3, wireType 1 =*/25).double(message.amount);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified NormalAskSetting message, length delimited. Does not implicitly {@link main.NormalAskSetting.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof main.NormalAskSetting
+         * @static
+         * @param {main.INormalAskSetting} message NormalAskSetting message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        NormalAskSetting.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a NormalAskSetting message from the specified reader or buffer.
+         * @function decode
+         * @memberof main.NormalAskSetting
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {main.NormalAskSetting} NormalAskSetting
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        NormalAskSetting.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.NormalAskSetting();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.id = reader.string();
+                    break;
+                case 2:
+                    message.price = reader.double();
+                    break;
+                case 3:
+                    message.amount = reader.double();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a NormalAskSetting message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof main.NormalAskSetting
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {main.NormalAskSetting} NormalAskSetting
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        NormalAskSetting.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a NormalAskSetting message.
+         * @function verify
+         * @memberof main.NormalAskSetting
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        NormalAskSetting.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isString(message.id))
+                    return "id: string expected";
+            if (message.price != null && message.hasOwnProperty("price"))
+                if (typeof message.price !== "number")
+                    return "price: number expected";
+            if (message.amount != null && message.hasOwnProperty("amount"))
+                if (typeof message.amount !== "number")
+                    return "amount: number expected";
+            return null;
+        };
+
+        /**
+         * Creates a NormalAskSetting message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof main.NormalAskSetting
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {main.NormalAskSetting} NormalAskSetting
+         */
+        NormalAskSetting.fromObject = function fromObject(object) {
+            if (object instanceof $root.main.NormalAskSetting)
+                return object;
+            let message = new $root.main.NormalAskSetting();
+            if (object.id != null)
+                message.id = String(object.id);
+            if (object.price != null)
+                message.price = Number(object.price);
+            if (object.amount != null)
+                message.amount = Number(object.amount);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a NormalAskSetting message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof main.NormalAskSetting
+         * @static
+         * @param {main.NormalAskSetting} message NormalAskSetting
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        NormalAskSetting.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.defaults) {
+                object.id = "";
+                object.price = 0;
+                object.amount = 0;
+            }
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            if (message.price != null && message.hasOwnProperty("price"))
+                object.price = options.json && !isFinite(message.price) ? String(message.price) : message.price;
+            if (message.amount != null && message.hasOwnProperty("amount"))
+                object.amount = options.json && !isFinite(message.amount) ? String(message.amount) : message.amount;
+            return object;
+        };
+
+        /**
+         * Converts this NormalAskSetting to JSON.
+         * @function toJSON
+         * @memberof main.NormalAskSetting
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        NormalAskSetting.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return NormalAskSetting;
+    })();
+
     /**
      * NormalAskType enum.
      * @name main.NormalAskType
@@ -6077,226 +6561,6 @@ export const main = $root.main = (() => {
         return NormalAsk;
     })();
 
-    main.NormalAskSetting = (function() {
-
-        /**
-         * Properties of a NormalAskSetting.
-         * @memberof main
-         * @interface INormalAskSetting
-         * @property {string|null} [id] NormalAskSetting id
-         * @property {number|null} [price] NormalAskSetting price
-         * @property {number|null} [amount] NormalAskSetting amount
-         */
-
-        /**
-         * Constructs a new NormalAskSetting.
-         * @memberof main
-         * @classdesc Represents a NormalAskSetting.
-         * @implements INormalAskSetting
-         * @constructor
-         * @param {main.INormalAskSetting=} [properties] Properties to set
-         */
-        function NormalAskSetting(properties) {
-            if (properties)
-                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
-                        this[keys[i]] = properties[keys[i]];
-        }
-
-        /**
-         * NormalAskSetting id.
-         * @member {string} id
-         * @memberof main.NormalAskSetting
-         * @instance
-         */
-        NormalAskSetting.prototype.id = "";
-
-        /**
-         * NormalAskSetting price.
-         * @member {number} price
-         * @memberof main.NormalAskSetting
-         * @instance
-         */
-        NormalAskSetting.prototype.price = 0;
-
-        /**
-         * NormalAskSetting amount.
-         * @member {number} amount
-         * @memberof main.NormalAskSetting
-         * @instance
-         */
-        NormalAskSetting.prototype.amount = 0;
-
-        /**
-         * Encodes the specified NormalAskSetting message. Does not implicitly {@link main.NormalAskSetting.verify|verify} messages.
-         * @function encode
-         * @memberof main.NormalAskSetting
-         * @static
-         * @param {main.INormalAskSetting} message NormalAskSetting message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        NormalAskSetting.encode = function encode(message, writer) {
-            if (!writer)
-                writer = $Writer.create();
-            if (message.id != null && Object.hasOwnProperty.call(message, "id"))
-                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
-            if (message.price != null && Object.hasOwnProperty.call(message, "price"))
-                writer.uint32(/* id 2, wireType 1 =*/17).double(message.price);
-            if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
-                writer.uint32(/* id 3, wireType 1 =*/25).double(message.amount);
-            return writer;
-        };
-
-        /**
-         * Encodes the specified NormalAskSetting message, length delimited. Does not implicitly {@link main.NormalAskSetting.verify|verify} messages.
-         * @function encodeDelimited
-         * @memberof main.NormalAskSetting
-         * @static
-         * @param {main.INormalAskSetting} message NormalAskSetting message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        NormalAskSetting.encodeDelimited = function encodeDelimited(message, writer) {
-            return this.encode(message, writer).ldelim();
-        };
-
-        /**
-         * Decodes a NormalAskSetting message from the specified reader or buffer.
-         * @function decode
-         * @memberof main.NormalAskSetting
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @param {number} [length] Message length if known beforehand
-         * @returns {main.NormalAskSetting} NormalAskSetting
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        NormalAskSetting.decode = function decode(reader, length) {
-            if (!(reader instanceof $Reader))
-                reader = $Reader.create(reader);
-            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.NormalAskSetting();
-            while (reader.pos < end) {
-                let tag = reader.uint32();
-                switch (tag >>> 3) {
-                case 1:
-                    message.id = reader.string();
-                    break;
-                case 2:
-                    message.price = reader.double();
-                    break;
-                case 3:
-                    message.amount = reader.double();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Decodes a NormalAskSetting message from the specified reader or buffer, length delimited.
-         * @function decodeDelimited
-         * @memberof main.NormalAskSetting
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {main.NormalAskSetting} NormalAskSetting
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        NormalAskSetting.decodeDelimited = function decodeDelimited(reader) {
-            if (!(reader instanceof $Reader))
-                reader = new $Reader(reader);
-            return this.decode(reader, reader.uint32());
-        };
-
-        /**
-         * Verifies a NormalAskSetting message.
-         * @function verify
-         * @memberof main.NormalAskSetting
-         * @static
-         * @param {Object.<string,*>} message Plain object to verify
-         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-         */
-        NormalAskSetting.verify = function verify(message) {
-            if (typeof message !== "object" || message === null)
-                return "object expected";
-            if (message.id != null && message.hasOwnProperty("id"))
-                if (!$util.isString(message.id))
-                    return "id: string expected";
-            if (message.price != null && message.hasOwnProperty("price"))
-                if (typeof message.price !== "number")
-                    return "price: number expected";
-            if (message.amount != null && message.hasOwnProperty("amount"))
-                if (typeof message.amount !== "number")
-                    return "amount: number expected";
-            return null;
-        };
-
-        /**
-         * Creates a NormalAskSetting message from a plain object. Also converts values to their respective internal types.
-         * @function fromObject
-         * @memberof main.NormalAskSetting
-         * @static
-         * @param {Object.<string,*>} object Plain object
-         * @returns {main.NormalAskSetting} NormalAskSetting
-         */
-        NormalAskSetting.fromObject = function fromObject(object) {
-            if (object instanceof $root.main.NormalAskSetting)
-                return object;
-            let message = new $root.main.NormalAskSetting();
-            if (object.id != null)
-                message.id = String(object.id);
-            if (object.price != null)
-                message.price = Number(object.price);
-            if (object.amount != null)
-                message.amount = Number(object.amount);
-            return message;
-        };
-
-        /**
-         * Creates a plain object from a NormalAskSetting message. Also converts values to other types if specified.
-         * @function toObject
-         * @memberof main.NormalAskSetting
-         * @static
-         * @param {main.NormalAskSetting} message NormalAskSetting
-         * @param {$protobuf.IConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        NormalAskSetting.toObject = function toObject(message, options) {
-            if (!options)
-                options = {};
-            let object = {};
-            if (options.defaults) {
-                object.id = "";
-                object.price = 0;
-                object.amount = 0;
-            }
-            if (message.id != null && message.hasOwnProperty("id"))
-                object.id = message.id;
-            if (message.price != null && message.hasOwnProperty("price"))
-                object.price = options.json && !isFinite(message.price) ? String(message.price) : message.price;
-            if (message.amount != null && message.hasOwnProperty("amount"))
-                object.amount = options.json && !isFinite(message.amount) ? String(message.amount) : message.amount;
-            return object;
-        };
-
-        /**
-         * Converts this NormalAskSetting to JSON.
-         * @function toJSON
-         * @memberof main.NormalAskSetting
-         * @instance
-         * @returns {Object.<string,*>} JSON object
-         */
-        NormalAskSetting.prototype.toJSON = function toJSON() {
-            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-        };
-
-        return NormalAskSetting;
-    })();
-
     main.NormalBidDelete = (function() {
 
         /**
@@ -6493,292 +6757,6 @@ export const main = $root.main = (() => {
         };
 
         return NormalBidDelete;
-    })();
-
-    main.NormalBidHistory = (function() {
-
-        /**
-         * Properties of a NormalBidHistory.
-         * @memberof main
-         * @interface INormalBidHistory
-         * @property {string|null} [id] NormalBidHistory id
-         * @property {string|null} [account_id] NormalBidHistory account_id
-         * @property {number|null} [price] NormalBidHistory price
-         * @property {number|null} [amount] NormalBidHistory amount
-         * @property {boolean|null} [is_accepted] NormalBidHistory is_accepted
-         * @property {number|null} [contract_price] NormalBidHistory contract_price
-         */
-
-        /**
-         * Constructs a new NormalBidHistory.
-         * @memberof main
-         * @classdesc Represents a NormalBidHistory.
-         * @implements INormalBidHistory
-         * @constructor
-         * @param {main.INormalBidHistory=} [properties] Properties to set
-         */
-        function NormalBidHistory(properties) {
-            if (properties)
-                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
-                        this[keys[i]] = properties[keys[i]];
-        }
-
-        /**
-         * NormalBidHistory id.
-         * @member {string} id
-         * @memberof main.NormalBidHistory
-         * @instance
-         */
-        NormalBidHistory.prototype.id = "";
-
-        /**
-         * NormalBidHistory account_id.
-         * @member {string} account_id
-         * @memberof main.NormalBidHistory
-         * @instance
-         */
-        NormalBidHistory.prototype.account_id = "";
-
-        /**
-         * NormalBidHistory price.
-         * @member {number} price
-         * @memberof main.NormalBidHistory
-         * @instance
-         */
-        NormalBidHistory.prototype.price = 0;
-
-        /**
-         * NormalBidHistory amount.
-         * @member {number} amount
-         * @memberof main.NormalBidHistory
-         * @instance
-         */
-        NormalBidHistory.prototype.amount = 0;
-
-        /**
-         * NormalBidHistory is_accepted.
-         * @member {boolean} is_accepted
-         * @memberof main.NormalBidHistory
-         * @instance
-         */
-        NormalBidHistory.prototype.is_accepted = false;
-
-        /**
-         * NormalBidHistory contract_price.
-         * @member {number} contract_price
-         * @memberof main.NormalBidHistory
-         * @instance
-         */
-        NormalBidHistory.prototype.contract_price = 0;
-
-        /**
-         * Encodes the specified NormalBidHistory message. Does not implicitly {@link main.NormalBidHistory.verify|verify} messages.
-         * @function encode
-         * @memberof main.NormalBidHistory
-         * @static
-         * @param {main.INormalBidHistory} message NormalBidHistory message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        NormalBidHistory.encode = function encode(message, writer) {
-            if (!writer)
-                writer = $Writer.create();
-            if (message.id != null && Object.hasOwnProperty.call(message, "id"))
-                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
-            if (message.account_id != null && Object.hasOwnProperty.call(message, "account_id"))
-                writer.uint32(/* id 2, wireType 2 =*/18).string(message.account_id);
-            if (message.price != null && Object.hasOwnProperty.call(message, "price"))
-                writer.uint32(/* id 3, wireType 1 =*/25).double(message.price);
-            if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
-                writer.uint32(/* id 4, wireType 1 =*/33).double(message.amount);
-            if (message.is_accepted != null && Object.hasOwnProperty.call(message, "is_accepted"))
-                writer.uint32(/* id 5, wireType 0 =*/40).bool(message.is_accepted);
-            if (message.contract_price != null && Object.hasOwnProperty.call(message, "contract_price"))
-                writer.uint32(/* id 6, wireType 1 =*/49).double(message.contract_price);
-            return writer;
-        };
-
-        /**
-         * Encodes the specified NormalBidHistory message, length delimited. Does not implicitly {@link main.NormalBidHistory.verify|verify} messages.
-         * @function encodeDelimited
-         * @memberof main.NormalBidHistory
-         * @static
-         * @param {main.INormalBidHistory} message NormalBidHistory message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        NormalBidHistory.encodeDelimited = function encodeDelimited(message, writer) {
-            return this.encode(message, writer).ldelim();
-        };
-
-        /**
-         * Decodes a NormalBidHistory message from the specified reader or buffer.
-         * @function decode
-         * @memberof main.NormalBidHistory
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @param {number} [length] Message length if known beforehand
-         * @returns {main.NormalBidHistory} NormalBidHistory
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        NormalBidHistory.decode = function decode(reader, length) {
-            if (!(reader instanceof $Reader))
-                reader = $Reader.create(reader);
-            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.NormalBidHistory();
-            while (reader.pos < end) {
-                let tag = reader.uint32();
-                switch (tag >>> 3) {
-                case 1:
-                    message.id = reader.string();
-                    break;
-                case 2:
-                    message.account_id = reader.string();
-                    break;
-                case 3:
-                    message.price = reader.double();
-                    break;
-                case 4:
-                    message.amount = reader.double();
-                    break;
-                case 5:
-                    message.is_accepted = reader.bool();
-                    break;
-                case 6:
-                    message.contract_price = reader.double();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Decodes a NormalBidHistory message from the specified reader or buffer, length delimited.
-         * @function decodeDelimited
-         * @memberof main.NormalBidHistory
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {main.NormalBidHistory} NormalBidHistory
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        NormalBidHistory.decodeDelimited = function decodeDelimited(reader) {
-            if (!(reader instanceof $Reader))
-                reader = new $Reader(reader);
-            return this.decode(reader, reader.uint32());
-        };
-
-        /**
-         * Verifies a NormalBidHistory message.
-         * @function verify
-         * @memberof main.NormalBidHistory
-         * @static
-         * @param {Object.<string,*>} message Plain object to verify
-         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-         */
-        NormalBidHistory.verify = function verify(message) {
-            if (typeof message !== "object" || message === null)
-                return "object expected";
-            if (message.id != null && message.hasOwnProperty("id"))
-                if (!$util.isString(message.id))
-                    return "id: string expected";
-            if (message.account_id != null && message.hasOwnProperty("account_id"))
-                if (!$util.isString(message.account_id))
-                    return "account_id: string expected";
-            if (message.price != null && message.hasOwnProperty("price"))
-                if (typeof message.price !== "number")
-                    return "price: number expected";
-            if (message.amount != null && message.hasOwnProperty("amount"))
-                if (typeof message.amount !== "number")
-                    return "amount: number expected";
-            if (message.is_accepted != null && message.hasOwnProperty("is_accepted"))
-                if (typeof message.is_accepted !== "boolean")
-                    return "is_accepted: boolean expected";
-            if (message.contract_price != null && message.hasOwnProperty("contract_price"))
-                if (typeof message.contract_price !== "number")
-                    return "contract_price: number expected";
-            return null;
-        };
-
-        /**
-         * Creates a NormalBidHistory message from a plain object. Also converts values to their respective internal types.
-         * @function fromObject
-         * @memberof main.NormalBidHistory
-         * @static
-         * @param {Object.<string,*>} object Plain object
-         * @returns {main.NormalBidHistory} NormalBidHistory
-         */
-        NormalBidHistory.fromObject = function fromObject(object) {
-            if (object instanceof $root.main.NormalBidHistory)
-                return object;
-            let message = new $root.main.NormalBidHistory();
-            if (object.id != null)
-                message.id = String(object.id);
-            if (object.account_id != null)
-                message.account_id = String(object.account_id);
-            if (object.price != null)
-                message.price = Number(object.price);
-            if (object.amount != null)
-                message.amount = Number(object.amount);
-            if (object.is_accepted != null)
-                message.is_accepted = Boolean(object.is_accepted);
-            if (object.contract_price != null)
-                message.contract_price = Number(object.contract_price);
-            return message;
-        };
-
-        /**
-         * Creates a plain object from a NormalBidHistory message. Also converts values to other types if specified.
-         * @function toObject
-         * @memberof main.NormalBidHistory
-         * @static
-         * @param {main.NormalBidHistory} message NormalBidHistory
-         * @param {$protobuf.IConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        NormalBidHistory.toObject = function toObject(message, options) {
-            if (!options)
-                options = {};
-            let object = {};
-            if (options.defaults) {
-                object.id = "";
-                object.account_id = "";
-                object.price = 0;
-                object.amount = 0;
-                object.is_accepted = false;
-                object.contract_price = 0;
-            }
-            if (message.id != null && message.hasOwnProperty("id"))
-                object.id = message.id;
-            if (message.account_id != null && message.hasOwnProperty("account_id"))
-                object.account_id = message.account_id;
-            if (message.price != null && message.hasOwnProperty("price"))
-                object.price = options.json && !isFinite(message.price) ? String(message.price) : message.price;
-            if (message.amount != null && message.hasOwnProperty("amount"))
-                object.amount = options.json && !isFinite(message.amount) ? String(message.amount) : message.amount;
-            if (message.is_accepted != null && message.hasOwnProperty("is_accepted"))
-                object.is_accepted = message.is_accepted;
-            if (message.contract_price != null && message.hasOwnProperty("contract_price"))
-                object.contract_price = options.json && !isFinite(message.contract_price) ? String(message.contract_price) : message.contract_price;
-            return object;
-        };
-
-        /**
-         * Converts this NormalBidHistory to JSON.
-         * @function toJSON
-         * @memberof main.NormalBidHistory
-         * @instance
-         * @returns {Object.<string,*>} JSON object
-         */
-        NormalBidHistory.prototype.toJSON = function toJSON() {
-            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-        };
-
-        return NormalBidHistory;
     })();
 
     main.NormalBid = (function() {
@@ -8333,6 +8311,226 @@ export const main = $root.main = (() => {
         return RenewableAskHistory;
     })();
 
+    main.RenewableAskSetting = (function() {
+
+        /**
+         * Properties of a RenewableAskSetting.
+         * @memberof main
+         * @interface IRenewableAskSetting
+         * @property {string|null} [id] RenewableAskSetting id
+         * @property {number|null} [price] RenewableAskSetting price
+         * @property {number|null} [amount] RenewableAskSetting amount
+         */
+
+        /**
+         * Constructs a new RenewableAskSetting.
+         * @memberof main
+         * @classdesc Represents a RenewableAskSetting.
+         * @implements IRenewableAskSetting
+         * @constructor
+         * @param {main.IRenewableAskSetting=} [properties] Properties to set
+         */
+        function RenewableAskSetting(properties) {
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * RenewableAskSetting id.
+         * @member {string} id
+         * @memberof main.RenewableAskSetting
+         * @instance
+         */
+        RenewableAskSetting.prototype.id = "";
+
+        /**
+         * RenewableAskSetting price.
+         * @member {number} price
+         * @memberof main.RenewableAskSetting
+         * @instance
+         */
+        RenewableAskSetting.prototype.price = 0;
+
+        /**
+         * RenewableAskSetting amount.
+         * @member {number} amount
+         * @memberof main.RenewableAskSetting
+         * @instance
+         */
+        RenewableAskSetting.prototype.amount = 0;
+
+        /**
+         * Encodes the specified RenewableAskSetting message. Does not implicitly {@link main.RenewableAskSetting.verify|verify} messages.
+         * @function encode
+         * @memberof main.RenewableAskSetting
+         * @static
+         * @param {main.IRenewableAskSetting} message RenewableAskSetting message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RenewableAskSetting.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+            if (message.price != null && Object.hasOwnProperty.call(message, "price"))
+                writer.uint32(/* id 2, wireType 1 =*/17).double(message.price);
+            if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
+                writer.uint32(/* id 3, wireType 1 =*/25).double(message.amount);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified RenewableAskSetting message, length delimited. Does not implicitly {@link main.RenewableAskSetting.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof main.RenewableAskSetting
+         * @static
+         * @param {main.IRenewableAskSetting} message RenewableAskSetting message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RenewableAskSetting.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a RenewableAskSetting message from the specified reader or buffer.
+         * @function decode
+         * @memberof main.RenewableAskSetting
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {main.RenewableAskSetting} RenewableAskSetting
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RenewableAskSetting.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.RenewableAskSetting();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.id = reader.string();
+                    break;
+                case 2:
+                    message.price = reader.double();
+                    break;
+                case 3:
+                    message.amount = reader.double();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a RenewableAskSetting message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof main.RenewableAskSetting
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {main.RenewableAskSetting} RenewableAskSetting
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RenewableAskSetting.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a RenewableAskSetting message.
+         * @function verify
+         * @memberof main.RenewableAskSetting
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        RenewableAskSetting.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isString(message.id))
+                    return "id: string expected";
+            if (message.price != null && message.hasOwnProperty("price"))
+                if (typeof message.price !== "number")
+                    return "price: number expected";
+            if (message.amount != null && message.hasOwnProperty("amount"))
+                if (typeof message.amount !== "number")
+                    return "amount: number expected";
+            return null;
+        };
+
+        /**
+         * Creates a RenewableAskSetting message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof main.RenewableAskSetting
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {main.RenewableAskSetting} RenewableAskSetting
+         */
+        RenewableAskSetting.fromObject = function fromObject(object) {
+            if (object instanceof $root.main.RenewableAskSetting)
+                return object;
+            let message = new $root.main.RenewableAskSetting();
+            if (object.id != null)
+                message.id = String(object.id);
+            if (object.price != null)
+                message.price = Number(object.price);
+            if (object.amount != null)
+                message.amount = Number(object.amount);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a RenewableAskSetting message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof main.RenewableAskSetting
+         * @static
+         * @param {main.RenewableAskSetting} message RenewableAskSetting
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        RenewableAskSetting.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.defaults) {
+                object.id = "";
+                object.price = 0;
+                object.amount = 0;
+            }
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            if (message.price != null && message.hasOwnProperty("price"))
+                object.price = options.json && !isFinite(message.price) ? String(message.price) : message.price;
+            if (message.amount != null && message.hasOwnProperty("amount"))
+                object.amount = options.json && !isFinite(message.amount) ? String(message.amount) : message.amount;
+            return object;
+        };
+
+        /**
+         * Converts this RenewableAskSetting to JSON.
+         * @function toJSON
+         * @memberof main.RenewableAskSetting
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        RenewableAskSetting.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return RenewableAskSetting;
+    })();
+
     /**
      * RenewableAskType enum.
      * @name main.RenewableAskType
@@ -8651,226 +8849,6 @@ export const main = $root.main = (() => {
         };
 
         return RenewableAsk;
-    })();
-
-    main.RenewableAskSetting = (function() {
-
-        /**
-         * Properties of a RenewableAskSetting.
-         * @memberof main
-         * @interface IRenewableAskSetting
-         * @property {string|null} [id] RenewableAskSetting id
-         * @property {number|null} [price] RenewableAskSetting price
-         * @property {number|null} [amount] RenewableAskSetting amount
-         */
-
-        /**
-         * Constructs a new RenewableAskSetting.
-         * @memberof main
-         * @classdesc Represents a RenewableAskSetting.
-         * @implements IRenewableAskSetting
-         * @constructor
-         * @param {main.IRenewableAskSetting=} [properties] Properties to set
-         */
-        function RenewableAskSetting(properties) {
-            if (properties)
-                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
-                        this[keys[i]] = properties[keys[i]];
-        }
-
-        /**
-         * RenewableAskSetting id.
-         * @member {string} id
-         * @memberof main.RenewableAskSetting
-         * @instance
-         */
-        RenewableAskSetting.prototype.id = "";
-
-        /**
-         * RenewableAskSetting price.
-         * @member {number} price
-         * @memberof main.RenewableAskSetting
-         * @instance
-         */
-        RenewableAskSetting.prototype.price = 0;
-
-        /**
-         * RenewableAskSetting amount.
-         * @member {number} amount
-         * @memberof main.RenewableAskSetting
-         * @instance
-         */
-        RenewableAskSetting.prototype.amount = 0;
-
-        /**
-         * Encodes the specified RenewableAskSetting message. Does not implicitly {@link main.RenewableAskSetting.verify|verify} messages.
-         * @function encode
-         * @memberof main.RenewableAskSetting
-         * @static
-         * @param {main.IRenewableAskSetting} message RenewableAskSetting message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        RenewableAskSetting.encode = function encode(message, writer) {
-            if (!writer)
-                writer = $Writer.create();
-            if (message.id != null && Object.hasOwnProperty.call(message, "id"))
-                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
-            if (message.price != null && Object.hasOwnProperty.call(message, "price"))
-                writer.uint32(/* id 2, wireType 1 =*/17).double(message.price);
-            if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
-                writer.uint32(/* id 3, wireType 1 =*/25).double(message.amount);
-            return writer;
-        };
-
-        /**
-         * Encodes the specified RenewableAskSetting message, length delimited. Does not implicitly {@link main.RenewableAskSetting.verify|verify} messages.
-         * @function encodeDelimited
-         * @memberof main.RenewableAskSetting
-         * @static
-         * @param {main.IRenewableAskSetting} message RenewableAskSetting message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        RenewableAskSetting.encodeDelimited = function encodeDelimited(message, writer) {
-            return this.encode(message, writer).ldelim();
-        };
-
-        /**
-         * Decodes a RenewableAskSetting message from the specified reader or buffer.
-         * @function decode
-         * @memberof main.RenewableAskSetting
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @param {number} [length] Message length if known beforehand
-         * @returns {main.RenewableAskSetting} RenewableAskSetting
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        RenewableAskSetting.decode = function decode(reader, length) {
-            if (!(reader instanceof $Reader))
-                reader = $Reader.create(reader);
-            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.RenewableAskSetting();
-            while (reader.pos < end) {
-                let tag = reader.uint32();
-                switch (tag >>> 3) {
-                case 1:
-                    message.id = reader.string();
-                    break;
-                case 2:
-                    message.price = reader.double();
-                    break;
-                case 3:
-                    message.amount = reader.double();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Decodes a RenewableAskSetting message from the specified reader or buffer, length delimited.
-         * @function decodeDelimited
-         * @memberof main.RenewableAskSetting
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {main.RenewableAskSetting} RenewableAskSetting
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        RenewableAskSetting.decodeDelimited = function decodeDelimited(reader) {
-            if (!(reader instanceof $Reader))
-                reader = new $Reader(reader);
-            return this.decode(reader, reader.uint32());
-        };
-
-        /**
-         * Verifies a RenewableAskSetting message.
-         * @function verify
-         * @memberof main.RenewableAskSetting
-         * @static
-         * @param {Object.<string,*>} message Plain object to verify
-         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-         */
-        RenewableAskSetting.verify = function verify(message) {
-            if (typeof message !== "object" || message === null)
-                return "object expected";
-            if (message.id != null && message.hasOwnProperty("id"))
-                if (!$util.isString(message.id))
-                    return "id: string expected";
-            if (message.price != null && message.hasOwnProperty("price"))
-                if (typeof message.price !== "number")
-                    return "price: number expected";
-            if (message.amount != null && message.hasOwnProperty("amount"))
-                if (typeof message.amount !== "number")
-                    return "amount: number expected";
-            return null;
-        };
-
-        /**
-         * Creates a RenewableAskSetting message from a plain object. Also converts values to their respective internal types.
-         * @function fromObject
-         * @memberof main.RenewableAskSetting
-         * @static
-         * @param {Object.<string,*>} object Plain object
-         * @returns {main.RenewableAskSetting} RenewableAskSetting
-         */
-        RenewableAskSetting.fromObject = function fromObject(object) {
-            if (object instanceof $root.main.RenewableAskSetting)
-                return object;
-            let message = new $root.main.RenewableAskSetting();
-            if (object.id != null)
-                message.id = String(object.id);
-            if (object.price != null)
-                message.price = Number(object.price);
-            if (object.amount != null)
-                message.amount = Number(object.amount);
-            return message;
-        };
-
-        /**
-         * Creates a plain object from a RenewableAskSetting message. Also converts values to other types if specified.
-         * @function toObject
-         * @memberof main.RenewableAskSetting
-         * @static
-         * @param {main.RenewableAskSetting} message RenewableAskSetting
-         * @param {$protobuf.IConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        RenewableAskSetting.toObject = function toObject(message, options) {
-            if (!options)
-                options = {};
-            let object = {};
-            if (options.defaults) {
-                object.id = "";
-                object.price = 0;
-                object.amount = 0;
-            }
-            if (message.id != null && message.hasOwnProperty("id"))
-                object.id = message.id;
-            if (message.price != null && message.hasOwnProperty("price"))
-                object.price = options.json && !isFinite(message.price) ? String(message.price) : message.price;
-            if (message.amount != null && message.hasOwnProperty("amount"))
-                object.amount = options.json && !isFinite(message.amount) ? String(message.amount) : message.amount;
-            return object;
-        };
-
-        /**
-         * Converts this RenewableAskSetting to JSON.
-         * @function toJSON
-         * @memberof main.RenewableAskSetting
-         * @instance
-         * @returns {Object.<string,*>} JSON object
-         */
-        RenewableAskSetting.prototype.toJSON = function toJSON() {
-            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-        };
-
-        return RenewableAskSetting;
     })();
 
     main.RenewableBidDelete = (function() {
