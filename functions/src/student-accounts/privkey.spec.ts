@@ -11,7 +11,7 @@ describe('xrpl', () => {
     // eslint-disable-next-line quotes
     const child = node.derivePath("44'/144'/0'/0/0");
     const privKeyString = child.privateKey?.toString('hex');
-    console.log('privkey', privKeyString);
+    console.log('privKey', privKeyString);
     if (privKeyString) {
       // input XRP_seed
       const encrypted = crypto.AES.encrypt('', privKeyString);

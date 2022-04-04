@@ -40,10 +40,10 @@ normal_settlement.onCreateHandler.push(async (snapshot, context) => {
     const adminPrivate = await admin_private.list(adminAccount[0].id);
     const config = functions.config();
     const confXrpl = config['xrpl'];
-    const privkey = confXrpl.private_key;
+    const privKey = confXrpl.private_key;
 
     const encryptedSeed = adminPrivate[0].xrp_seed_hot;
-    const decryptedSeed = crypto.AES.decrypt(encryptedSeed, privkey).toString(crypto.enc.Utf8);
+    const decryptedSeed = crypto.AES.decrypt(encryptedSeed, privKey).toString(crypto.enc.Utf8);
     if (!bidder.xrp_address) {
       console.log(data.bid_id, 'no XRP address');
       return;
