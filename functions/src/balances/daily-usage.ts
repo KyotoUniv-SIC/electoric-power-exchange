@@ -9,6 +9,8 @@ import { daily_usage } from '../daily-usages';
 import { insufficient_balance } from '../insufficient-balances';
 import { student_account } from '../student-accounts';
 import { InsufficientBalance, DailyPayment } from '@local/common';
+import * as crypto from 'crypto-js';
+import * as functions from 'firebase-functions';
 
 daily_usage.onCreateHandler.push(async (snapshot, context) => {
   const data = snapshot.data()!;
@@ -55,7 +57,11 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
         return;
       }
       await client.connect();
-      const sender = xrpl.Wallet.fromSeed(accountPrivate[0].xrp_seed);
+      const config = functions.config();
+      const confXrpl = config['xrpl'];
+      const privKey = confXrpl.private_key;
+      const decrypted = crypto.AES.decrypt(accountPrivate[0].xrp_seed, privKey);
+      const sender = xrpl.Wallet.fromSeed(decrypted);
       const sendTokenTx = {
         TransactionType: 'Payment',
         Account: sender.address,
@@ -89,7 +95,13 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
         return;
       }
       await client.connect();
-      const sender = xrpl.Wallet.fromSeed(accountPrivate[0].xrp_seed);
+
+      const config = functions.config();
+      const confXrpl = config['xrpl'];
+      const privKey = confXrpl.private_key;
+      const decrypted = crypto.AES.decrypt(accountPrivate[0].xrp_seed, privKey);
+      const sender = xrpl.Wallet.fromSeed(decrypted);
+
       if (accountBalance[0].amount_spx > 0) {
         const sendSPXTx = {
           TransactionType: 'Payment',
@@ -148,7 +160,11 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
         return;
       }
       await client.connect();
-      const sender = xrpl.Wallet.fromSeed(accountPrivate[0].xrp_seed);
+      const config = functions.config();
+      const confXrpl = config['xrpl'];
+      const privKey = confXrpl.private_key;
+      const decrypted = crypto.AES.decrypt(accountPrivate[0].xrp_seed, privKey);
+      const sender = xrpl.Wallet.fromSeed(decrypted);
       if (accountBalance[0].amount_spx > 0) {
         const sendSPXTx = {
           TransactionType: 'Payment',

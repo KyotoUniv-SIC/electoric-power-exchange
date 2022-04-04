@@ -92,7 +92,11 @@ renewable_settlement.onCreateHandler.push(async (snapshot, context) => {
       return;
     }
     await client.connect();
-    const sender = xrpl.Wallet.fromSeed(sellerPrivate[0].xrp_seed);
+    const config = functions.config();
+    const confXrpl = config['xrpl'];
+    const privKey = confXrpl.private_key;
+    const decrypted = crypto.AES.decrypt(sellerPrivate[0].xrp_seed, privKey);
+    const sender = xrpl.Wallet.fromSeed(decrypted);
     const sendTokenTx = {
       TransactionType: 'Payment',
       Account: sender.address,
