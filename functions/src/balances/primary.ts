@@ -6,6 +6,8 @@ import { admin_account } from '../admin-accounts';
 import { admin_private } from '../admin-privates';
 import { primary_ask } from '../primary-asks';
 import { student_account } from '../student-accounts';
+import * as crypto from 'crypto-js';
+import * as functions from 'firebase-functions';
 
 primary_ask.onCreateHandler.push(async (snapshot, context) => {
   const data = snapshot.data()!;
@@ -32,7 +34,15 @@ primary_ask.onCreateHandler.push(async (snapshot, context) => {
   const TEST_NET = 'wss://s.altnet.rippletest.net:51233';
   const client = new xrpl.Client(TEST_NET);
   await client.connect();
-  const admin = xrpl.Wallet.fromSeed(adminPrivate[0].xrp_seed_hot);
+
+  const config = functions.config();
+  const confXrpl = config['xrpl'];
+  const privKey = confXrpl.private_key;
+
+  const encryptedSeed = adminPrivate[0].xrp_seed_hot;
+  const decryptedSeed = crypto.AES.decrypt(encryptedSeed, privKey).toString(crypto.enc.Utf8);
+
+  const admin = xrpl.Wallet.fromSeed(decryptedSeed);
   const sendTokenTx = {
     TransactionType: 'Payment',
     Account: admin.address,

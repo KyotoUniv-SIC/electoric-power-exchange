@@ -7,6 +7,8 @@ import { student_account } from '.';
 import { account_private } from '../account-privates';
 import { admin_account } from '../admin-accounts';
 import { AccountPrivate } from '@local/common';
+import * as crypto from 'crypto-js';
+import * as functions from 'firebase-functions';
 
 student_account.onCreateHandler.push(async (snapshot, context) => {
   const data = snapshot.data()!;
@@ -70,7 +72,9 @@ student_account.onCreateHandler.push(async (snapshot, context) => {
   const wallet = await createWallet();
 
   await student_account.update({ id: data.id, xrp_address: wallet.classicAddress, xrp_public_key: wallet.publicKey });
-  await account_private.create(
-    new AccountPrivate({ student_account_id: data.id, xrp_private_key: wallet.privateKey, xrp_seed: wallet.seed }),
-  );
+  const config = functions.config();
+  const confXrpl = config['xrpl'];
+  const privKey = confXrpl.private_key;
+  const encryptedSeed = crypto.AES.encrypt(wallet.seed, privKey).toString();
+  await account_private.create(new AccountPrivate({ student_account_id: data.id, xrp_seed: encryptedSeed }));
 });

@@ -15,6 +15,8 @@ import { primary_ask } from '../primary-asks';
 import { renewable_ask_history } from '../renewable-ask-histories';
 import { renewable_bid_history } from '../renewable-bid-histories';
 import { MonthlyPayment, MonthlyUsage } from '@local/common';
+import * as crypto from 'crypto-js';
+import * as functions from 'firebase-functions';
 
 balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
   console.log('run balanceSS onCreate');
@@ -101,7 +103,12 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
   const client = new xrpl.Client(TEST_NET);
   const adminAccount = await admin_account.getByName('admin');
   await client.connect();
-  const sender = xrpl.Wallet.fromSeed(accountPrivate[0].xrp_seed);
+  const config = functions.config();
+  const confXrpl = config['xrpl'];
+  const privKey = confXrpl.private_key;
+  const decrypted = crypto.AES.decrypt(accountPrivate[0].xrp_seed, privKey);
+  const sender = xrpl.Wallet.fromSeed(decrypted);
+
   const amountSPX = data.amount_spx;
   const amountUPX = data.amount_upx;
   if (amountSPX > 0) {
