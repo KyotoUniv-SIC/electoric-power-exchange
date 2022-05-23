@@ -24,8 +24,11 @@ module.exports.monthlySettlement = f.pubsub
     for (const student of students) {
       const studentID = student.id;
       const lastMonthBalance = await balance.getLatest(studentID);
-      const insufficiencies = (await insufficient_balance.listLastMonth(studentID)).reduce((sum, element) => sum + element.amount, 0);
-      const totalBalance = lastMonthBalance[0].amount_spx + lastMonthBalance[0].amount_upx - insufficiencies;
+      const insufficiencies = (await insufficient_balance.listLastMonth(studentID)).reduce(
+        (sum, element) => sum + parseInt(element.amount_utoken),
+        0,
+      );
+      const totalBalance = parseInt(lastMonthBalance[0].amount_uspx) + parseInt(lastMonthBalance[0].amount_uupx) - insufficiencies;
       totalBalance >= 0 ? (purchase += totalBalance) : (sale += -totalBalance);
     }
     const adminAccount = await admin_account.getByName('admin');
@@ -34,30 +37,33 @@ module.exports.monthlySettlement = f.pubsub
     const renewableAsks = await renewable_ask_history.listLastMonth(adminAccount[0].id);
     let income = 0;
     for (const ask of primaryAsks) {
-      income += ask.price * ask.amount;
+      income += parseInt(ask.price_ujpy) * parseInt(ask.amount_uupx);
     }
     for (const ask of normalAsks) {
       if (ask.is_accepted) {
-        income += ask.price * ask.amount;
+        income += parseInt(ask.price_ujpy) * parseInt(ask.amount_uupx);
       }
     }
     for (const ask of renewableAsks) {
       if (ask.is_accepted) {
-        income += ask.price * ask.amount;
+        income += parseInt(ask.price_ujpy) * parseInt(ask.amount_uspx);
       }
     }
 
     const setting = await cost_setting.getLatest();
     // システム運用コスト
-    const cost = !setting ? 0 : setting.system;
+    const cost = !setting ? 0 : parseInt(setting.system_cost_ujpy);
     // 電気料金
-    const electricity = !setting ? 150000 : setting.electricity;
+    const electricity = !setting ? 150000 * 1000000 : parseInt(setting.electricity_cost_ujpy);
 
     const price =
       // (cost + electricity - income + (purchase - sale) * primaryEanings[0].price) / ((purchase + sale) * primaryEanings[0].price);
-      (cost + electricity - income + (purchase - sale) * 27) / ((purchase + sale) * 27);
+      (cost + electricity - income + (purchase - sale) * parseInt(primaryAsks[0].price_ujpy)) /
+      ((purchase + sale) * parseInt(primaryAsks[0].price_ujpy));
 
-    await discount_price.create(new DiscountPrice({ price: price, amount_purchase: purchase, amount_sale: sale }));
+    await discount_price.create(
+      new DiscountPrice({ price_ujpy: price.toString(), amount_purchase_utoken: purchase.toString(), amount_sale_utoken: sale.toString() }),
+    );
 
     for (const student of students) {
       const studentID = student.id;
