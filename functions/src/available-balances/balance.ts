@@ -10,8 +10,8 @@ balance.onUpdateHandler.push(async (snapshot, context) => {
   await available_balance.update({
     id: availableBalance[0].id,
     student_account_id: data.student_account_id,
-    amount_upx: data.amount_upx,
-    amount_spx: data.amount_spx,
+    amount_uupx: data.amount_uupx,
+    amount_uspx: data.amount_uspx,
   });
 });
 
