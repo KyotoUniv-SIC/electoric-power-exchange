@@ -97,6 +97,18 @@
         </mat-list-item>
       </mat-card>
     </mat-list>
+    <ng-container *ngIf="singlePriceNormalListData === null; then loading; else loadedNormal"></ng-container>
+    <ng-template #loadedNormal>
+      <canvas
+        baseChart
+        [datasets]="singlePriceNormalListData!"
+        [labels]="singlePriceNormalListDate!"
+        [options]="barChartOptions"
+        [legend]="barChartLegend"
+        [chartType]="barChartType"
+      >
+      </canvas>
+    </ng-template>
   </mat-card>
 
   <mat-card class="mb-20">

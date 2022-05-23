@@ -38,6 +38,16 @@ export class DashboardComponent implements OnInit {
   singlePriceRenewable?: SinglePriceRenewableSettlement | null;
   @Input()
   singlePriceRenewableDate?: Date | null;
+  @Input()
+  singlePriceNormalList?: SinglePriceNormalSettlement[] | null;
+  @Input()
+  singlePriceRenewableList?: SinglePriceRenewableSettlement[] | null;
+  @Input()
+  singlePriceNormalListData?: ChartDataSets[] | null;
+  @Input()
+  singlePriceNormalListDate?: string[] | null;
+
+
 
   doughnutChartLabels: Label[] = ['Utility Power', 'Solar Power'];
   doughnutChartType: ChartType = 'doughnut';

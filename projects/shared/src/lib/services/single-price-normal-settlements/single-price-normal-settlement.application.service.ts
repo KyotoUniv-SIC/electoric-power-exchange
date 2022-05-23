@@ -26,7 +26,28 @@ export class SinglePriceNormalSettlementApplicationService {
       ),
     );
   }
+
   list$() {
     return this.singlePriceNormalSettlement.list$();
+  }
+
+  listLatestMonth$() {
+    const settlements = this.list$().pipe(
+      map((params) =>
+        params
+          .sort(function (first, second) {
+            if ((first.created_at as Timestamp).toDate() < (second.created_at as Timestamp).toDate()) {
+              return 1;
+            } else if ((first.created_at as Timestamp).toDate() > (second.created_at as Timestamp).toDate()) {
+              return -1;
+            } else {
+              return 0;
+            }
+          })
+          .slice(0, 30)
+          .reverse(),
+      ),
+    );
+    return settlements;
   }
 }
