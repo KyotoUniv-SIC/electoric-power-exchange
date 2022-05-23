@@ -518,11 +518,11 @@ export namespace main {
         /** AvailableBalance student_account_id */
         student_account_id?: (string|null);
 
-        /** AvailableBalance amount_upx */
-        amount_upx?: (number|null);
+        /** AvailableBalance amount_uupx */
+        amount_uupx?: (string|null);
 
-        /** AvailableBalance amount_spx */
-        amount_spx?: (number|null);
+        /** AvailableBalance amount_uspx */
+        amount_uspx?: (string|null);
     }
 
     /** Represents an AvailableBalance. */
@@ -540,11 +540,11 @@ export namespace main {
         /** AvailableBalance student_account_id. */
         public student_account_id: string;
 
-        /** AvailableBalance amount_upx. */
-        public amount_upx: number;
+        /** AvailableBalance amount_uupx. */
+        public amount_uupx: string;
 
-        /** AvailableBalance amount_spx. */
-        public amount_spx: number;
+        /** AvailableBalance amount_uspx. */
+        public amount_uspx: string;
 
         /**
          * Encodes the specified AvailableBalance message. Does not implicitly {@link main.AvailableBalance.verify|verify} messages.
@@ -619,11 +619,11 @@ export namespace main {
         /** BalanceSnapshot student_account_id */
         student_account_id?: (string|null);
 
-        /** BalanceSnapshot amount_upx */
-        amount_upx?: (number|null);
+        /** BalanceSnapshot amount_uupx */
+        amount_uupx?: (string|null);
 
-        /** BalanceSnapshot amount_spx */
-        amount_spx?: (number|null);
+        /** BalanceSnapshot amount_uspx */
+        amount_uspx?: (string|null);
     }
 
     /** Represents a BalanceSnapshot. */
@@ -641,11 +641,11 @@ export namespace main {
         /** BalanceSnapshot student_account_id. */
         public student_account_id: string;
 
-        /** BalanceSnapshot amount_upx. */
-        public amount_upx: number;
+        /** BalanceSnapshot amount_uupx. */
+        public amount_uupx: string;
 
-        /** BalanceSnapshot amount_spx. */
-        public amount_spx: number;
+        /** BalanceSnapshot amount_uspx. */
+        public amount_uspx: string;
 
         /**
          * Encodes the specified BalanceSnapshot message. Does not implicitly {@link main.BalanceSnapshot.verify|verify} messages.
@@ -720,11 +720,11 @@ export namespace main {
         /** Balance student_account_id */
         student_account_id?: (string|null);
 
-        /** Balance amount_upx */
-        amount_upx?: (number|null);
+        /** Balance amount_uupx */
+        amount_uupx?: (string|null);
 
-        /** Balance amount_spx */
-        amount_spx?: (number|null);
+        /** Balance amount_uspx */
+        amount_uspx?: (string|null);
     }
 
     /** Represents a Balance. */
@@ -742,11 +742,11 @@ export namespace main {
         /** Balance student_account_id. */
         public student_account_id: string;
 
-        /** Balance amount_upx. */
-        public amount_upx: number;
+        /** Balance amount_uupx. */
+        public amount_uupx: string;
 
-        /** Balance amount_spx. */
-        public amount_spx: number;
+        /** Balance amount_uspx. */
+        public amount_uspx: string;
 
         /**
          * Encodes the specified Balance message. Does not implicitly {@link main.Balance.verify|verify} messages.
@@ -1026,11 +1026,11 @@ export namespace main {
         /** CostSetting id */
         id?: (string|null);
 
-        /** CostSetting system */
-        system?: (number|null);
+        /** CostSetting cost_ujpy */
+        cost_ujpy?: (string|null);
 
-        /** CostSetting electricity */
-        electricity?: (number|null);
+        /** CostSetting amount_mwh */
+        amount_mwh?: (string|null);
     }
 
     /** Represents a CostSetting. */
@@ -1045,11 +1045,11 @@ export namespace main {
         /** CostSetting id. */
         public id: string;
 
-        /** CostSetting system. */
-        public system: number;
+        /** CostSetting cost_ujpy. */
+        public cost_ujpy: string;
 
-        /** CostSetting electricity. */
-        public electricity: number;
+        /** CostSetting amount_mwh. */
+        public amount_mwh: string;
 
         /**
          * Encodes the specified CostSetting message. Does not implicitly {@link main.CostSetting.verify|verify} messages.
@@ -1125,16 +1125,16 @@ export namespace main {
         student_account_id?: (string|null);
 
         /** DailyPayment year */
-        year?: (number|null);
+        year?: (string|null);
 
         /** DailyPayment month */
-        month?: (number|null);
+        month?: (string|null);
 
         /** DailyPayment date */
-        date?: (number|null);
+        date?: (string|null);
 
-        /** DailyPayment amount_kwh */
-        amount_kwh?: (number|null);
+        /** DailyPayment amount_mwh */
+        amount_mwh?: (string|null);
     }
 
     /** Represents a DailyPayment. */
@@ -1153,16 +1153,16 @@ export namespace main {
         public student_account_id: string;
 
         /** DailyPayment year. */
-        public year: number;
+        public year: string;
 
         /** DailyPayment month. */
-        public month: number;
+        public month: string;
 
         /** DailyPayment date. */
-        public date: number;
+        public date: string;
 
-        /** DailyPayment amount_kwh. */
-        public amount_kwh: number;
+        /** DailyPayment amount_mwh. */
+        public amount_mwh: string;
 
         /**
          * Encodes the specified DailyPayment message. Does not implicitly {@link main.DailyPayment.verify|verify} messages.
@@ -1238,10 +1238,7 @@ export namespace main {
         room_id?: (string|null);
 
         /** DailyUsage amount_kwh */
-        amount_kwh?: (number|null);
-
-        /** DailyUsage amount_kwh_str */
-        amount_kwh_str?: (string|null);
+        amount_kwh?: (string|null);
     }
 
     /** Represents a DailyUsage. */
@@ -1260,10 +1257,7 @@ export namespace main {
         public room_id: string;
 
         /** DailyUsage amount_kwh. */
-        public amount_kwh: number;
-
-        /** DailyUsage amount_kwh_str. */
-        public amount_kwh_str: string;
+        public amount_kwh: string;
 
         /**
          * Encodes the specified DailyUsage message. Does not implicitly {@link main.DailyUsage.verify|verify} messages.
@@ -1335,14 +1329,14 @@ export namespace main {
         /** DiscountPrice id */
         id?: (string|null);
 
-        /** DiscountPrice price */
-        price?: (number|null);
+        /** DiscountPrice price_ujpy */
+        price_ujpy?: (string|null);
 
-        /** DiscountPrice amount_purchase */
-        amount_purchase?: (number|null);
+        /** DiscountPrice amount_purchase_utoken */
+        amount_purchase_utoken?: (string|null);
 
-        /** DiscountPrice amount_sale */
-        amount_sale?: (number|null);
+        /** DiscountPrice amount_sale_utoken */
+        amount_sale_utoken?: (string|null);
     }
 
     /** Represents a DiscountPrice. */
@@ -1357,14 +1351,14 @@ export namespace main {
         /** DiscountPrice id. */
         public id: string;
 
-        /** DiscountPrice price. */
-        public price: number;
+        /** DiscountPrice price_ujpy. */
+        public price_ujpy: string;
 
-        /** DiscountPrice amount_purchase. */
-        public amount_purchase: number;
+        /** DiscountPrice amount_purchase_utoken. */
+        public amount_purchase_utoken: string;
 
-        /** DiscountPrice amount_sale. */
-        public amount_sale: number;
+        /** DiscountPrice amount_sale_utoken. */
+        public amount_sale_utoken: string;
 
         /**
          * Encodes the specified DiscountPrice message. Does not implicitly {@link main.DiscountPrice.verify|verify} messages.
@@ -1439,8 +1433,8 @@ export namespace main {
         /** InsufficientBalance student_account_id */
         student_account_id?: (string|null);
 
-        /** InsufficientBalance amount */
-        amount?: (number|null);
+        /** InsufficientBalance amount_utoken */
+        amount_utoken?: (string|null);
     }
 
     /** Represents an InsufficientBalance. */
@@ -1458,8 +1452,8 @@ export namespace main {
         /** InsufficientBalance student_account_id. */
         public student_account_id: string;
 
-        /** InsufficientBalance amount. */
-        public amount: number;
+        /** InsufficientBalance amount_utoken. */
+        public amount_utoken: string;
 
         /**
          * Encodes the specified InsufficientBalance message. Does not implicitly {@link main.InsufficientBalance.verify|verify} messages.
@@ -1933,13 +1927,13 @@ export namespace main {
         student_account_id?: (string|null);
 
         /** MonthlyPayment year */
-        year?: (number|null);
+        year?: (string|null);
 
         /** MonthlyPayment month */
-        month?: (number|null);
+        month?: (string|null);
 
-        /** MonthlyPayment amount_jpy */
-        amount_jpy?: (number|null);
+        /** MonthlyPayment amount_ujpy */
+        amount_ujpy?: (string|null);
     }
 
     /** Represents a MonthlyPayment. */
@@ -1958,13 +1952,13 @@ export namespace main {
         public student_account_id: string;
 
         /** MonthlyPayment year. */
-        public year: number;
+        public year: string;
 
         /** MonthlyPayment month. */
-        public month: number;
+        public month: string;
 
-        /** MonthlyPayment amount_jpy. */
-        public amount_jpy: number;
+        /** MonthlyPayment amount_ujpy. */
+        public amount_ujpy: string;
 
         /**
          * Encodes the specified MonthlyPayment message. Does not implicitly {@link main.MonthlyPayment.verify|verify} messages.
@@ -2040,13 +2034,13 @@ export namespace main {
         student_account_id?: (string|null);
 
         /** MonthlyUsage year */
-        year?: (number|null);
+        year?: (string|null);
 
         /** MonthlyUsage month */
-        month?: (number|null);
+        month?: (string|null);
 
-        /** MonthlyUsage amount_kwh */
-        amount_kwh?: (number|null);
+        /** MonthlyUsage amount_mwh */
+        amount_mwh?: (string|null);
     }
 
     /** Represents a MonthlyUsage. */
@@ -2065,13 +2059,13 @@ export namespace main {
         public student_account_id: string;
 
         /** MonthlyUsage year. */
-        public year: number;
+        public year: string;
 
         /** MonthlyUsage month. */
-        public month: number;
+        public month: string;
 
-        /** MonthlyUsage amount_kwh. */
-        public amount_kwh: number;
+        /** MonthlyUsage amount_mwh. */
+        public amount_mwh: string;
 
         /**
          * Encodes the specified MonthlyUsage message. Does not implicitly {@link main.MonthlyUsage.verify|verify} messages.
@@ -2235,17 +2229,17 @@ export namespace main {
         /** NormalBidHistory account_id */
         account_id?: (string|null);
 
-        /** NormalBidHistory price */
-        price?: (number|null);
+        /** NormalBidHistory price_ujpy */
+        price_ujpy?: (string|null);
 
-        /** NormalBidHistory amount */
-        amount?: (number|null);
+        /** NormalBidHistory amount_uupx */
+        amount_uupx?: (string|null);
 
         /** NormalBidHistory is_accepted */
         is_accepted?: (boolean|null);
 
-        /** NormalBidHistory contract_price */
-        contract_price?: (number|null);
+        /** NormalBidHistory contract_price_ujpy */
+        contract_price_ujpy?: (string|null);
     }
 
     /** Represents a NormalBidHistory. */
@@ -2263,17 +2257,17 @@ export namespace main {
         /** NormalBidHistory account_id. */
         public account_id: string;
 
-        /** NormalBidHistory price. */
-        public price: number;
+        /** NormalBidHistory price_ujpy. */
+        public price_ujpy: string;
 
-        /** NormalBidHistory amount. */
-        public amount: number;
+        /** NormalBidHistory amount_uupx. */
+        public amount_uupx: string;
 
         /** NormalBidHistory is_accepted. */
         public is_accepted: boolean;
 
-        /** NormalBidHistory contract_price. */
-        public contract_price: number;
+        /** NormalBidHistory contract_price_ujpy. */
+        public contract_price_ujpy: string;
 
         /**
          * Encodes the specified NormalBidHistory message. Does not implicitly {@link main.NormalBidHistory.verify|verify} messages.
@@ -2358,17 +2352,17 @@ export namespace main {
         /** NormalAskHistory account_id */
         account_id?: (string|null);
 
-        /** NormalAskHistory price */
-        price?: (number|null);
+        /** NormalAskHistory price_ujpy */
+        price_ujpy?: (string|null);
 
-        /** NormalAskHistory amount */
-        amount?: (number|null);
+        /** NormalAskHistory amount_uupx */
+        amount_uupx?: (string|null);
 
         /** NormalAskHistory is_accepted */
         is_accepted?: (boolean|null);
 
-        /** NormalAskHistory contract_price */
-        contract_price?: (number|null);
+        /** NormalAskHistory contract_price_ujpy */
+        contract_price_ujpy?: (string|null);
     }
 
     /** Represents a NormalAskHistory. */
@@ -2389,17 +2383,17 @@ export namespace main {
         /** NormalAskHistory account_id. */
         public account_id: string;
 
-        /** NormalAskHistory price. */
-        public price: number;
+        /** NormalAskHistory price_ujpy. */
+        public price_ujpy: string;
 
-        /** NormalAskHistory amount. */
-        public amount: number;
+        /** NormalAskHistory amount_uupx. */
+        public amount_uupx: string;
 
         /** NormalAskHistory is_accepted. */
         public is_accepted: boolean;
 
-        /** NormalAskHistory contract_price. */
-        public contract_price: number;
+        /** NormalAskHistory contract_price_ujpy. */
+        public contract_price_ujpy: string;
 
         /**
          * Encodes the specified NormalAskHistory message. Does not implicitly {@link main.NormalAskHistory.verify|verify} messages.
@@ -2471,11 +2465,11 @@ export namespace main {
         /** NormalAskSetting id */
         id?: (string|null);
 
-        /** NormalAskSetting price */
-        price?: (number|null);
+        /** NormalAskSetting price_ujpy */
+        price_ujpy?: (string|null);
 
-        /** NormalAskSetting amount */
-        amount?: (number|null);
+        /** NormalAskSetting amount_uupx */
+        amount_uupx?: (string|null);
     }
 
     /** Represents a NormalAskSetting. */
@@ -2490,11 +2484,11 @@ export namespace main {
         /** NormalAskSetting id. */
         public id: string;
 
-        /** NormalAskSetting price. */
-        public price: number;
+        /** NormalAskSetting price_ujpy. */
+        public price_ujpy: string;
 
-        /** NormalAskSetting amount. */
-        public amount: number;
+        /** NormalAskSetting amount_uupx. */
+        public amount_uupx: string;
 
         /**
          * Encodes the specified NormalAskSetting message. Does not implicitly {@link main.NormalAskSetting.verify|verify} messages.
@@ -2579,11 +2573,11 @@ export namespace main {
         /** NormalAsk account_id */
         account_id?: (string|null);
 
-        /** NormalAsk price */
-        price?: (number|null);
+        /** NormalAsk price_ujpy */
+        price_ujpy?: (string|null);
 
-        /** NormalAsk amount */
-        amount?: (number|null);
+        /** NormalAsk amount_uspx */
+        amount_uspx?: (string|null);
 
         /** NormalAsk is_deleted */
         is_deleted?: (boolean|null);
@@ -2607,11 +2601,11 @@ export namespace main {
         /** NormalAsk account_id. */
         public account_id: string;
 
-        /** NormalAsk price. */
-        public price: number;
+        /** NormalAsk price_ujpy. */
+        public price_ujpy: string;
 
-        /** NormalAsk amount. */
-        public amount: number;
+        /** NormalAsk amount_uspx. */
+        public amount_uspx: string;
 
         /** NormalAsk is_deleted. */
         public is_deleted: boolean;
@@ -2778,11 +2772,11 @@ export namespace main {
         /** NormalBid account_id */
         account_id?: (string|null);
 
-        /** NormalBid price */
-        price?: (number|null);
+        /** NormalBid price_ujpy */
+        price_ujpy?: (string|null);
 
-        /** NormalBid amount */
-        amount?: (number|null);
+        /** NormalBid amount_uupx */
+        amount_uupx?: (string|null);
 
         /** NormalBid is_deleted */
         is_deleted?: (boolean|null);
@@ -2803,11 +2797,11 @@ export namespace main {
         /** NormalBid account_id. */
         public account_id: string;
 
-        /** NormalBid price. */
-        public price: number;
+        /** NormalBid price_ujpy. */
+        public price_ujpy: string;
 
-        /** NormalBid amount. */
-        public amount: number;
+        /** NormalBid amount_uupx. */
+        public amount_uupx: string;
 
         /** NormalBid is_deleted. */
         public is_deleted: boolean;
@@ -2888,11 +2882,11 @@ export namespace main {
         /** NormalSettlement ask_id */
         ask_id?: (string|null);
 
-        /** NormalSettlement price */
-        price?: (number|null);
+        /** NormalSettlement price_ujpy */
+        price_ujpy?: (string|null);
 
-        /** NormalSettlement amount */
-        amount?: (number|null);
+        /** NormalSettlement amount_uupx */
+        amount_uupx?: (string|null);
     }
 
     /** Represents a NormalSettlement. */
@@ -2913,11 +2907,11 @@ export namespace main {
         /** NormalSettlement ask_id. */
         public ask_id: string;
 
-        /** NormalSettlement price. */
-        public price: number;
+        /** NormalSettlement price_ujpy. */
+        public price_ujpy: string;
 
-        /** NormalSettlement amount. */
-        public amount: number;
+        /** NormalSettlement amount_uupx. */
+        public amount_uupx: string;
 
         /**
          * Encodes the specified NormalSettlement message. Does not implicitly {@link main.NormalSettlement.verify|verify} messages.
@@ -2992,11 +2986,11 @@ export namespace main {
         /** PrimaryAsk account_id */
         account_id?: (string|null);
 
-        /** PrimaryAsk price */
-        price?: (number|null);
+        /** PrimaryAsk price_ujpy */
+        price_ujpy?: (string|null);
 
-        /** PrimaryAsk amount */
-        amount?: (number|null);
+        /** PrimaryAsk amount_uupx */
+        amount_uupx?: (string|null);
     }
 
     /** Represents a PrimaryAsk. */
@@ -3014,11 +3008,11 @@ export namespace main {
         /** PrimaryAsk account_id. */
         public account_id: string;
 
-        /** PrimaryAsk price. */
-        public price: number;
+        /** PrimaryAsk price_ujpy. */
+        public price_ujpy: string;
 
-        /** PrimaryAsk amount. */
-        public amount: number;
+        /** PrimaryAsk amount_uupx. */
+        public amount_uupx: string;
 
         /**
          * Encodes the specified PrimaryAsk message. Does not implicitly {@link main.PrimaryAsk.verify|verify} messages.
@@ -3093,11 +3087,11 @@ export namespace main {
         /** PrimaryBid account_id */
         account_id?: (string|null);
 
-        /** PrimaryBid price */
-        price?: (number|null);
+        /** PrimaryBid price_ujpy */
+        price_ujpy?: (string|null);
 
-        /** PrimaryBid amount */
-        amount?: (number|null);
+        /** PrimaryBid amount_uupx */
+        amount_uupx?: (string|null);
     }
 
     /** Represents a PrimaryBid. */
@@ -3115,11 +3109,11 @@ export namespace main {
         /** PrimaryBid account_id. */
         public account_id: string;
 
-        /** PrimaryBid price. */
-        public price: number;
+        /** PrimaryBid price_ujpy. */
+        public price_ujpy: string;
 
-        /** PrimaryBid amount. */
-        public amount: number;
+        /** PrimaryBid amount_uupx. */
+        public amount_uupx: string;
 
         /**
          * Encodes the specified PrimaryBid message. Does not implicitly {@link main.PrimaryBid.verify|verify} messages.
@@ -3293,17 +3287,17 @@ export namespace main {
         /** RenewableAskHistory account_id */
         account_id?: (string|null);
 
-        /** RenewableAskHistory price */
-        price?: (number|null);
+        /** RenewableAskHistory price_ujpy */
+        price_ujpy?: (string|null);
 
-        /** RenewableAskHistory amount */
-        amount?: (number|null);
+        /** RenewableAskHistory amount_uspx */
+        amount_uspx?: (string|null);
 
         /** RenewableAskHistory is_accepted */
         is_accepted?: (boolean|null);
 
-        /** RenewableAskHistory contract_price */
-        contract_price?: (number|null);
+        /** RenewableAskHistory contract_price_ujpy */
+        contract_price_ujpy?: (string|null);
     }
 
     /** Represents a RenewableAskHistory. */
@@ -3324,17 +3318,17 @@ export namespace main {
         /** RenewableAskHistory account_id. */
         public account_id: string;
 
-        /** RenewableAskHistory price. */
-        public price: number;
+        /** RenewableAskHistory price_ujpy. */
+        public price_ujpy: string;
 
-        /** RenewableAskHistory amount. */
-        public amount: number;
+        /** RenewableAskHistory amount_uspx. */
+        public amount_uspx: string;
 
         /** RenewableAskHistory is_accepted. */
         public is_accepted: boolean;
 
-        /** RenewableAskHistory contract_price. */
-        public contract_price: number;
+        /** RenewableAskHistory contract_price_ujpy. */
+        public contract_price_ujpy: string;
 
         /**
          * Encodes the specified RenewableAskHistory message. Does not implicitly {@link main.RenewableAskHistory.verify|verify} messages.
@@ -3406,11 +3400,11 @@ export namespace main {
         /** RenewableAskSetting id */
         id?: (string|null);
 
-        /** RenewableAskSetting price */
-        price?: (number|null);
+        /** RenewableAskSetting price_upx */
+        price_upx?: (string|null);
 
-        /** RenewableAskSetting amount */
-        amount?: (number|null);
+        /** RenewableAskSetting amount_uspx */
+        amount_uspx?: (string|null);
     }
 
     /** Represents a RenewableAskSetting. */
@@ -3425,11 +3419,11 @@ export namespace main {
         /** RenewableAskSetting id. */
         public id: string;
 
-        /** RenewableAskSetting price. */
-        public price: number;
+        /** RenewableAskSetting price_upx. */
+        public price_upx: string;
 
-        /** RenewableAskSetting amount. */
-        public amount: number;
+        /** RenewableAskSetting amount_uspx. */
+        public amount_uspx: string;
 
         /**
          * Encodes the specified RenewableAskSetting message. Does not implicitly {@link main.RenewableAskSetting.verify|verify} messages.
@@ -3514,11 +3508,11 @@ export namespace main {
         /** RenewableAsk account_id */
         account_id?: (string|null);
 
-        /** RenewableAsk price */
-        price?: (number|null);
+        /** RenewableAsk price_ujpy */
+        price_ujpy?: (string|null);
 
-        /** RenewableAsk amount */
-        amount?: (number|null);
+        /** RenewableAsk amount_uspx */
+        amount_uspx?: (string|null);
 
         /** RenewableAsk is_deleted */
         is_deleted?: (boolean|null);
@@ -3542,11 +3536,11 @@ export namespace main {
         /** RenewableAsk account_id. */
         public account_id: string;
 
-        /** RenewableAsk price. */
-        public price: number;
+        /** RenewableAsk price_ujpy. */
+        public price_ujpy: string;
 
-        /** RenewableAsk amount. */
-        public amount: number;
+        /** RenewableAsk amount_uspx. */
+        public amount_uspx: string;
 
         /** RenewableAsk is_deleted. */
         public is_deleted: boolean;
@@ -3713,17 +3707,17 @@ export namespace main {
         /** RenewableBidHistory account_id */
         account_id?: (string|null);
 
-        /** RenewableBidHistory price */
-        price?: (number|null);
+        /** RenewableBidHistory price_ujpy */
+        price_ujpy?: (string|null);
 
-        /** RenewableBidHistory amount */
-        amount?: (number|null);
+        /** RenewableBidHistory amount_uspx */
+        amount_uspx?: (string|null);
 
         /** RenewableBidHistory is_accepted */
         is_accepted?: (boolean|null);
 
-        /** RenewableBidHistory contract_price */
-        contract_price?: (number|null);
+        /** RenewableBidHistory contract_price_ujpy */
+        contract_price_ujpy?: (string|null);
     }
 
     /** Represents a RenewableBidHistory. */
@@ -3741,17 +3735,17 @@ export namespace main {
         /** RenewableBidHistory account_id. */
         public account_id: string;
 
-        /** RenewableBidHistory price. */
-        public price: number;
+        /** RenewableBidHistory price_ujpy. */
+        public price_ujpy: string;
 
-        /** RenewableBidHistory amount. */
-        public amount: number;
+        /** RenewableBidHistory amount_uspx. */
+        public amount_uspx: string;
 
         /** RenewableBidHistory is_accepted. */
         public is_accepted: boolean;
 
-        /** RenewableBidHistory contract_price. */
-        public contract_price: number;
+        /** RenewableBidHistory contract_price_ujpy. */
+        public contract_price_ujpy: string;
 
         /**
          * Encodes the specified RenewableBidHistory message. Does not implicitly {@link main.RenewableBidHistory.verify|verify} messages.
@@ -3826,11 +3820,11 @@ export namespace main {
         /** RenewableBid account_id */
         account_id?: (string|null);
 
-        /** RenewableBid price */
-        price?: (number|null);
+        /** RenewableBid price_ujpy */
+        price_ujpy?: (string|null);
 
-        /** RenewableBid amount */
-        amount?: (number|null);
+        /** RenewableBid amount_uspx */
+        amount_uspx?: (string|null);
 
         /** RenewableBid is_deleted */
         is_deleted?: (boolean|null);
@@ -3851,11 +3845,11 @@ export namespace main {
         /** RenewableBid account_id. */
         public account_id: string;
 
-        /** RenewableBid price. */
-        public price: number;
+        /** RenewableBid price_ujpy. */
+        public price_ujpy: string;
 
-        /** RenewableBid amount. */
-        public amount: number;
+        /** RenewableBid amount_uspx. */
+        public amount_uspx: string;
 
         /** RenewableBid is_deleted. */
         public is_deleted: boolean;
@@ -3936,11 +3930,11 @@ export namespace main {
         /** RenewableSettlement ask_id */
         ask_id?: (string|null);
 
-        /** RenewableSettlement price */
-        price?: (number|null);
+        /** RenewableSettlement price_ujpy */
+        price_ujpy?: (string|null);
 
-        /** RenewableSettlement amount */
-        amount?: (number|null);
+        /** RenewableSettlement amount_uspx */
+        amount_uspx?: (string|null);
     }
 
     /** Represents a RenewableSettlement. */
@@ -3961,11 +3955,11 @@ export namespace main {
         /** RenewableSettlement ask_id. */
         public ask_id: string;
 
-        /** RenewableSettlement price. */
-        public price: number;
+        /** RenewableSettlement price_ujpy. */
+        public price_ujpy: string;
 
-        /** RenewableSettlement amount. */
-        public amount: number;
+        /** RenewableSettlement amount_uspx. */
+        public amount_uspx: string;
 
         /**
          * Encodes the specified RenewableSettlement message. Does not implicitly {@link main.RenewableSettlement.verify|verify} messages.
@@ -4138,11 +4132,11 @@ export namespace main {
         /** SinglePriceNormalSettlement id */
         id?: (string|null);
 
-        /** SinglePriceNormalSettlement price */
-        price?: (number|null);
+        /** SinglePriceNormalSettlement price_ujpy */
+        price_ujpy?: (string|null);
 
-        /** SinglePriceNormalSettlement amount */
-        amount?: (number|null);
+        /** SinglePriceNormalSettlement amount_uupx */
+        amount_uupx?: (string|null);
     }
 
     /** Represents a SinglePriceNormalSettlement. */
@@ -4157,11 +4151,11 @@ export namespace main {
         /** SinglePriceNormalSettlement id. */
         public id: string;
 
-        /** SinglePriceNormalSettlement price. */
-        public price: number;
+        /** SinglePriceNormalSettlement price_ujpy. */
+        public price_ujpy: string;
 
-        /** SinglePriceNormalSettlement amount. */
-        public amount: number;
+        /** SinglePriceNormalSettlement amount_uupx. */
+        public amount_uupx: string;
 
         /**
          * Encodes the specified SinglePriceNormalSettlement message. Does not implicitly {@link main.SinglePriceNormalSettlement.verify|verify} messages.
@@ -4233,11 +4227,11 @@ export namespace main {
         /** SinglePriceRenewableSettlement id */
         id?: (string|null);
 
-        /** SinglePriceRenewableSettlement price */
-        price?: (number|null);
+        /** SinglePriceRenewableSettlement price_ujpy */
+        price_ujpy?: (string|null);
 
-        /** SinglePriceRenewableSettlement amount */
-        amount?: (number|null);
+        /** SinglePriceRenewableSettlement amount_uspx */
+        amount_uspx?: (string|null);
     }
 
     /** Represents a SinglePriceRenewableSettlement. */
@@ -4252,11 +4246,11 @@ export namespace main {
         /** SinglePriceRenewableSettlement id. */
         public id: string;
 
-        /** SinglePriceRenewableSettlement price. */
-        public price: number;
+        /** SinglePriceRenewableSettlement price_ujpy. */
+        public price_ujpy: string;
 
-        /** SinglePriceRenewableSettlement amount. */
-        public amount: number;
+        /** SinglePriceRenewableSettlement amount_uspx. */
+        public amount_uspx: string;
 
         /**
          * Encodes the specified SinglePriceRenewableSettlement message. Does not implicitly {@link main.SinglePriceRenewableSettlement.verify|verify} messages.
