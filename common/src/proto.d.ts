@@ -1026,11 +1026,11 @@ export namespace main {
         /** CostSetting id */
         id?: (string|null);
 
-        /** CostSetting cost_ujpy */
-        cost_ujpy?: (string|null);
+        /** CostSetting system_cost_ujpy */
+        system_cost_ujpy?: (string|null);
 
-        /** CostSetting amount_mwh */
-        amount_mwh?: (string|null);
+        /** CostSetting electricity_cost_ujpy */
+        electricity_cost_ujpy?: (string|null);
     }
 
     /** Represents a CostSetting. */
@@ -1045,11 +1045,11 @@ export namespace main {
         /** CostSetting id. */
         public id: string;
 
-        /** CostSetting cost_ujpy. */
-        public cost_ujpy: string;
+        /** CostSetting system_cost_ujpy. */
+        public system_cost_ujpy: string;
 
-        /** CostSetting amount_mwh. */
-        public amount_mwh: string;
+        /** CostSetting electricity_cost_ujpy. */
+        public electricity_cost_ujpy: string;
 
         /**
          * Encodes the specified CostSetting message. Does not implicitly {@link main.CostSetting.verify|verify} messages.
@@ -2576,8 +2576,8 @@ export namespace main {
         /** NormalAsk price_ujpy */
         price_ujpy?: (string|null);
 
-        /** NormalAsk amount_uspx */
-        amount_uspx?: (string|null);
+        /** NormalAsk amount_uupx */
+        amount_uupx?: (string|null);
 
         /** NormalAsk is_deleted */
         is_deleted?: (boolean|null);
@@ -2604,8 +2604,8 @@ export namespace main {
         /** NormalAsk price_ujpy. */
         public price_ujpy: string;
 
-        /** NormalAsk amount_uspx. */
-        public amount_uspx: string;
+        /** NormalAsk amount_uupx. */
+        public amount_uupx: string;
 
         /** NormalAsk is_deleted. */
         public is_deleted: boolean;

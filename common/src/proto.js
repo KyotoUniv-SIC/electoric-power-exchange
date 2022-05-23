@@ -2518,8 +2518,8 @@ export const main = $root.main = (() => {
          * @memberof main
          * @interface ICostSetting
          * @property {string|null} [id] CostSetting id
-         * @property {string|null} [cost_ujpy] CostSetting cost_ujpy
-         * @property {string|null} [amount_mwh] CostSetting amount_mwh
+         * @property {string|null} [system_cost_ujpy] CostSetting system_cost_ujpy
+         * @property {string|null} [electricity_cost_ujpy] CostSetting electricity_cost_ujpy
          */
 
         /**
@@ -2546,20 +2546,20 @@ export const main = $root.main = (() => {
         CostSetting.prototype.id = "";
 
         /**
-         * CostSetting cost_ujpy.
-         * @member {string} cost_ujpy
+         * CostSetting system_cost_ujpy.
+         * @member {string} system_cost_ujpy
          * @memberof main.CostSetting
          * @instance
          */
-        CostSetting.prototype.cost_ujpy = "";
+        CostSetting.prototype.system_cost_ujpy = "";
 
         /**
-         * CostSetting amount_mwh.
-         * @member {string} amount_mwh
+         * CostSetting electricity_cost_ujpy.
+         * @member {string} electricity_cost_ujpy
          * @memberof main.CostSetting
          * @instance
          */
-        CostSetting.prototype.amount_mwh = "";
+        CostSetting.prototype.electricity_cost_ujpy = "";
 
         /**
          * Encodes the specified CostSetting message. Does not implicitly {@link main.CostSetting.verify|verify} messages.
@@ -2575,10 +2575,10 @@ export const main = $root.main = (() => {
                 writer = $Writer.create();
             if (message.id != null && Object.hasOwnProperty.call(message, "id"))
                 writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
-            if (message.cost_ujpy != null && Object.hasOwnProperty.call(message, "cost_ujpy"))
-                writer.uint32(/* id 2, wireType 2 =*/18).string(message.cost_ujpy);
-            if (message.amount_mwh != null && Object.hasOwnProperty.call(message, "amount_mwh"))
-                writer.uint32(/* id 3, wireType 2 =*/26).string(message.amount_mwh);
+            if (message.system_cost_ujpy != null && Object.hasOwnProperty.call(message, "system_cost_ujpy"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.system_cost_ujpy);
+            if (message.electricity_cost_ujpy != null && Object.hasOwnProperty.call(message, "electricity_cost_ujpy"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.electricity_cost_ujpy);
             return writer;
         };
 
@@ -2617,10 +2617,10 @@ export const main = $root.main = (() => {
                     message.id = reader.string();
                     break;
                 case 2:
-                    message.cost_ujpy = reader.string();
+                    message.system_cost_ujpy = reader.string();
                     break;
                 case 3:
-                    message.amount_mwh = reader.string();
+                    message.electricity_cost_ujpy = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -2660,12 +2660,12 @@ export const main = $root.main = (() => {
             if (message.id != null && message.hasOwnProperty("id"))
                 if (!$util.isString(message.id))
                     return "id: string expected";
-            if (message.cost_ujpy != null && message.hasOwnProperty("cost_ujpy"))
-                if (!$util.isString(message.cost_ujpy))
-                    return "cost_ujpy: string expected";
-            if (message.amount_mwh != null && message.hasOwnProperty("amount_mwh"))
-                if (!$util.isString(message.amount_mwh))
-                    return "amount_mwh: string expected";
+            if (message.system_cost_ujpy != null && message.hasOwnProperty("system_cost_ujpy"))
+                if (!$util.isString(message.system_cost_ujpy))
+                    return "system_cost_ujpy: string expected";
+            if (message.electricity_cost_ujpy != null && message.hasOwnProperty("electricity_cost_ujpy"))
+                if (!$util.isString(message.electricity_cost_ujpy))
+                    return "electricity_cost_ujpy: string expected";
             return null;
         };
 
@@ -2683,10 +2683,10 @@ export const main = $root.main = (() => {
             let message = new $root.main.CostSetting();
             if (object.id != null)
                 message.id = String(object.id);
-            if (object.cost_ujpy != null)
-                message.cost_ujpy = String(object.cost_ujpy);
-            if (object.amount_mwh != null)
-                message.amount_mwh = String(object.amount_mwh);
+            if (object.system_cost_ujpy != null)
+                message.system_cost_ujpy = String(object.system_cost_ujpy);
+            if (object.electricity_cost_ujpy != null)
+                message.electricity_cost_ujpy = String(object.electricity_cost_ujpy);
             return message;
         };
 
@@ -2705,15 +2705,15 @@ export const main = $root.main = (() => {
             let object = {};
             if (options.defaults) {
                 object.id = "";
-                object.cost_ujpy = "";
-                object.amount_mwh = "";
+                object.system_cost_ujpy = "";
+                object.electricity_cost_ujpy = "";
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 object.id = message.id;
-            if (message.cost_ujpy != null && message.hasOwnProperty("cost_ujpy"))
-                object.cost_ujpy = message.cost_ujpy;
-            if (message.amount_mwh != null && message.hasOwnProperty("amount_mwh"))
-                object.amount_mwh = message.amount_mwh;
+            if (message.system_cost_ujpy != null && message.hasOwnProperty("system_cost_ujpy"))
+                object.system_cost_ujpy = message.system_cost_ujpy;
+            if (message.electricity_cost_ujpy != null && message.hasOwnProperty("electricity_cost_ujpy"))
+                object.electricity_cost_ujpy = message.electricity_cost_ujpy;
             return object;
         };
 
@@ -6245,7 +6245,7 @@ export const main = $root.main = (() => {
          * @property {main.NormalAskType|null} [type] NormalAsk type
          * @property {string|null} [account_id] NormalAsk account_id
          * @property {string|null} [price_ujpy] NormalAsk price_ujpy
-         * @property {string|null} [amount_uspx] NormalAsk amount_uspx
+         * @property {string|null} [amount_uupx] NormalAsk amount_uupx
          * @property {boolean|null} [is_deleted] NormalAsk is_deleted
          */
 
@@ -6297,12 +6297,12 @@ export const main = $root.main = (() => {
         NormalAsk.prototype.price_ujpy = "";
 
         /**
-         * NormalAsk amount_uspx.
-         * @member {string} amount_uspx
+         * NormalAsk amount_uupx.
+         * @member {string} amount_uupx
          * @memberof main.NormalAsk
          * @instance
          */
-        NormalAsk.prototype.amount_uspx = "";
+        NormalAsk.prototype.amount_uupx = "";
 
         /**
          * NormalAsk is_deleted.
@@ -6332,8 +6332,8 @@ export const main = $root.main = (() => {
                 writer.uint32(/* id 3, wireType 2 =*/26).string(message.account_id);
             if (message.price_ujpy != null && Object.hasOwnProperty.call(message, "price_ujpy"))
                 writer.uint32(/* id 4, wireType 2 =*/34).string(message.price_ujpy);
-            if (message.amount_uspx != null && Object.hasOwnProperty.call(message, "amount_uspx"))
-                writer.uint32(/* id 5, wireType 2 =*/42).string(message.amount_uspx);
+            if (message.amount_uupx != null && Object.hasOwnProperty.call(message, "amount_uupx"))
+                writer.uint32(/* id 5, wireType 2 =*/42).string(message.amount_uupx);
             if (message.is_deleted != null && Object.hasOwnProperty.call(message, "is_deleted"))
                 writer.uint32(/* id 6, wireType 0 =*/48).bool(message.is_deleted);
             return writer;
@@ -6383,7 +6383,7 @@ export const main = $root.main = (() => {
                     message.price_ujpy = reader.string();
                     break;
                 case 5:
-                    message.amount_uspx = reader.string();
+                    message.amount_uupx = reader.string();
                     break;
                 case 6:
                     message.is_deleted = reader.bool();
@@ -6441,9 +6441,9 @@ export const main = $root.main = (() => {
             if (message.price_ujpy != null && message.hasOwnProperty("price_ujpy"))
                 if (!$util.isString(message.price_ujpy))
                     return "price_ujpy: string expected";
-            if (message.amount_uspx != null && message.hasOwnProperty("amount_uspx"))
-                if (!$util.isString(message.amount_uspx))
-                    return "amount_uspx: string expected";
+            if (message.amount_uupx != null && message.hasOwnProperty("amount_uupx"))
+                if (!$util.isString(message.amount_uupx))
+                    return "amount_uupx: string expected";
             if (message.is_deleted != null && message.hasOwnProperty("is_deleted"))
                 if (typeof message.is_deleted !== "boolean")
                     return "is_deleted: boolean expected";
@@ -6482,8 +6482,8 @@ export const main = $root.main = (() => {
                 message.account_id = String(object.account_id);
             if (object.price_ujpy != null)
                 message.price_ujpy = String(object.price_ujpy);
-            if (object.amount_uspx != null)
-                message.amount_uspx = String(object.amount_uspx);
+            if (object.amount_uupx != null)
+                message.amount_uupx = String(object.amount_uupx);
             if (object.is_deleted != null)
                 message.is_deleted = Boolean(object.is_deleted);
             return message;
@@ -6507,7 +6507,7 @@ export const main = $root.main = (() => {
                 object.type = options.enums === String ? "UNKNOWN" : 0;
                 object.account_id = "";
                 object.price_ujpy = "";
-                object.amount_uspx = "";
+                object.amount_uupx = "";
                 object.is_deleted = false;
             }
             if (message.id != null && message.hasOwnProperty("id"))
@@ -6518,8 +6518,8 @@ export const main = $root.main = (() => {
                 object.account_id = message.account_id;
             if (message.price_ujpy != null && message.hasOwnProperty("price_ujpy"))
                 object.price_ujpy = message.price_ujpy;
-            if (message.amount_uspx != null && message.hasOwnProperty("amount_uspx"))
-                object.amount_uspx = message.amount_uspx;
+            if (message.amount_uupx != null && message.hasOwnProperty("amount_uupx"))
+                object.amount_uupx = message.amount_uupx;
             if (message.is_deleted != null && message.hasOwnProperty("is_deleted"))
                 object.is_deleted = message.is_deleted;
             return object;
