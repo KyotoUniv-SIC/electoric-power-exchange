@@ -8,18 +8,17 @@ import { admin_private } from '../admin-privates';
 import { market_status } from '../market-statuses';
 import { normal_settlement } from '../normal-settlements';
 import { student_account } from '../student-accounts';
-import { MarketStatus } from '@local/common';
+import { MarketStatus, NormalSettlement } from '@local/common';
 import * as crypto from 'crypto-js';
 import * as functions from 'firebase-functions';
 
 normal_settlement.onCreateHandler.push(async (snapshot, context) => {
-  const data = snapshot.data()!;
+  const data = snapshot.data()! as NormalSettlement;
   const bidderBalance = await balance.getLatest(data.bid_id);
   await balance.update({
     id: bidderBalance[0].id,
     student_account_id: data.bid_id,
-    amount_upx: bidderBalance[0].amount_upx + data.amount,
-    // amount_spx: bidderBalance[0].amount_spx,
+    amount_uupx: (parseInt(bidderBalance[0].amount_uupx) + parseInt(data.amount_uupx)).toString(),
   });
 
   const marketStatus = await market_status.getToday();
@@ -55,7 +54,7 @@ normal_settlement.onCreateHandler.push(async (snapshot, context) => {
       Account: sender.address,
       Amount: {
         currency: 'UPX',
-        value: String(data.amount),
+        value: data.amount_uupx,
         issuer: adminAccount[0].xrp_address_cold,
       },
       Destination: bidder.xrp_address,
@@ -75,8 +74,7 @@ normal_settlement.onCreateHandler.push(async (snapshot, context) => {
     await balance.update({
       id: sellerBalance[0].id,
       student_account_id: data.ask_id,
-      amount_upx: sellerBalance[0].amount_upx - data.amount,
-      // amount_spx: sellerBalance[0].amount_spx,
+      amount_uupx: (parseInt(sellerBalance[0].amount_uupx) - parseInt(data.amount_uupx)).toString(),
     });
 
     const seller = await student_account.get(data.ask_id);
@@ -100,7 +98,7 @@ normal_settlement.onCreateHandler.push(async (snapshot, context) => {
       Account: sender.address,
       Amount: {
         currency: 'UPX',
-        value: String(data.amount),
+        value: data.amount_uupx,
         issuer: adminAccount[0].xrp_address_cold,
       },
       Destination: bidder.xrp_address,

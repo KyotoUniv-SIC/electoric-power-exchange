@@ -6,35 +6,35 @@ describe('Balance Normal Settlement Test', () => {
       new Balance({
         id: 'balance01',
         student_account_id: 'test05',
-        amount_upx: 100,
-        amount_spx: 100,
+        amount_uupx: '100000000',
+        amount_uspx: '100000000',
       }),
       new Balance({
         id: 'balance02',
         student_account_id: 'test12',
-        amount_upx: 200,
-        amount_spx: 200,
+        amount_uupx: '200000000',
+        amount_uspx: '200000000',
       }),
     ];
     const expectedBalances = [
       new Balance({
         id: 'balance01',
         student_account_id: 'test05',
-        amount_upx: 125,
-        amount_spx: 100,
+        amount_uupx: '125000000',
+        amount_uspx: '100000000',
       }),
       new Balance({
         id: 'balance02',
         student_account_id: 'test12',
-        amount_upx: 175,
-        amount_spx: 200,
+        amount_uupx: '175000000',
+        amount_uspx: '200000000',
       }),
     ];
     const data = new NormalSettlement({
       bid_id: 'test05',
       ask_id: 'test12',
-      price: 25,
-      amount: 25,
+      price_ujpy: '25000000',
+      amount_uupx: '25000000',
     });
     const newBalance = [];
 
@@ -43,8 +43,8 @@ describe('Balance Normal Settlement Test', () => {
       new Balance({
         id: bidderBalance[0].id,
         student_account_id: data.bid_id,
-        amount_upx: bidderBalance[0].amount_upx + data.amount,
-        amount_spx: bidderBalance[0].amount_spx,
+        amount_uupx: (parseInt(bidderBalance[0].amount_uupx) + parseInt(data.amount_uupx)).toString(),
+        amount_uspx: bidderBalance[0].amount_uspx,
       }),
     );
 
@@ -53,8 +53,8 @@ describe('Balance Normal Settlement Test', () => {
       new Balance({
         id: sellerBalance[0].id,
         student_account_id: data.ask_id,
-        amount_upx: sellerBalance[0].amount_upx - data.amount,
-        amount_spx: sellerBalance[0].amount_spx,
+        amount_uupx: (parseInt(sellerBalance[0].amount_uupx) - parseInt(data.amount_uupx)).toString(),
+        amount_uspx: sellerBalance[0].amount_uspx,
       }),
     );
     console.log(newBalance);
