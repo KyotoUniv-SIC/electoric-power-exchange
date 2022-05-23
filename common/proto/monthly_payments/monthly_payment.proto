@@ -8,7 +8,7 @@ option (google.firebase.rules.firebase_rules).full_package_names = true;
 message MonthlyPayment {
   string id = 1;
   string student_account_id = 2;
-  double year = 3;
-  double month = 4;
-  double amount_jpy = 5;
+  string year = 3;
+  string month = 4;
+  string amount_ujpy = 5;
 }

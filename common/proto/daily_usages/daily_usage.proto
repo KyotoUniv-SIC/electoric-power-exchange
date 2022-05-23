@@ -8,6 +8,5 @@ option (google.firebase.rules.firebase_rules).full_package_names = true;
 message DailyUsage {
   string id = 1;
   string room_id = 2;
-  double amount_kwh = 3;
-  string amount_kwh_str = 4;
+  string amount_kwh = 4;
 }
