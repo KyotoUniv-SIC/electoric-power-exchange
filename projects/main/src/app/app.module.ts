@@ -2,9 +2,8 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
-import { HomeComponent } from './page/home/home.component';
+import { AppHomeModule } from './page/home/home.module';
 import { reducers, metaReducers } from './reducers';
-import { HomeModule } from './view/home/home.module';
 import { ViewModule } from './view/view.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -33,7 +32,7 @@ const initApp = () => initializeApp(environment.firebase);
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([]),
-    HomeModule,
+    AppHomeModule,
     ViewModule,
     HttpClientModule,
     MaterialModule,
