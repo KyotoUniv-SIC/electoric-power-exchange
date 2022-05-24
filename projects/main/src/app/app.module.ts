@@ -25,7 +25,7 @@ import { SharedModule } from 'projects/shared/src/common';
 const initApp = () => initializeApp(environment.firebase);
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
