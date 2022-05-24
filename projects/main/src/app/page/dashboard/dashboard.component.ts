@@ -46,6 +46,8 @@ export class DashboardComponent implements OnInit {
   singlePriceRenewableList$: Observable<SinglePriceRenewableSettlement[]> | undefined;
   singlePriceNormalListData$: Observable<ChartDataSets[]> | undefined;
   singlePriceNormalListDate$: Observable<string[]> | undefined;
+  singlePriceRenewableListData$: Observable<ChartDataSets[]> | undefined;
+  singlePriceRenewableListDate$: Observable<string[]> | undefined;
 
   constructor(
     private auth: Auth,
@@ -215,12 +217,23 @@ export class DashboardComponent implements OnInit {
     this.singlePriceNormalList$ = this.singlePriceNormalApp.listLatestMonth$();
     this.singlePriceRenewableList$ = this.singlePriceRenewableApp.listLatestMonth$();
 
-    const prices$ = this.singlePriceNormalList$.pipe(map((params) => params.map((param) => param.price)));
-    const amounts$ = this.singlePriceNormalList$.pipe(map((params) => params.map((param) => param.amount)));
+    const pricesNormal$ = this.singlePriceNormalList$.pipe(map((params) => params.map((param) => param.price)));
+    const amountsNormal$ = this.singlePriceNormalList$.pipe(map((params) => params.map((param) => param.amount)));
+    const pricesRenewable$ = this.singlePriceRenewableList$.pipe(map((params) => params.map((param) => param.price)));
+    const amountsRenewable$ = this.singlePriceRenewableList$.pipe(map((params) => params.map((param) => param.amount)));
+    const referencePriceNormal$ = pricesNormal$.pipe(map((params) => Array(params.length).fill(27 as number)));
+    const referencePriceRenewable$ = pricesRenewable$.pipe(map((params) => Array(params.length).fill(27 as number)));
 
-    this.singlePriceNormalListData$ = combineLatest([prices$, amounts$]).pipe(
-      map(([prices, amounts]) => [
-        { data: prices, label: 'Contract Price', type: 'line' },
+    this.singlePriceNormalListData$ = combineLatest([pricesNormal$, amountsNormal$, referencePriceNormal$]).pipe(
+      map(([prices, amounts, references]) => [
+        { data: prices, label: 'Contract Price', fill: '', type: 'line' },
+        {
+          data: references,
+          label: 'Reference Price',
+          borderDash: [5, 3], //点線
+          fill: 'false', //塗りつぶし
+          type: 'line',
+        },
         { data: amounts, label: 'Contract Amount' },
       ]),
     );
@@ -232,9 +245,28 @@ export class DashboardComponent implements OnInit {
         ),
       ),
     );
-    this.singlePriceNormalListDate$.subscribe((a) => console.log(a));
-    this.singlePriceNormalListData$.subscribe((a) => console.log(a));
-    this.usageData$.subscribe((a) => console.log(a));
+
+    this.singlePriceRenewableListData$ = combineLatest([pricesRenewable$, amountsRenewable$, referencePriceRenewable$]).pipe(
+      map(([prices, amounts, references]) => [
+        { data: prices, label: 'Contract Price', fill: '', type: 'line' },
+        {
+          data: references,
+          label: 'Reference Price',
+          borderDash: [5, 3],
+          fill: 'false',
+          type: 'line',
+        },
+        { data: amounts, label: 'Contract Amount' },
+      ]),
+    );
+
+    this.singlePriceRenewableListDate$ = this.singlePriceRenewableList$.pipe(
+      map((params) =>
+        params.map(
+          (param) => (param.created_at as Timestamp).toDate().getMonth() + 1 + '/' + (param.created_at as Timestamp).toDate().getDate(),
+        ),
+      ),
+    );
   }
 
   ngOnInit(): void {}

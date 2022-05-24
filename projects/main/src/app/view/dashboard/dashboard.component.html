@@ -97,6 +97,7 @@
         </mat-list-item>
       </mat-card>
     </mat-list>
+    <mat-card-content style="font-size: large; margin-top: 15px">UPX Contract Price and Amount</mat-card-content>
     <ng-container *ngIf="singlePriceNormalListData === null; then loading; else loadedNormal"></ng-container>
     <ng-template #loadedNormal>
       <canvas
@@ -108,6 +109,19 @@
         [chartType]="barChartType"
       >
       </canvas>
+      <mat-card-content style="font-size: large; margin-top: 15px">SPX Contract Price and Amount</mat-card-content>
+      <ng-container *ngIf="singlePriceRenewableListData === null; then loading; else loadedNormal"></ng-container>
+      <ng-template #loadedNormal>
+        <canvas
+          baseChart
+          [datasets]="singlePriceRenewableListData!"
+          [labels]="singlePriceRenewableListDate!"
+          [options]="barChartOptions"
+          [legend]="barChartLegend"
+          [chartType]="barChartType"
+        >
+        </canvas>
+      </ng-template>
     </ng-template>
   </mat-card>
 

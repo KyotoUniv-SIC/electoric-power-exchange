@@ -42,7 +42,7 @@ export class SinglePriceRenewableSettlementApplicationService {
               return 0;
             }
           })
-          .slice(30)
+          .slice(0, 30)
           .reverse(),
       ),
     );

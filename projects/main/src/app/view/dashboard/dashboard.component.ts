@@ -46,8 +46,10 @@ export class DashboardComponent implements OnInit {
   singlePriceNormalListData?: ChartDataSets[] | null;
   @Input()
   singlePriceNormalListDate?: string[] | null;
-
-
+  @Input()
+  singlePriceRenewableListData?: ChartDataSets[] | null;
+  @Input()
+  singlePriceRenewableListDate?: string[] | null;
 
   doughnutChartLabels: Label[] = ['Utility Power', 'Solar Power'];
   doughnutChartType: ChartType = 'doughnut';
@@ -59,6 +61,11 @@ export class DashboardComponent implements OnInit {
 
   barChartOptions: ChartOptions = {
     responsive: true,
+    elements: {
+      point: {
+        radius: 0,
+      },
+    },
   };
   barChartLabels: Label[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   barChartType: ChartType = 'bar';
