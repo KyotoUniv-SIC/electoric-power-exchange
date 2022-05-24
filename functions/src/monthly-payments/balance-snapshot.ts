@@ -14,18 +14,18 @@ import { normal_bid_history } from '../normal-bid-histories';
 import { primary_ask } from '../primary-asks';
 import { renewable_ask_history } from '../renewable-ask-histories';
 import { renewable_bid_history } from '../renewable-bid-histories';
-import { MonthlyPayment, MonthlyUsage } from '@local/common';
+import { MonthlyPayment, MonthlyUsage, proto } from '@local/common';
 import * as crypto from 'crypto-js';
 import * as functions from 'firebase-functions';
 
 balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
   console.log('run balanceSS onCreate');
-  const data = snapshot.data()!;
+  const data = snapshot.data()! as proto.main.BalanceSnapshot;
   const insufficiencies = (await insufficient_balance.listLastMonth(data.student_account_id)).reduce(
-    (sum, element) => sum + element.amount,
+    (sum, element) => sum + parseInt(element.amount_utoken),
     0,
   );
-  const tokens = data.amount_upx + data.amount_spx - insufficiencies;
+  const tokens = parseInt(data.amount_uupx) + parseInt(data.amount_uspx) - insufficiencies;
 
   const primaryAsks = await primary_ask.listLastMonthByID(data.student_account_id);
   const normalBids = await normal_bid_history.listLastMonth(data.student_account_id);
@@ -33,40 +33,46 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
   const renewableBids = await renewable_bid_history.listLastMonth(data.student_account_id);
   const renewableAsks = await renewable_ask_history.listLastMonth(data.student_account_id);
 
-  let usage = !primaryAsks.length ? -tokens : primaryAsks.reduce((previous, current) => previous + current.amount, 0) - tokens;
-  let payment = !primaryAsks.length ? 0 : primaryAsks.reduce((previous, current) => previous + current.price * current.amount, 0);
+  let usage = !primaryAsks.length
+    ? -tokens
+    : primaryAsks.reduce((previous, current) => previous + parseInt(current.amount_uupx), 0) - tokens;
+  let payment = !primaryAsks.length
+    ? 0
+    : primaryAsks.reduce((previous, current) => previous + parseInt(current.price_ujpy) * parseInt(current.amount_uupx), 0);
 
   const discounts = await discount_price.listLatest();
   if (!primaryAsks.length) {
-    tokens >= 0 ? (payment -= (27 - discounts[0].price) * tokens) : (payment += (27 + discounts[0].price) * Math.abs(tokens));
+    tokens >= 0
+      ? (payment -= (27 * 1000000 - parseInt(discounts[0].price_ujpy)) * tokens)
+      : (payment += (27 * 1000000 + parseInt(discounts[0].price_ujpy)) * Math.abs(tokens));
   } else {
     tokens >= 0
-      ? (payment -= (primaryAsks[0].price - discounts[0].price) * tokens)
-      : (payment += (primaryAsks[0].price + discounts[0].price) * Math.abs(tokens));
+      ? (payment -= (parseInt(primaryAsks[0].price_ujpy) - parseInt(discounts[0].price_ujpy)) * tokens)
+      : (payment += (parseInt(primaryAsks[0].price_ujpy) + parseInt(discounts[0].price_ujpy)) * Math.abs(tokens));
   }
 
   for (const normalBid of normalBids) {
     if (normalBid.is_accepted == true) {
-      usage += normalBid.amount;
-      payment += normalBid.contract_price * normalBid.amount;
+      usage += parseInt(normalBid.amount_uupx);
+      payment += parseInt(normalBid.contract_price_ujpy) * parseInt(normalBid.amount_uupx);
     }
   }
   for (const normalAsk of normalAsks) {
     if (normalAsk.is_accepted == true) {
-      usage -= normalAsk.amount;
-      payment -= normalAsk.contract_price * normalAsk.amount;
+      usage -= parseInt(normalAsk.amount_uupx);
+      payment -= parseInt(normalAsk.contract_price_ujpy) * parseInt(normalAsk.amount_uupx);
     }
   }
   for (const renewableBid of renewableBids) {
     if (renewableBid.is_accepted == true) {
-      usage += renewableBid.amount;
-      payment += renewableBid.contract_price * renewableBid.amount;
+      usage += parseInt(renewableBid.amount_uspx);
+      payment += parseInt(renewableBid.contract_price_ujpy) * parseInt(renewableBid.amount_uspx);
     }
   }
   for (const renewableAsk of renewableAsks) {
     if (renewableAsk.is_accepted == true) {
-      usage -= renewableAsk.amount;
-      payment -= renewableAsk.contract_price * renewableAsk.amount;
+      usage -= parseInt(renewableAsk.amount_uspx);
+      payment -= parseInt(renewableAsk.contract_price_ujpy) * parseInt(renewableAsk.amount_uspx);
     }
   }
   const date = new Date();
@@ -74,22 +80,27 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
   // date.setMonth(date.getMonth() - 1);
 
   const latestBalance = await balance.getLatest(data.student_account_id);
-  await balance.update({ id: latestBalance[0].id, student_account_id: latestBalance[0].student_account_id, amount_spx: 0, amount_upx: 0 });
+  await balance.update({
+    id: latestBalance[0].id,
+    student_account_id: latestBalance[0].student_account_id,
+    amount_uspx: '0',
+    amount_uupx: '0',
+  });
 
   await monthly_payment.create(
     new MonthlyPayment({
       student_account_id: data.student_account_id,
-      year: date.getFullYear(),
-      month: date.getMonth(),
-      amount_jpy: payment,
+      year: date.getFullYear().toString(),
+      month: date.getMonth().toString(),
+      amount_ujpy: payment.toString(),
     }),
   );
   await monthly_usage.create(
     new MonthlyUsage({
       student_account_id: data.student_account_id,
-      year: date.getFullYear(),
-      month: date.getMonth(),
-      amount_kwh: usage,
+      year: date.getFullYear().toString(),
+      month: date.getMonth().toString(),
+      amount_mwh: usage.toString(),
     }),
   );
 
@@ -109,8 +120,8 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
   const decrypted = crypto.AES.decrypt(accountPrivate[0].xrp_seed, privKey);
   const sender = xrpl.Wallet.fromSeed(decrypted);
 
-  const amountSPX = data.amount_spx;
-  const amountUPX = data.amount_upx;
+  const amountSPX = parseInt(data.amount_uspx);
+  const amountUPX = parseInt(data.amount_uupx);
   if (amountSPX > 0) {
     const sendTokenTx = {
       TransactionType: 'Payment',
