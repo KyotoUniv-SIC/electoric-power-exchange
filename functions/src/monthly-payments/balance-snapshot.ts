@@ -38,41 +38,41 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
     : primaryAsks.reduce((previous, current) => previous + parseInt(current.amount_uupx), 0) - tokens;
   let payment = !primaryAsks.length
     ? 0
-    : primaryAsks.reduce((previous, current) => previous + parseInt(current.price_ujpy) * parseInt(current.amount_uupx), 0);
+    : primaryAsks.reduce((previous, current) => previous + (parseInt(current.price_ujpy) * parseInt(current.amount_uupx)) / 1000000, 0);
 
   const discounts = await discount_price.listLatest();
   if (!primaryAsks.length) {
     tokens >= 0
-      ? (payment -= (27 * 1000000 - parseInt(discounts[0].price_ujpy)) * tokens)
-      : (payment += (27 * 1000000 + parseInt(discounts[0].price_ujpy)) * Math.abs(tokens));
+      ? (payment -= ((27 * 1000000 - parseInt(discounts[0].price_ujpy)) * tokens) / 1000000)
+      : (payment += ((27 * 1000000 + parseInt(discounts[0].price_ujpy)) * Math.abs(tokens)) / 1000000);
   } else {
     tokens >= 0
-      ? (payment -= (parseInt(primaryAsks[0].price_ujpy) - parseInt(discounts[0].price_ujpy)) * tokens)
-      : (payment += (parseInt(primaryAsks[0].price_ujpy) + parseInt(discounts[0].price_ujpy)) * Math.abs(tokens));
+      ? (payment -= ((parseInt(primaryAsks[0].price_ujpy) - parseInt(discounts[0].price_ujpy)) * tokens) / 1000000)
+      : (payment += ((parseInt(primaryAsks[0].price_ujpy) + parseInt(discounts[0].price_ujpy)) * Math.abs(tokens)) / 1000000);
   }
 
   for (const normalBid of normalBids) {
     if (normalBid.is_accepted == true) {
       usage += parseInt(normalBid.amount_uupx);
-      payment += parseInt(normalBid.contract_price_ujpy) * parseInt(normalBid.amount_uupx);
+      payment += (parseInt(normalBid.contract_price_ujpy) * parseInt(normalBid.amount_uupx)) / 1000000;
     }
   }
   for (const normalAsk of normalAsks) {
     if (normalAsk.is_accepted == true) {
       usage -= parseInt(normalAsk.amount_uupx);
-      payment -= parseInt(normalAsk.contract_price_ujpy) * parseInt(normalAsk.amount_uupx);
+      payment -= (parseInt(normalAsk.contract_price_ujpy) * parseInt(normalAsk.amount_uupx)) / 1000000;
     }
   }
   for (const renewableBid of renewableBids) {
     if (renewableBid.is_accepted == true) {
       usage += parseInt(renewableBid.amount_uspx);
-      payment += parseInt(renewableBid.contract_price_ujpy) * parseInt(renewableBid.amount_uspx);
+      payment += (parseInt(renewableBid.contract_price_ujpy) * parseInt(renewableBid.amount_uspx)) / 1000000;
     }
   }
   for (const renewableAsk of renewableAsks) {
     if (renewableAsk.is_accepted == true) {
       usage -= parseInt(renewableAsk.amount_uspx);
-      payment -= parseInt(renewableAsk.contract_price_ujpy) * parseInt(renewableAsk.amount_uspx);
+      payment -= (parseInt(renewableAsk.contract_price_ujpy) * parseInt(renewableAsk.amount_uspx)) / 1000000;
     }
   }
   const date = new Date();

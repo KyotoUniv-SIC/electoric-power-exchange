@@ -102,34 +102,34 @@ describe('Calculated Payment Test', () => {
     const discounts = [new DiscountPrice({ price_ujpy: '500000', amount_purchase_utoken: '100000000', amount_sale_utoken: '200000000' })];
 
     let usage = parseInt(primaryBids[0].amount_uupx) - tokens;
-    let payment = parseInt(primaryBids[0].price_ujpy) * parseInt(primaryBids[0].amount_uupx);
+    let payment = (parseInt(primaryBids[0].price_ujpy) * parseInt(primaryBids[0].amount_uupx)) / 1000000;
 
     tokens >= 0
-      ? (payment -= (parseInt(primaryAsks[0].price_ujpy) - parseInt(discounts[0].price_ujpy)) * tokens)
-      : (payment += (parseInt(primaryAsks[0].price_ujpy) + parseInt(discounts[0].price_ujpy)) * tokens);
+      ? (payment -= ((parseInt(primaryAsks[0].price_ujpy) - parseInt(discounts[0].price_ujpy)) * tokens) / 1000000)
+      : (payment += ((parseInt(primaryAsks[0].price_ujpy) + parseInt(discounts[0].price_ujpy)) * Math.abs(tokens)) / 1000000);
 
     for (const normalBid of normalBids) {
       if (normalBid.is_accepted == true) {
         usage += parseInt(normalBid.amount_uupx);
-        payment += parseInt(normalBid.contract_price_ujpy) * parseInt(normalBid.amount_uupx);
+        payment += (parseInt(normalBid.contract_price_ujpy) * parseInt(normalBid.amount_uupx)) / 1000000;
       }
     }
     for (const normalAsk of normalAsks) {
       if (normalAsk.is_accepted == true) {
         usage -= parseInt(normalAsk.amount_uupx);
-        payment -= parseInt(normalAsk.contract_price_ujpy) * parseInt(normalAsk.amount_uupx);
+        payment -= (parseInt(normalAsk.contract_price_ujpy) * parseInt(normalAsk.amount_uupx)) / 1000000;
       }
     }
     for (const renewableBid of renewableBids) {
       if (renewableBid.is_accepted == true) {
         usage += parseInt(renewableBid.amount_uspx);
-        payment += parseInt(renewableBid.contract_price_ujpy) * parseInt(renewableBid.amount_uspx);
+        payment += (parseInt(renewableBid.contract_price_ujpy) * parseInt(renewableBid.amount_uspx)) / 1000000;
       }
     }
     for (const renewableAsk of renewableAsks) {
       if (renewableAsk.is_accepted == true) {
         usage -= parseInt(renewableAsk.amount_uspx);
-        payment -= parseInt(renewableAsk.contract_price_ujpy) * parseInt(renewableAsk.amount_uspx);
+        payment -= (parseInt(renewableAsk.contract_price_ujpy) * parseInt(renewableAsk.amount_uspx)) / 1000000;
       }
     }
 
@@ -148,7 +148,7 @@ describe('Calculated Payment Test', () => {
       amount_mwh: usage.toString(),
     });
 
-    expect(monthlyUsage.amount_mwh).toBe('196000000');
-    expect(monthlyPayment.amount_ujpy).toBe('2473500000');
+    expect(monthlyUsage.amount_mwh).toBe('100000000');
+    expect(monthlyPayment.amount_ujpy).toBe('2748500000');
   });
 });
