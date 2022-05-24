@@ -2,18 +2,18 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CostSetting, NormalAskSetting, RenewableAskSetting } from '@local/common';
 
 export type SetNormalOnSubmitEvent = {
-  price: number;
-  amount: number;
+  ujpyPrice: string;
+  uupxAmount: string;
 };
 
 export type SetRenewableOnSubmitEvent = {
-  price: number;
-  amount: number;
+  ujpyPrice: string;
+  uspxAmount: string;
 };
 
 export type SetCostOnSubmitEvent = {
-  system: number;
-  electricity: number;
+  systemCost: string;
+  electricityCost: string;
 };
 
 @Component({
@@ -48,7 +48,9 @@ export class TokensComponent implements OnInit {
       alert('価格を設定してください');
       return;
     }
-    this.appSubmitNormal.emit({ price: Number(price), amount: Number(amount) });
+    const ujpyPrice = (Number(price) * 1000000).toString();
+    const uupxAmount = (Number(amount) * 1000000).toString();
+    this.appSubmitNormal.emit({ ujpyPrice, uupxAmount });
   }
 
   onSubmitRenewable(price: string, amount: string) {
@@ -60,18 +62,22 @@ export class TokensComponent implements OnInit {
       alert('発行量を設定してください');
       return;
     }
-    this.appSubmitRenewable.emit({ price: Number(price), amount: Number(amount) });
+    const ujpyPrice = (Number(price) * 1000000).toString();
+    const uspxAmount = (Number(amount) * 1000000).toString();
+    this.appSubmitRenewable.emit({ ujpyPrice, uspxAmount });
   }
 
-  onSubmitCost(system: string, electrisity: string) {
+  onSubmitCost(system: string, electricity: string) {
     if (!system) {
       alert('システムのコストを入力してください');
       return;
     }
-    if (!electrisity) {
+    if (!electricity) {
       alert('電気料金を入力してください');
       return;
     }
-    this.appSubmitCost.emit({ system: Number(system), electricity: Number(electrisity) });
+    const systemCost = (Number(system) * 1000000).toString();
+    const electricityCost = (Number(electricity) * 1000000).toString();
+    this.appSubmitCost.emit({ systemCost, electricityCost });
   }
 }
