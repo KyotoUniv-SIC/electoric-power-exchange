@@ -8,8 +8,8 @@ interface Token {
 
 export type BuyOnSubmitEvent = {
   accountID: string;
-  price: number;
-  amount: number;
+  ujpyPrice: string;
+  utokenAmount: string;
   denom: string;
 };
 
@@ -22,11 +22,11 @@ export class BuyComponent implements OnInit {
   @Input()
   studentAccount?: StudentAccount | null;
   @Input()
-  amountUPX?: number | null;
+  uupxAmount?: number | null;
   @Input()
-  amountSPX?: number | null;
+  uspxAmount?: number | null;
   @Input()
-  amountInsufficiency?: number | null;
+  insufficiencyAmount?: number | null;
   @Input()
   singlePriceNormal?: SinglePriceNormalSettlement | null;
   @Input()
@@ -63,7 +63,9 @@ export class BuyComponent implements OnInit {
       alert('ユーザーログイン情報を取得できません');
       return;
     }
-    this.appSubmit.emit({ accountID: this.studentAccount?.id, price: Number(price), amount: Number(amount), denom });
+    const ujpyPrice = (Number(price) * 1000000).toString();
+    const utokenAmount = (Number(amount) * 1000000).toString();
+    this.appSubmit.emit({ accountID: this.studentAccount?.id, ujpyPrice, utokenAmount, denom });
   }
 
   calcTotalPrice(price: any, amount: any) {
