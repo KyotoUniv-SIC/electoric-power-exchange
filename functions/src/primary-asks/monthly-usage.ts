@@ -4,10 +4,10 @@
 import { primary_ask } from '.';
 import { monthly_usage } from '../monthly-usages';
 import { student_account } from '../student-accounts';
-import { PrimaryAsk, proto } from '@local/common';
+import { MonthlyUsage, PrimaryAsk } from '@local/common';
 
 monthly_usage.onCreateHandler.push(async (snapshot, context) => {
-  const data = snapshot.data()! as proto.main.MonthlyUsage;
+  const data = snapshot.data()! as MonthlyUsage;
   const studentID = data.student_account_id;
   const studentAccount = await student_account.get(studentID);
   // 前年同月=>前月に参照するデータを変更

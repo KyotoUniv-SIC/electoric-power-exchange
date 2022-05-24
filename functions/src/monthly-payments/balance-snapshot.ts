@@ -14,13 +14,13 @@ import { normal_bid_history } from '../normal-bid-histories';
 import { primary_ask } from '../primary-asks';
 import { renewable_ask_history } from '../renewable-ask-histories';
 import { renewable_bid_history } from '../renewable-bid-histories';
-import { MonthlyPayment, MonthlyUsage, proto } from '@local/common';
+import { BalanceSnapshot, MonthlyPayment, MonthlyUsage } from '@local/common';
 import * as crypto from 'crypto-js';
 import * as functions from 'firebase-functions';
 
 balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
   console.log('run balanceSS onCreate');
-  const data = snapshot.data()! as proto.main.BalanceSnapshot;
+  const data = snapshot.data()! as BalanceSnapshot;
   const insufficiencies = (await insufficient_balance.listLastMonth(data.student_account_id)).reduce(
     (sum, element) => sum + parseInt(element.amount_utoken),
     0,

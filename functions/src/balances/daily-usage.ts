@@ -8,12 +8,12 @@ import { daily_payment } from '../daily-payments';
 import { daily_usage } from '../daily-usages';
 import { insufficient_balance } from '../insufficient-balances';
 import { student_account } from '../student-accounts';
-import { InsufficientBalance, DailyPayment, proto } from '@local/common';
+import { InsufficientBalance, DailyPayment, DailyUsage } from '@local/common';
 import * as crypto from 'crypto-js';
 import * as functions from 'firebase-functions';
 
 daily_usage.onCreateHandler.push(async (snapshot, context) => {
-  const data = snapshot.data()! as proto.main.DailyUsage;
+  const data = snapshot.data()! as DailyUsage;
   const usage = parseInt(data.amount_kwh) * 1000000;
   const studentAccounts = await student_account.getByRoomID(data.room_id);
   if (!studentAccounts.length) {

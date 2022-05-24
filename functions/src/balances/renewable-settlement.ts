@@ -8,12 +8,12 @@ import { admin_private } from '../admin-privates';
 import { market_status } from '../market-statuses';
 import { renewable_settlement } from '../renewable-settlements';
 import { student_account } from '../student-accounts';
-import { MarketStatus, proto } from '@local/common';
+import { MarketStatus, RenewableSettlement } from '@local/common';
 import * as crypto from 'crypto-js';
 import * as functions from 'firebase-functions';
 
 renewable_settlement.onCreateHandler.push(async (snapshot, context) => {
-  const data = snapshot.data()! as proto.main.RenewableSettlement;
+  const data = snapshot.data()! as RenewableSettlement;
   const bidderBalance = await balance.getLatest(data.bid_id);
   await balance.update({
     id: bidderBalance[0].id,

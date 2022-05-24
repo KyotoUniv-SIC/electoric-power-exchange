@@ -1,10 +1,10 @@
 /* eslint-disable camelcase */
 import { available_balance } from '.';
 import { normal_ask } from '../normal-asks';
-import { proto } from '@local/common';
+import { NormalAsk, proto } from '@local/common';
 
 normal_ask.onCreateHandler.push(async (snapshot, context) => {
-  const data = snapshot.data()! as proto.main.NormalAsk;
+  const data = snapshot.data()! as NormalAsk;
 
   const availableBalance = await available_balance.getLatest(data.account_id);
   if (data.type == proto.main.NormalAskType.SECONDARY) {

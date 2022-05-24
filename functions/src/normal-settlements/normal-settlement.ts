@@ -5,10 +5,10 @@ import { normal_ask } from '../normal-asks';
 import { normal_bid_history } from '../normal-bid-histories';
 import { normal_bid } from '../normal-bids';
 import { single_price_normal_settlement } from '../single-price-normal-settlements';
-import { NormalAskHistory, NormalBidHistory, NormalSettlement, proto } from '@local/common';
+import { NormalAskHistory, NormalBidHistory, NormalSettlement, proto, SinglePriceNormalSettlement } from '@local/common';
 
 single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) => {
-  const data = snapshot.data()! as proto.main.SinglePriceNormalSettlement;
+  const data = snapshot.data()! as SinglePriceNormalSettlement;
 
   const normalBids = await normal_bid.listValid();
   const sortNormalBids = normalBids.sort((first, second) => parseInt(second.price_ujpy) - parseInt(first.price_ujpy));

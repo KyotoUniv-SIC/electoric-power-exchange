@@ -6,12 +6,12 @@
 import { student_account } from '.';
 import { account_private } from '../account-privates';
 import { admin_account } from '../admin-accounts';
-import { AccountPrivate } from '@local/common';
+import { AccountPrivate, StudentAccount } from '@local/common';
 import * as crypto from 'crypto-js';
 import * as functions from 'firebase-functions';
 
 student_account.onCreateHandler.push(async (snapshot, context) => {
-  const data = snapshot.data()!;
+  const data = snapshot.data()! as StudentAccount;
   const adminAccount = await admin_account.getByName('admin');
   // const adminPrivate = await admin_private.list(adminAccount[0].id);
   const xrpl = require('xrpl');

@@ -1,10 +1,10 @@
 /* eslint-disable camelcase */
 import { available_balance } from '.';
 import { renewable_ask } from '../renewable-asks';
-import { proto } from '@local/common';
+import { proto, RenewableAsk } from '@local/common';
 
 renewable_ask.onCreateHandler.push(async (snapshot, context) => {
-  const data = snapshot.data()! as proto.main.RenewableAsk;
+  const data = snapshot.data()! as RenewableAsk;
   const availableBalance = await available_balance.getLatest(data.account_id);
 
   if (data.type == proto.main.RenewableAskType.SECONDARY) {
