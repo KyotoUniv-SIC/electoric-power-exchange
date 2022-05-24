@@ -3400,8 +3400,8 @@ export namespace main {
         /** RenewableAskSetting id */
         id?: (string|null);
 
-        /** RenewableAskSetting price_upx */
-        price_upx?: (string|null);
+        /** RenewableAskSetting price_ujpy */
+        price_ujpy?: (string|null);
 
         /** RenewableAskSetting amount_uspx */
         amount_uspx?: (string|null);
@@ -3419,8 +3419,8 @@ export namespace main {
         /** RenewableAskSetting id. */
         public id: string;
 
-        /** RenewableAskSetting price_upx. */
-        public price_upx: string;
+        /** RenewableAskSetting price_ujpy. */
+        public price_ujpy: string;
 
         /** RenewableAskSetting amount_uspx. */
         public amount_uspx: string;

@@ -18,15 +18,15 @@ module.exports.primaryRenewableAsk = f.pubsub
       new RenewableAsk({
         account_id: adminAccount[0].id,
         type: type,
-        price: !setting.price || now.getDate() == 1 ? 27.5 : setting.price,
-        amount: !setting.amount ? 50 : setting.amount,
+        price_ujpy: !setting.price_ujpy || now.getDate() == 1 ? '27500000' : setting.price_ujpy,
+        amount_uspx: !setting.amount_uspx ? '50000000' : setting.amount_uspx,
         is_deleted: false,
       }),
     );
     await renewable_ask_setting.create(
       new RenewableAskSetting({
-        price: !setting ? 27.6 || now.getDate() == 1 : setting.price + 0.1,
-        amount: !setting ? 50 : setting.amount,
+        price_ujpy: !setting.price_ujpy || now.getDate() == 1 ? '27600000' : (parseInt(setting.price_ujpy) + 100000).toString(),
+        amount_uspx: !setting.amount_uspx ? '50000000' : setting.amount_uspx,
       }),
     );
   });

@@ -8305,7 +8305,7 @@
              * @memberof main
              * @interface IRenewableAskSetting
              * @property {string|null} [id] RenewableAskSetting id
-             * @property {string|null} [price_upx] RenewableAskSetting price_upx
+             * @property {string|null} [price_ujpy] RenewableAskSetting price_ujpy
              * @property {string|null} [amount_uspx] RenewableAskSetting amount_uspx
              */
     
@@ -8333,12 +8333,12 @@
             RenewableAskSetting.prototype.id = "";
     
             /**
-             * RenewableAskSetting price_upx.
-             * @member {string} price_upx
+             * RenewableAskSetting price_ujpy.
+             * @member {string} price_ujpy
              * @memberof main.RenewableAskSetting
              * @instance
              */
-            RenewableAskSetting.prototype.price_upx = "";
+            RenewableAskSetting.prototype.price_ujpy = "";
     
             /**
              * RenewableAskSetting amount_uspx.
@@ -8362,8 +8362,8 @@
                     writer = $Writer.create();
                 if (message.id != null && Object.hasOwnProperty.call(message, "id"))
                     writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
-                if (message.price_upx != null && Object.hasOwnProperty.call(message, "price_upx"))
-                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.price_upx);
+                if (message.price_ujpy != null && Object.hasOwnProperty.call(message, "price_ujpy"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.price_ujpy);
                 if (message.amount_uspx != null && Object.hasOwnProperty.call(message, "amount_uspx"))
                     writer.uint32(/* id 3, wireType 2 =*/26).string(message.amount_uspx);
                 return writer;
@@ -8404,7 +8404,7 @@
                         message.id = reader.string();
                         break;
                     case 2:
-                        message.price_upx = reader.string();
+                        message.price_ujpy = reader.string();
                         break;
                     case 3:
                         message.amount_uspx = reader.string();
@@ -8447,9 +8447,9 @@
                 if (message.id != null && message.hasOwnProperty("id"))
                     if (!$util.isString(message.id))
                         return "id: string expected";
-                if (message.price_upx != null && message.hasOwnProperty("price_upx"))
-                    if (!$util.isString(message.price_upx))
-                        return "price_upx: string expected";
+                if (message.price_ujpy != null && message.hasOwnProperty("price_ujpy"))
+                    if (!$util.isString(message.price_ujpy))
+                        return "price_ujpy: string expected";
                 if (message.amount_uspx != null && message.hasOwnProperty("amount_uspx"))
                     if (!$util.isString(message.amount_uspx))
                         return "amount_uspx: string expected";
@@ -8470,8 +8470,8 @@
                 var message = new $root.main.RenewableAskSetting();
                 if (object.id != null)
                     message.id = String(object.id);
-                if (object.price_upx != null)
-                    message.price_upx = String(object.price_upx);
+                if (object.price_ujpy != null)
+                    message.price_ujpy = String(object.price_ujpy);
                 if (object.amount_uspx != null)
                     message.amount_uspx = String(object.amount_uspx);
                 return message;
@@ -8492,13 +8492,13 @@
                 var object = {};
                 if (options.defaults) {
                     object.id = "";
-                    object.price_upx = "";
+                    object.price_ujpy = "";
                     object.amount_uspx = "";
                 }
                 if (message.id != null && message.hasOwnProperty("id"))
                     object.id = message.id;
-                if (message.price_upx != null && message.hasOwnProperty("price_upx"))
-                    object.price_upx = message.price_upx;
+                if (message.price_ujpy != null && message.hasOwnProperty("price_ujpy"))
+                    object.price_ujpy = message.price_ujpy;
                 if (message.amount_uspx != null && message.hasOwnProperty("amount_uspx"))
                     object.amount_uspx = message.amount_uspx;
                 return object;

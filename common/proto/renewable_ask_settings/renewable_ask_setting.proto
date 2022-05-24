@@ -7,6 +7,6 @@ option (google.firebase.rules.firebase_rules).full_package_names = true;
 
 message RenewableAskSetting {
   string id = 1;
-  string price_upx = 2;
+  string price_ujpy = 2;
   string amount_uspx = 3;
 }
