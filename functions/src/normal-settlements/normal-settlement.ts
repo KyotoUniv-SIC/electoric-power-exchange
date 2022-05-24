@@ -8,28 +8,31 @@ import { single_price_normal_settlement } from '../single-price-normal-settlemen
 import { NormalAskHistory, NormalBidHistory, NormalSettlement, proto } from '@local/common';
 
 single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) => {
-  const data = snapshot.data()!;
+  const data = snapshot.data()! as proto.main.SinglePriceNormalSettlement;
 
   const normalBids = await normal_bid.listValid();
-  const sortNormalBids = normalBids.sort((first, second) => second.price - first.price);
+  const sortNormalBids = normalBids.sort((first, second) => parseInt(second.price_ujpy) - parseInt(first.price_ujpy));
 
   const normalAsks = await normal_ask.listValid();
-  const sortNormalAsks = normalAsks.sort((first, second) => first.price - second.price);
+  const sortNormalAsks = normalAsks.sort((first, second) => parseInt(first.price_ujpy) - parseInt(second.price_ujpy));
 
   let i = 0;
   let j = 0;
   const condition = true;
   while (condition) {
-    if (sortNormalBids[i].price < data.price || sortNormalAsks[j].price > data.price) {
+    if (
+      parseInt(sortNormalBids[i].price_ujpy) < parseInt(data.price_ujpy) ||
+      parseInt(sortNormalAsks[j].price_ujpy) > parseInt(data.price_ujpy)
+    ) {
       for (; i < sortNormalBids.length; i++) {
         await normal_bid_history.create(
           new NormalBidHistory(
             {
               account_id: sortNormalBids[i].account_id,
-              price: sortNormalBids[i].price,
-              amount: sortNormalBids[i].amount,
+              price_ujpy: sortNormalBids[i].price_ujpy,
+              amount_uupx: sortNormalBids[i].amount_uupx,
               is_accepted: false,
-              contract_price: data.price,
+              contract_price_ujpy: data.price_ujpy,
             },
             sortNormalBids[i].created_at,
           ),
@@ -43,10 +46,10 @@ single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) =>
             {
               type: sortNormalAsks[j].type as unknown as proto.main.NormalAskHistoryType,
               account_id: sortNormalAsks[j].account_id,
-              price: sortNormalAsks[j].price,
-              amount: sortNormalAsks[j].amount,
+              price_ujpy: sortNormalAsks[j].price_ujpy,
+              amount_uupx: sortNormalAsks[j].amount_uupx,
               is_accepted: false,
-              contract_price: data.price,
+              contract_price_ujpy: data.price_ujpy,
             },
             sortNormalAsks[j].created_at,
           ),
@@ -56,13 +59,13 @@ single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) =>
       break;
     }
 
-    if (sortNormalBids[i].amount < sortNormalAsks[j].amount) {
+    if (parseInt(sortNormalBids[i].amount_uupx) < parseInt(sortNormalAsks[j].amount_uupx)) {
       await normal_settlement.create(
         new NormalSettlement({
           bid_id: sortNormalBids[i].account_id,
           ask_id: sortNormalAsks[j].account_id,
-          price: data.price,
-          amount: sortNormalBids[i].amount,
+          price_ujpy: data.price_ujpy,
+          amount_uupx: sortNormalBids[i].amount_uupx,
         }),
       );
 
@@ -70,10 +73,10 @@ single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) =>
         new NormalBidHistory(
           {
             account_id: sortNormalBids[i].account_id,
-            price: sortNormalBids[i].price,
-            amount: sortNormalBids[i].amount,
+            price_ujpy: sortNormalBids[i].price_ujpy,
+            amount_uupx: sortNormalBids[i].amount_uupx,
             is_accepted: true,
-            contract_price: data.price,
+            contract_price_ujpy: data.price_ujpy,
           },
           sortNormalBids[i].created_at,
         ),
@@ -85,28 +88,28 @@ single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) =>
           {
             type: sortNormalAsks[j].type as unknown as proto.main.NormalAskHistoryType,
             account_id: sortNormalAsks[j].account_id,
-            price: sortNormalAsks[j].price,
-            amount: sortNormalBids[i].amount,
+            price_ujpy: sortNormalAsks[j].price_ujpy,
+            amount_uupx: sortNormalBids[i].amount_uupx,
             is_accepted: true,
-            contract_price: data.price,
+            contract_price_ujpy: data.price_ujpy,
           },
           sortNormalAsks[j].created_at,
         ),
       );
       await normal_ask.delete_(sortNormalAsks[j].id);
 
-      sortNormalAsks[j].amount -= sortNormalBids[i].amount;
+      sortNormalAsks[j].amount_uupx = (parseInt(sortNormalAsks[j].amount_uupx) - parseInt(sortNormalBids[i].amount_uupx)).toString();
       i++;
       if (i >= sortNormalBids.length) {
         break;
       }
-    } else if (sortNormalBids[i].amount > sortNormalAsks[j].amount) {
+    } else if (parseInt(sortNormalBids[i].amount_uupx) > parseInt(sortNormalAsks[j].amount_uupx)) {
       await normal_settlement.create(
         new NormalSettlement({
           bid_id: sortNormalBids[i].account_id,
           ask_id: sortNormalAsks[j].account_id,
-          price: data.price,
-          amount: sortNormalAsks[j].amount,
+          price_ujpy: data.price_ujpy,
+          amount_uupx: sortNormalAsks[j].amount_uupx,
         }),
       );
 
@@ -114,10 +117,10 @@ single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) =>
         new NormalBidHistory(
           {
             account_id: sortNormalBids[i].account_id,
-            price: sortNormalBids[i].price,
-            amount: sortNormalAsks[j].amount,
+            price_ujpy: sortNormalBids[i].price_ujpy,
+            amount_uupx: sortNormalAsks[j].amount_uupx,
             is_accepted: true,
-            contract_price: data.price,
+            contract_price_ujpy: data.price_ujpy,
           },
           sortNormalBids[i].created_at,
         ),
@@ -129,17 +132,17 @@ single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) =>
           {
             type: sortNormalAsks[j].type as unknown as proto.main.NormalAskHistoryType,
             account_id: sortNormalAsks[j].account_id,
-            price: sortNormalAsks[j].price,
-            amount: sortNormalAsks[j].amount,
+            price_ujpy: sortNormalAsks[j].price_ujpy,
+            amount_uupx: sortNormalAsks[j].amount_uupx,
             is_accepted: true,
-            contract_price: data.price,
+            contract_price_ujpy: data.price_ujpy,
           },
           sortNormalAsks[j].created_at,
         ),
       );
       await normal_ask.delete_(sortNormalAsks[j].id);
 
-      sortNormalBids[i].amount -= sortNormalAsks[j].amount;
+      sortNormalBids[i].amount_uupx = (parseInt(sortNormalBids[i].amount_uupx) - parseInt(sortNormalAsks[j].amount_uupx)).toString();
       j++;
       if (j >= sortNormalAsks.length) {
         break;
@@ -149,8 +152,8 @@ single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) =>
         new NormalSettlement({
           bid_id: sortNormalBids[i].account_id,
           ask_id: sortNormalAsks[j].account_id,
-          price: data.price,
-          amount: sortNormalBids[i].amount,
+          price_ujpy: data.price_ujpy,
+          amount_uupx: sortNormalBids[i].amount_uupx,
         }),
       );
 
@@ -158,10 +161,10 @@ single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) =>
         new NormalBidHistory(
           {
             account_id: sortNormalBids[i].account_id,
-            price: sortNormalBids[i].price,
-            amount: sortNormalBids[i].amount,
+            price_ujpy: sortNormalBids[i].price_ujpy,
+            amount_uupx: sortNormalBids[i].amount_uupx,
             is_accepted: true,
-            contract_price: data.price,
+            contract_price_ujpy: data.price_ujpy,
           },
           sortNormalBids[i].created_at,
         ),
@@ -174,10 +177,10 @@ single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) =>
           {
             type: sortNormalAsks[j].type as unknown as proto.main.NormalAskHistoryType,
             account_id: sortNormalAsks[j].account_id,
-            price: sortNormalAsks[j].price,
-            amount: sortNormalBids[i].amount,
+            price_ujpy: sortNormalAsks[j].price_ujpy,
+            amount_uupx: sortNormalBids[i].amount_uupx,
             is_accepted: true,
-            contract_price: data.price,
+            contract_price_ujpy: data.price_ujpy,
           },
           sortNormalAsks[j].created_at,
         ),
