@@ -2,13 +2,13 @@ import { NormalAsk, NormalAskHistory, NormalBid, NormalBidHistory, SinglePriceNo
 
 describe('Normal Contract Test', () => {
   it('Build Single Price Settlement', () => {
-    const expectSettlement = new SinglePriceNormalSettlement({ price: 30, amount: 30 });
-    const bids = [new NormalBid({ id: 'bid01', account_id: 'test01', price: 30, amount: 40 })];
-    const asks = [new NormalAsk({ id: 'ask02', account_id: 'test08', price: 27, amount: 30 })];
-    const sortBids = bids.sort((first, second) => second.price - first.price);
-    const sortAsks = asks.sort((first, second) => first.price - second.price);
+    const expectSettlement = new SinglePriceNormalSettlement({ price_ujpy: '30000000', amount_uupx: '30000000' });
+    const bids = [new NormalBid({ id: 'bid01', account_id: 'test01', price_ujpy: '30000000', amount_uupx: '40000000' })];
+    const asks = [new NormalAsk({ id: 'ask02', account_id: 'test08', price_ujpy: '27000000', amount_uupx: '30000000' })];
+    const sortBids = bids.sort((first, second) => parseInt(second.price_ujpy) - parseInt(first.price_ujpy));
+    const sortAsks = asks.sort((first, second) => parseInt(first.price_ujpy) - parseInt(second.price_ujpy));
 
-    if (sortBids[0].price < sortAsks[0].price) {
+    if (parseInt(sortBids[0].price_ujpy) < parseInt(sortAsks[0].price_ujpy)) {
       console.log('UPX成約はありませんでした。');
       expect(true).toBeTruthy;
       return;
@@ -20,8 +20,8 @@ describe('Normal Contract Test', () => {
         bidHistory.push(
           new NormalBidHistory({
             account_id: bid.account_id,
-            price: bid.price,
-            amount: bid.amount,
+            price_ujpy: bid.price_ujpy,
+            amount_uupx: bid.amount_uupx,
             is_accepted: false,
           }),
         );
@@ -31,8 +31,8 @@ describe('Normal Contract Test', () => {
         askHistory.push(
           new NormalAskHistory({
             account_id: ask.account_id,
-            price: ask.price,
-            amount: ask.amount,
+            price_ujpy: ask.price_ujpy,
+            amount_uupx: ask.amount_uupx,
             is_accepted: false,
           }),
         );
@@ -46,14 +46,14 @@ describe('Normal Contract Test', () => {
     let sumBidAmount = 0;
     const sumBidAmountHistory = [];
     for (const bid of sortBids) {
-      sumBidAmount += bid.amount;
+      sumBidAmount += parseInt(bid.amount_uupx);
       sumBidAmountHistory.push(sumBidAmount);
     }
 
     let sumAskAmount = 0;
     const sumAskAmountHistory = [];
     for (const ask of sortAsks) {
-      sumAskAmount += ask.amount;
+      sumAskAmount += parseInt(ask.amount_uupx);
       sumAskAmountHistory.push(sumAskAmount);
     }
 
@@ -64,18 +64,18 @@ describe('Normal Contract Test', () => {
     let equilibriumAmount = 0;
     const condition = true;
     while (condition) {
-      if (sortBids[i].price <= sortAsks[j].price) {
+      if (parseInt(sortBids[i].price_ujpy) < parseInt(sortAsks[j].price_ujpy)) {
         break;
       }
       if (sumBidAmountHistory[i] <= sumAskAmountHistory[j]) {
-        equilibriumPrice = sortAsks[j].price;
+        equilibriumPrice = parseInt(sortAsks[j].price_ujpy);
         equilibriumAmount = sumBidAmountHistory[i];
         if (!sortBids[i + 1]) {
           break;
         }
         i++;
       } else {
-        equilibriumPrice = sortBids[i].price;
+        equilibriumPrice = parseInt(sortBids[i].price_ujpy);
         equilibriumAmount = sumAskAmountHistory[j];
         if (!sortAsks[j + 1]) {
           break;
@@ -84,7 +84,10 @@ describe('Normal Contract Test', () => {
       }
     }
 
-    const settlement = new SinglePriceNormalSettlement({ price: equilibriumPrice, amount: equilibriumAmount });
+    const settlement = new SinglePriceNormalSettlement({
+      price_ujpy: equilibriumPrice.toString(),
+      amount_uupx: equilibriumAmount.toString(),
+    });
     console.log(settlement);
     expect(settlement).toStrictEqual(expectSettlement);
   });

@@ -32,8 +32,8 @@ module.exports.renewableContract = f.pubsub
           new RenewableBidHistory(
             {
               account_id: bid.account_id,
-              price: bid.price,
-              amount: bid.amount,
+              price_ujpy: bid.price_ujpy,
+              amount_uspx: bid.amount_uspx,
               is_accepted: false,
             },
             bid.created_at,
@@ -47,8 +47,8 @@ module.exports.renewableContract = f.pubsub
           new RenewableAskHistory(
             {
               account_id: ask.account_id,
-              price: ask.price,
-              amount: ask.amount,
+              price_ujpy: ask.price_ujpy,
+              amount_uspx: ask.amount_uspx,
               is_accepted: false,
             },
             ask.created_at,
@@ -60,13 +60,13 @@ module.exports.renewableContract = f.pubsub
     }
 
     // Bidを価格の高い順に並び替える
-    const sortRenewableBids = renewableBids.sort((first, second) => second.price - first.price);
+    const sortRenewableBids = renewableBids.sort((first, second) => parseInt(second.price_ujpy) - parseInt(first.price_ujpy));
 
     // Askを価格の低い順に並び替える
-    const sortRenewableAsks = renewableAsks.sort((first, second) => first.price - second.price);
+    const sortRenewableAsks = renewableAsks.sort((first, second) => parseInt(first.price_ujpy) - parseInt(second.price_ujpy));
 
     // i,j両方が0のとき、成約は0になる
-    if (sortRenewableBids[0].price < sortRenewableAsks[0].price) {
+    if (parseInt(sortRenewableBids[0].price_ujpy) < parseInt(sortRenewableAsks[0].price_ujpy)) {
       console.log('SPX成約はありませんでした。');
       if (!marketStatus.length) {
         await market_status.create(new MarketStatus({ is_finished_normal: false, is_finished_renewable: true }));
@@ -80,8 +80,8 @@ module.exports.renewableContract = f.pubsub
           new RenewableBidHistory(
             {
               account_id: bid.account_id,
-              price: bid.price,
-              amount: bid.amount,
+              price_ujpy: bid.price_ujpy,
+              amount_uspx: bid.amount_uspx,
               is_accepted: false,
             },
             bid.created_at,
@@ -95,8 +95,8 @@ module.exports.renewableContract = f.pubsub
           new RenewableAskHistory(
             {
               account_id: ask.account_id,
-              price: ask.price,
-              amount: ask.amount,
+              price_ujpy: ask.price_ujpy,
+              amount_uspx: ask.amount_uspx,
               is_accepted: false,
             },
             ask.created_at,
@@ -111,7 +111,7 @@ module.exports.renewableContract = f.pubsub
     let sumBidAmount = 0;
     const sumBidAmountHistory = [];
     for (const bid of sortRenewableBids) {
-      sumBidAmount += bid.amount;
+      sumBidAmount += parseInt(bid.amount_uspx);
       sumBidAmountHistory.push(sumBidAmount);
     }
 
@@ -119,7 +119,7 @@ module.exports.renewableContract = f.pubsub
     let sumAskAmount = 0;
     const sumAskAmountHistory = [];
     for (const ask of sortRenewableAsks) {
-      sumAskAmount += ask.amount;
+      sumAskAmount += parseInt(ask.amount_uspx);
       sumAskAmountHistory.push(sumAskAmount);
     }
 
@@ -130,18 +130,18 @@ module.exports.renewableContract = f.pubsub
     let equilibriumAmount = 0;
     const condition = true;
     while (condition) {
-      if (sortRenewableBids[i].price <= sortRenewableAsks[j].price) {
+      if (parseInt(sortRenewableBids[i].price_ujpy) <= parseInt(sortRenewableAsks[j].price_ujpy)) {
         break;
       }
       if (sumBidAmountHistory[i] <= sumAskAmountHistory[j]) {
-        equilibriumPrice = sortRenewableAsks[j].price;
+        equilibriumPrice = parseInt(sortRenewableAsks[j].price_ujpy);
         equilibriumAmount = sumBidAmountHistory[i];
         if (!sortRenewableBids[i + 1]) {
           break;
         }
         i++;
       } else {
-        equilibriumPrice = sortRenewableBids[i].price;
+        equilibriumPrice = parseInt(sortRenewableBids[i].price_ujpy);
         equilibriumAmount = sumAskAmountHistory[j];
         if (!sortRenewableAsks[j + 1]) {
           break;
@@ -158,8 +158,8 @@ module.exports.renewableContract = f.pubsub
 
     await single_price_renewable_settlement.create(
       new SinglePriceRenewableSettlement({
-        price: equilibriumPrice,
-        amount: equilibriumAmount,
+        price_ujpy: equilibriumPrice.toString(),
+        amount_uspx: equilibriumAmount.toString(),
       }),
     );
   });
