@@ -5,5 +5,5 @@ import { PrimaryAsk } from '@local/common';
 
 student_account.onCreateHandler.push(async (snapshot, context) => {
   const data = snapshot.data()!;
-  await primary_ask.create(new PrimaryAsk({ account_id: data.id, price: 27, amount: 100 }));
+  await primary_ask.create(new PrimaryAsk({ account_id: data.id, price_ujpy: '27000000', amount_uupx: '100000000' }));
 });
