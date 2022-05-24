@@ -26,16 +26,16 @@ import { map, mergeMap } from 'rxjs/operators';
 export interface BalanceData {
   student_account_id: string;
   student_account_name: string | undefined;
-  amount_upx: number;
-  amount_spx: number;
+  amount_uupx: string;
+  amount_uspx: string;
 }
 
 export interface OrderData {
   id: string;
   student_account_name: string | undefined;
   date: string;
-  amount: number;
-  price: number;
+  amount_utoken: string;
+  price_ujpy: string;
   power_type: string;
   order_type: string;
 }
@@ -102,8 +102,8 @@ export class DashboardComponent implements OnInit {
             this.studentsApp.get(balance.student_account_id).then((student) => ({
               student_account_id: balance.student_account_id,
               student_account_name: student?.name,
-              amount_upx: balance.amount_upx,
-              amount_spx: balance.amount_spx,
+              amount_uupx: balance.amount_uupx,
+              amount_uspx: balance.amount_uspx,
             })),
           ),
         ),
@@ -116,8 +116,8 @@ export class DashboardComponent implements OnInit {
         let upxTotal = 0;
         let spxTotal = 0;
         balances.map((balance) => {
-          upxTotal += balance.amount_upx;
-          spxTotal += balance.amount_spx;
+          upxTotal += parseInt(balance.amount_uupx);
+          spxTotal += parseInt(balance.amount_uspx);
         });
         return [[upxTotal, spxTotal]];
       }),
@@ -133,7 +133,7 @@ export class DashboardComponent implements OnInit {
           let usage = usages.reduce(
             (sum, element) =>
               thisMonth < (element.created_at as Timestamp).toDate() && (element.created_at as Timestamp).toDate() < nextMonth
-                ? sum + element.amount_kwh
+                ? sum + parseInt(element.amount_kwh)
                 : sum,
             0,
           );
@@ -151,7 +151,7 @@ export class DashboardComponent implements OnInit {
           let usage = usages.reduce(
             (sum, element) =>
               thisMonth < (element.created_at as Timestamp).toDate() && (element.created_at as Timestamp).toDate() < nextMonth
-                ? sum + element.amount_kwh
+                ? sum + parseInt(element.amount_kwh)
                 : sum,
             0,
           );
@@ -208,9 +208,9 @@ export class DashboardComponent implements OnInit {
             this.dailyUsageApp.getRoom(user.room_id).then((usages) => {
               let count = 0;
               for (const usage of usages) {
-                (usage.created_at as Timestamp).toDate() > firstDay ? (count += usage.amount_kwh) : count;
+                (usage.created_at as Timestamp).toDate() > firstDay ? (count += parseInt(usage.amount_kwh)) : count;
               }
-              return { id: user.id, name: user.name, amount: count };
+              return { id: user.id, name: user.name, kwhAmount: count };
             }),
           ),
         ),
@@ -222,14 +222,14 @@ export class DashboardComponent implements OnInit {
         let tmp = 0;
         // ここでランキングをソートして、順位をrankに入れる
         let sortedRanking = rankings
-          .sort((first, second) => second.amount - first.amount)
+          .sort((first, second) => second.kwhAmount - first.kwhAmount)
           .map((item, index) => {
-            if (item.amount !== tmp) {
+            if (item.kwhAmount !== tmp) {
               count = index + 1;
-              tmp = item.amount;
+              tmp = item.kwhAmount;
             }
             // ここのreturnは86行目{}を受けてreturnしてます (85行目Array.map()の返り値)
-            return { id: item.id, rank: count, name: item.name, amount: item.amount };
+            return { id: item.id, rank: count, name: item.name, kwhAmount: item.kwhAmount };
           });
         //  ここのreturnは79行目{}を受けてreturnしてます (79行目Observable.map()の返り値)
         return sortedRanking;
@@ -249,8 +249,8 @@ export class DashboardComponent implements OnInit {
               ? 'System'
               : users.find((user) => user.id == bid.account_id)?.name,
             date: !bid.created_at ? now.toLocaleString() : (bid.created_at as Timestamp).toDate().toLocaleString(),
-            amount: bid.amount,
-            price: bid.price,
+            amount_utoken: bid.amount_uupx,
+            price_ujpy: bid.price_ujpy,
             power_type: 'utility',
             order_type: 'bid',
           }));
@@ -263,8 +263,8 @@ export class DashboardComponent implements OnInit {
               ? 'System'
               : users.find((user) => user.id == ask.account_id)?.name,
             date: !ask.created_at ? now.toLocaleString() : (ask.created_at as Timestamp).toDate().toLocaleString(),
-            amount: ask.amount,
-            price: ask.price,
+            amount_utoken: ask.amount_uupx,
+            price_ujpy: ask.price_ujpy,
             power_type: 'utility',
             order_type: 'ask',
           }));
@@ -276,8 +276,8 @@ export class DashboardComponent implements OnInit {
               ? 'System'
               : users.find((user) => user.id == bid.account_id)?.name,
             date: !bid.created_at ? now.toLocaleString() : (bid.created_at as Timestamp).toDate().toLocaleString(),
-            amount: bid.amount,
-            price: bid.price,
+            amount_utoken: bid.amount_uspx,
+            price_ujpy: bid.price_ujpy,
             power_type: 'solar',
             order_type: 'bid',
           }));
@@ -290,8 +290,8 @@ export class DashboardComponent implements OnInit {
               ? 'System'
               : users.find((user) => user.id == ask.account_id)?.name,
             date: !ask.created_at ? now.toLocaleString() : (ask.created_at as Timestamp).toDate().toLocaleString(),
-            amount: ask.amount,
-            price: ask.price,
+            amount_utoken: ask.amount_uspx,
+            price_ujpy: ask.price_ujpy,
             power_type: 'solar',
             order_type: 'ask',
           }));
