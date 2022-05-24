@@ -22,21 +22,21 @@
         <mat-list-item class="flex flex-wrap">
           <span class="break-all">Price:</span>
           <span class="flex-auto break-all"></span>
-          <span class="break-all">{{ renewableBid?.price }} JPY</span>
+          <span class="break-all">{{ renewableBid?.price_ujpy | microString }} JPY</span>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
 
         <mat-list-item class="flex flex-wrap">
           <span class="break-all">Contract Price:</span>
           <span class="flex-auto break-all"></span>
-          <span class="break-all">{{ renewableBid?.contract_price }} JPY</span>
+          <span class="break-all">{{ renewableBid?.contract_price_ujpy | microString }} JPY</span>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
 
         <mat-list-item class="flex flex-wrap">
           <span class="break-all">Amount:</span>
           <span class="flex-auto break-all"></span>
-          <span class="break-all">{{ renewableBid?.amount }}kWh</span>
+          <span class="break-all">{{ renewableBid?.amount_uspx | microString }}kWh</span>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
 
