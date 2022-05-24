@@ -18,7 +18,7 @@ module.exports.primaryNormalAsk = f.pubsub
     const adminAccount = await admin_account.getByName('admin');
     const students = await student_account.list();
     if (now.getDate() == 1) {
-      await normal_ask_setting.create(new NormalAskSetting({ price: 27 }));
+      await normal_ask_setting.create(new NormalAskSetting({ price_ujpy: '27000000' }));
       return;
     }
     if (!setting) {
@@ -27,10 +27,10 @@ module.exports.primaryNormalAsk = f.pubsub
       for (const student of students) {
         // amountUPX += (await balance.list(student.id))[0].amount_upx;
         for (const insufficient of await insufficient_balance.listThisMonth(student.id)) {
-          amountInsufficient += insufficient.amount;
+          amountInsufficient += parseInt(insufficient.amount_utoken);
         }
         const tokenBalance = await balance.list(student.id);
-        amountInsufficient -= tokenBalance[0].amount_upx + tokenBalance[0].amount_spx;
+        amountInsufficient -= parseInt(tokenBalance[0].amount_uupx) + parseInt(tokenBalance[0].amount_uspx);
       }
       // if (amountUPX < amountInsufficient) {
       //   await normal_ask.create(
@@ -48,19 +48,19 @@ module.exports.primaryNormalAsk = f.pubsub
           new NormalAsk({
             type: proto.main.NormalAskType.PRIMARYADDITIONAL,
             account_id: adminAccount[0].id,
-            price: 27,
-            amount: amountInsufficient,
+            price_ujpy: '27000000',
+            amount_uupx: amountInsufficient.toString(),
             is_deleted: false,
           }),
         );
       }
-    } else if (!setting.amount) {
+    } else if (!setting.amount_uupx || setting.amount_uupx == '0') {
       // let amountUPX = 0;
       let amountInsufficient = 0;
       for (const student of students) {
         // amountUPX += (await balance.list(student.id))[0].amount_upx;
         for (const insufficient of await insufficient_balance.list(student.id)) {
-          amountInsufficient += insufficient.amount;
+          amountInsufficient += parseInt(insufficient.amount_utoken);
         }
       }
       // if (amountUPX < amountInsufficient) {
@@ -79,8 +79,8 @@ module.exports.primaryNormalAsk = f.pubsub
           new NormalAsk({
             type: proto.main.NormalAskType.PRIMARYADDITIONAL,
             account_id: adminAccount[0].id,
-            price: setting.price,
-            amount: amountInsufficient,
+            price_ujpy: setting.price_ujpy,
+            amount_uupx: amountInsufficient.toString(),
             is_deleted: false,
           }),
         );
@@ -90,11 +90,13 @@ module.exports.primaryNormalAsk = f.pubsub
         new NormalAsk({
           type: proto.main.NormalAskType.SECONDARY,
           account_id: adminAccount[0].id,
-          price: setting.price,
-          amount: setting.amount,
+          price_ujpy: setting.price_ujpy,
+          amount_uupx: setting.amount_uupx,
           is_deleted: false,
         }),
       );
     }
-    await normal_ask_setting.create(new NormalAskSetting({ price: !setting ? 27.1 : setting.price + 0.1 }));
+    await normal_ask_setting.create(
+      new NormalAskSetting({ price_ujpy: !setting ? '27100000' : (parseInt(setting.price_ujpy) + 100000).toString() }),
+    );
   });
