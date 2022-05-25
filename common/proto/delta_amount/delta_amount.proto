@@ -1,0 +1,12 @@
+syntax = "proto3";
+package main;
+
+import "firebase_rules_options.proto";
+
+option (google.firebase.rules.firebase_rules).full_package_names = true;
+
+message DeltaAmount {
+  string id = 1;
+  string asks_amount = 2;
+  string bids_amount = 3;
+}
