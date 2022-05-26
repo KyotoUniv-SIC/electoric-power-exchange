@@ -54,7 +54,7 @@ normal_settlement.onCreateHandler.push(async (snapshot, context) => {
       Account: sender.address,
       Amount: {
         currency: 'UPX',
-        value: data.amount_uupx,
+        value: (parseInt(data.amount_uupx) / 1000000).toString(),
         issuer: adminAccount[0].xrp_address_cold,
       },
       Destination: bidder.xrp_address,
@@ -98,7 +98,7 @@ normal_settlement.onCreateHandler.push(async (snapshot, context) => {
       Account: sender.address,
       Amount: {
         currency: 'UPX',
-        value: data.amount_uupx,
+        value: (parseInt(data.amount_uupx) / 1000000).toString(),
         issuer: adminAccount[0].xrp_address_cold,
       },
       Destination: bidder.xrp_address,

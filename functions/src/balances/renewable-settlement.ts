@@ -57,7 +57,7 @@ renewable_settlement.onCreateHandler.push(async (snapshot, context) => {
       Account: sender.address,
       Amount: {
         currency: 'SPX',
-        value: data.amount_uspx,
+        value: (parseInt(data.amount_uspx) / 1000000).toString(),
         issuer: adminAccount[0].xrp_address_cold,
       },
       Destination: bidder.xrp_address,
@@ -102,7 +102,7 @@ renewable_settlement.onCreateHandler.push(async (snapshot, context) => {
       Account: sender.address,
       Amount: {
         currency: 'SPX',
-        value: data.amount_uspx,
+        value: (parseInt(data.amount_uspx) / 1000000).toString(),
         issuer: adminAccount[0].xrp_address_cold,
       },
       Destination: bidder.xrp_address,

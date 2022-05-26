@@ -67,7 +67,7 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
         Account: sender.address,
         Amount: {
           currency: 'SPX',
-          value: usage.toString(),
+          value: (usage / 1000000).toString(),
           issuer: adminAccount[0].xrp_address_cold,
         },
         Destination: adminAccount[0].xrp_address_hot,
@@ -83,11 +83,11 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
       }
       client.disconnect();
     } else if (usage < totalBalance) {
-      const spxShortage = usage - uspxAmount;
+      const uspxShortage = usage - uspxAmount;
       await balance.update({
         id: accountBalance[0].id,
         student_account_id: accountBalance[0].student_account_id,
-        amount_uupx: (uupxAmount - spxShortage).toString(),
+        amount_uupx: (uupxAmount - uspxShortage).toString(),
         amount_uspx: '0',
       });
       if (!accountPrivate.length) {
@@ -108,7 +108,7 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
           Account: sender.address,
           Amount: {
             currency: 'SPX',
-            value: uspxAmount.toString(),
+            value: (uspxAmount / 1000000).toString(),
             issuer: adminAccount[0].xrp_address_cold,
           },
           Destination: adminAccount[0].xrp_address_hot,
@@ -128,7 +128,7 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
         Account: sender.address,
         Amount: {
           currency: 'UPX',
-          value: String(spxShortage),
+          value: (uspxShortage / 1000000).toString(),
           issuer: adminAccount[0].xrp_address_cold,
         },
         Destination: adminAccount[0].xrp_address_hot,
@@ -171,7 +171,7 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
           Account: sender.address,
           Amount: {
             currency: 'SPX',
-            value: uspxAmount.toString(),
+            value: (uspxAmount / 1000000).toString(),
             issuer: adminAccount[0].xrp_address_cold,
           },
           Destination: adminAccount[0].xrp_address_hot,
@@ -192,7 +192,7 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
           Account: sender.address,
           Amount: {
             currency: 'UPX',
-            value: uupxAmount.toString(),
+            value: (uupxAmount / 1000000).toString(),
             issuer: adminAccount[0].xrp_address_cold,
           },
           Destination: adminAccount[0].xrp_address_hot,
