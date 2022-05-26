@@ -96,7 +96,7 @@ export class AuthApplicationService {
           });
           break;
       }
-      return;
+      return this.auth.currentUser?.uid;
     } finally {
       updateProfile(this.auth.currentUser!, { displayName: name });
       firstDialogRef.close();

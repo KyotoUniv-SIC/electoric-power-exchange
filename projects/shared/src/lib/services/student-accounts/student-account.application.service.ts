@@ -24,6 +24,12 @@ export class StudentAccountApplicationService {
     return this.studentAccount.list$();
   }
 
+  getByUid(uid: string) {
+    return this.studentAccount
+      .list()
+      .then((studentAccounts) => studentAccounts.filter((studentAccount) => studentAccount.user_ids?.some((id) => id == uid))[0]);
+  }
+
   getByUid$(uid: string) {
     return this.studentAccount
       .list$()
