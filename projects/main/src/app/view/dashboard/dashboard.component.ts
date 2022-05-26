@@ -66,6 +66,31 @@ export class DashboardComponent implements OnInit {
         radius: 0,
       },
     },
+    scales: {
+      yAxes: [
+        {
+          id: 'y-axis-price', // Y軸のID
+          type: 'linear', // linear固定
+          position: 'left', // どちら側に表示される軸か？
+          ticks: {
+            // スケール
+            max: 40,
+            min: 0,
+            stepSize: 10,
+          },
+        },
+        {
+          id: 'y-axis-amount',
+          type: 'linear',
+          position: 'right',
+          ticks: {
+            max: 50,
+            min: 0,
+            stepSize: 10,
+          },
+        },
+      ],
+    },
   };
   barChartLabels: Label[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   barChartType: ChartType = 'bar';

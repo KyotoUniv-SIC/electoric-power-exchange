@@ -226,15 +226,16 @@ export class DashboardComponent implements OnInit {
 
     this.singlePriceNormalListData$ = combineLatest([pricesNormal$, amountsNormal$, referencePriceNormal$]).pipe(
       map(([prices, amounts, references]) => [
-        { data: prices, label: 'Contract Price', fill: '', type: 'line' },
+        { data: prices, label: 'Contract Price', fill: 'false', type: 'line', yAxisID: 'y-axis-price' },
         {
           data: references,
           label: 'Reference Price',
           borderDash: [5, 3], //点線
           fill: 'false', //塗りつぶし
           type: 'line',
+          yAxisID: 'y-axis-price',
         },
-        { data: amounts, label: 'Contract Amount' },
+        { data: amounts, label: 'Contract Amount', type: 'bar', yAxisID: 'y-axis-amount' },
       ]),
     );
 
