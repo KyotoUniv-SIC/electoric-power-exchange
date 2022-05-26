@@ -1,6 +1,7 @@
 import { CreateOnSubmitEvent } from '../../../view/accounts/create/create.component';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { RoomChange } from '@local/common';
 import { AuthApplicationService } from 'projects/shared/src/lib/services/auth/auth.application.service';
 import { RoomChangeApplicationService } from 'projects/shared/src/lib/services/room-changes/room-change.application.service';
@@ -14,6 +15,7 @@ import { StudentAccountApplicationService } from 'projects/shared/src/lib/servic
 export class CreateComponent implements OnInit {
   constructor(
     private auth: AuthApplicationService,
+    private router: Router,
     private readonly studentAccApp: StudentAccountApplicationService,
     private readonly roomChangeApp: RoomChangeApplicationService,
     private snackBar: MatSnackBar,
@@ -36,6 +38,9 @@ export class CreateComponent implements OnInit {
       return;
     }
     const student = await this.studentAccApp.getByUid(uid);
-    await this.roomChangeApp.create(new RoomChange({ student_account_id: student.id, room_id_before: '', room_id_after: '' }));
+    await this.roomChangeApp.create(
+      new RoomChange({ student_account_id: student.id, room_id_before: '', room_id_after: $event.building + $event.room }),
+    );
+    await this.router.navigate(['/accounts/account']);
   }
 }
