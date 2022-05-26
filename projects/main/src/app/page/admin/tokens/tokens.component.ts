@@ -29,14 +29,21 @@ export class TokensComponent implements OnInit {
   ngOnInit(): void {}
 
   async onSubmitNormal($event: SetNormalOnSubmitEvent) {
-    await this.normalAskSettingApp.create(new NormalAskSetting({ price: $event.price, amount: $event.amount }));
+    await this.normalAskSettingApp.create(
+      new NormalAskSetting({
+        price_ujpy: $event.ujpyPrice,
+        amount_uupx: $event.uupxAmount,
+      }),
+    );
   }
 
   async onSubmitRenewable($event: SetRenewableOnSubmitEvent) {
-    await this.renewableAskSettingApp.create(new RenewableAskSetting({ price: $event.price, amount: $event.amount }));
+    await this.renewableAskSettingApp.create(new RenewableAskSetting({ price_ujpy: $event.ujpyPrice, amount_uspx: $event.uspxAmount }));
   }
 
   async onSubmitCost($event: SetCostOnSubmitEvent) {
-    await this.costSettingApp.create(new CostSetting({ system: $event.system, electricity: $event.electricity }));
+    await this.costSettingApp.create(
+      new CostSetting({ system_cost_ujpy: $event.systemCost, electricity_cost_ujpy: $event.electricityCost }),
+    );
   }
 }

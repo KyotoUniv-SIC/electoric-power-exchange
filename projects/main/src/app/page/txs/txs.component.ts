@@ -19,21 +19,21 @@ import { map, mergeMap } from 'rxjs/operators';
 export interface Order {
   id: string;
   date: Date;
-  amount: number;
-  price: number;
-  is_solar: boolean;
-  is_bid: boolean;
+  utokenAmount: string;
+  ujpyPrice: string;
+  isSolar: boolean;
+  isBid: boolean;
 }
 
 export interface History {
   id: string;
   date: Date;
-  amount: number;
-  price: number;
-  contract_price: number;
-  is_accepted: boolean;
-  is_solar: boolean;
-  is_bid: boolean;
+  utokenAmount: string;
+  ujpyPrice: string;
+  ujpyContractPrice: string;
+  isAccepted: boolean;
+  isSolar: boolean;
+  isBid: boolean;
 }
 
 @Component({
@@ -79,40 +79,40 @@ export class TxsComponent implements OnInit {
           .map((bid) => ({
             id: bid.id,
             date: !bid.created_at ? now : (bid.created_at as Timestamp).toDate(),
-            amount: bid.amount,
-            price: bid.price,
-            is_solar: false,
-            is_bid: true,
+            utokenAmount: bid.amount_uupx,
+            ujpyPrice: bid.price_ujpy,
+            isSolar: false,
+            isBid: true,
           }));
         const normalAskList = normalAsks
           .filter((ask) => ask.is_deleted == false)
           .map((ask) => ({
             id: ask.id,
             date: !ask.created_at ? now : (ask.created_at as Timestamp).toDate(),
-            amount: ask.amount,
-            price: ask.price,
-            is_solar: false,
-            is_bid: false,
+            utokenAmount: ask.amount_uupx,
+            ujpyPrice: ask.price_ujpy,
+            isSolar: false,
+            isBid: false,
           }));
         const renewableBidList = renewableBids
           .filter((bid) => bid.is_deleted == false)
           .map((bid) => ({
             id: bid.id,
             date: !bid.created_at ? now : (bid.created_at as Timestamp).toDate(),
-            amount: bid.amount,
-            price: bid.price,
-            is_solar: true,
-            is_bid: true,
+            utokenAmount: bid.amount_uspx,
+            ujpyPrice: bid.price_ujpy,
+            isSolar: true,
+            isBid: true,
           }));
         const renewableAskList = renewableAsks
           .filter((ask) => ask.is_deleted == false)
           .map((ask) => ({
             id: ask.id,
             date: !ask.created_at ? now : (ask.created_at as Timestamp).toDate(),
-            amount: ask.amount,
-            price: ask.price,
-            is_solar: true,
-            is_bid: false,
+            utokenAmount: ask.amount_uspx,
+            ujpyPrice: ask.price_ujpy,
+            isSolar: true,
+            isBid: false,
           }));
         return normalBidList.concat(normalAskList, renewableBidList, renewableAskList).sort(function (first, second) {
           if (first.date > second.date) {
@@ -143,53 +143,53 @@ export class TxsComponent implements OnInit {
         const primaryBidList = primaryBids.map((bid) => ({
           id: bid.id,
           date: !bid.created_at ? now : (bid.created_at as Timestamp).toDate(),
-          amount: bid.amount,
-          price: bid.price,
-          contract_price: bid.price,
-          is_accepted: true,
-          is_solar: false,
-          is_bid: true,
+          utokenAmount: bid.amount_uupx,
+          ujpyPrice: bid.price_ujpy,
+          ujpyContractPrice: bid.price_ujpy,
+          isAccepted: true,
+          isSolar: false,
+          isBid: true,
         }));
 
         const normalBidList = normalBids.map((bid) => ({
           id: bid.id,
           date: !bid.created_at ? now : (bid.created_at as Timestamp).toDate(),
-          amount: bid.amount,
-          price: bid.price,
-          contract_price: bid.contract_price,
-          is_accepted: bid.is_accepted,
-          is_solar: false,
-          is_bid: true,
+          utokenAmount: bid.amount_uupx,
+          ujpyPrice: bid.price_ujpy,
+          ujpyContractPrice: bid.contract_price_ujpy,
+          isAccepted: bid.is_accepted,
+          isSolar: false,
+          isBid: true,
         }));
         const normalAskList = normalAsks.map((ask) => ({
           id: ask.id,
           date: !ask.created_at ? now : (ask.created_at as Timestamp).toDate(),
-          amount: ask.amount,
-          price: ask.price,
-          contract_price: ask.contract_price,
-          is_accepted: ask.is_accepted,
-          is_solar: false,
-          is_bid: false,
+          utokenAmount: ask.amount_uupx,
+          ujpyPrice: ask.price_ujpy,
+          ujpyContractPrice: ask.contract_price_ujpy,
+          isAccepted: ask.is_accepted,
+          isSolar: false,
+          isBid: false,
         }));
         const renewableBidList = renewableBids.map((bid) => ({
           id: bid.id,
           date: !bid.created_at ? now : (bid.created_at as Timestamp).toDate(),
-          amount: bid.amount,
-          price: bid.price,
-          contract_price: bid.contract_price,
-          is_accepted: bid.is_accepted,
-          is_solar: true,
-          is_bid: true,
+          utokenAmount: bid.amount_uspx,
+          ujpyPrice: bid.price_ujpy,
+          ujpyContractPrice: bid.contract_price_ujpy,
+          isAccepted: bid.is_accepted,
+          isSolar: true,
+          isBid: true,
         }));
         const renewableAskList = renewableAsks.map((ask) => ({
           id: ask.id,
           date: !ask.created_at ? now : (ask.created_at as Timestamp).toDate(),
-          amount: ask.amount,
-          price: ask.price,
-          contract_price: ask.contract_price,
-          is_accepted: ask.is_accepted,
-          is_solar: true,
-          is_bid: false,
+          utokenAmount: ask.amount_uspx,
+          ujpyPrice: ask.price_ujpy,
+          ujpyContractPrice: ask.contract_price_ujpy,
+          isAccepted: ask.is_accepted,
+          isSolar: true,
+          isBid: false,
         }));
         return primaryBidList
           .concat(normalBidList, normalAskList, renewableBidList, renewableAskList)

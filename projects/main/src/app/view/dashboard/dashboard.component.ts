@@ -15,11 +15,11 @@ export class DashboardComponent implements OnInit {
   @Input()
   totalBalanceData?: MultiDataSet | null;
   @Input()
-  amountUPX?: number | null;
+  uupxAmount?: number | null;
   @Input()
-  amountSPX?: number | null;
+  uspxAmount?: number | null;
   @Input()
-  amountInsufficiency?: number | null;
+  insufficiencyAmount?: number | null;
   @Input()
   totalUsage?: number | null;
   @Input()

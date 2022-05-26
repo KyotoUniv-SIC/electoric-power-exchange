@@ -22,21 +22,21 @@
         <mat-list-item class="flex flex-wrap">
           <span class="break-all">Price:</span>
           <span class="flex-auto break-all"></span>
-          <span class="break-all">{{ normalBid?.price }} JPY</span>
+          <span class="break-all">{{ normalBid?.price_ujpy | microString }} JPY</span>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
 
         <mat-list-item class="flex flex-wrap">
           <span class="break-all">Contract Price:</span>
           <span class="flex-auto break-all"></span>
-          <span class="break-all">{{ normalBid?.contract_price }}JPY</span>
+          <span class="break-all">{{ normalBid?.contract_price_ujpy | microString }}JPY</span>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
 
         <mat-list-item class="flex flex-wrap">
           <span class="break-all">Amount:</span>
           <span class="flex-auto break-all"></span>
-          <span class="break-all">{{ normalBid?.amount }}kWh</span>
+          <span class="break-all">{{ normalBid?.amount_uupx | microString }}kWh</span>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
 
@@ -91,21 +91,21 @@
         <mat-list-item class="flex flex-wrap">
           <span class="break-all">Price:</span>
           <span class="flex-auto break-all"></span>
-          <span class="break-all">{{ primaryBid?.price }} JPY</span>
+          <span class="break-all">{{ primaryBid?.price_ujpy | microString }} JPY</span>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
 
         <mat-list-item class="flex flex-wrap">
           <span class="break-all">Contract Price:</span>
           <span class="flex-auto break-all"></span>
-          <span class="break-all">{{ normalBid?.contract_price }}JPY</span>
+          <span class="break-all">{{ normalBid?.contract_price_ujpy | microString }}JPY</span>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
 
         <mat-list-item class="flex flex-wrap">
           <span class="break-all">Amount:</span>
           <span class="flex-auto break-all"></span>
-          <span class="break-all">{{ primaryBid?.amount }}kWh</span>
+          <span class="break-all">{{ primaryBid?.amount_uupx | microString }}kWh</span>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
 

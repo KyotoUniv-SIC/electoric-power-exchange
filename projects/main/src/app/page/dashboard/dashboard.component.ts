@@ -19,7 +19,7 @@ export interface Ranking {
   id: string;
   rank: number;
   name: string;
-  amount: number;
+  kwhAmount: number;
 }
 
 @Component({
@@ -30,9 +30,9 @@ export interface Ranking {
 export class DashboardComponent implements OnInit {
   balanceData$: Observable<MultiDataSet> | undefined;
   totalBalanceData$: Observable<MultiDataSet> | undefined;
-  amountUPX$: Observable<number> | undefined;
-  amountSPX$: Observable<number> | undefined;
-  amountInsufficiency$: Observable<number> | undefined;
+  uupxAmount$: Observable<number> | undefined;
+  uspxAmount$: Observable<number> | undefined;
+  insufficiencyAmount$: Observable<number> | undefined;
   totalUsage$: Observable<number> | undefined;
   totalUsageAverage$: Observable<string> | undefined;
   usageData$: Observable<ChartDataSets[]> | undefined;
@@ -69,9 +69,9 @@ export class DashboardComponent implements OnInit {
             this.dailyUsageApp.getRoom(user.room_id).then((usages) => {
               let count = 0;
               for (const usage of usages) {
-                (usage.created_at as Timestamp).toDate() > firstDay ? (count += usage.amount_kwh) : count;
+                (usage.created_at as Timestamp).toDate() > firstDay ? (count += parseInt(usage.amount_kwh)) : count;
               }
-              return { id: user.id, name: user.name, amount: count };
+              return { id: user.id, name: user.name, kwhAmount: count };
             }),
           ),
         ),
@@ -82,14 +82,14 @@ export class DashboardComponent implements OnInit {
         let tmp = 0;
         // ここでランキングをソートして、順位をrankに入れる
         let sortedRanking = rankings
-          .sort((first, second) => second.amount - first.amount)
+          .sort((first, second) => second.kwhAmount - first.kwhAmount)
           .map((item, index) => {
-            if (item.amount !== tmp) {
+            if (item.kwhAmount !== tmp) {
               count = index + 1;
-              tmp = item.amount;
+              tmp = item.kwhAmount;
             }
             // ここのreturnは86行目{}を受けてreturnしてます (85行目Array.map()の返り値)
-            return { id: item.id, rank: count, name: item.name, amount: item.amount };
+            return { id: item.id, rank: count, name: item.name, kwhAmount: item.kwhAmount };
           });
         //  ここのreturnは79行目{}を受けてreturnしてます (79行目Observable.map()の返り値)
         return sortedRanking;
@@ -99,44 +99,48 @@ export class DashboardComponent implements OnInit {
       map(([rankings, account]) => rankings.find((ranking) => ranking.id == account.id)?.rank),
     );
     const balance$ = studentAccount$.pipe(mergeMap((account) => this.balanceApp.getByUid$(account.id)));
-    this.balanceData$ = balance$.pipe(map((balance) => [[balance.amount_upx, balance.amount_spx]]));
+    this.balanceData$ = balance$.pipe(map((balance) => [[parseInt(balance.amount_uupx), parseInt(balance.amount_uspx)]]));
     const totalBalance$ = users$.pipe(
       mergeMap((users) => Promise.all(users.map((user) => this.balanceApp.list(user.id).then((balances) => balances[0])))),
       map((balances) => {
         let upxTotal = 0;
         let spxTotal = 0;
         balances.map((balance) => {
-          upxTotal += balance.amount_upx;
-          spxTotal += balance.amount_spx;
+          upxTotal += parseInt(balance.amount_uupx);
+          spxTotal += parseInt(balance.amount_uspx);
         });
-        return new Balance({ amount_upx: upxTotal, amount_spx: spxTotal });
+        return new Balance({ amount_uupx: upxTotal.toString(), amount_uspx: spxTotal.toString() });
       }),
     );
-    this.totalBalanceData$ = totalBalance$.pipe(map((balance) => [[balance.amount_upx, balance.amount_spx]]));
+    this.totalBalanceData$ = totalBalance$.pipe(map((balance) => [[parseInt(balance.amount_uupx), parseInt(balance.amount_uspx)]]));
     const insufficiency$ = studentAccount$.pipe(mergeMap((account) => this.insufficientBalanceApp.list(account.id))).pipe(
       map((insufficiencies) => {
         let count = 0;
         for (let insufficiency of insufficiencies) {
-          (insufficiency.created_at as Timestamp).toDate() > firstDay ? (count += insufficiency.amount) : count;
+          (insufficiency.created_at as Timestamp).toDate() > firstDay ? (count += parseInt(insufficiency.amount_utoken)) : count;
         }
         return count;
       }),
     );
-    this.amountUPX$ = combineLatest([balance$, insufficiency$]).pipe(
-      map(([balance, insufficiency]) => (balance.amount_upx < insufficiency ? 0 : balance.amount_upx - insufficiency)),
-    );
-    this.amountSPX$ = combineLatest([balance$, insufficiency$]).pipe(
+    this.uupxAmount$ = combineLatest([balance$, insufficiency$]).pipe(
       map(([balance, insufficiency]) =>
-        balance.amount_spx + balance.amount_upx < insufficiency
-          ? 0
-          : balance.amount_upx < insufficiency
-          ? balance.amount_spx + balance.amount_upx - insufficiency
-          : balance.amount_spx,
+        parseInt(balance.amount_uupx) < insufficiency ? 0 : parseInt(balance.amount_uupx) - insufficiency,
       ),
     );
-    this.amountInsufficiency$ = combineLatest([balance$, insufficiency$]).pipe(
+    this.uspxAmount$ = combineLatest([balance$, insufficiency$]).pipe(
       map(([balance, insufficiency]) =>
-        balance.amount_upx + balance.amount_spx < insufficiency ? insufficiency - balance.amount_upx - balance.amount_spx : 0,
+        parseInt(balance.amount_uspx) + parseInt(balance.amount_uupx) < insufficiency
+          ? 0
+          : parseInt(balance.amount_uupx) < insufficiency
+          ? parseInt(balance.amount_uspx) + parseInt(balance.amount_uupx) - insufficiency
+          : parseInt(balance.amount_uspx),
+      ),
+    );
+    this.insufficiencyAmount$ = combineLatest([balance$, insufficiency$]).pipe(
+      map(([balance, insufficiency]) =>
+        parseInt(balance.amount_uupx) + parseInt(balance.amount_uspx) < insufficiency
+          ? insufficiency - parseInt(balance.amount_uupx) - parseInt(balance.amount_uspx)
+          : 0,
       ),
     );
 
@@ -148,7 +152,7 @@ export class DashboardComponent implements OnInit {
       map((usages) => {
         let count = 0;
         for (const usage of usages) {
-          (usage.created_at as Timestamp).toDate() > firstDay ? (count += usage.amount_kwh) : count;
+          (usage.created_at as Timestamp).toDate() > firstDay ? (count += parseInt(usage.amount_kwh)) : count;
         }
         return count;
       }),
@@ -158,39 +162,42 @@ export class DashboardComponent implements OnInit {
       map((usages) => {
         let count = 0;
         for (const usage of usages) {
-          (usage.created_at as Timestamp).toDate() > firstDay ? (count += usage.amount_kwh) : count;
+          (usage.created_at as Timestamp).toDate() > firstDay ? (count += parseInt(usage.amount_kwh)) : count;
         }
+        // higashi-20, koushi-26, sentetsu-28
         return (count / (20 + 26 + 28)).toFixed(2);
       }),
     );
 
     const usages$ = combineLatest([this.totalUsage$, usageListMonthly$]).pipe(
       map(([totalUsage, monthlyUsages]) => {
-        let data = monthlyUsages.filter((usage) => usage.year == now.getFullYear()).sort((first, second) => first.month - second.month);
+        let data = monthlyUsages
+          .filter((usage) => parseInt(usage.year) == now.getFullYear())
+          .sort((first, second) => parseInt(first.month) - parseInt(second.month));
 
         // .getMonth() 与えた日付の「月」を表す 0 から 11 までの間の整数値
-        let lackBefore = !data.length ? now.getMonth() : data[0].month - 1;
-        let lackAfter = !data.length ? 11 - now.getMonth() : 12 - data[data.length - 1].month;
+        let lackBefore = !data.length ? now.getMonth() : parseInt(data[0].month) - 1;
+        let lackAfter = !data.length ? 11 - now.getMonth() : 12 - parseInt(data[data.length - 1].month);
         // 前月以前のデータに0を入れる
         for (let i = 0; i < lackBefore; i++) {
-          data.unshift(new MonthlyUsage({ amount_kwh: 0 }));
+          data.unshift(new MonthlyUsage({ amount_mwh: '0' }));
         }
         // 今月のデータを追加
-        data.push(new MonthlyUsage({ amount_kwh: totalUsage }));
+        data.push(new MonthlyUsage({ amount_mwh: totalUsage.toString() }));
         // 来月以降のデータに0を入れる
         for (let i = 0; i < lackAfter; i++) {
-          data.push(new MonthlyUsage({ amount_kwh: 0 }));
+          data.push(new MonthlyUsage({ amount_mwh: '0' }));
         }
-        return data.map((usage) => usage.amount_kwh);
+        return data.map((usage) => parseInt(usage.amount_mwh) / 1000000);
       }),
     );
 
     const usagesPreviousYear$ = usageListMonthly$.pipe(
       map((usages) => {
         let data = usages
-          .filter((usage) => usage.year == now.getFullYear() - 1)
-          .sort((first, second) => first.month - second.month)
-          .map((usage) => usage.amount_kwh);
+          .filter((usage) => parseInt(usage.year) == now.getFullYear() - 1)
+          .sort((first, second) => parseInt(first.month) - parseInt(second.month))
+          .map((usage) => parseInt(usage.amount_mwh) / 1000000);
         let lack = 12 - data.length;
         for (let i = 0; i < lack; i++) {
           data.unshift(0);

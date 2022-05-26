@@ -39,14 +39,14 @@
           <mat-list-item>No order</mat-list-item>
         </ng-container>
         <ng-container *ngFor="let order of orders">
-          <mat-list-item class="flex" routerLink="/txs/order/{{ powerType(order.is_solar) }}/{{ txType(order.is_bid) }}/{{ order.id }}">
+          <mat-list-item class="flex" routerLink="/txs/order/{{ powerType(order.isSolar) }}/{{ txType(order.isBid) }}/{{ order.id }}">
             <div class="flex-auto">
               <span class="column-name font-bold">Date : </span>
               <span class="column-value font-bold">{{ order.date | date: 'yy/MM/dd HH:mm' }}</span>
             </div>
           </mat-list-item>
-          <mat-list-item class="flex" routerLink="/txs/order/{{ powerType(order.is_solar) }}/{{ txType(order.is_bid) }}/{{ order.id }}">
-            <ng-container *ngIf="order.is_solar === true; then solar; else utility"></ng-container>
+          <mat-list-item class="flex" routerLink="/txs/order/{{ powerType(order.isSolar) }}/{{ txType(order.isBid) }}/{{ order.id }}">
+            <ng-container *ngIf="order.isSolar === true; then solar; else utility"></ng-container>
             <ng-template #solar>
               <div class="flex-auto">
                 <mat-chip-list>
@@ -54,7 +54,7 @@
                 </mat-chip-list>
               </div>
               <div class="flex-auto">
-                <ng-container *ngIf="order.is_bid === true; then solarBid; else solarAsk"></ng-container>
+                <ng-container *ngIf="order.isBid === true; then solarBid; else solarAsk"></ng-container>
                 <ng-template #solarBid>
                   <mat-chip-list>
                     <span color="primary" class="column-value font-bold">Bid</span>
@@ -68,7 +68,7 @@
               </div>
               <div class="flex-auto">
                 <span class="font-bold">amount : </span>
-                <span class="font-bold">{{ order.amount }}</span>
+                <span class="font-bold">{{ order.utokenAmount | microString }}</span>
                 <span class="font-bold">SPX</span>
               </div>
             </ng-template>
@@ -79,7 +79,7 @@
                 </mat-chip-list>
               </div>
               <div class="flex-auto">
-                <ng-container *ngIf="order.is_bid === true; then utilityBid; else utilityAsk"></ng-container>
+                <ng-container *ngIf="order.isBid === true; then utilityBid; else utilityAsk"></ng-container>
                 <ng-template #utilityBid>
                   <mat-chip-list>
                     <span class="column-value font-bold">Bid</span>
@@ -93,13 +93,13 @@
               </div>
               <div class="flex-auto">
                 <span class="font-bold">amount : </span>
-                <span class="font-bold">{{ order.amount }}</span>
+                <span class="font-bold">{{ order.utokenAmount | microString }}</span>
                 <span class="font-bold">UPX</span>
               </div>
             </ng-template>
             <div class="flex-auto">
               <span class="font-bold">Price : </span>
-              <span class="font-bold">{{ order.price }}</span>
+              <span class="font-bold">{{ order.ujpyPrice | microString }}</span>
               <span class="font-bold">JPY</span>
             </div>
           </mat-list-item>
@@ -130,14 +130,14 @@
         <ng-container *ngFor="let history of histories">
           <mat-list-item
             class="flex"
-            routerLink="/txs/history/{{ powerType(history.is_solar) }}/{{ txType(history.is_bid) }}/{{ history.id }}"
+            routerLink="/txs/history/{{ powerType(history.isSolar) }}/{{ txType(history.isBid) }}/{{ history.id }}"
           >
             <div class="flex-auto">
               <span class="column-value">{{ history.date | date: 'yy/MM/dd HH:mm' }}</span>
               <span class="flex-auto break-all"></span>
             </div>
             <div class="flex-auto">
-              <ng-container *ngIf="history.is_accepted === true; then accept; else reject"></ng-container>
+              <ng-container *ngIf="history.isAccepted === true; then accept; else reject"></ng-container>
               <ng-template #accept>
                 <mat-chip-list>
                   <mat-chip color="primary" selected>Accepted</mat-chip>
@@ -151,14 +151,14 @@
             </div>
             <div class="flex-auto">
               <span>Contract Price : </span>
-              <span>{{ history.contract_price }}</span>
+              <span>{{ history.ujpyContractPrice | microString }}</span>
             </div>
           </mat-list-item>
           <mat-list-item
             class="flex"
-            routerLink="/txs/history/{{ powerType(history.is_solar) }}/{{ txType(history.is_bid) }}/{{ history.id }}"
+            routerLink="/txs/history/{{ powerType(history.isSolar) }}/{{ txType(history.isBid) }}/{{ history.id }}"
           >
-            <ng-container *ngIf="history.is_solar === true; then solar; else utility"></ng-container>
+            <ng-container *ngIf="history.isSolar === true; then solar; else utility"></ng-container>
             <ng-template #solar>
               <div class="flex-auto">
                 <mat-chip-list>
@@ -166,7 +166,7 @@
                 </mat-chip-list>
               </div>
               <div class="flex-auto">
-                <ng-container *ngIf="history.is_bid === true; then solarBid; else solarAsk"></ng-container>
+                <ng-container *ngIf="history.isBid === true; then solarBid; else solarAsk"></ng-container>
                 <ng-template #solarBid>
                   <mat-chip-list>
                     <span class="column-value">Bid</span>
@@ -180,7 +180,7 @@
               </div>
               <div class="flex-auto">
                 <span>amount : </span>
-                <span>{{ history.amount }}</span>
+                <span>{{ history.utokenAmount | microString }}</span>
               </div>
             </ng-template>
 
@@ -191,7 +191,7 @@
                 </mat-chip-list>
               </div>
               <div class="flex-auto">
-                <ng-container *ngIf="history.is_bid === true; then utilityBid; else utilityAsk"></ng-container>
+                <ng-container *ngIf="history.isBid === true; then utilityBid; else utilityAsk"></ng-container>
                 <ng-template #utilityBid>
                   <mat-chip-list>
                     <span color="primary" class="column-value">Bid</span>
@@ -205,13 +205,13 @@
               </div>
               <div class="flex-auto">
                 <span>amount : </span>
-                <span>{{ history.amount }}</span>
+                <span>{{ history.utokenAmount | microString }}</span>
               </div>
             </ng-template>
 
             <div class="flex-auto">
               <span>Price : </span>
-              <span>{{ history.price }}</span>
+              <span>{{ history.ujpyPrice | microString }}</span>
             </div>
           </mat-list-item>
           <mat-divider [inset]="true"></mat-divider>
