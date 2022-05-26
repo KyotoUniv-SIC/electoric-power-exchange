@@ -75,7 +75,7 @@ export class DashboardComponent implements OnInit {
           ticks: {
             // スケール
             max: 40,
-            min: 0,
+            min: 10,
             stepSize: 10,
           },
         },
@@ -87,6 +87,10 @@ export class DashboardComponent implements OnInit {
             max: 50,
             min: 0,
             stepSize: 10,
+          },
+          gridLines: {
+            // 2つ目の軸のグリッド削除
+            drawOnChartArea: false,
           },
         },
       ],
