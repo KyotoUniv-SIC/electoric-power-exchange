@@ -14,7 +14,7 @@ import * as functions from 'firebase-functions';
 
 daily_usage.onCreateHandler.push(async (snapshot, context) => {
   const data = snapshot.data()! as DailyUsage;
-  const usage = parseInt(data.amount_kwh) * 1000000;
+  const usage = parseInt(data.amount_kwh_str) * 1000000;
   const studentAccounts = await student_account.getByRoomID(data.room_id);
   if (!studentAccounts.length) {
     console.log(data.room_id, 'no student');

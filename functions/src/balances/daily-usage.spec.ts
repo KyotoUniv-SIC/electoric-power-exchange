@@ -2,8 +2,8 @@ import { Balance, DailyUsage, StudentAccount } from '@local/common';
 
 describe('Daily Usage Test', () => {
   it('Daily withdrawal', () => {
-    const data = new DailyUsage({ room_id: 'room01', amount_kwh: '5' });
-    const usage = parseInt(data.amount_kwh) * 1000000;
+    const data = new DailyUsage({ room_id: 'room01', amount_kwh_str: '5' });
+    const usage = parseInt(data.amount_kwh_str) * 1000000;
     const studentAccounts = [new StudentAccount({ id: 'test01', room_id: 'room01' })];
     if (!studentAccounts.length) {
       console.log(data.room_id, 'no student');
