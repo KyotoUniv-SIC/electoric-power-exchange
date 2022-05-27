@@ -237,6 +237,7 @@ export class DashboardComponent implements OnInit {
     this.singlePricesNormalListData$ = combineLatest([pricesNormal$, amountsNormal$, referencePriceNormal$]).pipe(
       map(([prices, amounts, references]) => [
         { data: prices, label: 'Contract Price', fill: 'false', type: 'line', yAxisID: 'y-axis-price' },
+        { data: amounts, label: 'Contract Amount', type: 'bar', yAxisID: 'y-axis-amount' },
         {
           data: references,
           label: 'Reference Price',
@@ -245,7 +246,6 @@ export class DashboardComponent implements OnInit {
           type: 'line',
           yAxisID: 'y-axis-price',
         },
-        { data: amounts, label: 'Contract Amount', type: 'bar', yAxisID: 'y-axis-amount' },
       ]),
     );
 
@@ -259,15 +259,16 @@ export class DashboardComponent implements OnInit {
 
     this.singlePricesRenewableListData$ = combineLatest([pricesRenewable$, amountsRenewable$, referencePriceRenewable$]).pipe(
       map(([prices, amounts, references]) => [
-        { data: prices, label: 'Contract Price', fill: '', type: 'line' },
+        { data: prices, label: 'Contract Price', fill: '', type: 'line', yAxisID: 'y-axis-price' },
+        { data: amounts, label: 'Contract Amount', yAxisID: 'y-axis-amount' },
         {
           data: references,
           label: 'Reference Price',
           borderDash: [5, 3],
           fill: 'false',
           type: 'line',
+          yAxisID: 'y-axis-price',
         },
-        { data: amounts, label: 'Contract Amount' },
       ]),
     );
 
@@ -361,6 +362,10 @@ export class DashboardComponent implements OnInit {
             yAxes: [
               {
                 id: 'y-axis-price', // Y軸のID
+                scaleLabel: {
+                  display: true, // 必須
+                  labelString: 'JPY', // 軸ラベル
+                },
                 type: 'linear', // linear固定
                 position: 'left', // どちら側に表示される軸か？
                 ticks: {
@@ -372,6 +377,10 @@ export class DashboardComponent implements OnInit {
               },
               {
                 id: 'y-axis-amount',
+                scaleLabel: {
+                  display: true,
+                  labelString: 'UPX Amount',
+                },
                 type: 'linear',
                 position: 'right',
                 ticks: {
@@ -408,6 +417,10 @@ export class DashboardComponent implements OnInit {
             yAxes: [
               {
                 id: 'y-axis-price', // Y軸のID
+                scaleLabel: {
+                  display: true, // 必須
+                  labelString: 'JPY', // 軸ラベル
+                },
                 type: 'linear', // linear固定
                 position: 'left', // どちら側に表示される軸か？
                 ticks: {
@@ -419,6 +432,10 @@ export class DashboardComponent implements OnInit {
               },
               {
                 id: 'y-axis-amount',
+                scaleLabel: {
+                  display: true,
+                  labelString: 'SPX Amount',
+                },
                 type: 'linear',
                 position: 'right',
                 ticks: {
@@ -436,6 +453,7 @@ export class DashboardComponent implements OnInit {
         };
       }),
     );
+    this.minAmountRenewable$.subscribe((a) => console.log(a));
   }
 
   ngOnInit(): void {}
