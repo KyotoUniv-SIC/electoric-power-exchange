@@ -98,31 +98,34 @@
       </mat-card>
     </mat-list>
     <mat-card-content style="font-size: large; margin-top: 15px">UPX Contract Price and Amount</mat-card-content>
-    <ng-container *ngIf="singlePriceNormalListData === null; then loading; else loadedNormal"></ng-container>
+    <ng-container *ngIf="singlePricesNormalListData === null; then loading; else loadedNormal"></ng-container>
     <ng-template #loadedNormal>
       <canvas
         baseChart
-        [datasets]="singlePriceNormalListData!"
+        [datasets]="singlePricesNormalListData!"
         [labels]="singlePriceNormalListDate!"
-        [options]="barChartOptions"
+        [options]="timeSeriesChartOptionsNormal!"
         [legend]="barChartLegend"
         [chartType]="barChartType"
       >
       </canvas>
       <mat-card-content style="font-size: large; margin-top: 15px">SPX Contract Price and Amount</mat-card-content>
-      <ng-container *ngIf="singlePriceRenewableListData === null; then loading; else loadedNormal"></ng-container>
+      <ng-container *ngIf="singlePricesRenewableListData === null; then loading; else loadedNormal"></ng-container>
       <ng-template #loadedNormal>
         <canvas
           baseChart
-          [datasets]="singlePriceRenewableListData!"
-          [labels]="singlePriceRenewableListDate!"
-          [options]="barChartOptions"
+          [datasets]="singlePricesRenewableListData!"
+          [labels]="singlePricesRenewableListDate!"
+          [options]="timeSeriesChartOptionsRenewable!"
           [legend]="barChartLegend"
           [chartType]="barChartType"
         >
         </canvas>
       </ng-template>
     </ng-template>
+    <mat-card-content>
+      <p>*Kansai Electric Power Company's electricity rate for general households is 28.7/kWh.</p>
+    </mat-card-content>
   </mat-card>
 
   <mat-card class="mb-20">

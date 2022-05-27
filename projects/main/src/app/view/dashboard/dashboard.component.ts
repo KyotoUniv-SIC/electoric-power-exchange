@@ -39,17 +39,21 @@ export class DashboardComponent implements OnInit {
   @Input()
   singlePriceRenewableDate?: Date | null;
   @Input()
-  singlePriceNormalList?: SinglePriceNormalSettlement[] | null;
+  singlePricesNormalList?: SinglePriceNormalSettlement[] | null;
   @Input()
-  singlePriceRenewableList?: SinglePriceRenewableSettlement[] | null;
+  singlePricesRenewableList?: SinglePriceRenewableSettlement[] | null;
   @Input()
-  singlePriceNormalListData?: ChartDataSets[] | null;
+  singlePricesNormalListData?: ChartDataSets[] | null;
   @Input()
   singlePriceNormalListDate?: string[] | null;
   @Input()
-  singlePriceRenewableListData?: ChartDataSets[] | null;
+  singlePricesRenewableListData?: ChartDataSets[] | null;
   @Input()
-  singlePriceRenewableListDate?: string[] | null;
+  singlePricesRenewableListDate?: string[] | null;
+  @Input()
+  timeSeriesChartOptionsNormal?: ChartOptions | null;
+  @Input()
+  timeSeriesChartOptionsRenewable?: ChartOptions | null;
 
   doughnutChartLabels: Label[] = ['Utility Power', 'Solar Power'];
   doughnutChartType: ChartType = 'doughnut';
@@ -61,40 +65,6 @@ export class DashboardComponent implements OnInit {
 
   barChartOptions: ChartOptions = {
     responsive: true,
-    elements: {
-      point: {
-        radius: 0,
-      },
-    },
-    scales: {
-      yAxes: [
-        {
-          id: 'y-axis-price', // Y軸のID
-          type: 'linear', // linear固定
-          position: 'left', // どちら側に表示される軸か？
-          ticks: {
-            // スケール
-            max: 40,
-            min: 10,
-            stepSize: 10,
-          },
-        },
-        {
-          id: 'y-axis-amount',
-          type: 'linear',
-          position: 'right',
-          ticks: {
-            max: 50,
-            min: 0,
-            stepSize: 10,
-          },
-          gridLines: {
-            // 2つ目の軸のグリッド削除
-            drawOnChartArea: false,
-          },
-        },
-      ],
-    },
   };
   barChartLabels: Label[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   barChartType: ChartType = 'bar';
