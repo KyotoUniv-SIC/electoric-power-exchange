@@ -40,32 +40,32 @@ export async function list() {
 }
 
 export async function listLastMonth(roomID: string) {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const lastMonth = new Date();
-  lastMonth.setDate(lastMonth.getDate() + 1);
-  lastMonth.setMonth(lastMonth.getMonth() - 1);
-  lastMonth.setHours(0, 0, 0, 0);
+  const first = new Date();
+  first.setMonth(first.getMonth() - 1);
+  first.setDate(1);
+  first.setHours(0, 0, 0, 0);
+  const end = new Date();
+  end.setDate(1);
+  end.setHours(0, 0, 0, 0);
 
   return await collection()
     .orderBy('created_at', 'desc')
-    .where('created_at', '<', today)
-    .where('created_at', '>', lastMonth)
+    .where('created_at', '>', first)
+    .where('created_at', '<', end)
     .where('room_id', '==', roomID)
     .get()
     .then((snapshot) => snapshot.docs.map((doc) => doc.data() as DailyUsage));
 }
 
 export async function listThisMonth(roomID: string) {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
+  const now = new Date();
   const first = new Date();
   first.setDate(1);
   first.setHours(0, 0, 0, 0);
 
   return await collection()
     .orderBy('created_at', 'desc')
-    .where('created_at', '<', today)
+    .where('created_at', '<', now)
     .where('created_at', '>', first)
     .where('room_id', '==', roomID)
     .get()

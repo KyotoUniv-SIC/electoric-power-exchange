@@ -88,7 +88,7 @@
       </mat-form-field>
       <mat-form-field class="w-1/2">
         <mat-label>Select Building</mat-label>
-        <mat-select #buildRef>
+        <mat-select #buildRef required>
           <mat-option *ngFor="let dormitory of dormitories" [value]="dormitory.value">
             {{ dormitory.viewValue }}
           </mat-option>
@@ -96,7 +96,7 @@
       </mat-form-field>
       <mat-form-field class="w-1/2">
         <mat-label>Select Room</mat-label>
-        <mat-select [disabled]="!buildRef.value" #roomRef>
+        <mat-select [disabled]="!buildRef.value" #roomRef required>
           <ng-container *ngIf="buildRef.value == 'higashi'">
             <mat-option *ngFor="let higashi of higashiRooms" [value]="higashi.value">
               {{ higashi.viewValue }}
