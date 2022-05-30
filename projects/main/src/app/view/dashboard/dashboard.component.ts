@@ -30,30 +30,32 @@ export class DashboardComponent implements OnInit {
   rankings?: Ranking[] | null;
   @Input()
   rank?: number | null;
+
   @Input()
-  singlePriceNormal?: SinglePriceNormalSettlement | null;
+  normalSettlement?: SinglePriceNormalSettlement | null;
   @Input()
-  singlePriceNormalDate?: Date | null;
+  normalDate?: Date | null;
   @Input()
-  singlePriceRenewable?: SinglePriceRenewableSettlement | null;
+  normalSettlements?: SinglePriceNormalSettlement[] | null;
   @Input()
-  singlePriceRenewableDate?: Date | null;
+  normalChartDataSets?: ChartDataSets[] | null;
   @Input()
-  singlePricesNormalList?: SinglePriceNormalSettlement[] | null;
+  normalChartDates?: string[] | null;
   @Input()
-  singlePricesRenewableList?: SinglePriceRenewableSettlement[] | null;
+  normalChartOptions?: ChartOptions | null;
+
   @Input()
-  singlePricesNormalListData?: ChartDataSets[] | null;
+  renewableSettlement?: SinglePriceRenewableSettlement | null;
   @Input()
-  singlePriceNormalListDate?: string[] | null;
+  renewableDate?: Date | null;
   @Input()
-  singlePricesRenewableListData?: ChartDataSets[] | null;
+  renewableChartDataSets?: ChartDataSets[] | null;
   @Input()
-  singlePricesRenewableListDate?: string[] | null;
+  renewableSettlements?: SinglePriceRenewableSettlement[] | null;
   @Input()
-  timeSeriesChartOptionsNormal?: ChartOptions | null;
+  renewableChartDates?: string[] | null;
   @Input()
-  timeSeriesChartOptionsRenewable?: ChartOptions | null;
+  renewableChartOptions?: ChartOptions | null;
 
   doughnutChartLabels: Label[] = ['Utility Power', 'Solar Power'];
   doughnutChartType: ChartType = 'doughnut';

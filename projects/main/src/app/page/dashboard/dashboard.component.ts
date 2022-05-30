@@ -38,26 +38,20 @@ export class DashboardComponent implements OnInit {
   usageData$: Observable<ChartDataSets[]> | undefined;
   rankings$: Observable<Ranking[]> | undefined;
   rank$: Observable<number | undefined> | undefined;
-  singlePriceNormal$: Observable<SinglePriceNormalSettlement> | undefined;
-  singlePriceNormalDate$: Observable<Date> | undefined;
-  singlePriceRenewable$: Observable<SinglePriceRenewableSettlement> | undefined;
-  singlePriceRenewableDate$: Observable<Date> | undefined;
-  singlePricesNormalList$: Observable<SinglePriceNormalSettlement[]> | undefined;
-  singlePricesRenewableList$: Observable<SinglePriceRenewableSettlement[]> | undefined;
-  singlePricesNormalListData$: Observable<ChartDataSets[]> | undefined;
-  singlePricesNormalListDate$: Observable<string[]> | undefined;
-  singlePricesRenewableListData$: Observable<ChartDataSets[]> | undefined;
-  singlePricesRenewableListDate$: Observable<string[]> | undefined;
-  maxPriceNormal$: Observable<number> | undefined;
-  minPriceNormal$: Observable<number> | undefined;
-  maxAmountNormal$: Observable<number> | undefined;
-  minAmountNormal$: Observable<number> | undefined;
-  maxPriceRenewable$: Observable<number> | undefined;
-  minPriceRenewable$: Observable<number> | undefined;
-  maxAmountRenewable$: Observable<number> | undefined;
-  minAmountRenewable$: Observable<number> | undefined;
-  timeSeriesChartOptionsNormal$: Observable<ChartOptions> | undefined;
-  timeSeriesChartOptionsRenewable$: Observable<ChartOptions> | undefined;
+
+  normalSettlement$: Observable<SinglePriceNormalSettlement> | undefined;
+  normalDate$: Observable<Date> | undefined;
+  normalSettlements$: Observable<SinglePriceNormalSettlement[]> | undefined;
+  normalChartDataSets$: Observable<ChartDataSets[]> | undefined;
+  normalChartDates$: Observable<string[]> | undefined;
+  normalChartOptions$: Observable<ChartOptions> | undefined;
+
+  renewableSettlement$: Observable<SinglePriceRenewableSettlement> | undefined;
+  renewableDate$: Observable<Date> | undefined;
+  renewableSettlements$: Observable<SinglePriceRenewableSettlement[]> | undefined;
+  renewableChartDataSets$: Observable<ChartDataSets[]> | undefined;
+  renewableChartDates$: Observable<string[]> | undefined;
+  renewableChartOptions$: Observable<ChartOptions> | undefined;
 
   constructor(
     private auth: Auth,
@@ -220,21 +214,21 @@ export class DashboardComponent implements OnInit {
         { data: lastYear, label: 'Last year' },
       ]),
     );
-    this.singlePriceNormal$ = this.singlePriceNormalApp.getLatest$();
-    this.singlePriceNormalDate$ = this.singlePriceNormal$.pipe(map((single) => (single.market_date as Timestamp).toDate()));
-    this.singlePriceRenewable$ = this.singlePriceRenewableApp.getLatest$();
-    this.singlePriceRenewableDate$ = this.singlePriceRenewable$.pipe(map((single) => (single.market_date as Timestamp).toDate()));
-    this.singlePricesNormalList$ = this.singlePriceNormalApp.listLatestMonth$();
-    this.singlePricesRenewableList$ = this.singlePriceRenewableApp.listLatestMonth$();
+    this.normalSettlement$ = this.singlePriceNormalApp.getLatest$();
+    this.normalDate$ = this.normalSettlement$.pipe(map((single) => (single.market_date as Timestamp).toDate()));
+    this.renewableSettlement$ = this.singlePriceRenewableApp.getLatest$();
+    this.renewableDate$ = this.renewableSettlement$.pipe(map((single) => (single.market_date as Timestamp).toDate()));
+    this.normalSettlements$ = this.singlePriceNormalApp.listLatestMonth$();
+    this.renewableSettlements$ = this.singlePriceRenewableApp.listLatestMonth$();
 
-    const pricesNormal$ = this.singlePricesNormalList$.pipe(map((params) => params.map((param) => param.price)));
-    const amountsNormal$ = this.singlePricesNormalList$.pipe(map((params) => params.map((param) => param.amount)));
-    const pricesRenewable$ = this.singlePricesRenewableList$.pipe(map((params) => params.map((param) => param.price)));
-    const amountsRenewable$ = this.singlePricesRenewableList$.pipe(map((params) => params.map((param) => param.amount)));
+    const pricesNormal$ = this.normalSettlements$.pipe(map((params) => params.map((param) => param.price)));
+    const amountsNormal$ = this.normalSettlements$.pipe(map((params) => params.map((param) => param.amount)));
+    const pricesRenewable$ = this.renewableSettlements$.pipe(map((params) => params.map((param) => param.price)));
+    const amountsRenewable$ = this.renewableSettlements$.pipe(map((params) => params.map((param) => param.amount)));
     const referencePriceNormal$ = pricesNormal$.pipe(map((params) => Array(params.length).fill(27 as number)));
     const referencePriceRenewable$ = pricesRenewable$.pipe(map((params) => Array(params.length).fill(27 as number)));
 
-    this.singlePricesNormalListData$ = combineLatest([pricesNormal$, amountsNormal$, referencePriceNormal$]).pipe(
+    this.normalChartDataSets$ = combineLatest([pricesNormal$, amountsNormal$, referencePriceNormal$]).pipe(
       map(([prices, amounts, references]) => [
         { data: prices, label: 'Contract Price', fill: 'false', type: 'line', yAxisID: 'y-axis-price' },
         { data: amounts, label: 'Contract Amount', type: 'bar', yAxisID: 'y-axis-amount' },
@@ -249,7 +243,7 @@ export class DashboardComponent implements OnInit {
       ]),
     );
 
-    this.singlePricesNormalListDate$ = this.singlePricesNormalList$.pipe(
+    this.normalChartDates$ = this.normalSettlements$.pipe(
       map((params) =>
         params.map(
           (param) => (param.created_at as Timestamp).toDate().getMonth() + 1 + '/' + (param.created_at as Timestamp).toDate().getDate(),
@@ -257,7 +251,7 @@ export class DashboardComponent implements OnInit {
       ),
     );
 
-    this.singlePricesRenewableListData$ = combineLatest([pricesRenewable$, amountsRenewable$, referencePriceRenewable$]).pipe(
+    this.renewableChartDataSets$ = combineLatest([pricesRenewable$, amountsRenewable$, referencePriceRenewable$]).pipe(
       map(([prices, amounts, references]) => [
         { data: prices, label: 'Contract Price', fill: '', type: 'line', yAxisID: 'y-axis-price' },
         { data: amounts, label: 'Contract Amount', yAxisID: 'y-axis-amount' },
@@ -272,7 +266,7 @@ export class DashboardComponent implements OnInit {
       ]),
     );
 
-    this.singlePricesRenewableListDate$ = this.singlePricesRenewableList$.pipe(
+    this.renewableChartDates$ = this.renewableSettlements$.pipe(
       map((params) =>
         params.map(
           (param) => (param.created_at as Timestamp).toDate().getMonth() + 1 + '/' + (param.created_at as Timestamp).toDate().getDate(),
@@ -280,76 +274,17 @@ export class DashboardComponent implements OnInit {
       ),
     );
 
-    this.maxPriceNormal$ = pricesNormal$.pipe(
-      map((pricesNormal) =>
-        pricesNormal.reduce(function (a, b) {
-          return Math.max(a, b);
-        }),
-      ),
-    );
+    const maxPriceNormal$ = pricesNormal$.pipe(map((pricesNormal) => pricesNormal.reduce((a, b) => Math.max(a, b))));
+    const minPriceNormal$ = pricesNormal$.pipe(map((pricesNormal) => pricesNormal.reduce((a, b) => Math.min(a, b))));
+    const maxAmountNormal$ = amountsNormal$.pipe(map((amountsNormal) => amountsNormal.reduce((a, b) => Math.max(a, b))));
+    const minAmountNormal$ = amountsNormal$.pipe(map((amountsNormal) => amountsNormal.reduce((a, b) => Math.min(a, b))));
 
-    this.minPriceNormal$ = pricesNormal$.pipe(
-      map((pricesNormal) =>
-        pricesNormal.reduce(function (a, b) {
-          return Math.min(a, b);
-        }),
-      ),
-    );
+    const maxPriceRenewable$ = pricesRenewable$.pipe(map((pricesRenewable) => pricesRenewable.reduce((a, b) => Math.max(a, b))));
+    const minPriceRenewable$ = pricesRenewable$.pipe(map((pricesRenewable) => pricesRenewable.reduce((a, b) => Math.min(a, b))));
+    const maxAmountRenewable$ = amountsRenewable$.pipe(map((amountsRenewable) => amountsRenewable.reduce((a, b) => Math.max(a, b))));
+    const minAmountRenewable$ = amountsRenewable$.pipe(map((amountsRenewable) => amountsRenewable.reduce((a, b) => Math.min(a, b))));
 
-    this.maxAmountNormal$ = amountsNormal$.pipe(
-      map((amountsNormal) =>
-        amountsNormal.reduce(function (a, b) {
-          return Math.max(a, b);
-        }),
-      ),
-    );
-
-    this.minAmountNormal$ = amountsNormal$.pipe(
-      map((amountsNormal) =>
-        amountsNormal.reduce(function (a, b) {
-          return Math.min(a, b);
-        }),
-      ),
-    );
-
-    this.maxPriceRenewable$ = pricesRenewable$.pipe(
-      map((pricesRenewable) =>
-        pricesRenewable.reduce(function (a, b) {
-          return Math.max(a, b);
-        }),
-      ),
-    );
-
-    this.minPriceRenewable$ = pricesRenewable$.pipe(
-      map((pricesRenewable) =>
-        pricesRenewable.reduce(function (a, b) {
-          return Math.min(a, b);
-        }),
-      ),
-    );
-
-    this.maxAmountRenewable$ = amountsRenewable$.pipe(
-      map((amountsRenewable) =>
-        amountsRenewable.reduce(function (a, b) {
-          return Math.max(a, b);
-        }),
-      ),
-    );
-
-    this.minAmountRenewable$ = amountsRenewable$.pipe(
-      map((amountsRenewable) =>
-        amountsRenewable.reduce(function (a, b) {
-          return Math.min(a, b);
-        }),
-      ),
-    );
-
-    this.timeSeriesChartOptionsNormal$ = combineLatest([
-      this.maxPriceNormal$,
-      this.minPriceNormal$,
-      this.maxAmountNormal$,
-      this.minAmountNormal$,
-    ]).pipe(
+    this.normalChartOptions$ = combineLatest([maxPriceNormal$, minPriceNormal$, maxAmountNormal$, minAmountNormal$]).pipe(
       map(([maxPriceNormal, minPriceNormal, maxAmountNormal, minAmountNormal]) => {
         return {
           responsive: true,
@@ -399,12 +334,7 @@ export class DashboardComponent implements OnInit {
       }),
     );
 
-    this.timeSeriesChartOptionsRenewable$ = combineLatest([
-      this.maxPriceRenewable$,
-      this.minPriceRenewable$,
-      this.maxAmountRenewable$,
-      this.minAmountRenewable$,
-    ]).pipe(
+    this.renewableChartOptions$ = combineLatest([maxPriceRenewable$, minPriceRenewable$, maxAmountRenewable$, minAmountRenewable$]).pipe(
       map(([maxPriceRenewable, minPriceRenewable, maxAmountRenewable, minAmountRenewable]) => {
         return {
           responsive: true,
@@ -453,7 +383,6 @@ export class DashboardComponent implements OnInit {
         };
       }),
     );
-    this.minAmountRenewable$.subscribe((a) => console.log(a));
   }
 
   ngOnInit(): void {}
