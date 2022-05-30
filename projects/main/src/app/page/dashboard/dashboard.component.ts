@@ -69,7 +69,7 @@ export class DashboardComponent implements OnInit {
             this.dailyUsageApp.getRoom(user.room_id).then((usages) => {
               let count = 0;
               for (const usage of usages) {
-                (usage.created_at as Timestamp).toDate() > firstDay ? (count += parseInt(usage.amount_kwh)) : count;
+                (usage.created_at as Timestamp).toDate() > firstDay ? (count += parseInt(usage.amount_kwh_str)) : count;
               }
               return { id: user.id, name: user.name, kwhAmount: count };
             }),
@@ -152,7 +152,7 @@ export class DashboardComponent implements OnInit {
       map((usages) => {
         let count = 0;
         for (const usage of usages) {
-          (usage.created_at as Timestamp).toDate() > firstDay ? (count += parseInt(usage.amount_kwh)) : count;
+          (usage.created_at as Timestamp).toDate() > firstDay ? (count += parseInt(usage.amount_kwh_str)) : count;
         }
         return count;
       }),
@@ -162,7 +162,7 @@ export class DashboardComponent implements OnInit {
       map((usages) => {
         let count = 0;
         for (const usage of usages) {
-          (usage.created_at as Timestamp).toDate() > firstDay ? (count += parseInt(usage.amount_kwh)) : count;
+          (usage.created_at as Timestamp).toDate() > firstDay ? (count += parseInt(usage.amount_kwh_str)) : count;
         }
         // higashi-20, koushi-26, sentetsu-28
         return (count / (20 + 26 + 28)).toFixed(2);

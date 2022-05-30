@@ -92,12 +92,12 @@ describe('Calculated Payment Test', () => {
       }),
     ];
     // const dailyUsages = [
-    //   new DailyUsage({ room_id: 'test01', amount_kwh: '15' }),
-    //   new DailyUsage({ room_id: 'test01', amount_kwh: '16' }),
-    //   new DailyUsage({ room_id: 'test01', amount_kwh: '17' }),
-    //   new DailyUsage({ room_id: 'test01', amount_kwh: '15' }),
-    //   new DailyUsage({ room_id: 'test01', amount_kwh: '16' }),
-    //   new DailyUsage({ room_id: 'test01', amount_kwh: '17' }),
+    //   new DailyUsage({ room_id: 'test01', amount_kwh_str: '15' }),
+    //   new DailyUsage({ room_id: 'test01', amount_kwh_str: '16' }),
+    //   new DailyUsage({ room_id: 'test01', amount_kwh_str: '17' }),
+    //   new DailyUsage({ room_id: 'test01', amount_kwh_str: '15' }),
+    //   new DailyUsage({ room_id: 'test01', amount_kwh_str: '16' }),
+    //   new DailyUsage({ room_id: 'test01', amount_kwh_str: '17' }),
     // ];
     const discounts = [new DiscountPrice({ price_ujpy: '500000', amount_purchase_utoken: '100000000', amount_sale_utoken: '200000000' })];
 
