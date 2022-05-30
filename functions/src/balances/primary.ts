@@ -50,7 +50,7 @@ primary_ask.onCreateHandler.push(async (snapshot, context) => {
     Account: admin.address,
     Amount: {
       currency: 'UPX',
-      value: data.amount_uupx,
+      value: (parseInt(data.amount_uupx) / 1000000).toString(),
       issuer: adminAccount[0].xrp_address_cold,
     },
     Destination: studentAccount.xrp_address,

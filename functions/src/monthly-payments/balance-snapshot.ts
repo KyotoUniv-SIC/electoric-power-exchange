@@ -120,15 +120,15 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
   const decrypted = crypto.AES.decrypt(accountPrivate[0].xrp_seed, privKey);
   const sender = xrpl.Wallet.fromSeed(decrypted);
 
-  const amountSPX = parseInt(data.amount_uspx);
-  const amountUPX = parseInt(data.amount_uupx);
-  if (amountSPX > 0) {
+  const uspxAmount = parseInt(data.amount_uspx);
+  const uupxAmount = parseInt(data.amount_uupx);
+  if (uspxAmount > 0) {
     const sendTokenTx = {
       TransactionType: 'Payment',
       Account: sender.address,
       Amount: {
         currency: 'SPX',
-        value: String(amountSPX),
+        value: (uspxAmount/1000000).toString(),
         issuer: adminAccount[0].xrp_address_cold,
       },
       Destination: adminAccount[0].xrp_address_hot,
@@ -143,13 +143,13 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
       throw `Error sending transaction: ${payResult.result.meta.TransactionResult}`;
     }
   }
-  if (amountUPX > 0) {
+  if (uupxAmount > 0) {
     const sendTokenTx = {
       TransactionType: 'Payment',
       Account: sender.address,
       Amount: {
         currency: 'UPX',
-        value: String(amountUPX),
+        value: (uupxAmount/1000000).toString(),
         issuer: adminAccount[0].xrp_address_cold,
       },
       Destination: adminAccount[0].xrp_address_hot,
