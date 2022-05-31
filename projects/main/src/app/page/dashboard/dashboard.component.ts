@@ -99,7 +99,7 @@ export class DashboardComponent implements OnInit {
       map(([rankings, account]) => rankings.find((ranking) => ranking.id == account.id)?.rank),
     );
     const balance$ = studentAccount$.pipe(mergeMap((account) => this.balanceApp.getByUid$(account.id)));
-    this.balanceData$ = balance$.pipe(map((balance) => [[parseInt(balance.amount_uupx), parseInt(balance.amount_uspx)]]));
+    this.balanceData$ = balance$.pipe(map((balance) => [[parseInt(balance.amount_uupx) / 100000, parseInt(balance.amount_uspx) / 100000]]));
     const totalBalance$ = users$.pipe(
       mergeMap((users) => Promise.all(users.map((user) => this.balanceApp.list(user.id).then((balances) => balances[0])))),
       map((balances) => {
@@ -112,7 +112,9 @@ export class DashboardComponent implements OnInit {
         return new Balance({ amount_uupx: upxTotal.toString(), amount_uspx: spxTotal.toString() });
       }),
     );
-    this.totalBalanceData$ = totalBalance$.pipe(map((balance) => [[parseInt(balance.amount_uupx), parseInt(balance.amount_uspx)]]));
+    this.totalBalanceData$ = totalBalance$.pipe(
+      map((balance) => [[parseInt(balance.amount_uupx) / 100000, parseInt(balance.amount_uspx) / 100000]]),
+    );
     const insufficiency$ = studentAccount$.pipe(mergeMap((account) => this.insufficientBalanceApp.list(account.id))).pipe(
       map((insufficiencies) => {
         let count = 0;
@@ -183,7 +185,7 @@ export class DashboardComponent implements OnInit {
           data.unshift(new MonthlyUsage({ amount_mwh: '0' }));
         }
         // 今月のデータを追加
-        data.push(new MonthlyUsage({ amount_mwh: totalUsage.toString() }));
+        data.push(new MonthlyUsage({ amount_mwh: (totalUsage * 1000000).toString() }));
         // 来月以降のデータに0を入れる
         for (let i = 0; i < lackAfter; i++) {
           data.push(new MonthlyUsage({ amount_mwh: '0' }));
