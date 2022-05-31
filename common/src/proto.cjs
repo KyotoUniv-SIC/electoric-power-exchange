@@ -3246,6 +3246,226 @@
             return DailyUsage;
         })();
     
+        main.DeltaAmount = (function() {
+    
+            /**
+             * Properties of a DeltaAmount.
+             * @memberof main
+             * @interface IDeltaAmount
+             * @property {string|null} [id] DeltaAmount id
+             * @property {string|null} [asks_amount_utoken] DeltaAmount asks_amount_utoken
+             * @property {string|null} [bids_amount_utoken] DeltaAmount bids_amount_utoken
+             */
+    
+            /**
+             * Constructs a new DeltaAmount.
+             * @memberof main
+             * @classdesc Represents a DeltaAmount.
+             * @implements IDeltaAmount
+             * @constructor
+             * @param {main.IDeltaAmount=} [properties] Properties to set
+             */
+            function DeltaAmount(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+    
+            /**
+             * DeltaAmount id.
+             * @member {string} id
+             * @memberof main.DeltaAmount
+             * @instance
+             */
+            DeltaAmount.prototype.id = "";
+    
+            /**
+             * DeltaAmount asks_amount_utoken.
+             * @member {string} asks_amount_utoken
+             * @memberof main.DeltaAmount
+             * @instance
+             */
+            DeltaAmount.prototype.asks_amount_utoken = "";
+    
+            /**
+             * DeltaAmount bids_amount_utoken.
+             * @member {string} bids_amount_utoken
+             * @memberof main.DeltaAmount
+             * @instance
+             */
+            DeltaAmount.prototype.bids_amount_utoken = "";
+    
+            /**
+             * Encodes the specified DeltaAmount message. Does not implicitly {@link main.DeltaAmount.verify|verify} messages.
+             * @function encode
+             * @memberof main.DeltaAmount
+             * @static
+             * @param {main.IDeltaAmount} message DeltaAmount message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            DeltaAmount.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                if (message.asks_amount_utoken != null && Object.hasOwnProperty.call(message, "asks_amount_utoken"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.asks_amount_utoken);
+                if (message.bids_amount_utoken != null && Object.hasOwnProperty.call(message, "bids_amount_utoken"))
+                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.bids_amount_utoken);
+                return writer;
+            };
+    
+            /**
+             * Encodes the specified DeltaAmount message, length delimited. Does not implicitly {@link main.DeltaAmount.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof main.DeltaAmount
+             * @static
+             * @param {main.IDeltaAmount} message DeltaAmount message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            DeltaAmount.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+    
+            /**
+             * Decodes a DeltaAmount message from the specified reader or buffer.
+             * @function decode
+             * @memberof main.DeltaAmount
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {main.DeltaAmount} DeltaAmount
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            DeltaAmount.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.DeltaAmount();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.id = reader.string();
+                        break;
+                    case 2:
+                        message.asks_amount_utoken = reader.string();
+                        break;
+                    case 3:
+                        message.bids_amount_utoken = reader.string();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Decodes a DeltaAmount message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof main.DeltaAmount
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {main.DeltaAmount} DeltaAmount
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            DeltaAmount.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+    
+            /**
+             * Verifies a DeltaAmount message.
+             * @function verify
+             * @memberof main.DeltaAmount
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            DeltaAmount.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.id != null && message.hasOwnProperty("id"))
+                    if (!$util.isString(message.id))
+                        return "id: string expected";
+                if (message.asks_amount_utoken != null && message.hasOwnProperty("asks_amount_utoken"))
+                    if (!$util.isString(message.asks_amount_utoken))
+                        return "asks_amount_utoken: string expected";
+                if (message.bids_amount_utoken != null && message.hasOwnProperty("bids_amount_utoken"))
+                    if (!$util.isString(message.bids_amount_utoken))
+                        return "bids_amount_utoken: string expected";
+                return null;
+            };
+    
+            /**
+             * Creates a DeltaAmount message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof main.DeltaAmount
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {main.DeltaAmount} DeltaAmount
+             */
+            DeltaAmount.fromObject = function fromObject(object) {
+                if (object instanceof $root.main.DeltaAmount)
+                    return object;
+                var message = new $root.main.DeltaAmount();
+                if (object.id != null)
+                    message.id = String(object.id);
+                if (object.asks_amount_utoken != null)
+                    message.asks_amount_utoken = String(object.asks_amount_utoken);
+                if (object.bids_amount_utoken != null)
+                    message.bids_amount_utoken = String(object.bids_amount_utoken);
+                return message;
+            };
+    
+            /**
+             * Creates a plain object from a DeltaAmount message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof main.DeltaAmount
+             * @static
+             * @param {main.DeltaAmount} message DeltaAmount
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            DeltaAmount.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.id = "";
+                    object.asks_amount_utoken = "";
+                    object.bids_amount_utoken = "";
+                }
+                if (message.id != null && message.hasOwnProperty("id"))
+                    object.id = message.id;
+                if (message.asks_amount_utoken != null && message.hasOwnProperty("asks_amount_utoken"))
+                    object.asks_amount_utoken = message.asks_amount_utoken;
+                if (message.bids_amount_utoken != null && message.hasOwnProperty("bids_amount_utoken"))
+                    object.bids_amount_utoken = message.bids_amount_utoken;
+                return object;
+            };
+    
+            /**
+             * Converts this DeltaAmount to JSON.
+             * @function toJSON
+             * @memberof main.DeltaAmount
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            DeltaAmount.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            return DeltaAmount;
+        })();
+    
         main.DiscountPrice = (function() {
     
             /**
