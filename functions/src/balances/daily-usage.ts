@@ -26,8 +26,8 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
   }
   for (const student of studentAccounts) {
     const accountBalance = await balance.getLatest(student.id);
-    const uupxAmount = parseInt(accountBalance[0].amount_uspx);
-    const uspxAmount = parseInt(accountBalance[0].amount_uupx);
+    const uupxAmount = parseInt(accountBalance[0].amount_uupx);
+    const uspxAmount = parseInt(accountBalance[0].amount_uspx);
     const totalBalance = uupxAmount + uspxAmount;
     const accountPrivate = await account_private.list(student.id);
     const xrpl = require('xrpl');
