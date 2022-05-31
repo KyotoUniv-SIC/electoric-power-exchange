@@ -119,7 +119,7 @@ export class DashboardComponent implements OnInit {
           upxTotal += parseInt(balance.amount_uupx);
           spxTotal += parseInt(balance.amount_uspx);
         });
-        return [[upxTotal, spxTotal]];
+        return [[upxTotal / 1000000, spxTotal / 1000000]];
       }),
     );
 
