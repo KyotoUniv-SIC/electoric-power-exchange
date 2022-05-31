@@ -19,10 +19,10 @@ module.exports.primaryNormalAsk = f.pubsub
     const threshold = 2000000;
     // 価格の決定
     const setting = await normal_ask_setting.getLatest();
-    const price = !setting ? 27000000 : parseInt(setting.price_ujpy) + 100000;
-    await normal_ask_setting.create(
-      new NormalAskSetting({ price_ujpy: !setting ? '27100000' : (parseInt(setting.price_ujpy) + 100000).toString() }),
-    );
+    const now = new Date();
+    const price = !setting || now.getDate() == 1 ? 27000000 : parseInt(setting.price_ujpy);
+
+    await normal_ask_setting.create(new NormalAskSetting({ price_ujpy: (price + 100000).toString() }));
 
     const adminAccount = await admin_account.getByName('admin');
     const contracts = await single_price_normal_settlement.listDescDate();
