@@ -13,8 +13,13 @@
   [singlePriceNormalDate]="singlePriceNormalDate$ | async"
   [singlePriceRenewable]="singlePriceRenewable$ | async"
   [singlePriceRenewableDate]="singlePriceRenewableDate$ | async"
+  [normalBidHistories]="normalBidHistories$ | async"
+  [normalAskHistories]="normalAskHistories$ | async"
+  [renewableBidHistories]="renewableBidHistories$ | async"
+  [renewableAskHistories]="renewableAskHistories$ | async"
   (appDownloadBalances)="onDownloadBalances($event)"
   (appDownloadOrders)="onDownloadOrders($event)"
   (appDownloadUserUsages)="onDownloadUserUsages($event)"
   (appDownloadMonthlyUsages)="onDownloadMonthlyUsages($event)"
+  (appDownloadNormalBids)="onDownloadNormalBids($event)"
 ></view-dashboard>

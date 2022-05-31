@@ -1,16 +1,27 @@
 import { BalanceData, MonthlyUsageData, OrderData } from '../../../page/admin/dashboard/dashboard.component';
 import { Ranking } from '../../../page/dashboard/dashboard.component';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import {
   NormalAsk,
+  NormalAskHistory,
   NormalBid,
+  NormalBidHistory,
   RenewableAsk,
+  RenewableAskHistory,
   RenewableBid,
+  RenewableBidHistory,
   SinglePriceNormalSettlement,
   SinglePriceRenewableSettlement,
 } from '@local/common';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Color, Label, MultiDataSet } from 'ng2-charts';
+
+export interface DateRange {
+  data: any;
+  start: Date;
+  end: Date;
+}
 
 @Component({
   selector: 'view-dashboard',
@@ -46,6 +57,15 @@ export class DashboardComponent implements OnInit {
   singlePriceRenewable?: SinglePriceRenewableSettlement | null;
   @Input()
   singlePriceRenewableDate?: Date | null;
+  @Input()
+  normalBidHistories?: NormalBidHistory[] | null;
+  @Input()
+  normalAskHistories?: NormalAskHistory[] | null;
+  @Input()
+  renewableBidHistories?: RenewableBidHistory[] | null;
+  @Input()
+  renewableAskHistories?: RenewableAskHistory[] | null;
+
   @Output()
   appDownloadBalances: EventEmitter<BalanceData[]>;
   @Output()
@@ -54,6 +74,8 @@ export class DashboardComponent implements OnInit {
   appDownloadUserUsages: EventEmitter<Ranking[]>;
   @Output()
   appDownloadMonthlyUsages: EventEmitter<MonthlyUsageData[]>;
+  @Output()
+  appDownloadNormalBids: EventEmitter<DateRange>;
 
   doughnutChartLabels: Label[] = ['Utility Power', 'Solar Power'];
   doughnutChartType: ChartType = 'doughnut';
@@ -79,11 +101,17 @@ export class DashboardComponent implements OnInit {
     },
   ];
 
+  range = new FormGroup({
+    start: new FormControl(),
+    end: new FormControl(),
+  });
+
   constructor() {
     this.appDownloadBalances = new EventEmitter();
     this.appDownloadOrders = new EventEmitter();
     this.appDownloadUserUsages = new EventEmitter();
     this.appDownloadMonthlyUsages = new EventEmitter();
+    this.appDownloadNormalBids = new EventEmitter();
   }
 
   ngOnInit(): void {}
@@ -115,5 +143,16 @@ export class DashboardComponent implements OnInit {
       return;
     }
     this.appDownloadMonthlyUsages.emit(this.totalUsage);
+  }
+
+  onDownloadNormalBidHistories() {
+    if (!this.normalBidHistories?.length) {
+      alert('UPXのBidが存在しません');
+    }
+    if (!this.range.value.start || !this.range.value.end) {
+      alert('範囲を正しく指定してください');
+    }
+    console.log({ start: this.range.value.start, end: this.range.value.end });
+    this.appDownloadNormalBids.emit({ data: this.normalBidHistories, start: this.range.value.start, end: this.range.value.end });
   }
 }

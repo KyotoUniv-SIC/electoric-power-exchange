@@ -1,20 +1,29 @@
+import { DateRange } from '../../../view/admin/dashboard/dashboard.component';
 import { Ranking } from '../../dashboard/dashboard.component';
 import { Component, OnInit } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
 import {
   NormalAsk,
+  NormalAskHistory,
   NormalBid,
+  NormalBidHistory,
   RenewableAsk,
+  RenewableAskHistory,
   RenewableBid,
+  RenewableBidHistory,
   SinglePriceNormalSettlement,
   SinglePriceRenewableSettlement,
 } from '@local/common';
 import { ChartDataSets } from 'chart.js';
 import { MultiDataSet } from 'ng2-charts';
 import { DailyUsageApplicationService } from 'projects/shared/src/lib/services/daily-usages/daily-usage.application.service';
+import { NormalAskHistoryApplicationService } from 'projects/shared/src/lib/services/normal-ask-histories/normal-ask-history.application.service';
 import { NormalAskApplicationService } from 'projects/shared/src/lib/services/normal-asks/normal-ask.application.service';
+import { NormalBidHistoryApplicationService } from 'projects/shared/src/lib/services/normal-bid-histories/normal-bid-history.application.service';
 import { NormalBidApplicationService } from 'projects/shared/src/lib/services/normal-bids/normal-bid.application.service';
+import { RenewableAskHistoryApplicationService } from 'projects/shared/src/lib/services/renewable-ask-histories/renewable-ask-history.application.service';
 import { RenewableAskApplicationService } from 'projects/shared/src/lib/services/renewable-asks/renewable-ask.application.service';
+import { RenewableBidHistoryApplicationService } from 'projects/shared/src/lib/services/renewable-bid-histories/renewable-bid-history.application.service';
 import { RenewableBidApplicationService } from 'projects/shared/src/lib/services/renewable-bids/renewable-bid.application.service';
 import { SinglePriceNormalSettlementApplicationService } from 'projects/shared/src/lib/services/single-price-normal-settlements/single-price-normal-settlement.application.service';
 import { SinglePriceRenewableSettlementApplicationService } from 'projects/shared/src/lib/services/single-price-renewable-settlements/single-price-renewable-settlement.application.service';
@@ -76,6 +85,10 @@ export class DashboardComponent implements OnInit {
   singlePriceNormalDate$: Observable<Date> | undefined;
   singlePriceRenewable$: Observable<SinglePriceRenewableSettlement> | undefined;
   singlePriceRenewableDate$: Observable<Date> | undefined;
+  normalBidHistories$: Observable<NormalBidHistory[] | undefined>;
+  normalAskHistories$: Observable<NormalAskHistory[] | undefined>;
+  renewableBidHistories$: Observable<RenewableBidHistory[] | undefined>;
+  renewableAskHistories$: Observable<RenewableAskHistory[] | undefined>;
 
   constructor(
     private readonly studentsApp: StudentAccountApplicationService,
@@ -87,6 +100,10 @@ export class DashboardComponent implements OnInit {
     private readonly renewableBidApp: RenewableBidApplicationService,
     private readonly singlePriceNormalApp: SinglePriceNormalSettlementApplicationService,
     private readonly singlePriceRenewableApp: SinglePriceRenewableSettlementApplicationService,
+    private readonly normalBidHistoryApp: NormalBidHistoryApplicationService,
+    private readonly normalAskHistoryApp: NormalAskHistoryApplicationService,
+    private readonly renewableBidHistoryApp: RenewableBidHistoryApplicationService,
+    private readonly renewableAskHistoryApp: RenewableAskHistoryApplicationService,
   ) {
     const now = new Date();
     let firstDay = new Date();
@@ -311,6 +328,11 @@ export class DashboardComponent implements OnInit {
     this.singlePriceNormalDate$ = this.singlePriceNormal$.pipe(map((single) => (single.market_date as Timestamp).toDate()));
     this.singlePriceRenewable$ = this.singlePriceRenewableApp.getLatest$();
     this.singlePriceRenewableDate$ = this.singlePriceRenewable$.pipe(map((single) => (single.market_date as Timestamp).toDate()));
+
+    this.normalBidHistories$ = this.normalBidHistoryApp.listAll$();
+    this.normalAskHistories$ = this.normalAskHistoryApp.listAll$();
+    this.renewableBidHistories$ = this.renewableBidHistoryApp.listAll$();
+    this.renewableAskHistories$ = this.renewableAskHistoryApp.listAll$();
   }
 
   ngOnInit(): void {}
@@ -358,6 +380,22 @@ export class DashboardComponent implements OnInit {
 
   async onDownloadMonthlyUsages($event: MonthlyUsageData[]) {
     const csv = this.jsonToCsv($event, ',');
+    this.downloadCsv(csv, 'monthly_usages');
+  }
+
+  async onDownloadNormalBids($event: DateRange) {
+    const normalBids = $event.data as NormalBidHistory[];
+    const bidsData = normalBids.map((data) => {
+      return {
+        id: data.id,
+        account_id: data.account_id,
+        price: parseInt(data.price_ujpy) / 1000000,
+        amount: parseInt(data.amount_uupx) / 1000000,
+        contract: data.is_accepted ? 'YES' : 'NO',
+        contract_price: parseInt(data.contract_price_ujpy) / 1000000,
+      };
+    });
+    const csv = this.jsonToCsv(bidsData, ',');
     this.downloadCsv(csv, 'monthly_usages');
   }
 }
