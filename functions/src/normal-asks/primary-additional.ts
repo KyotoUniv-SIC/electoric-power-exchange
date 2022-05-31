@@ -7,7 +7,7 @@ import { normal_ask_setting } from '../normal-ask-settings';
 import { normal_bid_history } from '../normal-bid-histories';
 import { normal_bid } from '../normal-bids';
 import { single_price_normal_settlement } from '../single-price-normal-settlements';
-import { DeltaAmount, NormalAsk, NormalAskSetting, proto } from '@local/common';
+import { DeltaAmount, NormalAsk, NormalAskSetting, NormalBid, proto } from '@local/common';
 import * as functions from 'firebase-functions';
 
 const f = functions.region('asia-northeast1');
@@ -42,7 +42,7 @@ module.exports.primaryNormalAsk = f.pubsub
 
     // 2→3→4→1の順番で場合分けして処理
     if (Math.abs(deltaPrice) <= threshold) {
-      console.log('No Market Operation');
+      console.log('No Market Operation & create delta-amount');
       await delta_amount.create(
         new DeltaAmount({
           asks_amount_utoken: deltaAsksAmount.toString(),
@@ -51,6 +51,10 @@ module.exports.primaryNormalAsk = f.pubsub
       );
     } else {
       const deltaAmounts = await delta_amount.list();
+      if (!deltaAmounts.length) {
+        console.log('No delta-amount data.');
+        return;
+      }
       const aveAsksDeltaAmount =
         deltaAmounts.reduce((prev, current) => prev + parseInt(current.asks_amount_utoken), 0) / deltaAmounts.length;
       const aveBidsDeltaAmount =
@@ -91,8 +95,7 @@ module.exports.primaryNormalAsk = f.pubsub
           // 需要(買い)増 →価格上昇基準電力価格で買い注文を入れる。
           if (aveBidsDeltaAmount - deltaBidsAmount > 0) {
             await normal_bid.create(
-              new NormalAsk({
-                type: proto.main.NormalAskType.PRIMARYADDITIONAL,
+              new NormalBid({
                 account_id: adminAccount[0].id,
                 price_ujpy: price.toString(),
                 amount_uupx: (aveBidsDeltaAmount - deltaBidsAmount).toString(),
@@ -105,8 +108,7 @@ module.exports.primaryNormalAsk = f.pubsub
           // 需要 買い増→価格上昇,基準電力価格で買い注文を入れる。
           if (deltaAsksAmount - aveAsksDeltaAmount > 0) {
             await normal_bid.create(
-              new NormalAsk({
-                type: proto.main.NormalAskType.PRIMARYADDITIONAL,
+              new NormalBid({
                 account_id: adminAccount[0].id,
                 price_ujpy: price.toString(),
                 amount_uupx: (deltaAsksAmount - aveAsksDeltaAmount).toString(),
