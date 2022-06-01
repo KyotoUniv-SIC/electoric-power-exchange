@@ -60,7 +60,7 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
       const config = functions.config();
       const confXrpl = config['xrpl'];
       const privKey = confXrpl.private_key;
-      const decrypted = crypto.AES.decrypt(accountPrivate[0].xrp_seed, privKey);
+      const decrypted = crypto.AES.decrypt(accountPrivate[0].xrp_seed, privKey).toString(crypto.enc.Utf8);
       const sender = xrpl.Wallet.fromSeed(decrypted);
       const sendTokenTx = {
         TransactionType: 'Payment',
@@ -99,7 +99,7 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
       const config = functions.config();
       const confXrpl = config['xrpl'];
       const privKey = confXrpl.private_key;
-      const decrypted = crypto.AES.decrypt(accountPrivate[0].xrp_seed, privKey);
+      const decrypted = crypto.AES.decrypt(accountPrivate[0].xrp_seed, privKey).toString(crypto.enc.Utf8);
       const sender = xrpl.Wallet.fromSeed(decrypted);
 
       if (uspxAmount > 0) {
@@ -163,7 +163,7 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
       const config = functions.config();
       const confXrpl = config['xrpl'];
       const privKey = confXrpl.private_key;
-      const decrypted = crypto.AES.decrypt(accountPrivate[0].xrp_seed, privKey);
+      const decrypted = crypto.AES.decrypt(accountPrivate[0].xrp_seed, privKey).toString(crypto.enc.Utf8);
       const sender = xrpl.Wallet.fromSeed(decrypted);
       if (uspxAmount > 0) {
         const sendSPXTx = {

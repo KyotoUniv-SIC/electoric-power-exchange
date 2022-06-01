@@ -117,7 +117,7 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
   const config = functions.config();
   const confXrpl = config['xrpl'];
   const privKey = confXrpl.private_key;
-  const decrypted = crypto.AES.decrypt(accountPrivate[0].xrp_seed, privKey);
+  const decrypted = crypto.AES.decrypt(accountPrivate[0].xrp_seed, privKey).toString(crypto.enc.Utf8);
   const sender = xrpl.Wallet.fromSeed(decrypted);
 
   const uspxAmount = parseInt(data.amount_uspx);
@@ -128,7 +128,7 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
       Account: sender.address,
       Amount: {
         currency: 'SPX',
-        value: (uspxAmount/1000000).toString(),
+        value: (uspxAmount / 1000000).toString(),
         issuer: adminAccount[0].xrp_address_cold,
       },
       Destination: adminAccount[0].xrp_address_hot,
@@ -149,7 +149,7 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
       Account: sender.address,
       Amount: {
         currency: 'UPX',
-        value: (uupxAmount/1000000).toString(),
+        value: (uupxAmount / 1000000).toString(),
         issuer: adminAccount[0].xrp_address_cold,
       },
       Destination: adminAccount[0].xrp_address_hot,
