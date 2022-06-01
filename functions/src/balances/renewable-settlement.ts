@@ -38,12 +38,6 @@ renewable_settlement.onCreateHandler.push(async (snapshot, context) => {
 
   if (data.ask_id == adminAccount[0].id) {
     const adminPrivate = await admin_private.list(adminAccount[0].id);
-    if (!bidder.xrp_address) {
-      console.log(data.bid_id, 'no XRP address');
-      return;
-    }
-    await client.connect();
-
     const config = functions.config();
     const confXrpl = config['xrpl'];
     const privKey = confXrpl.private_key;
@@ -51,7 +45,12 @@ renewable_settlement.onCreateHandler.push(async (snapshot, context) => {
     const encryptedSeed = adminPrivate[0].xrp_seed_hot;
     const decryptedSeed = crypto.AES.decrypt(encryptedSeed, privKey).toString(crypto.enc.Utf8);
 
-    const sender = confXrpl.Wallet.fromSeed(decryptedSeed);
+    if (!bidder.xrp_address) {
+      console.log(data.bid_id, 'no XRP address');
+      return;
+    }
+    await client.connect();
+    const sender = xrpl.Wallet.fromSeed(decryptedSeed);
     const sendTokenTx = {
       TransactionType: 'Payment',
       Account: sender.address,
