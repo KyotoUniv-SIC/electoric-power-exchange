@@ -1,11 +1,10 @@
 /* eslint-disable camelcase */
 import { single_price_normal_settlement } from '.';
-import { market_status } from '../market-statuses';
 import { normal_ask_history } from '../normal-ask-histories';
 import { normal_ask } from '../normal-asks';
 import { normal_bid_history } from '../normal-bid-histories';
 import { normal_bid } from '../normal-bids';
-import { MarketStatus, NormalAskHistory, NormalBidHistory, SinglePriceNormalSettlement } from '@local/common';
+import { NormalAskHistory, NormalBidHistory, SinglePriceNormalSettlement } from '@local/common';
 import * as functions from 'firebase-functions';
 
 const f = functions.region('asia-northeast1');
@@ -16,16 +15,9 @@ module.exports.normalContract = f.pubsub
   .onRun(async () => {
     const normalBids = await normal_bid.listValid();
     const normalAsks = await normal_ask.listValid();
-    const marketStatus = await market_status.getToday();
     // bidかaskが0の場合は0成約で終了する
     if (!normalBids.length || !normalAsks.length) {
       console.log('bid,askの不足でUPX成約は0です。');
-      if (!marketStatus.length) {
-        await market_status.create(new MarketStatus({ is_finished_normal: true, is_finished_renewable: false }));
-      } else {
-        await market_status.update({ id: marketStatus[0].id, is_finished_normal: true });
-      }
-      console.log(marketStatus);
 
       for (const bid of normalBids) {
         await normal_bid_history.create(
@@ -68,12 +60,6 @@ module.exports.normalContract = f.pubsub
     // 最高値のBidが最安値のAskより低い場合0成約で終了
     if (parseInt(sortNormalBids[0].price_ujpy) < parseInt(sortNormalAsks[0].price_ujpy)) {
       console.log('UPX成約はありませんでした。');
-      if (!marketStatus.length) {
-        await market_status.create(new MarketStatus({ is_finished_normal: true, is_finished_renewable: false }));
-      } else {
-        await market_status.update({ id: marketStatus[0].id, is_finished_normal: true });
-      }
-      console.log(marketStatus);
 
       for (const bid of sortNormalBids) {
         await normal_bid_history.create(

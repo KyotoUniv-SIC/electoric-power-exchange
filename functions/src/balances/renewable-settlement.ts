@@ -5,10 +5,9 @@ import { balance } from '.';
 import { account_private } from '../account-privates';
 import { admin_account } from '../admin-accounts';
 import { admin_private } from '../admin-privates';
-import { market_status } from '../market-statuses';
 import { renewable_settlement } from '../renewable-settlements';
 import { student_account } from '../student-accounts';
-import { MarketStatus, RenewableSettlement } from '@local/common';
+import { RenewableSettlement } from '@local/common';
 import * as crypto from 'crypto-js';
 import * as functions from 'firebase-functions';
 
@@ -21,14 +20,6 @@ renewable_settlement.onCreateHandler.push(async (snapshot, context) => {
     // amount_upx: bidderBalance[0].amount_upx,
     amount_uspx: (parseInt(bidderBalance[0].amount_uspx) + parseInt(data.amount_uspx)).toString(),
   });
-
-  const marketStatus = await market_status.getToday();
-  if (!marketStatus.length) {
-    await market_status.create(new MarketStatus({ is_finished_normal: false, is_finished_renewable: true }));
-  } else {
-    await market_status.update({ id: marketStatus[0].id, is_finished_renewable: true });
-  }
-  console.log(marketStatus);
 
   const xrpl = require('xrpl');
   const TEST_NET = 'wss://s.altnet.rippletest.net:51233';

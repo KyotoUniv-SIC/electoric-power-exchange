@@ -1,11 +1,10 @@
 /* eslint-disable camelcase */
 import { single_price_renewable_settlement } from '.';
-import { market_status } from '../market-statuses';
 import { renewable_ask_history } from '../renewable-ask-histories';
 import { renewable_ask } from '../renewable-asks';
 import { renewable_bid_history } from '../renewable-bid-histories';
 import { renewable_bid } from '../renewable-bids';
-import { MarketStatus, RenewableAskHistory, RenewableBidHistory, SinglePriceRenewableSettlement } from '@local/common';
+import { RenewableAskHistory, RenewableBidHistory, SinglePriceRenewableSettlement } from '@local/common';
 import * as functions from 'firebase-functions';
 
 const f = functions.region('asia-northeast1');
@@ -16,16 +15,9 @@ module.exports.renewableContract = f.pubsub
   .onRun(async () => {
     const renewableBids = await renewable_bid.listValid();
     const renewableAsks = await renewable_ask.listValid();
-    const marketStatus = await market_status.getToday();
     // bidかaskが0の場合は0成約で終了する
     if (!renewableBids.length || !renewableAsks.length) {
       console.log('bid,askの不足でSPX成約は0です。');
-      if (!marketStatus.length) {
-        await market_status.create(new MarketStatus({ is_finished_normal: false, is_finished_renewable: true }));
-      } else {
-        await market_status.update({ id: marketStatus[0].id, is_finished_renewable: true });
-      }
-      console.log(marketStatus);
 
       for (const bid of renewableBids) {
         await renewable_bid_history.create(
@@ -68,12 +60,6 @@ module.exports.renewableContract = f.pubsub
     // i,j両方が0のとき、成約は0になる
     if (parseInt(sortRenewableBids[0].price_ujpy) < parseInt(sortRenewableAsks[0].price_ujpy)) {
       console.log('SPX成約はありませんでした。');
-      if (!marketStatus.length) {
-        await market_status.create(new MarketStatus({ is_finished_normal: false, is_finished_renewable: true }));
-      } else {
-        await market_status.update({ id: marketStatus[0].id, is_finished_renewable: true });
-      }
-      console.log(marketStatus);
 
       for (const bid of sortRenewableBids) {
         await renewable_bid_history.create(
