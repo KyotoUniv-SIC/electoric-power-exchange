@@ -145,6 +145,7 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
       client.disconnect();
     } else {
       const insufficiency = usage - totalBalance;
+      console.log('不足分', insufficiency);
       await balance.update({
         id: accountBalance[0].id,
         student_account_id: accountBalance[0].student_account_id,
