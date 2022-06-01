@@ -14,7 +14,7 @@ import * as functions from 'firebase-functions';
 
 const f = functions.region('asia-northeast1');
 module.exports.monthlySettlement = f.pubsub
-  .schedule('0 9 1 * *')
+  .schedule('0 18 * * *')
   // .schedule('every 10 minutes')
   .timeZone('Asia/Tokyo') // Users can choose timezone - default is America/Los_Angeles
   .onRun(async () => {
