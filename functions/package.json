@@ -21,7 +21,7 @@
     "@local/common": "file:common",
     "crypto-js": "^4.1.1",
     "firebase-admin": "^9.11.1",
-    "firebase-functions": "^3.18.1",
+    "firebase-functions": "^3.21.2",
     "xrpl": "^2.1.1"
   },
   "devDependencies": {
