@@ -75,7 +75,6 @@ student_account.onCreateHandler.push(async (snapshot, context) => {
 
   await student_account.update({ id: data.id, xrp_address: wallet.classicAddress, xrp_public_key: wallet.publicKey });
   const config = functions.config();
-  console.log(config);
   const confXrpl = config['xrpl'];
   const privKey = confXrpl.private_key;
   const encryptedSeed = crypto.AES.encrypt(wallet.seed, privKey).toString();
