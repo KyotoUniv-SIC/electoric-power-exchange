@@ -40,6 +40,7 @@ normal_settlement.onCreateHandler.push(async (snapshot, context) => {
     }
     await client.connect();
     const sender = xrpl.Wallet.fromSeed(decryptedSeed);
+    const vli = await client.getLedgerIndex();
     const sendTokenTx = {
       TransactionType: 'Payment',
       Account: sender.address,
@@ -49,6 +50,7 @@ normal_settlement.onCreateHandler.push(async (snapshot, context) => {
         issuer: adminAccount[0].xrp_address_cold,
       },
       Destination: bidder.xrp_address,
+      LastLedgerSequence: vli + 150,
     };
     const payPrepared = await client.autofill(sendTokenTx);
     const paySigned = sender.sign(payPrepared);
@@ -84,6 +86,7 @@ normal_settlement.onCreateHandler.push(async (snapshot, context) => {
     const privKey = confXrpl.private_key;
     const decrypted = crypto.AES.decrypt(sellerPrivate[0].xrp_seed, privKey).toString(crypto.enc.Utf8);
     const sender = xrpl.Wallet.fromSeed(decrypted);
+    const vli = await client.getLedgerIndex();
     const sendTokenTx = {
       TransactionType: 'Payment',
       Account: sender.address,
@@ -93,6 +96,7 @@ normal_settlement.onCreateHandler.push(async (snapshot, context) => {
         issuer: adminAccount[0].xrp_address_cold,
       },
       Destination: bidder.xrp_address,
+      LastLedgerSequence: vli + 150,
     };
     const payPrepared = await client.autofill(sendTokenTx);
     const paySigned = sender.sign(payPrepared);

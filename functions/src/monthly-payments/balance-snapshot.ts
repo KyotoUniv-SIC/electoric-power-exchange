@@ -19,8 +19,8 @@ import * as crypto from 'crypto-js';
 import * as functions from 'firebase-functions';
 
 balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
-  console.log('run balanceSS onCreate');
   const data = snapshot.data()! as BalanceSnapshot;
+  console.log(data.student_account_id, 'adjustment start.');
   const insufficiencies = (await insufficient_balance.listLastMonth(data.student_account_id)).reduce(
     (sum, element) => sum + parseInt(element.amount_utoken),
     0,
@@ -123,6 +123,7 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
   const uspxAmount = parseInt(data.amount_uspx);
   const uupxAmount = parseInt(data.amount_uupx);
   if (uspxAmount > 0) {
+    const vli = await client.getLedgerIndex();
     const sendTokenTx = {
       TransactionType: 'Payment',
       Account: sender.address,
@@ -132,6 +133,7 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
         issuer: adminAccount[0].xrp_address_cold,
       },
       Destination: adminAccount[0].xrp_address_hot,
+      LastLedgerSequence: vli + 150,
     };
     const payPrepared = await client.autofill(sendTokenTx);
     const paySigned = sender.sign(payPrepared);
@@ -144,6 +146,7 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
     }
   }
   if (uupxAmount > 0) {
+    const vli = await client.getLedgerIndex();
     const sendTokenTx = {
       TransactionType: 'Payment',
       Account: sender.address,
@@ -153,6 +156,7 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
         issuer: adminAccount[0].xrp_address_cold,
       },
       Destination: adminAccount[0].xrp_address_hot,
+      LastLedgerSequence: vli + 150,
     };
     const payPrepared = await client.autofill(sendTokenTx);
     const paySigned = sender.sign(payPrepared);
