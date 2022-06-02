@@ -1,14 +1,13 @@
 import { FirestoreCreateHandler, FirestoreDeleteHandler, FirestoreUpdateHandler } from '../triggers';
 import { isTriggeredOnce } from '../triggers/module';
-import { NormalSettlementFirestore } from '@local/common';
+import { DeltaAmountFirestore } from '@local/common';
 import * as functions from 'firebase-functions';
 
 export const onCreateHandler: FirestoreCreateHandler[] = [];
 export const onUpdateHandler: FirestoreUpdateHandler[] = [];
 export const onDeleteHandler: FirestoreDeleteHandler[] = [];
 
-const f = functions.region('asia-northeast1').runWith({ timeoutSeconds: 540 });
-module.exports.onCreate = f.firestore.document(NormalSettlementFirestore.virtualPath).onCreate(async (snapshot, context) => {
+export const onCreate = functions.firestore.document(DeltaAmountFirestore.virtualPath).onCreate(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     return;
   }
@@ -17,12 +16,13 @@ module.exports.onCreate = f.firestore.document(NormalSettlementFirestore.virtual
     try {
       await handler(snapshot, context);
     } catch (e) {
+      console.error(`Error: in function ${handler.name}`);
       console.error(e);
     }
   }
 });
 
-module.exports.onUpdate = f.firestore.document(NormalSettlementFirestore.virtualPath).onUpdate(async (snapshot, context) => {
+export const onUpdate = functions.firestore.document(DeltaAmountFirestore.virtualPath).onUpdate(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     return;
   }
@@ -31,12 +31,13 @@ module.exports.onUpdate = f.firestore.document(NormalSettlementFirestore.virtual
     try {
       await handler(snapshot, context);
     } catch (e) {
+      console.error(`Error: in function ${handler.name}`);
       console.error(e);
     }
   }
 });
 
-module.exports.onDelete = f.firestore.document(NormalSettlementFirestore.virtualPath).onDelete(async (snapshot, context) => {
+export const onDelete = functions.firestore.document(DeltaAmountFirestore.virtualPath).onDelete(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     return;
   }
@@ -45,6 +46,7 @@ module.exports.onDelete = f.firestore.document(NormalSettlementFirestore.virtual
     try {
       await handler(snapshot, context);
     } catch (e) {
+      console.error(`Error: in function ${handler.name}`);
       console.error(e);
     }
   }

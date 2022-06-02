@@ -45,6 +45,7 @@ primary_ask.onCreateHandler.push(async (snapshot, context) => {
   const decryptedSeed = crypto.AES.decrypt(encryptedSeed, privKey).toString(crypto.enc.Utf8);
 
   const admin = xrpl.Wallet.fromSeed(decryptedSeed);
+  const vli = await client.getLedgerIndex();
   const sendTokenTx = {
     TransactionType: 'Payment',
     Account: admin.address,
@@ -54,6 +55,7 @@ primary_ask.onCreateHandler.push(async (snapshot, context) => {
       issuer: adminAccount[0].xrp_address_cold,
     },
     Destination: studentAccount.xrp_address,
+    LastLedgerSequence: vli + 150,
   };
   const payPrepared = await client.autofill(sendTokenTx);
   const paySigned = admin.sign(payPrepared);

@@ -5,10 +5,9 @@ import { balance } from '.';
 import { account_private } from '../account-privates';
 import { admin_account } from '../admin-accounts';
 import { admin_private } from '../admin-privates';
-import { market_status } from '../market-statuses';
 import { renewable_settlement } from '../renewable-settlements';
 import { student_account } from '../student-accounts';
-import { MarketStatus, RenewableSettlement } from '@local/common';
+import { RenewableSettlement } from '@local/common';
 import * as crypto from 'crypto-js';
 import * as functions from 'firebase-functions';
 
@@ -22,14 +21,6 @@ renewable_settlement.onCreateHandler.push(async (snapshot, context) => {
     amount_uspx: (parseInt(bidderBalance[0].amount_uspx) + parseInt(data.amount_uspx)).toString(),
   });
 
-  const marketStatus = await market_status.getToday();
-  if (!marketStatus.length) {
-    await market_status.create(new MarketStatus({ is_finished_normal: false, is_finished_renewable: true }));
-  } else {
-    await market_status.update({ id: marketStatus[0].id, is_finished_renewable: true });
-  }
-  console.log(marketStatus);
-
   const xrpl = require('xrpl');
   const TEST_NET = 'wss://s.altnet.rippletest.net:51233';
   const client = new xrpl.Client(TEST_NET);
@@ -38,12 +29,6 @@ renewable_settlement.onCreateHandler.push(async (snapshot, context) => {
 
   if (data.ask_id == adminAccount[0].id) {
     const adminPrivate = await admin_private.list(adminAccount[0].id);
-    if (!bidder.xrp_address) {
-      console.log(data.bid_id, 'no XRP address');
-      return;
-    }
-    await client.connect();
-
     const config = functions.config();
     const confXrpl = config['xrpl'];
     const privKey = confXrpl.private_key;
@@ -51,7 +36,13 @@ renewable_settlement.onCreateHandler.push(async (snapshot, context) => {
     const encryptedSeed = adminPrivate[0].xrp_seed_hot;
     const decryptedSeed = crypto.AES.decrypt(encryptedSeed, privKey).toString(crypto.enc.Utf8);
 
-    const sender = confXrpl.Wallet.fromSeed(decryptedSeed);
+    if (!bidder.xrp_address) {
+      console.log(data.bid_id, 'no XRP address');
+      return;
+    }
+    await client.connect();
+    const sender = xrpl.Wallet.fromSeed(decryptedSeed);
+    const vli = await client.getLedgerIndex();
     const sendTokenTx = {
       TransactionType: 'Payment',
       Account: sender.address,
@@ -61,6 +52,7 @@ renewable_settlement.onCreateHandler.push(async (snapshot, context) => {
         issuer: adminAccount[0].xrp_address_cold,
       },
       Destination: bidder.xrp_address,
+      LastLedgerSequence: vli + 150,
     };
     const payPrepared = await client.autofill(sendTokenTx);
     const paySigned = sender.sign(payPrepared);
@@ -95,8 +87,9 @@ renewable_settlement.onCreateHandler.push(async (snapshot, context) => {
     const config = functions.config();
     const confXrpl = config['xrpl'];
     const privKey = confXrpl.private_key;
-    const decrypted = crypto.AES.decrypt(sellerPrivate[0].xrp_seed, privKey);
+    const decrypted = crypto.AES.decrypt(sellerPrivate[0].xrp_seed, privKey).toString(crypto.enc.Utf8);
     const sender = xrpl.Wallet.fromSeed(decrypted);
+    const vli = await client.getLedgerIndex();
     const sendTokenTx = {
       TransactionType: 'Payment',
       Account: sender.address,
@@ -106,6 +99,7 @@ renewable_settlement.onCreateHandler.push(async (snapshot, context) => {
         issuer: adminAccount[0].xrp_address_cold,
       },
       Destination: bidder.xrp_address,
+      LastLedgerSequence: vli + 150,
     };
     const payPrepared = await client.autofill(sendTokenTx);
     const paySigned = sender.sign(payPrepared);

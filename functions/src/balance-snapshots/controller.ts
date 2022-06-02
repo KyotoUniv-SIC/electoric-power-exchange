@@ -7,7 +7,7 @@ export const onCreateHandler: FirestoreCreateHandler[] = [];
 export const onUpdateHandler: FirestoreUpdateHandler[] = [];
 export const onDeleteHandler: FirestoreDeleteHandler[] = [];
 
-const f = functions.region('asia-northeast1');
+const f = functions.region('asia-northeast1').runWith({ timeoutSeconds: 540 });
 module.exports.onCreate = f.firestore.document(BalanceSnapshotFirestore.virtualPath).onCreate(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     return;

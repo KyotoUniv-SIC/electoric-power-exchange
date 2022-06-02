@@ -33,6 +33,29 @@ export async function get(id: string) {
     .then((snapshot) => snapshot.data() as NormalAskHistory);
 }
 
+export async function getToday() {
+  const today = new Date();
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  return await collection()
+    .where('created_at', '<', today)
+    .where('created_at', '>', yesterday)
+    .get()
+    .then((snapshot) => snapshot.docs.map((doc) => doc.data() as NormalAskHistory));
+}
+
+export async function getYesterday() {
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  const dayBeforeYesterday = new Date();
+  dayBeforeYesterday.setDate(dayBeforeYesterday.getDate() - 2);
+  return await collection()
+    .where('created_at', '<', yesterday)
+    .where('created_at', '>', dayBeforeYesterday)
+    .get()
+    .then((snapshot) => snapshot.docs.map((doc) => doc.data() as NormalAskHistory));
+}
+
 export async function list() {
   return await collection()
     .get()
