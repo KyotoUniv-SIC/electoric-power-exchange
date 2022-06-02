@@ -3,7 +3,7 @@ import { Auth, authState } from '@angular/fire/auth';
 import { Timestamp } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { Balance, MonthlyUsage, SinglePriceNormalSettlement, SinglePriceRenewableSettlement } from '@local/common';
-import { ChartDataSets } from 'chart.js';
+import { ChartDataSets, ChartOptions } from 'chart.js';
 import { MultiDataSet } from 'ng2-charts';
 import { DailyUsageApplicationService } from 'projects/shared/src/lib/services/daily-usages/daily-usage.application.service';
 import { SinglePriceNormalSettlementApplicationService } from 'projects/shared/src/lib/services/single-price-normal-settlements/single-price-normal-settlement.application.service';
@@ -38,10 +38,20 @@ export class DashboardComponent implements OnInit {
   usageData$: Observable<ChartDataSets[]> | undefined;
   rankings$: Observable<Ranking[]> | undefined;
   rank$: Observable<number | undefined> | undefined;
-  singlePriceNormal$: Observable<SinglePriceNormalSettlement> | undefined;
-  singlePriceNormalDate$: Observable<Date> | undefined;
-  singlePriceRenewable$: Observable<SinglePriceRenewableSettlement> | undefined;
-  singlePriceRenewableDate$: Observable<Date> | undefined;
+
+  normalSettlement$: Observable<SinglePriceNormalSettlement> | undefined;
+  normalDate$: Observable<Date> | undefined;
+  normalSettlements$: Observable<SinglePriceNormalSettlement[]> | undefined;
+  normalChartDataSets$: Observable<ChartDataSets[]> | undefined;
+  normalChartDates$: Observable<string[]> | undefined;
+  normalChartOptions$: Observable<ChartOptions> | undefined;
+
+  renewableSettlement$: Observable<SinglePriceRenewableSettlement> | undefined;
+  renewableDate$: Observable<Date> | undefined;
+  renewableSettlements$: Observable<SinglePriceRenewableSettlement[]> | undefined;
+  renewableChartDataSets$: Observable<ChartDataSets[]> | undefined;
+  renewableChartDates$: Observable<string[]> | undefined;
+  renewableChartOptions$: Observable<ChartOptions> | undefined;
 
   constructor(
     private auth: Auth,
@@ -213,10 +223,12 @@ export class DashboardComponent implements OnInit {
         { data: lastYear, label: 'Last year' },
       ]),
     );
-    this.singlePriceNormal$ = this.singlePriceNormalApp.getLatest$();
-    this.singlePriceNormalDate$ = this.singlePriceNormal$.pipe(map((single) => (single.market_date as Timestamp).toDate()));
-    this.singlePriceRenewable$ = this.singlePriceRenewableApp.getLatest$();
-    this.singlePriceRenewableDate$ = this.singlePriceRenewable$.pipe(map((single) => (single.market_date as Timestamp).toDate()));
+    this.normalSettlement$ = this.singlePriceNormalApp.getLatest$();
+    this.normalDate$ = this.normalSettlement$.pipe(map((single) => (single.market_date as Timestamp).toDate()));
+    this.renewableSettlement$ = this.singlePriceRenewableApp.getLatest$();
+    this.renewableDate$ = this.renewableSettlement$.pipe(map((single) => (single.market_date as Timestamp).toDate()));
+    this.normalSettlements$ = this.singlePriceNormalApp.listLatestMonth$();
+    this.renewableSettlements$ = this.singlePriceRenewableApp.listLatestMonth$();
   }
 
   ngOnInit(): void {}
