@@ -16,7 +16,7 @@ import * as functions from 'firebase-functions';
 const f = functions.region('asia-northeast1');
 module.exports.monthlySettlement = f.pubsub
   // .schedule('0 18 * * *')
-  .schedule('0 * * * *, 30 * * * *')
+  .schedule('0,30 * * * *')
   .timeZone('Asia/Tokyo') // Users can choose timezone - default is America/Los_Angeles
   .onRun(async () => {
     const students = await student_account.list();
