@@ -1,8 +1,9 @@
-import { BalanceData, MonthlyUsageData, OrderData } from '../../../page/admin/dashboard/dashboard.component';
+import { MonthlyUsageData, OrderData } from '../../../page/admin/dashboard/dashboard.component';
 import { Ranking } from '../../../page/dashboard/dashboard.component';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import {
+  Balance,
   NormalAsk,
   NormalAskHistory,
   NormalBid,
@@ -30,7 +31,7 @@ export interface DateRange {
 })
 export class DashboardComponent implements OnInit {
   @Input()
-  balances?: BalanceData[] | null;
+  balances?: Balance[] | null;
   @Input()
   totalBalanceData?: MultiDataSet | null;
   @Input()
@@ -67,7 +68,7 @@ export class DashboardComponent implements OnInit {
   renewableAskHistories?: RenewableAskHistory[] | null;
 
   @Output()
-  appDownloadBalances: EventEmitter<BalanceData[]>;
+  appDownloadBalances: EventEmitter<Balance[]>;
   @Output()
   appDownloadOrders: EventEmitter<OrderData[]>;
   @Output()
@@ -76,6 +77,12 @@ export class DashboardComponent implements OnInit {
   appDownloadMonthlyUsages: EventEmitter<MonthlyUsageData[]>;
   @Output()
   appDownloadNormalBids: EventEmitter<DateRange>;
+  @Output()
+  appDownloadNormalAsks: EventEmitter<DateRange>;
+  @Output()
+  appDownloadRenewableBids: EventEmitter<DateRange>;
+  @Output()
+  appDownloadRenewableAsks: EventEmitter<DateRange>;
 
   doughnutChartLabels: Label[] = ['Utility Power', 'Solar Power'];
   doughnutChartType: ChartType = 'doughnut';
@@ -112,6 +119,9 @@ export class DashboardComponent implements OnInit {
     this.appDownloadUserUsages = new EventEmitter();
     this.appDownloadMonthlyUsages = new EventEmitter();
     this.appDownloadNormalBids = new EventEmitter();
+    this.appDownloadNormalAsks = new EventEmitter();
+    this.appDownloadRenewableBids = new EventEmitter();
+    this.appDownloadRenewableAsks = new EventEmitter();
   }
 
   ngOnInit(): void {}
@@ -152,7 +162,42 @@ export class DashboardComponent implements OnInit {
     if (!this.range.value.start || !this.range.value.end) {
       alert('範囲を正しく指定してください');
     }
-    console.log({ start: this.range.value.start, end: this.range.value.end });
     this.appDownloadNormalBids.emit({ data: this.normalBidHistories, start: this.range.value.start, end: this.range.value.end });
+  }
+
+  onDownloadNormalAskHistories() {
+    if (!this.normalAskHistories?.length) {
+      alert('UPXのAskが存在しません');
+      return;
+    }
+    if (!this.range.value.start || !this.range.value.end) {
+      alert('範囲を正しく指定してください');
+      return;
+    }
+    this.appDownloadNormalAsks.emit({ data: this.normalAskHistories, start: this.range.value.start, end: this.range.value.end });
+  }
+
+  onDownloadRenewableBidHistories() {
+    if (!this.renewableBidHistories?.length) {
+      alert('SPXのBidが存在しません');
+      return;
+    }
+    if (!this.range.value.start || !this.range.value.end) {
+      alert('範囲を正しく指定してください');
+      return;
+    }
+    this.appDownloadNormalBids.emit({ data: this.renewableBidHistories, start: this.range.value.start, end: this.range.value.end });
+  }
+
+  onDownloadRenewableAskHistories() {
+    if (!this.renewableAskHistories?.length) {
+      alert('SPXのAskが存在しません');
+      return;
+    }
+    if (!this.range.value.start || !this.range.value.end) {
+      alert('範囲を正しく指定してください');
+      return;
+    }
+    this.appDownloadNormalAsks.emit({ data: this.renewableAskHistories, start: this.range.value.start, end: this.range.value.end });
   }
 }
