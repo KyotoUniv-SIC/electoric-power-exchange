@@ -17,11 +17,11 @@ export class AccountComponent implements OnInit {
   @Input()
   monthlyPayments?: MonthlyPayment[] | null;
   @Input()
-  amountUPX?: number | null;
+  uupxAmount?: number | null;
   @Input()
-  amountSPX?: number | null;
+  uspxAmount?: number | null;
   @Input()
-  amountInsufficiency?: number | null;
+  insufficiencyAmount?: number | null;
 
   constructor() {}
 

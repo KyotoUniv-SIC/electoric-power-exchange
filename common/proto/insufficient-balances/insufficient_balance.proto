@@ -8,5 +8,5 @@ option (google.firebase.rules.firebase_rules).full_package_names = true;
 message InsufficientBalance {
   string id = 1;
   string student_account_id = 2;
-  double amount = 3;
+  string amount_utoken = 3;
 }

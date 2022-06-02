@@ -8,14 +8,13 @@ import { daily_payment } from '../daily-payments';
 import { daily_usage } from '../daily-usages';
 import { insufficient_balance } from '../insufficient-balances';
 import { student_account } from '../student-accounts';
-import { InsufficientBalance, DailyPayment } from '@local/common';
+import { InsufficientBalance, DailyPayment, DailyUsage } from '@local/common';
 import * as crypto from 'crypto-js';
 import * as functions from 'firebase-functions';
 
 daily_usage.onCreateHandler.push(async (snapshot, context) => {
-  const data = snapshot.data()!;
-  const usage = Number(data.amount_kwh_str);
-  await daily_usage.update({ id: data.id, amount_kwh: usage });
+  const data = snapshot.data()! as DailyUsage;
+  const usage = parseInt(data.amount_kwh_str) * 1000000;
   const studentAccounts = await student_account.getByRoomID(data.room_id);
   if (!studentAccounts.length) {
     console.log(data.room_id, 'no student');
@@ -27,7 +26,9 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
   }
   for (const student of studentAccounts) {
     const accountBalance = await balance.getLatest(student.id);
-    const totalBalance = accountBalance[0].amount_spx + accountBalance[0].amount_upx;
+    const uupxAmount = parseInt(accountBalance[0].amount_uupx);
+    const uspxAmount = parseInt(accountBalance[0].amount_uspx);
+    const totalBalance = uupxAmount + uspxAmount;
     const accountPrivate = await account_private.list(student.id);
     const xrpl = require('xrpl');
     const TEST_NET = 'wss://s.altnet.rippletest.net:51233';
@@ -38,19 +39,18 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
     await daily_payment.create(
       new DailyPayment({
         student_account_id: student.id,
-        year: date.getFullYear(),
-        month: date.getMonth() + 1,
-        date: date.getDate(),
-        amount_kwh: usage,
+        year: date.getFullYear().toString(),
+        month: (date.getMonth() + 1).toString(),
+        date: date.getDate().toString(),
+        amount_mwh: usage.toString(),
       }),
     );
 
-    if (usage <= accountBalance[0].amount_spx) {
+    if (usage <= uspxAmount) {
       await balance.update({
         id: accountBalance[0].id,
         student_account_id: accountBalance[0].student_account_id,
-        // amount_upx: accountBalance[0].amount_upx,
-        amount_spx: accountBalance[0].amount_spx - usage,
+        amount_uspx: (uspxAmount - usage).toString(),
       });
       if (!accountPrivate.length) {
         console.log(student.id, 'no XRP address');
@@ -60,17 +60,20 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
       const config = functions.config();
       const confXrpl = config['xrpl'];
       const privKey = confXrpl.private_key;
-      const decrypted = crypto.AES.decrypt(accountPrivate[0].xrp_seed, privKey);
+      const decrypted = crypto.AES.decrypt(accountPrivate[0].xrp_seed, privKey).toString(crypto.enc.Utf8);
       const sender = xrpl.Wallet.fromSeed(decrypted);
+      const vli = await client.getLedgerIndex();
+
       const sendTokenTx = {
         TransactionType: 'Payment',
         Account: sender.address,
         Amount: {
           currency: 'SPX',
-          value: data.amount_kwh_str,
+          value: (usage / 1000000).toString(),
           issuer: adminAccount[0].xrp_address_cold,
         },
         Destination: adminAccount[0].xrp_address_hot,
+        LastLedgerSequence: vli + 150,
       };
       const payPrepared = await client.autofill(sendTokenTx);
       const paySigned = sender.sign(payPrepared);
@@ -83,12 +86,12 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
       }
       client.disconnect();
     } else if (usage < totalBalance) {
-      const spxShortage = usage - accountBalance[0].amount_spx;
+      const uspxShortage = usage - uspxAmount;
       await balance.update({
         id: accountBalance[0].id,
         student_account_id: accountBalance[0].student_account_id,
-        amount_upx: accountBalance[0].amount_upx - spxShortage,
-        amount_spx: 0,
+        amount_uupx: (uupxAmount - uspxShortage).toString(),
+        amount_uspx: '0',
       });
       if (!accountPrivate.length) {
         console.log(student.id, 'no XRP address');
@@ -99,19 +102,21 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
       const config = functions.config();
       const confXrpl = config['xrpl'];
       const privKey = confXrpl.private_key;
-      const decrypted = crypto.AES.decrypt(accountPrivate[0].xrp_seed, privKey);
+      const decrypted = crypto.AES.decrypt(accountPrivate[0].xrp_seed, privKey).toString(crypto.enc.Utf8);
       const sender = xrpl.Wallet.fromSeed(decrypted);
+      let vli = await client.getLedgerIndex();
 
-      if (accountBalance[0].amount_spx > 0) {
+      if (uspxAmount > 0) {
         const sendSPXTx = {
           TransactionType: 'Payment',
           Account: sender.address,
           Amount: {
             currency: 'SPX',
-            value: String(accountBalance[0].amount_spx),
+            value: (uspxAmount / 1000000).toString(),
             issuer: adminAccount[0].xrp_address_cold,
           },
           Destination: adminAccount[0].xrp_address_hot,
+          LastLedgerSequence: vli + 150,
         };
         const payPreparedSPX = await client.autofill(sendSPXTx);
         const paySignedSPX = sender.sign(payPreparedSPX);
@@ -123,15 +128,18 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
           throw `Error sending transaction: ${payResultSPX.result.meta.TransactionResult}`;
         }
       }
+      vli = await client.getLedgerIndex();
+
       const sendUPXTx = {
         TransactionType: 'Payment',
         Account: sender.address,
         Amount: {
           currency: 'UPX',
-          value: String(spxShortage),
+          value: (uspxShortage / 1000000).toString(),
           issuer: adminAccount[0].xrp_address_cold,
         },
         Destination: adminAccount[0].xrp_address_hot,
+        LastLedgerSequence: vli + 150,
       };
       const payPreparedUPX = await client.autofill(sendUPXTx);
       const paySignedUPX = sender.sign(payPreparedUPX);
@@ -145,14 +153,15 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
       client.disconnect();
     } else {
       const insufficiency = usage - totalBalance;
+      console.log('不足分', insufficiency);
       await balance.update({
         id: accountBalance[0].id,
         student_account_id: accountBalance[0].student_account_id,
-        amount_upx: 0,
-        amount_spx: 0,
+        amount_uupx: '0',
+        amount_uspx: '0',
       });
       await insufficient_balance.create(
-        new InsufficientBalance({ student_account_id: accountBalance[0].student_account_id, amount: insufficiency }),
+        new InsufficientBalance({ student_account_id: accountBalance[0].student_account_id, amount_utoken: insufficiency.toString() }),
       );
 
       if (!accountPrivate.length) {
@@ -163,18 +172,21 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
       const config = functions.config();
       const confXrpl = config['xrpl'];
       const privKey = confXrpl.private_key;
-      const decrypted = crypto.AES.decrypt(accountPrivate[0].xrp_seed, privKey);
+      const decrypted = crypto.AES.decrypt(accountPrivate[0].xrp_seed, privKey).toString(crypto.enc.Utf8);
       const sender = xrpl.Wallet.fromSeed(decrypted);
-      if (accountBalance[0].amount_spx > 0) {
+      let vli = await client.getLedgerIndex();
+
+      if (uspxAmount > 0) {
         const sendSPXTx = {
           TransactionType: 'Payment',
           Account: sender.address,
           Amount: {
             currency: 'SPX',
-            value: String(accountBalance[0].amount_spx),
+            value: (uspxAmount / 1000000).toString(),
             issuer: adminAccount[0].xrp_address_cold,
           },
           Destination: adminAccount[0].xrp_address_hot,
+          LastLedgerSequence: vli + 150,
         };
         const payPreparedSPX = await client.autofill(sendSPXTx);
         const paySignedSPX = sender.sign(payPreparedSPX);
@@ -186,16 +198,19 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
           throw `Error sending transaction: ${payResultSPX.result.meta.TransactionResult}`;
         }
       }
-      if (accountBalance[0].amount_upx > 0) {
+      vli = await client.getLedgerIndex();
+
+      if (uupxAmount > 0) {
         const sendUPXTx = {
           TransactionType: 'Payment',
           Account: sender.address,
           Amount: {
             currency: 'UPX',
-            value: String(accountBalance[0].amount_upx),
+            value: (uupxAmount / 1000000).toString(),
             issuer: adminAccount[0].xrp_address_cold,
           },
           Destination: adminAccount[0].xrp_address_hot,
+          LastLedgerSequence: vli + 150,
         };
         const payPreparedUPX = await client.autofill(sendUPXTx);
         const paySignedUPX = sender.sign(payPreparedUPX);

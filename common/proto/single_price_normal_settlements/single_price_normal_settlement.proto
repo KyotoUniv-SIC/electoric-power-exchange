@@ -8,7 +8,7 @@ option (google.firebase.rules.firebase_rules).full_package_names = true;
 
 message SinglePriceNormalSettlement {
   string id = 1;
-  double price = 2;
-  double amount = 3;
+  string price_ujpy = 2;
+  string amount_uupx = 3;
   //google.protobuf.Timestamp date = 4;
 }

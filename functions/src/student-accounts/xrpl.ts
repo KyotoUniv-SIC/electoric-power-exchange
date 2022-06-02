@@ -6,12 +6,14 @@
 import { student_account } from '.';
 import { account_private } from '../account-privates';
 import { admin_account } from '../admin-accounts';
-import { AccountPrivate } from '@local/common';
+import { daily_usage } from '../daily-usages';
+import { primary_ask } from '../primary-asks';
+import { AccountPrivate, PrimaryAsk, StudentAccount } from '@local/common';
 import * as crypto from 'crypto-js';
 import * as functions from 'firebase-functions';
 
 student_account.onCreateHandler.push(async (snapshot, context) => {
-  const data = snapshot.data()!;
+  const data = snapshot.data()! as StudentAccount;
   const adminAccount = await admin_account.getByName('admin');
   // const adminPrivate = await admin_private.list(adminAccount[0].id);
   const xrpl = require('xrpl');
@@ -77,4 +79,13 @@ student_account.onCreateHandler.push(async (snapshot, context) => {
   const privKey = confXrpl.private_key;
   const encryptedSeed = crypto.AES.encrypt(wallet.seed, privKey).toString();
   await account_private.create(new AccountPrivate({ student_account_id: data.id, xrp_seed: encryptedSeed }));
+
+  // create Primary Tx
+  let student = await student_account.get(data.id);
+  while (!student.room_id) {
+    student = await student_account.get(data.id);
+  }
+  const usages = await daily_usage.listLastMonth(student.room_id);
+  const uupxAmount = usages.reduce((previous, current) => previous + parseInt(current.amount_kwh_str), 0) * 1000000;
+  await primary_ask.create(new PrimaryAsk({ account_id: data.id, price_ujpy: '27000000', amount_uupx: uupxAmount.toString() }));
 });

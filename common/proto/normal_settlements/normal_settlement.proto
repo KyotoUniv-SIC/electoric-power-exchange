@@ -10,7 +10,7 @@ message NormalSettlement {
   string id =1;
   string bid_id = 2;
   string ask_id = 3;
-  double price = 4;
-  double amount = 5;
+  string price_ujpy = 4;
+  string amount_uupx = 5;
   //google.protobuf.Timestamp date = 6;
 }

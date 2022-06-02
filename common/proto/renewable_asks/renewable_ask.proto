@@ -15,7 +15,7 @@ message RenewableAsk {
   string id = 1;
   RenewableAskType type = 2;
   string account_id = 3;
-  double price = 4;
-  double amount = 5;
+  string price_ujpy = 4;
+  string amount_uspx = 5;
   bool is_deleted = 6;
 }

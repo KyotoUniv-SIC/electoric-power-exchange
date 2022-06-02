@@ -5,30 +5,20 @@ import { balance } from '.';
 import { account_private } from '../account-privates';
 import { admin_account } from '../admin-accounts';
 import { admin_private } from '../admin-privates';
-import { market_status } from '../market-statuses';
 import { normal_settlement } from '../normal-settlements';
 import { student_account } from '../student-accounts';
-import { MarketStatus } from '@local/common';
+import { NormalSettlement } from '@local/common';
 import * as crypto from 'crypto-js';
 import * as functions from 'firebase-functions';
 
 normal_settlement.onCreateHandler.push(async (snapshot, context) => {
-  const data = snapshot.data()!;
+  const data = snapshot.data()! as NormalSettlement;
   const bidderBalance = await balance.getLatest(data.bid_id);
   await balance.update({
     id: bidderBalance[0].id,
     student_account_id: data.bid_id,
-    amount_upx: bidderBalance[0].amount_upx + data.amount,
-    // amount_spx: bidderBalance[0].amount_spx,
+    amount_uupx: (parseInt(bidderBalance[0].amount_uupx) + parseInt(data.amount_uupx)).toString(),
   });
-
-  const marketStatus = await market_status.getToday();
-  if (!marketStatus.length) {
-    await market_status.create(new MarketStatus({ is_finished_normal: true, is_finished_renewable: false }));
-  } else {
-    await market_status.update({ id: marketStatus[0].id, is_finished_normal: true });
-  }
-  console.log(marketStatus);
 
   const xrpl = require('xrpl');
   const TEST_NET = 'wss://s.altnet.rippletest.net:51233';
@@ -50,15 +40,17 @@ normal_settlement.onCreateHandler.push(async (snapshot, context) => {
     }
     await client.connect();
     const sender = xrpl.Wallet.fromSeed(decryptedSeed);
+    const vli = await client.getLedgerIndex();
     const sendTokenTx = {
       TransactionType: 'Payment',
       Account: sender.address,
       Amount: {
         currency: 'UPX',
-        value: String(data.amount),
+        value: (parseInt(data.amount_uupx) / 1000000).toString(),
         issuer: adminAccount[0].xrp_address_cold,
       },
       Destination: bidder.xrp_address,
+      LastLedgerSequence: vli + 150,
     };
     const payPrepared = await client.autofill(sendTokenTx);
     const paySigned = sender.sign(payPrepared);
@@ -75,8 +67,7 @@ normal_settlement.onCreateHandler.push(async (snapshot, context) => {
     await balance.update({
       id: sellerBalance[0].id,
       student_account_id: data.ask_id,
-      amount_upx: sellerBalance[0].amount_upx - data.amount,
-      // amount_spx: sellerBalance[0].amount_spx,
+      amount_uupx: (parseInt(sellerBalance[0].amount_uupx) - parseInt(data.amount_uupx)).toString(),
     });
 
     const seller = await student_account.get(data.ask_id);
@@ -93,17 +84,19 @@ normal_settlement.onCreateHandler.push(async (snapshot, context) => {
     const config = functions.config();
     const confXrpl = config['xrpl'];
     const privKey = confXrpl.private_key;
-    const decrypted = crypto.AES.decrypt(sellerPrivate[0].xrp_seed, privKey);
+    const decrypted = crypto.AES.decrypt(sellerPrivate[0].xrp_seed, privKey).toString(crypto.enc.Utf8);
     const sender = xrpl.Wallet.fromSeed(decrypted);
+    const vli = await client.getLedgerIndex();
     const sendTokenTx = {
       TransactionType: 'Payment',
       Account: sender.address,
       Amount: {
         currency: 'UPX',
-        value: String(data.amount),
+        value: (parseInt(data.amount_uupx) / 1000000).toString(),
         issuer: adminAccount[0].xrp_address_cold,
       },
       Destination: bidder.xrp_address,
+      LastLedgerSequence: vli + 150,
     };
     const payPrepared = await client.autofill(sendTokenTx);
     const paySigned = sender.sign(payPrepared);

@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { User } from '@angular/fire/auth';
 import { StudentAccount } from '@local/common';
 
-interface Dormitory {
+export interface Select {
   value: string;
   viewValue: string;
 }
@@ -33,7 +33,7 @@ export class RoomComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  dormitories: Dormitory[] = [
+  dormitories: Select[] = [
     { value: 'higashi', viewValue: '東一条館' },
     { value: 'koushi', viewValue: '廣志房' },
     { value: 'sentetsu', viewValue: '船哲房' },

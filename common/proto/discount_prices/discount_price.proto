@@ -7,7 +7,7 @@ option (google.firebase.rules.firebase_rules).full_package_names = true;
 
 message DiscountPrice {
   string id = 1;
-  double price = 2;
-  double amount_purchase = 3;
-  double amount_sale = 4;
+  string price_ujpy = 2;
+  string amount_purchase_utoken = 3;
+  string amount_sale_utoken = 4;
 }

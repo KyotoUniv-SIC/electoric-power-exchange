@@ -20,9 +20,9 @@ export class AccountComponent implements OnInit {
   studentAccount$: Observable<StudentAccount> | undefined;
   balances$: Observable<Balance | null> | undefined;
 
-  amountUPX$: Observable<number | null> | undefined;
-  amountSPX$: Observable<number | null> | undefined;
-  amountInsufficiency$: Observable<number | null> | undefined;
+  uupxAmount$: Observable<number | null> | undefined;
+  uspxAmount$: Observable<number | null> | undefined;
+  insufficiencyAmount$: Observable<number | null> | undefined;
   monthlyPayments$: Observable<MonthlyPayment[] | null> | undefined;
 
   constructor(
@@ -33,7 +33,6 @@ export class AccountComponent implements OnInit {
     private readonly insufficientBalanceApp: InsufficientBalanceApplicationService,
     private readonly monthlyPaymentApp: MonthlyPaymentApplicationService,
   ) {
-    const now = new Date();
     let firstDay = new Date();
     firstDay.setDate(1);
     firstDay.setHours(0, 0, 0, 0);
@@ -44,33 +43,33 @@ export class AccountComponent implements OnInit {
       map((insufficiencies) => {
         let count = 0;
         for (let insufficiency of insufficiencies) {
-          (insufficiency.created_at as Timestamp).toDate() > firstDay ? (count += insufficiency.amount) : count;
+          (insufficiency.created_at as Timestamp).toDate() > firstDay ? (count += parseInt(insufficiency.amount_utoken)) : count;
         }
         return count;
       }),
     );
-    this.amountUPX$ = combineLatest([this.balances$, insufficiency$]).pipe(
+    this.uupxAmount$ = combineLatest([this.balances$, insufficiency$]).pipe(
       map(([balances, insufficiency]) =>
-        balances == null ? null : balances.amount_upx < insufficiency ? 0 : balances.amount_upx - insufficiency,
+        balances == null ? null : parseInt(balances.amount_uupx) < insufficiency ? 0 : parseInt(balances.amount_uupx) - insufficiency,
       ),
     );
-    this.amountSPX$ = combineLatest([this.balances$, insufficiency$]).pipe(
+    this.uspxAmount$ = combineLatest([this.balances$, insufficiency$]).pipe(
       map(([balances, insufficiency]) =>
         balances == null
           ? null
-          : balances.amount_spx + balances.amount_upx < insufficiency
+          : parseInt(balances.amount_uspx) + parseInt(balances.amount_uupx) < insufficiency
           ? 0
-          : balances.amount_upx < insufficiency
-          ? balances.amount_spx + balances.amount_upx - insufficiency
-          : balances.amount_spx,
+          : parseInt(balances.amount_uupx) < insufficiency
+          ? parseInt(balances.amount_uspx) + parseInt(balances.amount_uupx) - insufficiency
+          : parseInt(balances.amount_uspx),
       ),
     );
-    this.amountInsufficiency$ = combineLatest([this.balances$, insufficiency$]).pipe(
+    this.insufficiencyAmount$ = combineLatest([this.balances$, insufficiency$]).pipe(
       map(([balances, insufficiency]) =>
         balances == null
           ? null
-          : balances.amount_upx + balances.amount_spx < insufficiency
-          ? insufficiency - balances.amount_upx - balances.amount_spx
+          : parseInt(balances.amount_uupx) + parseInt(balances.amount_uspx) < insufficiency
+          ? insufficiency - parseInt(balances.amount_uupx) - parseInt(balances.amount_uspx)
           : 0,
       ),
     );

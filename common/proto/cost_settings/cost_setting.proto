@@ -7,6 +7,6 @@ option (google.firebase.rules.firebase_rules).full_package_names = true;
 
 message CostSetting {
   string id = 1;
-  double system = 2;
-  double electricity = 3;
+  string system_cost_ujpy = 2;
+  string electricity_cost_ujpy = 3;
 }

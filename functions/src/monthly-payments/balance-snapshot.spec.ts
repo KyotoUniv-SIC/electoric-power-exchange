@@ -1,6 +1,5 @@
 import {
   BalanceSnapshot,
-  DailyUsage,
   DiscountPrice,
   InsufficientBalance,
   MonthlyPayment,
@@ -18,92 +17,138 @@ describe('Calculated Payment Test', () => {
     const data = new BalanceSnapshot({
       id: 'balance01',
       student_account_id: 'test01',
-      amount_upx: 10,
-      amount_spx: 0,
+      amount_uupx: '10000000',
+      amount_uspx: '0',
     });
     const insufficiencies = [
-      new InsufficientBalance({ id: 'insuff01', student_account_id: 'test01', amount: 10 }),
-      new InsufficientBalance({ id: 'insuff01', student_account_id: 'test01', amount: 5 }),
-    ].reduce((sum, element) => sum + element.amount, 0);
-    const tokens = data.amount_upx + data.amount_spx - insufficiencies;
-    const primaryBids = [new PrimaryBid({ id: 'primary01', account_id: 'test01', price: 27, amount: 120 })];
-    const primaryAsks = [new PrimaryAsk({ id: 'primary01', account_id: 'test01', price: 27, amount: 120 })];
+      new InsufficientBalance({ id: 'insuff01', student_account_id: 'test01', amount_utoken: '10000000' }),
+      new InsufficientBalance({ id: 'insuff01', student_account_id: 'test01', amount_utoken: '5000000' }),
+    ].reduce((sum, element) => sum + parseInt(element.amount_utoken), 0);
+    const tokens = parseInt(data.amount_uupx) + parseInt(data.amount_uspx) - insufficiencies;
+    const primaryBids = [new PrimaryBid({ id: 'primary01', account_id: 'test01', price_ujpy: '27000000', amount_uupx: '120000000' })];
+    const primaryAsks = [new PrimaryAsk({ id: 'primary01', account_id: 'test01', price_ujpy: '27000000', amount_uupx: '120000000' })];
     const normalBids = [
-      new NormalBidHistory({ account_id: 'test01', price: 28, amount: 10, is_accepted: true, contract_price: 26 }),
-      new NormalBidHistory({ account_id: 'test01', price: 16, amount: 20, is_accepted: false, contract_price: 27 }),
+      new NormalBidHistory({
+        account_id: 'test01',
+        price_ujpy: '28000000',
+        amount_uupx: '10000000',
+        is_accepted: true,
+        contract_price_ujpy: '26000000',
+      }),
+      new NormalBidHistory({
+        account_id: 'test01',
+        price_ujpy: '16000000',
+        amount_uupx: '20000000',
+        is_accepted: false,
+        contract_price_ujpy: '27000000',
+      }),
     ];
     const normalAsks = [
-      new NormalAskHistory({ account_id: 'test01', price: 16, amount: 20, is_accepted: true, contract_price: 25.7 }),
-      new NormalAskHistory({ account_id: 'test01', price: 40, amount: 30, is_accepted: false, contract_price: 27 }),
+      new NormalAskHistory({
+        account_id: 'test01',
+        price_ujpy: '16000000',
+        amount_uupx: '20000000',
+        is_accepted: true,
+        contract_price_ujpy: '25700000',
+      }),
+      new NormalAskHistory({
+        account_id: 'test01',
+        price_ujpy: '40000000',
+        amount_uupx: '30000000',
+        is_accepted: false,
+        contract_price_ujpy: '27000000',
+      }),
     ];
     const renewableBids = [
-      new RenewableBidHistory({ account_id: 'test01', price: 28, amount: 15, is_accepted: true, contract_price: 27 }),
-      new RenewableBidHistory({ account_id: 'test01', price: 16, amount: 20, is_accepted: false, contract_price: 28 }),
+      new RenewableBidHistory({
+        account_id: 'test01',
+        price_ujpy: '28000000',
+        amount_uspx: '15000000',
+        is_accepted: true,
+        contract_price_ujpy: '27000000',
+      }),
+      new RenewableBidHistory({
+        account_id: 'test01',
+        price_ujpy: '16000000',
+        amount_uspx: '20000000',
+        is_accepted: false,
+        contract_price_ujpy: '28000000',
+      }),
     ];
     const renewableAsks = [
-      new RenewableAskHistory({ account_id: 'test01', price: 16, amount: 30, is_accepted: true, contract_price: 26 }),
-      new RenewableAskHistory({ account_id: 'test01', price: 40, amount: 50, is_accepted: false, contract_price: 27.5 }),
+      new RenewableAskHistory({
+        account_id: 'test01',
+        price_ujpy: '16000000',
+        amount_uspx: '30000000',
+        is_accepted: true,
+        contract_price_ujpy: '26000000',
+      }),
+      new RenewableAskHistory({
+        account_id: 'test01',
+        price_ujpy: '40000000',
+        amount_uspx: '50000000',
+        is_accepted: false,
+        contract_price_ujpy: '27500000',
+      }),
     ];
-    const dailyUsages = [
-      new DailyUsage({ room_id: 'test01', amount_kwh: 15 }),
-      new DailyUsage({ room_id: 'test01', amount_kwh: 16 }),
-      new DailyUsage({ room_id: 'test01', amount_kwh: 17 }),
-      new DailyUsage({ room_id: 'test01', amount_kwh: 15 }),
-      new DailyUsage({ room_id: 'test01', amount_kwh: 16 }),
-      new DailyUsage({ room_id: 'test01', amount_kwh: 17 }),
-    ];
-    const discounts = [new DiscountPrice({ price: 0.5, amount_purchase: 100, amount_sale: 200 })];
+    // const dailyUsages = [
+    //   new DailyUsage({ room_id: 'test01', amount_kwh_str: '15' }),
+    //   new DailyUsage({ room_id: 'test01', amount_kwh_str: '16' }),
+    //   new DailyUsage({ room_id: 'test01', amount_kwh_str: '17' }),
+    //   new DailyUsage({ room_id: 'test01', amount_kwh_str: '15' }),
+    //   new DailyUsage({ room_id: 'test01', amount_kwh_str: '16' }),
+    //   new DailyUsage({ room_id: 'test01', amount_kwh_str: '17' }),
+    // ];
+    const discounts = [new DiscountPrice({ price_ujpy: '500000', amount_purchase_utoken: '100000000', amount_sale_utoken: '200000000' })];
 
-    let usage = primaryBids[0].amount - tokens;
-    let payment = primaryBids[0].price * primaryBids[0].amount;
+    let usage = parseInt(primaryBids[0].amount_uupx) - tokens;
+    let payment = (parseInt(primaryBids[0].price_ujpy) * parseInt(primaryBids[0].amount_uupx)) / 1000000;
 
     tokens >= 0
-      ? (payment -= (primaryAsks[0].price - discounts[0].price) * tokens)
-      : (payment += (primaryAsks[0].price + discounts[0].price) * tokens);
+      ? (payment -= ((parseInt(primaryAsks[0].price_ujpy) - parseInt(discounts[0].price_ujpy)) * tokens) / 1000000)
+      : (payment += ((parseInt(primaryAsks[0].price_ujpy) + parseInt(discounts[0].price_ujpy)) * Math.abs(tokens)) / 1000000);
 
     for (const normalBid of normalBids) {
       if (normalBid.is_accepted == true) {
-        usage += normalBid.amount;
-        payment += normalBid.contract_price * normalBid.amount;
+        usage += parseInt(normalBid.amount_uupx);
+        payment += (parseInt(normalBid.contract_price_ujpy) * parseInt(normalBid.amount_uupx)) / 1000000;
       }
     }
     for (const normalAsk of normalAsks) {
       if (normalAsk.is_accepted == true) {
-        usage -= normalAsk.amount;
-        payment -= normalAsk.contract_price * normalAsk.amount;
+        usage -= parseInt(normalAsk.amount_uupx);
+        payment -= (parseInt(normalAsk.contract_price_ujpy) * parseInt(normalAsk.amount_uupx)) / 1000000;
       }
     }
     for (const renewableBid of renewableBids) {
       if (renewableBid.is_accepted == true) {
-        usage += renewableBid.amount;
-        payment += renewableBid.contract_price * renewableBid.amount;
+        usage += parseInt(renewableBid.amount_uspx);
+        payment += (parseInt(renewableBid.contract_price_ujpy) * parseInt(renewableBid.amount_uspx)) / 1000000;
       }
     }
     for (const renewableAsk of renewableAsks) {
       if (renewableAsk.is_accepted == true) {
-        usage -= renewableAsk.amount;
-        payment -= renewableAsk.contract_price * renewableAsk.amount;
+        usage -= parseInt(renewableAsk.amount_uspx);
+        payment -= (parseInt(renewableAsk.contract_price_ujpy) * parseInt(renewableAsk.amount_uspx)) / 1000000;
       }
     }
-    for (const dailyUsage of dailyUsages) {
-      usage += dailyUsage.amount_kwh;
-    }
+
     const date = new Date();
 
     const monthlyPayment = new MonthlyPayment({
       student_account_id: data.student_account_id,
-      year: date.getFullYear(),
-      month: date.getMonth(),
-      amount_jpy: payment,
+      year: date.getFullYear().toString(),
+      month: date.getMonth().toString(),
+      amount_ujpy: payment.toString(),
     });
     const monthlyUsage = new MonthlyUsage({
       student_account_id: data.student_account_id,
-      year: date.getFullYear(),
-      month: date.getMonth(),
-      amount_kwh: usage,
+      year: date.getFullYear().toString(),
+      month: date.getMonth().toString(),
+      amount_mwh: usage.toString(),
     });
 
-    expect(monthlyUsage.amount_kwh).toBe(196);
-    expect(monthlyPayment.amount_jpy).toBe(2473.5);
+    expect(monthlyUsage.amount_mwh).toBe('100000000');
+    expect(monthlyPayment.amount_ujpy).toBe('2748500000');
   });
 });

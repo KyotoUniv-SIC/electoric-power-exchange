@@ -24,14 +24,14 @@
         <mat-list-item class="flex flex-wrap">
           <span class="break-all text-xl" style="font-size: medium">Latest UPX Price:</span>
           <span class="flex-auto break-all"></span>
-          <span class="break-all text-xl" style="font-size: x-large">{{ singlePriceNormal?.price }}</span>
+          <span class="break-all text-xl" style="font-size: x-large">{{ singlePriceNormal?.price_ujpy | microString }}</span>
           <span class="break-all text-xl" style="margin-left: 10px; font-size: small">JPY</span>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
         <mat-list-item class="flex flex-wrap">
           <span class="break-all text-xl" style="font-size: medium">Contract Amount:</span>
           <span class="flex-auto break-all"></span>
-          <span class="break-all text-xl" style="font-size: x-large">{{ singlePriceNormal?.amount }}</span>
+          <span class="break-all text-xl" style="font-size: x-large">{{ singlePriceNormal?.amount_uupx | microString }}</span>
           <span class="break-all text-xl" style="margin-left: 10px; font-size: small">UPX</span>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
@@ -48,14 +48,14 @@
         <mat-list-item class="flex flex-wrap">
           <span class="break-all text-xl" style="font-size: medium">Latest SPX Price:</span>
           <span class="flex-auto break-all"></span>
-          <span class="break-all text-xl" style="font-size: x-large">{{ singlePriceRenewable?.price }}</span>
+          <span class="break-all text-xl" style="font-size: x-large">{{ singlePriceRenewable?.price_ujpy | microString }}</span>
           <span class="break-all text-xl" style="margin-left: 10px; font-size: small">JPY</span>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
         <mat-list-item class="flex flex-wrap">
           <span class="break-all text-xl" style="font-size: medium">Contract Amount:</span>
           <span class="flex-auto break-all"></span>
-          <span class="break-all text-xl" style="font-size: x-large">{{ singlePriceRenewable?.amount }}</span>
+          <span class="break-all text-xl" style="font-size: x-large">{{ singlePriceRenewable?.amount_uspx | microString }}</span>
           <span class="break-all text-xl" style="margin-left: 10px; font-size: small">SPX</span>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
@@ -84,10 +84,10 @@
             <mat-list-item class="flex flex-wrap">
               <span class="break-all">{{ normalBid.account_id }}</span>
               <span class="flex-auto break-all"></span>
-              <span class="break-all">{{ normalBid.price }}</span>
+              <span class="break-all">{{ normalBid.price_ujpy | microString }}</span>
               <span class="break-all" style="margin-left: 10px; font-size: small">JPY</span>
               <span class="flex-auto break-all"></span>
-              <span class="break-all">{{ normalBid.amount }}</span>
+              <span class="break-all">{{ normalBid.amount_uupx | microString }}</span>
               <span class="break-all" style="margin-left: 10px; font-size: small">UPX</span>
             </mat-list-item>
           </mat-list-item>
@@ -102,10 +102,10 @@
           <mat-list-item class="flex flex-wrap">
             <span class="break-all">{{ normalAsk.account_id }}</span>
             <span class="flex-auto break-all"></span>
-            <span class="break-all">{{ normalAsk.price }}</span>
+            <span class="break-all">{{ normalAsk.price_ujpy | microString }}</span>
             <span class="break-all" style="margin-left: 10px; font-size: small">JPY</span>
             <span class="flex-auto break-all"></span>
-            <span class="break-all">{{ normalAsk.amount }}</span>
+            <span class="break-all">{{ normalAsk.amount_uupx | microString }}</span>
             <span class="break-all" style="margin-left: 10px; font-size: small">UPX</span>
           </mat-list-item>
           <mat-divider [inset]="true"></mat-divider>
@@ -126,10 +126,10 @@
             <mat-list-item class="flex flex-wrap">
               <span class="break-all">{{ renewableBid.account_id }}</span>
               <span class="flex-auto break-all"></span>
-              <span class="break-all">{{ renewableBid.price }}</span>
+              <span class="break-all">{{ renewableBid.price_ujpy | microString }}</span>
               <span class="break-all" style="margin-left: 10px; font-size: small">JPY</span>
               <span class="flex-auto break-all"></span>
-              <span class="break-all">{{ renewableBid.amount }}</span>
+              <span class="break-all">{{ renewableBid.amount_uspx | microString }}</span>
               <span class="break-all" style="margin-left: 10px; font-size: small">UPX</span>
             </mat-list-item>
           </mat-list-item>
@@ -144,10 +144,10 @@
           <mat-list-item class="flex flex-wrap">
             <span class="break-all">{{ renewableAsk.account_id }}</span>
             <span class="flex-auto break-all"></span>
-            <span class="break-all">{{ renewableAsk.price }}</span>
+            <span class="break-all">{{ renewableAsk.price_ujpy | microString }}</span>
             <span class="break-all" style="margin-left: 10px; font-size: small">JPY</span>
             <span class="flex-auto break-all"></span>
-            <span class="break-all">{{ renewableAsk.amount }}</span>
+            <span class="break-all">{{ renewableAsk.amount_uspx | microString }}</span>
             <span class="break-all" style="margin-left: 10px; font-size: small">UPX</span>
           </mat-list-item>
           <mat-divider [inset]="true"></mat-divider>
@@ -169,7 +169,7 @@
           <span class="flex-auto break-all"></span>
           <span class="break-all">{{ ranking.name }}</span>
           <span class="flex-auto break-all"></span>
-          <span class="break-all">{{ ranking.amount }}kWh</span>
+          <span class="break-all">{{ ranking.kwhAmount }}kWh</span>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
       </ng-container>

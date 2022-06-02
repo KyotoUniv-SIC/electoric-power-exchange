@@ -15,16 +15,16 @@
         <mat-list-item class="flex flex-wrap">
           <span class="break-all">UPX Price:</span>
           <span class="flex-auto break-all"></span>
-          <span class="break-all">{{ normalSetting?.price }} JPY</span>
+          <span class="break-all">{{ normalSetting?.price_ujpy | microString }} JPY</span>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
         <mat-list-item class="flex flex-wrap">
           <span class="break-all">UPX amount:</span>
           <span class="flex-auto break-all"></span>
-          <ng-container *ngIf="!normalSetting?.amount; then emptyNormal; else existNormal"></ng-container>
+          <ng-container *ngIf="!normalSetting?.amount_uupx; then emptyNormal; else existNormal"></ng-container>
           <ng-template #emptyNormal><span class="break-all">Auto</span></ng-template>
           <ng-template #existNormal>
-            <span class="break-all">{{ normalSetting?.amount }}</span>
+            <span class="break-all">{{ normalSetting?.amount_uupx | microString }}</span>
           </ng-template>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
@@ -73,13 +73,13 @@
         <mat-list-item class="flex flex-wrap">
           <span class="break-all">SPX Price:</span>
           <span class="flex-auto break-all"></span>
-          <span class="break-all">{{ renewableSetting?.price }} JPY</span>
+          <span class="break-all">{{ renewableSetting?.price_ujpy | microString }} JPY</span>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
         <mat-list-item class="flex flex-wrap">
           <span class="break-all">SPX amount:</span>
           <span class="flex-auto break-all"></span>
-          <span class="break-all">{{ renewableSetting?.amount }}</span>
+          <span class="break-all">{{ renewableSetting?.amount_uspx | microString }}</span>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
       </mat-list>
@@ -129,13 +129,13 @@
         <mat-list-item class="flex flex-wrap">
           <span class="break-all">EDISON System Cost:</span>
           <span class="flex-auto break-all"></span>
-          <span class="break-all">{{ costSetting?.system }} JPY</span>
+          <span class="break-all">{{ costSetting?.system_cost_ujpy | microString }} JPY</span>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
         <mat-list-item class="flex flex-wrap">
           <span class="break-all">Electricity Cost:</span>
           <span class="flex-auto break-all"></span>
-          <span class="break-all">{{ costSetting?.electricity }} JPY</span>
+          <span class="break-all">{{ costSetting?.electricity_cost_ujpy | microString }} JPY</span>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
       </mat-list>

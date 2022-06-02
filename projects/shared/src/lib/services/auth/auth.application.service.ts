@@ -42,7 +42,7 @@ export class AuthApplicationService {
   async signup(
     data: { type: 'email'; name: string; email: string; password: string } | { type: 'google' } | { type: 'facebook' },
     name: string,
-  ) {
+  ): Promise<string | undefined> {
     const firstDialogRef = this.loadingDialog.open('サインアップしています');
 
     try {
@@ -96,7 +96,6 @@ export class AuthApplicationService {
           });
           break;
       }
-      return;
     } finally {
       updateProfile(this.auth.currentUser!, { displayName: name });
       firstDialogRef.close();
@@ -127,7 +126,7 @@ export class AuthApplicationService {
       SecondDialogRef.close();
     }
 
-    await this.router.navigate(['/accounts/account']);
+    return this.auth.currentUser?.uid;
   }
 
   async signin(data: { type: 'email'; email: string; password: string } | { type: 'google' } | { type: 'facebook' }) {

@@ -39,6 +39,13 @@ export async function list() {
     .then((snapshot) => snapshot.docs.map((doc) => doc.data() as SinglePriceNormalSettlement));
 }
 
+export async function listDescDate() {
+  return await collection()
+    .orderBy('created_at', 'desc')
+    .get()
+    .then((snapshot) => snapshot.docs.map((doc) => doc.data() as SinglePriceNormalSettlement));
+}
+
 export async function create(data: SinglePriceNormalSettlement) {
   const doc = document();
   data.id = doc.id;

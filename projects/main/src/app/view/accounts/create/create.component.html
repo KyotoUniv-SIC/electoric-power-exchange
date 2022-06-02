@@ -25,7 +25,10 @@
     </mat-card-content>
     <br />
     <mat-card-title>Create Account</mat-card-title>
-    <form #formRef="ngForm" (submit)="onSubmit(nameRef.value, mailRef.value, passwordRef.value, passwordConfirmationRef.value)">
+    <form
+      #formRef="ngForm"
+      (submit)="onSubmit(nameRef.value, mailRef.value, passwordRef.value, passwordConfirmationRef.value, buildRef.value, roomRef.value)"
+    >
       <mat-form-field hintLabel="Min 4 characters" class="w-full">
         <mat-label>Input Name</mat-label>
         <input #nameRef ngModel name="name" matInput required placeholder="Input value" minlength="4" />
@@ -83,6 +86,35 @@
           </mat-icon>
         </button>
       </mat-form-field>
+      <mat-form-field class="w-1/2">
+        <mat-label>Select Building</mat-label>
+        <mat-select #buildRef required>
+          <mat-option *ngFor="let dormitory of dormitories" [value]="dormitory.value">
+            {{ dormitory.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="w-1/2">
+        <mat-label>Select Room</mat-label>
+        <mat-select [disabled]="!buildRef.value" #roomRef required>
+          <ng-container *ngIf="buildRef.value == 'higashi'">
+            <mat-option *ngFor="let higashi of higashiRooms" [value]="higashi.value">
+              {{ higashi.viewValue }}
+            </mat-option>
+          </ng-container>
+          <ng-container *ngIf="buildRef.value == 'koushi'">
+            <mat-option *ngFor="let koushi of koushiRooms" [value]="koushi.value">
+              {{ koushi.viewValue }}
+            </mat-option>
+          </ng-container>
+          <ng-container *ngIf="buildRef.value == 'sentetsu'">
+            <mat-option *ngFor="let sentetsu of sentetsuRooms" [value]="sentetsu.value">
+              {{ sentetsu.viewValue }}
+            </mat-option>
+          </ng-container>
+        </mat-select>
+      </mat-form-field>
+
       <div>
         <span class="flex-auto"> </span>
         <br />

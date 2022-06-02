@@ -2,15 +2,7 @@ import { SellOnSubmitEvent } from '../../../view/txs/sell/sell.component';
 import { Component, OnInit } from '@angular/core';
 import { Auth, authState } from '@angular/fire/auth';
 import { Timestamp } from '@angular/fire/firestore';
-import {
-  AvailableBalance,
-  NormalAsk,
-  proto,
-  RenewableAsk,
-  SinglePriceNormalSettlement,
-  SinglePriceRenewableSettlement,
-  StudentAccount,
-} from '@local/common';
+import { NormalAsk, proto, RenewableAsk, SinglePriceNormalSettlement, SinglePriceRenewableSettlement, StudentAccount } from '@local/common';
 import { NormalAskApplicationService } from 'projects/shared/src/lib/services/normal-asks/normal-ask.application.service';
 import { RenewableAskApplicationService } from 'projects/shared/src/lib/services/renewable-asks/renewable-ask.application.service';
 import { SinglePriceNormalSettlementApplicationService } from 'projects/shared/src/lib/services/single-price-normal-settlements/single-price-normal-settlement.application.service';
@@ -28,9 +20,9 @@ import { map, mergeMap } from 'rxjs/operators';
 })
 export class SellComponent implements OnInit {
   studentAccount$: Observable<StudentAccount> | undefined;
-  amountUPX$: Observable<number> | undefined;
-  amountSPX$: Observable<number> | undefined;
-  amountInsufficiency$: Observable<number> | undefined;
+  uupxAmount$: Observable<number> | undefined;
+  uspxAmount$: Observable<number> | undefined;
+  insufficiencyAmount$: Observable<number> | undefined;
   singlePriceNormal$: Observable<SinglePriceNormalSettlement> | undefined;
   singlePriceNormalDate$: Observable<Date> | undefined;
   singlePriceRenewable$: Observable<SinglePriceRenewableSettlement> | undefined;
@@ -61,26 +53,30 @@ export class SellComponent implements OnInit {
       map((insufficiencies) => {
         let count = 0;
         for (let insufficiency of insufficiencies) {
-          (insufficiency.created_at as Timestamp).toDate() > firstDay ? (count += insufficiency.amount) : count;
+          (insufficiency.created_at as Timestamp).toDate() > firstDay ? (count += parseInt(insufficiency.amount_utoken)) : count;
         }
         return count;
       }),
     );
-    this.amountUPX$ = combineLatest([balance$, insufficiency$]).pipe(
-      map(([balance, insufficiency]) => (balance.amount_upx < insufficiency ? 0 : balance.amount_upx - insufficiency)),
-    );
-    this.amountSPX$ = combineLatest([balance$, insufficiency$]).pipe(
+    this.uupxAmount$ = combineLatest([balance$, insufficiency$]).pipe(
       map(([balance, insufficiency]) =>
-        balance.amount_spx + balance.amount_upx < insufficiency
-          ? 0
-          : balance.amount_upx < insufficiency
-          ? balance.amount_spx + balance.amount_upx - insufficiency
-          : balance.amount_spx,
+        parseInt(balance.amount_uupx) < insufficiency ? 0 : parseInt(balance.amount_uupx) - insufficiency,
       ),
     );
-    this.amountInsufficiency$ = combineLatest([balance$, insufficiency$]).pipe(
+    this.uspxAmount$ = combineLatest([balance$, insufficiency$]).pipe(
       map(([balance, insufficiency]) =>
-        balance.amount_upx + balance.amount_spx < insufficiency ? insufficiency - balance.amount_upx - balance.amount_spx : 0,
+        parseInt(balance.amount_uspx) + parseInt(balance.amount_uupx) < insufficiency
+          ? 0
+          : parseInt(balance.amount_uupx) < insufficiency
+          ? parseInt(balance.amount_uspx) + parseInt(balance.amount_uupx) - insufficiency
+          : parseInt(balance.amount_uspx),
+      ),
+    );
+    this.insufficiencyAmount$ = combineLatest([balance$, insufficiency$]).pipe(
+      map(([balance, insufficiency]) =>
+        parseInt(balance.amount_uupx) + parseInt(balance.amount_uspx) < insufficiency
+          ? insufficiency - parseInt(balance.amount_uupx) - parseInt(balance.amount_uspx)
+          : 0,
       ),
     );
     this.singlePriceNormal$ = this.singlePriceNormalApp.getLatest$();
@@ -96,8 +92,8 @@ export class SellComponent implements OnInit {
         new RenewableAsk({
           type: proto.main.RenewableAskType.SECONDARY,
           account_id: $event.accountID,
-          price: $event.price,
-          amount: $event.amount,
+          price_ujpy: $event.ujpyPrice,
+          amount_uspx: $event.utokenAmount,
           is_deleted: false,
         }),
       );
@@ -106,8 +102,8 @@ export class SellComponent implements OnInit {
         new NormalAsk({
           type: proto.main.NormalAskType.SECONDARY,
           account_id: $event.accountID,
-          price: $event.price,
-          amount: $event.amount,
+          price_ujpy: $event.ujpyPrice,
+          amount_uupx: $event.utokenAmount,
           is_deleted: false,
         }),
       );

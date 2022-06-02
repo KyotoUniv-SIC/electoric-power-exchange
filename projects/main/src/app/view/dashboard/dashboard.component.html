@@ -17,18 +17,18 @@
       <mat-list-item class="flex flex-wrap" style="padding: auto; margin-bottom: 4px; border: 2.5px solid #6c8fb6; border-radius: 10px">
         <span class="break-all text-xl" style="color: #6c8fb6">UPX:</span>
         <span class="flex-auto break-all"></span>
-        <span class="break-all text-xl" style="font-size: x-large">{{ amountUPX }}</span>
+        <span class="break-all text-xl" style="font-size: x-large">{{ uupxAmount | microNumber }}</span>
       </mat-list-item>
       <mat-list-item class="flex flex-wrap" style="padding: auto; margin-bottom: 4px; border: 2.5px solid #b67cb6; border-radius: 10px">
         <span class="break-all text-xl" style="color: #b67cb6">SPX:</span>
         <span class="flex-auto break-all"></span>
-        <span class="break-all text-xl" style="font-size: x-large">{{ amountSPX }}</span>
+        <span class="break-all text-xl" style="font-size: x-large">{{ uspxAmount | microNumber }}</span>
       </mat-list-item>
-      <ng-container *ngIf="amountInsufficiency">
+      <ng-container *ngIf="insufficiencyAmount">
         <mat-list-item class="flex flex-wrap" style="padding: auto">
           <span class="break-all text-xl">Insufficient Balance:</span>
           <span class="flex-auto break-all"></span>
-          <span class="break-all text-xl" style="font-size: x-large">{{ amountInsufficiency }}</span>
+          <span class="break-all text-xl" style="font-size: x-large">{{ insufficiencyAmount | microNumber }}</span>
         </mat-list-item>
       </ng-container>
       <mat-divider [inset]="true"></mat-divider>
@@ -55,21 +55,21 @@
         <mat-list-item class="flex flex-wrap">
           <span class="break-all text-xl" style="font-size: medium">Latest UPX Price:</span>
           <span class="flex-auto break-all"></span>
-          <span class="break-all text-xl" style="font-size: x-large">{{ singlePriceNormal?.price }}</span>
+          <span class="break-all text-xl" style="font-size: x-large">{{ normalSettlement?.price_ujpy | microString }}</span>
           <span class="break-all text-xl" style="margin-left: 10px; font-size: small">JPY</span>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
         <mat-list-item class="flex flex-wrap">
           <span class="break-all text-xl" style="font-size: medium">Contract Amount:</span>
           <span class="flex-auto break-all"></span>
-          <span class="break-all text-xl" style="font-size: x-large">{{ singlePriceNormal?.amount }}</span>
+          <span class="break-all text-xl" style="font-size: x-large">{{ normalSettlement?.amount_uupx | microString }}</span>
           <span class="break-all text-xl" style="margin-left: 10px; font-size: small">UPX</span>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
         <mat-list-item class="flex flex-wrap">
           <span class="break-all text-xl" style="font-size: medium">Market Date:</span>
           <span class="flex-auto break-all"></span>
-          <span class="break-all text-xl" style="font-size: x-large">{{ singlePriceNormalDate | date: 'yy/MM/dd' }}</span>
+          <span class="break-all text-xl" style="font-size: x-large">{{ normalDate | date: 'yy/MM/dd' }}</span>
         </mat-list-item>
       </mat-card>
       <mat-card class="flex flex-wrap" style="padding: 0px; border: 2.5px solid #b67cb6; border-radius: 10px">
@@ -79,24 +79,53 @@
         <mat-list-item class="flex flex-wrap">
           <span class="break-all text-xl" style="font-size: medium">Latest SPX Price:</span>
           <span class="flex-auto break-all"></span>
-          <span class="break-all text-xl" style="font-size: x-large">{{ singlePriceRenewable?.price }}</span>
+          <span class="break-all text-xl" style="font-size: x-large">{{ renewableSettlement?.price_ujpy | microString }}</span>
           <span class="break-all text-xl" style="margin-left: 10px; font-size: small">JPY</span>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
         <mat-list-item class="flex flex-wrap">
           <span class="break-all text-xl" style="font-size: medium">Contract Amount:</span>
           <span class="flex-auto break-all"></span>
-          <span class="break-all text-xl" style="font-size: x-large">{{ singlePriceRenewable?.amount }}</span>
+          <span class="break-all text-xl" style="font-size: x-large">{{ renewableSettlement?.amount_uspx | microString }}</span>
           <span class="break-all text-xl" style="margin-left: 10px; font-size: small">SPX</span>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
         <mat-list-item class="flex flex-wrap">
           <span class="break-all text-xl" style="font-size: medium">Market Date:</span>
           <span class="flex-auto break-all"></span>
-          <span class="break-all text-xl" style="font-size: x-large">{{ singlePriceRenewableDate | date: 'yy/MM/dd' }}</span>
+          <span class="break-all text-xl" style="font-size: x-large">{{ renewableDate | date: 'yy/MM/dd' }}</span>
         </mat-list-item>
       </mat-card>
     </mat-list>
+    <mat-card-content style="font-size: large; margin-top: 15px">UPX Contract Price and Amount</mat-card-content>
+    <ng-container *ngIf="normalChartDataSets === null; then loading; else loadedNormal"></ng-container>
+    <ng-template #loadedNormal>
+      <canvas
+        baseChart
+        [datasets]="normalChartDataSets!"
+        [labels]="normalChartDates!"
+        [options]="normalChartOptions!"
+        [legend]="barChartLegend"
+        [chartType]="barChartType"
+      >
+      </canvas>
+      <mat-card-content style="font-size: large; margin-top: 15px">SPX Contract Price and Amount</mat-card-content>
+      <ng-container *ngIf="renewableChartDataSets === null; then loading; else loadedRenewable"></ng-container>
+      <ng-template #loadedRenewable>
+        <canvas
+          baseChart
+          [datasets]="renewableChartDataSets!"
+          [labels]="renewableChartDates!"
+          [options]="renewableChartOptions!"
+          [legend]="barChartLegend"
+          [chartType]="barChartType"
+        >
+        </canvas>
+      </ng-template>
+    </ng-template>
+    <mat-card-content>
+      <p>*Kansai Electric Power Company's electricity rate for general households is 28.7 JPY/kWh.</p>
+    </mat-card-content>
   </mat-card>
 
   <mat-card class="mb-20">
@@ -147,7 +176,7 @@
         <mat-list-item class="flex flex-wrap">
           <span class="break-all" style="font-size: medium">{{ ranking.name }}:</span>
           <span class="flex-auto break-all"></span>
-          <span class="break-all" style="font-size: medium">{{ ranking.amount }}</span>
+          <span class="break-all" style="font-size: medium">{{ ranking.kwhAmount }}</span>
           <span class="break-all text-xl" style="margin-left: 10px; font-size: small">kWh</span>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>

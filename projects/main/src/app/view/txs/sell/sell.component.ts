@@ -8,8 +8,8 @@ interface Token {
 
 export type SellOnSubmitEvent = {
   accountID: string;
-  price: number;
-  amount: number;
+  ujpyPrice: string;
+  utokenAmount: string;
   denom: string;
 };
 
@@ -22,11 +22,11 @@ export class SellComponent implements OnInit {
   @Input()
   studentAccount?: StudentAccount | null;
   @Input()
-  amountUPX?: number | null;
+  uupxAmount?: number | null;
   @Input()
-  amountSPX?: number | null;
+  uspxAmount?: number | null;
   @Input()
-  amountInsufficiency?: number | null;
+  insufficiencyAmount?: number | null;
   @Input()
   singlePriceNormal?: SinglePriceNormalSettlement | null;
   @Input()
@@ -68,15 +68,17 @@ export class SellComponent implements OnInit {
       alert('ユーザーログイン情報を取得できません');
       return;
     }
-    if (denom == 'upx-0' && Number(amount) > this.amountUPX!) {
+    if (denom == 'upx-0' && Number(amount) > this.uupxAmount!) {
       alert('UPXの残高が足りません。');
       return;
     }
-    if (denom == 'spx-1' && Number(amount) > this.amountSPX!) {
+    if (denom == 'spx-1' && Number(amount) > this.uspxAmount!) {
       alert('SPXの残高が足りません。');
       return;
     }
-    this.appSubmit.emit({ accountID: this.studentAccount?.id, price: Number(price), amount: Number(amount), denom });
+    const ujpyPrice = (Number(price) * 1000000).toString();
+    const utokenAmount = (Number(amount) * 1000000).toString();
+    this.appSubmit.emit({ accountID: this.studentAccount?.id, ujpyPrice, utokenAmount, denom });
   }
 
   calcTotalPrice(price: any, amount: any) {

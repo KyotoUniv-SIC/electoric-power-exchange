@@ -8,28 +8,31 @@ import { single_price_renewable_settlement } from '../single-price-renewable-set
 import { proto, RenewableAskHistory, RenewableBidHistory, RenewableSettlement } from '@local/common';
 
 single_price_renewable_settlement.onCreateHandler.push(async (snapshot, context) => {
-  const data = snapshot.data()!;
+  const data = snapshot.data()! as RenewableSettlement;
 
   const renewableBids = await renewable_bid.listValid();
-  const sortRenewableBids = renewableBids.sort((first, second) => second.price - first.price);
+  const sortRenewableBids = renewableBids.sort((first, second) => parseInt(second.price_ujpy) - parseInt(first.price_ujpy));
 
   const renewableAsks = await renewable_ask.listValid();
-  const sortRenewableAsks = renewableAsks.sort((first, second) => first.price - second.price);
+  const sortRenewableAsks = renewableAsks.sort((first, second) => parseInt(first.price_ujpy) - parseInt(second.price_ujpy));
 
   let i = 0;
   let j = 0;
   const condition = true;
   while (condition) {
-    if (sortRenewableBids[i].price < data.price || sortRenewableAsks[j].price > data.price) {
+    if (
+      parseInt(sortRenewableBids[i].price_ujpy) < parseInt(data.price_ujpy) ||
+      parseInt(sortRenewableAsks[j].price_ujpy) > parseInt(data.price_ujpy)
+    ) {
       for (; i < sortRenewableBids.length; i++) {
         await renewable_bid_history.create(
           new RenewableBidHistory(
             {
               account_id: sortRenewableBids[i].account_id,
-              price: sortRenewableBids[i].price,
-              amount: sortRenewableBids[i].amount,
+              price_ujpy: sortRenewableBids[i].price_ujpy,
+              amount_uspx: sortRenewableBids[i].amount_uspx,
               is_accepted: false,
-              contract_price: data.price,
+              contract_price_ujpy: data.price_ujpy,
             },
             sortRenewableBids[i].created_at,
           ),
@@ -43,10 +46,10 @@ single_price_renewable_settlement.onCreateHandler.push(async (snapshot, context)
             {
               type: sortRenewableAsks[j].type as unknown as proto.main.RenewableAskHistoryType,
               account_id: sortRenewableAsks[j].account_id,
-              price: sortRenewableAsks[j].price,
-              amount: sortRenewableAsks[j].amount,
+              price_ujpy: sortRenewableAsks[j].price_ujpy,
+              amount_uspx: sortRenewableAsks[j].amount_uspx,
               is_accepted: false,
-              contract_price: data.price,
+              contract_price_ujpy: data.price_ujpy,
             },
             sortRenewableAsks[j].created_at,
           ),
@@ -56,13 +59,13 @@ single_price_renewable_settlement.onCreateHandler.push(async (snapshot, context)
       break;
     }
 
-    if (sortRenewableBids[i].amount < sortRenewableAsks[j].amount) {
+    if (parseInt(sortRenewableBids[i].amount_uspx) < parseInt(sortRenewableAsks[j].amount_uspx)) {
       await renewable_settlement.create(
         new RenewableSettlement({
           bid_id: sortRenewableBids[i].account_id,
           ask_id: sortRenewableAsks[j].account_id,
-          price: data.price,
-          amount: sortRenewableBids[i].amount,
+          price_ujpy: data.price_ujpy,
+          amount_uspx: sortRenewableBids[i].amount_uspx,
         }),
       );
 
@@ -70,10 +73,10 @@ single_price_renewable_settlement.onCreateHandler.push(async (snapshot, context)
         new RenewableBidHistory(
           {
             account_id: sortRenewableBids[i].account_id,
-            price: sortRenewableBids[i].price,
-            amount: sortRenewableBids[i].amount,
+            price_ujpy: sortRenewableBids[i].price_ujpy,
+            amount_uspx: sortRenewableBids[i].amount_uspx,
             is_accepted: true,
-            contract_price: data.price,
+            contract_price_ujpy: data.price_ujpy,
           },
           sortRenewableBids[i].created_at,
         ),
@@ -85,28 +88,30 @@ single_price_renewable_settlement.onCreateHandler.push(async (snapshot, context)
           {
             type: sortRenewableAsks[j].type as unknown as proto.main.RenewableAskHistoryType,
             account_id: sortRenewableAsks[j].account_id,
-            price: sortRenewableAsks[j].price,
-            amount: sortRenewableBids[i].amount,
+            price_ujpy: sortRenewableAsks[j].price_ujpy,
+            amount_uspx: sortRenewableBids[i].amount_uspx,
             is_accepted: true,
-            contract_price: data.price,
+            contract_price_ujpy: data.price_ujpy,
           },
           sortRenewableAsks[j].created_at,
         ),
       );
       await renewable_ask.delete_(sortRenewableAsks[j].id);
 
-      sortRenewableAsks[j].amount -= sortRenewableBids[i].amount;
+      sortRenewableAsks[j].amount_uspx = (
+        parseInt(sortRenewableAsks[j].amount_uspx) - parseInt(sortRenewableBids[i].amount_uspx)
+      ).toString();
       i++;
       if (i >= sortRenewableBids.length) {
         break;
       }
-    } else if (sortRenewableBids[i].amount > sortRenewableAsks[j].amount) {
+    } else if (parseInt(sortRenewableBids[i].amount_uspx) > parseInt(sortRenewableAsks[j].amount_uspx)) {
       await renewable_settlement.create(
         new RenewableSettlement({
           bid_id: sortRenewableBids[i].account_id,
           ask_id: sortRenewableAsks[j].account_id,
-          price: data.price,
-          amount: sortRenewableAsks[j].amount,
+          price_ujpy: data.price_ujpy,
+          amount_uspx: sortRenewableAsks[j].amount_uspx,
         }),
       );
 
@@ -114,10 +119,10 @@ single_price_renewable_settlement.onCreateHandler.push(async (snapshot, context)
         new RenewableBidHistory(
           {
             account_id: sortRenewableBids[i].account_id,
-            price: sortRenewableBids[i].price,
-            amount: sortRenewableAsks[j].amount,
+            price_ujpy: sortRenewableBids[i].price_ujpy,
+            amount_uspx: sortRenewableAsks[j].amount_uspx,
             is_accepted: true,
-            contract_price: data.price,
+            contract_price_ujpy: data.price_ujpy,
           },
           sortRenewableBids[i].created_at,
         ),
@@ -129,17 +134,19 @@ single_price_renewable_settlement.onCreateHandler.push(async (snapshot, context)
           {
             type: sortRenewableAsks[j].type as unknown as proto.main.RenewableAskHistoryType,
             account_id: sortRenewableAsks[j].account_id,
-            price: sortRenewableAsks[j].price,
-            amount: sortRenewableAsks[j].amount,
+            price_ujpy: sortRenewableAsks[j].price_ujpy,
+            amount_uspx: sortRenewableAsks[j].amount_uspx,
             is_accepted: true,
-            contract_price: data.price,
+            contract_price_ujpy: data.price_ujpy,
           },
           sortRenewableAsks[j].created_at,
         ),
       );
       await renewable_ask.delete_(sortRenewableAsks[j].id);
 
-      sortRenewableBids[i].amount -= sortRenewableAsks[j].amount;
+      sortRenewableBids[i].amount_uspx = (
+        parseInt(sortRenewableBids[i].amount_uspx) - parseInt(sortRenewableAsks[j].amount_uspx)
+      ).toString();
       j++;
       if (j >= sortRenewableAsks.length) {
         break;
@@ -149,8 +156,8 @@ single_price_renewable_settlement.onCreateHandler.push(async (snapshot, context)
         new RenewableSettlement({
           bid_id: sortRenewableBids[i].account_id,
           ask_id: sortRenewableAsks[j].account_id,
-          price: data.price,
-          amount: sortRenewableBids[i].amount,
+          price_ujpy: data.price_ujpy,
+          amount_uspx: sortRenewableBids[i].amount_uspx,
         }),
       );
 
@@ -158,10 +165,10 @@ single_price_renewable_settlement.onCreateHandler.push(async (snapshot, context)
         new RenewableBidHistory(
           {
             account_id: sortRenewableBids[i].account_id,
-            price: sortRenewableBids[i].price,
-            amount: sortRenewableBids[i].amount,
+            price_ujpy: sortRenewableBids[i].price_ujpy,
+            amount_uspx: sortRenewableBids[i].amount_uspx,
             is_accepted: true,
-            contract_price: data.price,
+            contract_price_ujpy: data.price_ujpy,
           },
           sortRenewableBids[i].created_at,
         ),
@@ -174,10 +181,10 @@ single_price_renewable_settlement.onCreateHandler.push(async (snapshot, context)
           {
             type: sortRenewableAsks[j].type as unknown as proto.main.RenewableAskHistoryType,
             account_id: sortRenewableAsks[j].account_id,
-            price: sortRenewableAsks[j].price,
-            amount: sortRenewableBids[i].amount,
+            price_ujpy: sortRenewableAsks[j].price_ujpy,
+            amount_uspx: sortRenewableBids[i].amount_uspx,
             is_accepted: true,
-            contract_price: data.price,
+            contract_price_ujpy: data.price_ujpy,
           },
           sortRenewableAsks[j].created_at,
         ),
