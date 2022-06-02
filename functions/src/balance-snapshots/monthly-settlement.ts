@@ -6,6 +6,7 @@ import { cost_setting } from '../cost-settings';
 import { discount_price } from '../discount-prices';
 import { insufficient_balance } from '../insufficient-balances';
 import { normal_ask_history } from '../normal-ask-histories';
+import { normal_bid_history } from '../normal-bid-histories';
 import { primary_ask } from '../primary-asks';
 import { renewable_ask_history } from '../renewable-ask-histories';
 import { student_account } from '../student-accounts';
@@ -34,6 +35,7 @@ module.exports.monthlySettlement = f.pubsub
     const adminAccount = await admin_account.getByName('admin');
     const primaryAsks = await primary_ask.listLastMonth();
     const normalAsks = await normal_ask_history.listLastMonth(adminAccount[0].id);
+    const normalBids = await normal_bid_history.listLastMonth(adminAccount[0].id);
     const renewableAsks = await renewable_ask_history.listLastMonth(adminAccount[0].id);
     let income = 0;
     for (const ask of primaryAsks) {
@@ -42,6 +44,11 @@ module.exports.monthlySettlement = f.pubsub
     for (const ask of normalAsks) {
       if (ask.is_accepted) {
         income += parseInt(ask.price_ujpy) * parseInt(ask.amount_uupx);
+      }
+    }
+    for (const bid of normalBids) {
+      if (bid.is_accepted) {
+        income -= parseInt(bid.price_ujpy) * parseInt(bid.amount_uupx);
       }
     }
     for (const ask of renewableAsks) {
