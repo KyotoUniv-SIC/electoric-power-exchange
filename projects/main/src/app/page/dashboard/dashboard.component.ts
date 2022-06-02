@@ -109,7 +109,9 @@ export class DashboardComponent implements OnInit {
       map(([rankings, account]) => rankings.find((ranking) => ranking.id == account.id)?.rank),
     );
     const balance$ = studentAccount$.pipe(mergeMap((account) => this.balanceApp.getByUid$(account.id)));
-    this.balanceData$ = balance$.pipe(map((balance) => [[parseInt(balance.amount_uupx) / 100000, parseInt(balance.amount_uspx) / 100000]]));
+    this.balanceData$ = balance$.pipe(
+      map((balance) => [[parseInt(balance.amount_uupx) / 1000000, parseInt(balance.amount_uspx) / 1000000]]),
+    );
     const totalBalance$ = users$.pipe(
       mergeMap((users) => Promise.all(users.map((user) => this.balanceApp.list(user.id).then((balances) => balances[0])))),
       map((balances) => {
@@ -123,7 +125,7 @@ export class DashboardComponent implements OnInit {
       }),
     );
     this.totalBalanceData$ = totalBalance$.pipe(
-      map((balance) => [[parseInt(balance.amount_uupx) / 100000, parseInt(balance.amount_uspx) / 100000]]),
+      map((balance) => [[parseInt(balance.amount_uupx) / 1000000, parseInt(balance.amount_uspx) / 1000000]]),
     );
     const insufficiency$ = studentAccount$.pipe(mergeMap((account) => this.insufficientBalanceApp.list(account.id))).pipe(
       map((insufficiencies) => {
@@ -230,10 +232,12 @@ export class DashboardComponent implements OnInit {
     this.normalSettlements$ = this.singlePriceNormalApp.listLatestMonth$();
     this.renewableSettlements$ = this.singlePriceRenewableApp.listLatestMonth$();
 
-    const pricesNormal$ = this.normalSettlements$.pipe(map((params) => params.map((param) => parseInt(param.price_ujpy))));
-    const amountsNormal$ = this.normalSettlements$.pipe(map((params) => params.map((param) => parseInt(param.amount_uupx))));
-    const pricesRenewable$ = this.renewableSettlements$.pipe(map((params) => params.map((param) => parseInt(param.price_ujpy))));
-    const amountsRenewable$ = this.renewableSettlements$.pipe(map((params) => params.map((param) => parseInt(param.amount_uspx))));
+    const pricesNormal$ = this.normalSettlements$.pipe(map((params) => params.map((param) => parseInt(param.price_ujpy) / 1000000)));
+    const amountsNormal$ = this.normalSettlements$.pipe(map((params) => params.map((param) => parseInt(param.amount_uupx) / 1000000)));
+    const pricesRenewable$ = this.renewableSettlements$.pipe(map((params) => params.map((param) => parseInt(param.price_ujpy) / 1000000)));
+    const amountsRenewable$ = this.renewableSettlements$.pipe(
+      map((params) => params.map((param) => parseInt(param.amount_uspx) / 1000000)),
+    );
     const referencePriceNormal$ = pricesNormal$.pipe(map((params) => Array(params.length).fill(27 as number)));
     const referencePriceRenewable$ = pricesRenewable$.pipe(map((params) => Array(params.length).fill(27 as number)));
 
