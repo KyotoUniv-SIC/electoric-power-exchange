@@ -30,14 +30,32 @@ export class DashboardComponent implements OnInit {
   rankings?: Ranking[] | null;
   @Input()
   rank?: number | null;
+
   @Input()
-  singlePriceNormal?: SinglePriceNormalSettlement | null;
+  normalSettlement?: SinglePriceNormalSettlement | null;
   @Input()
-  singlePriceNormalDate?: Date | null;
+  normalDate?: Date | null;
   @Input()
-  singlePriceRenewable?: SinglePriceRenewableSettlement | null;
+  normalSettlements?: SinglePriceNormalSettlement[] | null;
   @Input()
-  singlePriceRenewableDate?: Date | null;
+  normalChartDataSets?: ChartDataSets[] | null;
+  @Input()
+  normalChartDates?: string[] | null;
+  @Input()
+  normalChartOptions?: ChartOptions | null;
+
+  @Input()
+  renewableSettlement?: SinglePriceRenewableSettlement | null;
+  @Input()
+  renewableDate?: Date | null;
+  @Input()
+  renewableChartDataSets?: ChartDataSets[] | null;
+  @Input()
+  renewableSettlements?: SinglePriceRenewableSettlement[] | null;
+  @Input()
+  renewableChartDates?: string[] | null;
+  @Input()
+  renewableChartOptions?: ChartOptions | null;
 
   doughnutChartLabels: Label[] = ['Utility Power', 'Solar Power'];
   doughnutChartType: ChartType = 'doughnut';
