@@ -15,7 +15,7 @@ import * as functions from 'firebase-functions';
 const f = functions.region('asia-northeast1');
 module.exports.monthlySettlement = f.pubsub
   // .schedule('0 18 * * *')
-  .schedule('every 30 minutes')
+  .schedule('0 * * * *, 30 * * * *')
   .timeZone('Asia/Tokyo') // Users can choose timezone - default is America/Los_Angeles
   .onRun(async () => {
     const students = await student_account.list();
@@ -60,6 +60,7 @@ module.exports.monthlySettlement = f.pubsub
       // (cost + electricity - income + (purchase - sale) * primaryEanings[0].price) / ((purchase + sale) * primaryEanings[0].price);
       (cost + electricity - income + (purchase - sale) * parseInt(primaryAsks[0].price_ujpy)) /
       ((purchase + sale) * parseInt(primaryAsks[0].price_ujpy));
+    console.log('Discount price', price);
 
     await discount_price.create(
       new DiscountPrice({ price_ujpy: price.toString(), amount_purchase_utoken: purchase.toString(), amount_sale_utoken: sale.toString() }),
