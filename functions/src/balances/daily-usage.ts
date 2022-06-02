@@ -60,8 +60,10 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
       const config = functions.config();
       const confXrpl = config['xrpl'];
       const privKey = confXrpl.private_key;
-      const decrypted = crypto.AES.decrypt(accountPrivate[0].xrp_seed, privKey);
+      const decrypted = crypto.AES.decrypt(accountPrivate[0].xrp_seed, privKey).toString(crypto.enc.Utf8);
       const sender = xrpl.Wallet.fromSeed(decrypted);
+      const vli = await client.getLedgerIndex();
+
       const sendTokenTx = {
         TransactionType: 'Payment',
         Account: sender.address,
@@ -71,6 +73,7 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
           issuer: adminAccount[0].xrp_address_cold,
         },
         Destination: adminAccount[0].xrp_address_hot,
+        LastLedgerSequence: vli + 150,
       };
       const payPrepared = await client.autofill(sendTokenTx);
       const paySigned = sender.sign(payPrepared);
@@ -99,8 +102,9 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
       const config = functions.config();
       const confXrpl = config['xrpl'];
       const privKey = confXrpl.private_key;
-      const decrypted = crypto.AES.decrypt(accountPrivate[0].xrp_seed, privKey);
+      const decrypted = crypto.AES.decrypt(accountPrivate[0].xrp_seed, privKey).toString(crypto.enc.Utf8);
       const sender = xrpl.Wallet.fromSeed(decrypted);
+      let vli = await client.getLedgerIndex();
 
       if (uspxAmount > 0) {
         const sendSPXTx = {
@@ -112,6 +116,7 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
             issuer: adminAccount[0].xrp_address_cold,
           },
           Destination: adminAccount[0].xrp_address_hot,
+          LastLedgerSequence: vli + 150,
         };
         const payPreparedSPX = await client.autofill(sendSPXTx);
         const paySignedSPX = sender.sign(payPreparedSPX);
@@ -123,6 +128,8 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
           throw `Error sending transaction: ${payResultSPX.result.meta.TransactionResult}`;
         }
       }
+      vli = await client.getLedgerIndex();
+
       const sendUPXTx = {
         TransactionType: 'Payment',
         Account: sender.address,
@@ -132,6 +139,7 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
           issuer: adminAccount[0].xrp_address_cold,
         },
         Destination: adminAccount[0].xrp_address_hot,
+        LastLedgerSequence: vli + 150,
       };
       const payPreparedUPX = await client.autofill(sendUPXTx);
       const paySignedUPX = sender.sign(payPreparedUPX);
@@ -145,6 +153,7 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
       client.disconnect();
     } else {
       const insufficiency = usage - totalBalance;
+      console.log('不足分', insufficiency);
       await balance.update({
         id: accountBalance[0].id,
         student_account_id: accountBalance[0].student_account_id,
@@ -163,8 +172,10 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
       const config = functions.config();
       const confXrpl = config['xrpl'];
       const privKey = confXrpl.private_key;
-      const decrypted = crypto.AES.decrypt(accountPrivate[0].xrp_seed, privKey);
+      const decrypted = crypto.AES.decrypt(accountPrivate[0].xrp_seed, privKey).toString(crypto.enc.Utf8);
       const sender = xrpl.Wallet.fromSeed(decrypted);
+      let vli = await client.getLedgerIndex();
+
       if (uspxAmount > 0) {
         const sendSPXTx = {
           TransactionType: 'Payment',
@@ -175,6 +186,7 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
             issuer: adminAccount[0].xrp_address_cold,
           },
           Destination: adminAccount[0].xrp_address_hot,
+          LastLedgerSequence: vli + 150,
         };
         const payPreparedSPX = await client.autofill(sendSPXTx);
         const paySignedSPX = sender.sign(payPreparedSPX);
@@ -186,6 +198,8 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
           throw `Error sending transaction: ${payResultSPX.result.meta.TransactionResult}`;
         }
       }
+      vli = await client.getLedgerIndex();
+
       if (uupxAmount > 0) {
         const sendUPXTx = {
           TransactionType: 'Payment',
@@ -196,6 +210,7 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
             issuer: adminAccount[0].xrp_address_cold,
           },
           Destination: adminAccount[0].xrp_address_hot,
+          LastLedgerSequence: vli + 150,
         };
         const payPreparedUPX = await client.autofill(sendUPXTx);
         const paySignedUPX = sender.sign(payPreparedUPX);
