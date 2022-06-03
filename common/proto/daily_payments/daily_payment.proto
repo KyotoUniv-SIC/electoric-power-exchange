@@ -12,4 +12,7 @@ message DailyPayment{
   string month = 4;
   string date = 5;
   string amount_mwh = 6;
+  string amount_uupx = 7;
+  string amount_uspx = 8;
+  string amount_insufficiency = 9;
 }

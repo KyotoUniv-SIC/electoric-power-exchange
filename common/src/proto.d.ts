@@ -1135,6 +1135,15 @@ export namespace main {
 
         /** DailyPayment amount_mwh */
         amount_mwh?: (string|null);
+
+        /** DailyPayment amount_uupx */
+        amount_uupx?: (string|null);
+
+        /** DailyPayment amount_uspx */
+        amount_uspx?: (string|null);
+
+        /** DailyPayment amount_insufficiency */
+        amount_insufficiency?: (string|null);
     }
 
     /** Represents a DailyPayment. */
@@ -1163,6 +1172,15 @@ export namespace main {
 
         /** DailyPayment amount_mwh. */
         public amount_mwh: string;
+
+        /** DailyPayment amount_uupx. */
+        public amount_uupx: string;
+
+        /** DailyPayment amount_uspx. */
+        public amount_uspx: string;
+
+        /** DailyPayment amount_insufficiency. */
+        public amount_insufficiency: string;
 
         /**
          * Encodes the specified DailyPayment message. Does not implicitly {@link main.DailyPayment.verify|verify} messages.

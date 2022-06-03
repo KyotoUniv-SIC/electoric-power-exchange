@@ -39,6 +39,21 @@ export async function list() {
     .then((snapshot) => snapshot.docs.map((doc) => doc.data() as DailyUsage));
 }
 
+export async function listYesterday() {
+  const first = new Date();
+  first.setDate(first.getDate() - 1);
+  first.setHours(0, 0, 0, 0);
+  const end = new Date();
+  end.setHours(0, 0, 0, 0);
+
+  return await collection()
+    .orderBy('created_at', 'desc')
+    .where('created_at', '>', first)
+    .where('created_at', '<', end)
+    .get()
+    .then((snapshot) => snapshot.docs.map((doc) => doc.data() as DailyUsage));
+}
+
 export async function listLastMonth(roomID: string) {
   const first = new Date();
   first.setMonth(first.getMonth() - 1);

@@ -2743,6 +2743,9 @@ export const main = $root.main = (() => {
          * @property {string|null} [month] DailyPayment month
          * @property {string|null} [date] DailyPayment date
          * @property {string|null} [amount_mwh] DailyPayment amount_mwh
+         * @property {string|null} [amount_uupx] DailyPayment amount_uupx
+         * @property {string|null} [amount_uspx] DailyPayment amount_uspx
+         * @property {string|null} [amount_insufficiency] DailyPayment amount_insufficiency
          */
 
         /**
@@ -2809,6 +2812,30 @@ export const main = $root.main = (() => {
         DailyPayment.prototype.amount_mwh = "";
 
         /**
+         * DailyPayment amount_uupx.
+         * @member {string} amount_uupx
+         * @memberof main.DailyPayment
+         * @instance
+         */
+        DailyPayment.prototype.amount_uupx = "";
+
+        /**
+         * DailyPayment amount_uspx.
+         * @member {string} amount_uspx
+         * @memberof main.DailyPayment
+         * @instance
+         */
+        DailyPayment.prototype.amount_uspx = "";
+
+        /**
+         * DailyPayment amount_insufficiency.
+         * @member {string} amount_insufficiency
+         * @memberof main.DailyPayment
+         * @instance
+         */
+        DailyPayment.prototype.amount_insufficiency = "";
+
+        /**
          * Encodes the specified DailyPayment message. Does not implicitly {@link main.DailyPayment.verify|verify} messages.
          * @function encode
          * @memberof main.DailyPayment
@@ -2832,6 +2859,12 @@ export const main = $root.main = (() => {
                 writer.uint32(/* id 5, wireType 2 =*/42).string(message.date);
             if (message.amount_mwh != null && Object.hasOwnProperty.call(message, "amount_mwh"))
                 writer.uint32(/* id 6, wireType 2 =*/50).string(message.amount_mwh);
+            if (message.amount_uupx != null && Object.hasOwnProperty.call(message, "amount_uupx"))
+                writer.uint32(/* id 7, wireType 2 =*/58).string(message.amount_uupx);
+            if (message.amount_uspx != null && Object.hasOwnProperty.call(message, "amount_uspx"))
+                writer.uint32(/* id 8, wireType 2 =*/66).string(message.amount_uspx);
+            if (message.amount_insufficiency != null && Object.hasOwnProperty.call(message, "amount_insufficiency"))
+                writer.uint32(/* id 9, wireType 2 =*/74).string(message.amount_insufficiency);
             return writer;
         };
 
@@ -2883,6 +2916,15 @@ export const main = $root.main = (() => {
                     break;
                 case 6:
                     message.amount_mwh = reader.string();
+                    break;
+                case 7:
+                    message.amount_uupx = reader.string();
+                    break;
+                case 8:
+                    message.amount_uspx = reader.string();
+                    break;
+                case 9:
+                    message.amount_insufficiency = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -2937,6 +2979,15 @@ export const main = $root.main = (() => {
             if (message.amount_mwh != null && message.hasOwnProperty("amount_mwh"))
                 if (!$util.isString(message.amount_mwh))
                     return "amount_mwh: string expected";
+            if (message.amount_uupx != null && message.hasOwnProperty("amount_uupx"))
+                if (!$util.isString(message.amount_uupx))
+                    return "amount_uupx: string expected";
+            if (message.amount_uspx != null && message.hasOwnProperty("amount_uspx"))
+                if (!$util.isString(message.amount_uspx))
+                    return "amount_uspx: string expected";
+            if (message.amount_insufficiency != null && message.hasOwnProperty("amount_insufficiency"))
+                if (!$util.isString(message.amount_insufficiency))
+                    return "amount_insufficiency: string expected";
             return null;
         };
 
@@ -2964,6 +3015,12 @@ export const main = $root.main = (() => {
                 message.date = String(object.date);
             if (object.amount_mwh != null)
                 message.amount_mwh = String(object.amount_mwh);
+            if (object.amount_uupx != null)
+                message.amount_uupx = String(object.amount_uupx);
+            if (object.amount_uspx != null)
+                message.amount_uspx = String(object.amount_uspx);
+            if (object.amount_insufficiency != null)
+                message.amount_insufficiency = String(object.amount_insufficiency);
             return message;
         };
 
@@ -2987,6 +3044,9 @@ export const main = $root.main = (() => {
                 object.month = "";
                 object.date = "";
                 object.amount_mwh = "";
+                object.amount_uupx = "";
+                object.amount_uspx = "";
+                object.amount_insufficiency = "";
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 object.id = message.id;
@@ -3000,6 +3060,12 @@ export const main = $root.main = (() => {
                 object.date = message.date;
             if (message.amount_mwh != null && message.hasOwnProperty("amount_mwh"))
                 object.amount_mwh = message.amount_mwh;
+            if (message.amount_uupx != null && message.hasOwnProperty("amount_uupx"))
+                object.amount_uupx = message.amount_uupx;
+            if (message.amount_uspx != null && message.hasOwnProperty("amount_uspx"))
+                object.amount_uspx = message.amount_uspx;
+            if (message.amount_insufficiency != null && message.hasOwnProperty("amount_insufficiency"))
+                object.amount_insufficiency = message.amount_insufficiency;
             return object;
         };
 

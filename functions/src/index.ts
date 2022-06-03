@@ -83,6 +83,7 @@ const files = {
   // scheduled functions
   contract_normal: './schedules/contract-normal',
   contract_renewable: './schedules/contract-renewable',
+  daily_withdraw: './schedules/daily-withdraw',
   monthly_settlement: './schedules/monthly-settlement',
   operation_normal: './schedules/operation-normal',
   operation_renewable: './schedules/operation-renewable',
