@@ -10,7 +10,7 @@ export class NormalBidHistoryFirestore {
     toFirestore: (data) => ({ ...data }),
     fromFirestore: (snapshot, options) => {
       const data = snapshot.data(options)!;
-      return new NormalBidHistory(data, data.created_at, data.updated_at);
+      return new NormalBidHistory(data, data.bid_created_at, data.created_at, data.updated_at);
     },
   };
 
