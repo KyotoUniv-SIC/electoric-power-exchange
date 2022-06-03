@@ -16,4 +16,8 @@ export class NormalAskHistoryApplicationService {
   list$(uid: string) {
     return this.normalAskHistory.list$().pipe(map((params) => params.filter((param) => param.account_id == uid)));
   }
+
+  listAll$() {
+    return this.normalAskHistory.list$();
+  }
 }

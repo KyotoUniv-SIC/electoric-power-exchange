@@ -10,7 +10,7 @@ export class RenewableBidHistoryFirestore {
     toFirestore: (data) => ({ ...data }),
     fromFirestore: (snapshot, options) => {
       const data = snapshot.data(options)!;
-      return new RenewableBidHistory(data, data.created_at, data.updated_at);
+      return new RenewableBidHistory(data, data.bid_created_at, data.created_at, data.updated_at);
     },
   };
 

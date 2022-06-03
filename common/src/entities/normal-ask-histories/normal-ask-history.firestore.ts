@@ -10,7 +10,7 @@ export class NormalAskHistoryFirestore {
     toFirestore: (data) => ({ ...data }),
     fromFirestore: (snapshot, options) => {
       const data = snapshot.data(options)!;
-      return new NormalAskHistory(data, data.created_at, data.updated_at);
+      return new NormalAskHistory(data, data.ask_created_at, data.created_at, data.updated_at);
     },
   };
 
