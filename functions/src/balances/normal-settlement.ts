@@ -7,18 +7,21 @@ import { admin_account } from '../admin-accounts';
 import { admin_private } from '../admin-privates';
 import { normal_settlement } from '../normal-settlements';
 import { student_account } from '../student-accounts';
-import { NormalSettlement } from '@local/common';
+import { Balance, NormalSettlement } from '@local/common';
 import * as crypto from 'crypto-js';
 import * as functions from 'firebase-functions';
 
 normal_settlement.onCreateHandler.push(async (snapshot, context) => {
   const data = snapshot.data()! as NormalSettlement;
-  const bidderBalance = await balance.getLatest(data.bid_id);
-  await balance.update({
-    id: bidderBalance[0].id,
-    student_account_id: data.bid_id,
-    amount_uupx: (parseInt(bidderBalance[0].amount_uupx) + parseInt(data.amount_uupx)).toString(),
-  });
+  const bidderBalance = await balance.listLatest(data.bid_id);
+  await balance.create(
+    new Balance({
+      id: bidderBalance[0].id,
+      student_account_id: data.bid_id,
+      amount_uupx: (parseInt(bidderBalance[0].amount_uupx) + parseInt(data.amount_uupx)).toString(),
+      amount_uspx: bidderBalance[0].amount_uspx,
+    }),
+  );
 
   const xrpl = require('xrpl');
   const TEST_NET = 'wss://s.altnet.rippletest.net:51233';
@@ -63,12 +66,15 @@ normal_settlement.onCreateHandler.push(async (snapshot, context) => {
     }
     client.disconnect();
   } else {
-    const sellerBalance = await balance.getLatest(data.ask_id);
-    await balance.update({
-      id: sellerBalance[0].id,
-      student_account_id: data.ask_id,
-      amount_uupx: (parseInt(sellerBalance[0].amount_uupx) - parseInt(data.amount_uupx)).toString(),
-    });
+    const sellerBalance = await balance.listLatest(data.ask_id);
+    await balance.create(
+      new Balance({
+        id: sellerBalance[0].id,
+        student_account_id: data.ask_id,
+        amount_uupx: (parseInt(sellerBalance[0].amount_uupx) - parseInt(data.amount_uupx)).toString(),
+        amount_uspx: sellerBalance[0].amount_uspx,
+      }),
+    );
 
     const seller = await student_account.get(data.ask_id);
     const sellerPrivate = await account_private.list(data.ask_id);

@@ -23,7 +23,7 @@ module.exports.monthlySettlement = f.pubsub
     let sale = 0;
     for (const student of students) {
       const studentID = student.id;
-      const lastMonthBalance = await balance.getLatest(studentID);
+      const lastMonthBalance = await balance.listLatest(studentID);
       const insufficiencies = (await insufficient_balance.listLastMonth(studentID)).reduce(
         (sum, element) => sum + parseInt(element.amount_utoken),
         0,
@@ -74,7 +74,7 @@ module.exports.monthlySettlement = f.pubsub
 
     for (const student of students) {
       const studentID = student.id;
-      const lastMonthBalance = await balance.getLatest(studentID);
+      const lastMonthBalance = await balance.listLatest(studentID);
       await balance_snapshot.create(new BalanceSnapshot(lastMonthBalance[0]));
     }
   });

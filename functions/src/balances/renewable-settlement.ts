@@ -7,19 +7,21 @@ import { admin_account } from '../admin-accounts';
 import { admin_private } from '../admin-privates';
 import { renewable_settlement } from '../renewable-settlements';
 import { student_account } from '../student-accounts';
-import { RenewableSettlement } from '@local/common';
+import { Balance, RenewableSettlement } from '@local/common';
 import * as crypto from 'crypto-js';
 import * as functions from 'firebase-functions';
 
 renewable_settlement.onCreateHandler.push(async (snapshot, context) => {
   const data = snapshot.data()! as RenewableSettlement;
-  const bidderBalance = await balance.getLatest(data.bid_id);
-  await balance.update({
-    id: bidderBalance[0].id,
-    student_account_id: data.bid_id,
-    // amount_upx: bidderBalance[0].amount_upx,
-    amount_uspx: (parseInt(bidderBalance[0].amount_uspx) + parseInt(data.amount_uspx)).toString(),
-  });
+  const bidderBalance = await balance.listLatest(data.bid_id);
+  await balance.create(
+    new Balance({
+      id: bidderBalance[0].id,
+      student_account_id: data.bid_id,
+      amount_uupx: bidderBalance[0].amount_uupx,
+      amount_uspx: (parseInt(bidderBalance[0].amount_uspx) + parseInt(data.amount_uspx)).toString(),
+    }),
+  );
 
   const xrpl = require('xrpl');
   const TEST_NET = 'wss://s.altnet.rippletest.net:51233';
@@ -65,13 +67,15 @@ renewable_settlement.onCreateHandler.push(async (snapshot, context) => {
     }
     client.disconnect();
   } else {
-    const sellerBalance = await balance.getLatest(data.ask_id);
-    await balance.update({
-      id: sellerBalance[0].id,
-      student_account_id: data.ask_id,
-      // amount_upx: sellerBalance[0].amount_upx,
-      amount_uspx: (parseInt(sellerBalance[0].amount_uspx) - parseInt(data.amount_uspx)).toString(),
-    });
+    const sellerBalance = await balance.listLatest(data.ask_id);
+    await balance.create(
+      new Balance({
+        id: sellerBalance[0].id,
+        student_account_id: data.ask_id,
+        amount_uupx: sellerBalance[0].amount_uupx,
+        amount_uspx: (parseInt(sellerBalance[0].amount_uspx) - parseInt(data.amount_uspx)).toString(),
+      }),
+    );
 
     const seller = await student_account.get(data.ask_id);
     const sellerPrivate = await account_private.list(data.ask_id);

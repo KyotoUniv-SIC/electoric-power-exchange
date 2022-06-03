@@ -8,7 +8,7 @@ import { daily_payment } from '../daily-payments';
 import { daily_usage } from '../daily-usages';
 import { insufficient_balance } from '../insufficient-balances';
 import { student_account } from '../student-accounts';
-import { InsufficientBalance, DailyPayment, DailyUsage } from '@local/common';
+import { InsufficientBalance, DailyPayment, DailyUsage, Balance } from '@local/common';
 import * as crypto from 'crypto-js';
 import * as functions from 'firebase-functions';
 
@@ -25,7 +25,7 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
     return;
   }
   for (const student of studentAccounts) {
-    const accountBalance = await balance.getLatest(student.id);
+    const accountBalance = await balance.listLatest(student.id);
     const uupxAmount = parseInt(accountBalance[0].amount_uupx);
     const uspxAmount = parseInt(accountBalance[0].amount_uspx);
     const totalBalance = uupxAmount + uspxAmount;
@@ -47,11 +47,14 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
     );
 
     if (usage <= uspxAmount) {
-      await balance.update({
-        id: accountBalance[0].id,
-        student_account_id: accountBalance[0].student_account_id,
-        amount_uspx: (uspxAmount - usage).toString(),
-      });
+      await balance.create(
+        new Balance({
+          id: accountBalance[0].id,
+          student_account_id: accountBalance[0].student_account_id,
+          amount_uupx: accountBalance[0].amount_uupx,
+          amount_uspx: (uspxAmount - usage).toString(),
+        }),
+      );
       if (!accountPrivate.length) {
         console.log(student.id, 'no XRP address');
         return;
@@ -87,12 +90,14 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
       client.disconnect();
     } else if (usage < totalBalance) {
       const uspxShortage = usage - uspxAmount;
-      await balance.update({
-        id: accountBalance[0].id,
-        student_account_id: accountBalance[0].student_account_id,
-        amount_uupx: (uupxAmount - uspxShortage).toString(),
-        amount_uspx: '0',
-      });
+      await balance.create(
+        new Balance({
+          id: accountBalance[0].id,
+          student_account_id: accountBalance[0].student_account_id,
+          amount_uupx: (uupxAmount - uspxShortage).toString(),
+          amount_uspx: '0',
+        }),
+      );
       if (!accountPrivate.length) {
         console.log(student.id, 'no XRP address');
         return;
@@ -154,12 +159,14 @@ daily_usage.onCreateHandler.push(async (snapshot, context) => {
     } else {
       const insufficiency = usage - totalBalance;
       console.log('不足分', insufficiency);
-      await balance.update({
-        id: accountBalance[0].id,
-        student_account_id: accountBalance[0].student_account_id,
-        amount_uupx: '0',
-        amount_uspx: '0',
-      });
+      await balance.create(
+        new Balance({
+          id: accountBalance[0].id,
+          student_account_id: accountBalance[0].student_account_id,
+          amount_uupx: '0',
+          amount_uspx: '0',
+        }),
+      );
       await insufficient_balance.create(
         new InsufficientBalance({ student_account_id: accountBalance[0].student_account_id, amount_utoken: insufficiency.toString() }),
       );

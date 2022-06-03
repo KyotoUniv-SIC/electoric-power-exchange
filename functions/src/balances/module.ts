@@ -33,7 +33,7 @@ export async function get(studentAccountID: string, id: string) {
     .then((snapshot) => snapshot.data() as Balance);
 }
 
-export async function getLatest(studentAccountID: string) {
+export async function listLatest(studentAccountID: string) {
   return await collection(studentAccountID)
     .orderBy('created_at', 'desc')
     .get()
