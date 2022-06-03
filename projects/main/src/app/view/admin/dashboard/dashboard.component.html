@@ -177,6 +177,8 @@
       <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
     </mat-form-field>
 
+    <mat-checkbox class="ml-5" color="primary" [(ngModel)]="checked">Contracts Only</mat-checkbox>
+
     <div class="mt-5">
       <button mat-flat-button class="w-full" color="primary" (click)="onDownloadNormalBidHistories()">Download UPX Bids</button>
     </div>

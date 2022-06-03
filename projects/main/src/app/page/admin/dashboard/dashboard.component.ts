@@ -412,11 +412,8 @@ export class DashboardComponent implements OnInit {
   async onDownloadNormalBids($event: DateRange) {
     const admin = await this.adminApp.getByName('admin');
     const normalBids = $event.data as NormalBidHistory[];
-    const sortBids = normalBids
-      .filter((bid) => (bid.bid_created_at as Timestamp).toDate() > $event.start)
-      .filter((bid) => (bid.bid_created_at as Timestamp).toDate() < $event.end);
     const students = await this.studentsApp.list();
-    const bidsData = sortBids.map((data) => {
+    const bidsData = normalBids.map((data) => {
       return {
         bid_id: data.id,
         account_id: data.account_id,
@@ -435,11 +432,8 @@ export class DashboardComponent implements OnInit {
   async onDownloadNormalAsks($event: DateRange) {
     const admin = await this.adminApp.getByName('admin');
     const normalAsks = $event.data as NormalAskHistory[];
-    const sortAsks = normalAsks
-      .filter((ask) => (ask.ask_created_at as Timestamp).toDate() > $event.start)
-      .filter((ask) => (ask.ask_created_at as Timestamp).toDate() < $event.end);
     const students = await this.studentsApp.list();
-    const asksData = sortAsks.map((data) => {
+    const asksData = normalAsks.map((data) => {
       return {
         ask_id: data.id,
         account_id: data.account_id,
@@ -458,11 +452,8 @@ export class DashboardComponent implements OnInit {
   async onDownloadRenewableBids($event: DateRange) {
     const admin = await this.adminApp.getByName('admin');
     const renewableBids = $event.data as RenewableBidHistory[];
-    const sortBids = renewableBids
-      .filter((bid) => (bid.bid_created_at as Timestamp).toDate() > $event.start)
-      .filter((bid) => (bid.bid_created_at as Timestamp).toDate() < $event.end);
     const students = await this.studentsApp.list();
-    const bidsData = sortBids.map((data) => {
+    const bidsData = renewableBids.map((data) => {
       return {
         bid_id: data.id,
         account_id: data.account_id,
@@ -481,11 +472,8 @@ export class DashboardComponent implements OnInit {
   async onDownloadRenewableAsks($event: DateRange) {
     const admin = await this.adminApp.getByName('admin');
     const renewableAsks = $event.data as RenewableAskHistory[];
-    const sortAsks = renewableAsks
-      .filter((ask) => (ask.ask_created_at as Timestamp).toDate() > $event.start)
-      .filter((ask) => (ask.ask_created_at as Timestamp).toDate() < $event.end);
     const students = await this.studentsApp.list();
-    const asksData = sortAsks.map((data) => {
+    const asksData = renewableAsks.map((data) => {
       return {
         ask_id: data.id,
         account_id: data.account_id,

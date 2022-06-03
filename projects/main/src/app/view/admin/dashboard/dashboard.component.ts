@@ -1,6 +1,7 @@
 import { MonthlyUsageData, OrderData } from '../../../page/admin/dashboard/dashboard.component';
 import { Ranking } from '../../../page/dashboard/dashboard.component';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Timestamp } from '@angular/fire/firestore/firebase';
 import { FormControl, FormGroup } from '@angular/forms';
 import {
   Balance,
@@ -113,6 +114,8 @@ export class DashboardComponent implements OnInit {
     end: new FormControl(),
   });
 
+  checked: boolean = false;
+
   constructor() {
     this.appDownloadBalances = new EventEmitter();
     this.appDownloadOrders = new EventEmitter();
@@ -156,48 +159,71 @@ export class DashboardComponent implements OnInit {
   }
 
   onDownloadNormalBidHistories() {
-    if (!this.normalBidHistories?.length) {
-      alert('UPXのBidが存在しません');
-    }
+    console.log(this.checked);
+    const normalBids = this.checked ? this.normalBidHistories?.filter((bid) => bid.is_accepted) : this.normalBidHistories;
+    const data = normalBids
+      ?.filter((bid) => (bid.bid_created_at as Timestamp).toDate() > this.range.value.start)
+      .filter((bid) => (bid.bid_created_at as Timestamp).toDate() < this.range.value.end);
+
     if (!this.range.value.start || !this.range.value.end) {
       alert('範囲を正しく指定してください');
+      return;
     }
-    this.appDownloadNormalBids.emit({ data: this.normalBidHistories, start: this.range.value.start, end: this.range.value.end });
+    if (!data || !data.length) {
+      alert('UPXのBidが存在しません');
+      return;
+    }
+    this.appDownloadNormalBids.emit({ data, start: this.range.value.start, end: this.range.value.end });
   }
 
   onDownloadNormalAskHistories() {
-    if (!this.normalAskHistories?.length) {
+    const normalAsks = this.checked ? this.normalAskHistories?.filter((ask) => ask.is_accepted) : this.normalAskHistories;
+    const data = normalAsks
+      ?.filter((ask) => (ask.ask_created_at as Timestamp).toDate() > this.range.value.start)
+      .filter((ask) => (ask.ask_created_at as Timestamp).toDate() < this.range.value.end);
+
+    if (!this.range.value.start || !this.range.value.end) {
+      alert('範囲を正しく指定してください');
+      return;
+    }
+    if (!data || !data.length) {
       alert('UPXのAskが存在しません');
       return;
     }
-    if (!this.range.value.start || !this.range.value.end) {
-      alert('範囲を正しく指定してください');
-      return;
-    }
-    this.appDownloadNormalAsks.emit({ data: this.normalAskHistories, start: this.range.value.start, end: this.range.value.end });
+    this.appDownloadNormalAsks.emit({ data, start: this.range.value.start, end: this.range.value.end });
   }
 
   onDownloadRenewableBidHistories() {
-    if (!this.renewableBidHistories?.length) {
+    const renewableBids = this.checked ? this.renewableBidHistories?.filter((bid) => bid.is_accepted) : this.renewableBidHistories;
+    const data = renewableBids
+      ?.filter((bid) => (bid.bid_created_at as Timestamp).toDate() > this.range.value.start)
+      .filter((bid) => (bid.bid_created_at as Timestamp).toDate() < this.range.value.end);
+
+    if (!this.range.value.start || !this.range.value.end) {
+      alert('範囲を正しく指定してください');
+      return;
+    }
+    if (!data || !data.length) {
       alert('SPXのBidが存在しません');
       return;
     }
-    if (!this.range.value.start || !this.range.value.end) {
-      alert('範囲を正しく指定してください');
-      return;
-    }
-    this.appDownloadRenewableBids.emit({ data: this.renewableBidHistories, start: this.range.value.start, end: this.range.value.end });
+    this.appDownloadRenewableBids.emit({ data, start: this.range.value.start, end: this.range.value.end });
   }
 
   onDownloadRenewableAskHistories() {
-    if (!this.renewableAskHistories?.length) {
-      alert('SPXのAskが存在しません');
-      return;
-    }
+    const renewableAsks = this.checked ? this.renewableAskHistories?.filter((ask) => ask.is_accepted) : this.renewableAskHistories;
+    const data = renewableAsks
+      ?.filter((ask) => (ask.ask_created_at as Timestamp).toDate() > this.range.value.start)
+      .filter((ask) => (ask.ask_created_at as Timestamp).toDate() < this.range.value.end);
+
     if (!this.range.value.start || !this.range.value.end) {
       alert('範囲を正しく指定してください');
       return;
     }
-    this.appDownloadRenewableAsks.emit({ data: this.renewableAskHistories, start: this.range.value.start, end: this.range.value.end });
+    if (!data || !data.length) {
+      alert('SPXのAskが存在しません');
+      return;
+    }
+    this.appDownloadRenewableAsks.emit({ data, start: this.range.value.start, end: this.range.value.end });
   }
 }
