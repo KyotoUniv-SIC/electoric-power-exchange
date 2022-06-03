@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
-import { available_balance } from '.';
-import { balance } from '../balances';
+import { balance } from '.';
+import { available_balance } from '../available-balances';
 import { AvailableBalance, Balance } from '@local/common';
 
 balance.onCreateHandler.push(async (snapshot, context) => {

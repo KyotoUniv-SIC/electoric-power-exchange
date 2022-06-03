@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
 /* eslint-disable camelcase */
-import { primary_ask } from '.';
-import { monthly_usage } from '../monthly-usages';
+import { monthly_usage } from '.';
+import { primary_ask } from '../primary-asks';
 import { MonthlyUsage, PrimaryAsk } from '@local/common';
 
 monthly_usage.onCreateHandler.push(async (snapshot, context) => {

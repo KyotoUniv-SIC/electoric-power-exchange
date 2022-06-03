@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
-import { message } from '.';
-import { message_read } from '../message-reads';
+import { message_read } from '.';
+import { message } from '../messages';
 import { MessageRead } from '@local/common';
 
 message_read.onCreateHandler.push(async (snapshot, context) => {

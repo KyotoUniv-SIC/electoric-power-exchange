@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
-import { student_account } from '.';
-import { room_change } from '../room-changes';
+import { room_change } from '.';
+import { student_account } from '../student-accounts';
 import { RoomChange } from '@local/common';
 
 room_change.onCreateHandler.push(async (snapshot, context) => {

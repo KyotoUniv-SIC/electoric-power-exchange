@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
-import { renewable_ask } from '.';
 import { admin_account } from '../admin-accounts';
 import { renewable_ask_setting } from '../renewable-ask-settings';
+import { renewable_ask } from '../renewable-asks';
 import { proto, RenewableAsk, RenewableAskSetting } from '@local/common';
 import * as functions from 'firebase-functions';
 

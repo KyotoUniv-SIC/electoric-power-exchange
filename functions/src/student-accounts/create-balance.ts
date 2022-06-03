@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
-import { balance } from '.';
-import { student_account } from '../student-accounts';
+import { student_account } from '.';
+import { balance } from '../balances';
 import { Balance, StudentAccount } from '@local/common';
 
 student_account.onCreateHandler.push(async (snapshot, context) => {

@@ -1,10 +1,10 @@
 /* eslint-disable camelcase */
-import { renewable_settlement } from '.';
+import { single_price_renewable_settlement } from '.';
 import { renewable_ask_history } from '../renewable-ask-histories';
 import { renewable_ask } from '../renewable-asks';
 import { renewable_bid_history } from '../renewable-bid-histories';
 import { renewable_bid } from '../renewable-bids';
-import { single_price_renewable_settlement } from '../single-price-renewable-settlements';
+import { renewable_settlement } from '../renewable-settlements';
 import { proto, RenewableAskHistory, RenewableBidHistory, RenewableSettlement } from '@local/common';
 
 single_price_renewable_settlement.onCreateHandler.push(async (snapshot, context) => {

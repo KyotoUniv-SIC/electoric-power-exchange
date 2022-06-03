@@ -1,10 +1,10 @@
 /* eslint-disable camelcase */
-import { normal_settlement } from '.';
+import { single_price_normal_settlement } from '.';
 import { normal_ask_history } from '../normal-ask-histories';
 import { normal_ask } from '../normal-asks';
 import { normal_bid_history } from '../normal-bid-histories';
 import { normal_bid } from '../normal-bids';
-import { single_price_normal_settlement } from '../single-price-normal-settlements';
+import { normal_settlement } from '../normal-settlements';
 import { NormalAskHistory, NormalBidHistory, NormalSettlement, proto, SinglePriceNormalSettlement } from '@local/common';
 
 single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) => {

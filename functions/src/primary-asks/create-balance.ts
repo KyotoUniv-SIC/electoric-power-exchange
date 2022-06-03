@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
 /* eslint-disable camelcase */
-import { balance } from '.';
+import { primary_ask } from '.';
 import { admin_account } from '../admin-accounts';
 import { admin_private } from '../admin-privates';
-import { primary_ask } from '../primary-asks';
+import { balance } from '../balances';
 import { student_account } from '../student-accounts';
 import { Balance, PrimaryAsk } from '@local/common';
 import * as crypto from 'crypto-js';

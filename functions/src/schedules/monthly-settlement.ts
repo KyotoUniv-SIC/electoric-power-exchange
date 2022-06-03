@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
-import { balance_snapshot } from '.';
 import { admin_account } from '../admin-accounts';
+import { balance_snapshot } from '../balance-snapshots';
 import { balance } from '../balances';
 import { cost_setting } from '../cost-settings';
 import { discount_price } from '../discount-prices';

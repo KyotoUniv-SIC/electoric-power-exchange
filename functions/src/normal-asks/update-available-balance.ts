@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
-import { available_balance } from '.';
-import { normal_ask } from '../normal-asks';
+import { normal_ask } from '.';
+import { available_balance } from '../available-balances';
 import { NormalAsk, proto } from '@local/common';
 
 normal_ask.onCreateHandler.push(async (snapshot, context) => {

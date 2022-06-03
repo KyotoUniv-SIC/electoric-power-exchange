@@ -1,25 +1,25 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
 /* eslint-disable camelcase */
-import { balance } from '.';
+import { renewable_settlement } from '.';
 import { account_private } from '../account-privates';
 import { admin_account } from '../admin-accounts';
 import { admin_private } from '../admin-privates';
-import { normal_settlement } from '../normal-settlements';
+import { balance } from '../balances';
 import { student_account } from '../student-accounts';
-import { Balance, NormalSettlement } from '@local/common';
+import { Balance, RenewableSettlement } from '@local/common';
 import * as crypto from 'crypto-js';
 import * as functions from 'firebase-functions';
 
-normal_settlement.onCreateHandler.push(async (snapshot, context) => {
-  const data = snapshot.data()! as NormalSettlement;
+renewable_settlement.onCreateHandler.push(async (snapshot, context) => {
+  const data = snapshot.data()! as RenewableSettlement;
   const bidderBalance = await balance.listLatest(data.bid_id);
   await balance.create(
     new Balance({
       id: bidderBalance[0].id,
       student_account_id: data.bid_id,
-      amount_uupx: (parseInt(bidderBalance[0].amount_uupx) + parseInt(data.amount_uupx)).toString(),
-      amount_uspx: bidderBalance[0].amount_uspx,
+      amount_uupx: bidderBalance[0].amount_uupx,
+      amount_uspx: (parseInt(bidderBalance[0].amount_uspx) + parseInt(data.amount_uspx)).toString(),
     }),
   );
 
@@ -37,6 +37,7 @@ normal_settlement.onCreateHandler.push(async (snapshot, context) => {
 
     const encryptedSeed = adminPrivate[0].xrp_seed_hot;
     const decryptedSeed = crypto.AES.decrypt(encryptedSeed, privKey).toString(crypto.enc.Utf8);
+
     if (!bidder.xrp_address) {
       console.log(data.bid_id, 'no XRP address');
       return;
@@ -48,8 +49,8 @@ normal_settlement.onCreateHandler.push(async (snapshot, context) => {
       TransactionType: 'Payment',
       Account: sender.address,
       Amount: {
-        currency: 'UPX',
-        value: (parseInt(data.amount_uupx) / 1000000).toString(),
+        currency: 'SPX',
+        value: (parseInt(data.amount_uspx) / 1000000).toString(),
         issuer: adminAccount[0].xrp_address_cold,
       },
       Destination: bidder.xrp_address,
@@ -71,8 +72,8 @@ normal_settlement.onCreateHandler.push(async (snapshot, context) => {
       new Balance({
         id: sellerBalance[0].id,
         student_account_id: data.ask_id,
-        amount_uupx: (parseInt(sellerBalance[0].amount_uupx) - parseInt(data.amount_uupx)).toString(),
-        amount_uspx: sellerBalance[0].amount_uspx,
+        amount_uupx: sellerBalance[0].amount_uupx,
+        amount_uspx: (parseInt(sellerBalance[0].amount_uspx) - parseInt(data.amount_uspx)).toString(),
       }),
     );
 
@@ -97,8 +98,8 @@ normal_settlement.onCreateHandler.push(async (snapshot, context) => {
       TransactionType: 'Payment',
       Account: sender.address,
       Amount: {
-        currency: 'UPX',
-        value: (parseInt(data.amount_uupx) / 1000000).toString(),
+        currency: 'SPX',
+        value: (parseInt(data.amount_uspx) / 1000000).toString(),
         issuer: adminAccount[0].xrp_address_cold,
       },
       Destination: bidder.xrp_address,

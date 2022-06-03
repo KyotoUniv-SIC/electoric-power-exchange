@@ -1,9 +1,9 @@
 /* eslint-disable camelcase */
-import { single_price_normal_settlement } from '.';
 import { normal_ask_history } from '../normal-ask-histories';
 import { normal_ask } from '../normal-asks';
 import { normal_bid_history } from '../normal-bid-histories';
 import { normal_bid } from '../normal-bids';
+import { single_price_normal_settlement } from '../single-price-normal-settlements';
 import { NormalAskHistory, NormalBidHistory, SinglePriceNormalSettlement } from '@local/common';
 import * as functions from 'firebase-functions';
 

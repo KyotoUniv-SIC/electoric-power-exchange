@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
-import { message } from '.';
-import { message_delete } from '../message-deletes';
+import { message_delete } from '.';
+import { message } from '../messages';
 import { MessageDelete } from '@local/common';
 
 message_delete.onCreateHandler.push(async (snapshot, context) => {

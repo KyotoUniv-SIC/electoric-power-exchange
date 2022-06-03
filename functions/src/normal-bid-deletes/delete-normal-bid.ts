@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
-import { normal_bid } from '.';
-import { normal_bid_delete } from '../normal-bid-deletes';
+import { normal_bid_delete } from '.';
+import { normal_bid } from '../normal-bids';
 import { NormalBidDelete } from '@local/common';
 
 normal_bid_delete.onCreateHandler.push(async (snapshot, context) => {

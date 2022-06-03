@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
 /* eslint-disable camelcase */
-import { balance } from '.';
+import { daily_usage } from '.';
 import { account_private } from '../account-privates';
 import { admin_account } from '../admin-accounts';
+import { balance } from '../balances';
 import { daily_payment } from '../daily-payments';
-import { daily_usage } from '../daily-usages';
 import { insufficient_balance } from '../insufficient-balances';
 import { student_account } from '../student-accounts';
 import { InsufficientBalance, DailyPayment, DailyUsage, Balance } from '@local/common';

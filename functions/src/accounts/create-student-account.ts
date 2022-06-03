@@ -1,6 +1,6 @@
-// eslint-disable-next-line camelcase
-import { student_account } from '.';
-import { account } from '../accounts';
+/* eslint-disable camelcase */
+import { account } from '.';
+import { student_account } from '../student-accounts';
 import { StudentAccount } from '@local/common';
 
 account.onCreateHandler.push(async (snapshot, context) => {

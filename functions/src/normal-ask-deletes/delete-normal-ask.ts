@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
+import { normal_ask_delete } from '.';
+import { normal_ask } from '../normal-asks';
 import { NormalAskDelete } from '@local/common';
-import { normal_ask } from '.';
-import { normal_ask_delete } from '../normal-ask-deletes';
 
 normal_ask_delete.onCreateHandler.push(async (snapshot, context) => {
   const data = snapshot.data()! as NormalAskDelete;

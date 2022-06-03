@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
-import { primary_bid } from '.';
-import { primary_ask } from '../primary-asks';
+import { primary_ask } from '.';
+import { primary_bid } from '../primary-bids';
 import { PrimaryAsk, PrimaryBid } from '@local/common';
 
 primary_ask.onCreateHandler.push(async (snapshot, context) => {

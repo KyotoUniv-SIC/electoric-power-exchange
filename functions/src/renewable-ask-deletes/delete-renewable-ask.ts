@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
-import { renewable_ask } from '.';
-import { renewable_ask_delete } from '../renewable-ask-deletes';
+import { renewable_ask_delete } from '.';
+import { renewable_ask } from '../renewable-asks';
 import { RenewableAskDelete } from '@local/common';
 
 renewable_ask_delete.onCreateHandler.push(async (snapshot, context) => {
