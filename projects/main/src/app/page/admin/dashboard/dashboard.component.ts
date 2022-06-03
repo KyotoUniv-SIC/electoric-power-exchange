@@ -17,6 +17,7 @@ import {
 } from '@local/common';
 import { ChartDataSets } from 'chart.js';
 import { MultiDataSet } from 'ng2-charts';
+import { AdminAccountApplicationService } from 'projects/shared/src/lib/services/admin-accounts/admin-account.application.service';
 import { DailyUsageApplicationService } from 'projects/shared/src/lib/services/daily-usages/daily-usage.application.service';
 import { NormalAskHistoryApplicationService } from 'projects/shared/src/lib/services/normal-ask-histories/normal-ask-history.application.service';
 import { NormalAskApplicationService } from 'projects/shared/src/lib/services/normal-asks/normal-ask.application.service';
@@ -87,6 +88,7 @@ export class DashboardComponent implements OnInit {
   renewableAskHistories$: Observable<RenewableAskHistory[] | undefined>;
 
   constructor(
+    private readonly adminApp: AdminAccountApplicationService,
     private readonly studentsApp: StudentAccountApplicationService,
     private readonly balanceApp: BalanceApplicationService,
     private readonly dailyUsageApp: DailyUsageApplicationService,
@@ -371,7 +373,7 @@ export class DashboardComponent implements OnInit {
         amount_uspx: balance.amount_uspx,
         insufficient_utoken: studentInsufficiencies.find((insufficiency) => (insufficiency.account_id = balance.student_account_id))
           ?.insufficient_utoken,
-        timestamp: (balance.updated_at as Timestamp).toDate().toISOString(),
+        timestamp: (balance.updated_at as Timestamp).toDate().toLocaleString(),
       };
     });
     const csv = this.jsonToCsv(balanceData, ',');
@@ -384,7 +386,21 @@ export class DashboardComponent implements OnInit {
   }
 
   async onDownloadUserUsages($event: Ranking[]) {
-    const csv = this.jsonToCsv($event, ',');
+    let usages = [];
+    for (let data of $event) {
+      const balance = await this.balanceApp.list(data.id);
+      const insufficiencies = await this.insufficientBalanceApp.list(data.id);
+      usages.push({
+        rank: data.rank,
+        account_id: data.id,
+        account_name: data.name,
+        usage_kwh: data.kwhAmount,
+        amount_uupx: balance[0].amount_uupx,
+        amount_uspx: balance[0].amount_uspx,
+        amount_insufficient_utoken: insufficiencies.reduce((previous, current) => previous + parseInt(current.amount_utoken), 0),
+      });
+    }
+    const csv = this.jsonToCsv(usages, ',');
     this.downloadCsv(csv, 'users_usages');
   }
 
@@ -394,6 +410,7 @@ export class DashboardComponent implements OnInit {
   }
 
   async onDownloadNormalBids($event: DateRange) {
+    const admin = await this.adminApp.getByName('admin');
     const normalBids = $event.data as NormalBidHistory[];
     const sortBids = normalBids
       .filter((bid) => (bid.bid_created_at as Timestamp).toDate() > $event.start)
@@ -403,12 +420,12 @@ export class DashboardComponent implements OnInit {
       return {
         bid_id: data.id,
         account_id: data.account_id,
-        account_name: students.find((student) => student.id == data.account_id)?.name,
+        account_name: admin?.id == data.account_id ? admin.name : students.find((student) => student.id == data.account_id)?.name,
         price: parseInt(data.price_ujpy) / 1000000,
         amount: parseInt(data.amount_uupx) / 1000000,
         contract: data.is_accepted ? 'YES' : 'NO',
         contract_price: parseInt(data.contract_price_ujpy) / 1000000,
-        timestamp: (data.bid_created_at as Timestamp).toDate().toISOString(),
+        timestamp: (data.bid_created_at as Timestamp).toDate().toLocaleString(),
       };
     });
     const csv = this.jsonToCsv(bidsData, ',');
@@ -416,18 +433,22 @@ export class DashboardComponent implements OnInit {
   }
 
   async onDownloadNormalAsks($event: DateRange) {
+    const admin = await this.adminApp.getByName('admin');
     const normalAsks = $event.data as NormalAskHistory[];
+    const sortAsks = normalAsks
+      .filter((ask) => (ask.ask_created_at as Timestamp).toDate() > $event.start)
+      .filter((ask) => (ask.ask_created_at as Timestamp).toDate() < $event.end);
     const students = await this.studentsApp.list();
-    const asksData = normalAsks.map((data) => {
+    const asksData = sortAsks.map((data) => {
       return {
         ask_id: data.id,
         account_id: data.account_id,
-        account_name: students.find((student) => student.id == data.account_id)?.name,
+        account_name: admin?.id == data.account_id ? admin.name : students.find((student) => student.id == data.account_id)?.name,
         price: parseInt(data.price_ujpy) / 1000000,
         amount: parseInt(data.amount_uupx) / 1000000,
         contract: data.is_accepted ? 'YES' : 'NO',
         contract_price: parseInt(data.contract_price_ujpy) / 1000000,
-        timestamp: (data.ask_created_at as Timestamp).toDate().toISOString(),
+        timestamp: (data.ask_created_at as Timestamp).toDate().toLocaleString(),
       };
     });
     const csv = this.jsonToCsv(asksData, ',');
@@ -435,18 +456,22 @@ export class DashboardComponent implements OnInit {
   }
 
   async onDownloadRenewableBids($event: DateRange) {
+    const admin = await this.adminApp.getByName('admin');
     const renewableBids = $event.data as RenewableBidHistory[];
+    const sortBids = renewableBids
+      .filter((bid) => (bid.bid_created_at as Timestamp).toDate() > $event.start)
+      .filter((bid) => (bid.bid_created_at as Timestamp).toDate() < $event.end);
     const students = await this.studentsApp.list();
-    const bidsData = renewableBids.map((data) => {
+    const bidsData = sortBids.map((data) => {
       return {
         bid_id: data.id,
         account_id: data.account_id,
-        account_name: students.find((student) => student.id == data.account_id)?.name,
+        account_name: admin?.id == data.account_id ? admin.name : students.find((student) => student.id == data.account_id)?.name,
         price: parseInt(data.price_ujpy) / 1000000,
         amount: parseInt(data.amount_uspx) / 1000000,
         contract: data.is_accepted ? 'YES' : 'NO',
         contract_price: parseInt(data.contract_price_ujpy) / 1000000,
-        timestamp: (data.bid_created_at as Timestamp).toDate().toISOString(),
+        timestamp: (data.bid_created_at as Timestamp).toDate().toLocaleString(),
       };
     });
     const csv = this.jsonToCsv(bidsData, ',');
@@ -454,18 +479,22 @@ export class DashboardComponent implements OnInit {
   }
 
   async onDownloadRenewableAsks($event: DateRange) {
+    const admin = await this.adminApp.getByName('admin');
     const renewableAsks = $event.data as RenewableAskHistory[];
+    const sortAsks = renewableAsks
+      .filter((ask) => (ask.ask_created_at as Timestamp).toDate() > $event.start)
+      .filter((ask) => (ask.ask_created_at as Timestamp).toDate() < $event.end);
     const students = await this.studentsApp.list();
-    const asksData = renewableAsks.map((data) => {
+    const asksData = sortAsks.map((data) => {
       return {
         ask_id: data.id,
         account_id: data.account_id,
-        account_name: students.find((student) => student.id == data.account_id)?.name,
+        account_name: admin?.id == data.account_id ? admin.name : students.find((student) => student.id == data.account_id)?.name,
         price: parseInt(data.price_ujpy) / 1000000,
         amount: parseInt(data.amount_uspx) / 1000000,
         contract: data.is_accepted ? 'YES' : 'NO',
         contract_price: parseInt(data.contract_price_ujpy) / 1000000,
-        timestamp: (data.ask_created_at as Timestamp).toDate().toISOString(),
+        timestamp: (data.ask_created_at as Timestamp).toDate().toLocaleString(),
       };
     });
     const csv = this.jsonToCsv(asksData, ',');

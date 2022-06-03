@@ -186,7 +186,7 @@ export class DashboardComponent implements OnInit {
       alert('範囲を正しく指定してください');
       return;
     }
-    this.appDownloadNormalBids.emit({ data: this.renewableBidHistories, start: this.range.value.start, end: this.range.value.end });
+    this.appDownloadRenewableBids.emit({ data: this.renewableBidHistories, start: this.range.value.start, end: this.range.value.end });
   }
 
   onDownloadRenewableAskHistories() {
@@ -198,6 +198,6 @@ export class DashboardComponent implements OnInit {
       alert('範囲を正しく指定してください');
       return;
     }
-    this.appDownloadNormalAsks.emit({ data: this.renewableAskHistories, start: this.range.value.start, end: this.range.value.end });
+    this.appDownloadRenewableAsks.emit({ data: this.renewableAskHistories, start: this.range.value.start, end: this.range.value.end });
   }
 }

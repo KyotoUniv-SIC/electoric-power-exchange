@@ -17,7 +17,11 @@ export class AdminAccountApplicationService {
     return this.adminAccount.list$();
   }
 
+  getByName(name: string) {
+    return this.adminAccount.list().then((admin) => admin.find((data) => data.name == name));
+  }
+
   getByName$(name: string) {
-    return this.adminAccount.list$().pipe(map((admins) => admins.filter((admin) => (admin.name = name))));
+    return this.adminAccount.list$().pipe(map((admins) => admins.filter((admin) => admin.name == name)));
   }
 }
