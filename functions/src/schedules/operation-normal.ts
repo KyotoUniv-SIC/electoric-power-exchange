@@ -10,7 +10,7 @@ import { single_price_normal_settlement } from '../single-price-normal-settlemen
 import { DeltaAmount, NormalAsk, NormalAskSetting, NormalBid, proto } from '@local/common';
 import * as functions from 'firebase-functions';
 
-const f = functions.region('asia-northeast1');
+const f = functions.region('asia-northeast1').runWith({ timeoutSeconds: 540 });
 module.exports.primaryNormalAsk = f.pubsub
   .schedule('0 10 * * *') // .schedule('every 10 minutes')
   .timeZone('Asia/Tokyo') // Users can choose timezone - default is America/Los_Angeles

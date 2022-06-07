@@ -13,7 +13,7 @@ import { student_account } from '../student-accounts';
 import { BalanceSnapshot, DiscountPrice } from '@local/common';
 import * as functions from 'firebase-functions';
 
-const f = functions.region('asia-northeast1');
+const f = functions.region('asia-northeast1').runWith({ timeoutSeconds: 540 });
 module.exports.monthlySettlement = f.pubsub
   .schedule('45 9 1 * *')
   .timeZone('Asia/Tokyo') // Users can choose timezone - default is America/Los_Angeles
