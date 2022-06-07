@@ -2,10 +2,22 @@ import { Component, OnInit } from '@angular/core';
 import { Auth, authState } from '@angular/fire/auth';
 import { Timestamp } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
-import { Balance, MonthlyUsage, SinglePriceNormalSettlement, SinglePriceRenewableSettlement } from '@local/common';
+import {
+  Balance,
+  MonthlyUsage,
+  NormalAsk,
+  NormalBid,
+  RenewableAsk,
+  SinglePriceNormalSettlement,
+  SinglePriceRenewableSettlement,
+} from '@local/common';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { MultiDataSet } from 'ng2-charts';
+import { AdminAccountApplicationService } from 'projects/shared/src/lib/services/admin-accounts/admin-account.application.service';
 import { DailyUsageApplicationService } from 'projects/shared/src/lib/services/daily-usages/daily-usage.application.service';
+import { NormalAskApplicationService } from 'projects/shared/src/lib/services/normal-asks/normal-ask.application.service';
+import { NormalBidApplicationService } from 'projects/shared/src/lib/services/normal-bids/normal-bid.application.service';
+import { RenewableAskApplicationService } from 'projects/shared/src/lib/services/renewable-asks/renewable-ask.application.service';
 import { SinglePriceNormalSettlementApplicationService } from 'projects/shared/src/lib/services/single-price-normal-settlements/single-price-normal-settlement.application.service';
 import { SinglePriceRenewableSettlementApplicationService } from 'projects/shared/src/lib/services/single-price-renewable-settlements/single-price-renewable-settlement.application.service';
 import { BalanceApplicationService } from 'projects/shared/src/lib/services/student-accounts/balances/balance.application.service';
@@ -53,6 +65,10 @@ export class DashboardComponent implements OnInit {
   renewableChartDates$: Observable<string[]> | undefined;
   renewableChartOptions$: Observable<ChartOptions> | undefined;
 
+  normalOperationBids$: Observable<NormalBid[]> | undefined;
+  normalOperationAsks$: Observable<NormalAsk[]> | undefined;
+  renewableOperationAsks$: Observable<RenewableAsk[]> | undefined;
+
   constructor(
     private auth: Auth,
     private route: ActivatedRoute,
@@ -64,6 +80,10 @@ export class DashboardComponent implements OnInit {
     private readonly insufficientBalanceApp: InsufficientBalanceApplicationService,
     private readonly singlePriceNormalApp: SinglePriceNormalSettlementApplicationService,
     private readonly singlePriceRenewableApp: SinglePriceRenewableSettlementApplicationService,
+    private readonly normalBidApp: NormalBidApplicationService,
+    private readonly normalAskApp: NormalAskApplicationService,
+    private readonly renewableAskApp: RenewableAskApplicationService,
+    private readonly adminApp: AdminAccountApplicationService,
   ) {
     const now = new Date();
     let firstDay = new Date();
@@ -396,6 +416,10 @@ export class DashboardComponent implements OnInit {
         };
       }),
     );
+    const adminAccounts$ = this.adminApp.getByName$('admin');
+    this.normalOperationBids$ = adminAccounts$.pipe(mergeMap((adminAccount) => this.normalBidApp.listUid$(adminAccount[0].id)));
+    this.normalOperationAsks$ = adminAccounts$.pipe(mergeMap((adminAccount) => this.normalAskApp.listUid$(adminAccount[0].id)));
+    this.renewableOperationAsks$ = adminAccounts$.pipe(mergeMap((adminAccount) => this.renewableAskApp.listUid$(adminAccount[0].id)));
   }
 
   ngOnInit(): void {}

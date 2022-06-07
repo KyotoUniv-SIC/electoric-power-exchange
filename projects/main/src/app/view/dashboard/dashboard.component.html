@@ -129,6 +129,94 @@
   </mat-card>
 
   <mat-card class="mb-20">
+    <mat-card-title>System Operation Status</mat-card-title>
+    <details>
+      <summary>Read More</summary>
+      <mat-card-content>
+        <p>Displays the system operation</p>
+      </mat-card-content>
+    </details>
+    <mat-card-content style="font-size: large; margin-top: 15px">System Operation</mat-card-content>
+    <ng-container *ngIf="normalOperationBids === null; then loading; else loadedNormalBid"></ng-container>
+    <ng-template #loadedNormalBid>
+      <ng-container *ngIf="normalOperationBids?.length">
+        <mat-list>
+          <mat-card class="flex flex-wrap" style="padding: 0px; margin-bottom: 10px; border: 2.5px solid #6c8fb6; border-radius: 10px">
+            <ng-container *ngFor="let normalOperationBid of normalOperationBids">
+              <mat-list-item class="flex flex-wrap">
+                <span class="break-all text-xl" style="font-size: medium">UPX Bid Price:</span>
+                <span class="flex-auto break-all"></span>
+                <span class="break-all text-xl" style="font-size: x-large">{{ normalOperationBid?.price_ujpy | microString }}</span>
+                <span class="break-all text-xl" style="margin-left: 10px; font-size: small">JPY</span>
+              </mat-list-item>
+              <mat-divider [inset]="true"></mat-divider>
+              <mat-list-item class="flex flex-wrap">
+                <span class="break-all text-xl" style="font-size: medium">UPX Bid Amount:</span>
+                <span class="flex-auto break-all"></span>
+                <span class="break-all text-xl" style="font-size: x-large">{{ normalOperationBid?.amount_uupx | microString }}</span>
+                <span class="break-all text-xl" style="margin-left: 10px; font-size: small">UPX</span>
+              </mat-list-item>
+              <mat-divider [inset]="true"></mat-divider>
+            </ng-container>
+          </mat-card>
+        </mat-list>
+      </ng-container>
+    </ng-template>
+
+    <ng-container *ngIf="normalOperationAsks === null; then loading; else loadedNormalAsk"></ng-container>
+    <ng-template #loadedNormalAsk>
+      <ng-container *ngIf="normalOperationAsks?.length">
+        <mat-list>
+          <mat-card class="flex flex-wrap" style="padding: 0px; margin-bottom: 10px; border: 2.5px solid #6c8fb6; border-radius: 10px">
+            <ng-container *ngFor="let normalOperationAsk of normalOperationAsks">
+              <mat-list-item class="flex flex-wrap">
+                <span class="break-all text-xl" style="font-size: medium">UPX Ask Price:</span>
+                <span class="flex-auto break-all"></span>
+                <span class="break-all text-xl" style="font-size: x-large">{{ normalOperationAsk.price_ujpy | microString }}</span>
+                <span class="break-all text-xl" style="margin-left: 10px; font-size: small">JPY</span>
+              </mat-list-item>
+              <mat-divider [inset]="true"></mat-divider>
+              <mat-list-item class="flex flex-wrap">
+                <span class="break-all text-xl" style="font-size: medium">UPX Ask Amount:</span>
+                <span class="flex-auto break-all"></span>
+                <span class="break-all text-xl" style="font-size: x-large">{{ normalOperationAsk.amount_uupx | microString }}</span>
+                <span class="break-all text-xl" style="margin-left: 10px; font-size: small">UPX</span>
+              </mat-list-item>
+              <mat-divider [inset]="true"></mat-divider>
+            </ng-container>
+          </mat-card>
+        </mat-list>
+      </ng-container>
+    </ng-template>
+
+    <ng-container *ngIf="renewableOperationAsks === null; then loading; else loadedrenewableAsk"></ng-container>
+    <ng-template #loadedrenewableAsk>
+      <ng-container *ngIf="renewableOperationAsks?.length">
+        <mat-list>
+          <mat-card class="flex flex-wrap" style="padding: 0px; border: 2.5px solid #b67cb6; border-radius: 10px">
+            <ng-container *ngFor="let renewableOperationAsk of renewableOperationAsks">
+              <mat-list-item class="flex flex-wrap">
+                <span class="break-all text-xl" style="font-size: medium">SPX Ask Price:</span>
+                <span class="flex-auto break-all"></span>
+                <span class="break-all text-xl" style="font-size: x-large">{{ renewableOperationAsk.price_ujpy | microString }}</span>
+                <span class="break-all text-xl" style="margin-left: 10px; font-size: small">JPY</span>
+              </mat-list-item>
+              <mat-divider [inset]="true"></mat-divider>
+              <mat-list-item class="flex flex-wrap">
+                <span class="break-all">SPX Ask Amount:</span>
+                <span class="flex-auto break-all"></span>
+                <span class="break-all text-xl" style="font-size: x-large">{{ renewableOperationAsk.amount_uspx | microString }}</span>
+                <span class="break-all text-xl" style="margin-left: 10px; font-size: small">SPX</span>
+              </mat-list-item>
+              <mat-divider [inset]="true"></mat-divider>
+            </ng-container>
+          </mat-card>
+        </mat-list>
+      </ng-container>
+    </ng-template>
+  </mat-card>
+
+  <mat-card class="mb-20">
     <mat-card-title>This Month's Usage</mat-card-title>
     <details>
       <summary>Read More</summary>
