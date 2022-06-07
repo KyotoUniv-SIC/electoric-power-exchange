@@ -3,7 +3,7 @@ import './accounts/create-student-account';
 import './balance-snapshots/calc-monthly-usage';
 import './balances/update-available-balance';
 import './chat-deletes/delete-chat';
-import './daily-usages/withdraw';
+import './daily-payments/create-balance';
 import './message-deletes/delete-message';
 import './message-reads/update-message';
 import './monthly-usages/create-primary-ask';
