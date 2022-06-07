@@ -21,7 +21,6 @@ primary_ask.onCreateHandler.push(async (snapshot, context) => {
   }
   await balance.create(
     new Balance({
-      id: accountBalance[0].id,
       student_account_id: data.account_id,
       amount_uupx: (parseInt(accountBalance[0].amount_uupx) + askAmount).toString(),
       amount_uspx: accountBalance[0].amount_uspx,

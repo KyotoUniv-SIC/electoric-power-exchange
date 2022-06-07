@@ -82,7 +82,6 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
   const latestBalance = await balance.listLatest(data.student_account_id);
   await balance.create(
     new Balance({
-      id: latestBalance[0].id,
       student_account_id: latestBalance[0].student_account_id,
       amount_uspx: '0',
       amount_uupx: '0',

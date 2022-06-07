@@ -16,7 +16,6 @@ normal_settlement.onCreateHandler.push(async (snapshot, context) => {
   const bidderBalance = await balance.listLatest(data.bid_id);
   await balance.create(
     new Balance({
-      id: bidderBalance[0].id,
       student_account_id: data.bid_id,
       amount_uupx: (parseInt(bidderBalance[0].amount_uupx) + parseInt(data.amount_uupx)).toString(),
       amount_uspx: bidderBalance[0].amount_uspx,
@@ -69,7 +68,6 @@ normal_settlement.onCreateHandler.push(async (snapshot, context) => {
     const sellerBalance = await balance.listLatest(data.ask_id);
     await balance.create(
       new Balance({
-        id: sellerBalance[0].id,
         student_account_id: data.ask_id,
         amount_uupx: (parseInt(sellerBalance[0].amount_uupx) - parseInt(data.amount_uupx)).toString(),
         amount_uspx: sellerBalance[0].amount_uspx,

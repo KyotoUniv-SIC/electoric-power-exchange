@@ -16,7 +16,6 @@ renewable_settlement.onCreateHandler.push(async (snapshot, context) => {
   const bidderBalance = await balance.listLatest(data.bid_id);
   await balance.create(
     new Balance({
-      id: bidderBalance[0].id,
       student_account_id: data.bid_id,
       amount_uupx: bidderBalance[0].amount_uupx,
       amount_uspx: (parseInt(bidderBalance[0].amount_uspx) + parseInt(data.amount_uspx)).toString(),
@@ -70,7 +69,6 @@ renewable_settlement.onCreateHandler.push(async (snapshot, context) => {
     const sellerBalance = await balance.listLatest(data.ask_id);
     await balance.create(
       new Balance({
-        id: sellerBalance[0].id,
         student_account_id: data.ask_id,
         amount_uupx: sellerBalance[0].amount_uupx,
         amount_uspx: (parseInt(sellerBalance[0].amount_uspx) - parseInt(data.amount_uspx)).toString(),
