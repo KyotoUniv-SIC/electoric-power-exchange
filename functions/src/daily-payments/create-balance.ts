@@ -6,7 +6,7 @@ import { account_private } from '../account-privates';
 import { admin_account } from '../admin-accounts';
 import { balance } from '../balances';
 import { insufficient_balance } from '../insufficient-balances';
-import { InsufficientBalance, DailyPayment, DailyUsage, Balance } from '@local/common';
+import { InsufficientBalance, DailyPayment, Balance } from '@local/common';
 import * as crypto from 'crypto-js';
 import * as functions from 'firebase-functions';
 
