@@ -21,9 +21,12 @@ module.exports.primaryNormalAsk = f.pubsub
     const setting = await normal_ask_setting.getLatest();
     const now = new Date();
     const price = !setting || now.getDate() == 1 ? 27000000 : parseInt(setting.price_ujpy);
-    const ratio = parseInt(setting.ratio_percentage);
+    const ratio = setting.ratio_percentage ? parseInt(setting.ratio_percentage) : 100;
+    const enable = setting.enable ? setting.enable : true;
 
-    await normal_ask_setting.create(new NormalAskSetting({ price_ujpy: (price + 100000).toString() }));
+    await normal_ask_setting.create(
+      new NormalAskSetting({ price_ujpy: (price + 100000).toString(), ratio_percentage: ratio.toString(), enable: enable }),
+    );
 
     const adminAccount = await admin_account.getByName('admin');
     const contracts = await single_price_normal_settlement.listDescDate();
@@ -42,7 +45,7 @@ module.exports.primaryNormalAsk = f.pubsub
     const deltaBidsAmount = todayBidsAmount - yesterdayBidsAmount;
 
     // 2→3→4→1の順番で場合分けして処理
-    if (Math.abs(deltaPrice) <= threshold || !setting.enable) {
+    if (Math.abs(deltaPrice) <= threshold || !enable) {
       console.log('No Market Operation & create delta-amount');
       await delta_amount.create(
         new DeltaAmount({
