@@ -16,7 +16,6 @@ import { renewable_ask_history } from '../renewable-ask-histories';
 import { renewable_bid_history } from '../renewable-bid-histories';
 import { Balance, BalanceSnapshot, MonthlyPayment, MonthlyUsage } from '@local/common';
 import * as crypto from 'crypto-js';
-import * as functions from 'firebase-functions';
 
 balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
   const data = snapshot.data()! as BalanceSnapshot;
@@ -115,9 +114,11 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
   const client = new xrpl.Client(TEST_NET);
   const adminAccount = await admin_account.getByName('admin');
   await client.connect();
-  const config = functions.config();
-  const confXrpl = config['xrpl'];
-  const privKey = confXrpl.private_key;
+  const privKey = process.env.PRIV_KEY;
+  if (!privKey) {
+    console.log('no privKey');
+    return;
+  }
   const decrypted = crypto.AES.decrypt(accountPrivate[0].xrp_seed, privKey).toString(crypto.enc.Utf8);
   const sender = xrpl.Wallet.fromSeed(decrypted);
 

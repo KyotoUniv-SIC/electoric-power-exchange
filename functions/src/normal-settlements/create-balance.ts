@@ -30,9 +30,11 @@ normal_settlement.onCreateHandler.push(async (snapshot, context) => {
 
   if (data.ask_id == adminAccount[0].id) {
     const adminPrivate = await admin_private.list(adminAccount[0].id);
-    const config = functions.config();
-    const confXrpl = config['xrpl'];
-    const privKey = confXrpl.private_key;
+    const privKey = process.env.PRIV_KEY;
+    if (!privKey) {
+      console.log('no privKey');
+      return;
+    }
 
     const encryptedSeed = adminPrivate[0].xrp_seed_hot;
     const decryptedSeed = crypto.AES.decrypt(encryptedSeed, privKey).toString(crypto.enc.Utf8);
@@ -85,9 +87,11 @@ normal_settlement.onCreateHandler.push(async (snapshot, context) => {
       return;
     }
     await client.connect();
-    const config = functions.config();
-    const confXrpl = config['xrpl'];
-    const privKey = confXrpl.private_key;
+    const privKey = process.env.PRIV_KEY;
+    if (!privKey) {
+      console.log('no privKey');
+      return;
+    }
     const decrypted = crypto.AES.decrypt(sellerPrivate[0].xrp_seed, privKey).toString(crypto.enc.Utf8);
     const sender = xrpl.Wallet.fromSeed(decrypted);
     const vli = await client.getLedgerIndex();

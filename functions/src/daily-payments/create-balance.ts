@@ -8,7 +8,6 @@ import { balance } from '../balances';
 import { insufficient_balance } from '../insufficient-balances';
 import { InsufficientBalance, DailyPayment, Balance } from '@local/common';
 import * as crypto from 'crypto-js';
-import * as functions from 'firebase-functions';
 
 daily_payment.onCreateHandler.push(async (snapshot, context) => {
   const data = snapshot.data()! as DailyPayment;
@@ -20,9 +19,11 @@ daily_payment.onCreateHandler.push(async (snapshot, context) => {
   const TEST_NET = 'wss://s.altnet.rippletest.net:51233';
   const client = new xrpl.Client(TEST_NET);
 
-  const config = functions.config();
-  const confXrpl = config['xrpl'];
-  const privKey = confXrpl.private_key;
+  const privKey = process.env.PRIV_KEY;
+  if (!privKey) {
+    console.log('no privKey');
+    return;
+  }
   const decrypted = crypto.AES.decrypt(accountPrivate[0].xrp_seed, privKey).toString(crypto.enc.Utf8);
 
   if (data.amount_uupx != '0') {
