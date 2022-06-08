@@ -8,7 +8,6 @@ import { balance } from '../balances';
 import { student_account } from '../student-accounts';
 import { Balance, PrimaryAsk } from '@local/common';
 import * as crypto from 'crypto-js';
-import * as functions from 'firebase-functions';
 
 primary_ask.onCreateHandler.push(async (snapshot, context) => {
   const data = snapshot.data()! as PrimaryAsk;

@@ -9,7 +9,6 @@ import { balance } from '../balances';
 import { student_account } from '../student-accounts';
 import { Balance, RenewableSettlement } from '@local/common';
 import * as crypto from 'crypto-js';
-import * as functions from 'firebase-functions';
 
 renewable_settlement.onCreateHandler.push(async (snapshot, context) => {
   const data = snapshot.data()! as RenewableSettlement;

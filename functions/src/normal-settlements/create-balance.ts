@@ -9,7 +9,6 @@ import { balance } from '../balances';
 import { student_account } from '../student-accounts';
 import { Balance, NormalSettlement } from '@local/common';
 import * as crypto from 'crypto-js';
-import * as functions from 'firebase-functions';
 
 normal_settlement.onCreateHandler.push(async (snapshot, context) => {
   const data = snapshot.data()! as NormalSettlement;
