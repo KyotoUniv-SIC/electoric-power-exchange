@@ -21,6 +21,7 @@ module.exports.primaryNormalAsk = f.pubsub
     const setting = await normal_ask_setting.getLatest();
     const now = new Date();
     const price = !setting || now.getDate() == 1 ? 27000000 : parseInt(setting.price_ujpy);
+    const ratio = parseInt(setting.ratio_percentage);
 
     await normal_ask_setting.create(new NormalAskSetting({ price_ujpy: (price + 100000).toString() }));
 
@@ -41,7 +42,7 @@ module.exports.primaryNormalAsk = f.pubsub
     const deltaBidsAmount = todayBidsAmount - yesterdayBidsAmount;
 
     // 2→3→4→1の順番で場合分けして処理
-    if (Math.abs(deltaPrice) <= threshold) {
+    if (Math.abs(deltaPrice) <= threshold || !setting.enable) {
       console.log('No Market Operation & create delta-amount');
       await delta_amount.create(
         new DeltaAmount({
@@ -69,7 +70,7 @@ module.exports.primaryNormalAsk = f.pubsub
                 type: proto.main.NormalAskType.PRIMARYADDITIONAL,
                 account_id: adminAccount[0].id,
                 price_ujpy: price.toString(),
-                amount_uupx: (aveAsksDeltaAmount - deltaAsksAmount).toString(),
+                amount_uupx: Math.floor(((aveAsksDeltaAmount - deltaAsksAmount) * ratio) / 100).toString(),
                 is_deleted: false,
               }),
             );
@@ -83,7 +84,7 @@ module.exports.primaryNormalAsk = f.pubsub
                 type: proto.main.NormalAskType.PRIMARYADDITIONAL,
                 account_id: adminAccount[0].id,
                 price_ujpy: price.toString(),
-                amount_uupx: (deltaBidsAmount - aveBidsDeltaAmount).toString(),
+                amount_uupx: Math.floor(((deltaBidsAmount - aveBidsDeltaAmount) * ratio) / 100).toString(),
                 is_deleted: false,
               }),
             );
@@ -98,7 +99,7 @@ module.exports.primaryNormalAsk = f.pubsub
               new NormalBid({
                 account_id: adminAccount[0].id,
                 price_ujpy: price.toString(),
-                amount_uupx: (aveBidsDeltaAmount - deltaBidsAmount).toString(),
+                amount_uupx: Math.floor(((aveBidsDeltaAmount - deltaBidsAmount) * ratio) / 100).toString(),
                 is_deleted: false,
               }),
             );
@@ -111,7 +112,7 @@ module.exports.primaryNormalAsk = f.pubsub
               new NormalBid({
                 account_id: adminAccount[0].id,
                 price_ujpy: price.toString(),
-                amount_uupx: (deltaAsksAmount - aveAsksDeltaAmount).toString(),
+                amount_uupx: Math.floor(((deltaAsksAmount - aveAsksDeltaAmount) * ratio) / 100).toString(),
                 is_deleted: false,
               }),
             );

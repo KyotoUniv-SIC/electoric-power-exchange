@@ -9,4 +9,6 @@ message NormalAskSetting {
   string id = 1;
   string price_ujpy = 2;
   string amount_uupx = 3;
+  string ratio_percentage = 4;
+  bool enable = 5;
 }
