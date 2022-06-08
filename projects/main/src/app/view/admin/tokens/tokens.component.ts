@@ -3,7 +3,8 @@ import { CostSetting, NormalAskSetting, RenewableAskSetting } from '@local/commo
 
 export type SetNormalOnSubmitEvent = {
   ujpyPrice: string;
-  uupxAmount: string;
+  uupxRatio: string;
+  enable: boolean;
 };
 
 export type SetRenewableOnSubmitEvent = {
@@ -35,6 +36,8 @@ export class TokensComponent implements OnInit {
   @Output()
   appSubmitCost: EventEmitter<SetCostOnSubmitEvent>;
 
+  checked: boolean = false;
+
   constructor() {
     this.appSubmitNormal = new EventEmitter();
     this.appSubmitRenewable = new EventEmitter();
@@ -43,14 +46,14 @@ export class TokensComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onSubmitNormal(price: string, amount: string) {
+  onSubmitNormal(price: string, ratio: string) {
     if (!price) {
       alert('価格を設定してください');
       return;
     }
     const ujpyPrice = (Number(price) * 1000000).toString();
-    const uupxAmount = (Number(amount) * 1000000).toString();
-    this.appSubmitNormal.emit({ ujpyPrice, uupxAmount });
+    const uupxRatio = ratio.toString();
+    this.appSubmitNormal.emit({ ujpyPrice, uupxRatio, enable: this.checked });
   }
 
   onSubmitRenewable(price: string, amount: string) {

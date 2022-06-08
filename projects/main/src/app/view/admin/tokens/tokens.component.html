@@ -21,18 +21,23 @@
         <mat-list-item class="flex flex-wrap">
           <span class="break-all">UPX amount:</span>
           <span class="flex-auto break-all"></span>
-          <ng-container *ngIf="!normalSetting?.amount_uupx; then emptyNormal; else existNormal"></ng-container>
-          <ng-template #emptyNormal><span class="break-all">Auto</span></ng-template>
+          <ng-container *ngIf="!normalSetting?.ratio_percentage; then emptyNormal; else existNormal"></ng-container>
+          <ng-template #emptyNormal><span class="break-all">100 %</span></ng-template>
           <ng-template #existNormal>
-            <span class="break-all">{{ normalSetting?.amount_uupx | microString }}</span>
+            <span class="break-all">{{ normalSetting?.ratio_percentage }} %</span>
           </ng-template>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
+        <mat-list-item class="flex flex-wrap">
+          <span class="break-all">Enable:</span>
+          <span class="flex-auto break-all"></span>
+          <span class="break-all">{{ normalSetting?.enable }}</span>
+        </mat-list-item>
       </mat-list>
     </ng-template>
   </mat-card>
 
-  <form (submit)="onSubmitNormal(priceNormalRef.value, amountNormalRef.value)">
+  <form (submit)="onSubmitNormal(priceNormalRef.value, ratioNormalRef.value)">
     <mat-card class="mb-10">
       <mat-card-title>Change UPX Setting</mat-card-title>
       <mat-list>
@@ -46,16 +51,19 @@
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
         <mat-list-item style="height: auto" class="flex flex-wrap">
-          <span class="break-all">amount:</span>
+          <span class="break-all">Ratio:</span>
           <span class="flex-auto break-all"></span>
           <mat-form-field class="break-all">
-            <mat-label>Not required</mat-label>
-            <input #amountNormalRef matInput type="number" name="amount" />
+            <mat-label>Input Int Percentage</mat-label>
+            <input #ratioNormalRef matInput type="number" name="ratio" />
           </mat-form-field>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
       </mat-list>
       <div class="text-center mt-10">
+        <mat-checkbox color="primary" [(ngModel)]="checked" name="check">Enable</mat-checkbox>
+      </div>
+      <div class="text-center mt-5">
         <button mat-flat-button color="accent">Submit</button>
       </div>
     </mat-card>

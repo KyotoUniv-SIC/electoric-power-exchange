@@ -32,7 +32,8 @@ export class TokensComponent implements OnInit {
     await this.normalAskSettingApp.create(
       new NormalAskSetting({
         price_ujpy: $event.ujpyPrice,
-        amount_uupx: $event.uupxAmount,
+        ratio_percentage: $event.uupxRatio,
+        enable: $event.enable,
       }),
     );
   }

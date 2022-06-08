@@ -22,7 +22,7 @@ module.exports.primaryNormalAsk = f.pubsub
     const now = new Date();
     const price = !setting || now.getDate() == 1 ? 27000000 : parseInt(setting.price_ujpy);
     const ratio = setting.ratio_percentage ? parseInt(setting.ratio_percentage) : 100;
-    const enable = setting.enable ? setting.enable : true;
+    const enable = setting.enable ? setting.enable : false;
 
     await normal_ask_setting.create(
       new NormalAskSetting({ price_ujpy: (price + 100000).toString(), ratio_percentage: ratio.toString(), enable: enable }),
