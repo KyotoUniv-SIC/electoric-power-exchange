@@ -55,6 +55,11 @@ export class BuyComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit(accountID: string, price: string, amount: string, denom: string) {
+    const now = new Date();
+    if (0 < now.getUTCHours() && now.getUTCHours() < 3) {
+      alert('EDISONでは、9:00-12:00(JST)のAskの入札ができません');
+      return;
+    }
     if (!denom) {
       alert('トークンの種類を指定してください。\nUPX=電力会社、SPX=太陽光発電');
       return;
