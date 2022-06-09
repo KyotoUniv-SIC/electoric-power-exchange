@@ -221,8 +221,6 @@ export class ChartsComponent implements OnInit {
     this.renewableChartOptions$.subscribe((a) => console.log(a));
     this.normalChartDates$.subscribe((a) => console.log(a));
     this.renewableChartDates$.subscribe((a) => console.log(a));
-
-    this.normalDate$.subscribe((a) => console.log(a));
   }
 
   ngOnInit(): void {}

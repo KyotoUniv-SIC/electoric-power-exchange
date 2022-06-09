@@ -1,37 +1,35 @@
-<div class="hidden lg:block">
-  <mat-card class="mb-10">
-    <mat-card-title>Contract Price & Amount Charts</mat-card-title>
-    <mat-card-content style="font-size: large; margin-top: 15px">UPX Contract Price and Amount</mat-card-content>
-    <ng-container *ngIf="normalChartDataSets === null; then loading; else loadedNormal"></ng-container>
+<mat-card class="mb-10">
+  <mat-card-title>Contract Price & Amount Charts</mat-card-title>
+  <mat-card-content style="font-size: large; margin-top: 15px">UPX Contract Price and Amount</mat-card-content>
+  <ng-container *ngIf="normalChartDataSets === null; then loading; else loadedNormal"></ng-container>
+  <ng-template #loading>
+    <mat-progress-spinner [diameter]="60" [mode]="'indeterminate'"></mat-progress-spinner>
+  </ng-template>
+  <ng-template #loadedNormal>
+    <canvas
+      baseChart
+      [datasets]="normalChartDataSets!"
+      [labels]="normalChartDates!"
+      [options]="normalChartOptions!"
+      [legend]="barChartLegend"
+      [chartType]="barChartType"
+    >
+    </canvas>
+    <mat-card-content style="font-size: large; margin-top: 15px">SPX Contract Price and Amount</mat-card-content>
+    <ng-container *ngIf="renewableChartDataSets === null; then loading; else loadedRenewable"></ng-container>
     <ng-template #loading>
       <mat-progress-spinner [diameter]="60" [mode]="'indeterminate'"></mat-progress-spinner>
     </ng-template>
-    <ng-template #loadedNormal>
+    <ng-template #loadedRenewable>
       <canvas
         baseChart
-        [datasets]="normalChartDataSets!"
-        [labels]="normalChartDates!"
-        [options]="normalChartOptions!"
+        [datasets]="renewableChartDataSets!"
+        [labels]="renewableChartDates!"
+        [options]="renewableChartOptions!"
         [legend]="barChartLegend"
         [chartType]="barChartType"
       >
       </canvas>
-      <mat-card-content style="font-size: large; margin-top: 15px">SPX Contract Price and Amount</mat-card-content>
-      <ng-container *ngIf="renewableChartDataSets === null; then loading; else loadedRenewable"></ng-container>
-      <ng-template #loading>
-        <mat-progress-spinner [diameter]="60" [mode]="'indeterminate'"></mat-progress-spinner>
-      </ng-template>
-      <ng-template #loadedRenewable>
-        <canvas
-          baseChart
-          [datasets]="renewableChartDataSets!"
-          [labels]="renewableChartDates!"
-          [options]="renewableChartOptions!"
-          [legend]="barChartLegend"
-          [chartType]="barChartType"
-        >
-        </canvas>
-      </ng-template>
     </ng-template>
-  </mat-card>
-</div>
+  </ng-template>
+</mat-card>
