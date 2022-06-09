@@ -97,6 +97,10 @@
         </mat-list-item>
       </mat-card>
     </mat-list>
+  </mat-card>
+
+  <mat-card class="mb-10">
+    <mat-card-title>Contract Price & Amount Charts</mat-card-title>
     <mat-card-content style="font-size: large; margin-top: 15px">UPX Contract Price and Amount</mat-card-content>
     <ng-container *ngIf="normalChartDataSets === null; then loading; else loadedNormal"></ng-container>
     <ng-template #loadedNormal>
@@ -123,10 +127,14 @@
         </canvas>
       </ng-template>
     </ng-template>
+  </mat-card>
+
+  <mat-card class="mb-10">
+    <mat-card-title> Electricity Price Reference</mat-card-title>
     <mat-card-content>
       <table mat-table [dataSource]="dataSource" class="w-full mb-5">
         <!--- Note that these columns can be defined in any order.
-              The actual rendered columns are set as a property on the row definition" -->
+          The actual rendered columns are set as a property on the row definition" -->
 
         <!-- Position Column -->
         <ng-container matColumnDef="classification">
