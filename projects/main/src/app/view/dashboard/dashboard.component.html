@@ -39,6 +39,39 @@
   </mat-card>
 
   <mat-card class="mb-10">
+    <mat-card-title>Energy Sources</mat-card-title>
+    <details>
+      <summary>Read More</summary>
+      <mat-card-content>
+        <p>Displays a breakdown of the tokens you own and the overall breakdown.</p>
+      </mat-card-content>
+    </details>
+    <div class="w-auto">
+      <mat-card-content style="font-size: large; margin-top: 15px">Student</mat-card-content>
+      <ng-container *ngIf="balanceData === null; then loading; else loadedBalance"></ng-container>
+      <ng-template #loading>
+        <mat-progress-spinner [diameter]="60" [mode]="'indeterminate'"></mat-progress-spinner>
+      </ng-template>
+      <ng-template #loadedBalance>
+        <canvas baseChart [data]="balanceData!" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" [colors]="doughnutColors">
+        </canvas>
+      </ng-template>
+      <mat-card-content style="font-size: large; margin-top: 15px">Total</mat-card-content>
+      <ng-container *ngIf="totalBalanceData === null; then loading; else loadedTotalBalance"></ng-container>
+      <ng-template #loadedTotalBalance>
+        <canvas
+          baseChart
+          [data]="totalBalanceData!"
+          [labels]="doughnutChartLabels"
+          [chartType]="doughnutChartType"
+          [colors]="doughnutColors"
+        >
+        </canvas>
+      </ng-template>
+    </div>
+  </mat-card>
+
+  <mat-card class="mb-10">
     <mat-card-title>Latest Contract Price</mat-card-title>
     <details>
       <summary>Read More</summary>
@@ -307,33 +340,7 @@
     </mat-list>
   </mat-card>
 
-  <mat-card class="mb-10">
-    <mat-card-title>This Month's Usage</mat-card-title>
-    <details>
-      <summary>Read More</summary>
-      <mat-card-content>
-        <p>Displays the current month's electricity usage for the rooms associated with your account.</p>
-        <p>It also shows the average usage of all the rooms in the student dormitories.</p>
-      </mat-card-content>
-    </details>
-    <mat-list>
-      <mat-card class="flex flex-wrap" style="padding: 0px; border: 2.5px solid black">
-        <mat-list-item class="flex flex-wrap">
-          <span class="break-all text-xl" style="font-size: medium">Total Usage:</span>
-          <span class="flex-auto break-all"></span>
-          <span class="break-all text-xl" style="font-size: x-large">{{ totalUsage }}</span>
-          <span class="break-all text-xl" style="margin-left: 10px; font-size: small">kWh</span>
-        </mat-list-item>
-      </mat-card>
-      <mat-list-item class="flex flex-wrap">
-        <span class="break-all text-xl" style="font-size: medium">Students' Average:</span>
-        <span class="flex-auto break-all"></span>
-        <span class="break-all text-xl" style="font-size: x-large">{{ totalUsageAverage }}</span>
-        <span class="break-all text-xl" style="margin-left: 10px; font-size: small">kWh</span>
-      </mat-list-item>
-    </mat-list>
-  </mat-card>
-
+  <!-- PC時のみ。全体のランキングを表示。 -->
   <div class="hidden lg:block">
     <mat-card class="mb-10">
       <mat-card-title>Usage Ranking</mat-card-title>
@@ -365,6 +372,7 @@
     </mat-card>
   </div>
 
+  <!-- モバイル時のみ。自分のランキングのみ表示。全体ランキングへのリンク。 -->
   <div class="lg:hidden">
     <mat-card class="mb-10">
       <mat-card-title>Usage Ranking</mat-card-title>
@@ -384,64 +392,61 @@
         <button mat-flat-button class="w-full" color="accent">Usage Rankings Detail</button>
       </div>
     </mat-card>
+  </div>
 
-    <mat-card class="mb-10">
-      <mat-card-title>Energy Sources</mat-card-title>
-      <details>
-        <summary>Read More</summary>
-        <mat-card-content>
-          <p>Displays a breakdown of the tokens you own and the overall breakdown.</p>
-        </mat-card-content>
-      </details>
-      <mat-card-content style="font-size: large; margin-top: 15px">Student</mat-card-content>
-      <ng-container *ngIf="balanceData === null; then loading; else loadedBalance"></ng-container>
-      <ng-template #loading>
-        <mat-progress-spinner [diameter]="60" [mode]="'indeterminate'"></mat-progress-spinner>
-      </ng-template>
-      <ng-template #loadedBalance>
-        <canvas baseChart [data]="balanceData!" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" [colors]="doughnutColors">
-        </canvas>
-      </ng-template>
-      <mat-card-content style="font-size: large; margin-top: 15px">Total</mat-card-content>
-      <ng-container *ngIf="totalBalanceData === null; then loading; else loadedTotalBalance"></ng-container>
-      <ng-template #loadedTotalBalance>
-        <canvas
-          baseChart
-          [data]="totalBalanceData!"
-          [labels]="doughnutChartLabels"
-          [chartType]="doughnutChartType"
-          [colors]="doughnutColors"
-        >
-        </canvas>
-      </ng-template>
-    </mat-card>
-    <!-- <mat-card class="mb-10">
+  <mat-card class="mb-10">
+    <mat-card-title>This Month's Usage</mat-card-title>
+    <details>
+      <summary>Read More</summary>
+      <mat-card-content>
+        <p>Displays the current month's electricity usage for the rooms associated with your account.</p>
+        <p>It also shows the average usage of all the rooms in the student dormitories.</p>
+      </mat-card-content>
+    </details>
+    <mat-list>
+      <mat-card class="flex flex-wrap" style="padding: 0px; border: 2.5px solid black">
+        <mat-list-item class="flex flex-wrap">
+          <span class="break-all text-xl" style="font-size: medium">Total Usage:</span>
+          <span class="flex-auto break-all"></span>
+          <span class="break-all text-xl" style="font-size: x-large">{{ totalUsage }}</span>
+          <span class="break-all text-xl" style="margin-left: 10px; font-size: small">kWh</span>
+        </mat-list-item>
+      </mat-card>
+      <mat-list-item class="flex flex-wrap">
+        <span class="break-all text-xl" style="font-size: medium">Students' Average:</span>
+        <span class="flex-auto break-all"></span>
+        <span class="break-all text-xl" style="font-size: x-large">{{ totalUsageAverage }}</span>
+        <span class="break-all text-xl" style="margin-left: 10px; font-size: small">kWh</span>
+      </mat-list-item>
+    </mat-list>
+  </mat-card>
+
+  <!-- <mat-card class="mb-10">
     <mat-card-title>Notifications</mat-card-title>
     <button mat-flat-button color="accent">More</button>
   </mat-card> -->
-    <mat-card class="mb-10">
-      <mat-card-title>Monthly Electricity Usages</mat-card-title>
-      <details>
-        <summary>Read More</summary>
-        <mat-card-content>
-          <p>Displays monthly data on electricity usage for this year and last year.</p>
-        </mat-card-content>
-      </details>
-      <ng-container *ngIf="usageData === null; then loading; else loadedUsage"></ng-container>
-      <ng-template #loadedUsage>
-        <p>kWh</p>
-        <canvas
-          baseChart
-          [datasets]="usageData!"
-          [labels]="barChartLabels"
-          [options]="barChartOptions"
-          [plugins]="barChartPlugins"
-          [legend]="barChartLegend"
-          [chartType]="barChartType"
-          [colors]="barColors"
-        >
-        </canvas>
-      </ng-template>
-    </mat-card>
-  </div>
+  <mat-card class="mb-10">
+    <mat-card-title>Monthly Electricity Usages</mat-card-title>
+    <details>
+      <summary>Read More</summary>
+      <mat-card-content>
+        <p>Displays monthly data on electricity usage for this year and last year.</p>
+      </mat-card-content>
+    </details>
+    <ng-container *ngIf="usageData === null; then loading; else loadedUsage"></ng-container>
+    <ng-template #loadedUsage>
+      <p>kWh</p>
+      <canvas
+        baseChart
+        [datasets]="usageData!"
+        [labels]="barChartLabels"
+        [options]="barChartOptions"
+        [plugins]="barChartPlugins"
+        [legend]="barChartLegend"
+        [chartType]="barChartType"
+        [colors]="barColors"
+      >
+      </canvas>
+    </ng-template>
+  </mat-card>
 </div>
