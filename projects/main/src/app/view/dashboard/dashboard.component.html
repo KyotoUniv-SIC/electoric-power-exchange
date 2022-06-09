@@ -96,80 +96,91 @@
           <span class="break-all text-xl" style="font-size: x-large">{{ renewableDate | date: 'yy/MM/dd' }}</span>
         </mat-list-item>
       </mat-card>
+      <div class="mt-10 lg:hidden">
+        <button mat-flat-button class="w-full" color="accent">Contract Price & Amount Charts</button>
+      </div>
+
+      <div class="mt-5 lg:hidden">
+        <button mat-flat-button class="w-full" color="accent">Electricity Price Reference</button>
+      </div>
     </mat-list>
   </mat-card>
 
-  <mat-card class="mb-10">
-    <mat-card-title>Contract Price & Amount Charts</mat-card-title>
-    <mat-card-content style="font-size: large; margin-top: 15px">UPX Contract Price and Amount</mat-card-content>
-    <ng-container *ngIf="normalChartDataSets === null; then loading; else loadedNormal"></ng-container>
-    <ng-template #loadedNormal>
-      <canvas
-        baseChart
-        [datasets]="normalChartDataSets!"
-        [labels]="normalChartDates!"
-        [options]="normalChartOptions!"
-        [legend]="barChartLegend"
-        [chartType]="barChartType"
-      >
-      </canvas>
-      <mat-card-content style="font-size: large; margin-top: 15px">SPX Contract Price and Amount</mat-card-content>
-      <ng-container *ngIf="renewableChartDataSets === null; then loading; else loadedRenewable"></ng-container>
-      <ng-template #loadedRenewable>
+  <div class="hidden lg:block">
+    <mat-card class="mb-10">
+      <mat-card-title>Contract Price & Amount Charts</mat-card-title>
+      <mat-card-content style="font-size: large; margin-top: 15px">UPX Contract Price and Amount</mat-card-content>
+      <ng-container *ngIf="normalChartDataSets === null; then loading; else loadedNormal"></ng-container>
+      <ng-template #loadedNormal>
         <canvas
           baseChart
-          [datasets]="renewableChartDataSets!"
-          [labels]="renewableChartDates!"
-          [options]="renewableChartOptions!"
+          [datasets]="normalChartDataSets!"
+          [labels]="normalChartDates!"
+          [options]="normalChartOptions!"
           [legend]="barChartLegend"
           [chartType]="barChartType"
         >
         </canvas>
+        <mat-card-content style="font-size: large; margin-top: 15px">SPX Contract Price and Amount</mat-card-content>
+        <ng-container *ngIf="renewableChartDataSets === null; then loading; else loadedRenewable"></ng-container>
+        <ng-template #loadedRenewable>
+          <canvas
+            baseChart
+            [datasets]="renewableChartDataSets!"
+            [labels]="renewableChartDates!"
+            [options]="renewableChartOptions!"
+            [legend]="barChartLegend"
+            [chartType]="barChartType"
+          >
+          </canvas>
+        </ng-template>
       </ng-template>
-    </ng-template>
-  </mat-card>
+    </mat-card>
+  </div>
 
-  <mat-card class="mb-10">
-    <mat-card-title> Electricity Price Reference</mat-card-title>
-    <mat-card-content>
-      <table mat-table [dataSource]="dataSource" class="w-full mb-5">
-        <!--- Note that these columns can be defined in any order.
+  <div class="hidden lg:block">
+    <mat-card class="mb-10">
+      <mat-card-title> Electricity Price Reference</mat-card-title>
+      <mat-card-content>
+        <table mat-table [dataSource]="dataSource" class="w-full mb-5">
+          <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
 
-        <!-- Position Column -->
-        <ng-container matColumnDef="classification">
-          <th mat-header-cell *matHeaderCellDef>Classification</th>
-          <td mat-cell *matCellDef="let element">{{ element.classification }}</td>
-        </ng-container>
+          <!-- Position Column -->
+          <ng-container matColumnDef="classification">
+            <th mat-header-cell *matHeaderCellDef>Classification</th>
+            <td mat-cell *matCellDef="let element">{{ element.classification }}</td>
+          </ng-container>
 
-        <!-- Name Column -->
-        <ng-container matColumnDef="usage">
-          <th mat-header-cell *matHeaderCellDef>Electricity Usage</th>
-          <td mat-cell *matCellDef="let element">{{ element.usage }}</td>
-        </ng-container>
+          <!-- Name Column -->
+          <ng-container matColumnDef="usage">
+            <th mat-header-cell *matHeaderCellDef>Electricity Usage</th>
+            <td mat-cell *matCellDef="let element">{{ element.usage }}</td>
+          </ng-container>
 
-        <!-- Weight Column -->
-        <ng-container matColumnDef="unit">
-          <th mat-header-cell *matHeaderCellDef>Unit</th>
-          <td mat-cell *matCellDef="let element">{{ element.unit }}</td>
-        </ng-container>
+          <!-- Weight Column -->
+          <ng-container matColumnDef="unit">
+            <th mat-header-cell *matHeaderCellDef>Unit</th>
+            <td mat-cell *matCellDef="let element">{{ element.unit }}</td>
+          </ng-container>
 
-        <!-- Symbol Column -->
-        <ng-container matColumnDef="charge">
-          <th mat-header-cell *matHeaderCellDef>Unit Charge (in JPY)</th>
-          <td mat-cell *matCellDef="let element">{{ element.charge }}</td>
-        </ng-container>
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="charge">
+            <th mat-header-cell *matHeaderCellDef>Unit Charge (in JPY)</th>
+            <td mat-cell *matCellDef="let element">{{ element.charge }}</td>
+          </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-      </table>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
 
-      <p>
-        In addition to these, you have to pay fuel regulatory costs and renewable energy surcharge. So, the average price of electricity for
-        end users is approximately <b>&yen;27/kWh</b>.
-      </p>
-    </mat-card-content>
-  </mat-card>
+        <p>
+          In addition to these, you have to pay fuel regulatory costs and renewable energy surcharge. So, the average price of electricity
+          for end users is approximately <b>&yen;27/kWh</b>.
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
 
   <mat-card class="mb-10">
     <mat-card-title>System Operation Status</mat-card-title>
@@ -323,85 +334,114 @@
     </mat-list>
   </mat-card>
 
-  <mat-card class="mb-10">
-    <mat-card-title>Usage Ranking</mat-card-title>
-    <details>
-      <summary>Read More</summary>
+  <div class="hidden lg:block">
+    <mat-card class="mb-10">
+      <mat-card-title>Usage Ranking</mat-card-title>
+      <details>
+        <summary>Read More</summary>
+        <mat-card-content>
+          <p>Displays the ranking of electricity usage.</p>
+        </mat-card-content>
+      </details>
+      <mat-list>
+        <mat-card class="flex flex-wrap" style="padding: 0px; border: 2.5px solid black">
+          <mat-list-item class="flex flex-wrap">
+            <span class="break-all text-xl" style="font-size: medium">Your Rank:</span>
+            <span class="flex-auto break-all"></span>
+            <span class="break-all text-xl" style="font-size: x-large">#{{ rank }}</span>
+          </mat-list-item>
+        </mat-card>
+        <mat-divider [inset]="true"></mat-divider>
+        <ng-container *ngFor="let ranking of rankings">
+          <mat-list-item class="flex flex-wrap">
+            <span class="break-all" style="font-size: medium">{{ ranking.name }}:</span>
+            <span class="flex-auto break-all"></span>
+            <span class="break-all" style="font-size: medium">{{ ranking.kwhAmount }}</span>
+            <span class="break-all text-xl" style="margin-left: 10px; font-size: small">kWh</span>
+          </mat-list-item>
+          <mat-divider [inset]="true"></mat-divider>
+        </ng-container>
+      </mat-list>
+    </mat-card>
+  </div>
+
+  <div class="lg:hidden">
+    <mat-card class="mb-10">
+      <mat-card-title>Usage Ranking</mat-card-title>
       <mat-card-content>
         <p>Displays the ranking of electricity usage.</p>
       </mat-card-content>
-    </details>
-    <mat-list>
-      <mat-card class="flex flex-wrap" style="padding: 0px; border: 2.5px solid black">
-        <mat-list-item class="flex flex-wrap">
-          <span class="break-all text-xl" style="font-size: medium">Your Rank:</span>
-          <span class="flex-auto break-all"></span>
-          <span class="break-all text-xl" style="font-size: x-large">#{{ rank }}</span>
-        </mat-list-item>
-      </mat-card>
-      <mat-divider [inset]="true"></mat-divider>
-      <ng-container *ngFor="let ranking of rankings">
-        <mat-list-item class="flex flex-wrap">
-          <span class="break-all" style="font-size: medium">{{ ranking.name }}:</span>
-          <span class="flex-auto break-all"></span>
-          <span class="break-all" style="font-size: medium">{{ ranking.kwhAmount }}</span>
-          <span class="break-all text-xl" style="margin-left: 10px; font-size: small">kWh</span>
-        </mat-list-item>
-        <mat-divider [inset]="true"></mat-divider>
-      </ng-container>
-    </mat-list>
-  </mat-card>
+      <mat-list>
+        <mat-card class="flex flex-wrap" style="padding: 0px; border: 2.5px solid black">
+          <mat-list-item class="flex flex-wrap">
+            <span class="break-all text-xl" style="font-size: medium">Your Rank:</span>
+            <span class="flex-auto break-all"></span>
+            <span class="break-all text-xl" style="font-size: x-large">#{{ rank }}</span>
+          </mat-list-item>
+        </mat-card>
+      </mat-list>
+      <div class="mt-10 lg:hidden">
+        <button mat-flat-button class="w-full" color="accent">Usage Rankings Detail</button>
+      </div>
+    </mat-card>
 
-  <mat-card class="mb-10">
-    <mat-card-title>Energy Sources</mat-card-title>
-    <details>
-      <summary>Read More</summary>
-      <mat-card-content>
-        <p>Displays a breakdown of the tokens you own and the overall breakdown.</p>
-      </mat-card-content>
-    </details>
-    <mat-card-content style="font-size: large; margin-top: 15px">Student</mat-card-content>
-    <ng-container *ngIf="balanceData === null; then loading; else loadedBalance"></ng-container>
-    <ng-template #loading>
-      <mat-progress-spinner [diameter]="60" [mode]="'indeterminate'"></mat-progress-spinner>
-    </ng-template>
-    <ng-template #loadedBalance>
-      <canvas baseChart [data]="balanceData!" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" [colors]="doughnutColors">
-      </canvas>
-    </ng-template>
-    <mat-card-content style="font-size: large; margin-top: 15px">Total</mat-card-content>
-    <ng-container *ngIf="totalBalanceData === null; then loading; else loadedTotalBalance"></ng-container>
-    <ng-template #loadedTotalBalance>
-      <canvas baseChart [data]="totalBalanceData!" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" [colors]="doughnutColors">
-      </canvas>
-    </ng-template>
-  </mat-card>
-  <!-- <mat-card class="mb-10">
+    <mat-card class="mb-10">
+      <mat-card-title>Energy Sources</mat-card-title>
+      <details>
+        <summary>Read More</summary>
+        <mat-card-content>
+          <p>Displays a breakdown of the tokens you own and the overall breakdown.</p>
+        </mat-card-content>
+      </details>
+      <mat-card-content style="font-size: large; margin-top: 15px">Student</mat-card-content>
+      <ng-container *ngIf="balanceData === null; then loading; else loadedBalance"></ng-container>
+      <ng-template #loading>
+        <mat-progress-spinner [diameter]="60" [mode]="'indeterminate'"></mat-progress-spinner>
+      </ng-template>
+      <ng-template #loadedBalance>
+        <canvas baseChart [data]="balanceData!" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" [colors]="doughnutColors">
+        </canvas>
+      </ng-template>
+      <mat-card-content style="font-size: large; margin-top: 15px">Total</mat-card-content>
+      <ng-container *ngIf="totalBalanceData === null; then loading; else loadedTotalBalance"></ng-container>
+      <ng-template #loadedTotalBalance>
+        <canvas
+          baseChart
+          [data]="totalBalanceData!"
+          [labels]="doughnutChartLabels"
+          [chartType]="doughnutChartType"
+          [colors]="doughnutColors"
+        >
+        </canvas>
+      </ng-template>
+    </mat-card>
+    <!-- <mat-card class="mb-10">
     <mat-card-title>Notifications</mat-card-title>
     <button mat-flat-button color="accent">More</button>
   </mat-card> -->
-  <mat-card class="mb-10">
-    <mat-card-title>Monthly Electricity Usages</mat-card-title>
-    <details>
-      <summary>Read More</summary>
-      <mat-card-content>
-        <p>Displays monthly data on electricity usage for this year and last year.</p>
-      </mat-card-content>
-    </details>
-    <ng-container *ngIf="usageData === null; then loading; else loadedUsage"></ng-container>
-    <ng-template #loadedUsage>
-      <p>kWh</p>
-      <canvas
-        baseChart
-        [datasets]="usageData!"
-        [labels]="barChartLabels"
-        [options]="barChartOptions"
-        [plugins]="barChartPlugins"
-        [legend]="barChartLegend"
-        [chartType]="barChartType"
-        [colors]="barColors"
-      >
-      </canvas>
-    </ng-template>
-  </mat-card>
+    <mat-card class="mb-10">
+      <mat-card-title>Monthly Electricity Usages</mat-card-title>
+      <details>
+        <summary>Read More</summary>
+        <mat-card-content>
+          <p>Displays monthly data on electricity usage for this year and last year.</p>
+        </mat-card-content>
+      </details>
+      <ng-container *ngIf="usageData === null; then loading; else loadedUsage"></ng-container>
+      <ng-template #loadedUsage>
+        <p>kWh</p>
+        <canvas
+          baseChart
+          [datasets]="usageData!"
+          [labels]="barChartLabels"
+          [options]="barChartOptions"
+          [plugins]="barChartPlugins"
+          [legend]="barChartLegend"
+          [chartType]="barChartType"
+          [colors]="barColors"
+        >
+        </canvas>
+      </ng-template>
+    </mat-card>
+  </div>
 </div>
