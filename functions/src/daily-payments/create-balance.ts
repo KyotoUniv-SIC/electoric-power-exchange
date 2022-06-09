@@ -39,7 +39,7 @@ daily_payment.onCreateHandler.push(async (snapshot, context) => {
         issuer: adminAccount[0].xrp_address_cold,
       },
       Destination: adminAccount[0].xrp_address_hot,
-      LastLedgerSequence: vli + 150,
+      LastLedgerSequence: vli + 540,
     };
     const payPreparedUPX = await client.autofill(sendUPXTx);
     const paySignedUPX = sender.sign(payPreparedUPX);
@@ -66,7 +66,7 @@ daily_payment.onCreateHandler.push(async (snapshot, context) => {
         issuer: adminAccount[0].xrp_address_cold,
       },
       Destination: adminAccount[0].xrp_address_hot,
-      LastLedgerSequence: vli + 150,
+      LastLedgerSequence: vli + 540,
     };
     const payPreparedSPX = await client.autofill(sendSPXTx);
     const paySignedSPX = sender.sign(payPreparedSPX);

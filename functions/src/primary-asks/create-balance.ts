@@ -57,7 +57,7 @@ primary_ask.onCreateHandler.push(async (snapshot, context) => {
       issuer: adminAccount[0].xrp_address_cold,
     },
     Destination: studentAccount.xrp_address,
-    LastLedgerSequence: vli + 150,
+    LastLedgerSequence: vli + 540,
   };
   const payPrepared = await client.autofill(sendTokenTx);
   const paySigned = admin.sign(payPrepared);

@@ -54,7 +54,7 @@ renewable_settlement.onCreateHandler.push(async (snapshot, context) => {
         issuer: adminAccount[0].xrp_address_cold,
       },
       Destination: bidder.xrp_address,
-      LastLedgerSequence: vli + 150,
+      LastLedgerSequence: vli + 540,
     };
     const payPrepared = await client.autofill(sendTokenTx);
     const paySigned = sender.sign(payPrepared);
@@ -104,7 +104,7 @@ renewable_settlement.onCreateHandler.push(async (snapshot, context) => {
         issuer: adminAccount[0].xrp_address_cold,
       },
       Destination: bidder.xrp_address,
-      LastLedgerSequence: vli + 150,
+      LastLedgerSequence: vli + 540,
     };
     const payPrepared = await client.autofill(sendTokenTx);
     const paySigned = sender.sign(payPrepared);

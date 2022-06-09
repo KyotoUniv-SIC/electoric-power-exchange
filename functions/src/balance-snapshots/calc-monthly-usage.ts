@@ -135,7 +135,7 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
         issuer: adminAccount[0].xrp_address_cold,
       },
       Destination: adminAccount[0].xrp_address_hot,
-      LastLedgerSequence: vli + 150,
+      LastLedgerSequence: vli + 540,
     };
     const payPrepared = await client.autofill(sendTokenTx);
     const paySigned = sender.sign(payPrepared);
@@ -158,7 +158,7 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
         issuer: adminAccount[0].xrp_address_cold,
       },
       Destination: adminAccount[0].xrp_address_hot,
-      LastLedgerSequence: vli + 150,
+      LastLedgerSequence: vli + 540,
     };
     const payPrepared = await client.autofill(sendTokenTx);
     const paySigned = sender.sign(payPrepared);
