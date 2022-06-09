@@ -203,7 +203,7 @@ export class DashboardComponent implements OnInit {
     this.withdrawDate$ = this.latestUsage$.pipe(
       map((usage) => {
         const createdAt = (usage.created_at as Timestamp).toDate();
-        createdAt.setDate(createdAt.getDate() - 1);
+        createdAt.setDate(createdAt.getDate() + 1);
         return createdAt;
       }),
     );
