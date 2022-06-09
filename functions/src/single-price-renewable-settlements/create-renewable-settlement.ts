@@ -1,10 +1,10 @@
 /* eslint-disable camelcase */
-import { renewable_settlement } from '.';
+import { single_price_renewable_settlement } from '.';
 import { renewable_ask_history } from '../renewable-ask-histories';
 import { renewable_ask } from '../renewable-asks';
 import { renewable_bid_history } from '../renewable-bid-histories';
 import { renewable_bid } from '../renewable-bids';
-import { single_price_renewable_settlement } from '../single-price-renewable-settlements';
+import { renewable_settlement } from '../renewable-settlements';
 import { proto, RenewableAskHistory, RenewableBidHistory, RenewableSettlement } from '@local/common';
 
 single_price_renewable_settlement.onCreateHandler.push(async (snapshot, context) => {
@@ -103,6 +103,22 @@ single_price_renewable_settlement.onCreateHandler.push(async (snapshot, context)
       ).toString();
       i++;
       if (i >= sortRenewableBids.length) {
+        for (; j < sortRenewableAsks.length; j++) {
+          await renewable_ask_history.create(
+            new RenewableAskHistory(
+              {
+                type: sortRenewableAsks[j].type as unknown as proto.main.RenewableAskHistoryType,
+                account_id: sortRenewableAsks[j].account_id,
+                price_ujpy: sortRenewableAsks[j].price_ujpy,
+                amount_uspx: sortRenewableAsks[j].amount_uspx,
+                is_accepted: false,
+                contract_price_ujpy: data.price_ujpy,
+              },
+              sortRenewableAsks[j].created_at,
+            ),
+          );
+          await renewable_ask.delete_(sortRenewableAsks[j].id);
+        }
         break;
       }
     } else if (parseInt(sortRenewableBids[i].amount_uspx) > parseInt(sortRenewableAsks[j].amount_uspx)) {
@@ -149,6 +165,21 @@ single_price_renewable_settlement.onCreateHandler.push(async (snapshot, context)
       ).toString();
       j++;
       if (j >= sortRenewableAsks.length) {
+        for (; i < sortRenewableBids.length; i++) {
+          await renewable_bid_history.create(
+            new RenewableBidHistory(
+              {
+                account_id: sortRenewableBids[i].account_id,
+                price_ujpy: sortRenewableBids[i].price_ujpy,
+                amount_uspx: sortRenewableBids[i].amount_uspx,
+                is_accepted: false,
+                contract_price_ujpy: data.price_ujpy,
+              },
+              sortRenewableBids[i].created_at,
+            ),
+          );
+          await renewable_bid.delete_(sortRenewableBids[i].id);
+        }
         break;
       }
     } else {
@@ -194,6 +225,38 @@ single_price_renewable_settlement.onCreateHandler.push(async (snapshot, context)
       i++;
       j++;
       if (i >= sortRenewableBids.length || j >= sortRenewableAsks.length) {
+        for (; i < sortRenewableBids.length; i++) {
+          await renewable_bid_history.create(
+            new RenewableBidHistory(
+              {
+                account_id: sortRenewableBids[i].account_id,
+                price_ujpy: sortRenewableBids[i].price_ujpy,
+                amount_uspx: sortRenewableBids[i].amount_uspx,
+                is_accepted: false,
+                contract_price_ujpy: data.price_ujpy,
+              },
+              sortRenewableBids[i].created_at,
+            ),
+          );
+          await renewable_bid.delete_(sortRenewableBids[i].id);
+        }
+
+        for (; j < sortRenewableAsks.length; j++) {
+          await renewable_ask_history.create(
+            new RenewableAskHistory(
+              {
+                type: sortRenewableAsks[j].type as unknown as proto.main.RenewableAskHistoryType,
+                account_id: sortRenewableAsks[j].account_id,
+                price_ujpy: sortRenewableAsks[j].price_ujpy,
+                amount_uspx: sortRenewableAsks[j].amount_uspx,
+                is_accepted: false,
+                contract_price_ujpy: data.price_ujpy,
+              },
+              sortRenewableAsks[j].created_at,
+            ),
+          );
+          await renewable_ask.delete_(sortRenewableAsks[j].id);
+        }
         break;
       }
     }

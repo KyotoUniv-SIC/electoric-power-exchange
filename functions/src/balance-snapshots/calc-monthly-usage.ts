@@ -1,22 +1,21 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
 /* eslint-disable camelcase */
-import { monthly_payment } from '.';
+import { balance_snapshot } from '.';
 import { account_private } from '../account-privates';
 import { admin_account } from '../admin-accounts';
-import { balance_snapshot } from '../balance-snapshots';
 import { balance } from '../balances';
 import { discount_price } from '../discount-prices';
 import { insufficient_balance } from '../insufficient-balances';
+import { monthly_payment } from '../monthly-payments';
 import { monthly_usage } from '../monthly-usages';
 import { normal_ask_history } from '../normal-ask-histories';
 import { normal_bid_history } from '../normal-bid-histories';
 import { primary_ask } from '../primary-asks';
 import { renewable_ask_history } from '../renewable-ask-histories';
 import { renewable_bid_history } from '../renewable-bid-histories';
-import { BalanceSnapshot, MonthlyPayment, MonthlyUsage } from '@local/common';
+import { Balance, BalanceSnapshot, MonthlyPayment, MonthlyUsage } from '@local/common';
 import * as crypto from 'crypto-js';
-import * as functions from 'firebase-functions';
 
 balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
   const data = snapshot.data()! as BalanceSnapshot;
@@ -79,13 +78,14 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
   // .getMonth()は0-11の整数値をとる
   // date.setMonth(date.getMonth() - 1);
 
-  const latestBalance = await balance.getLatest(data.student_account_id);
-  await balance.update({
-    id: latestBalance[0].id,
-    student_account_id: latestBalance[0].student_account_id,
-    amount_uspx: '0',
-    amount_uupx: '0',
-  });
+  const latestBalance = await balance.listLatest(data.student_account_id);
+  await balance.create(
+    new Balance({
+      student_account_id: latestBalance[0].student_account_id,
+      amount_uspx: '0',
+      amount_uupx: '0',
+    }),
+  );
 
   await monthly_payment.create(
     new MonthlyPayment({
@@ -114,9 +114,11 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
   const client = new xrpl.Client(TEST_NET);
   const adminAccount = await admin_account.getByName('admin');
   await client.connect();
-  const config = functions.config();
-  const confXrpl = config['xrpl'];
-  const privKey = confXrpl.private_key;
+  const privKey = process.env.PRIV_KEY;
+  if (!privKey) {
+    console.log('no privKey');
+    return;
+  }
   const decrypted = crypto.AES.decrypt(accountPrivate[0].xrp_seed, privKey).toString(crypto.enc.Utf8);
   const sender = xrpl.Wallet.fromSeed(decrypted);
 
@@ -133,7 +135,7 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
         issuer: adminAccount[0].xrp_address_cold,
       },
       Destination: adminAccount[0].xrp_address_hot,
-      LastLedgerSequence: vli + 150,
+      LastLedgerSequence: vli + 540,
     };
     const payPrepared = await client.autofill(sendTokenTx);
     const paySigned = sender.sign(payPrepared);
@@ -156,7 +158,7 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
         issuer: adminAccount[0].xrp_address_cold,
       },
       Destination: adminAccount[0].xrp_address_hot,
-      LastLedgerSequence: vli + 150,
+      LastLedgerSequence: vli + 540,
     };
     const payPrepared = await client.autofill(sendTokenTx);
     const paySigned = sender.sign(payPrepared);

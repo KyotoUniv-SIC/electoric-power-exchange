@@ -7,7 +7,8 @@ export const onCreateHandler: FirestoreCreateHandler[] = [];
 export const onUpdateHandler: FirestoreUpdateHandler[] = [];
 export const onDeleteHandler: FirestoreDeleteHandler[] = [];
 
-export const onCreate = functions.firestore.document(MessageReadFirestore.virtualPath).onCreate(async (snapshot, context) => {
+const f = functions.region('asia-northeast1');
+export const onCreate = f.firestore.document(MessageReadFirestore.virtualPath).onCreate(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     return;
   }
@@ -21,7 +22,7 @@ export const onCreate = functions.firestore.document(MessageReadFirestore.virtua
   }
 });
 
-export const onUpdate = functions.firestore.document(MessageReadFirestore.virtualPath).onUpdate(async (snapshot, context) => {
+export const onUpdate = f.firestore.document(MessageReadFirestore.virtualPath).onUpdate(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     return;
   }
@@ -35,7 +36,7 @@ export const onUpdate = functions.firestore.document(MessageReadFirestore.virtua
   }
 });
 
-export const onDelete = functions.firestore.document(MessageReadFirestore.virtualPath).onDelete(async (snapshot, context) => {
+export const onDelete = f.firestore.document(MessageReadFirestore.virtualPath).onDelete(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     return;
   }

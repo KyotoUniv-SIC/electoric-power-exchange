@@ -1,30 +1,26 @@
 /* eslint-disable camelcase */
-import './available-balances/balance';
-import './available-balances/normal-ask';
-import './available-balances/renewable-ask';
-import './balance-snapshots/monthly-settlement';
-import './balances/daily-usage';
-import './balances/normal-settlement';
-import './balances/primary';
-import './balances/renewable-settlement';
-import './balances/student-account';
-import './chats/chat-delete';
-import './messages/message-delete';
-import './messages/message-read';
-import './monthly-payments/balance-snapshot';
-import './normal-asks/normal-ask-delete';
-import './normal-bids/normal-bid-delete';
-import './normal-settlements/normal-settlement';
-import './primary-asks/monthly-usage';
-import './primary-bids/primary';
-import './renewable-asks/renewable-ask-delete';
-// import './renewable-asks/primary';
+import './accounts/create-student-account';
+import './balance-snapshots/calc-monthly-usage';
+import './balances/update-available-balance';
+import './chat-deletes/delete-chat';
+import './daily-payments/create-balance';
+import './message-deletes/delete-message';
+import './message-reads/update-message';
+import './monthly-usages/create-primary-ask';
+import './normal-ask-deletes/delete-normal-ask';
+import './normal-asks/update-available-balance';
+import './normal-bid-deletes/delete-normal-bid';
+import './normal-settlements/create-balance';
+import './primary-asks/create-balance';
+import './primary-asks/create-primary-bid';
+import './renewable-ask-deletes/delete-renewable-ask';
+import './renewable-asks/update-available-balance';
 import './renewable-bids/renewable-bid-delete';
-import './renewable-settlements/renewable-settlement';
-// import './single-price-normal-settlements/normal-contract';
-// import './single-price-renewable-settlements/renewable-contract';
-import './student-accounts/account';
-import './student-accounts/room-change';
+import './renewable-settlements/create-balance';
+import './room-changes/update-student-account';
+import './single-price-normal-settlements/create-normal-settlement';
+import './single-price-renewable-settlements/create-renewable-settlement';
+import './student-accounts/create-balance';
 import './student-accounts/xrpl';
 import * as admin from 'firebase-admin';
 
@@ -84,11 +80,13 @@ const files = {
   normals: './single-price-normal-settlements',
   renewables: './single-price-renewable-settlements',
   student_accounts: './student-accounts',
-  primary_normal: './normal-asks/primary-additional',
-  primary_renewable: './renewable-asks/primary',
-  normal_contract: './single-price-normal-settlements/normal-contract',
-  renewable_contract: './single-price-renewable-settlements/renewable-contract',
-  monthly_settlement: './balance-snapshots/monthly-settlement',
+  // scheduled functions
+  contract_normal: './schedules/contract-normal',
+  contract_renewable: './schedules/contract-renewable',
+  daily_withdraw: './schedules/daily-withdraw',
+  monthly_settlement: './schedules/monthly-settlement',
+  operation_normal: './schedules/operation-normal',
+  operation_renewable: './schedules/operation-renewable',
 };
 
 const loadFunctions = (filesObj: any) => {

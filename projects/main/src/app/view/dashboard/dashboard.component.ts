@@ -1,6 +1,6 @@
 import { Ranking } from '../../page/dashboard/dashboard.component';
 import { Component, Input, OnInit } from '@angular/core';
-import { NormalAsk, NormalBid, RenewableAsk, SinglePriceNormalSettlement, SinglePriceRenewableSettlement } from '@local/common';
+import { DailyUsage, NormalAsk, NormalBid, RenewableAsk, SinglePriceNormalSettlement, SinglePriceRenewableSettlement } from '@local/common';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Label, MultiDataSet, Color } from 'ng2-charts';
 
@@ -20,6 +20,10 @@ export class DashboardComponent implements OnInit {
   uspxAmount?: number | null;
   @Input()
   insufficiencyAmount?: number | null;
+  @Input()
+  latestUsage?: DailyUsage | null;
+  @Input()
+  withdrawDate?: Date | null;
   @Input()
   totalUsage?: number | null;
   @Input()

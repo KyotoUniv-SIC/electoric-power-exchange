@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
-import { available_balance } from '.';
-import { renewable_ask } from '../renewable-asks';
+import { renewable_ask } from '.';
+import { available_balance } from '../available-balances';
 import { proto, RenewableAsk } from '@local/common';
 
 renewable_ask.onCreateHandler.push(async (snapshot, context) => {

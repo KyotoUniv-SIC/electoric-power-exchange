@@ -10,7 +10,6 @@ import { daily_usage } from '../daily-usages';
 import { primary_ask } from '../primary-asks';
 import { AccountPrivate, PrimaryAsk, StudentAccount } from '@local/common';
 import * as crypto from 'crypto-js';
-import * as functions from 'firebase-functions';
 
 student_account.onCreateHandler.push(async (snapshot, context) => {
   const data = snapshot.data()! as StudentAccount;
@@ -74,11 +73,13 @@ student_account.onCreateHandler.push(async (snapshot, context) => {
   const wallet = await createWallet();
 
   await student_account.update({ id: data.id, xrp_address: wallet.classicAddress, xrp_public_key: wallet.publicKey });
-  const config = functions.config();
-  const confXrpl = config['xrpl'];
-  const privKey = confXrpl.private_key;
-  const encryptedSeed = crypto.AES.encrypt(wallet.seed, privKey).toString();
-  await account_private.create(new AccountPrivate({ student_account_id: data.id, xrp_seed: encryptedSeed }));
+  const privKey = process.env.PRIV_KEY;
+  if (privKey) {
+    const encryptedSeed = crypto.AES.encrypt(wallet.seed, privKey).toString();
+    await account_private.create(new AccountPrivate({ student_account_id: data.id, xrp_seed: encryptedSeed }));
+  } else {
+    console.log('No privKey detected!');
+  }
 
   // create Primary Tx
   let student = await student_account.get(data.id);
@@ -87,5 +88,8 @@ student_account.onCreateHandler.push(async (snapshot, context) => {
   }
   const usages = await daily_usage.listLastMonth(student.room_id);
   const uupxAmount = usages.reduce((previous, current) => previous + parseInt(current.amount_kwh_str), 0) * 1000000;
+  if (!uupxAmount) {
+    console.log(student.room_id, 'have no usage data');
+  }
   await primary_ask.create(new PrimaryAsk({ account_id: data.id, price_ujpy: '27000000', amount_uupx: uupxAmount.toString() }));
 });

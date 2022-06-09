@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
-import { chat } from '.';
-import { chat_delete } from '../chat-deletes';
+import { chat_delete } from '.';
+import { chat } from '../chats';
 import { ChatDelete } from '@local/common';
 
 chat_delete.onCreateHandler.push(async (snapshot, context) => {

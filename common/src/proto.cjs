@@ -25,226 +25,6 @@
          */
         var main = {};
     
-        main.AccountantAccount = (function() {
-    
-            /**
-             * Properties of an AccountantAccount.
-             * @memberof main
-             * @interface IAccountantAccount
-             * @property {string|null} [id] AccountantAccount id
-             * @property {string|null} [name] AccountantAccount name
-             * @property {string|null} [xrp_address] AccountantAccount xrp_address
-             */
-    
-            /**
-             * Constructs a new AccountantAccount.
-             * @memberof main
-             * @classdesc Represents an AccountantAccount.
-             * @implements IAccountantAccount
-             * @constructor
-             * @param {main.IAccountantAccount=} [properties] Properties to set
-             */
-            function AccountantAccount(properties) {
-                if (properties)
-                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
-                            this[keys[i]] = properties[keys[i]];
-            }
-    
-            /**
-             * AccountantAccount id.
-             * @member {string} id
-             * @memberof main.AccountantAccount
-             * @instance
-             */
-            AccountantAccount.prototype.id = "";
-    
-            /**
-             * AccountantAccount name.
-             * @member {string} name
-             * @memberof main.AccountantAccount
-             * @instance
-             */
-            AccountantAccount.prototype.name = "";
-    
-            /**
-             * AccountantAccount xrp_address.
-             * @member {string} xrp_address
-             * @memberof main.AccountantAccount
-             * @instance
-             */
-            AccountantAccount.prototype.xrp_address = "";
-    
-            /**
-             * Encodes the specified AccountantAccount message. Does not implicitly {@link main.AccountantAccount.verify|verify} messages.
-             * @function encode
-             * @memberof main.AccountantAccount
-             * @static
-             * @param {main.IAccountantAccount} message AccountantAccount message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            AccountantAccount.encode = function encode(message, writer) {
-                if (!writer)
-                    writer = $Writer.create();
-                if (message.id != null && Object.hasOwnProperty.call(message, "id"))
-                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
-                if (message.name != null && Object.hasOwnProperty.call(message, "name"))
-                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.name);
-                if (message.xrp_address != null && Object.hasOwnProperty.call(message, "xrp_address"))
-                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.xrp_address);
-                return writer;
-            };
-    
-            /**
-             * Encodes the specified AccountantAccount message, length delimited. Does not implicitly {@link main.AccountantAccount.verify|verify} messages.
-             * @function encodeDelimited
-             * @memberof main.AccountantAccount
-             * @static
-             * @param {main.IAccountantAccount} message AccountantAccount message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            AccountantAccount.encodeDelimited = function encodeDelimited(message, writer) {
-                return this.encode(message, writer).ldelim();
-            };
-    
-            /**
-             * Decodes an AccountantAccount message from the specified reader or buffer.
-             * @function decode
-             * @memberof main.AccountantAccount
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @param {number} [length] Message length if known beforehand
-             * @returns {main.AccountantAccount} AccountantAccount
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            AccountantAccount.decode = function decode(reader, length) {
-                if (!(reader instanceof $Reader))
-                    reader = $Reader.create(reader);
-                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.AccountantAccount();
-                while (reader.pos < end) {
-                    var tag = reader.uint32();
-                    switch (tag >>> 3) {
-                    case 1:
-                        message.id = reader.string();
-                        break;
-                    case 2:
-                        message.name = reader.string();
-                        break;
-                    case 3:
-                        message.xrp_address = reader.string();
-                        break;
-                    default:
-                        reader.skipType(tag & 7);
-                        break;
-                    }
-                }
-                return message;
-            };
-    
-            /**
-             * Decodes an AccountantAccount message from the specified reader or buffer, length delimited.
-             * @function decodeDelimited
-             * @memberof main.AccountantAccount
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {main.AccountantAccount} AccountantAccount
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            AccountantAccount.decodeDelimited = function decodeDelimited(reader) {
-                if (!(reader instanceof $Reader))
-                    reader = new $Reader(reader);
-                return this.decode(reader, reader.uint32());
-            };
-    
-            /**
-             * Verifies an AccountantAccount message.
-             * @function verify
-             * @memberof main.AccountantAccount
-             * @static
-             * @param {Object.<string,*>} message Plain object to verify
-             * @returns {string|null} `null` if valid, otherwise the reason why it is not
-             */
-            AccountantAccount.verify = function verify(message) {
-                if (typeof message !== "object" || message === null)
-                    return "object expected";
-                if (message.id != null && message.hasOwnProperty("id"))
-                    if (!$util.isString(message.id))
-                        return "id: string expected";
-                if (message.name != null && message.hasOwnProperty("name"))
-                    if (!$util.isString(message.name))
-                        return "name: string expected";
-                if (message.xrp_address != null && message.hasOwnProperty("xrp_address"))
-                    if (!$util.isString(message.xrp_address))
-                        return "xrp_address: string expected";
-                return null;
-            };
-    
-            /**
-             * Creates an AccountantAccount message from a plain object. Also converts values to their respective internal types.
-             * @function fromObject
-             * @memberof main.AccountantAccount
-             * @static
-             * @param {Object.<string,*>} object Plain object
-             * @returns {main.AccountantAccount} AccountantAccount
-             */
-            AccountantAccount.fromObject = function fromObject(object) {
-                if (object instanceof $root.main.AccountantAccount)
-                    return object;
-                var message = new $root.main.AccountantAccount();
-                if (object.id != null)
-                    message.id = String(object.id);
-                if (object.name != null)
-                    message.name = String(object.name);
-                if (object.xrp_address != null)
-                    message.xrp_address = String(object.xrp_address);
-                return message;
-            };
-    
-            /**
-             * Creates a plain object from an AccountantAccount message. Also converts values to other types if specified.
-             * @function toObject
-             * @memberof main.AccountantAccount
-             * @static
-             * @param {main.AccountantAccount} message AccountantAccount
-             * @param {$protobuf.IConversionOptions} [options] Conversion options
-             * @returns {Object.<string,*>} Plain object
-             */
-            AccountantAccount.toObject = function toObject(message, options) {
-                if (!options)
-                    options = {};
-                var object = {};
-                if (options.defaults) {
-                    object.id = "";
-                    object.name = "";
-                    object.xrp_address = "";
-                }
-                if (message.id != null && message.hasOwnProperty("id"))
-                    object.id = message.id;
-                if (message.name != null && message.hasOwnProperty("name"))
-                    object.name = message.name;
-                if (message.xrp_address != null && message.hasOwnProperty("xrp_address"))
-                    object.xrp_address = message.xrp_address;
-                return object;
-            };
-    
-            /**
-             * Converts this AccountantAccount to JSON.
-             * @function toJSON
-             * @memberof main.AccountantAccount
-             * @instance
-             * @returns {Object.<string,*>} JSON object
-             */
-            AccountantAccount.prototype.toJSON = function toJSON() {
-                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-            };
-    
-            return AccountantAccount;
-        })();
-    
         main.AccountPrivate = (function() {
     
             /**
@@ -463,6 +243,226 @@
             };
     
             return AccountPrivate;
+        })();
+    
+        main.AccountantAccount = (function() {
+    
+            /**
+             * Properties of an AccountantAccount.
+             * @memberof main
+             * @interface IAccountantAccount
+             * @property {string|null} [id] AccountantAccount id
+             * @property {string|null} [name] AccountantAccount name
+             * @property {string|null} [xrp_address] AccountantAccount xrp_address
+             */
+    
+            /**
+             * Constructs a new AccountantAccount.
+             * @memberof main
+             * @classdesc Represents an AccountantAccount.
+             * @implements IAccountantAccount
+             * @constructor
+             * @param {main.IAccountantAccount=} [properties] Properties to set
+             */
+            function AccountantAccount(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+    
+            /**
+             * AccountantAccount id.
+             * @member {string} id
+             * @memberof main.AccountantAccount
+             * @instance
+             */
+            AccountantAccount.prototype.id = "";
+    
+            /**
+             * AccountantAccount name.
+             * @member {string} name
+             * @memberof main.AccountantAccount
+             * @instance
+             */
+            AccountantAccount.prototype.name = "";
+    
+            /**
+             * AccountantAccount xrp_address.
+             * @member {string} xrp_address
+             * @memberof main.AccountantAccount
+             * @instance
+             */
+            AccountantAccount.prototype.xrp_address = "";
+    
+            /**
+             * Encodes the specified AccountantAccount message. Does not implicitly {@link main.AccountantAccount.verify|verify} messages.
+             * @function encode
+             * @memberof main.AccountantAccount
+             * @static
+             * @param {main.IAccountantAccount} message AccountantAccount message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            AccountantAccount.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                if (message.name != null && Object.hasOwnProperty.call(message, "name"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.name);
+                if (message.xrp_address != null && Object.hasOwnProperty.call(message, "xrp_address"))
+                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.xrp_address);
+                return writer;
+            };
+    
+            /**
+             * Encodes the specified AccountantAccount message, length delimited. Does not implicitly {@link main.AccountantAccount.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof main.AccountantAccount
+             * @static
+             * @param {main.IAccountantAccount} message AccountantAccount message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            AccountantAccount.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+    
+            /**
+             * Decodes an AccountantAccount message from the specified reader or buffer.
+             * @function decode
+             * @memberof main.AccountantAccount
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {main.AccountantAccount} AccountantAccount
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            AccountantAccount.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.AccountantAccount();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.id = reader.string();
+                        break;
+                    case 2:
+                        message.name = reader.string();
+                        break;
+                    case 3:
+                        message.xrp_address = reader.string();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Decodes an AccountantAccount message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof main.AccountantAccount
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {main.AccountantAccount} AccountantAccount
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            AccountantAccount.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+    
+            /**
+             * Verifies an AccountantAccount message.
+             * @function verify
+             * @memberof main.AccountantAccount
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            AccountantAccount.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.id != null && message.hasOwnProperty("id"))
+                    if (!$util.isString(message.id))
+                        return "id: string expected";
+                if (message.name != null && message.hasOwnProperty("name"))
+                    if (!$util.isString(message.name))
+                        return "name: string expected";
+                if (message.xrp_address != null && message.hasOwnProperty("xrp_address"))
+                    if (!$util.isString(message.xrp_address))
+                        return "xrp_address: string expected";
+                return null;
+            };
+    
+            /**
+             * Creates an AccountantAccount message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof main.AccountantAccount
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {main.AccountantAccount} AccountantAccount
+             */
+            AccountantAccount.fromObject = function fromObject(object) {
+                if (object instanceof $root.main.AccountantAccount)
+                    return object;
+                var message = new $root.main.AccountantAccount();
+                if (object.id != null)
+                    message.id = String(object.id);
+                if (object.name != null)
+                    message.name = String(object.name);
+                if (object.xrp_address != null)
+                    message.xrp_address = String(object.xrp_address);
+                return message;
+            };
+    
+            /**
+             * Creates a plain object from an AccountantAccount message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof main.AccountantAccount
+             * @static
+             * @param {main.AccountantAccount} message AccountantAccount
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            AccountantAccount.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.id = "";
+                    object.name = "";
+                    object.xrp_address = "";
+                }
+                if (message.id != null && message.hasOwnProperty("id"))
+                    object.id = message.id;
+                if (message.name != null && message.hasOwnProperty("name"))
+                    object.name = message.name;
+                if (message.xrp_address != null && message.hasOwnProperty("xrp_address"))
+                    object.xrp_address = message.xrp_address;
+                return object;
+            };
+    
+            /**
+             * Converts this AccountantAccount to JSON.
+             * @function toJSON
+             * @memberof main.AccountantAccount
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            AccountantAccount.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            return AccountantAccount;
         })();
     
         /**
@@ -1530,248 +1530,6 @@
             return AvailableBalance;
         })();
     
-        main.Balance = (function() {
-    
-            /**
-             * Properties of a Balance.
-             * @memberof main
-             * @interface IBalance
-             * @property {string|null} [id] Balance id
-             * @property {string|null} [student_account_id] Balance student_account_id
-             * @property {string|null} [amount_uupx] Balance amount_uupx
-             * @property {string|null} [amount_uspx] Balance amount_uspx
-             */
-    
-            /**
-             * Constructs a new Balance.
-             * @memberof main
-             * @classdesc Represents a Balance.
-             * @implements IBalance
-             * @constructor
-             * @param {main.IBalance=} [properties] Properties to set
-             */
-            function Balance(properties) {
-                if (properties)
-                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
-                            this[keys[i]] = properties[keys[i]];
-            }
-    
-            /**
-             * Balance id.
-             * @member {string} id
-             * @memberof main.Balance
-             * @instance
-             */
-            Balance.prototype.id = "";
-    
-            /**
-             * Balance student_account_id.
-             * @member {string} student_account_id
-             * @memberof main.Balance
-             * @instance
-             */
-            Balance.prototype.student_account_id = "";
-    
-            /**
-             * Balance amount_uupx.
-             * @member {string} amount_uupx
-             * @memberof main.Balance
-             * @instance
-             */
-            Balance.prototype.amount_uupx = "";
-    
-            /**
-             * Balance amount_uspx.
-             * @member {string} amount_uspx
-             * @memberof main.Balance
-             * @instance
-             */
-            Balance.prototype.amount_uspx = "";
-    
-            /**
-             * Encodes the specified Balance message. Does not implicitly {@link main.Balance.verify|verify} messages.
-             * @function encode
-             * @memberof main.Balance
-             * @static
-             * @param {main.IBalance} message Balance message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            Balance.encode = function encode(message, writer) {
-                if (!writer)
-                    writer = $Writer.create();
-                if (message.id != null && Object.hasOwnProperty.call(message, "id"))
-                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
-                if (message.student_account_id != null && Object.hasOwnProperty.call(message, "student_account_id"))
-                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.student_account_id);
-                if (message.amount_uupx != null && Object.hasOwnProperty.call(message, "amount_uupx"))
-                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.amount_uupx);
-                if (message.amount_uspx != null && Object.hasOwnProperty.call(message, "amount_uspx"))
-                    writer.uint32(/* id 4, wireType 2 =*/34).string(message.amount_uspx);
-                return writer;
-            };
-    
-            /**
-             * Encodes the specified Balance message, length delimited. Does not implicitly {@link main.Balance.verify|verify} messages.
-             * @function encodeDelimited
-             * @memberof main.Balance
-             * @static
-             * @param {main.IBalance} message Balance message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            Balance.encodeDelimited = function encodeDelimited(message, writer) {
-                return this.encode(message, writer).ldelim();
-            };
-    
-            /**
-             * Decodes a Balance message from the specified reader or buffer.
-             * @function decode
-             * @memberof main.Balance
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @param {number} [length] Message length if known beforehand
-             * @returns {main.Balance} Balance
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            Balance.decode = function decode(reader, length) {
-                if (!(reader instanceof $Reader))
-                    reader = $Reader.create(reader);
-                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.Balance();
-                while (reader.pos < end) {
-                    var tag = reader.uint32();
-                    switch (tag >>> 3) {
-                    case 1:
-                        message.id = reader.string();
-                        break;
-                    case 2:
-                        message.student_account_id = reader.string();
-                        break;
-                    case 3:
-                        message.amount_uupx = reader.string();
-                        break;
-                    case 4:
-                        message.amount_uspx = reader.string();
-                        break;
-                    default:
-                        reader.skipType(tag & 7);
-                        break;
-                    }
-                }
-                return message;
-            };
-    
-            /**
-             * Decodes a Balance message from the specified reader or buffer, length delimited.
-             * @function decodeDelimited
-             * @memberof main.Balance
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {main.Balance} Balance
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            Balance.decodeDelimited = function decodeDelimited(reader) {
-                if (!(reader instanceof $Reader))
-                    reader = new $Reader(reader);
-                return this.decode(reader, reader.uint32());
-            };
-    
-            /**
-             * Verifies a Balance message.
-             * @function verify
-             * @memberof main.Balance
-             * @static
-             * @param {Object.<string,*>} message Plain object to verify
-             * @returns {string|null} `null` if valid, otherwise the reason why it is not
-             */
-            Balance.verify = function verify(message) {
-                if (typeof message !== "object" || message === null)
-                    return "object expected";
-                if (message.id != null && message.hasOwnProperty("id"))
-                    if (!$util.isString(message.id))
-                        return "id: string expected";
-                if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
-                    if (!$util.isString(message.student_account_id))
-                        return "student_account_id: string expected";
-                if (message.amount_uupx != null && message.hasOwnProperty("amount_uupx"))
-                    if (!$util.isString(message.amount_uupx))
-                        return "amount_uupx: string expected";
-                if (message.amount_uspx != null && message.hasOwnProperty("amount_uspx"))
-                    if (!$util.isString(message.amount_uspx))
-                        return "amount_uspx: string expected";
-                return null;
-            };
-    
-            /**
-             * Creates a Balance message from a plain object. Also converts values to their respective internal types.
-             * @function fromObject
-             * @memberof main.Balance
-             * @static
-             * @param {Object.<string,*>} object Plain object
-             * @returns {main.Balance} Balance
-             */
-            Balance.fromObject = function fromObject(object) {
-                if (object instanceof $root.main.Balance)
-                    return object;
-                var message = new $root.main.Balance();
-                if (object.id != null)
-                    message.id = String(object.id);
-                if (object.student_account_id != null)
-                    message.student_account_id = String(object.student_account_id);
-                if (object.amount_uupx != null)
-                    message.amount_uupx = String(object.amount_uupx);
-                if (object.amount_uspx != null)
-                    message.amount_uspx = String(object.amount_uspx);
-                return message;
-            };
-    
-            /**
-             * Creates a plain object from a Balance message. Also converts values to other types if specified.
-             * @function toObject
-             * @memberof main.Balance
-             * @static
-             * @param {main.Balance} message Balance
-             * @param {$protobuf.IConversionOptions} [options] Conversion options
-             * @returns {Object.<string,*>} Plain object
-             */
-            Balance.toObject = function toObject(message, options) {
-                if (!options)
-                    options = {};
-                var object = {};
-                if (options.defaults) {
-                    object.id = "";
-                    object.student_account_id = "";
-                    object.amount_uupx = "";
-                    object.amount_uspx = "";
-                }
-                if (message.id != null && message.hasOwnProperty("id"))
-                    object.id = message.id;
-                if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
-                    object.student_account_id = message.student_account_id;
-                if (message.amount_uupx != null && message.hasOwnProperty("amount_uupx"))
-                    object.amount_uupx = message.amount_uupx;
-                if (message.amount_uspx != null && message.hasOwnProperty("amount_uspx"))
-                    object.amount_uspx = message.amount_uspx;
-                return object;
-            };
-    
-            /**
-             * Converts this Balance to JSON.
-             * @function toJSON
-             * @memberof main.Balance
-             * @instance
-             * @returns {Object.<string,*>} JSON object
-             */
-            Balance.prototype.toJSON = function toJSON() {
-                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-            };
-    
-            return Balance;
-        })();
-    
         main.BalanceSnapshot = (function() {
     
             /**
@@ -2012,6 +1770,248 @@
             };
     
             return BalanceSnapshot;
+        })();
+    
+        main.Balance = (function() {
+    
+            /**
+             * Properties of a Balance.
+             * @memberof main
+             * @interface IBalance
+             * @property {string|null} [id] Balance id
+             * @property {string|null} [student_account_id] Balance student_account_id
+             * @property {string|null} [amount_uupx] Balance amount_uupx
+             * @property {string|null} [amount_uspx] Balance amount_uspx
+             */
+    
+            /**
+             * Constructs a new Balance.
+             * @memberof main
+             * @classdesc Represents a Balance.
+             * @implements IBalance
+             * @constructor
+             * @param {main.IBalance=} [properties] Properties to set
+             */
+            function Balance(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+    
+            /**
+             * Balance id.
+             * @member {string} id
+             * @memberof main.Balance
+             * @instance
+             */
+            Balance.prototype.id = "";
+    
+            /**
+             * Balance student_account_id.
+             * @member {string} student_account_id
+             * @memberof main.Balance
+             * @instance
+             */
+            Balance.prototype.student_account_id = "";
+    
+            /**
+             * Balance amount_uupx.
+             * @member {string} amount_uupx
+             * @memberof main.Balance
+             * @instance
+             */
+            Balance.prototype.amount_uupx = "";
+    
+            /**
+             * Balance amount_uspx.
+             * @member {string} amount_uspx
+             * @memberof main.Balance
+             * @instance
+             */
+            Balance.prototype.amount_uspx = "";
+    
+            /**
+             * Encodes the specified Balance message. Does not implicitly {@link main.Balance.verify|verify} messages.
+             * @function encode
+             * @memberof main.Balance
+             * @static
+             * @param {main.IBalance} message Balance message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            Balance.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                if (message.student_account_id != null && Object.hasOwnProperty.call(message, "student_account_id"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.student_account_id);
+                if (message.amount_uupx != null && Object.hasOwnProperty.call(message, "amount_uupx"))
+                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.amount_uupx);
+                if (message.amount_uspx != null && Object.hasOwnProperty.call(message, "amount_uspx"))
+                    writer.uint32(/* id 4, wireType 2 =*/34).string(message.amount_uspx);
+                return writer;
+            };
+    
+            /**
+             * Encodes the specified Balance message, length delimited. Does not implicitly {@link main.Balance.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof main.Balance
+             * @static
+             * @param {main.IBalance} message Balance message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            Balance.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+    
+            /**
+             * Decodes a Balance message from the specified reader or buffer.
+             * @function decode
+             * @memberof main.Balance
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {main.Balance} Balance
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            Balance.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.Balance();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.id = reader.string();
+                        break;
+                    case 2:
+                        message.student_account_id = reader.string();
+                        break;
+                    case 3:
+                        message.amount_uupx = reader.string();
+                        break;
+                    case 4:
+                        message.amount_uspx = reader.string();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Decodes a Balance message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof main.Balance
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {main.Balance} Balance
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            Balance.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+    
+            /**
+             * Verifies a Balance message.
+             * @function verify
+             * @memberof main.Balance
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            Balance.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.id != null && message.hasOwnProperty("id"))
+                    if (!$util.isString(message.id))
+                        return "id: string expected";
+                if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
+                    if (!$util.isString(message.student_account_id))
+                        return "student_account_id: string expected";
+                if (message.amount_uupx != null && message.hasOwnProperty("amount_uupx"))
+                    if (!$util.isString(message.amount_uupx))
+                        return "amount_uupx: string expected";
+                if (message.amount_uspx != null && message.hasOwnProperty("amount_uspx"))
+                    if (!$util.isString(message.amount_uspx))
+                        return "amount_uspx: string expected";
+                return null;
+            };
+    
+            /**
+             * Creates a Balance message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof main.Balance
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {main.Balance} Balance
+             */
+            Balance.fromObject = function fromObject(object) {
+                if (object instanceof $root.main.Balance)
+                    return object;
+                var message = new $root.main.Balance();
+                if (object.id != null)
+                    message.id = String(object.id);
+                if (object.student_account_id != null)
+                    message.student_account_id = String(object.student_account_id);
+                if (object.amount_uupx != null)
+                    message.amount_uupx = String(object.amount_uupx);
+                if (object.amount_uspx != null)
+                    message.amount_uspx = String(object.amount_uspx);
+                return message;
+            };
+    
+            /**
+             * Creates a plain object from a Balance message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof main.Balance
+             * @static
+             * @param {main.Balance} message Balance
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            Balance.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.id = "";
+                    object.student_account_id = "";
+                    object.amount_uupx = "";
+                    object.amount_uspx = "";
+                }
+                if (message.id != null && message.hasOwnProperty("id"))
+                    object.id = message.id;
+                if (message.student_account_id != null && message.hasOwnProperty("student_account_id"))
+                    object.student_account_id = message.student_account_id;
+                if (message.amount_uupx != null && message.hasOwnProperty("amount_uupx"))
+                    object.amount_uupx = message.amount_uupx;
+                if (message.amount_uspx != null && message.hasOwnProperty("amount_uspx"))
+                    object.amount_uspx = message.amount_uspx;
+                return object;
+            };
+    
+            /**
+             * Converts this Balance to JSON.
+             * @function toJSON
+             * @memberof main.Balance
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            Balance.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            return Balance;
         })();
     
         main.ChatDelete = (function() {
@@ -2752,6 +2752,9 @@
              * @property {string|null} [month] DailyPayment month
              * @property {string|null} [date] DailyPayment date
              * @property {string|null} [amount_mwh] DailyPayment amount_mwh
+             * @property {string|null} [amount_uupx] DailyPayment amount_uupx
+             * @property {string|null} [amount_uspx] DailyPayment amount_uspx
+             * @property {string|null} [amount_insufficiency] DailyPayment amount_insufficiency
              */
     
             /**
@@ -2818,6 +2821,30 @@
             DailyPayment.prototype.amount_mwh = "";
     
             /**
+             * DailyPayment amount_uupx.
+             * @member {string} amount_uupx
+             * @memberof main.DailyPayment
+             * @instance
+             */
+            DailyPayment.prototype.amount_uupx = "";
+    
+            /**
+             * DailyPayment amount_uspx.
+             * @member {string} amount_uspx
+             * @memberof main.DailyPayment
+             * @instance
+             */
+            DailyPayment.prototype.amount_uspx = "";
+    
+            /**
+             * DailyPayment amount_insufficiency.
+             * @member {string} amount_insufficiency
+             * @memberof main.DailyPayment
+             * @instance
+             */
+            DailyPayment.prototype.amount_insufficiency = "";
+    
+            /**
              * Encodes the specified DailyPayment message. Does not implicitly {@link main.DailyPayment.verify|verify} messages.
              * @function encode
              * @memberof main.DailyPayment
@@ -2841,6 +2868,12 @@
                     writer.uint32(/* id 5, wireType 2 =*/42).string(message.date);
                 if (message.amount_mwh != null && Object.hasOwnProperty.call(message, "amount_mwh"))
                     writer.uint32(/* id 6, wireType 2 =*/50).string(message.amount_mwh);
+                if (message.amount_uupx != null && Object.hasOwnProperty.call(message, "amount_uupx"))
+                    writer.uint32(/* id 7, wireType 2 =*/58).string(message.amount_uupx);
+                if (message.amount_uspx != null && Object.hasOwnProperty.call(message, "amount_uspx"))
+                    writer.uint32(/* id 8, wireType 2 =*/66).string(message.amount_uspx);
+                if (message.amount_insufficiency != null && Object.hasOwnProperty.call(message, "amount_insufficiency"))
+                    writer.uint32(/* id 9, wireType 2 =*/74).string(message.amount_insufficiency);
                 return writer;
             };
     
@@ -2892,6 +2925,15 @@
                         break;
                     case 6:
                         message.amount_mwh = reader.string();
+                        break;
+                    case 7:
+                        message.amount_uupx = reader.string();
+                        break;
+                    case 8:
+                        message.amount_uspx = reader.string();
+                        break;
+                    case 9:
+                        message.amount_insufficiency = reader.string();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -2946,6 +2988,15 @@
                 if (message.amount_mwh != null && message.hasOwnProperty("amount_mwh"))
                     if (!$util.isString(message.amount_mwh))
                         return "amount_mwh: string expected";
+                if (message.amount_uupx != null && message.hasOwnProperty("amount_uupx"))
+                    if (!$util.isString(message.amount_uupx))
+                        return "amount_uupx: string expected";
+                if (message.amount_uspx != null && message.hasOwnProperty("amount_uspx"))
+                    if (!$util.isString(message.amount_uspx))
+                        return "amount_uspx: string expected";
+                if (message.amount_insufficiency != null && message.hasOwnProperty("amount_insufficiency"))
+                    if (!$util.isString(message.amount_insufficiency))
+                        return "amount_insufficiency: string expected";
                 return null;
             };
     
@@ -2973,6 +3024,12 @@
                     message.date = String(object.date);
                 if (object.amount_mwh != null)
                     message.amount_mwh = String(object.amount_mwh);
+                if (object.amount_uupx != null)
+                    message.amount_uupx = String(object.amount_uupx);
+                if (object.amount_uspx != null)
+                    message.amount_uspx = String(object.amount_uspx);
+                if (object.amount_insufficiency != null)
+                    message.amount_insufficiency = String(object.amount_insufficiency);
                 return message;
             };
     
@@ -2996,6 +3053,9 @@
                     object.month = "";
                     object.date = "";
                     object.amount_mwh = "";
+                    object.amount_uupx = "";
+                    object.amount_uspx = "";
+                    object.amount_insufficiency = "";
                 }
                 if (message.id != null && message.hasOwnProperty("id"))
                     object.id = message.id;
@@ -3009,6 +3069,12 @@
                     object.date = message.date;
                 if (message.amount_mwh != null && message.hasOwnProperty("amount_mwh"))
                     object.amount_mwh = message.amount_mwh;
+                if (message.amount_uupx != null && message.hasOwnProperty("amount_uupx"))
+                    object.amount_uupx = message.amount_uupx;
+                if (message.amount_uspx != null && message.hasOwnProperty("amount_uspx"))
+                    object.amount_uspx = message.amount_uspx;
+                if (message.amount_insufficiency != null && message.hasOwnProperty("amount_insufficiency"))
+                    object.amount_insufficiency = message.amount_insufficiency;
                 return object;
             };
     
@@ -5600,6 +5666,292 @@
             return NormalAskDelete;
         })();
     
+        main.NormalBidHistory = (function() {
+    
+            /**
+             * Properties of a NormalBidHistory.
+             * @memberof main
+             * @interface INormalBidHistory
+             * @property {string|null} [id] NormalBidHistory id
+             * @property {string|null} [account_id] NormalBidHistory account_id
+             * @property {string|null} [price_ujpy] NormalBidHistory price_ujpy
+             * @property {string|null} [amount_uupx] NormalBidHistory amount_uupx
+             * @property {boolean|null} [is_accepted] NormalBidHistory is_accepted
+             * @property {string|null} [contract_price_ujpy] NormalBidHistory contract_price_ujpy
+             */
+    
+            /**
+             * Constructs a new NormalBidHistory.
+             * @memberof main
+             * @classdesc Represents a NormalBidHistory.
+             * @implements INormalBidHistory
+             * @constructor
+             * @param {main.INormalBidHistory=} [properties] Properties to set
+             */
+            function NormalBidHistory(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+    
+            /**
+             * NormalBidHistory id.
+             * @member {string} id
+             * @memberof main.NormalBidHistory
+             * @instance
+             */
+            NormalBidHistory.prototype.id = "";
+    
+            /**
+             * NormalBidHistory account_id.
+             * @member {string} account_id
+             * @memberof main.NormalBidHistory
+             * @instance
+             */
+            NormalBidHistory.prototype.account_id = "";
+    
+            /**
+             * NormalBidHistory price_ujpy.
+             * @member {string} price_ujpy
+             * @memberof main.NormalBidHistory
+             * @instance
+             */
+            NormalBidHistory.prototype.price_ujpy = "";
+    
+            /**
+             * NormalBidHistory amount_uupx.
+             * @member {string} amount_uupx
+             * @memberof main.NormalBidHistory
+             * @instance
+             */
+            NormalBidHistory.prototype.amount_uupx = "";
+    
+            /**
+             * NormalBidHistory is_accepted.
+             * @member {boolean} is_accepted
+             * @memberof main.NormalBidHistory
+             * @instance
+             */
+            NormalBidHistory.prototype.is_accepted = false;
+    
+            /**
+             * NormalBidHistory contract_price_ujpy.
+             * @member {string} contract_price_ujpy
+             * @memberof main.NormalBidHistory
+             * @instance
+             */
+            NormalBidHistory.prototype.contract_price_ujpy = "";
+    
+            /**
+             * Encodes the specified NormalBidHistory message. Does not implicitly {@link main.NormalBidHistory.verify|verify} messages.
+             * @function encode
+             * @memberof main.NormalBidHistory
+             * @static
+             * @param {main.INormalBidHistory} message NormalBidHistory message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            NormalBidHistory.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                if (message.account_id != null && Object.hasOwnProperty.call(message, "account_id"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.account_id);
+                if (message.price_ujpy != null && Object.hasOwnProperty.call(message, "price_ujpy"))
+                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.price_ujpy);
+                if (message.amount_uupx != null && Object.hasOwnProperty.call(message, "amount_uupx"))
+                    writer.uint32(/* id 4, wireType 2 =*/34).string(message.amount_uupx);
+                if (message.is_accepted != null && Object.hasOwnProperty.call(message, "is_accepted"))
+                    writer.uint32(/* id 5, wireType 0 =*/40).bool(message.is_accepted);
+                if (message.contract_price_ujpy != null && Object.hasOwnProperty.call(message, "contract_price_ujpy"))
+                    writer.uint32(/* id 6, wireType 2 =*/50).string(message.contract_price_ujpy);
+                return writer;
+            };
+    
+            /**
+             * Encodes the specified NormalBidHistory message, length delimited. Does not implicitly {@link main.NormalBidHistory.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof main.NormalBidHistory
+             * @static
+             * @param {main.INormalBidHistory} message NormalBidHistory message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            NormalBidHistory.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+    
+            /**
+             * Decodes a NormalBidHistory message from the specified reader or buffer.
+             * @function decode
+             * @memberof main.NormalBidHistory
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {main.NormalBidHistory} NormalBidHistory
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            NormalBidHistory.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.NormalBidHistory();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.id = reader.string();
+                        break;
+                    case 2:
+                        message.account_id = reader.string();
+                        break;
+                    case 3:
+                        message.price_ujpy = reader.string();
+                        break;
+                    case 4:
+                        message.amount_uupx = reader.string();
+                        break;
+                    case 5:
+                        message.is_accepted = reader.bool();
+                        break;
+                    case 6:
+                        message.contract_price_ujpy = reader.string();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Decodes a NormalBidHistory message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof main.NormalBidHistory
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {main.NormalBidHistory} NormalBidHistory
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            NormalBidHistory.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+    
+            /**
+             * Verifies a NormalBidHistory message.
+             * @function verify
+             * @memberof main.NormalBidHistory
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            NormalBidHistory.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.id != null && message.hasOwnProperty("id"))
+                    if (!$util.isString(message.id))
+                        return "id: string expected";
+                if (message.account_id != null && message.hasOwnProperty("account_id"))
+                    if (!$util.isString(message.account_id))
+                        return "account_id: string expected";
+                if (message.price_ujpy != null && message.hasOwnProperty("price_ujpy"))
+                    if (!$util.isString(message.price_ujpy))
+                        return "price_ujpy: string expected";
+                if (message.amount_uupx != null && message.hasOwnProperty("amount_uupx"))
+                    if (!$util.isString(message.amount_uupx))
+                        return "amount_uupx: string expected";
+                if (message.is_accepted != null && message.hasOwnProperty("is_accepted"))
+                    if (typeof message.is_accepted !== "boolean")
+                        return "is_accepted: boolean expected";
+                if (message.contract_price_ujpy != null && message.hasOwnProperty("contract_price_ujpy"))
+                    if (!$util.isString(message.contract_price_ujpy))
+                        return "contract_price_ujpy: string expected";
+                return null;
+            };
+    
+            /**
+             * Creates a NormalBidHistory message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof main.NormalBidHistory
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {main.NormalBidHistory} NormalBidHistory
+             */
+            NormalBidHistory.fromObject = function fromObject(object) {
+                if (object instanceof $root.main.NormalBidHistory)
+                    return object;
+                var message = new $root.main.NormalBidHistory();
+                if (object.id != null)
+                    message.id = String(object.id);
+                if (object.account_id != null)
+                    message.account_id = String(object.account_id);
+                if (object.price_ujpy != null)
+                    message.price_ujpy = String(object.price_ujpy);
+                if (object.amount_uupx != null)
+                    message.amount_uupx = String(object.amount_uupx);
+                if (object.is_accepted != null)
+                    message.is_accepted = Boolean(object.is_accepted);
+                if (object.contract_price_ujpy != null)
+                    message.contract_price_ujpy = String(object.contract_price_ujpy);
+                return message;
+            };
+    
+            /**
+             * Creates a plain object from a NormalBidHistory message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof main.NormalBidHistory
+             * @static
+             * @param {main.NormalBidHistory} message NormalBidHistory
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            NormalBidHistory.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.id = "";
+                    object.account_id = "";
+                    object.price_ujpy = "";
+                    object.amount_uupx = "";
+                    object.is_accepted = false;
+                    object.contract_price_ujpy = "";
+                }
+                if (message.id != null && message.hasOwnProperty("id"))
+                    object.id = message.id;
+                if (message.account_id != null && message.hasOwnProperty("account_id"))
+                    object.account_id = message.account_id;
+                if (message.price_ujpy != null && message.hasOwnProperty("price_ujpy"))
+                    object.price_ujpy = message.price_ujpy;
+                if (message.amount_uupx != null && message.hasOwnProperty("amount_uupx"))
+                    object.amount_uupx = message.amount_uupx;
+                if (message.is_accepted != null && message.hasOwnProperty("is_accepted"))
+                    object.is_accepted = message.is_accepted;
+                if (message.contract_price_ujpy != null && message.hasOwnProperty("contract_price_ujpy"))
+                    object.contract_price_ujpy = message.contract_price_ujpy;
+                return object;
+            };
+    
+            /**
+             * Converts this NormalBidHistory to JSON.
+             * @function toJSON
+             * @memberof main.NormalBidHistory
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            NormalBidHistory.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            return NormalBidHistory;
+        })();
+    
         /**
          * NormalAskHistoryType enum.
          * @name main.NormalAskHistoryType
@@ -5942,6 +6294,270 @@
             return NormalAskHistory;
         })();
     
+        main.NormalAskSetting = (function() {
+    
+            /**
+             * Properties of a NormalAskSetting.
+             * @memberof main
+             * @interface INormalAskSetting
+             * @property {string|null} [id] NormalAskSetting id
+             * @property {string|null} [price_ujpy] NormalAskSetting price_ujpy
+             * @property {string|null} [amount_uupx] NormalAskSetting amount_uupx
+             * @property {string|null} [ratio_percentage] NormalAskSetting ratio_percentage
+             * @property {boolean|null} [enable] NormalAskSetting enable
+             */
+    
+            /**
+             * Constructs a new NormalAskSetting.
+             * @memberof main
+             * @classdesc Represents a NormalAskSetting.
+             * @implements INormalAskSetting
+             * @constructor
+             * @param {main.INormalAskSetting=} [properties] Properties to set
+             */
+            function NormalAskSetting(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+    
+            /**
+             * NormalAskSetting id.
+             * @member {string} id
+             * @memberof main.NormalAskSetting
+             * @instance
+             */
+            NormalAskSetting.prototype.id = "";
+    
+            /**
+             * NormalAskSetting price_ujpy.
+             * @member {string} price_ujpy
+             * @memberof main.NormalAskSetting
+             * @instance
+             */
+            NormalAskSetting.prototype.price_ujpy = "";
+    
+            /**
+             * NormalAskSetting amount_uupx.
+             * @member {string} amount_uupx
+             * @memberof main.NormalAskSetting
+             * @instance
+             */
+            NormalAskSetting.prototype.amount_uupx = "";
+    
+            /**
+             * NormalAskSetting ratio_percentage.
+             * @member {string} ratio_percentage
+             * @memberof main.NormalAskSetting
+             * @instance
+             */
+            NormalAskSetting.prototype.ratio_percentage = "";
+    
+            /**
+             * NormalAskSetting enable.
+             * @member {boolean} enable
+             * @memberof main.NormalAskSetting
+             * @instance
+             */
+            NormalAskSetting.prototype.enable = false;
+    
+            /**
+             * Encodes the specified NormalAskSetting message. Does not implicitly {@link main.NormalAskSetting.verify|verify} messages.
+             * @function encode
+             * @memberof main.NormalAskSetting
+             * @static
+             * @param {main.INormalAskSetting} message NormalAskSetting message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            NormalAskSetting.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                if (message.price_ujpy != null && Object.hasOwnProperty.call(message, "price_ujpy"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.price_ujpy);
+                if (message.amount_uupx != null && Object.hasOwnProperty.call(message, "amount_uupx"))
+                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.amount_uupx);
+                if (message.ratio_percentage != null && Object.hasOwnProperty.call(message, "ratio_percentage"))
+                    writer.uint32(/* id 4, wireType 2 =*/34).string(message.ratio_percentage);
+                if (message.enable != null && Object.hasOwnProperty.call(message, "enable"))
+                    writer.uint32(/* id 5, wireType 0 =*/40).bool(message.enable);
+                return writer;
+            };
+    
+            /**
+             * Encodes the specified NormalAskSetting message, length delimited. Does not implicitly {@link main.NormalAskSetting.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof main.NormalAskSetting
+             * @static
+             * @param {main.INormalAskSetting} message NormalAskSetting message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            NormalAskSetting.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+    
+            /**
+             * Decodes a NormalAskSetting message from the specified reader or buffer.
+             * @function decode
+             * @memberof main.NormalAskSetting
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {main.NormalAskSetting} NormalAskSetting
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            NormalAskSetting.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.NormalAskSetting();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.id = reader.string();
+                        break;
+                    case 2:
+                        message.price_ujpy = reader.string();
+                        break;
+                    case 3:
+                        message.amount_uupx = reader.string();
+                        break;
+                    case 4:
+                        message.ratio_percentage = reader.string();
+                        break;
+                    case 5:
+                        message.enable = reader.bool();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Decodes a NormalAskSetting message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof main.NormalAskSetting
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {main.NormalAskSetting} NormalAskSetting
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            NormalAskSetting.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+    
+            /**
+             * Verifies a NormalAskSetting message.
+             * @function verify
+             * @memberof main.NormalAskSetting
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            NormalAskSetting.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.id != null && message.hasOwnProperty("id"))
+                    if (!$util.isString(message.id))
+                        return "id: string expected";
+                if (message.price_ujpy != null && message.hasOwnProperty("price_ujpy"))
+                    if (!$util.isString(message.price_ujpy))
+                        return "price_ujpy: string expected";
+                if (message.amount_uupx != null && message.hasOwnProperty("amount_uupx"))
+                    if (!$util.isString(message.amount_uupx))
+                        return "amount_uupx: string expected";
+                if (message.ratio_percentage != null && message.hasOwnProperty("ratio_percentage"))
+                    if (!$util.isString(message.ratio_percentage))
+                        return "ratio_percentage: string expected";
+                if (message.enable != null && message.hasOwnProperty("enable"))
+                    if (typeof message.enable !== "boolean")
+                        return "enable: boolean expected";
+                return null;
+            };
+    
+            /**
+             * Creates a NormalAskSetting message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof main.NormalAskSetting
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {main.NormalAskSetting} NormalAskSetting
+             */
+            NormalAskSetting.fromObject = function fromObject(object) {
+                if (object instanceof $root.main.NormalAskSetting)
+                    return object;
+                var message = new $root.main.NormalAskSetting();
+                if (object.id != null)
+                    message.id = String(object.id);
+                if (object.price_ujpy != null)
+                    message.price_ujpy = String(object.price_ujpy);
+                if (object.amount_uupx != null)
+                    message.amount_uupx = String(object.amount_uupx);
+                if (object.ratio_percentage != null)
+                    message.ratio_percentage = String(object.ratio_percentage);
+                if (object.enable != null)
+                    message.enable = Boolean(object.enable);
+                return message;
+            };
+    
+            /**
+             * Creates a plain object from a NormalAskSetting message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof main.NormalAskSetting
+             * @static
+             * @param {main.NormalAskSetting} message NormalAskSetting
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            NormalAskSetting.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.id = "";
+                    object.price_ujpy = "";
+                    object.amount_uupx = "";
+                    object.ratio_percentage = "";
+                    object.enable = false;
+                }
+                if (message.id != null && message.hasOwnProperty("id"))
+                    object.id = message.id;
+                if (message.price_ujpy != null && message.hasOwnProperty("price_ujpy"))
+                    object.price_ujpy = message.price_ujpy;
+                if (message.amount_uupx != null && message.hasOwnProperty("amount_uupx"))
+                    object.amount_uupx = message.amount_uupx;
+                if (message.ratio_percentage != null && message.hasOwnProperty("ratio_percentage"))
+                    object.ratio_percentage = message.ratio_percentage;
+                if (message.enable != null && message.hasOwnProperty("enable"))
+                    object.enable = message.enable;
+                return object;
+            };
+    
+            /**
+             * Converts this NormalAskSetting to JSON.
+             * @function toJSON
+             * @memberof main.NormalAskSetting
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            NormalAskSetting.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            return NormalAskSetting;
+        })();
+    
         /**
          * NormalAskType enum.
          * @name main.NormalAskType
@@ -6262,226 +6878,6 @@
             return NormalAsk;
         })();
     
-        main.NormalAskSetting = (function() {
-    
-            /**
-             * Properties of a NormalAskSetting.
-             * @memberof main
-             * @interface INormalAskSetting
-             * @property {string|null} [id] NormalAskSetting id
-             * @property {string|null} [price_ujpy] NormalAskSetting price_ujpy
-             * @property {string|null} [amount_uupx] NormalAskSetting amount_uupx
-             */
-    
-            /**
-             * Constructs a new NormalAskSetting.
-             * @memberof main
-             * @classdesc Represents a NormalAskSetting.
-             * @implements INormalAskSetting
-             * @constructor
-             * @param {main.INormalAskSetting=} [properties] Properties to set
-             */
-            function NormalAskSetting(properties) {
-                if (properties)
-                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
-                            this[keys[i]] = properties[keys[i]];
-            }
-    
-            /**
-             * NormalAskSetting id.
-             * @member {string} id
-             * @memberof main.NormalAskSetting
-             * @instance
-             */
-            NormalAskSetting.prototype.id = "";
-    
-            /**
-             * NormalAskSetting price_ujpy.
-             * @member {string} price_ujpy
-             * @memberof main.NormalAskSetting
-             * @instance
-             */
-            NormalAskSetting.prototype.price_ujpy = "";
-    
-            /**
-             * NormalAskSetting amount_uupx.
-             * @member {string} amount_uupx
-             * @memberof main.NormalAskSetting
-             * @instance
-             */
-            NormalAskSetting.prototype.amount_uupx = "";
-    
-            /**
-             * Encodes the specified NormalAskSetting message. Does not implicitly {@link main.NormalAskSetting.verify|verify} messages.
-             * @function encode
-             * @memberof main.NormalAskSetting
-             * @static
-             * @param {main.INormalAskSetting} message NormalAskSetting message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            NormalAskSetting.encode = function encode(message, writer) {
-                if (!writer)
-                    writer = $Writer.create();
-                if (message.id != null && Object.hasOwnProperty.call(message, "id"))
-                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
-                if (message.price_ujpy != null && Object.hasOwnProperty.call(message, "price_ujpy"))
-                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.price_ujpy);
-                if (message.amount_uupx != null && Object.hasOwnProperty.call(message, "amount_uupx"))
-                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.amount_uupx);
-                return writer;
-            };
-    
-            /**
-             * Encodes the specified NormalAskSetting message, length delimited. Does not implicitly {@link main.NormalAskSetting.verify|verify} messages.
-             * @function encodeDelimited
-             * @memberof main.NormalAskSetting
-             * @static
-             * @param {main.INormalAskSetting} message NormalAskSetting message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            NormalAskSetting.encodeDelimited = function encodeDelimited(message, writer) {
-                return this.encode(message, writer).ldelim();
-            };
-    
-            /**
-             * Decodes a NormalAskSetting message from the specified reader or buffer.
-             * @function decode
-             * @memberof main.NormalAskSetting
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @param {number} [length] Message length if known beforehand
-             * @returns {main.NormalAskSetting} NormalAskSetting
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            NormalAskSetting.decode = function decode(reader, length) {
-                if (!(reader instanceof $Reader))
-                    reader = $Reader.create(reader);
-                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.NormalAskSetting();
-                while (reader.pos < end) {
-                    var tag = reader.uint32();
-                    switch (tag >>> 3) {
-                    case 1:
-                        message.id = reader.string();
-                        break;
-                    case 2:
-                        message.price_ujpy = reader.string();
-                        break;
-                    case 3:
-                        message.amount_uupx = reader.string();
-                        break;
-                    default:
-                        reader.skipType(tag & 7);
-                        break;
-                    }
-                }
-                return message;
-            };
-    
-            /**
-             * Decodes a NormalAskSetting message from the specified reader or buffer, length delimited.
-             * @function decodeDelimited
-             * @memberof main.NormalAskSetting
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {main.NormalAskSetting} NormalAskSetting
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            NormalAskSetting.decodeDelimited = function decodeDelimited(reader) {
-                if (!(reader instanceof $Reader))
-                    reader = new $Reader(reader);
-                return this.decode(reader, reader.uint32());
-            };
-    
-            /**
-             * Verifies a NormalAskSetting message.
-             * @function verify
-             * @memberof main.NormalAskSetting
-             * @static
-             * @param {Object.<string,*>} message Plain object to verify
-             * @returns {string|null} `null` if valid, otherwise the reason why it is not
-             */
-            NormalAskSetting.verify = function verify(message) {
-                if (typeof message !== "object" || message === null)
-                    return "object expected";
-                if (message.id != null && message.hasOwnProperty("id"))
-                    if (!$util.isString(message.id))
-                        return "id: string expected";
-                if (message.price_ujpy != null && message.hasOwnProperty("price_ujpy"))
-                    if (!$util.isString(message.price_ujpy))
-                        return "price_ujpy: string expected";
-                if (message.amount_uupx != null && message.hasOwnProperty("amount_uupx"))
-                    if (!$util.isString(message.amount_uupx))
-                        return "amount_uupx: string expected";
-                return null;
-            };
-    
-            /**
-             * Creates a NormalAskSetting message from a plain object. Also converts values to their respective internal types.
-             * @function fromObject
-             * @memberof main.NormalAskSetting
-             * @static
-             * @param {Object.<string,*>} object Plain object
-             * @returns {main.NormalAskSetting} NormalAskSetting
-             */
-            NormalAskSetting.fromObject = function fromObject(object) {
-                if (object instanceof $root.main.NormalAskSetting)
-                    return object;
-                var message = new $root.main.NormalAskSetting();
-                if (object.id != null)
-                    message.id = String(object.id);
-                if (object.price_ujpy != null)
-                    message.price_ujpy = String(object.price_ujpy);
-                if (object.amount_uupx != null)
-                    message.amount_uupx = String(object.amount_uupx);
-                return message;
-            };
-    
-            /**
-             * Creates a plain object from a NormalAskSetting message. Also converts values to other types if specified.
-             * @function toObject
-             * @memberof main.NormalAskSetting
-             * @static
-             * @param {main.NormalAskSetting} message NormalAskSetting
-             * @param {$protobuf.IConversionOptions} [options] Conversion options
-             * @returns {Object.<string,*>} Plain object
-             */
-            NormalAskSetting.toObject = function toObject(message, options) {
-                if (!options)
-                    options = {};
-                var object = {};
-                if (options.defaults) {
-                    object.id = "";
-                    object.price_ujpy = "";
-                    object.amount_uupx = "";
-                }
-                if (message.id != null && message.hasOwnProperty("id"))
-                    object.id = message.id;
-                if (message.price_ujpy != null && message.hasOwnProperty("price_ujpy"))
-                    object.price_ujpy = message.price_ujpy;
-                if (message.amount_uupx != null && message.hasOwnProperty("amount_uupx"))
-                    object.amount_uupx = message.amount_uupx;
-                return object;
-            };
-    
-            /**
-             * Converts this NormalAskSetting to JSON.
-             * @function toJSON
-             * @memberof main.NormalAskSetting
-             * @instance
-             * @returns {Object.<string,*>} JSON object
-             */
-            NormalAskSetting.prototype.toJSON = function toJSON() {
-                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-            };
-    
-            return NormalAskSetting;
-        })();
-    
         main.NormalBidDelete = (function() {
     
             /**
@@ -6678,292 +7074,6 @@
             };
     
             return NormalBidDelete;
-        })();
-    
-        main.NormalBidHistory = (function() {
-    
-            /**
-             * Properties of a NormalBidHistory.
-             * @memberof main
-             * @interface INormalBidHistory
-             * @property {string|null} [id] NormalBidHistory id
-             * @property {string|null} [account_id] NormalBidHistory account_id
-             * @property {string|null} [price_ujpy] NormalBidHistory price_ujpy
-             * @property {string|null} [amount_uupx] NormalBidHistory amount_uupx
-             * @property {boolean|null} [is_accepted] NormalBidHistory is_accepted
-             * @property {string|null} [contract_price_ujpy] NormalBidHistory contract_price_ujpy
-             */
-    
-            /**
-             * Constructs a new NormalBidHistory.
-             * @memberof main
-             * @classdesc Represents a NormalBidHistory.
-             * @implements INormalBidHistory
-             * @constructor
-             * @param {main.INormalBidHistory=} [properties] Properties to set
-             */
-            function NormalBidHistory(properties) {
-                if (properties)
-                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
-                            this[keys[i]] = properties[keys[i]];
-            }
-    
-            /**
-             * NormalBidHistory id.
-             * @member {string} id
-             * @memberof main.NormalBidHistory
-             * @instance
-             */
-            NormalBidHistory.prototype.id = "";
-    
-            /**
-             * NormalBidHistory account_id.
-             * @member {string} account_id
-             * @memberof main.NormalBidHistory
-             * @instance
-             */
-            NormalBidHistory.prototype.account_id = "";
-    
-            /**
-             * NormalBidHistory price_ujpy.
-             * @member {string} price_ujpy
-             * @memberof main.NormalBidHistory
-             * @instance
-             */
-            NormalBidHistory.prototype.price_ujpy = "";
-    
-            /**
-             * NormalBidHistory amount_uupx.
-             * @member {string} amount_uupx
-             * @memberof main.NormalBidHistory
-             * @instance
-             */
-            NormalBidHistory.prototype.amount_uupx = "";
-    
-            /**
-             * NormalBidHistory is_accepted.
-             * @member {boolean} is_accepted
-             * @memberof main.NormalBidHistory
-             * @instance
-             */
-            NormalBidHistory.prototype.is_accepted = false;
-    
-            /**
-             * NormalBidHistory contract_price_ujpy.
-             * @member {string} contract_price_ujpy
-             * @memberof main.NormalBidHistory
-             * @instance
-             */
-            NormalBidHistory.prototype.contract_price_ujpy = "";
-    
-            /**
-             * Encodes the specified NormalBidHistory message. Does not implicitly {@link main.NormalBidHistory.verify|verify} messages.
-             * @function encode
-             * @memberof main.NormalBidHistory
-             * @static
-             * @param {main.INormalBidHistory} message NormalBidHistory message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            NormalBidHistory.encode = function encode(message, writer) {
-                if (!writer)
-                    writer = $Writer.create();
-                if (message.id != null && Object.hasOwnProperty.call(message, "id"))
-                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
-                if (message.account_id != null && Object.hasOwnProperty.call(message, "account_id"))
-                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.account_id);
-                if (message.price_ujpy != null && Object.hasOwnProperty.call(message, "price_ujpy"))
-                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.price_ujpy);
-                if (message.amount_uupx != null && Object.hasOwnProperty.call(message, "amount_uupx"))
-                    writer.uint32(/* id 4, wireType 2 =*/34).string(message.amount_uupx);
-                if (message.is_accepted != null && Object.hasOwnProperty.call(message, "is_accepted"))
-                    writer.uint32(/* id 5, wireType 0 =*/40).bool(message.is_accepted);
-                if (message.contract_price_ujpy != null && Object.hasOwnProperty.call(message, "contract_price_ujpy"))
-                    writer.uint32(/* id 6, wireType 2 =*/50).string(message.contract_price_ujpy);
-                return writer;
-            };
-    
-            /**
-             * Encodes the specified NormalBidHistory message, length delimited. Does not implicitly {@link main.NormalBidHistory.verify|verify} messages.
-             * @function encodeDelimited
-             * @memberof main.NormalBidHistory
-             * @static
-             * @param {main.INormalBidHistory} message NormalBidHistory message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            NormalBidHistory.encodeDelimited = function encodeDelimited(message, writer) {
-                return this.encode(message, writer).ldelim();
-            };
-    
-            /**
-             * Decodes a NormalBidHistory message from the specified reader or buffer.
-             * @function decode
-             * @memberof main.NormalBidHistory
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @param {number} [length] Message length if known beforehand
-             * @returns {main.NormalBidHistory} NormalBidHistory
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            NormalBidHistory.decode = function decode(reader, length) {
-                if (!(reader instanceof $Reader))
-                    reader = $Reader.create(reader);
-                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.NormalBidHistory();
-                while (reader.pos < end) {
-                    var tag = reader.uint32();
-                    switch (tag >>> 3) {
-                    case 1:
-                        message.id = reader.string();
-                        break;
-                    case 2:
-                        message.account_id = reader.string();
-                        break;
-                    case 3:
-                        message.price_ujpy = reader.string();
-                        break;
-                    case 4:
-                        message.amount_uupx = reader.string();
-                        break;
-                    case 5:
-                        message.is_accepted = reader.bool();
-                        break;
-                    case 6:
-                        message.contract_price_ujpy = reader.string();
-                        break;
-                    default:
-                        reader.skipType(tag & 7);
-                        break;
-                    }
-                }
-                return message;
-            };
-    
-            /**
-             * Decodes a NormalBidHistory message from the specified reader or buffer, length delimited.
-             * @function decodeDelimited
-             * @memberof main.NormalBidHistory
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {main.NormalBidHistory} NormalBidHistory
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            NormalBidHistory.decodeDelimited = function decodeDelimited(reader) {
-                if (!(reader instanceof $Reader))
-                    reader = new $Reader(reader);
-                return this.decode(reader, reader.uint32());
-            };
-    
-            /**
-             * Verifies a NormalBidHistory message.
-             * @function verify
-             * @memberof main.NormalBidHistory
-             * @static
-             * @param {Object.<string,*>} message Plain object to verify
-             * @returns {string|null} `null` if valid, otherwise the reason why it is not
-             */
-            NormalBidHistory.verify = function verify(message) {
-                if (typeof message !== "object" || message === null)
-                    return "object expected";
-                if (message.id != null && message.hasOwnProperty("id"))
-                    if (!$util.isString(message.id))
-                        return "id: string expected";
-                if (message.account_id != null && message.hasOwnProperty("account_id"))
-                    if (!$util.isString(message.account_id))
-                        return "account_id: string expected";
-                if (message.price_ujpy != null && message.hasOwnProperty("price_ujpy"))
-                    if (!$util.isString(message.price_ujpy))
-                        return "price_ujpy: string expected";
-                if (message.amount_uupx != null && message.hasOwnProperty("amount_uupx"))
-                    if (!$util.isString(message.amount_uupx))
-                        return "amount_uupx: string expected";
-                if (message.is_accepted != null && message.hasOwnProperty("is_accepted"))
-                    if (typeof message.is_accepted !== "boolean")
-                        return "is_accepted: boolean expected";
-                if (message.contract_price_ujpy != null && message.hasOwnProperty("contract_price_ujpy"))
-                    if (!$util.isString(message.contract_price_ujpy))
-                        return "contract_price_ujpy: string expected";
-                return null;
-            };
-    
-            /**
-             * Creates a NormalBidHistory message from a plain object. Also converts values to their respective internal types.
-             * @function fromObject
-             * @memberof main.NormalBidHistory
-             * @static
-             * @param {Object.<string,*>} object Plain object
-             * @returns {main.NormalBidHistory} NormalBidHistory
-             */
-            NormalBidHistory.fromObject = function fromObject(object) {
-                if (object instanceof $root.main.NormalBidHistory)
-                    return object;
-                var message = new $root.main.NormalBidHistory();
-                if (object.id != null)
-                    message.id = String(object.id);
-                if (object.account_id != null)
-                    message.account_id = String(object.account_id);
-                if (object.price_ujpy != null)
-                    message.price_ujpy = String(object.price_ujpy);
-                if (object.amount_uupx != null)
-                    message.amount_uupx = String(object.amount_uupx);
-                if (object.is_accepted != null)
-                    message.is_accepted = Boolean(object.is_accepted);
-                if (object.contract_price_ujpy != null)
-                    message.contract_price_ujpy = String(object.contract_price_ujpy);
-                return message;
-            };
-    
-            /**
-             * Creates a plain object from a NormalBidHistory message. Also converts values to other types if specified.
-             * @function toObject
-             * @memberof main.NormalBidHistory
-             * @static
-             * @param {main.NormalBidHistory} message NormalBidHistory
-             * @param {$protobuf.IConversionOptions} [options] Conversion options
-             * @returns {Object.<string,*>} Plain object
-             */
-            NormalBidHistory.toObject = function toObject(message, options) {
-                if (!options)
-                    options = {};
-                var object = {};
-                if (options.defaults) {
-                    object.id = "";
-                    object.account_id = "";
-                    object.price_ujpy = "";
-                    object.amount_uupx = "";
-                    object.is_accepted = false;
-                    object.contract_price_ujpy = "";
-                }
-                if (message.id != null && message.hasOwnProperty("id"))
-                    object.id = message.id;
-                if (message.account_id != null && message.hasOwnProperty("account_id"))
-                    object.account_id = message.account_id;
-                if (message.price_ujpy != null && message.hasOwnProperty("price_ujpy"))
-                    object.price_ujpy = message.price_ujpy;
-                if (message.amount_uupx != null && message.hasOwnProperty("amount_uupx"))
-                    object.amount_uupx = message.amount_uupx;
-                if (message.is_accepted != null && message.hasOwnProperty("is_accepted"))
-                    object.is_accepted = message.is_accepted;
-                if (message.contract_price_ujpy != null && message.hasOwnProperty("contract_price_ujpy"))
-                    object.contract_price_ujpy = message.contract_price_ujpy;
-                return object;
-            };
-    
-            /**
-             * Converts this NormalBidHistory to JSON.
-             * @function toJSON
-             * @memberof main.NormalBidHistory
-             * @instance
-             * @returns {Object.<string,*>} JSON object
-             */
-            NormalBidHistory.prototype.toJSON = function toJSON() {
-                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-            };
-    
-            return NormalBidHistory;
         })();
     
         main.NormalBid = (function() {
@@ -8518,6 +8628,226 @@
             return RenewableAskHistory;
         })();
     
+        main.RenewableAskSetting = (function() {
+    
+            /**
+             * Properties of a RenewableAskSetting.
+             * @memberof main
+             * @interface IRenewableAskSetting
+             * @property {string|null} [id] RenewableAskSetting id
+             * @property {string|null} [price_ujpy] RenewableAskSetting price_ujpy
+             * @property {string|null} [amount_uspx] RenewableAskSetting amount_uspx
+             */
+    
+            /**
+             * Constructs a new RenewableAskSetting.
+             * @memberof main
+             * @classdesc Represents a RenewableAskSetting.
+             * @implements IRenewableAskSetting
+             * @constructor
+             * @param {main.IRenewableAskSetting=} [properties] Properties to set
+             */
+            function RenewableAskSetting(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+    
+            /**
+             * RenewableAskSetting id.
+             * @member {string} id
+             * @memberof main.RenewableAskSetting
+             * @instance
+             */
+            RenewableAskSetting.prototype.id = "";
+    
+            /**
+             * RenewableAskSetting price_ujpy.
+             * @member {string} price_ujpy
+             * @memberof main.RenewableAskSetting
+             * @instance
+             */
+            RenewableAskSetting.prototype.price_ujpy = "";
+    
+            /**
+             * RenewableAskSetting amount_uspx.
+             * @member {string} amount_uspx
+             * @memberof main.RenewableAskSetting
+             * @instance
+             */
+            RenewableAskSetting.prototype.amount_uspx = "";
+    
+            /**
+             * Encodes the specified RenewableAskSetting message. Does not implicitly {@link main.RenewableAskSetting.verify|verify} messages.
+             * @function encode
+             * @memberof main.RenewableAskSetting
+             * @static
+             * @param {main.IRenewableAskSetting} message RenewableAskSetting message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            RenewableAskSetting.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                if (message.price_ujpy != null && Object.hasOwnProperty.call(message, "price_ujpy"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.price_ujpy);
+                if (message.amount_uspx != null && Object.hasOwnProperty.call(message, "amount_uspx"))
+                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.amount_uspx);
+                return writer;
+            };
+    
+            /**
+             * Encodes the specified RenewableAskSetting message, length delimited. Does not implicitly {@link main.RenewableAskSetting.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof main.RenewableAskSetting
+             * @static
+             * @param {main.IRenewableAskSetting} message RenewableAskSetting message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            RenewableAskSetting.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+    
+            /**
+             * Decodes a RenewableAskSetting message from the specified reader or buffer.
+             * @function decode
+             * @memberof main.RenewableAskSetting
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {main.RenewableAskSetting} RenewableAskSetting
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            RenewableAskSetting.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.RenewableAskSetting();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.id = reader.string();
+                        break;
+                    case 2:
+                        message.price_ujpy = reader.string();
+                        break;
+                    case 3:
+                        message.amount_uspx = reader.string();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Decodes a RenewableAskSetting message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof main.RenewableAskSetting
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {main.RenewableAskSetting} RenewableAskSetting
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            RenewableAskSetting.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+    
+            /**
+             * Verifies a RenewableAskSetting message.
+             * @function verify
+             * @memberof main.RenewableAskSetting
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            RenewableAskSetting.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.id != null && message.hasOwnProperty("id"))
+                    if (!$util.isString(message.id))
+                        return "id: string expected";
+                if (message.price_ujpy != null && message.hasOwnProperty("price_ujpy"))
+                    if (!$util.isString(message.price_ujpy))
+                        return "price_ujpy: string expected";
+                if (message.amount_uspx != null && message.hasOwnProperty("amount_uspx"))
+                    if (!$util.isString(message.amount_uspx))
+                        return "amount_uspx: string expected";
+                return null;
+            };
+    
+            /**
+             * Creates a RenewableAskSetting message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof main.RenewableAskSetting
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {main.RenewableAskSetting} RenewableAskSetting
+             */
+            RenewableAskSetting.fromObject = function fromObject(object) {
+                if (object instanceof $root.main.RenewableAskSetting)
+                    return object;
+                var message = new $root.main.RenewableAskSetting();
+                if (object.id != null)
+                    message.id = String(object.id);
+                if (object.price_ujpy != null)
+                    message.price_ujpy = String(object.price_ujpy);
+                if (object.amount_uspx != null)
+                    message.amount_uspx = String(object.amount_uspx);
+                return message;
+            };
+    
+            /**
+             * Creates a plain object from a RenewableAskSetting message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof main.RenewableAskSetting
+             * @static
+             * @param {main.RenewableAskSetting} message RenewableAskSetting
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            RenewableAskSetting.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.id = "";
+                    object.price_ujpy = "";
+                    object.amount_uspx = "";
+                }
+                if (message.id != null && message.hasOwnProperty("id"))
+                    object.id = message.id;
+                if (message.price_ujpy != null && message.hasOwnProperty("price_ujpy"))
+                    object.price_ujpy = message.price_ujpy;
+                if (message.amount_uspx != null && message.hasOwnProperty("amount_uspx"))
+                    object.amount_uspx = message.amount_uspx;
+                return object;
+            };
+    
+            /**
+             * Converts this RenewableAskSetting to JSON.
+             * @function toJSON
+             * @memberof main.RenewableAskSetting
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            RenewableAskSetting.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            return RenewableAskSetting;
+        })();
+    
         /**
          * RenewableAskType enum.
          * @name main.RenewableAskType
@@ -8836,226 +9166,6 @@
             };
     
             return RenewableAsk;
-        })();
-    
-        main.RenewableAskSetting = (function() {
-    
-            /**
-             * Properties of a RenewableAskSetting.
-             * @memberof main
-             * @interface IRenewableAskSetting
-             * @property {string|null} [id] RenewableAskSetting id
-             * @property {string|null} [price_ujpy] RenewableAskSetting price_ujpy
-             * @property {string|null} [amount_uspx] RenewableAskSetting amount_uspx
-             */
-    
-            /**
-             * Constructs a new RenewableAskSetting.
-             * @memberof main
-             * @classdesc Represents a RenewableAskSetting.
-             * @implements IRenewableAskSetting
-             * @constructor
-             * @param {main.IRenewableAskSetting=} [properties] Properties to set
-             */
-            function RenewableAskSetting(properties) {
-                if (properties)
-                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
-                            this[keys[i]] = properties[keys[i]];
-            }
-    
-            /**
-             * RenewableAskSetting id.
-             * @member {string} id
-             * @memberof main.RenewableAskSetting
-             * @instance
-             */
-            RenewableAskSetting.prototype.id = "";
-    
-            /**
-             * RenewableAskSetting price_ujpy.
-             * @member {string} price_ujpy
-             * @memberof main.RenewableAskSetting
-             * @instance
-             */
-            RenewableAskSetting.prototype.price_ujpy = "";
-    
-            /**
-             * RenewableAskSetting amount_uspx.
-             * @member {string} amount_uspx
-             * @memberof main.RenewableAskSetting
-             * @instance
-             */
-            RenewableAskSetting.prototype.amount_uspx = "";
-    
-            /**
-             * Encodes the specified RenewableAskSetting message. Does not implicitly {@link main.RenewableAskSetting.verify|verify} messages.
-             * @function encode
-             * @memberof main.RenewableAskSetting
-             * @static
-             * @param {main.IRenewableAskSetting} message RenewableAskSetting message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            RenewableAskSetting.encode = function encode(message, writer) {
-                if (!writer)
-                    writer = $Writer.create();
-                if (message.id != null && Object.hasOwnProperty.call(message, "id"))
-                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
-                if (message.price_ujpy != null && Object.hasOwnProperty.call(message, "price_ujpy"))
-                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.price_ujpy);
-                if (message.amount_uspx != null && Object.hasOwnProperty.call(message, "amount_uspx"))
-                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.amount_uspx);
-                return writer;
-            };
-    
-            /**
-             * Encodes the specified RenewableAskSetting message, length delimited. Does not implicitly {@link main.RenewableAskSetting.verify|verify} messages.
-             * @function encodeDelimited
-             * @memberof main.RenewableAskSetting
-             * @static
-             * @param {main.IRenewableAskSetting} message RenewableAskSetting message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            RenewableAskSetting.encodeDelimited = function encodeDelimited(message, writer) {
-                return this.encode(message, writer).ldelim();
-            };
-    
-            /**
-             * Decodes a RenewableAskSetting message from the specified reader or buffer.
-             * @function decode
-             * @memberof main.RenewableAskSetting
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @param {number} [length] Message length if known beforehand
-             * @returns {main.RenewableAskSetting} RenewableAskSetting
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            RenewableAskSetting.decode = function decode(reader, length) {
-                if (!(reader instanceof $Reader))
-                    reader = $Reader.create(reader);
-                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.RenewableAskSetting();
-                while (reader.pos < end) {
-                    var tag = reader.uint32();
-                    switch (tag >>> 3) {
-                    case 1:
-                        message.id = reader.string();
-                        break;
-                    case 2:
-                        message.price_ujpy = reader.string();
-                        break;
-                    case 3:
-                        message.amount_uspx = reader.string();
-                        break;
-                    default:
-                        reader.skipType(tag & 7);
-                        break;
-                    }
-                }
-                return message;
-            };
-    
-            /**
-             * Decodes a RenewableAskSetting message from the specified reader or buffer, length delimited.
-             * @function decodeDelimited
-             * @memberof main.RenewableAskSetting
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {main.RenewableAskSetting} RenewableAskSetting
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            RenewableAskSetting.decodeDelimited = function decodeDelimited(reader) {
-                if (!(reader instanceof $Reader))
-                    reader = new $Reader(reader);
-                return this.decode(reader, reader.uint32());
-            };
-    
-            /**
-             * Verifies a RenewableAskSetting message.
-             * @function verify
-             * @memberof main.RenewableAskSetting
-             * @static
-             * @param {Object.<string,*>} message Plain object to verify
-             * @returns {string|null} `null` if valid, otherwise the reason why it is not
-             */
-            RenewableAskSetting.verify = function verify(message) {
-                if (typeof message !== "object" || message === null)
-                    return "object expected";
-                if (message.id != null && message.hasOwnProperty("id"))
-                    if (!$util.isString(message.id))
-                        return "id: string expected";
-                if (message.price_ujpy != null && message.hasOwnProperty("price_ujpy"))
-                    if (!$util.isString(message.price_ujpy))
-                        return "price_ujpy: string expected";
-                if (message.amount_uspx != null && message.hasOwnProperty("amount_uspx"))
-                    if (!$util.isString(message.amount_uspx))
-                        return "amount_uspx: string expected";
-                return null;
-            };
-    
-            /**
-             * Creates a RenewableAskSetting message from a plain object. Also converts values to their respective internal types.
-             * @function fromObject
-             * @memberof main.RenewableAskSetting
-             * @static
-             * @param {Object.<string,*>} object Plain object
-             * @returns {main.RenewableAskSetting} RenewableAskSetting
-             */
-            RenewableAskSetting.fromObject = function fromObject(object) {
-                if (object instanceof $root.main.RenewableAskSetting)
-                    return object;
-                var message = new $root.main.RenewableAskSetting();
-                if (object.id != null)
-                    message.id = String(object.id);
-                if (object.price_ujpy != null)
-                    message.price_ujpy = String(object.price_ujpy);
-                if (object.amount_uspx != null)
-                    message.amount_uspx = String(object.amount_uspx);
-                return message;
-            };
-    
-            /**
-             * Creates a plain object from a RenewableAskSetting message. Also converts values to other types if specified.
-             * @function toObject
-             * @memberof main.RenewableAskSetting
-             * @static
-             * @param {main.RenewableAskSetting} message RenewableAskSetting
-             * @param {$protobuf.IConversionOptions} [options] Conversion options
-             * @returns {Object.<string,*>} Plain object
-             */
-            RenewableAskSetting.toObject = function toObject(message, options) {
-                if (!options)
-                    options = {};
-                var object = {};
-                if (options.defaults) {
-                    object.id = "";
-                    object.price_ujpy = "";
-                    object.amount_uspx = "";
-                }
-                if (message.id != null && message.hasOwnProperty("id"))
-                    object.id = message.id;
-                if (message.price_ujpy != null && message.hasOwnProperty("price_ujpy"))
-                    object.price_ujpy = message.price_ujpy;
-                if (message.amount_uspx != null && message.hasOwnProperty("amount_uspx"))
-                    object.amount_uspx = message.amount_uspx;
-                return object;
-            };
-    
-            /**
-             * Converts this RenewableAskSetting to JSON.
-             * @function toJSON
-             * @memberof main.RenewableAskSetting
-             * @instance
-             * @returns {Object.<string,*>} JSON object
-             */
-            RenewableAskSetting.prototype.toJSON = function toJSON() {
-                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-            };
-    
-            return RenewableAskSetting;
         })();
     
         main.RenewableBidDelete = (function() {

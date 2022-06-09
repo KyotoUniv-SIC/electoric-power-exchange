@@ -4,6 +4,7 @@ import { Timestamp } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import {
   Balance,
+  DailyUsage,
   MonthlyUsage,
   NormalAsk,
   NormalBid,
@@ -45,6 +46,8 @@ export class DashboardComponent implements OnInit {
   uupxAmount$: Observable<number> | undefined;
   uspxAmount$: Observable<number> | undefined;
   insufficiencyAmount$: Observable<number> | undefined;
+  latestUsage$: Observable<DailyUsage> | undefined;
+  withdrawDate$: Observable<Date> | undefined;
   totalUsage$: Observable<number> | undefined;
   totalUsageAverage$: Observable<string> | undefined;
   usageData$: Observable<ChartDataSets[]> | undefined;
@@ -182,6 +185,28 @@ export class DashboardComponent implements OnInit {
     const usageListDailyTotal$ = this.dailyUsageApp.list$();
     const usageListMonthly$ = studentAccount$.pipe(mergeMap((account) => this.monthlyUsageApp.list$(account.id)));
 
+    this.latestUsage$ = usageListDaily$.pipe(
+      map(
+        (usages) =>
+          usages.sort(function (first, second) {
+            // 降順に並び替え
+            if ((first.created_at as Timestamp).toDate() > (second.created_at as Timestamp).toDate()) {
+              return -1;
+            } else if ((first.created_at as Timestamp).toDate() < (second.created_at as Timestamp).toDate()) {
+              return 1;
+            } else {
+              return 0;
+            }
+          })[0],
+      ),
+    );
+    this.withdrawDate$ = this.latestUsage$.pipe(
+      map((usage) => {
+        const createdAt = (usage.created_at as Timestamp).toDate();
+        createdAt.setDate(createdAt.getDate() + 1);
+        return createdAt;
+      }),
+    );
     this.totalUsage$ = usageListDaily$.pipe(
       map((usages) => {
         let count = 0;

@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
-import { renewable_bid } from '.';
-import { renewable_bid_delete } from '../renewable-bid-deletes';
+import { renewable_bid_delete } from '.';
+import { renewable_bid } from '../renewable-bids';
 import { RenewableBidDelete } from '@local/common';
 
 renewable_bid_delete.onCreateHandler.push(async (snapshot, context) => {
