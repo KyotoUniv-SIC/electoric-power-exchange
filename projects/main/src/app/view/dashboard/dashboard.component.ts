@@ -1,6 +1,6 @@
 import { Ranking } from '../../page/dashboard/dashboard.component';
 import { Component, Input, OnInit } from '@angular/core';
-import { Balance, DailyUsage, SinglePriceNormalSettlement, SinglePriceRenewableSettlement } from '@local/common';
+import { DailyUsage, NormalAsk, NormalBid, RenewableAsk, SinglePriceNormalSettlement, SinglePriceRenewableSettlement } from '@local/common';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Label, MultiDataSet, Color } from 'ng2-charts';
 
@@ -60,6 +60,12 @@ export class DashboardComponent implements OnInit {
   renewableChartDates?: string[] | null;
   @Input()
   renewableChartOptions?: ChartOptions | null;
+  @Input()
+  normalOperationBids?: NormalBid[] | null;
+  @Input()
+  normalOperationAsks?: NormalAsk[] | null;
+  @Input()
+  renewableOperationAsks?: RenewableAsk[] | null;
 
   doughnutChartLabels: Label[] = ['Utility Power', 'Solar Power'];
   doughnutChartType: ChartType = 'doughnut';
