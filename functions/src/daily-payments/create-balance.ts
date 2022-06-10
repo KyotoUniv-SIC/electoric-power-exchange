@@ -13,6 +13,10 @@ daily_payment.onCreateHandler.push(async (snapshot, context) => {
   const data = snapshot.data()! as DailyPayment;
   const accountBalance = await balance.listLatest(data.student_account_id);
   const accountPrivate = await account_private.list(data.student_account_id);
+  if (!accountPrivate.length) {
+    console.log(data.student_account_id, 'no XRP address');
+    return;
+  }
   const adminAccount = await admin_account.getByName('admin');
 
   const xrpl = require('xrpl');
@@ -84,7 +88,7 @@ daily_payment.onCreateHandler.push(async (snapshot, context) => {
     new Balance({
       student_account_id: data.student_account_id,
       amount_uupx: (parseInt(accountBalance[0].amount_uupx) - parseInt(data.amount_uupx)).toString(),
-      amount_uspx: (parseInt(accountBalance[0].amount_uspx) - parseInt(data.amount_uupx)).toString(),
+      amount_uspx: (parseInt(accountBalance[0].amount_uspx) - parseInt(data.amount_uspx)).toString(),
     }),
   );
 

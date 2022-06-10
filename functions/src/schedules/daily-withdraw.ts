@@ -8,7 +8,8 @@ import * as functions from 'firebase-functions';
 
 const f = functions.region('asia-northeast1').runWith({ timeoutSeconds: 540 });
 module.exports.dailyWithdraw = f.pubsub
-  .schedule('10,40 * * * *') // .schedule('every 10 minutes')
+  // .schedule('10,40 * * * *')
+  .schedule('every 5 minutes')
   .timeZone('Asia/Tokyo') // Users can choose timezone - default is America/Los_Angeles
   .onRun(async () => {
     const dailyUsages = await daily_usage.listYesterday();
@@ -21,6 +22,7 @@ module.exports.dailyWithdraw = f.pubsub
       } else if (!students.length) {
         console.log(dailyUsage.room_id, 'no student');
       } else {
+        console.log('create DailyPayment', dailyUsage.room_id);
         for (const student of students) {
           const accountBalance = await balance.listLatest(student.id);
           const uupxAmount = parseInt(accountBalance[0].amount_uupx);
