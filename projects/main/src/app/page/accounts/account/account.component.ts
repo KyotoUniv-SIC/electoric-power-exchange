@@ -34,8 +34,8 @@ export class AccountComponent implements OnInit {
     private readonly monthlyPaymentApp: MonthlyPaymentApplicationService,
   ) {
     let firstDay = new Date();
-    firstDay.setDate(1);
-    firstDay.setHours(0, 0, 0, 0);
+    firstDay.setUTCDate(1);
+    firstDay.setUTCHours(0, 0, 0, 0);
     this.user$ = authState(this.auth);
     this.studentAccount$ = this.user$.pipe(mergeMap((user) => this.studentAccApp.getByUid$(user?.uid!)));
     this.balances$ = this.studentAccount$.pipe(mergeMap((account) => (!account ? of(null) : this.balanceApp.getByUid$(account.id))));

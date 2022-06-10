@@ -44,8 +44,8 @@ export class SellComponent implements OnInit {
     this.price = 27;
     this.amount = 1;
     let firstDay = new Date();
-    firstDay.setDate(1);
-    firstDay.setHours(0, 0, 0, 0);
+    firstDay.setUTCDate(1);
+    firstDay.setUTCHours(0, 0, 0, 0);
     const user$ = authState(this.auth);
     this.studentAccount$ = user$.pipe(mergeMap((user) => this.studentAccApp.getByUid$(user?.uid!)));
     const balance$ = this.studentAccount$.pipe(mergeMap((account) => this.availableBalanceApp.list$(account.id)));
