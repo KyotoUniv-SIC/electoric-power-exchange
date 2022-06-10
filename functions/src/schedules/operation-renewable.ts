@@ -27,10 +27,14 @@ module.exports.primaryRenewableAsk = f.pubsub
       const dailyPayments = await daily_payment.listToday(student.id);
       paymentAmount += dailyPayments.reduce((previous, current) => previous + parseInt(current.amount_mwh), 0);
     }
+    console.log('Payment Amount', paymentAmount);
+    console.log('Daily Usage Amount', dailyUsageAmount);
 
     const amount = !setting.amount_uspx
       ? Math.floor((25000000 * paymentAmount) / dailyUsageAmount).toString()
       : Math.floor((parseInt(setting.amount_uspx) * paymentAmount) / dailyUsageAmount).toString();
+
+    console.log('Isuue Amount', amount);
 
     await renewable_ask.create(
       new RenewableAsk({
