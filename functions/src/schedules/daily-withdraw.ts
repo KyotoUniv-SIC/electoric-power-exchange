@@ -8,7 +8,7 @@ import * as functions from 'firebase-functions';
 
 const f = functions.region('asia-northeast1').runWith({ timeoutSeconds: 540 });
 module.exports.renewableContract = f.pubsub
-  .schedule('30 9 * * *') // .schedule('every 10 minutes')
+  .schedule('10,40 * * * *') // .schedule('every 10 minutes')
   .timeZone('Asia/Tokyo') // Users can choose timezone - default is America/Los_Angeles
   .onRun(async () => {
     const dailyUsages = await daily_usage.listYesterday();
