@@ -1,0 +1,25 @@
+<mat-card class="mb-10">
+  <mat-card-title>Usage Ranking</mat-card-title>
+  <mat-card-content>
+    <p>Displays the ranking of electricity usage.</p>
+  </mat-card-content>
+  <mat-list>
+    <mat-card class="flex flex-wrap" style="padding: 0px; border: 2.5px solid black">
+      <mat-list-item class="flex flex-wrap">
+        <span class="break-all text-xl" style="font-size: medium">Your Rank:</span>
+        <span class="flex-auto break-all"></span>
+        <span class="break-all text-xl" style="font-size: x-large">#{{ rank }}</span>
+      </mat-list-item>
+    </mat-card>
+    <mat-divider [inset]="true"></mat-divider>
+    <ng-container *ngFor="let ranking of rankings">
+      <mat-list-item class="flex flex-wrap">
+        <span class="break-all" style="font-size: medium">{{ ranking.name }}:</span>
+        <span class="flex-auto break-all"></span>
+        <span class="break-all" style="font-size: medium">{{ ranking.kwhAmount }}</span>
+        <span class="break-all text-xl" style="margin-left: 10px; font-size: small">kWh</span>
+      </mat-list-item>
+      <mat-divider [inset]="true"></mat-divider>
+    </ng-container>
+  </mat-list>
+</mat-card>
