@@ -9,7 +9,7 @@ import { proto, RenewableAsk, RenewableAskSetting } from '@local/common';
 import * as functions from 'firebase-functions';
 
 const f = functions.region('asia-northeast1').runWith({ timeoutSeconds: 540 });
-module.exports.primaryRenewableAsk = f.pubsub
+module.exports.operationRenewable = f.pubsub
   .schedule('20,50 * * * *') // .schedule('every 10 minutes')
   .timeZone('Asia/Tokyo') // Users can choose timezone - default is America/Los_Angeles
   .onRun(async () => {
