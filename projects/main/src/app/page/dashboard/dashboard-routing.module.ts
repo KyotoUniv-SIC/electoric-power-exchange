@@ -1,3 +1,4 @@
+import { ReferenceComponent } from '../../view/dashboard/reference/reference.component';
 import { ChartsComponent } from './charts/charts.component';
 import { DashboardComponent } from './dashboard.component';
 import { NgModule } from '@angular/core';
@@ -11,6 +12,10 @@ const routes: Routes = [
   {
     path: 'charts',
     component: ChartsComponent,
+  },
+  {
+    path: 'reference',
+    component: ReferenceComponent,
   },
 ];
 
