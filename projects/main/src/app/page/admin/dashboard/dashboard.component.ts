@@ -106,8 +106,8 @@ export class DashboardComponent implements OnInit {
   ) {
     const now = new Date();
     let firstDay = new Date();
-    firstDay.setDate(1);
-    firstDay.setHours(0, 0, 0, 0);
+    firstDay.setUTCDate(1);
+    firstDay.setUTCHours(0, 0, 0, 0);
     const users$ = this.studentsApp.list$();
 
     this.balances$ = users$.pipe(
