@@ -28,14 +28,10 @@
           <span class="break-all">{{ studentAccount?.name }}</span>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
-        <mat-list-item class="flex flex-wrap" routerLink="/accounts/room">
+        <mat-list-item class="flex flex-wrap">
           <span class="break-all">Room ID:</span>
           <span class="flex-auto break-all"></span>
-          <ng-container *ngIf="!studentAccount?.room_id; then emptyRoom; else existRoom"></ng-container>
-          <ng-template #emptyRoom><span class="break-all text-red-600">Click to enter the room number</span></ng-template>
-          <ng-template #existRoom
-            ><span class="break-all">{{ studentAccount?.room_id }}</span></ng-template
-          >
+          <span class="break-all">{{ studentAccount?.room_id }}</span>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
         <!-- <mat-list-item class="flex flex-wrap">
@@ -78,12 +74,12 @@
             <ng-container *ngIf="!user?.emailVerified; then empty; else exist"></ng-container>
             <ng-template #exist>
               <mat-chip-list>
-                <mat-chip color="primary" selected>Verified</mat-chip>
+                <mat-chip color="primary" selected (click)="onVerifiedEmail()">Verified</mat-chip>
               </mat-chip-list>
             </ng-template>
             <ng-template #empty>
               <mat-chip-list>
-                <mat-chip color="warn" selected>Unverified</mat-chip>
+                <mat-chip color="warn" selected (click)="onConfirmEmail()">Unverified</mat-chip>
               </mat-chip-list>
             </ng-template>
           </span>
