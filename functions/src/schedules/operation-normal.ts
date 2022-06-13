@@ -54,9 +54,10 @@ module.exports.operationNormal = f.pubsub
         }),
       );
     } else {
+      console.log('Run Normal Market Operation');
       const deltaAmounts = await delta_amount.list();
       if (!deltaAmounts.length) {
-        console.log('No delta-amount data.');
+        console.log('No deltaAmount data.');
         return;
       }
       const aveAsksDeltaAmount =
@@ -65,6 +66,7 @@ module.exports.operationNormal = f.pubsub
         deltaAmounts.reduce((prev, current) => prev + parseInt(current.bids_amount_utoken), 0) / deltaAmounts.length;
       if (deltaPrice > 0) {
         if (aveAsksDeltaAmount - deltaAsksAmount > deltaBidsAmount - aveBidsDeltaAmount) {
+          console.log('supply shortage');
           // 供給(売り)減→価格上昇
           // 供給(売り)増→価格低下, 基準電力価格で売り注文を入れる。
           if (aveAsksDeltaAmount - deltaAsksAmount > 0) {
@@ -79,6 +81,7 @@ module.exports.operationNormal = f.pubsub
             );
           }
         } else {
+          console.log('excessive demand');
           // 需要(買い)増→価格上昇
           // 供給 売り増→価格低下, 基準電力価格で売り注文を入れる 。
           if (deltaBidsAmount - aveBidsDeltaAmount > 0) {
@@ -95,6 +98,7 @@ module.exports.operationNormal = f.pubsub
         }
       } else {
         if (aveBidsDeltaAmount - deltaBidsAmount > deltaAsksAmount - aveAsksDeltaAmount) {
+          console.log('demand shortage');
           // 需要(買い) 減→価格低下
           // 需要(買い)増 →価格上昇基準電力価格で買い注文を入れる。
           if (aveBidsDeltaAmount - deltaBidsAmount > 0) {
@@ -108,6 +112,7 @@ module.exports.operationNormal = f.pubsub
             );
           }
         } else {
+          console.log('excessive supply');
           // 供給 売り増→価格低下
           // 需要 買い増→価格上昇,基準電力価格で買い注文を入れる。
           if (deltaAsksAmount - aveAsksDeltaAmount > 0) {
