@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { User } from '@firebase/auth';
 import { Balance, MonthlyPayment, StudentAccount } from '@local/common';
+import { AuthApplicationService } from 'projects/shared/src/lib/services/auth/auth.application.service';
 
 @Component({
   selector: 'view-account',
@@ -23,7 +24,16 @@ export class AccountComponent implements OnInit {
   @Input()
   insufficiencyAmount?: number | null;
 
-  constructor() {}
+  constructor(private readonly authApp: AuthApplicationService) {}
 
   ngOnInit(): void {}
+
+  onVerifiedEmail() {
+    alert('メールアドレスは確認済みです');
+  }
+
+  async onConfirmEmail() {
+    await this.authApp.confirmEmail();
+    alert('確認メールを再送信しました');
+  }
 }

@@ -1,6 +1,7 @@
 import { AccountModule } from '../../view/accounts/account/account.module';
 import { AccountsModule } from '../../view/accounts/accounts.module';
 import { CreateModule } from '../../view/accounts/create/create.module';
+import { EmailModule } from '../../view/accounts/email/email.module';
 import { EnterModule } from '../../view/accounts/enter/enter.module';
 import { RoomModule } from '../../view/accounts/room/room.module';
 import { XrplModule } from '../../view/accounts/xrpl/xrpl.module';
@@ -8,6 +9,7 @@ import { AccountComponent } from './account/account.component';
 import { AccountsRoutingModule } from './accounts-routing.module';
 import { AccountsComponent } from './accounts.component';
 import { CreateComponent } from './create/create.component';
+import { EmailComponent } from './email/email.component';
 import { EnterComponent } from './enter/enter.component';
 import { RoomComponent } from './room/room.component';
 import { XrplComponent } from './xrpl/xrpl.component';
@@ -16,7 +18,7 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from 'projects/shared/src/common';
 
 @NgModule({
-  declarations: [AccountComponent, AccountsComponent, CreateComponent, EnterComponent, RoomComponent, XrplComponent],
+  declarations: [AccountComponent, AccountsComponent, CreateComponent, EnterComponent, RoomComponent, EmailComponent, XrplComponent],
   imports: [
     CommonModule,
     SharedModule,
@@ -26,6 +28,7 @@ import { SharedModule } from 'projects/shared/src/common';
     CreateModule,
     EnterModule,
     RoomModule,
+    EmailModule,
     XrplModule,
   ],
 })

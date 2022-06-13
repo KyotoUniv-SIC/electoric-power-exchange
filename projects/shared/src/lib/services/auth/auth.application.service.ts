@@ -185,6 +185,33 @@ export class AuthApplicationService {
     await this.router.navigate(['/accounts/enter']);
   }
 
+  async confirmEmail() {
+    const dialogRef = this.loadingDialog.open('アカウントを確認するためのメールを送信しています');
+    try {
+      await sendEmailVerification(this.auth.currentUser!);
+    } catch (error) {
+      switch ((error as ResetPasswordError).code) {
+        case 'auth/user-not-found':
+          this.snackBar.open('登録されていないユーザーです。', undefined, {
+            duration: 6000,
+          });
+          break;
+        case 'auth/wrong-password':
+          this.snackBar.open('パスワードが間違っています', undefined, {
+            duration: 6000,
+          });
+          break;
+        case 'auth/invalid-email':
+          this.snackBar.open('無効なメールアドレスです。', undefined, {
+            duration: 6000,
+          });
+          break;
+      }
+    } finally {
+      dialogRef.close();
+    }
+  }
+
   async resetPassword(email: string) {
     const dialogRef = this.loadingDialog.open('パスワードをリセットするためのメールを送信しています');
 
