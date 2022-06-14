@@ -92,7 +92,10 @@
   <mat-card class="mb-20">
     <mat-card-title>Balance</mat-card-title>
     <mat-card-content>
-      <p>It shows the balance recognized by EDISON. If the information is different from that of XRP Ledger, please contact support.</p>
+      <p>
+        It shows the balance recognized by EDISON. In some cases, this may differ from the XRP Ledger balance, since it takes into account
+        the withdrawal of insufficient balances.
+      </p>
     </mat-card-content>
     <ng-container *ngIf="balances === null; then loading; else loadedBalance"></ng-container>
     <ng-template #loadedBalance>
