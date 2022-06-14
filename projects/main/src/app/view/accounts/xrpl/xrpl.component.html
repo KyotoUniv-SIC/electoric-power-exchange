@@ -21,6 +21,17 @@
           <span class="break-all">{{ studentAccount?.xrp_address }}</span>
         </mat-list-item>
         <mat-divider [inset]="true"></mat-divider>
+        <mat-list-item class="flex flex-wrap">
+          <span class="break-all">EDISON UPX:</span>
+          <span class="flex-auto break-all"></span>
+          <span class="break-all">{{ balances?.amount_uupx | microString }}</span>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
+        <mat-list-item class="flex flex-wrap">
+          <span class="break-all">EDISON SPX:</span>
+          <span class="flex-auto break-all"></span>
+          <span class="break-all">{{ balances?.amount_uspx | microString }}</span>
+        </mat-list-item>
       </ng-template>
     </mat-nav-list>
   </mat-card>

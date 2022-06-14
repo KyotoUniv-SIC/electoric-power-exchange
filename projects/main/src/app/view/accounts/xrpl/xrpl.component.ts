@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { User } from '@angular/fire/auth';
-import { StudentAccount } from '@local/common';
+import { Balance, StudentAccount } from '@local/common';
 
 @Component({
   selector: 'view-xrpl',
@@ -12,6 +12,8 @@ export class XrplComponent implements OnInit {
   user?: User | null;
   @Input()
   studentAccount?: StudentAccount | null;
+  @Input()
+  balances?: Balance | null;
   @Input()
   xrpLedger?: any | null;
   @Input()
