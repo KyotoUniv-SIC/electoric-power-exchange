@@ -20,7 +20,7 @@ module.exports.operationRenewable = f.pubsub
     const price = !setting.price_ujpy || now.getDate() == 1 ? '27500000' : setting.price_ujpy;
 
     const dailyUsages = await daily_usage.listYesterday();
-    const dailyUsageAmount = dailyUsages.reduce((previous, current) => previous + parseInt(current.amount_kwh_str), 0);
+    const dailyUsageAmount = dailyUsages.reduce((previous, current) => previous + parseInt(current.amount_kwh_str), 0) * 1000000;
     const students = await student_account.list();
     let paymentAmount = 0;
     for (const student of students) {
