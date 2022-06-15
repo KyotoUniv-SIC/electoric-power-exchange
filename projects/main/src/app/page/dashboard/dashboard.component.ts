@@ -22,6 +22,7 @@ import { RenewableAskApplicationService } from 'projects/shared/src/lib/services
 import { SinglePriceNormalSettlementApplicationService } from 'projects/shared/src/lib/services/single-price-normal-settlements/single-price-normal-settlement.application.service';
 import { SinglePriceRenewableSettlementApplicationService } from 'projects/shared/src/lib/services/single-price-renewable-settlements/single-price-renewable-settlement.application.service';
 import { BalanceApplicationService } from 'projects/shared/src/lib/services/student-accounts/balances/balance.application.service';
+import { DailyPaymentApplicationService } from 'projects/shared/src/lib/services/student-accounts/daily-payments/daily-payment.application.service';
 import { InsufficientBalanceApplicationService } from 'projects/shared/src/lib/services/student-accounts/insufficient-balances/insufficient-balance.application.service';
 import { MonthlyUsageApplicationService } from 'projects/shared/src/lib/services/student-accounts/monthly-usages/monthly-usage.application.service';
 import { StudentAccountApplicationService } from 'projects/shared/src/lib/services/student-accounts/student-account.application.service';
@@ -33,6 +34,10 @@ export interface Ranking {
   rank: number;
   name: string;
   kwhAmount: number;
+}
+export interface CO2Ranking {
+  rank: number;
+  uspxPercentage: number;
 }
 
 @Component({
@@ -53,6 +58,7 @@ export class DashboardComponent implements OnInit {
   usageData$: Observable<ChartDataSets[]> | undefined;
   rankings$: Observable<Ranking[]> | undefined;
   rank$: Observable<number | undefined> | undefined;
+  co2Rank$: Observable<CO2Ranking> | undefined;
 
   normalSettlement$: Observable<SinglePriceNormalSettlement> | undefined;
   normalDate$: Observable<Date> | undefined;
@@ -87,6 +93,7 @@ export class DashboardComponent implements OnInit {
     private readonly normalAskApp: NormalAskApplicationService,
     private readonly renewableAskApp: RenewableAskApplicationService,
     private readonly adminApp: AdminAccountApplicationService,
+    private readonly dailyPaymentApp: DailyPaymentApplicationService,
   ) {
     const now = new Date();
     let firstDay = new Date();
@@ -131,6 +138,47 @@ export class DashboardComponent implements OnInit {
     this.rank$ = combineLatest([this.rankings$, studentAccount$]).pipe(
       map(([rankings, account]) => rankings.find((ranking) => ranking.id == account.id)?.rank),
     );
+
+    const co2Rankings$ = users$.pipe(
+      mergeMap((users) =>
+        Promise.all(
+          users.map((user) =>
+            this.dailyPaymentApp.list(user.id).then((payments) => {
+              let mwhCount = 0;
+              let uspxCount = 0;
+              for (const payment of payments) {
+                if ((payment.created_at as Timestamp).toDate() > firstDay) {
+                  mwhCount += parseInt(payment.amount_mwh);
+                  uspxCount += parseInt(payment.amount_uspx);
+                }
+              }
+              return { id: user.id, name: user.name, mwhAmount: mwhCount, uspxAmount: uspxCount };
+            }),
+          ),
+        ),
+      ),
+      map((co2Rankings) => {
+        let count = 0;
+        let tmp = 0;
+        let sortedCo2Ranking = co2Rankings
+          .sort((first, second) => second.uspxAmount / second.mwhAmount - first.uspxAmount / first.mwhAmount)
+          .map((item, index) => {
+            if (item.uspxAmount / item.mwhAmount != tmp) {
+              count = index + 1;
+              tmp = item.uspxAmount / item.mwhAmount;
+            }
+            return { id: item.id, rank: count, name: item.name, mwhAmount: item.mwhAmount, uspxAmount: item.uspxAmount };
+          });
+        return sortedCo2Ranking;
+      }),
+    );
+    this.co2Rank$ = combineLatest([co2Rankings$, studentAccount$]).pipe(
+      map(([rankings, account]) => {
+        const ranking = rankings.find((ranking) => ranking.id == account.id);
+        return { rank: ranking?.rank!, uspxPercentage: ranking?.uspxAmount! / ranking?.mwhAmount! };
+      }),
+    );
+
     const balance$ = studentAccount$.pipe(mergeMap((account) => this.balanceApp.getByUid$(account.id)));
     this.balanceData$ = balance$.pipe(
       map((balance) => [[parseInt(balance.amount_uupx) / 1000000, parseInt(balance.amount_uspx) / 1000000]]),
