@@ -145,7 +145,11 @@ Dashboard に実装した．横軸を日時，縦軸を価格（左）と量（�
 
 これらは管理者ページより介入の有無を含めた設定変更が可能であり，介入の状況についてはユーザーが Dashboard 上で確認することができる．
 
-<img src='upx-operation.png' width=50%>
+- 管理者用設定変更ページ
+  <img src='upx-operation.png' width=50%>
+
+- Dashboard 内介入状況表示
+  <img src='operation.png' width=50%>
 
 ### 5. SPX 購入のインセンティブ付与
 
