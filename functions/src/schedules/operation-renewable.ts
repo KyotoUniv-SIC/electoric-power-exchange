@@ -36,15 +36,18 @@ module.exports.operationRenewable = f.pubsub
 
     console.log('Isuue Amount', amount);
 
-    await renewable_ask.create(
-      new RenewableAsk({
-        account_id: adminAccount[0].id,
-        type: type,
-        price_ujpy: price,
-        amount_uspx: amount,
-        is_deleted: false,
-      }),
-    );
+    if (parseInt(amount) > 0) {
+      await renewable_ask.create(
+        new RenewableAsk({
+          account_id: adminAccount[0].id,
+          type: type,
+          price_ujpy: price,
+          amount_uspx: amount,
+          is_deleted: false,
+        }),
+      );
+    }
+
     await renewable_ask_setting.create(
       new RenewableAskSetting({
         price_ujpy: (parseInt(price) + 100000).toString(),
