@@ -276,7 +276,7 @@
 
     <ng-container *ngIf="normalOperationAsks === null; then loading; else loadedNormalAsk"></ng-container>
     <ng-template #loadedNormalAsk>
-      <ng-container *ngIf="normalOperationAsks">
+      <ng-container *ngIf="normalOperationAsks?.length">
         <mat-list>
           <mat-card class="flex flex-wrap" style="padding: 0px; margin-bottom: 10px; border: 2.5px solid #6c8fb6; border-radius: 10px">
             <ng-container *ngFor="let normalOperationAsk of normalOperationAsks">
