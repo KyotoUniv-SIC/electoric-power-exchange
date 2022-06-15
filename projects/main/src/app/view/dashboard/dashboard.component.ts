@@ -1,4 +1,4 @@
-import { Ranking } from '../../page/dashboard/dashboard.component';
+import { CO2Ranking, Ranking } from '../../page/dashboard/dashboard.component';
 import { Component, Input, OnInit } from '@angular/core';
 import { DailyUsage, NormalAsk, NormalBid, RenewableAsk, SinglePriceNormalSettlement, SinglePriceRenewableSettlement } from '@local/common';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
@@ -41,6 +41,8 @@ export class DashboardComponent implements OnInit {
   rankings?: Ranking[] | null;
   @Input()
   rank?: number | null;
+  @Input()
+  co2Rank?: CO2Ranking | null;
 
   @Input()
   normalSettlement?: SinglePriceNormalSettlement | null;

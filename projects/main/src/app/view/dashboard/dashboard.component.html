@@ -419,22 +419,24 @@
     </div>
 
     <div class="mt-5">
-      <mat-card-title>Usage Ranking</mat-card-title>
+      <mat-card-title>CO2 Ranking</mat-card-title>
       <mat-card-content>
-        <p>Displays the ranking of electricity usage.</p>
+        <p>Displays the ranking of SPX as a percentage of electricity usage.</p>
       </mat-card-content>
       <mat-list>
         <mat-card class="flex flex-wrap" style="padding: 0px; border: 2.5px solid black">
           <mat-list-item class="flex flex-wrap">
             <span class="break-all text-xl" style="font-size: medium">Your Rank:</span>
             <span class="flex-auto break-all"></span>
-            <span class="break-all text-xl" style="font-size: x-large">#{{ rank }}</span>
+            <span class="break-all text-xl" style="font-size: x-large">#{{ co2Rank?.rank }}</span>
+          </mat-list-item>
+          <mat-list-item class="flex flex-wrap">
+            <span class="break-all text-xl" style="font-size: medium">Your Percentage:</span>
+            <span class="flex-auto break-all"></span>
+            <span class="break-all text-xl" style="font-size: x-large">{{ (co2Rank?.uspxPercentage! * 100).toString() | floor }} %</span>
           </mat-list-item>
         </mat-card>
       </mat-list>
-      <div class="mt-10">
-        <button mat-flat-button class="w-full" color="accent" routerLink="/dashboard/rankings">Usage Rankings Detail</button>
-      </div>
     </div>
   </mat-card>
 

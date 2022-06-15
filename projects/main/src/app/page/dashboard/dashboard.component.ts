@@ -118,7 +118,7 @@ export class DashboardComponent implements OnInit {
       ),
       // mapはforEachの機能に加えて新しい配列を返します（forEachは何も返さず、必ずvoidになる）
       map((rankings) => {
-        let count = 0;
+        let count = 1;
         let tmp = 0;
         // ここでランキングをソートして、順位をrankに入れる
         let sortedRanking = rankings
@@ -158,7 +158,7 @@ export class DashboardComponent implements OnInit {
         ),
       ),
       map((co2Rankings) => {
-        let count = 0;
+        let count = 1;
         let tmp = 0;
         let sortedCo2Ranking = co2Rankings
           .sort((first, second) => second.uspxAmount / second.mwhAmount - first.uspxAmount / first.mwhAmount)
