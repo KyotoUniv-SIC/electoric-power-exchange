@@ -111,6 +111,12 @@ export class DashboardComponent implements OnInit {
     { classification: 'Energy Charge', usage: 'Over 300 kWh', unit: '1kWh', charge: 28.7 },
   ];
 
+  lastMonthDisplayedColumns: string[] = ['classification', 'usage', 'average'];
+  lastMonthDataSource = [
+    { classification: 'Electricity', usage: '100kwh', average: '120kwh' },
+    { classification: 'CO2 Emission', usage: '43.2kg', average: '51.3kg' },
+  ];
+
   constructor() {}
 
   ngOnInit(): void {}

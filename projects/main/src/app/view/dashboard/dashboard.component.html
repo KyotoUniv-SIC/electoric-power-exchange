@@ -444,51 +444,88 @@
   <span class="flex-auto"></span>
 </div>
 
-<div>
-  <div class="w-full lg:mx-auto lg:mt-10 lg:flex">
-    <span class="flex-auto"></span>
-    <mat-card class="mb-10 lg:w-1/3">
-      <mat-card-title>This Month's Usage</mat-card-title>
-      <details>
-        <summary>Read More</summary>
-        <mat-card-content>
-          <p>Displays the current month's electricity usage for the rooms associated with your account.</p>
-          <p>It also shows the average usage of all the rooms in the student dormitories.</p>
-        </mat-card-content>
-      </details>
-      <mat-list>
-        <mat-card class="flex flex-wrap" style="padding: 0px; border: 2.5px solid black">
-          <mat-list-item class="flex flex-wrap">
-            <span class="break-all text-xl" style="font-size: medium">Total Usage:</span>
-            <span class="flex-auto break-all"></span>
-            <span class="break-all text-xl" style="font-size: x-large">{{ totalUsage }}</span>
-            <span class="break-all text-xl" style="margin-left: 10px; font-size: small">kWh</span>
-          </mat-list-item>
-        </mat-card>
+<div class="w-full lg:mx-auto lg:mt-10 lg:flex">
+  <span class="flex-auto"></span>
+  <mat-card class="mb-10 lg:w-1/3">
+    <mat-card-title>This Month's Usage</mat-card-title>
+    <details>
+      <summary>Read More</summary>
+      <mat-card-content>
+        <p>Displays the current month's electricity usage for the rooms associated with your account.</p>
+        <p>It also shows the average usage of all the rooms in the student dormitories.</p>
+      </mat-card-content>
+    </details>
+    <mat-list>
+      <mat-card class="flex flex-wrap" style="padding: 0px; border: 2.5px solid black">
         <mat-list-item class="flex flex-wrap">
-          <span class="break-all text-xl" style="font-size: medium">Students' Average:</span>
+          <span class="break-all text-xl" style="font-size: medium">Total Usage:</span>
           <span class="flex-auto break-all"></span>
-          <span class="break-all text-xl" style="font-size: x-large">{{ totalUsageAverage }}</span>
+          <span class="break-all text-xl" style="font-size: x-large">{{ totalUsage }}</span>
           <span class="break-all text-xl" style="margin-left: 10px; font-size: small">kWh</span>
         </mat-list-item>
-        <ng-container *ngIf="warning">
-          <mat-list-item class="flex flex-wrap">
-            <span class="break-all text-xl text-red-600" style="font-size: large"
-              >Warning! You are using more electricity than you did last month!</span
-            >
-          </mat-list-item>
+      </mat-card>
+      <mat-list-item class="flex flex-wrap">
+        <span class="break-all text-xl" style="font-size: medium">Students' Average:</span>
+        <span class="flex-auto break-all"></span>
+        <span class="break-all text-xl" style="font-size: x-large">{{ totalUsageAverage }}</span>
+        <span class="break-all text-xl" style="margin-left: 10px; font-size: small">kWh</span>
+      </mat-list-item>
+      <ng-container *ngIf="true">
+        <mat-list-item class="flex flex-wrap">
+          <span class="break-all text-xl text-red-600" style="font-size: large"
+            >Warning! You are using more electricity than you did last month!</span
+          >
+        </mat-list-item>
+      </ng-container>
+    </mat-list>
+  </mat-card>
+
+  <span class="flex-auto"></span>
+
+  <mat-card class="mb-10 lg:w-1/3">
+    <mat-card-title>Last Month's Usage </mat-card-title>
+    <details>
+      <summary>Read More</summary>
+      <mat-card-content>
+        <p>Displays the last month's electricity usage and CO2 emissions for the rooms associated with your account.</p>
+        <p>It also shows the average usage of all the rooms in the student dormitories.</p>
+      </mat-card-content>
+    </details>
+    <mat-card-content>
+      <table mat-table [dataSource]="lastMonthDataSource" class="w-full mb-5">
+        <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="classification">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">{{ element.classification }}</td>
         </ng-container>
-      </mat-list>
-    </mat-card>
 
-    <span class="flex-auto"></span>
+        <!-- Name Column -->
+        <ng-container matColumnDef="usage">
+          <th mat-header-cell *matHeaderCellDef>Your Amount</th>
+          <td mat-cell *matCellDef="let element">{{ element.usage }}</td>
+        </ng-container>
 
-    <!-- <mat-card class="mb-10">
+        <!-- Weight Column -->
+        <ng-container matColumnDef="average">
+          <th mat-header-cell *matHeaderCellDef>Students' Average.</th>
+          <td mat-cell *matCellDef="let element">{{ element.average }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="lastMonthDisplayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: lastMonthDisplayedColumns"></tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- <mat-card class="mb-10">
     <mat-card-title>Notifications</mat-card-title>
     <button mat-flat-button color="accent">More</button>
   </mat-card> -->
 
-    <mat-card class="mb-10 lg:w-1/3">
+  <!-- <mat-card class="mb-10 lg:w-1/3">
       <mat-card-title>Monthly Electricity Usages</mat-card-title>
       <details>
         <summary>Read More</summary>
@@ -511,8 +548,7 @@
         >
         </canvas>
       </ng-template>
-    </mat-card>
+    </mat-card> -->
 
-    <span class="flex-auto"></span>
-  </div>
+  <span class="flex-auto"></span>
 </div>
