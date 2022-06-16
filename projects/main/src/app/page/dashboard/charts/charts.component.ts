@@ -60,8 +60,6 @@ export class ChartsComponent implements OnInit {
 
     this.normalChartDataSets$ = combineLatest([pricesNormal$, amountsNormal$, referencePriceNormal$]).pipe(
       map(([prices, amounts, references]) => [
-        { data: prices, label: 'Contract Price', fill: 'false', type: 'line', yAxisID: 'y-axis-price' },
-        { data: amounts, label: 'Contract Amount', type: 'bar', yAxisID: 'y-axis-amount' },
         {
           data: references,
           label: 'Reference Price',
@@ -70,6 +68,8 @@ export class ChartsComponent implements OnInit {
           type: 'line',
           yAxisID: 'y-axis-price',
         },
+        { data: prices, label: 'Contract Price', fill: 'false', type: 'line', yAxisID: 'y-axis-price' },
+        { data: amounts, label: 'Contract Amount', type: 'bar', yAxisID: 'y-axis-amount' },
       ]),
     );
 
@@ -83,8 +83,6 @@ export class ChartsComponent implements OnInit {
 
     this.renewableChartDataSets$ = combineLatest([pricesRenewable$, amountsRenewable$, referencePriceRenewable$]).pipe(
       map(([prices, amounts, references]) => [
-        { data: prices, label: 'Contract Price', fill: '', type: 'line', yAxisID: 'y-axis-price' },
-        { data: amounts, label: 'Contract Amount', yAxisID: 'y-axis-amount' },
         {
           data: references,
           label: 'Reference Price',
@@ -93,6 +91,8 @@ export class ChartsComponent implements OnInit {
           type: 'line',
           yAxisID: 'y-axis-price',
         },
+        { data: prices, label: 'Contract Price', fill: '', type: 'line', yAxisID: 'y-axis-price' },
+        { data: amounts, label: 'Contract Amount', yAxisID: 'y-axis-amount' },
       ]),
     );
 
