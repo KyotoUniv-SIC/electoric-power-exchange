@@ -471,6 +471,13 @@
           <span class="break-all text-xl" style="font-size: x-large">{{ totalUsageAverage }}</span>
           <span class="break-all text-xl" style="margin-left: 10px; font-size: small">kWh</span>
         </mat-list-item>
+        <ng-container *ngIf="warning">
+          <mat-list-item class="flex flex-wrap">
+            <span class="break-all text-xl text-red-600" style="font-size: large"
+              >Warning! You are using more electricity than you did last month!</span
+            >
+          </mat-list-item>
+        </ng-container>
       </mat-list>
     </mat-card>
 

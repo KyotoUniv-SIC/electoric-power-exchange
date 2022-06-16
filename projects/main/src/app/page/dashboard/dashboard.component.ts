@@ -78,6 +78,8 @@ export class DashboardComponent implements OnInit {
   normalOperationAsks$: Observable<NormalAsk[]> | undefined;
   renewableOperationAsks$: Observable<RenewableAsk[]> | undefined;
 
+  warning$: Observable<boolean>;
+
   constructor(
     private auth: Auth,
     private route: ActivatedRoute,
@@ -502,6 +504,32 @@ export class DashboardComponent implements OnInit {
     this.normalOperationBids$ = adminAccounts$.pipe(mergeMap((adminAccount) => this.normalBidApp.listUid$(adminAccount[0].id)));
     this.normalOperationAsks$ = adminAccounts$.pipe(mergeMap((adminAccount) => this.normalAskApp.listUid$(adminAccount[0].id)));
     this.renewableOperationAsks$ = adminAccounts$.pipe(mergeMap((adminAccount) => this.renewableAskApp.listUid$(adminAccount[0].id)));
+
+    const latestMonthlyUsage = usageListMonthly$.pipe(
+      map(
+        (usages) =>
+          usages.sort((first, second) => {
+            // 降順に並び替え
+            if ((first.created_at as Timestamp).toDate() > (second.created_at as Timestamp).toDate()) {
+              return -1;
+            } else if ((first.created_at as Timestamp).toDate() < (second.created_at as Timestamp).toDate()) {
+              return 1;
+            } else {
+              return 0;
+            }
+          })[0],
+      ),
+    );
+
+    this.warning$ = combineLatest([this.totalUsage$, latestMonthlyUsage]).pipe(
+      map(([totalUsage, latestMonthlyUsage]) => {
+        if (totalUsage > Number(latestMonthlyUsage.amount_mwh)) {
+          return true;
+        } else {
+          return false;
+        }
+      }),
+    );
   }
 
   ngOnInit(): void {}

@@ -76,6 +76,9 @@ export class DashboardComponent implements OnInit {
   @Input()
   renewableOperationAsks?: RenewableAsk[] | null;
 
+  @Input()
+  warning?: boolean | null;
+
   doughnutChartLabels: Label[] = ['UPX', 'SPX'];
   doughnutChartType: ChartType = 'doughnut';
   doughnutColors: Color[] = [
