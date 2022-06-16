@@ -470,7 +470,7 @@
         <span class="break-all text-xl" style="font-size: x-large">{{ totalUsageAverage }}</span>
         <span class="break-all text-xl" style="margin-left: 10px; font-size: small">kWh</span>
       </mat-list-item>
-      <ng-container *ngIf="true">
+      <ng-container *ngIf="warning">
         <mat-list-item class="flex flex-wrap">
           <span class="break-all text-xl text-red-600" style="font-size: large"
             >Warning! You are using more electricity than you did last month!</span
@@ -524,31 +524,6 @@
     <mat-card-title>Notifications</mat-card-title>
     <button mat-flat-button color="accent">More</button>
   </mat-card> -->
-
-  <!-- <mat-card class="mb-10 lg:w-1/3">
-      <mat-card-title>Monthly Electricity Usages</mat-card-title>
-      <details>
-        <summary>Read More</summary>
-        <mat-card-content>
-          <p>Displays monthly data on electricity usage for this year and last year.</p>
-        </mat-card-content>
-      </details>
-      <ng-container *ngIf="usageData === null; then loading; else loadedUsage"></ng-container>
-      <ng-template #loadedUsage>
-        <p>kWh</p>
-        <canvas
-          baseChart
-          [datasets]="usageData!"
-          [labels]="barChartLabels"
-          [options]="barChartOptions"
-          [plugins]="barChartPlugins"
-          [legend]="barChartLegend"
-          [chartType]="barChartType"
-          [colors]="barColors"
-        >
-        </canvas>
-      </ng-template>
-    </mat-card> -->
 
   <span class="flex-auto"></span>
 </div>
