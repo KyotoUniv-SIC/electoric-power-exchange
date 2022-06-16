@@ -342,9 +342,17 @@ export class DashboardComponent implements OnInit {
           borderDash: [5, 3], //点線
           fill: 'false', //塗りつぶし
           type: 'line',
+          tension: 0,
           yAxisID: 'y-axis-price',
         },
-        { data: prices, label: 'Contract Price', fill: 'false', type: 'line', yAxisID: 'y-axis-price' },
+        {
+          data: prices,
+          label: 'Contract Price',
+          fill: 'false',
+          type: 'line',
+          tension: 0,
+          yAxisID: 'y-axis-price',
+        },
         { data: amounts, label: 'Contract Amount', type: 'bar', yAxisID: 'y-axis-amount' },
       ]),
     );
@@ -365,9 +373,10 @@ export class DashboardComponent implements OnInit {
           borderDash: [5, 3],
           fill: 'false',
           type: 'line',
+          tension: 0,
           yAxisID: 'y-axis-price',
         },
-        { data: prices, label: 'Contract Price', fill: '', type: 'line', yAxisID: 'y-axis-price' },
+        { data: prices, label: 'Contract Price', fill: '', type: 'line', tension: 0, yAxisID: 'y-axis-price' },
         { data: amounts, label: 'Contract Amount', yAxisID: 'y-axis-amount' },
       ]),
     );
