@@ -8,8 +8,8 @@ import * as functions from 'firebase-functions';
 
 const f = functions.region('asia-northeast1').runWith({ timeoutSeconds: 540 });
 module.exports.dailyWithdraw = f.pubsub
-  .schedule('10,40 * * * *')
-  // .schedule('every 5 minutes')
+  .schedule('30 9 * * *')
+  // .schedule('10,40 * * * *')
   .timeZone('Asia/Tokyo') // Users can choose timezone - default is America/Los_Angeles
   .onRun(async () => {
     const dailyUsages = await daily_usage.listYesterday();

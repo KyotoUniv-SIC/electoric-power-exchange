@@ -12,7 +12,7 @@ import * as functions from 'firebase-functions';
 
 const f = functions.region('asia-northeast1').runWith({ timeoutSeconds: 540 });
 module.exports.operationNormal = f.pubsub
-  .schedule('20,50 * * * *') // .schedule('every 10 minutes')
+  .schedule('0 10 * * *') // .schedule('5,35 * * * *')
   .timeZone('Asia/Tokyo') // Users can choose timezone - default is America/Los_Angeles
   .onRun(async () => {
     // しきい値
