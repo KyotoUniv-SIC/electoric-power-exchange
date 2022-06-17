@@ -11,10 +11,10 @@ database EnergyServer  as db2  #00FF00
 autonumber 1.1
 sys --> db1 : Sequest last month usage data
 db1 --> sys : Send last month usage data
-sys --> st1 : Display last month usage & payment data
+sys -> st1 : Display last month usage & payment data
 group Tx [ex: Alice]
-sys --> xl : Request transaction(Admin to Alice)\n Amount:last month's usage
-xl --> xl : Add UPX token(Alice)\nRemove UPX token(Admin)
+sys -->> xl : Request transaction(Admin to Alice)\n Amount:last month's usage
+xl -->> xl : Add UPX token(Alice)\nRemove UPX token(Admin)
 sys --> db1 : Report transaction\n(price & amount)
 end
 
@@ -24,15 +24,15 @@ group Reflection of EnergyServer on Databasse
 db2 --> db1 : Send student usage & solar power generation data
 sys --> db1 : Request student usage data
 sys <-- db1 : Send student usage data
-sys --> st1 : Show next payment information
+sys -> st1 : Show next payment information
 end
 autonumber inc A
 group Daily Payment
 sys --> db1 : Request yesterday's student usage data
 sys <-- db1 : Send yesterday's student usage data
 group Tx [ex: Alice]
-sys --> xl : Request transaction(Alice to Admin)\n Amount:yesterday's usage
-xl --> xl : Add UPX & SPinformationX token(Admin)\nRemove UPX & SPX token(Alice)
+sys -->> xl : Request transaction(Alice to Admin)\n Amount:yesterday's usage
+xl -->> xl : Add UPX & SPinformationX token(Admin)\nRemove UPX & SPX token(Alice)
 sys --> db1 : Report transaction\n(price & amount)
 end
 end
@@ -40,42 +40,43 @@ autonumber inc A
 group Market Operation
 sys --> db1 : Request past market data
 sys <-- db1 : Send past market data
-sys --> sys : Calculate optimal market intervention
-sys --> db1 : Send UPX Bid or Ask order (price & amount)
+sys -> sys : Calculate optimal market intervention
+sys -> db1 : Send UPX Bid or Ask order (price & amount)
 sys --> db1 : Request solar power generation data
 sys <-- db1 : Send solar power generation data
-sys --> db1 : Request SPX Ask order (price & amount)
-sys --> st1 : Show market operation information
+sys -> db1 : Send SPX Ask order (price & amount)
+sys -> st1 : Show market operation information
 end
 autonumber inc A
 group Student Order Issuance
-st1 --> db1 : Send Bid order\n(price & amount)
-st2 --> db1 : Send Ask order\n(price & amount)
+st1 -> db1 : Send Bid order\n(price & amount)
+st2 -> db1 : Send Ask order\n(price & amount)
 end
 
 group Single Price Auction
 sys --> db1 : Request Bid/Ask order data
-sys --> sys : Calculate contract price & amount
+sys <-- db1 : Send Bid/Ask order data
+sys -> sys : Calculate contract price & amount
 group Tx [ex: Bob to Alice]
-sys --> xl : Request transaction\n(Bob to Alice)\nAmount:Contract Amount
-xl --> xl : Add XRP token(Alice)\nRemove XRP token(Bob)
+sys -->> xl : Request transaction\n(Bob to Alice)\nAmount:Contract Amount
+xl -->> xl : Add XRP token(Alice)\nRemove XRP token(Bob)
 sys --> db1 : Report transaction\n(price & amount)
 end
 end
 
 == End of the Month ==
 autonumber inc A
-sys --> xl : Request student token balance data
-xl --> sys : Send student token balance data
+sys -->> xl : Request student token balance data
+xl -->> sys : Send student token balance data
 sys --> db1 : Request student payment data \n& past order data
 sys <-- db1 : Send student payment data \n& past order data
-sys --> st1 : Buy Alice's long token
-sys --> st2 : Sell to Bob short token
-sys --> sys : Calculate student usage & payment data
+sys -> st1 : Buy Alice's long token
+sys -> st2 : Sell to Bob short token
+sys -> sys : Calculate student usage & payment data
 group Tx [ex: Alice]
-sys --> xl : Request transaction(Alice to Admin)\n Amount:All balance
-xl --> xl : Add UPX & SPX token(Admin)\nRemove UPX & SPX token(Alice)
+sys -->> xl : Request transaction(Alice to Admin)\n Amount:All balance
+xl -->> xl : Add UPX & SPX token(Admin)\nRemove UPX & SPX token(Alice)
 sys --> db1 : Report transaction\n(price & amount)
 end
-sys --> st1 : Show monthly usage & payment information
+sys -> st1 : Show monthly usage & payment information
 @enduml
