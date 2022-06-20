@@ -1,4 +1,4 @@
-import { Ranking } from '../../page/dashboard/dashboard.component';
+import { CO2Ranking, LastMonthData, LastMonthDataSource, Ranking } from '../../page/dashboard/dashboard.component';
 import { Component, Input, OnInit } from '@angular/core';
 import { DailyUsage, NormalAsk, NormalBid, RenewableAsk, SinglePriceNormalSettlement, SinglePriceRenewableSettlement } from '@local/common';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
@@ -41,6 +41,8 @@ export class DashboardComponent implements OnInit {
   rankings?: Ranking[] | null;
   @Input()
   rank?: number | null;
+  @Input()
+  co2Rank?: CO2Ranking | null;
 
   @Input()
   normalSettlement?: SinglePriceNormalSettlement | null;
@@ -74,6 +76,12 @@ export class DashboardComponent implements OnInit {
   @Input()
   renewableOperationAsks?: RenewableAsk[] | null;
 
+  @Input()
+  warning?: boolean | null;
+
+  @Input()
+  lastMonthDataSource?: LastMonthDataSource[] | null;
+
   doughnutChartLabels: Label[] = ['UPX', 'SPX'];
   doughnutChartType: ChartType = 'doughnut';
   doughnutColors: Color[] = [
@@ -105,6 +113,8 @@ export class DashboardComponent implements OnInit {
     { classification: 'Energy Charge', usage: 'Over 120 kWh up to 300 kWh', unit: '1kWh', charge: 25.71 },
     { classification: 'Energy Charge', usage: 'Over 300 kWh', unit: '1kWh', charge: 28.7 },
   ];
+
+  lastMonthDisplayedColumns: string[] = ['classification', 'yourAccount', 'average'];
 
   constructor() {}
 

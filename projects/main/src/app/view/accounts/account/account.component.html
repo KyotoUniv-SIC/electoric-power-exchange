@@ -152,4 +152,29 @@
       </mat-list>
     </ng-template>
   </mat-card>
+
+  <mat-card class="mb-10">
+    <mat-card-title>Monthly Electricity Usages</mat-card-title>
+    <details>
+      <summary>Read More</summary>
+      <mat-card-content>
+        <p>Displays monthly data on electricity usage for this year and last year.</p>
+      </mat-card-content>
+    </details>
+    <ng-container *ngIf="usageData === null; then loading; else loadedUsage"></ng-container>
+    <ng-template #loadedUsage>
+      <p>kWh</p>
+      <canvas
+        baseChart
+        [datasets]="usageData!"
+        [labels]="barChartLabels"
+        [options]="barChartOptions"
+        [plugins]="barChartPlugins"
+        [legend]="barChartLegend"
+        [chartType]="barChartType"
+        [colors]="barColors"
+      >
+      </canvas>
+    </ng-template>
+  </mat-card>
 </div>
