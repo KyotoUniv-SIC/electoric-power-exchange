@@ -1,0 +1,32 @@
+<div class="w-full lg:mx-auto lg:w-1/3 lg:mt-10">
+  <h2>Email Setting</h2>
+  <mat-card class="mb-10">
+    <mat-card-title>Current Email Address</mat-card-title>
+    <mat-list>
+      <mat-list-item class="flex flex-wrap">
+        <span class="break-all">{{ user?.email }}</span>
+      </mat-list-item>
+    </mat-list>
+  </mat-card>
+
+  <form (submit)="onSubmit(mailRef.value)">
+    <mat-card class="mb-10">
+      <mat-card-title>New Email Address</mat-card-title>
+      <mat-form-field class="w-full">
+        <mat-label>Input Address</mat-label>
+        <input
+          #mailRef
+          ngModel
+          name="mail"
+          matInput
+          required
+          placeholder="Input value"
+          pattern="^[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$"
+        />
+      </mat-form-field>
+      <div class="text-center mt-10">
+        <button mat-flat-button color="primary">Submit</button>
+      </div>
+    </mat-card>
+  </form>
+</div>

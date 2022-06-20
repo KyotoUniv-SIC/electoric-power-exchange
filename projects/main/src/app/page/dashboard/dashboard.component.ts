@@ -114,8 +114,8 @@ export class DashboardComponent implements OnInit {
   ) {
     const now = new Date();
     let firstDay = new Date();
-    firstDay.setDate(1);
-    firstDay.setHours(0, 0, 0, 0);
+    firstDay.setUTCDate(1);
+    firstDay.setUTCHours(0, 0, 0, 0);
     const currentUser$ = authState(this.auth);
     const studentAccount$ = currentUser$.pipe(mergeMap((user) => this.studentAccApp.getByUid$(user?.uid!)));
     const users$ = this.studentsApp.list$();

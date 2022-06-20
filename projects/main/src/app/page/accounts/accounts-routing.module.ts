@@ -2,6 +2,7 @@ import { AuthGuard } from '../../guard/auth.guard';
 import { AccountComponent } from './account/account.component';
 import { AccountsComponent } from './accounts.component';
 import { CreateComponent } from './create/create.component';
+import { EmailComponent } from './email/email.component';
 import { EnterComponent } from './enter/enter.component';
 import { RoomComponent } from './room/room.component';
 import { XrplComponent } from './xrpl/xrpl.component';
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'enter', component: EnterComponent },
   { path: 'account', component: AccountComponent },
   { path: 'room', component: RoomComponent },
+  { path: 'email', component: EmailComponent },
   { path: 'xrpl', component: XrplComponent },
 ];
 

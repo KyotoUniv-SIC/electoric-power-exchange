@@ -1,8 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { User } from '@firebase/auth';
-import { Balance, MonthlyPayment, StudentAccount } from '@local/common';
+import { Balance, MonthlyPayment, StudentAccount } from '@local/common'
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
+import { AuthApplicationService } from 'projects/shared/src/lib/services/auth/auth.application.service';
 
 @Component({
   selector: 'view-account',
@@ -43,7 +44,16 @@ export class AccountComponent implements OnInit {
     },
   ];
 
-  constructor() {}
+  constructor(private readonly authApp: AuthApplicationService) {}
 
   ngOnInit(): void {}
+
+  onVerifiedEmail() {
+    alert('メールアドレスは確認済みです');
+  }
+
+  async onConfirmEmail() {
+    await this.authApp.confirmEmail();
+    alert('確認メールを再送信しました');
+  }
 }

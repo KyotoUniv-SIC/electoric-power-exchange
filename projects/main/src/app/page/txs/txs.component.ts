@@ -69,8 +69,8 @@ export class TxsComponent implements OnInit {
     const renewableAsks$ = this.studentAccount$.pipe(mergeMap((account) => this.renewableAskApp.listUid$(account.id)));
     const now = new Date();
     let firstDay = new Date();
-    firstDay.setDate(1);
-    firstDay.setHours(0, 0, 0, 0);
+    firstDay.setUTCDate(1);
+    firstDay.setUTCHours(0, 0, 0, 0);
 
     this.orders$ = combineLatest([normalBids$, normalAsks$, renewableBids$, renewableAsks$]).pipe(
       map(([normalBids, normalAsks, renewableBids, renewableAsks]) => {

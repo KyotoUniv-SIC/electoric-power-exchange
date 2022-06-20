@@ -71,17 +71,17 @@ export class CreateComponent implements OnInit {
     { value: '102', viewValue: '102号室' },
     { value: '103', viewValue: '103号室' },
     { value: '104', viewValue: '104号室' },
-    { value: '201', viewValue: '301号室' },
-    { value: '202', viewValue: '302号室' },
-    { value: '203', viewValue: '303号室' },
-    { value: '204', viewValue: '304号室' },
-    { value: '205', viewValue: '305号室' },
-    { value: '206', viewValue: '306号室' },
-    { value: '207', viewValue: '307号室' },
-    { value: '208', viewValue: '308号室' },
-    { value: '209', viewValue: '309号室' },
-    { value: '210', viewValue: '310号室' },
-    { value: '211', viewValue: '311号室' },
+    { value: '201', viewValue: '201号室' },
+    { value: '202', viewValue: '202号室' },
+    { value: '203', viewValue: '203号室' },
+    { value: '204', viewValue: '204号室' },
+    { value: '205', viewValue: '205号室' },
+    { value: '206', viewValue: '206号室' },
+    { value: '207', viewValue: '207号室' },
+    { value: '208', viewValue: '208号室' },
+    { value: '209', viewValue: '209号室' },
+    { value: '210', viewValue: '210号室' },
+    { value: '211', viewValue: '211号室' },
     { value: '301', viewValue: '301号室' },
     { value: '302', viewValue: '302号室' },
     { value: '303', viewValue: '303号室' },
@@ -130,6 +130,10 @@ export class CreateComponent implements OnInit {
 
   onSubmit(name: string, mail: string, password: string, passwordConfirmation: string, building: string, room: string) {
     this.isPasswordVisible = false;
+    if (!building || !room) {
+      alert('部屋を正しく選択してください');
+      return;
+    }
     if (password !== passwordConfirmation) {
       alert('パスワードが異なります。');
       return;
