@@ -1,4 +1,4 @@
-import { CO2Ranking, Ranking } from '../../page/dashboard/dashboard.component';
+import { CO2Ranking, LastMonthData, LastMonthDataSource, Ranking } from '../../page/dashboard/dashboard.component';
 import { Component, Input, OnInit } from '@angular/core';
 import { DailyUsage, NormalAsk, NormalBid, RenewableAsk, SinglePriceNormalSettlement, SinglePriceRenewableSettlement } from '@local/common';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
@@ -79,6 +79,9 @@ export class DashboardComponent implements OnInit {
   @Input()
   warning?: boolean | null;
 
+  @Input()
+  lastMonthDataSource?: LastMonthDataSource[] | null;
+
   doughnutChartLabels: Label[] = ['UPX', 'SPX'];
   doughnutChartType: ChartType = 'doughnut';
   doughnutColors: Color[] = [
@@ -111,11 +114,7 @@ export class DashboardComponent implements OnInit {
     { classification: 'Energy Charge', usage: 'Over 300 kWh', unit: '1kWh', charge: 28.7 },
   ];
 
-  lastMonthDisplayedColumns: string[] = ['classification', 'usage', 'average'];
-  lastMonthDataSource = [
-    { classification: 'Electricity', usage: '100kwh', average: '120kwh' },
-    { classification: 'CO2 Emission', usage: '43.2kg', average: '51.3kg' },
-  ];
+  lastMonthDisplayedColumns: string[] = ['classification', 'yourAccount', 'average'];
 
   constructor() {}
 

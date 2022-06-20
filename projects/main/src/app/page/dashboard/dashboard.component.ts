@@ -1,3 +1,4 @@
+import { DataSource } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
 import { Auth, authState } from '@angular/fire/auth';
 import { Timestamp } from '@angular/fire/firestore';
@@ -39,6 +40,15 @@ export interface CO2Ranking {
   rank: number;
   uspxPercentage: number;
 }
+export interface LastMonthData {
+  usage: number;
+  emission: number;
+}
+export interface LastMonthDataSource {
+  classification: string;
+  yourAccount: number | undefined;
+  average: number;
+}
 
 @Component({
   selector: 'app-dashboard',
@@ -79,6 +89,11 @@ export class DashboardComponent implements OnInit {
   renewableOperationAsks$: Observable<RenewableAsk[]> | undefined;
 
   warning$: Observable<boolean>;
+
+  lastMonthAveData$: Observable<LastMonthData> | undefined;
+  lastMonthData$: Observable<LastMonthData | undefined> | undefined;
+
+  lastMonthDataSource$: Observable<LastMonthDataSource[]> | undefined;
 
   constructor(
     private auth: Auth,
@@ -529,6 +544,57 @@ export class DashboardComponent implements OnInit {
           return false;
         }
       }),
+    );
+
+    const lastMonthPayments$ = users$.pipe(
+      mergeMap(async (users) => {
+        let payments = [];
+        for (const user of users) {
+          const dailyPayments = await this.dailyPaymentApp.list(user.id);
+          const usageSum = dailyPayments.reduce((prev, current) => prev + parseInt(current.amount_mwh), 0);
+          const uspxSum = dailyPayments.reduce((prev, current) => prev + parseInt(current.amount_uspx), 0);
+          payments.push({ id: user.id, mwhUsage: usageSum, uspxAmount: uspxSum });
+        }
+        return payments;
+      }),
+    );
+
+    const emissionRate = 540; //1kwhあたりのCO2排出量
+
+    this.lastMonthAveData$ = lastMonthPayments$.pipe(
+      map((payments) => {
+        const usageAverage = payments.reduce((prev, current) => prev + current.mwhUsage, 0) / payments.length;
+        const emissionAverage =
+          (payments.reduce((prev, current) => prev + current.mwhUsage - current.uspxAmount, 0) / payments.length) * emissionRate;
+
+        return { usage: usageAverage, emission: emissionAverage };
+      }),
+    );
+
+    this.lastMonthData$ = combineLatest([studentAccount$, lastMonthPayments$]).pipe(
+      map(([studentAccount, payments]) => {
+        const accountPayment = payments.find((payment) => (payment.id = studentAccount.id));
+        if (!accountPayment) {
+          return undefined;
+        }
+        const emission = (accountPayment?.mwhUsage - accountPayment?.uspxAmount) * emissionRate;
+        return { usage: accountPayment.mwhUsage, emission };
+      }),
+    );
+
+    this.lastMonthDataSource$ = combineLatest([this.lastMonthData$, this.lastMonthAveData$]).pipe(
+      map(([data, aveData]) => [
+        {
+          classification: 'Electricity (kWh)',
+          yourAccount: Math.floor(data?.usage! / 1000000),
+          average: Math.floor(aveData.usage! / 1000000),
+        },
+        {
+          classification: 'CO2 Emission (kg)',
+          yourAccount: Math.floor(data?.emission! / 1000000),
+          average: Math.floor(aveData.emission! / 1000000),
+        },
+      ]),
     );
   }
 
