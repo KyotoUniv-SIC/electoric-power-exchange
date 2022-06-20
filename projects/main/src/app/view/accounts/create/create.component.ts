@@ -130,6 +130,10 @@ export class CreateComponent implements OnInit {
 
   onSubmit(name: string, mail: string, password: string, passwordConfirmation: string, building: string, room: string) {
     this.isPasswordVisible = false;
+    if (!building || !room) {
+      alert('部屋を正しく選択してください');
+      return;
+    }
     if (password !== passwordConfirmation) {
       alert('パスワードが異なります。');
       return;
