@@ -586,13 +586,13 @@ export class DashboardComponent implements OnInit {
       map(([data, aveData]) => [
         {
           classification: 'Electricity (kWh)',
-          yourAccount: Math.floor(data?.usage! / 1000000),
-          average: Math.floor(aveData.usage! / 1000000),
+          yourAccount: Math.floor((data?.usage! / 1000000) * 10) / 10, //小数点第2位切り捨て
+          average: Math.floor((aveData.usage! / 1000000) * 10) / 10,
         },
         {
           classification: 'CO2 Emission (kg)',
-          yourAccount: Math.floor(data?.emission! / 1000000),
-          average: Math.floor(aveData.emission! / 1000000),
+          yourAccount: Math.floor((data?.emission! / (1000 * 100000)) * 10) / 10, //gをkgにしたのち小数点第2位切り捨て
+          average: Math.floor((aveData.emission! / (1000 * 1000000)) * 10) / 10,
         },
       ]),
     );
