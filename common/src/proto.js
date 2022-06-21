@@ -4942,6 +4942,10 @@ export const main = $root.main = (() => {
          * @property {string|null} [year] MonthlyPayment year
          * @property {string|null} [month] MonthlyPayment month
          * @property {string|null} [amount_ujpy] MonthlyPayment amount_ujpy
+         * @property {string|null} [amount_primary_ujpy] MonthlyPayment amount_primary_ujpy
+         * @property {string|null} [amount_adjust_ujpy] MonthlyPayment amount_adjust_ujpy
+         * @property {string|null} [amount_market_ujpy] MonthlyPayment amount_market_ujpy
+         * @property {string|null} [amount_reward_ujpy] MonthlyPayment amount_reward_ujpy
          */
 
         /**
@@ -5000,6 +5004,38 @@ export const main = $root.main = (() => {
         MonthlyPayment.prototype.amount_ujpy = "";
 
         /**
+         * MonthlyPayment amount_primary_ujpy.
+         * @member {string} amount_primary_ujpy
+         * @memberof main.MonthlyPayment
+         * @instance
+         */
+        MonthlyPayment.prototype.amount_primary_ujpy = "";
+
+        /**
+         * MonthlyPayment amount_adjust_ujpy.
+         * @member {string} amount_adjust_ujpy
+         * @memberof main.MonthlyPayment
+         * @instance
+         */
+        MonthlyPayment.prototype.amount_adjust_ujpy = "";
+
+        /**
+         * MonthlyPayment amount_market_ujpy.
+         * @member {string} amount_market_ujpy
+         * @memberof main.MonthlyPayment
+         * @instance
+         */
+        MonthlyPayment.prototype.amount_market_ujpy = "";
+
+        /**
+         * MonthlyPayment amount_reward_ujpy.
+         * @member {string} amount_reward_ujpy
+         * @memberof main.MonthlyPayment
+         * @instance
+         */
+        MonthlyPayment.prototype.amount_reward_ujpy = "";
+
+        /**
          * Encodes the specified MonthlyPayment message. Does not implicitly {@link main.MonthlyPayment.verify|verify} messages.
          * @function encode
          * @memberof main.MonthlyPayment
@@ -5021,6 +5057,14 @@ export const main = $root.main = (() => {
                 writer.uint32(/* id 4, wireType 2 =*/34).string(message.month);
             if (message.amount_ujpy != null && Object.hasOwnProperty.call(message, "amount_ujpy"))
                 writer.uint32(/* id 5, wireType 2 =*/42).string(message.amount_ujpy);
+            if (message.amount_primary_ujpy != null && Object.hasOwnProperty.call(message, "amount_primary_ujpy"))
+                writer.uint32(/* id 6, wireType 2 =*/50).string(message.amount_primary_ujpy);
+            if (message.amount_adjust_ujpy != null && Object.hasOwnProperty.call(message, "amount_adjust_ujpy"))
+                writer.uint32(/* id 7, wireType 2 =*/58).string(message.amount_adjust_ujpy);
+            if (message.amount_market_ujpy != null && Object.hasOwnProperty.call(message, "amount_market_ujpy"))
+                writer.uint32(/* id 8, wireType 2 =*/66).string(message.amount_market_ujpy);
+            if (message.amount_reward_ujpy != null && Object.hasOwnProperty.call(message, "amount_reward_ujpy"))
+                writer.uint32(/* id 9, wireType 2 =*/74).string(message.amount_reward_ujpy);
             return writer;
         };
 
@@ -5069,6 +5113,18 @@ export const main = $root.main = (() => {
                     break;
                 case 5:
                     message.amount_ujpy = reader.string();
+                    break;
+                case 6:
+                    message.amount_primary_ujpy = reader.string();
+                    break;
+                case 7:
+                    message.amount_adjust_ujpy = reader.string();
+                    break;
+                case 8:
+                    message.amount_market_ujpy = reader.string();
+                    break;
+                case 9:
+                    message.amount_reward_ujpy = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -5120,6 +5176,18 @@ export const main = $root.main = (() => {
             if (message.amount_ujpy != null && message.hasOwnProperty("amount_ujpy"))
                 if (!$util.isString(message.amount_ujpy))
                     return "amount_ujpy: string expected";
+            if (message.amount_primary_ujpy != null && message.hasOwnProperty("amount_primary_ujpy"))
+                if (!$util.isString(message.amount_primary_ujpy))
+                    return "amount_primary_ujpy: string expected";
+            if (message.amount_adjust_ujpy != null && message.hasOwnProperty("amount_adjust_ujpy"))
+                if (!$util.isString(message.amount_adjust_ujpy))
+                    return "amount_adjust_ujpy: string expected";
+            if (message.amount_market_ujpy != null && message.hasOwnProperty("amount_market_ujpy"))
+                if (!$util.isString(message.amount_market_ujpy))
+                    return "amount_market_ujpy: string expected";
+            if (message.amount_reward_ujpy != null && message.hasOwnProperty("amount_reward_ujpy"))
+                if (!$util.isString(message.amount_reward_ujpy))
+                    return "amount_reward_ujpy: string expected";
             return null;
         };
 
@@ -5145,6 +5213,14 @@ export const main = $root.main = (() => {
                 message.month = String(object.month);
             if (object.amount_ujpy != null)
                 message.amount_ujpy = String(object.amount_ujpy);
+            if (object.amount_primary_ujpy != null)
+                message.amount_primary_ujpy = String(object.amount_primary_ujpy);
+            if (object.amount_adjust_ujpy != null)
+                message.amount_adjust_ujpy = String(object.amount_adjust_ujpy);
+            if (object.amount_market_ujpy != null)
+                message.amount_market_ujpy = String(object.amount_market_ujpy);
+            if (object.amount_reward_ujpy != null)
+                message.amount_reward_ujpy = String(object.amount_reward_ujpy);
             return message;
         };
 
@@ -5167,6 +5243,10 @@ export const main = $root.main = (() => {
                 object.year = "";
                 object.month = "";
                 object.amount_ujpy = "";
+                object.amount_primary_ujpy = "";
+                object.amount_adjust_ujpy = "";
+                object.amount_market_ujpy = "";
+                object.amount_reward_ujpy = "";
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 object.id = message.id;
@@ -5178,6 +5258,14 @@ export const main = $root.main = (() => {
                 object.month = message.month;
             if (message.amount_ujpy != null && message.hasOwnProperty("amount_ujpy"))
                 object.amount_ujpy = message.amount_ujpy;
+            if (message.amount_primary_ujpy != null && message.hasOwnProperty("amount_primary_ujpy"))
+                object.amount_primary_ujpy = message.amount_primary_ujpy;
+            if (message.amount_adjust_ujpy != null && message.hasOwnProperty("amount_adjust_ujpy"))
+                object.amount_adjust_ujpy = message.amount_adjust_ujpy;
+            if (message.amount_market_ujpy != null && message.hasOwnProperty("amount_market_ujpy"))
+                object.amount_market_ujpy = message.amount_market_ujpy;
+            if (message.amount_reward_ujpy != null && message.hasOwnProperty("amount_reward_ujpy"))
+                object.amount_reward_ujpy = message.amount_reward_ujpy;
             return object;
         };
 

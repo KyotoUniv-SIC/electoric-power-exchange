@@ -2047,6 +2047,18 @@ export namespace main {
 
         /** MonthlyPayment amount_ujpy */
         amount_ujpy?: (string|null);
+
+        /** MonthlyPayment amount_primary_ujpy */
+        amount_primary_ujpy?: (string|null);
+
+        /** MonthlyPayment amount_adjust_ujpy */
+        amount_adjust_ujpy?: (string|null);
+
+        /** MonthlyPayment amount_market_ujpy */
+        amount_market_ujpy?: (string|null);
+
+        /** MonthlyPayment amount_reward_ujpy */
+        amount_reward_ujpy?: (string|null);
     }
 
     /** Represents a MonthlyPayment. */
@@ -2072,6 +2084,18 @@ export namespace main {
 
         /** MonthlyPayment amount_ujpy. */
         public amount_ujpy: string;
+
+        /** MonthlyPayment amount_primary_ujpy. */
+        public amount_primary_ujpy: string;
+
+        /** MonthlyPayment amount_adjust_ujpy. */
+        public amount_adjust_ujpy: string;
+
+        /** MonthlyPayment amount_market_ujpy. */
+        public amount_market_ujpy: string;
+
+        /** MonthlyPayment amount_reward_ujpy. */
+        public amount_reward_ujpy: string;
 
         /**
          * Encodes the specified MonthlyPayment message. Does not implicitly {@link main.MonthlyPayment.verify|verify} messages.
