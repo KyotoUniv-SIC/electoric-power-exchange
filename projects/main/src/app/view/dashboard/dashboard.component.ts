@@ -1,4 +1,4 @@
-import { Ranking } from '../../page/dashboard/dashboard.component';
+import { CO2Ranking, LastMonthData, LastMonthDataSource, Ranking } from '../../page/dashboard/dashboard.component';
 import { Component, Input, OnInit } from '@angular/core';
 import { DailyUsage, NormalAsk, NormalBid, RenewableAsk, SinglePriceNormalSettlement, SinglePriceRenewableSettlement } from '@local/common';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
@@ -10,8 +10,6 @@ export interface PeriodicElement {
   unit: string;
   charge: number;
 }
-
-
 
 @Component({
   selector: 'view-dashboard',
@@ -43,6 +41,8 @@ export class DashboardComponent implements OnInit {
   rankings?: Ranking[] | null;
   @Input()
   rank?: number | null;
+  @Input()
+  co2Rank?: CO2Ranking | null;
 
   @Input()
   normalSettlement?: SinglePriceNormalSettlement | null;
@@ -76,7 +76,13 @@ export class DashboardComponent implements OnInit {
   @Input()
   renewableOperationAsks?: RenewableAsk[] | null;
 
-  doughnutChartLabels: Label[] = ['Utility Power', 'Solar Power'];
+  @Input()
+  warning?: boolean | null;
+
+  @Input()
+  lastMonthDataSource?: LastMonthDataSource[] | null;
+
+  doughnutChartLabels: Label[] = ['UPX', 'SPX'];
   doughnutChartType: ChartType = 'doughnut';
   doughnutColors: Color[] = [
     {
@@ -101,12 +107,14 @@ export class DashboardComponent implements OnInit {
   ];
 
   displayedColumns: string[] = ['classification', 'usage', 'unit', 'charge'];
-  dataSource =  [
+  dataSource = [
     { classification: 'Minimum Charge', usage: 'Until the first 10 kWh', unit: 'Per Contract', charge: 341.01 },
     { classification: 'Energy Charge', usage: 'Over 10 kWh up to 120 kWh', unit: '1kWh', charge: 20.31 },
     { classification: 'Energy Charge', usage: 'Over 120 kWh up to 300 kWh', unit: '1kWh', charge: 25.71 },
     { classification: 'Energy Charge', usage: 'Over 300 kWh', unit: '1kWh', charge: 28.7 },
-  ];;
+  ];
+
+  lastMonthDisplayedColumns: string[] = ['classification', 'yourAccount', 'average'];
 
   constructor() {}
 
