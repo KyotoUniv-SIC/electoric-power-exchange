@@ -49,8 +49,8 @@ module.exports.primaryNormalAsk = f.pubsub
       console.log('No Market Operation & create delta-amount');
       await delta_amount.create(
         new DeltaAmount({
-          asks_amount_utoken: deltaAsksAmount.toString(),
-          bids_amount_utoken: deltaBidsAmount.toString(),
+          asks_amount_utoken: Math.floor(deltaAsksAmount).toString(),
+          bids_amount_utoken: Math.floor(deltaBidsAmount).toString(),
         }),
       );
     } else {
