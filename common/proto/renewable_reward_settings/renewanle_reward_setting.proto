@@ -1,0 +1,13 @@
+syntax = "proto3";
+package main;
+
+import "firebase_rules_options.proto";
+
+option (google.firebase.rules.firebase_rules).full_package_names = true;
+
+message RenewableRewardSetting {
+  string id = 1;
+  string first_price_ujpy = 2;
+  string second_price_ujpy = 3;
+  string third_price_ujpy = 4;
+}
