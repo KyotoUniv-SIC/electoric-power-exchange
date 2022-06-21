@@ -1,3 +1,4 @@
+import { DataSource } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
 import { Auth, authState } from '@angular/fire/auth';
 import { Timestamp } from '@angular/fire/firestore';
@@ -22,6 +23,7 @@ import { RenewableAskApplicationService } from 'projects/shared/src/lib/services
 import { SinglePriceNormalSettlementApplicationService } from 'projects/shared/src/lib/services/single-price-normal-settlements/single-price-normal-settlement.application.service';
 import { SinglePriceRenewableSettlementApplicationService } from 'projects/shared/src/lib/services/single-price-renewable-settlements/single-price-renewable-settlement.application.service';
 import { BalanceApplicationService } from 'projects/shared/src/lib/services/student-accounts/balances/balance.application.service';
+import { DailyPaymentApplicationService } from 'projects/shared/src/lib/services/student-accounts/daily-payments/daily-payment.application.service';
 import { InsufficientBalanceApplicationService } from 'projects/shared/src/lib/services/student-accounts/insufficient-balances/insufficient-balance.application.service';
 import { MonthlyUsageApplicationService } from 'projects/shared/src/lib/services/student-accounts/monthly-usages/monthly-usage.application.service';
 import { StudentAccountApplicationService } from 'projects/shared/src/lib/services/student-accounts/student-account.application.service';
@@ -33,6 +35,19 @@ export interface Ranking {
   rank: number;
   name: string;
   kwhAmount: number;
+}
+export interface CO2Ranking {
+  rank: number;
+  uspxPercentage: number;
+}
+export interface LastMonthData {
+  usage: number;
+  emission: number;
+}
+export interface LastMonthDataSource {
+  classification: string;
+  yourAccount: number | undefined;
+  average: number;
 }
 
 @Component({
@@ -53,6 +68,7 @@ export class DashboardComponent implements OnInit {
   usageData$: Observable<ChartDataSets[]> | undefined;
   rankings$: Observable<Ranking[]> | undefined;
   rank$: Observable<number | undefined> | undefined;
+  co2Rank$: Observable<CO2Ranking> | undefined;
 
   normalSettlement$: Observable<SinglePriceNormalSettlement> | undefined;
   normalDate$: Observable<Date> | undefined;
@@ -72,6 +88,13 @@ export class DashboardComponent implements OnInit {
   normalOperationAsks$: Observable<NormalAsk[]> | undefined;
   renewableOperationAsks$: Observable<RenewableAsk[]> | undefined;
 
+  warning$: Observable<boolean>;
+
+  lastMonthAveData$: Observable<LastMonthData> | undefined;
+  lastMonthData$: Observable<LastMonthData | undefined> | undefined;
+
+  lastMonthDataSource$: Observable<LastMonthDataSource[]> | undefined;
+
   constructor(
     private auth: Auth,
     private route: ActivatedRoute,
@@ -87,6 +110,7 @@ export class DashboardComponent implements OnInit {
     private readonly normalAskApp: NormalAskApplicationService,
     private readonly renewableAskApp: RenewableAskApplicationService,
     private readonly adminApp: AdminAccountApplicationService,
+    private readonly dailyPaymentApp: DailyPaymentApplicationService,
   ) {
     const now = new Date();
     let firstDay = new Date();
@@ -111,7 +135,7 @@ export class DashboardComponent implements OnInit {
       ),
       // mapはforEachの機能に加えて新しい配列を返します（forEachは何も返さず、必ずvoidになる）
       map((rankings) => {
-        let count = 0;
+        let count = 1;
         let tmp = 0;
         // ここでランキングをソートして、順位をrankに入れる
         let sortedRanking = rankings
@@ -131,6 +155,47 @@ export class DashboardComponent implements OnInit {
     this.rank$ = combineLatest([this.rankings$, studentAccount$]).pipe(
       map(([rankings, account]) => rankings.find((ranking) => ranking.id == account.id)?.rank),
     );
+
+    const co2Rankings$ = users$.pipe(
+      mergeMap((users) =>
+        Promise.all(
+          users.map((user) =>
+            this.dailyPaymentApp.list(user.id).then((payments) => {
+              let mwhCount = 0;
+              let uspxCount = 0;
+              for (const payment of payments) {
+                if ((payment.created_at as Timestamp).toDate() > firstDay) {
+                  mwhCount += parseInt(payment.amount_mwh);
+                  uspxCount += parseInt(payment.amount_uspx);
+                }
+              }
+              return { id: user.id, name: user.name, mwhAmount: mwhCount, uspxAmount: uspxCount };
+            }),
+          ),
+        ),
+      ),
+      map((co2Rankings) => {
+        let count = 1;
+        let tmp = 0;
+        let sortedCo2Ranking = co2Rankings
+          .sort((first, second) => second.uspxAmount / second.mwhAmount - first.uspxAmount / first.mwhAmount)
+          .map((item, index) => {
+            if (item.uspxAmount / item.mwhAmount != tmp) {
+              count = index + 1;
+              tmp = item.uspxAmount / item.mwhAmount;
+            }
+            return { id: item.id, rank: count, name: item.name, mwhAmount: item.mwhAmount, uspxAmount: item.uspxAmount };
+          });
+        return sortedCo2Ranking;
+      }),
+    );
+    this.co2Rank$ = combineLatest([co2Rankings$, studentAccount$]).pipe(
+      map(([rankings, account]) => {
+        const ranking = rankings.find((ranking) => ranking.id == account.id);
+        return { rank: ranking?.rank!, uspxPercentage: ranking?.uspxAmount! / ranking?.mwhAmount! };
+      }),
+    );
+
     const balance$ = studentAccount$.pipe(mergeMap((account) => this.balanceApp.getByUid$(account.id)));
     this.balanceData$ = balance$.pipe(
       map((balance) => [[parseInt(balance.amount_uupx) / 1000000, parseInt(balance.amount_uspx) / 1000000]]),
@@ -288,16 +353,24 @@ export class DashboardComponent implements OnInit {
 
     this.normalChartDataSets$ = combineLatest([pricesNormal$, amountsNormal$, referencePriceNormal$]).pipe(
       map(([prices, amounts, references]) => [
-        { data: prices, label: 'Contract Price', fill: 'false', type: 'line', yAxisID: 'y-axis-price' },
-        { data: amounts, label: 'Contract Amount', type: 'bar', yAxisID: 'y-axis-amount' },
         {
           data: references,
           label: 'Reference Price',
           borderDash: [5, 3], //点線
           fill: 'false', //塗りつぶし
           type: 'line',
+          tension: 0,
           yAxisID: 'y-axis-price',
         },
+        {
+          data: prices,
+          label: 'Contract Price',
+          fill: 'false',
+          type: 'line',
+          tension: 0,
+          yAxisID: 'y-axis-price',
+        },
+        { data: amounts, label: 'Contract Amount', type: 'bar', yAxisID: 'y-axis-amount' },
       ]),
     );
 
@@ -311,16 +384,17 @@ export class DashboardComponent implements OnInit {
 
     this.renewableChartDataSets$ = combineLatest([pricesRenewable$, amountsRenewable$, referencePriceRenewable$]).pipe(
       map(([prices, amounts, references]) => [
-        { data: prices, label: 'Contract Price', fill: '', type: 'line', yAxisID: 'y-axis-price' },
-        { data: amounts, label: 'Contract Amount', yAxisID: 'y-axis-amount' },
         {
           data: references,
           label: 'Reference Price',
           borderDash: [5, 3],
           fill: 'false',
           type: 'line',
+          tension: 0,
           yAxisID: 'y-axis-price',
         },
+        { data: prices, label: 'Contract Price', fill: '', type: 'line', tension: 0, yAxisID: 'y-axis-price' },
+        { data: amounts, label: 'Contract Amount', yAxisID: 'y-axis-amount' },
       ]),
     );
 
@@ -445,6 +519,83 @@ export class DashboardComponent implements OnInit {
     this.normalOperationBids$ = adminAccounts$.pipe(mergeMap((adminAccount) => this.normalBidApp.listUid$(adminAccount[0].id)));
     this.normalOperationAsks$ = adminAccounts$.pipe(mergeMap((adminAccount) => this.normalAskApp.listUid$(adminAccount[0].id)));
     this.renewableOperationAsks$ = adminAccounts$.pipe(mergeMap((adminAccount) => this.renewableAskApp.listUid$(adminAccount[0].id)));
+
+    const latestMonthlyUsage = usageListMonthly$.pipe(
+      map(
+        (usages) =>
+          usages.sort((first, second) => {
+            // 降順に並び替え
+            if ((first.created_at as Timestamp).toDate() > (second.created_at as Timestamp).toDate()) {
+              return -1;
+            } else if ((first.created_at as Timestamp).toDate() < (second.created_at as Timestamp).toDate()) {
+              return 1;
+            } else {
+              return 0;
+            }
+          })[0],
+      ),
+    );
+
+    this.warning$ = combineLatest([this.totalUsage$, latestMonthlyUsage]).pipe(
+      map(([totalUsage, latestMonthlyUsage]) => {
+        if (totalUsage > Number(latestMonthlyUsage.amount_mwh)) {
+          return true;
+        } else {
+          return false;
+        }
+      }),
+    );
+
+    const lastMonthPayments$ = users$.pipe(
+      mergeMap(async (users) => {
+        let payments = [];
+        for (const user of users) {
+          const dailyPayments = await this.dailyPaymentApp.list(user.id);
+          const usageSum = dailyPayments.reduce((prev, current) => prev + parseInt(current.amount_mwh), 0);
+          const uspxSum = dailyPayments.reduce((prev, current) => prev + parseInt(current.amount_uspx), 0);
+          payments.push({ id: user.id, mwhUsage: usageSum, uspxAmount: uspxSum });
+        }
+        return payments;
+      }),
+    );
+
+    const emissionRate = 540; //1kwhあたりのCO2排出量
+
+    this.lastMonthAveData$ = lastMonthPayments$.pipe(
+      map((payments) => {
+        const usageAverage = payments.reduce((prev, current) => prev + current.mwhUsage, 0) / payments.length;
+        const emissionAverage =
+          (payments.reduce((prev, current) => prev + current.mwhUsage - current.uspxAmount, 0) / payments.length) * emissionRate;
+
+        return { usage: usageAverage, emission: emissionAverage };
+      }),
+    );
+
+    this.lastMonthData$ = combineLatest([studentAccount$, lastMonthPayments$]).pipe(
+      map(([studentAccount, payments]) => {
+        const accountPayment = payments.find((payment) => (payment.id = studentAccount.id));
+        if (!accountPayment) {
+          return undefined;
+        }
+        const emission = (accountPayment?.mwhUsage - accountPayment?.uspxAmount) * emissionRate;
+        return { usage: accountPayment.mwhUsage, emission };
+      }),
+    );
+
+    this.lastMonthDataSource$ = combineLatest([this.lastMonthData$, this.lastMonthAveData$]).pipe(
+      map(([data, aveData]) => [
+        {
+          classification: 'Electricity (kWh)',
+          yourAccount: Math.floor((data?.usage! / 1000000) * 10) / 10, //小数点第2位切り捨て
+          average: Math.floor((aveData.usage! / 1000000) * 10) / 10,
+        },
+        {
+          classification: 'CO2 Emission (kg)',
+          yourAccount: Math.floor((data?.emission! / (1000 * 100000)) * 10) / 10, //gをkgにしたのち小数点第2位切り捨て
+          average: Math.floor((aveData.emission! / (1000 * 1000000)) * 10) / 10,
+        },
+      ]),
+    );
   }
 
   ngOnInit(): void {}
