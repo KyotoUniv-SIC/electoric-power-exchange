@@ -4043,6 +4043,107 @@ export namespace main {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a RenewableRewardSetting. */
+    interface IRenewableRewardSetting {
+
+        /** RenewableRewardSetting id */
+        id?: (string|null);
+
+        /** RenewableRewardSetting first_price_ujpy */
+        first_price_ujpy?: (string|null);
+
+        /** RenewableRewardSetting second_price_ujpy */
+        second_price_ujpy?: (string|null);
+
+        /** RenewableRewardSetting third_price_ujpy */
+        third_price_ujpy?: (string|null);
+    }
+
+    /** Represents a RenewableRewardSetting. */
+    class RenewableRewardSetting implements IRenewableRewardSetting {
+
+        /**
+         * Constructs a new RenewableRewardSetting.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.IRenewableRewardSetting);
+
+        /** RenewableRewardSetting id. */
+        public id: string;
+
+        /** RenewableRewardSetting first_price_ujpy. */
+        public first_price_ujpy: string;
+
+        /** RenewableRewardSetting second_price_ujpy. */
+        public second_price_ujpy: string;
+
+        /** RenewableRewardSetting third_price_ujpy. */
+        public third_price_ujpy: string;
+
+        /**
+         * Encodes the specified RenewableRewardSetting message. Does not implicitly {@link main.RenewableRewardSetting.verify|verify} messages.
+         * @param message RenewableRewardSetting message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.IRenewableRewardSetting, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified RenewableRewardSetting message, length delimited. Does not implicitly {@link main.RenewableRewardSetting.verify|verify} messages.
+         * @param message RenewableRewardSetting message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.IRenewableRewardSetting, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a RenewableRewardSetting message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RenewableRewardSetting
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.RenewableRewardSetting;
+
+        /**
+         * Decodes a RenewableRewardSetting message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RenewableRewardSetting
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.RenewableRewardSetting;
+
+        /**
+         * Verifies a RenewableRewardSetting message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RenewableRewardSetting message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RenewableRewardSetting
+         */
+        public static fromObject(object: { [k: string]: any }): main.RenewableRewardSetting;
+
+        /**
+         * Creates a plain object from a RenewableRewardSetting message. Also converts values to other types if specified.
+         * @param message RenewableRewardSetting
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.RenewableRewardSetting, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RenewableRewardSetting to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a RenewableSettlement. */
     interface IRenewableSettlement {
 
