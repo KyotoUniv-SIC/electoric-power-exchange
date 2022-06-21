@@ -31,47 +31,59 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
   const normalAsks = await normal_ask_history.listLastMonth(data.student_account_id);
   const renewableBids = await renewable_bid_history.listLastMonth(data.student_account_id);
   const renewableAsks = await renewable_ask_history.listLastMonth(data.student_account_id);
-
-  let usage = !primaryAsks.length
-    ? -tokens
-    : primaryAsks.reduce((previous, current) => previous + parseInt(current.amount_uupx), 0) - tokens;
-  let payment = !primaryAsks.length
-    ? 0
-    : primaryAsks.reduce((previous, current) => previous + (parseInt(current.price_ujpy) * parseInt(current.amount_uupx)) / 1000000, 0);
-
   const discounts = await discount_price.listLatest();
-  if (!primaryAsks.length) {
-    tokens >= 0
-      ? (payment -= ((27 * 1000000 - parseInt(discounts[0].price_ujpy)) * tokens) / 1000000)
-      : (payment += ((27 * 1000000 + parseInt(discounts[0].price_ujpy)) * Math.abs(tokens)) / 1000000);
+
+  // to do
+  // SPXインセンティブを組み込む、他の場所で順位を計算する
+  const rewardPayment = 0;
+
+  let usage: number;
+  let primaryPayment: number;
+  let adjustPayment: number;
+  if (primaryAsks.length) {
+    usage = primaryAsks.reduce((previous, current) => previous + parseInt(current.amount_uupx), 0) - tokens;
+    primaryPayment = primaryAsks.reduce(
+      (previous, current) => previous + (parseInt(current.price_ujpy) * parseInt(current.amount_uupx)) / 1000000,
+      0,
+    );
+    if (tokens >= 0) {
+      adjustPayment = -((parseInt(primaryAsks[0].price_ujpy) - parseInt(discounts[0].price_ujpy)) * tokens) / 1000000;
+    } else {
+      adjustPayment = -((parseInt(primaryAsks[0].price_ujpy) + parseInt(discounts[0].price_ujpy)) * tokens) / 1000000;
+    }
   } else {
-    tokens >= 0
-      ? (payment -= ((parseInt(primaryAsks[0].price_ujpy) - parseInt(discounts[0].price_ujpy)) * tokens) / 1000000)
-      : (payment += ((parseInt(primaryAsks[0].price_ujpy) + parseInt(discounts[0].price_ujpy)) * Math.abs(tokens)) / 1000000);
+    usage = -tokens;
+    primaryPayment = 0;
+    if (tokens >= 0) {
+      adjustPayment = -((27 * 1000000 - parseInt(discounts[0].price_ujpy)) * tokens) / 1000000;
+    } else {
+      adjustPayment = -((27 * 1000000 + parseInt(discounts[0].price_ujpy)) * tokens) / 1000000;
+    }
   }
 
+  let marketPayment = 0;
   for (const normalBid of normalBids) {
     if (normalBid.is_accepted == true) {
       usage += parseInt(normalBid.amount_uupx);
-      payment += (parseInt(normalBid.contract_price_ujpy) * parseInt(normalBid.amount_uupx)) / 1000000;
+      marketPayment += (parseInt(normalBid.contract_price_ujpy) * parseInt(normalBid.amount_uupx)) / 1000000;
     }
   }
   for (const normalAsk of normalAsks) {
     if (normalAsk.is_accepted == true) {
       usage -= parseInt(normalAsk.amount_uupx);
-      payment -= (parseInt(normalAsk.contract_price_ujpy) * parseInt(normalAsk.amount_uupx)) / 1000000;
+      marketPayment -= (parseInt(normalAsk.contract_price_ujpy) * parseInt(normalAsk.amount_uupx)) / 1000000;
     }
   }
   for (const renewableBid of renewableBids) {
     if (renewableBid.is_accepted == true) {
       usage += parseInt(renewableBid.amount_uspx);
-      payment += (parseInt(renewableBid.contract_price_ujpy) * parseInt(renewableBid.amount_uspx)) / 1000000;
+      marketPayment += (parseInt(renewableBid.contract_price_ujpy) * parseInt(renewableBid.amount_uspx)) / 1000000;
     }
   }
   for (const renewableAsk of renewableAsks) {
     if (renewableAsk.is_accepted == true) {
       usage -= parseInt(renewableAsk.amount_uspx);
-      payment -= (parseInt(renewableAsk.contract_price_ujpy) * parseInt(renewableAsk.amount_uspx)) / 1000000;
+      marketPayment -= (parseInt(renewableAsk.contract_price_ujpy) * parseInt(renewableAsk.amount_uspx)) / 1000000;
     }
   }
   const date = new Date();
@@ -92,7 +104,11 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
       student_account_id: data.student_account_id,
       year: date.getFullYear().toString(),
       month: date.getMonth().toString(),
-      amount_ujpy: payment.toString(),
+      amount_ujpy: (primaryPayment + adjustPayment + marketPayment + rewardPayment).toString(),
+      amount_primary_ujpy: primaryPayment.toString(),
+      amount_adjust_ujpy: adjustPayment.toString(),
+      amount_market_ujpy: marketPayment.toString(),
+      amount_reward_ujpy: rewardPayment.toString(),
     }),
   );
   await monthly_usage.create(
