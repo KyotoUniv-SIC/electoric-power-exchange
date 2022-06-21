@@ -89,7 +89,6 @@
           <span class="flex-auto break-all"></span>
           <span class="break-all">{{ renewableSetting?.amount_uspx | microString }}</span>
         </mat-list-item>
-        <mat-divider [inset]="true"></mat-divider>
       </mat-list>
     </ng-template>
   </mat-card>
@@ -124,6 +123,73 @@
   </form>
 
   <mat-card class="mt-20 mb-10">
+    <mat-card-title>SPX Reward Settings</mat-card-title>
+    <mat-card-content>
+      <p>Set rewards to be given to users with a high percentage of SPX.</p>
+    </mat-card-content>
+    <ng-container *ngIf="renewableSetting === null; then loading; else loadedReward"></ng-container>
+    <ng-template #loadedReward>
+      <mat-list>
+        <mat-list-item class="flex flex-wrap">
+          <span class="break-all">1st Reward:</span>
+          <span class="flex-auto break-all"></span>
+          <span class="break-all">{{ renewableRewardSetting?.first_price_ujpy | microString }} JPY</span>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
+        <mat-list-item class="flex flex-wrap">
+          <span class="break-all">2nd Reward:</span>
+          <span class="flex-auto break-all"></span>
+          <span class="break-all">{{ renewableRewardSetting?.second_price_ujpy | microString }} JPY</span>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
+        <mat-list-item class="flex flex-wrap">
+          <span class="break-all">3rd Reward:</span>
+          <span class="flex-auto break-all"></span>
+          <span class="break-all">{{ renewableRewardSetting?.third_price_ujpy | microString }} JPY</span>
+        </mat-list-item>
+      </mat-list>
+    </ng-template>
+  </mat-card>
+
+  <form (submit)="onSubmitReward(firstRef.value, secondRef.value, thirdRef.value)">
+    <mat-card class="mb-10">
+      <mat-card-title>Change Reward Settings</mat-card-title>
+      <mat-list>
+        <mat-list-item style="height: auto" class="flex flex-wrap">
+          <span class="break-all">1st Reward Price:</span>
+          <span class="flex-auto break-all"></span>
+          <mat-form-field class="break-all">
+            <mat-label>Input Number</mat-label>
+            <input #firstRef matInput type="number" name="first" required />
+          </mat-form-field>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
+        <mat-list-item style="height: auto" class="flex flex-wrap">
+          <span class="break-all">2nd Reward Price:</span>
+          <span class="flex-auto break-all"></span>
+          <mat-form-field class="break-all">
+            <mat-label>Input Number</mat-label>
+            <input #secondRef matInput type="number" name="second" required />
+          </mat-form-field>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
+        <mat-list-item style="height: auto" class="flex flex-wrap">
+          <span class="break-all">3rd Reward Price:</span>
+          <span class="flex-auto break-all"></span>
+          <mat-form-field class="break-all">
+            <mat-label>Input Number</mat-label>
+            <input #thirdRef matInput type="number" name="third" required />
+          </mat-form-field>
+        </mat-list-item>
+        <mat-divider [inset]="true"></mat-divider>
+      </mat-list>
+      <div class="text-center mt-10">
+        <button mat-flat-button color="accent">Submit</button>
+      </div>
+    </mat-card>
+  </form>
+
+  <mat-card class="mt-20 mb-10">
     <mat-card-title>System Cost Settings</mat-card-title>
     <mat-card-content>
       <p>
@@ -145,7 +211,6 @@
           <span class="flex-auto break-all"></span>
           <span class="break-all">{{ costSetting?.electricity_cost_ujpy | microString }} JPY</span>
         </mat-list-item>
-        <mat-divider [inset]="true"></mat-divider>
       </mat-list>
     </ng-template>
   </mat-card>

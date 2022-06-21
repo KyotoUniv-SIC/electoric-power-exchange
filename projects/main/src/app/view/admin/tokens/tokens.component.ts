@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { CostSetting, NormalAskSetting, RenewableAskSetting } from '@local/common';
+import { CostSetting, NormalAskSetting, RenewableAskSetting, RenewableRewardSetting } from '@local/common';
 
 export type SetNormalOnSubmitEvent = {
   ujpyPrice: string;
@@ -17,6 +17,12 @@ export type SetCostOnSubmitEvent = {
   electricityCost: string;
 };
 
+export type SetRewardOnSubmitEvent = {
+  firstReward: string;
+  secondReward: string;
+  thirdReward: string;
+};
+
 @Component({
   selector: 'view-tokens',
   templateUrl: './tokens.component.html',
@@ -29,12 +35,16 @@ export class TokensComponent implements OnInit {
   renewableSetting?: RenewableAskSetting | null;
   @Input()
   costSetting?: CostSetting | null;
+  @Input()
+  renewableRewardSetting?: RenewableRewardSetting | null;
   @Output()
   appSubmitNormal: EventEmitter<SetNormalOnSubmitEvent>;
   @Output()
   appSubmitRenewable: EventEmitter<SetRenewableOnSubmitEvent>;
   @Output()
   appSubmitCost: EventEmitter<SetCostOnSubmitEvent>;
+  @Output()
+  appSubmitReward: EventEmitter<SetRewardOnSubmitEvent>;
 
   checked: boolean = false;
 
@@ -42,6 +52,7 @@ export class TokensComponent implements OnInit {
     this.appSubmitNormal = new EventEmitter();
     this.appSubmitRenewable = new EventEmitter();
     this.appSubmitCost = new EventEmitter();
+    this.appSubmitReward = new EventEmitter();
   }
 
   ngOnInit(): void {}
@@ -51,8 +62,8 @@ export class TokensComponent implements OnInit {
       alert('価格を設定してください');
       return;
     }
-    const ujpyPrice = (Number(price) * 1000000).toString();
-    const uupxRatio = ratio.toString();
+    const ujpyPrice = Math.floor(Number(price) * 1000000).toString();
+    const uupxRatio = Math.floor(Number(ratio)).toString();
     this.appSubmitNormal.emit({ ujpyPrice, uupxRatio, enable: this.checked });
   }
 
@@ -65,8 +76,8 @@ export class TokensComponent implements OnInit {
       alert('発行量を設定してください');
       return;
     }
-    const ujpyPrice = (Number(price) * 1000000).toString();
-    const uspxAmount = (Number(amount) * 1000000).toString();
+    const ujpyPrice = Math.floor(Number(price) * 1000000).toString();
+    const uspxAmount = Math.floor(Number(amount) * 1000000).toString();
     this.appSubmitRenewable.emit({ ujpyPrice, uspxAmount });
   }
 
@@ -79,8 +90,19 @@ export class TokensComponent implements OnInit {
       alert('電気料金を入力してください');
       return;
     }
-    const systemCost = (Number(system) * 1000000).toString();
+    const systemCost = Math.floor(Number(system) * 1000000).toString();
     const electricityCost = (Number(electricity) * 1000000).toString();
     this.appSubmitCost.emit({ systemCost, electricityCost });
+  }
+
+  onSubmitReward(first: string, second: string, third: string) {
+    if (!first || !second || !third) {
+      alert('システムのコストを入力してください');
+      return;
+    }
+    const firstReward = Math.floor(Number(first) * 1000000).toString();
+    const secondReward = Math.floor(Number(second) * 1000000).toString();
+    const thirdReward = Math.floor(Number(third) * 1000000).toString();
+    this.appSubmitReward.emit({ firstReward, secondReward, thirdReward });
   }
 }
