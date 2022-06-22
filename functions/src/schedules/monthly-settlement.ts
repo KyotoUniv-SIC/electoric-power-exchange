@@ -10,9 +10,10 @@ import { normal_ask_history } from '../normal-ask-histories';
 import { normal_bid_history } from '../normal-bid-histories';
 import { primary_ask } from '../primary-asks';
 import { renewable_ask_history } from '../renewable-ask-histories';
+import { renewable_ranking } from '../renewable-rankings';
 import { renewable_reward_setting } from '../renewable-reward-settings';
 import { student_account } from '../student-accounts';
-import { BalanceSnapshot, DiscountPrice } from '@local/common';
+import { BalanceSnapshot, DiscountPrice, RenewableRanking } from '@local/common';
 import * as functions from 'firebase-functions';
 
 const f = functions.region('asia-northeast1').runWith({ timeoutSeconds: 540 });
@@ -96,9 +97,19 @@ module.exports.monthlySettlement = f.pubsub
         uspxCount += parseInt(payment.amount_uspx);
       }
       uspxPercentages.push({ studentID, uspxPercentage: uspxCount / mwhCount });
-      // to do
-      // 配列を並び替えて順位を入れる
+    }
+    const uspxSortedPercentages = uspxPercentages.sort((first, second) => second.uspxPercentage - first.uspxPercentage);
+    await renewable_ranking.create(
+      new RenewableRanking({
+        first_student_id: uspxSortedPercentages[0].studentID,
+        second_student_id: uspxSortedPercentages[1].studentID,
+        third_student_id: uspxSortedPercentages[2].studentID,
+      }),
+    );
 
+    // BalanceSnapshotが計算のトリガーなので分割している
+    for (const student of students) {
+      const studentID = student.id;
       const lastMonthBalance = await balance.listLatest(studentID);
       await balance_snapshot.create(new BalanceSnapshot(lastMonthBalance[0]));
     }
