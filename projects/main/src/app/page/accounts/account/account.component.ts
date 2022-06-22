@@ -84,7 +84,7 @@ export class AccountComponent implements OnInit {
     );
     this.monthlyPayments$ = this.studentAccount$.pipe(
       mergeMap((account) => (!account ? of(null) : this.monthlyPaymentApp.list$(account.id))),
-      map((payments) => (!payments ? null : payments?.slice(0, 6))),
+      map((payments) => (!payments ? null : payments?.slice(0, 5))),
     );
 
     const now = new Date();
