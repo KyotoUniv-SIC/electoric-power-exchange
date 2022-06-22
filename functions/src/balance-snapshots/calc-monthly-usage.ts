@@ -14,6 +14,8 @@ import { normal_bid_history } from '../normal-bid-histories';
 import { primary_ask } from '../primary-asks';
 import { renewable_ask_history } from '../renewable-ask-histories';
 import { renewable_bid_history } from '../renewable-bid-histories';
+import { renewable_ranking } from '../renewable-rankings';
+import { renewable_reward_setting } from '../renewable-reward-settings';
 import { Balance, BalanceSnapshot, MonthlyPayment, MonthlyUsage } from '@local/common';
 import * as crypto from 'crypto-js';
 
@@ -32,14 +34,14 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
   const renewableBids = await renewable_bid_history.listLastMonth(data.student_account_id);
   const renewableAsks = await renewable_ask_history.listLastMonth(data.student_account_id);
   const discounts = await discount_price.listLatest();
-
-  // to do
-  // SPXインセンティブを組み込む、他の場所で順位を計算する
-  const rewardPayment = 0;
+  const uspxRanking = await renewable_ranking.getLatest();
+  const rewardSetting = await renewable_reward_setting.getLatest();
 
   let usage: number;
   let primaryPayment: number;
   let adjustPayment: number;
+
+  // primaryPayment, adjustPaymentの算出
   if (primaryAsks.length) {
     usage = primaryAsks.reduce((previous, current) => previous + parseInt(current.amount_uupx), 0) - tokens;
     primaryPayment = primaryAsks.reduce(
@@ -61,6 +63,19 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
     }
   }
 
+  // rewardPaymentの算出
+  let rewardPayment: number;
+  if (uspxRanking.first_student_id == data.student_account_id) {
+    rewardPayment = -parseInt(rewardSetting.first_price_ujpy);
+  } else if (uspxRanking.second_student_id == data.student_account_id) {
+    rewardPayment = -parseInt(rewardSetting.second_price_ujpy);
+  } else if (uspxRanking.third_student_id == data.student_account_id) {
+    rewardPayment = -parseInt(rewardSetting.third_price_ujpy);
+  } else {
+    rewardPayment = 0;
+  }
+
+  // marketPaymentの算出
   let marketPayment = 0;
   for (const normalBid of normalBids) {
     if (normalBid.is_accepted == true) {
@@ -86,6 +101,7 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
       marketPayment -= (parseInt(renewableAsk.contract_price_ujpy) * parseInt(renewableAsk.amount_uspx)) / 1000000;
     }
   }
+
   const date = new Date();
   // .getMonth()は0-11の整数値をとる
   // date.setMonth(date.getMonth() - 1);
