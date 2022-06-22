@@ -10004,6 +10004,248 @@
             return RenewableBid;
         })();
     
+        main.RenewableRanking = (function() {
+    
+            /**
+             * Properties of a RenewableRanking.
+             * @memberof main
+             * @interface IRenewableRanking
+             * @property {string|null} [id] RenewableRanking id
+             * @property {string|null} [first_student_id] RenewableRanking first_student_id
+             * @property {string|null} [second_student_id] RenewableRanking second_student_id
+             * @property {string|null} [third_student_id] RenewableRanking third_student_id
+             */
+    
+            /**
+             * Constructs a new RenewableRanking.
+             * @memberof main
+             * @classdesc Represents a RenewableRanking.
+             * @implements IRenewableRanking
+             * @constructor
+             * @param {main.IRenewableRanking=} [properties] Properties to set
+             */
+            function RenewableRanking(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+    
+            /**
+             * RenewableRanking id.
+             * @member {string} id
+             * @memberof main.RenewableRanking
+             * @instance
+             */
+            RenewableRanking.prototype.id = "";
+    
+            /**
+             * RenewableRanking first_student_id.
+             * @member {string} first_student_id
+             * @memberof main.RenewableRanking
+             * @instance
+             */
+            RenewableRanking.prototype.first_student_id = "";
+    
+            /**
+             * RenewableRanking second_student_id.
+             * @member {string} second_student_id
+             * @memberof main.RenewableRanking
+             * @instance
+             */
+            RenewableRanking.prototype.second_student_id = "";
+    
+            /**
+             * RenewableRanking third_student_id.
+             * @member {string} third_student_id
+             * @memberof main.RenewableRanking
+             * @instance
+             */
+            RenewableRanking.prototype.third_student_id = "";
+    
+            /**
+             * Encodes the specified RenewableRanking message. Does not implicitly {@link main.RenewableRanking.verify|verify} messages.
+             * @function encode
+             * @memberof main.RenewableRanking
+             * @static
+             * @param {main.IRenewableRanking} message RenewableRanking message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            RenewableRanking.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                if (message.first_student_id != null && Object.hasOwnProperty.call(message, "first_student_id"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.first_student_id);
+                if (message.second_student_id != null && Object.hasOwnProperty.call(message, "second_student_id"))
+                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.second_student_id);
+                if (message.third_student_id != null && Object.hasOwnProperty.call(message, "third_student_id"))
+                    writer.uint32(/* id 4, wireType 2 =*/34).string(message.third_student_id);
+                return writer;
+            };
+    
+            /**
+             * Encodes the specified RenewableRanking message, length delimited. Does not implicitly {@link main.RenewableRanking.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof main.RenewableRanking
+             * @static
+             * @param {main.IRenewableRanking} message RenewableRanking message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            RenewableRanking.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+    
+            /**
+             * Decodes a RenewableRanking message from the specified reader or buffer.
+             * @function decode
+             * @memberof main.RenewableRanking
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {main.RenewableRanking} RenewableRanking
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            RenewableRanking.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.RenewableRanking();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.id = reader.string();
+                        break;
+                    case 2:
+                        message.first_student_id = reader.string();
+                        break;
+                    case 3:
+                        message.second_student_id = reader.string();
+                        break;
+                    case 4:
+                        message.third_student_id = reader.string();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Decodes a RenewableRanking message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof main.RenewableRanking
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {main.RenewableRanking} RenewableRanking
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            RenewableRanking.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+    
+            /**
+             * Verifies a RenewableRanking message.
+             * @function verify
+             * @memberof main.RenewableRanking
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            RenewableRanking.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.id != null && message.hasOwnProperty("id"))
+                    if (!$util.isString(message.id))
+                        return "id: string expected";
+                if (message.first_student_id != null && message.hasOwnProperty("first_student_id"))
+                    if (!$util.isString(message.first_student_id))
+                        return "first_student_id: string expected";
+                if (message.second_student_id != null && message.hasOwnProperty("second_student_id"))
+                    if (!$util.isString(message.second_student_id))
+                        return "second_student_id: string expected";
+                if (message.third_student_id != null && message.hasOwnProperty("third_student_id"))
+                    if (!$util.isString(message.third_student_id))
+                        return "third_student_id: string expected";
+                return null;
+            };
+    
+            /**
+             * Creates a RenewableRanking message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof main.RenewableRanking
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {main.RenewableRanking} RenewableRanking
+             */
+            RenewableRanking.fromObject = function fromObject(object) {
+                if (object instanceof $root.main.RenewableRanking)
+                    return object;
+                var message = new $root.main.RenewableRanking();
+                if (object.id != null)
+                    message.id = String(object.id);
+                if (object.first_student_id != null)
+                    message.first_student_id = String(object.first_student_id);
+                if (object.second_student_id != null)
+                    message.second_student_id = String(object.second_student_id);
+                if (object.third_student_id != null)
+                    message.third_student_id = String(object.third_student_id);
+                return message;
+            };
+    
+            /**
+             * Creates a plain object from a RenewableRanking message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof main.RenewableRanking
+             * @static
+             * @param {main.RenewableRanking} message RenewableRanking
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            RenewableRanking.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.id = "";
+                    object.first_student_id = "";
+                    object.second_student_id = "";
+                    object.third_student_id = "";
+                }
+                if (message.id != null && message.hasOwnProperty("id"))
+                    object.id = message.id;
+                if (message.first_student_id != null && message.hasOwnProperty("first_student_id"))
+                    object.first_student_id = message.first_student_id;
+                if (message.second_student_id != null && message.hasOwnProperty("second_student_id"))
+                    object.second_student_id = message.second_student_id;
+                if (message.third_student_id != null && message.hasOwnProperty("third_student_id"))
+                    object.third_student_id = message.third_student_id;
+                return object;
+            };
+    
+            /**
+             * Converts this RenewableRanking to JSON.
+             * @function toJSON
+             * @memberof main.RenewableRanking
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            RenewableRanking.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            return RenewableRanking;
+        })();
+    
         main.RenewableRewardSetting = (function() {
     
             /**

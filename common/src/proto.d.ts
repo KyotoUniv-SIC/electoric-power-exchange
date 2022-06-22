@@ -4067,6 +4067,107 @@ export namespace main {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a RenewableRanking. */
+    interface IRenewableRanking {
+
+        /** RenewableRanking id */
+        id?: (string|null);
+
+        /** RenewableRanking first_student_id */
+        first_student_id?: (string|null);
+
+        /** RenewableRanking second_student_id */
+        second_student_id?: (string|null);
+
+        /** RenewableRanking third_student_id */
+        third_student_id?: (string|null);
+    }
+
+    /** Represents a RenewableRanking. */
+    class RenewableRanking implements IRenewableRanking {
+
+        /**
+         * Constructs a new RenewableRanking.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.IRenewableRanking);
+
+        /** RenewableRanking id. */
+        public id: string;
+
+        /** RenewableRanking first_student_id. */
+        public first_student_id: string;
+
+        /** RenewableRanking second_student_id. */
+        public second_student_id: string;
+
+        /** RenewableRanking third_student_id. */
+        public third_student_id: string;
+
+        /**
+         * Encodes the specified RenewableRanking message. Does not implicitly {@link main.RenewableRanking.verify|verify} messages.
+         * @param message RenewableRanking message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.IRenewableRanking, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified RenewableRanking message, length delimited. Does not implicitly {@link main.RenewableRanking.verify|verify} messages.
+         * @param message RenewableRanking message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.IRenewableRanking, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a RenewableRanking message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RenewableRanking
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.RenewableRanking;
+
+        /**
+         * Decodes a RenewableRanking message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RenewableRanking
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.RenewableRanking;
+
+        /**
+         * Verifies a RenewableRanking message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RenewableRanking message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RenewableRanking
+         */
+        public static fromObject(object: { [k: string]: any }): main.RenewableRanking;
+
+        /**
+         * Creates a plain object from a RenewableRanking message. Also converts values to other types if specified.
+         * @param message RenewableRanking
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.RenewableRanking, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RenewableRanking to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a RenewableRewardSetting. */
     interface IRenewableRewardSetting {
 
