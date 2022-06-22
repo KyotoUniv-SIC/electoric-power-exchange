@@ -15,6 +15,8 @@ export class BidComponent implements OnInit {
   @Input()
   createdAt?: Date | null;
   @Input()
+  bidCreatedAt?: Date | null;
+  @Input()
   createdAtPrimary?: Date | null;
 
   constructor() {}
