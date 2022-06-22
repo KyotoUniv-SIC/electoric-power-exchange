@@ -45,8 +45,8 @@ export async function listToday(studentAccountID: string) {
   yesterday.setDate(yesterday.getDate() - 1);
   return await collection(studentAccountID)
     .orderBy('created_at', 'desc')
-    .where('created_at', '>', now)
-    .where('created_at', '<', yesterday)
+    .where('created_at', '<', now)
+    .where('created_at', '>', yesterday)
     .get()
     .then((snapshot) => snapshot.docs.map((doc) => doc.data() as DailyPayment));
 }
