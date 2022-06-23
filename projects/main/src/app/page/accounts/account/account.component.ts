@@ -84,7 +84,20 @@ export class AccountComponent implements OnInit {
     );
     this.monthlyPayments$ = this.studentAccount$.pipe(
       mergeMap((account) => (!account ? of(null) : this.monthlyPaymentApp.list$(account.id))),
-      map((payments) => (!payments ? null : payments?.slice(0, 5))),
+      map((payments) =>
+        !payments
+          ? null
+          : payments.slice(0, 5).sort((first, second) => {
+              // 降順に並び替え
+              if ((first.created_at as Timestamp).toDate() > (second.created_at as Timestamp).toDate()) {
+                return -1;
+              } else if ((first.created_at as Timestamp).toDate() < (second.created_at as Timestamp).toDate()) {
+                return 1;
+              } else {
+                return 0;
+              }
+            }),
+      ),
     );
 
     const now = new Date();
