@@ -16,6 +16,7 @@ import { map, mergeMap } from 'rxjs/operators';
 export class AskComponent implements OnInit {
   renewableAsk$: Observable<RenewableAskHistory | undefined> | undefined;
   createdAt$: Observable<Date> | undefined;
+  askCreatedAt$: Observable<Date> | undefined;
 
   constructor(
     private auth: Auth,
@@ -30,6 +31,7 @@ export class AskComponent implements OnInit {
       mergeMap(([studentAccount, historyID]) => this.renewableAskApp.get$(studentAccount.id, historyID)),
     );
     this.createdAt$ = this.renewableAsk$.pipe(map((ask) => (ask?.created_at as Timestamp).toDate()));
+    this.askCreatedAt$ = this.renewableAsk$.pipe(map((ask) => (ask?.ask_created_at as Timestamp).toDate()));
   }
 
   ngOnInit(): void {}

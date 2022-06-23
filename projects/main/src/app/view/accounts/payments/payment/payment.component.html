@@ -1,0 +1,48 @@
+<div class="w-full lg:mx-auto lg:w-1/3 lg:mt-10">
+  <h2>Monthly Payment Detail</h2>
+  <mat-card class="mb-20">
+    <mat-list>
+      <mat-list-item class="flex flex-wrap">
+        <span class="break-all">Year/Month:</span>
+        <span class="flex-auto break-all"></span>
+        <span class="break-all">{{ monthlyPayment?.year }}/{{ monthlyPayment?.month }}</span>
+      </mat-list-item>
+      <mat-divider [inset]="true"></mat-divider>
+      <mat-list-item class="flex flex-wrap">
+        <span class="break-all">Primary transaction:</span>
+        <span class="flex-auto break-all"></span>
+        <span class="break-all">{{ monthlyPayment?.amount_primary_ujpy | microString }}</span>
+      </mat-list-item>
+      <mat-divider [inset]="true"></mat-divider>
+      <mat-list-item class="flex flex-wrap">
+        <span class="break-all">Surplus or Shortage tokens:</span>
+        <span class="flex-auto break-all"></span>
+        <span class="break-all">{{ monthlyPayment?.amount_adjust_ujpy | microString }}</span>
+      </mat-list-item>
+      <mat-divider [inset]="true"></mat-divider>
+      <mat-list-item class="flex flex-wrap">
+        <span class="break-all">Payments to the Market:</span>
+        <span class="flex-auto break-all"></span>
+        <span class="break-all">{{ monthlyPayment?.amount_market_ujpy | microString }}</span>
+      </mat-list-item>
+      <mat-divider [inset]="true"></mat-divider>
+      <mat-list-item class="flex flex-wrap">
+        <span class="break-all">CO2 Ranking Reward:</span>
+        <span class="flex-auto break-all"></span>
+        <span class="break-all">{{ monthlyPayment?.amount_reward_ujpy | microString }}</span>
+      </mat-list-item>
+      <mat-divider [inset]="true"></mat-divider>
+      <mat-list-item class="flex flex-wrap">
+        <span class="break-all">Total Payment</span>
+        <span class="flex-auto break-all"></span>
+        <span class="break-all">{{ monthlyPayment?.amount_ujpy | microString }}</span>
+      </mat-list-item>
+      <mat-divider [inset]="true"></mat-divider>
+      <mat-list-item class="flex flex-wrap">
+        <span class="break-all">Timestamp:</span>
+        <span class="flex-auto break-all"></span>
+        <span class="break-all">{{ createdAt?.toLocaleString() }}</span>
+      </mat-list-item>
+    </mat-list>
+  </mat-card>
+</div>

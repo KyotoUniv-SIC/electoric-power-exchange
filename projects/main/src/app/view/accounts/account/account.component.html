@@ -131,23 +131,26 @@
     </mat-card-content>
     <ng-container *ngIf="monthlyPayments === null; then loading; else loadedPayment"></ng-container>
     <ng-template #loadedPayment>
-      <mat-list>
+      <mat-nav-list>
         <ng-container *ngIf="(monthlyPayments?.length || 0) > 0; then exist; else empty"></ng-container>
         <ng-template #exist>
           <ng-container *ngFor="let monthlyPayment of monthlyPayments">
             <mat-divider [inset]="true"></mat-divider>
-            <mat-list-item class="flex flex-wrap">
+            <mat-list-item class="flex flex-wrap" routerLink="/accounts/payments/{{ monthlyPayment.id }}">
               <span class="break-all">{{ monthlyPayment.year }}/{{ monthlyPayment.month }}:</span>
               <span class="flex-auto break-all"></span>
               <span class="break-all">{{ monthlyPayment.amount_ujpy | microString }} JPY</span>
             </mat-list-item>
           </ng-container>
           <mat-divider [inset]="true"></mat-divider>
+          <div class="mt-5">
+            <button mat-flat-button class="w-full" routerLink="/accounts/payments" color="accent">View Older Payment</button>
+          </div>
         </ng-template>
         <ng-template #empty>
           <p>There is no data.</p>
         </ng-template>
-      </mat-list>
+      </mat-nav-list>
     </ng-template>
   </mat-card>
 

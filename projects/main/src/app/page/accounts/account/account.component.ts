@@ -26,7 +26,7 @@ export class AccountComponent implements OnInit {
   uupxAmount$: Observable<number | null> | undefined;
   uspxAmount$: Observable<number | null> | undefined;
   insufficiencyAmount$: Observable<number | null> | undefined;
-  monthlyPayments$: Observable<MonthlyPayment[] | null> | undefined;
+  monthlyPayments$: Observable<MonthlyPayment[] | null | undefined> | undefined;
 
   totalUsage$: Observable<number> | undefined;
   totalUsageAverage$: Observable<string> | undefined;
@@ -84,6 +84,7 @@ export class AccountComponent implements OnInit {
     );
     this.monthlyPayments$ = this.studentAccount$.pipe(
       mergeMap((account) => (!account ? of(null) : this.monthlyPaymentApp.list$(account.id))),
+      map((payments) => (!payments ? null : payments?.slice(0, 5))),
     );
 
     const now = new Date();

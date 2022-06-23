@@ -16,6 +16,7 @@ import { map, mergeMap } from 'rxjs/operators';
 export class BidComponent implements OnInit {
   renewableBid$: Observable<RenewableBidHistory | undefined> | undefined;
   createdAt$: Observable<Date> | undefined;
+  bidCreatedAt$: Observable<Date> | undefined;
 
   constructor(
     private auth: Auth,
@@ -30,6 +31,7 @@ export class BidComponent implements OnInit {
       mergeMap(([studentAccount, historyID]) => this.renewableBidApp.get$(studentAccount.id, historyID)),
     );
     this.createdAt$ = this.renewableBid$.pipe(map((bid) => (bid?.created_at as Timestamp).toDate()));
+    this.bidCreatedAt$ = this.renewableBid$.pipe(map((bid) => (bid?.bid_created_at as Timestamp).toDate()));
   }
 
   ngOnInit(): void {}

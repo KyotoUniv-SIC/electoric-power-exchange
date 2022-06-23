@@ -12,6 +12,8 @@ export class AskComponent implements OnInit {
   renewableAsk?: RenewableAskHistory | null;
   @Input()
   createdAt?: Date | null;
+  @Input()
+  askCreatedAt?: Date | null;
 
   constructor() {}
 

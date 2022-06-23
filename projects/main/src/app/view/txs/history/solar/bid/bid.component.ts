@@ -12,6 +12,8 @@ export class BidComponent implements OnInit {
   renewableBid?: RenewableBidHistory | null;
   @Input()
   createdAt?: Date | null;
+  @Input()
+  bidCreatedAt?: Date | null;
 
   constructor() {}
 

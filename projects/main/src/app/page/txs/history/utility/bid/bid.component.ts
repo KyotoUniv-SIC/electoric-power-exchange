@@ -17,8 +17,9 @@ import { map, mergeMap } from 'rxjs/operators';
 export class BidComponent implements OnInit {
   normalBid$: Observable<NormalBidHistory | undefined> | undefined;
   primaryBid$: Observable<PrimaryBid | undefined> | undefined;
-  createdAt$: Observable<Date> | undefined;
-  createdAtPrimary$: Observable<Date> | undefined;
+  createdAt$: Observable<Date | null> | undefined;
+  bidCreatedAt$: Observable<Date | null> | undefined;
+  createdAtPrimary$: Observable<Date | null> | undefined;
 
   constructor(
     private auth: Auth,
@@ -33,11 +34,12 @@ export class BidComponent implements OnInit {
     this.normalBid$ = combineLatest([studentAccount$, historyID$]).pipe(
       mergeMap(([studentAccount, historyID]) => this.normalBidApp.get$(studentAccount.id, historyID)),
     );
-    this.createdAt$ = this.normalBid$.pipe(map((bid) => (bid?.created_at as Timestamp).toDate()));
+    this.createdAt$ = this.normalBid$.pipe(map((bid) => (!bid ? null : (bid?.created_at as Timestamp).toDate())));
+    this.bidCreatedAt$ = this.normalBid$.pipe(map((bid) => (!bid ? null : (bid?.bid_created_at as Timestamp).toDate())));
     this.primaryBid$ = combineLatest([studentAccount$, historyID$]).pipe(
       mergeMap(([studentAccount, historyID]) => this.primaryBidApp.get$(studentAccount.id, historyID)),
     );
-    this.createdAtPrimary$ = this.primaryBid$.pipe(map((bid) => (bid?.created_at as Timestamp).toDate()));
+    this.createdAtPrimary$ = this.primaryBid$.pipe(map((bid) => (!bid ? null : (bid?.created_at as Timestamp).toDate())));
   }
 
   ngOnInit(): void {}
