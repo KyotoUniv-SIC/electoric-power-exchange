@@ -1,0 +1,27 @@
+<div class="w-full lg:mx-auto lg:w-1/3 lg:mt-10">
+  <h2>Past Monthly Payments</h2>
+  <mat-card class="mb-20">
+    <ng-container *ngIf="monthlyPayments === null; then loading; else loadedPayment"></ng-container>
+    <ng-template #loading>
+      <mat-progress-spinner [diameter]="60" [mode]="'indeterminate'"></mat-progress-spinner>
+    </ng-template>
+    <ng-template #loadedPayment>
+      <mat-nav-list>
+        <ng-container *ngIf="(monthlyPayments?.length || 0) > 0; then exist; else empty"></ng-container>
+        <ng-template #exist>
+          <ng-container *ngFor="let monthlyPayment of monthlyPayments">
+            <mat-list-item class="flex flex-wrap" routerLink="/accounts/payments/{{ monthlyPayment.id }}">
+              <span class="break-all">{{ monthlyPayment.year }}/{{ monthlyPayment.month }}:</span>
+              <span class="flex-auto break-all"></span>
+              <span class="break-all">{{ monthlyPayment.amount_ujpy | microString }} JPY</span>
+            </mat-list-item>
+            <mat-divider [inset]="true"></mat-divider>
+          </ng-container>
+        </ng-template>
+        <ng-template #empty>
+          <p>There is no data.</p>
+        </ng-template>
+      </mat-nav-list>
+    </ng-template>
+  </mat-card>
+</div>

@@ -12,6 +12,8 @@ export class AskComponent implements OnInit {
   normalAsk?: NormalAskHistory | null;
   @Input()
   createdAt?: Date | null;
+  @Input()
+  askCreatedAt?: Date | null;
 
   constructor() {}
 

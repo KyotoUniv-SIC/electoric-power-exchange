@@ -2047,6 +2047,18 @@ export namespace main {
 
         /** MonthlyPayment amount_ujpy */
         amount_ujpy?: (string|null);
+
+        /** MonthlyPayment amount_primary_ujpy */
+        amount_primary_ujpy?: (string|null);
+
+        /** MonthlyPayment amount_adjust_ujpy */
+        amount_adjust_ujpy?: (string|null);
+
+        /** MonthlyPayment amount_market_ujpy */
+        amount_market_ujpy?: (string|null);
+
+        /** MonthlyPayment amount_reward_ujpy */
+        amount_reward_ujpy?: (string|null);
     }
 
     /** Represents a MonthlyPayment. */
@@ -2072,6 +2084,18 @@ export namespace main {
 
         /** MonthlyPayment amount_ujpy. */
         public amount_ujpy: string;
+
+        /** MonthlyPayment amount_primary_ujpy. */
+        public amount_primary_ujpy: string;
+
+        /** MonthlyPayment amount_adjust_ujpy. */
+        public amount_adjust_ujpy: string;
+
+        /** MonthlyPayment amount_market_ujpy. */
+        public amount_market_ujpy: string;
+
+        /** MonthlyPayment amount_reward_ujpy. */
+        public amount_reward_ujpy: string;
 
         /**
          * Encodes the specified MonthlyPayment message. Does not implicitly {@link main.MonthlyPayment.verify|verify} messages.
@@ -4038,6 +4062,208 @@ export namespace main {
 
         /**
          * Converts this RenewableBid to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a RenewableRanking. */
+    interface IRenewableRanking {
+
+        /** RenewableRanking id */
+        id?: (string|null);
+
+        /** RenewableRanking first_student_id */
+        first_student_id?: (string|null);
+
+        /** RenewableRanking second_student_id */
+        second_student_id?: (string|null);
+
+        /** RenewableRanking third_student_id */
+        third_student_id?: (string|null);
+    }
+
+    /** Represents a RenewableRanking. */
+    class RenewableRanking implements IRenewableRanking {
+
+        /**
+         * Constructs a new RenewableRanking.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.IRenewableRanking);
+
+        /** RenewableRanking id. */
+        public id: string;
+
+        /** RenewableRanking first_student_id. */
+        public first_student_id: string;
+
+        /** RenewableRanking second_student_id. */
+        public second_student_id: string;
+
+        /** RenewableRanking third_student_id. */
+        public third_student_id: string;
+
+        /**
+         * Encodes the specified RenewableRanking message. Does not implicitly {@link main.RenewableRanking.verify|verify} messages.
+         * @param message RenewableRanking message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.IRenewableRanking, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified RenewableRanking message, length delimited. Does not implicitly {@link main.RenewableRanking.verify|verify} messages.
+         * @param message RenewableRanking message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.IRenewableRanking, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a RenewableRanking message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RenewableRanking
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.RenewableRanking;
+
+        /**
+         * Decodes a RenewableRanking message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RenewableRanking
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.RenewableRanking;
+
+        /**
+         * Verifies a RenewableRanking message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RenewableRanking message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RenewableRanking
+         */
+        public static fromObject(object: { [k: string]: any }): main.RenewableRanking;
+
+        /**
+         * Creates a plain object from a RenewableRanking message. Also converts values to other types if specified.
+         * @param message RenewableRanking
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.RenewableRanking, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RenewableRanking to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a RenewableRewardSetting. */
+    interface IRenewableRewardSetting {
+
+        /** RenewableRewardSetting id */
+        id?: (string|null);
+
+        /** RenewableRewardSetting first_price_ujpy */
+        first_price_ujpy?: (string|null);
+
+        /** RenewableRewardSetting second_price_ujpy */
+        second_price_ujpy?: (string|null);
+
+        /** RenewableRewardSetting third_price_ujpy */
+        third_price_ujpy?: (string|null);
+    }
+
+    /** Represents a RenewableRewardSetting. */
+    class RenewableRewardSetting implements IRenewableRewardSetting {
+
+        /**
+         * Constructs a new RenewableRewardSetting.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: main.IRenewableRewardSetting);
+
+        /** RenewableRewardSetting id. */
+        public id: string;
+
+        /** RenewableRewardSetting first_price_ujpy. */
+        public first_price_ujpy: string;
+
+        /** RenewableRewardSetting second_price_ujpy. */
+        public second_price_ujpy: string;
+
+        /** RenewableRewardSetting third_price_ujpy. */
+        public third_price_ujpy: string;
+
+        /**
+         * Encodes the specified RenewableRewardSetting message. Does not implicitly {@link main.RenewableRewardSetting.verify|verify} messages.
+         * @param message RenewableRewardSetting message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: main.IRenewableRewardSetting, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified RenewableRewardSetting message, length delimited. Does not implicitly {@link main.RenewableRewardSetting.verify|verify} messages.
+         * @param message RenewableRewardSetting message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: main.IRenewableRewardSetting, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a RenewableRewardSetting message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RenewableRewardSetting
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): main.RenewableRewardSetting;
+
+        /**
+         * Decodes a RenewableRewardSetting message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RenewableRewardSetting
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): main.RenewableRewardSetting;
+
+        /**
+         * Verifies a RenewableRewardSetting message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RenewableRewardSetting message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RenewableRewardSetting
+         */
+        public static fromObject(object: { [k: string]: any }): main.RenewableRewardSetting;
+
+        /**
+         * Creates a plain object from a RenewableRewardSetting message. Also converts values to other types if specified.
+         * @param message RenewableRewardSetting
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: main.RenewableRewardSetting, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RenewableRewardSetting to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
