@@ -188,8 +188,14 @@
   <span class="flex-auto"></span>
   <div class="hidden lg:block xl:mr-20 2xl:w-1/4">
     <mat-card class="mb-10">
-      <mat-card-title class="mb-10">Contract Price & Amount Charts</mat-card-title>
-      <mat-card-content style="font-size: large; margin-top: 60px; margin-bottom: 40px">UPX Contract Price and Amount</mat-card-content>
+      <mat-card-title>Contract Price & Amount Charts</mat-card-title>
+      <details>
+        <summary>Read More</summary>
+        <mat-card-content>
+          <p>Displays contract prices and transaction volume over the past 7 days.</p>
+        </mat-card-content>
+      </details>
+      <mat-card-content style="font-size: large; margin-top: 20px; margin-bottom: 20px">UPX Contract Price and Amount</mat-card-content>
       <ng-container *ngIf="normalChartDataSets === null; then loading; else loadedNormal"></ng-container>
       <ng-template #loadedNormal>
         <canvas
@@ -201,7 +207,7 @@
           [chartType]="barChartType"
         >
         </canvas>
-        <mat-card-content style="font-size: large; margin-top: 60px; margin-bottom: 40px">SPX Contract Price and Amount</mat-card-content>
+        <mat-card-content style="font-size: large; margin-top: 40px; margin-bottom: 20px">SPX Contract Price and Amount</mat-card-content>
         <ng-container *ngIf="renewableChartDataSets === null; then loading; else loadedRenewable"></ng-container>
         <ng-template #loadedRenewable>
           <canvas
@@ -420,10 +426,13 @@
 
     <div class="mt-5">
       <mat-card-title>CO2 Ranking</mat-card-title>
-      <mat-card-content>
-        <p>Displays the ranking of SPX as a percentage of electricity usage.</p>
-        <p>Users who finish in the top three places at the end of the month will be recognized and awarded cash prizes.</p>
-      </mat-card-content>
+      <details>
+        <summary>Read More</summary>
+        <mat-card-content>
+          <p>Displays the ranking of SPX as a percentage of electricity usage.</p>
+          <p>Users who finish in the top three places at the end of the month will be recognized and awarded cash prizes.</p>
+        </mat-card-content>
+      </details>
       <mat-list>
         <mat-card class="flex flex-wrap" style="padding: 0px; border: 2.5px solid black">
           <mat-list-item class="flex flex-wrap">

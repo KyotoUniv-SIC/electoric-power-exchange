@@ -11,4 +11,8 @@ message MonthlyPayment {
   string year = 3;
   string month = 4;
   string amount_ujpy = 5;
+  string amount_primary_ujpy = 6;
+  string amount_adjust_ujpy = 7;
+  string amount_market_ujpy = 8;
+  string amount_reward_ujpy = 9;
 }

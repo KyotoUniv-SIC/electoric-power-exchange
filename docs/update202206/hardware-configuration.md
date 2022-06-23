@@ -7,11 +7,13 @@ style XRPL fill:#67a8dd
 style ES fill:#00ff00
 
 
-User((User)) <--> Fn{EDISON Admin \n Firebase}
-User --> XRPL[(XRP Ledger)]
-Fn<-->XRPL
-Fn <-->DB[(Firestore)]
-ES[Energy Server] --> MS[Mail Server]-->DB
+User((User)) -->|Send Order| Fn{EDISON Admin \n Firebase}
+User((User)) -->|Request Info| Fn{EDISON Admin \n Firebase}
+Fn{EDISON Admin \n Firebase} --> |Send Info|User
+User --> |Request \n Account Info & Account Lines|XRPL[(XRP Ledger)]
+Fn-->|Request \n Payment Transaction|XRPL
+Fn -->|Request Data|DB[(Firestore)]
+DB -->|Send Data| Fn
+ES[Energy Server] -->|Send Data| MS[Mail Server]
+MS-->DB
 ```
-
-

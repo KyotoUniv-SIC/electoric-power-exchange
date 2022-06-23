@@ -4,6 +4,8 @@ import { AccountsComponent } from './accounts.component';
 import { CreateComponent } from './create/create.component';
 import { EmailComponent } from './email/email.component';
 import { EnterComponent } from './enter/enter.component';
+import { PaymentComponent } from './payments/payment/payment.component';
+import { PaymentsComponent } from './payments/payments.component';
 import { RoomComponent } from './room/room.component';
 import { XrplComponent } from './xrpl/xrpl.component';
 import { NgModule } from '@angular/core';
@@ -17,6 +19,8 @@ const routes: Routes = [
   { path: 'room', component: RoomComponent },
   { path: 'email', component: EmailComponent },
   { path: 'xrpl', component: XrplComponent },
+  { path: 'payments', component: PaymentsComponent },
+  { path: 'payments/:payment_id', component: PaymentComponent },
 ];
 
 @NgModule({

@@ -68,8 +68,8 @@ export class BuyComponent implements OnInit {
       alert('ユーザーログイン情報を取得できません');
       return;
     }
-    const ujpyPrice = (Number(price) * 1000000).toString();
-    const utokenAmount = (Number(amount) * 1000000).toString();
+    const ujpyPrice = Math.floor(Number(price) * 1000000).toString();
+    const utokenAmount = Math.floor(Number(amount) * 1000000).toString();
     this.appSubmit.emit({ accountID: this.studentAccount?.id, ujpyPrice, utokenAmount, denom });
   }
 

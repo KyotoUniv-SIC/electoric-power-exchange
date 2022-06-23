@@ -4951,6 +4951,10 @@
              * @property {string|null} [year] MonthlyPayment year
              * @property {string|null} [month] MonthlyPayment month
              * @property {string|null} [amount_ujpy] MonthlyPayment amount_ujpy
+             * @property {string|null} [amount_primary_ujpy] MonthlyPayment amount_primary_ujpy
+             * @property {string|null} [amount_adjust_ujpy] MonthlyPayment amount_adjust_ujpy
+             * @property {string|null} [amount_market_ujpy] MonthlyPayment amount_market_ujpy
+             * @property {string|null} [amount_reward_ujpy] MonthlyPayment amount_reward_ujpy
              */
     
             /**
@@ -5009,6 +5013,38 @@
             MonthlyPayment.prototype.amount_ujpy = "";
     
             /**
+             * MonthlyPayment amount_primary_ujpy.
+             * @member {string} amount_primary_ujpy
+             * @memberof main.MonthlyPayment
+             * @instance
+             */
+            MonthlyPayment.prototype.amount_primary_ujpy = "";
+    
+            /**
+             * MonthlyPayment amount_adjust_ujpy.
+             * @member {string} amount_adjust_ujpy
+             * @memberof main.MonthlyPayment
+             * @instance
+             */
+            MonthlyPayment.prototype.amount_adjust_ujpy = "";
+    
+            /**
+             * MonthlyPayment amount_market_ujpy.
+             * @member {string} amount_market_ujpy
+             * @memberof main.MonthlyPayment
+             * @instance
+             */
+            MonthlyPayment.prototype.amount_market_ujpy = "";
+    
+            /**
+             * MonthlyPayment amount_reward_ujpy.
+             * @member {string} amount_reward_ujpy
+             * @memberof main.MonthlyPayment
+             * @instance
+             */
+            MonthlyPayment.prototype.amount_reward_ujpy = "";
+    
+            /**
              * Encodes the specified MonthlyPayment message. Does not implicitly {@link main.MonthlyPayment.verify|verify} messages.
              * @function encode
              * @memberof main.MonthlyPayment
@@ -5030,6 +5066,14 @@
                     writer.uint32(/* id 4, wireType 2 =*/34).string(message.month);
                 if (message.amount_ujpy != null && Object.hasOwnProperty.call(message, "amount_ujpy"))
                     writer.uint32(/* id 5, wireType 2 =*/42).string(message.amount_ujpy);
+                if (message.amount_primary_ujpy != null && Object.hasOwnProperty.call(message, "amount_primary_ujpy"))
+                    writer.uint32(/* id 6, wireType 2 =*/50).string(message.amount_primary_ujpy);
+                if (message.amount_adjust_ujpy != null && Object.hasOwnProperty.call(message, "amount_adjust_ujpy"))
+                    writer.uint32(/* id 7, wireType 2 =*/58).string(message.amount_adjust_ujpy);
+                if (message.amount_market_ujpy != null && Object.hasOwnProperty.call(message, "amount_market_ujpy"))
+                    writer.uint32(/* id 8, wireType 2 =*/66).string(message.amount_market_ujpy);
+                if (message.amount_reward_ujpy != null && Object.hasOwnProperty.call(message, "amount_reward_ujpy"))
+                    writer.uint32(/* id 9, wireType 2 =*/74).string(message.amount_reward_ujpy);
                 return writer;
             };
     
@@ -5078,6 +5122,18 @@
                         break;
                     case 5:
                         message.amount_ujpy = reader.string();
+                        break;
+                    case 6:
+                        message.amount_primary_ujpy = reader.string();
+                        break;
+                    case 7:
+                        message.amount_adjust_ujpy = reader.string();
+                        break;
+                    case 8:
+                        message.amount_market_ujpy = reader.string();
+                        break;
+                    case 9:
+                        message.amount_reward_ujpy = reader.string();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -5129,6 +5185,18 @@
                 if (message.amount_ujpy != null && message.hasOwnProperty("amount_ujpy"))
                     if (!$util.isString(message.amount_ujpy))
                         return "amount_ujpy: string expected";
+                if (message.amount_primary_ujpy != null && message.hasOwnProperty("amount_primary_ujpy"))
+                    if (!$util.isString(message.amount_primary_ujpy))
+                        return "amount_primary_ujpy: string expected";
+                if (message.amount_adjust_ujpy != null && message.hasOwnProperty("amount_adjust_ujpy"))
+                    if (!$util.isString(message.amount_adjust_ujpy))
+                        return "amount_adjust_ujpy: string expected";
+                if (message.amount_market_ujpy != null && message.hasOwnProperty("amount_market_ujpy"))
+                    if (!$util.isString(message.amount_market_ujpy))
+                        return "amount_market_ujpy: string expected";
+                if (message.amount_reward_ujpy != null && message.hasOwnProperty("amount_reward_ujpy"))
+                    if (!$util.isString(message.amount_reward_ujpy))
+                        return "amount_reward_ujpy: string expected";
                 return null;
             };
     
@@ -5154,6 +5222,14 @@
                     message.month = String(object.month);
                 if (object.amount_ujpy != null)
                     message.amount_ujpy = String(object.amount_ujpy);
+                if (object.amount_primary_ujpy != null)
+                    message.amount_primary_ujpy = String(object.amount_primary_ujpy);
+                if (object.amount_adjust_ujpy != null)
+                    message.amount_adjust_ujpy = String(object.amount_adjust_ujpy);
+                if (object.amount_market_ujpy != null)
+                    message.amount_market_ujpy = String(object.amount_market_ujpy);
+                if (object.amount_reward_ujpy != null)
+                    message.amount_reward_ujpy = String(object.amount_reward_ujpy);
                 return message;
             };
     
@@ -5176,6 +5252,10 @@
                     object.year = "";
                     object.month = "";
                     object.amount_ujpy = "";
+                    object.amount_primary_ujpy = "";
+                    object.amount_adjust_ujpy = "";
+                    object.amount_market_ujpy = "";
+                    object.amount_reward_ujpy = "";
                 }
                 if (message.id != null && message.hasOwnProperty("id"))
                     object.id = message.id;
@@ -5187,6 +5267,14 @@
                     object.month = message.month;
                 if (message.amount_ujpy != null && message.hasOwnProperty("amount_ujpy"))
                     object.amount_ujpy = message.amount_ujpy;
+                if (message.amount_primary_ujpy != null && message.hasOwnProperty("amount_primary_ujpy"))
+                    object.amount_primary_ujpy = message.amount_primary_ujpy;
+                if (message.amount_adjust_ujpy != null && message.hasOwnProperty("amount_adjust_ujpy"))
+                    object.amount_adjust_ujpy = message.amount_adjust_ujpy;
+                if (message.amount_market_ujpy != null && message.hasOwnProperty("amount_market_ujpy"))
+                    object.amount_market_ujpy = message.amount_market_ujpy;
+                if (message.amount_reward_ujpy != null && message.hasOwnProperty("amount_reward_ujpy"))
+                    object.amount_reward_ujpy = message.amount_reward_ujpy;
                 return object;
             };
     
@@ -9914,6 +10002,490 @@
             };
     
             return RenewableBid;
+        })();
+    
+        main.RenewableRanking = (function() {
+    
+            /**
+             * Properties of a RenewableRanking.
+             * @memberof main
+             * @interface IRenewableRanking
+             * @property {string|null} [id] RenewableRanking id
+             * @property {string|null} [first_student_id] RenewableRanking first_student_id
+             * @property {string|null} [second_student_id] RenewableRanking second_student_id
+             * @property {string|null} [third_student_id] RenewableRanking third_student_id
+             */
+    
+            /**
+             * Constructs a new RenewableRanking.
+             * @memberof main
+             * @classdesc Represents a RenewableRanking.
+             * @implements IRenewableRanking
+             * @constructor
+             * @param {main.IRenewableRanking=} [properties] Properties to set
+             */
+            function RenewableRanking(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+    
+            /**
+             * RenewableRanking id.
+             * @member {string} id
+             * @memberof main.RenewableRanking
+             * @instance
+             */
+            RenewableRanking.prototype.id = "";
+    
+            /**
+             * RenewableRanking first_student_id.
+             * @member {string} first_student_id
+             * @memberof main.RenewableRanking
+             * @instance
+             */
+            RenewableRanking.prototype.first_student_id = "";
+    
+            /**
+             * RenewableRanking second_student_id.
+             * @member {string} second_student_id
+             * @memberof main.RenewableRanking
+             * @instance
+             */
+            RenewableRanking.prototype.second_student_id = "";
+    
+            /**
+             * RenewableRanking third_student_id.
+             * @member {string} third_student_id
+             * @memberof main.RenewableRanking
+             * @instance
+             */
+            RenewableRanking.prototype.third_student_id = "";
+    
+            /**
+             * Encodes the specified RenewableRanking message. Does not implicitly {@link main.RenewableRanking.verify|verify} messages.
+             * @function encode
+             * @memberof main.RenewableRanking
+             * @static
+             * @param {main.IRenewableRanking} message RenewableRanking message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            RenewableRanking.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                if (message.first_student_id != null && Object.hasOwnProperty.call(message, "first_student_id"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.first_student_id);
+                if (message.second_student_id != null && Object.hasOwnProperty.call(message, "second_student_id"))
+                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.second_student_id);
+                if (message.third_student_id != null && Object.hasOwnProperty.call(message, "third_student_id"))
+                    writer.uint32(/* id 4, wireType 2 =*/34).string(message.third_student_id);
+                return writer;
+            };
+    
+            /**
+             * Encodes the specified RenewableRanking message, length delimited. Does not implicitly {@link main.RenewableRanking.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof main.RenewableRanking
+             * @static
+             * @param {main.IRenewableRanking} message RenewableRanking message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            RenewableRanking.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+    
+            /**
+             * Decodes a RenewableRanking message from the specified reader or buffer.
+             * @function decode
+             * @memberof main.RenewableRanking
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {main.RenewableRanking} RenewableRanking
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            RenewableRanking.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.RenewableRanking();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.id = reader.string();
+                        break;
+                    case 2:
+                        message.first_student_id = reader.string();
+                        break;
+                    case 3:
+                        message.second_student_id = reader.string();
+                        break;
+                    case 4:
+                        message.third_student_id = reader.string();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Decodes a RenewableRanking message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof main.RenewableRanking
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {main.RenewableRanking} RenewableRanking
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            RenewableRanking.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+    
+            /**
+             * Verifies a RenewableRanking message.
+             * @function verify
+             * @memberof main.RenewableRanking
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            RenewableRanking.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.id != null && message.hasOwnProperty("id"))
+                    if (!$util.isString(message.id))
+                        return "id: string expected";
+                if (message.first_student_id != null && message.hasOwnProperty("first_student_id"))
+                    if (!$util.isString(message.first_student_id))
+                        return "first_student_id: string expected";
+                if (message.second_student_id != null && message.hasOwnProperty("second_student_id"))
+                    if (!$util.isString(message.second_student_id))
+                        return "second_student_id: string expected";
+                if (message.third_student_id != null && message.hasOwnProperty("third_student_id"))
+                    if (!$util.isString(message.third_student_id))
+                        return "third_student_id: string expected";
+                return null;
+            };
+    
+            /**
+             * Creates a RenewableRanking message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof main.RenewableRanking
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {main.RenewableRanking} RenewableRanking
+             */
+            RenewableRanking.fromObject = function fromObject(object) {
+                if (object instanceof $root.main.RenewableRanking)
+                    return object;
+                var message = new $root.main.RenewableRanking();
+                if (object.id != null)
+                    message.id = String(object.id);
+                if (object.first_student_id != null)
+                    message.first_student_id = String(object.first_student_id);
+                if (object.second_student_id != null)
+                    message.second_student_id = String(object.second_student_id);
+                if (object.third_student_id != null)
+                    message.third_student_id = String(object.third_student_id);
+                return message;
+            };
+    
+            /**
+             * Creates a plain object from a RenewableRanking message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof main.RenewableRanking
+             * @static
+             * @param {main.RenewableRanking} message RenewableRanking
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            RenewableRanking.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.id = "";
+                    object.first_student_id = "";
+                    object.second_student_id = "";
+                    object.third_student_id = "";
+                }
+                if (message.id != null && message.hasOwnProperty("id"))
+                    object.id = message.id;
+                if (message.first_student_id != null && message.hasOwnProperty("first_student_id"))
+                    object.first_student_id = message.first_student_id;
+                if (message.second_student_id != null && message.hasOwnProperty("second_student_id"))
+                    object.second_student_id = message.second_student_id;
+                if (message.third_student_id != null && message.hasOwnProperty("third_student_id"))
+                    object.third_student_id = message.third_student_id;
+                return object;
+            };
+    
+            /**
+             * Converts this RenewableRanking to JSON.
+             * @function toJSON
+             * @memberof main.RenewableRanking
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            RenewableRanking.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            return RenewableRanking;
+        })();
+    
+        main.RenewableRewardSetting = (function() {
+    
+            /**
+             * Properties of a RenewableRewardSetting.
+             * @memberof main
+             * @interface IRenewableRewardSetting
+             * @property {string|null} [id] RenewableRewardSetting id
+             * @property {string|null} [first_price_ujpy] RenewableRewardSetting first_price_ujpy
+             * @property {string|null} [second_price_ujpy] RenewableRewardSetting second_price_ujpy
+             * @property {string|null} [third_price_ujpy] RenewableRewardSetting third_price_ujpy
+             */
+    
+            /**
+             * Constructs a new RenewableRewardSetting.
+             * @memberof main
+             * @classdesc Represents a RenewableRewardSetting.
+             * @implements IRenewableRewardSetting
+             * @constructor
+             * @param {main.IRenewableRewardSetting=} [properties] Properties to set
+             */
+            function RenewableRewardSetting(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+    
+            /**
+             * RenewableRewardSetting id.
+             * @member {string} id
+             * @memberof main.RenewableRewardSetting
+             * @instance
+             */
+            RenewableRewardSetting.prototype.id = "";
+    
+            /**
+             * RenewableRewardSetting first_price_ujpy.
+             * @member {string} first_price_ujpy
+             * @memberof main.RenewableRewardSetting
+             * @instance
+             */
+            RenewableRewardSetting.prototype.first_price_ujpy = "";
+    
+            /**
+             * RenewableRewardSetting second_price_ujpy.
+             * @member {string} second_price_ujpy
+             * @memberof main.RenewableRewardSetting
+             * @instance
+             */
+            RenewableRewardSetting.prototype.second_price_ujpy = "";
+    
+            /**
+             * RenewableRewardSetting third_price_ujpy.
+             * @member {string} third_price_ujpy
+             * @memberof main.RenewableRewardSetting
+             * @instance
+             */
+            RenewableRewardSetting.prototype.third_price_ujpy = "";
+    
+            /**
+             * Encodes the specified RenewableRewardSetting message. Does not implicitly {@link main.RenewableRewardSetting.verify|verify} messages.
+             * @function encode
+             * @memberof main.RenewableRewardSetting
+             * @static
+             * @param {main.IRenewableRewardSetting} message RenewableRewardSetting message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            RenewableRewardSetting.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                if (message.first_price_ujpy != null && Object.hasOwnProperty.call(message, "first_price_ujpy"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.first_price_ujpy);
+                if (message.second_price_ujpy != null && Object.hasOwnProperty.call(message, "second_price_ujpy"))
+                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.second_price_ujpy);
+                if (message.third_price_ujpy != null && Object.hasOwnProperty.call(message, "third_price_ujpy"))
+                    writer.uint32(/* id 4, wireType 2 =*/34).string(message.third_price_ujpy);
+                return writer;
+            };
+    
+            /**
+             * Encodes the specified RenewableRewardSetting message, length delimited. Does not implicitly {@link main.RenewableRewardSetting.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof main.RenewableRewardSetting
+             * @static
+             * @param {main.IRenewableRewardSetting} message RenewableRewardSetting message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            RenewableRewardSetting.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+    
+            /**
+             * Decodes a RenewableRewardSetting message from the specified reader or buffer.
+             * @function decode
+             * @memberof main.RenewableRewardSetting
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {main.RenewableRewardSetting} RenewableRewardSetting
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            RenewableRewardSetting.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.main.RenewableRewardSetting();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.id = reader.string();
+                        break;
+                    case 2:
+                        message.first_price_ujpy = reader.string();
+                        break;
+                    case 3:
+                        message.second_price_ujpy = reader.string();
+                        break;
+                    case 4:
+                        message.third_price_ujpy = reader.string();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Decodes a RenewableRewardSetting message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof main.RenewableRewardSetting
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {main.RenewableRewardSetting} RenewableRewardSetting
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            RenewableRewardSetting.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+    
+            /**
+             * Verifies a RenewableRewardSetting message.
+             * @function verify
+             * @memberof main.RenewableRewardSetting
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            RenewableRewardSetting.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.id != null && message.hasOwnProperty("id"))
+                    if (!$util.isString(message.id))
+                        return "id: string expected";
+                if (message.first_price_ujpy != null && message.hasOwnProperty("first_price_ujpy"))
+                    if (!$util.isString(message.first_price_ujpy))
+                        return "first_price_ujpy: string expected";
+                if (message.second_price_ujpy != null && message.hasOwnProperty("second_price_ujpy"))
+                    if (!$util.isString(message.second_price_ujpy))
+                        return "second_price_ujpy: string expected";
+                if (message.third_price_ujpy != null && message.hasOwnProperty("third_price_ujpy"))
+                    if (!$util.isString(message.third_price_ujpy))
+                        return "third_price_ujpy: string expected";
+                return null;
+            };
+    
+            /**
+             * Creates a RenewableRewardSetting message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof main.RenewableRewardSetting
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {main.RenewableRewardSetting} RenewableRewardSetting
+             */
+            RenewableRewardSetting.fromObject = function fromObject(object) {
+                if (object instanceof $root.main.RenewableRewardSetting)
+                    return object;
+                var message = new $root.main.RenewableRewardSetting();
+                if (object.id != null)
+                    message.id = String(object.id);
+                if (object.first_price_ujpy != null)
+                    message.first_price_ujpy = String(object.first_price_ujpy);
+                if (object.second_price_ujpy != null)
+                    message.second_price_ujpy = String(object.second_price_ujpy);
+                if (object.third_price_ujpy != null)
+                    message.third_price_ujpy = String(object.third_price_ujpy);
+                return message;
+            };
+    
+            /**
+             * Creates a plain object from a RenewableRewardSetting message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof main.RenewableRewardSetting
+             * @static
+             * @param {main.RenewableRewardSetting} message RenewableRewardSetting
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            RenewableRewardSetting.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.id = "";
+                    object.first_price_ujpy = "";
+                    object.second_price_ujpy = "";
+                    object.third_price_ujpy = "";
+                }
+                if (message.id != null && message.hasOwnProperty("id"))
+                    object.id = message.id;
+                if (message.first_price_ujpy != null && message.hasOwnProperty("first_price_ujpy"))
+                    object.first_price_ujpy = message.first_price_ujpy;
+                if (message.second_price_ujpy != null && message.hasOwnProperty("second_price_ujpy"))
+                    object.second_price_ujpy = message.second_price_ujpy;
+                if (message.third_price_ujpy != null && message.hasOwnProperty("third_price_ujpy"))
+                    object.third_price_ujpy = message.third_price_ujpy;
+                return object;
+            };
+    
+            /**
+             * Converts this RenewableRewardSetting to JSON.
+             * @function toJSON
+             * @memberof main.RenewableRewardSetting
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            RenewableRewardSetting.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            return RenewableRewardSetting;
         })();
     
         main.RenewableSettlement = (function() {

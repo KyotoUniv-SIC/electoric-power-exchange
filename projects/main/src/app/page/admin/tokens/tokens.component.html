@@ -2,7 +2,9 @@
   [normalSetting]="normalSetting$ | async"
   [renewableSetting]="renewableSetting$ | async"
   [costSetting]="costSetting$ | async"
+  [renewableRewardSetting]="renewableRewardSetting$ | async"
   (appSubmitNormal)="onSubmitNormal($event)"
   (appSubmitRenewable)="onSubmitRenewable($event)"
   (appSubmitCost)="onSubmitCost($event)"
+  (appSubmitReward)="onSubmitReward($event)"
 ></view-tokens>

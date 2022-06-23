@@ -44,3 +44,5 @@ export * from './entities/renewable-ask-settings';
 export * from './entities/student-accounts/daily-payments';
 export * from './entities/cost-settings';
 export * from './entities/delta-amounts';
+export * from './entities/renewable-reward-settings';
+export * from './entities/renewable-rankings';
