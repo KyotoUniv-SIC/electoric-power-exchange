@@ -14,6 +14,6 @@ User --> |Request \n Account Info & Account Lines|XRPL[(XRP Ledger)]
 Fn-->|Request \n Payment Transaction|XRPL
 Fn -->|Request Data|DB[(Firestore)]
 DB -->|Send Data| Fn
-ES[Energy Server] -->|Send Info| MS[Mail Server]
-MS-->|Request Data|DB
+ES[Energy Server] -->|Send Data| MS[Mail Server]
+MS-->DB
 ```
