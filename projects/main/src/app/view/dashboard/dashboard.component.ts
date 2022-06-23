@@ -36,8 +36,6 @@ export class DashboardComponent implements OnInit {
   @Input()
   totalUsageAverage?: string | null;
   @Input()
-  usageData?: ChartDataSets[] | null;
-  @Input()
   rankings?: Ranking[] | null;
   @Input()
   rank?: number | null;
@@ -63,8 +61,6 @@ export class DashboardComponent implements OnInit {
   renewableDate?: Date | null;
   @Input()
   renewableChartDataSets?: ChartDataSets[] | null;
-  @Input()
-  renewableSettlements?: SinglePriceRenewableSettlement[] | null;
   @Input()
   renewableChartDates?: string[] | null;
   @Input()
