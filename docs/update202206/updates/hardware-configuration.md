@@ -7,7 +7,7 @@ style XRPL fill:#67a8dd
 style ES fill:#00ff00
 
 
-User((User)) <--> Fn{Firebase}
+User((User)) <--> Fn{EDISON Admin \n Firebase}
 User --> XRPL[(XRP Ledger)]
 Fn<-->XRPL
 Fn <-->DB[(Firestore)]
