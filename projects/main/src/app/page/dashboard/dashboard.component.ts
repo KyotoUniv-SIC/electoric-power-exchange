@@ -65,7 +65,6 @@ export class DashboardComponent implements OnInit {
   withdrawDate$: Observable<Date> | undefined;
   totalUsage$: Observable<number> | undefined;
   totalUsageAverage$: Observable<string> | undefined;
-  usageData$: Observable<ChartDataSets[]> | undefined;
   rankings$: Observable<Ranking[]> | undefined;
   rank$: Observable<number | undefined> | undefined;
   co2Rank$: Observable<CO2Ranking> | undefined;
@@ -79,7 +78,6 @@ export class DashboardComponent implements OnInit {
 
   renewableSettlement$: Observable<SinglePriceRenewableSettlement> | undefined;
   renewableDate$: Observable<Date> | undefined;
-  renewableSettlements$: Observable<SinglePriceRenewableSettlement[]> | undefined;
   renewableChartDataSets$: Observable<ChartDataSets[]> | undefined;
   renewableChartDates$: Observable<string[]> | undefined;
   renewableChartOptions$: Observable<ChartOptions> | undefined;
@@ -97,7 +95,6 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private auth: Auth,
-    private route: ActivatedRoute,
     private readonly studentsApp: StudentAccountApplicationService,
     private readonly studentAccApp: StudentAccountApplicationService,
     private readonly balanceApp: BalanceApplicationService,
@@ -329,25 +326,17 @@ export class DashboardComponent implements OnInit {
         return data;
       }),
     );
-    this.usageData$ = combineLatest([usages$, usagesPreviousYear$]).pipe(
-      map(([thisYear, lastYear]) => [
-        { data: thisYear, label: 'This year' },
-        { data: lastYear, label: 'Last year' },
-      ]),
-    );
     this.normalSettlement$ = this.singlePriceNormalApp.getLatest$();
     this.normalDate$ = this.normalSettlement$.pipe(map((single) => (single.market_date as Timestamp).toDate()));
     this.renewableSettlement$ = this.singlePriceRenewableApp.getLatest$();
     this.renewableDate$ = this.renewableSettlement$.pipe(map((single) => (single.market_date as Timestamp).toDate()));
     this.normalSettlements$ = this.singlePriceNormalApp.listLatestMonth$();
-    this.renewableSettlements$ = this.singlePriceRenewableApp.listLatestMonth$();
+    const renewableSettlements$ = this.singlePriceRenewableApp.listLatestMonth$();
 
     const pricesNormal$ = this.normalSettlements$.pipe(map((params) => params.map((param) => parseInt(param.price_ujpy) / 1000000)));
     const amountsNormal$ = this.normalSettlements$.pipe(map((params) => params.map((param) => parseInt(param.amount_uupx) / 1000000)));
-    const pricesRenewable$ = this.renewableSettlements$.pipe(map((params) => params.map((param) => parseInt(param.price_ujpy) / 1000000)));
-    const amountsRenewable$ = this.renewableSettlements$.pipe(
-      map((params) => params.map((param) => parseInt(param.amount_uspx) / 1000000)),
-    );
+    const pricesRenewable$ = renewableSettlements$.pipe(map((params) => params.map((param) => parseInt(param.price_ujpy) / 1000000)));
+    const amountsRenewable$ = renewableSettlements$.pipe(map((params) => params.map((param) => parseInt(param.amount_uspx) / 1000000)));
     const referencePriceNormal$ = pricesNormal$.pipe(map((params) => Array(params.length).fill(27 as number)));
     const referencePriceRenewable$ = pricesRenewable$.pipe(map((params) => Array(params.length).fill(27 as number)));
 
@@ -398,7 +387,7 @@ export class DashboardComponent implements OnInit {
       ]),
     );
 
-    this.renewableChartDates$ = this.renewableSettlements$.pipe(
+    this.renewableChartDates$ = renewableSettlements$.pipe(
       map((params) =>
         params.map(
           (param) => (param.created_at as Timestamp).toDate().getMonth() + 1 + '/' + (param.created_at as Timestamp).toDate().getDate(),
