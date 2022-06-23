@@ -73,9 +73,15 @@ module.exports.monthlySettlement = f.pubsub
     const reward =
       parseInt(rewardSetting.first_price_ujpy) + parseInt(rewardSetting.second_price_ujpy) + parseInt(rewardSetting.third_price_ujpy);
 
-    const price =
-      (cost + electricity + reward - income + ((purchase - sale) * parseInt(primaryAsks[0].price_ujpy)) / 1000000) /
-      (((purchase + sale) * parseInt(primaryAsks[0].price_ujpy)) / 1000000);
+    // 0で割るのを避ける
+    let price: number;
+    if (purchase + sale) {
+      price =
+        (cost + electricity + reward - income + ((purchase - sale) * parseInt(primaryAsks[0].price_ujpy)) / 1000000) /
+        (((purchase + sale) * parseInt(primaryAsks[0].price_ujpy)) / 1000000);
+    } else {
+      price = 0;
+    }
     console.log('Discount price', price);
 
     await discount_price.create(
@@ -96,7 +102,14 @@ module.exports.monthlySettlement = f.pubsub
         mwhCount += parseInt(payment.amount_mwh);
         uspxCount += parseInt(payment.amount_uspx);
       }
-      uspxPercentages.push({ studentID, uspxPercentage: uspxCount / mwhCount });
+      // 0で割るのを避ける
+      let uspxPercentage: number;
+      if (mwhCount) {
+        uspxPercentage = uspxCount / mwhCount;
+      } else {
+        uspxPercentage = 0;
+      }
+      uspxPercentages.push({ studentID, uspxPercentage });
     }
     const uspxSortedPercentages = uspxPercentages.sort((first, second) => second.uspxPercentage - first.uspxPercentage);
     await renewable_ranking.create(
