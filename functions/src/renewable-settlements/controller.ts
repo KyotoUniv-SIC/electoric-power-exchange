@@ -22,30 +22,30 @@ module.exports.onCreate = f.firestore.document(RenewableSettlementFirestore.virt
   }
 });
 
-module.exports.onUpdate = f.firestore.document(RenewableSettlementFirestore.virtualPath).onUpdate(async (snapshot, context) => {
-  if (await isTriggeredOnce(context.eventId)) {
-    return;
-  }
+// module.exports.onUpdate = f.firestore.document(RenewableSettlementFirestore.virtualPath).onUpdate(async (snapshot, context) => {
+//   if (await isTriggeredOnce(context.eventId)) {
+//     return;
+//   }
 
-  for (const handler of onUpdateHandler) {
-    try {
-      await handler(snapshot, context);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-});
+//   for (const handler of onUpdateHandler) {
+//     try {
+//       await handler(snapshot, context);
+//     } catch (e) {
+//       console.error(e);
+//     }
+//   }
+// });
 
-module.exports.onDelete = f.firestore.document(RenewableSettlementFirestore.virtualPath).onDelete(async (snapshot, context) => {
-  if (await isTriggeredOnce(context.eventId)) {
-    return;
-  }
+// module.exports.onDelete = f.firestore.document(RenewableSettlementFirestore.virtualPath).onDelete(async (snapshot, context) => {
+//   if (await isTriggeredOnce(context.eventId)) {
+//     return;
+//   }
 
-  for (const handler of onDeleteHandler) {
-    try {
-      await handler(snapshot, context);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-});
+//   for (const handler of onDeleteHandler) {
+//     try {
+//       await handler(snapshot, context);
+//     } catch (e) {
+//       console.error(e);
+//     }
+//   }
+// });

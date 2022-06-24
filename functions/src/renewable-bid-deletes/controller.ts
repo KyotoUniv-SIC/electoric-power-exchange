@@ -22,30 +22,30 @@ module.exports.onCreate = f.firestore.document(RenewableBidDeleteFirestore.virtu
   }
 });
 
-module.exports.onUpdate = f.firestore.document(RenewableBidDeleteFirestore.virtualPath).onUpdate(async (snapshot, context) => {
-  if (await isTriggeredOnce(context.eventId)) {
-    return;
-  }
+// module.exports.onUpdate = f.firestore.document(RenewableBidDeleteFirestore.virtualPath).onUpdate(async (snapshot, context) => {
+//   if (await isTriggeredOnce(context.eventId)) {
+//     return;
+//   }
 
-  for (const handler of onUpdateHandler) {
-    try {
-      await handler(snapshot, context);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-});
+//   for (const handler of onUpdateHandler) {
+//     try {
+//       await handler(snapshot, context);
+//     } catch (e) {
+//       console.error(e);
+//     }
+//   }
+// });
 
-module.exports.onDelete = f.firestore.document(RenewableBidDeleteFirestore.virtualPath).onDelete(async (snapshot, context) => {
-  if (await isTriggeredOnce(context.eventId)) {
-    return;
-  }
+// module.exports.onDelete = f.firestore.document(RenewableBidDeleteFirestore.virtualPath).onDelete(async (snapshot, context) => {
+//   if (await isTriggeredOnce(context.eventId)) {
+//     return;
+//   }
 
-  for (const handler of onDeleteHandler) {
-    try {
-      await handler(snapshot, context);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-});
+//   for (const handler of onDeleteHandler) {
+//     try {
+//       await handler(snapshot, context);
+//     } catch (e) {
+//       console.error(e);
+//     }
+//   }
+// });
