@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
 /* eslint-disable camelcase */
-import { balance_snapshot } from '.';
+// import { balance_snapshot } from '.';
 import { account_private } from '../account-privates';
 import { admin_account } from '../admin-accounts';
 import { balance } from '../balances';
@@ -19,7 +19,8 @@ import { renewable_reward_setting } from '../renewable-reward-settings';
 import { Balance, BalanceSnapshot, MonthlyPayment, MonthlyUsage } from '@local/common';
 import * as crypto from 'crypto-js';
 
-balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
+// balance_snapshot.onCreateHandler.push();
+export const balanceSnapshotOnCreate = async (snapshot: any, context: any) => {
   const data = snapshot.data()! as BalanceSnapshot;
   console.log(data.student_account_id, 'adjustment start.');
   const insufficiencies = (await insufficient_balance.listLastMonth(data.student_account_id)).reduce(
@@ -203,4 +204,4 @@ balance_snapshot.onCreateHandler.push(async (snapshot, context) => {
     }
   }
   client.disconnect();
-});
+};
