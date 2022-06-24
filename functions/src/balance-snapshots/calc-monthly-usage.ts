@@ -154,17 +154,22 @@ export const balanceSnapshotOnCreate = async (snapshot: any, context: any) => {
   }
   const decrypted = crypto.AES.decrypt(accountPrivate[0].xrp_seed, privKey).toString(crypto.enc.Utf8);
   const sender = xrpl.Wallet.fromSeed(decrypted);
+  const trustLine = await client.request({
+    command: 'account_lines',
+    account: sender.address,
+    ledger_index: 'validated',
+  });
+  const spxAmount: string = trustLine.result.lines.find((line: { currency: string }) => line.currency == 'SPX').balance;
+  const upxAmount: string = trustLine.result.lines.find((line: { currency: string }) => line.currency == 'UPX').balance;
 
-  const uspxAmount = parseInt(data.amount_uspx);
-  const uupxAmount = parseInt(data.amount_uupx);
-  if (uspxAmount > 0) {
+  if (parseInt(spxAmount) > 0) {
     const vli = await client.getLedgerIndex();
     const sendTokenTx = {
       TransactionType: 'Payment',
       Account: sender.address,
       Amount: {
         currency: 'SPX',
-        value: (uspxAmount / 1000000).toString(),
+        value: spxAmount,
         issuer: adminAccount[0].xrp_address_cold,
       },
       Destination: adminAccount[0].xrp_address_hot,
@@ -180,14 +185,14 @@ export const balanceSnapshotOnCreate = async (snapshot: any, context: any) => {
       throw `Error sending transaction: ${payResult.result.meta.TransactionResult}`;
     }
   }
-  if (uupxAmount > 0) {
+  if (parseInt(upxAmount) > 0) {
     const vli = await client.getLedgerIndex();
     const sendTokenTx = {
       TransactionType: 'Payment',
       Account: sender.address,
       Amount: {
         currency: 'UPX',
-        value: (uupxAmount / 1000000).toString(),
+        value: upxAmount,
         issuer: adminAccount[0].xrp_address_cold,
       },
       Destination: adminAccount[0].xrp_address_hot,
