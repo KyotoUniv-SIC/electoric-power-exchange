@@ -186,7 +186,7 @@ Dashboard に CO2 ランキングの自分の順位を表示する機能を追�
 
 <img src='co2.png' width=50%>
 
-インセンティブの金額は管理者用設定変更ページから変更可能である。
+<span style="color: red; ">インセンティブの金額は管理者用設定変更ページから変更可能である。</span>
 
 <img src='incentive.png' width=50%>
 
@@ -224,16 +224,16 @@ Dashboard 内に先月の電気使用量、CO2 排出量の 2 つについて、
 
 <img src='payments.png' width=70%>
 
-クリックすると詳細画面に遷移し、項目ごとの精算の詳細を表示可能。
+<span style="color: red; ">クリックすると詳細画面に遷移し、項目ごとの精算の詳細を表示可能。
 
-- Primary Transaction
-  月初に付与されるトークンへの支払い額
-- Surplus or Shortage Tokens
-  月末に余っていた or 不足していたトークンの精算額
-- Payments to the market
-  当月のマーケットでの売り買いの収支額
-- CO2 Ranking Reward
-  SPX の消費割合上位に付与される報酬額
+- <span style="color: red; ">Primary Transaction
+  月初に付与されるトークンへの支払い額</span>
+- <span style="color: red; ">Surplus or Shortage Tokens
+  月末に余っていた or 不足していたトークンの精算額</span>
+- <span style="color: red; ">Payments to the market
+  当月のマーケットでの売り買いの収支額</span>
+- <span style="color: red; ">CO2 Ranking Reward
+  SPX の消費割合上位に付与される報酬額</span>
 
 <img src='payment.png' width=70%>
 
