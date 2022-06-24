@@ -18,7 +18,7 @@ module.exports.dailyWithdraw = f.pubsub
       const usage = parseInt(dailyUsage.amount_kwh_str) * 1000000;
       const students = await student_account.getByRoomID(dailyUsage.room_id);
       if (usage <= 0) {
-        console.log('0 or minus usage detected');
+        // console.log(dailyUsage.room_id, '0 or minus usage detected');
       } else if (!students.length) {
         // console.log(dailyUsage.room_id, 'no student');
       } else {
