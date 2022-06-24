@@ -20,7 +20,7 @@ module.exports.dailyWithdraw = f.pubsub
       if (usage <= 0) {
         console.log('0 or minus usage detected');
       } else if (!students.length) {
-        console.log(dailyUsage.room_id, 'no student');
+        // console.log(dailyUsage.room_id, 'no student');
       } else {
         console.log('create DailyPayment', dailyUsage.room_id);
         for (const student of students) {
