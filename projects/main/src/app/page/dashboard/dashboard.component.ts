@@ -4,10 +4,10 @@ import { Timestamp } from '@angular/fire/firestore';
 import {
   Balance,
   DailyUsage,
-  MonthlyUsage,
   NormalAsk,
   NormalBid,
   RenewableAsk,
+  RenewableRewardSetting,
   SinglePriceNormalSettlement,
   SinglePriceRenewableSettlement,
 } from '@local/common';
@@ -18,6 +18,7 @@ import { DailyUsageApplicationService } from 'projects/shared/src/lib/services/d
 import { NormalAskApplicationService } from 'projects/shared/src/lib/services/normal-asks/normal-ask.application.service';
 import { NormalBidApplicationService } from 'projects/shared/src/lib/services/normal-bids/normal-bid.application.service';
 import { RenewableAskApplicationService } from 'projects/shared/src/lib/services/renewable-asks/renewable-ask.application.service';
+import { RenewableRewardSettingApplicationService } from 'projects/shared/src/lib/services/renewable-reward-settings/renewable-reward-setting.application.service';
 import { SinglePriceNormalSettlementApplicationService } from 'projects/shared/src/lib/services/single-price-normal-settlements/single-price-normal-settlement.application.service';
 import { SinglePriceRenewableSettlementApplicationService } from 'projects/shared/src/lib/services/single-price-renewable-settlements/single-price-renewable-settlement.application.service';
 import { BalanceApplicationService } from 'projects/shared/src/lib/services/student-accounts/balances/balance.application.service';
@@ -66,6 +67,7 @@ export class DashboardComponent implements OnInit {
   rankings$: Observable<Ranking[]> | undefined;
   rank$: Observable<number | undefined> | undefined;
   co2Rank$: Observable<CO2Ranking> | undefined;
+  renewableRewardSetting$: Observable<RenewableRewardSetting>;
 
   normalSettlement$: Observable<SinglePriceNormalSettlement> | undefined;
   normalDate$: Observable<Date> | undefined;
@@ -106,6 +108,7 @@ export class DashboardComponent implements OnInit {
     private readonly renewableAskApp: RenewableAskApplicationService,
     private readonly adminApp: AdminAccountApplicationService,
     private readonly dailyPaymentApp: DailyPaymentApplicationService,
+    private readonly renewableRewardSettingApp: RenewableRewardSettingApplicationService,
   ) {
     let firstDay = new Date();
     firstDay.setUTCDate(1);
@@ -456,6 +459,8 @@ export class DashboardComponent implements OnInit {
         return { rank: ranking?.rank!, uspxPercentage: ranking?.uspxAmount! / ranking?.mwhAmount! };
       }),
     );
+
+    this.renewableRewardSetting$ = this.renewableRewardSettingApp.getLatest$();
 
     // 8.This Month's Usage
     this.totalUsage$ = usageListDaily$.pipe(
