@@ -6,10 +6,10 @@ import { student_account } from '../student-accounts';
 import { DailyPayment } from '@local/common';
 import * as functions from 'firebase-functions';
 
-const f = functions.region('asia-northeast1').runWith({ timeoutSeconds: 540 });
+const f = functions.region('asia-northeast1').runWith({ timeoutSeconds: 540, memory: '2GB' });
 module.exports.dailyWithdraw = f.pubsub
-  .schedule('30 9 * * *')
-  // .schedule('10,40 * * * *')
+  .schedule('30 9 * * *') //
+  // .schedule('15,45 * * * *')
   .timeZone('Asia/Tokyo') // Users can choose timezone - default is America/Los_Angeles
   .onRun(async () => {
     const dailyUsages = await daily_usage.listYesterday();
@@ -18,9 +18,9 @@ module.exports.dailyWithdraw = f.pubsub
       const usage = parseInt(dailyUsage.amount_kwh_str) * 1000000;
       const students = await student_account.getByRoomID(dailyUsage.room_id);
       if (usage <= 0) {
-        console.log('0 or minus usage detected');
+        // console.log(dailyUsage.room_id, '0 or minus usage detected');
       } else if (!students.length) {
-        console.log(dailyUsage.room_id, 'no student');
+        // console.log(dailyUsage.room_id, 'no student');
       } else {
         console.log('create DailyPayment', dailyUsage.room_id);
         for (const student of students) {

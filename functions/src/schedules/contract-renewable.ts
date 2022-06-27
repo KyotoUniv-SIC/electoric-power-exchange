@@ -7,9 +7,10 @@ import { single_price_renewable_settlement } from '../single-price-renewable-set
 import { RenewableAskHistory, RenewableBidHistory, SinglePriceRenewableSettlement } from '@local/common';
 import * as functions from 'firebase-functions';
 
-const f = functions.region('asia-northeast1').runWith({ timeoutSeconds: 540 });
+const f = functions.region('asia-northeast1').runWith({ timeoutSeconds: 540, memory: '2GB' });
 module.exports.contractRenewable = f.pubsub
-  .schedule('0 9 * * *') // .schedule('0,30 * * * *')
+  .schedule('0 9 * * *') //
+  // .schedule('0,30 * * * *')
   .timeZone('Asia/Tokyo') // Users can choose timezone - default is America/Los_Angeles
   .onRun(async () => {
     const renewableBids = await renewable_bid.listValid();

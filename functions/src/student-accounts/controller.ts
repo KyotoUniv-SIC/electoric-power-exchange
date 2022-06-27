@@ -7,7 +7,7 @@ export const onCreateHandler: FirestoreCreateHandler[] = [];
 export const onUpdateHandler: FirestoreUpdateHandler[] = [];
 export const onDeleteHandler: FirestoreDeleteHandler[] = [];
 
-const f = functions.region('asia-northeast1').runWith({ timeoutSeconds: 540, secrets: ['PRIV_KEY'] });
+const f = functions.region('asia-northeast1').runWith({ timeoutSeconds: 540, memory: '2GB', secrets: ['PRIV_KEY'] });
 module.exports.onCreate = f.firestore.document(StudentAccountFirestore.virtualPath).onCreate(async (snapshot, context) => {
   if (await isTriggeredOnce(context.eventId)) {
     return;
@@ -22,30 +22,30 @@ module.exports.onCreate = f.firestore.document(StudentAccountFirestore.virtualPa
   }
 });
 
-module.exports.onUpdate = f.firestore.document(StudentAccountFirestore.virtualPath).onUpdate(async (snapshot, context) => {
-  if (await isTriggeredOnce(context.eventId)) {
-    return;
-  }
+// module.exports.onUpdate = f.firestore.document(StudentAccountFirestore.virtualPath).onUpdate(async (snapshot, context) => {
+//   if (await isTriggeredOnce(context.eventId)) {
+//     return;
+//   }
 
-  for (const handler of onUpdateHandler) {
-    try {
-      await handler(snapshot, context);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-});
+//   for (const handler of onUpdateHandler) {
+//     try {
+//       await handler(snapshot, context);
+//     } catch (e) {
+//       console.error(e);
+//     }
+//   }
+// });
 
-module.exports.onDelete = f.firestore.document(StudentAccountFirestore.virtualPath).onDelete(async (snapshot, context) => {
-  if (await isTriggeredOnce(context.eventId)) {
-    return;
-  }
+// module.exports.onDelete = f.firestore.document(StudentAccountFirestore.virtualPath).onDelete(async (snapshot, context) => {
+//   if (await isTriggeredOnce(context.eventId)) {
+//     return;
+//   }
 
-  for (const handler of onDeleteHandler) {
-    try {
-      await handler(snapshot, context);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-});
+//   for (const handler of onDeleteHandler) {
+//     try {
+//       await handler(snapshot, context);
+//     } catch (e) {
+//       console.error(e);
+//     }
+//   }
+// });

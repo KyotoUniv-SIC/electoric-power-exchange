@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import { admin_account } from '../admin-accounts';
 import { balance_snapshot } from '../balance-snapshots';
+import { balanceSnapshotOnCreate } from '../balance-snapshots/calc-monthly-usage';
 import { balance } from '../balances';
 import { cost_setting } from '../cost-settings';
 import { daily_payment } from '../daily-payments';
@@ -16,9 +17,10 @@ import { student_account } from '../student-accounts';
 import { BalanceSnapshot, DiscountPrice, RenewableRanking } from '@local/common';
 import * as functions from 'firebase-functions';
 
-const f = functions.region('asia-northeast1').runWith({ timeoutSeconds: 540 });
+const f = functions.region('asia-northeast1').runWith({ timeoutSeconds: 540, memory: '2GB', secrets: ['PRIV_KEY'] });
 module.exports.monthlySettlement = f.pubsub
-  .schedule('45 9 1 * *') // .schedule('0 0,4,8,12,16,20 * * *')
+  .schedule('45 9 1 * *')
+  // .schedule('40 0,4,8,12,16,17,20 * * *')
   .timeZone('Asia/Tokyo') // Users can choose timezone - default is America/Los_Angeles
   .onRun(async () => {
     const students = await student_account.list();
@@ -121,9 +123,12 @@ module.exports.monthlySettlement = f.pubsub
     );
 
     // BalanceSnapshotが計算のトリガーなので分割している
-    for (const student of students) {
-      const studentID = student.id;
-      const lastMonthBalance = await balance.listLatest(studentID);
-      await balance_snapshot.create(new BalanceSnapshot(lastMonthBalance[0]));
-    }
+    await Promise.all(
+      students.map(async (student) => {
+        const studentID = student.id;
+        const lastMonthBalance = await balance.listLatest(studentID);
+        await balance_snapshot.create(new BalanceSnapshot(lastMonthBalance[0]));
+        await balanceSnapshotOnCreate({ data: () => lastMonthBalance[0] }, null);
+      }),
+    );
   });

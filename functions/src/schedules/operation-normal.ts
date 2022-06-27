@@ -10,9 +10,10 @@ import { single_price_normal_settlement } from '../single-price-normal-settlemen
 import { DeltaAmount, NormalAsk, NormalAskSetting, NormalBid, proto } from '@local/common';
 import * as functions from 'firebase-functions';
 
-const f = functions.region('asia-northeast1').runWith({ timeoutSeconds: 540 });
+const f = functions.region('asia-northeast1').runWith({ timeoutSeconds: 540, memory: '2GB' });
 module.exports.operationNormal = f.pubsub
-  .schedule('0 10 * * *') // .schedule('5,35 * * * *')
+  .schedule('0 10 * * *')
+  // .schedule('5,35 * * * *')
   .timeZone('Asia/Tokyo') // Users can choose timezone - default is America/Los_Angeles
   .onRun(async () => {
     // しきい値

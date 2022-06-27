@@ -22,30 +22,30 @@ export const onCreate = f.firestore.document(MessageReadFirestore.virtualPath).o
   }
 });
 
-export const onUpdate = f.firestore.document(MessageReadFirestore.virtualPath).onUpdate(async (snapshot, context) => {
-  if (await isTriggeredOnce(context.eventId)) {
-    return;
-  }
+// export const onUpdate = f.firestore.document(MessageReadFirestore.virtualPath).onUpdate(async (snapshot, context) => {
+//   if (await isTriggeredOnce(context.eventId)) {
+//     return;
+//   }
 
-  for (const handler of onUpdateHandler) {
-    try {
-      await handler(snapshot, context);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-});
+//   for (const handler of onUpdateHandler) {
+//     try {
+//       await handler(snapshot, context);
+//     } catch (e) {
+//       console.error(e);
+//     }
+//   }
+// });
 
-export const onDelete = f.firestore.document(MessageReadFirestore.virtualPath).onDelete(async (snapshot, context) => {
-  if (await isTriggeredOnce(context.eventId)) {
-    return;
-  }
+// export const onDelete = f.firestore.document(MessageReadFirestore.virtualPath).onDelete(async (snapshot, context) => {
+//   if (await isTriggeredOnce(context.eventId)) {
+//     return;
+//   }
 
-  for (const handler of onDeleteHandler) {
-    try {
-      await handler(snapshot, context);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-});
+//   for (const handler of onDeleteHandler) {
+//     try {
+//       await handler(snapshot, context);
+//     } catch (e) {
+//       console.error(e);
+//     }
+//   }
+// });
