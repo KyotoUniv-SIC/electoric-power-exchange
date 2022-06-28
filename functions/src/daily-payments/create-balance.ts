@@ -12,6 +12,20 @@ import * as crypto from 'crypto-js';
 daily_payment.onCreateHandler.push(async (snapshot, context) => {
   const data = snapshot.data()! as DailyPayment;
   const accountBalance = await balance.listLatest(data.student_account_id);
+  await balance.create(
+    new Balance({
+      student_account_id: data.student_account_id,
+      amount_uupx: (parseInt(accountBalance[0].amount_uupx) - parseInt(data.amount_uupx)).toString(),
+      amount_uspx: (parseInt(accountBalance[0].amount_uspx) - parseInt(data.amount_uspx)).toString(),
+    }),
+  );
+
+  if (data.amount_insufficiency != '0') {
+    await insufficient_balance.create(
+      new InsufficientBalance({ student_account_id: data.student_account_id, amount_utoken: data.amount_insufficiency }),
+    );
+  }
+
   const accountPrivate = await account_private.list(data.student_account_id);
   if (!accountPrivate.length) {
     console.log(data.student_account_id, 'no XRP address');
@@ -52,7 +66,7 @@ daily_payment.onCreateHandler.push(async (snapshot, context) => {
       console.log(`Transaction succeeded: https://testnet.xrpl.org/transactions/${paySignedUPX.hash}`);
     } else {
       // eslint-disable-next-line no-throw-literal
-      throw `Error sending transaction: ${payResultUPX.result.meta.TransactionResult}`;
+      throw `${data.student_account_id} UPX Error sending transaction: ${payResultUPX.result.meta.TransactionResult}`;
     }
     client.disconnect();
   }
@@ -79,22 +93,8 @@ daily_payment.onCreateHandler.push(async (snapshot, context) => {
       console.log(`Transaction succeeded: https://testnet.xrpl.org/transactions/${paySignedSPX.hash}`);
     } else {
       // eslint-disable-next-line no-throw-literal
-      throw `Error sending transaction: ${payResultSPX.result.meta.TransactionResult}`;
+      throw `${data.student_account_id} SPX Error sending transaction: ${payResultSPX.result.meta.TransactionResult}`;
     }
     client.disconnect();
-  }
-
-  await balance.create(
-    new Balance({
-      student_account_id: data.student_account_id,
-      amount_uupx: (parseInt(accountBalance[0].amount_uupx) - parseInt(data.amount_uupx)).toString(),
-      amount_uspx: (parseInt(accountBalance[0].amount_uspx) - parseInt(data.amount_uspx)).toString(),
-    }),
-  );
-
-  if (data.amount_insufficiency != '0') {
-    await insufficient_balance.create(
-      new InsufficientBalance({ student_account_id: data.student_account_id, amount_utoken: data.amount_insufficiency }),
-    );
   }
 });
