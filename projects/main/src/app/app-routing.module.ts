@@ -1,3 +1,4 @@
+import { AdminGuard } from './guard/admin.guard';
 import { AuthGuard } from './guard/auth.guard';
 import { HomeComponent } from './page/home/home.component';
 import { NgModule } from '@angular/core';
@@ -17,6 +18,7 @@ const routes: Routes = [
   {
     path: 'admin',
     loadChildren: () => import('./page/admin/admin.module').then((m) => m.AppAdminModule),
+    canActivate: [AdminGuard],
   },
   {
     path: 'txs',
