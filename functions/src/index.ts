@@ -14,7 +14,7 @@ import './normal-settlements/create-balance';
 import './primary-asks/create-balance';
 import './renewable-ask-deletes/delete-renewable-ask';
 import './renewable-asks/update-available-balance';
-import './renewable-bids/renewable-bid-delete';
+import './renewable-bid-deletes/delete-renewable-bid';
 import './renewable-settlements/create-balance';
 import './room-changes/update-student-account';
 import './single-price-normal-settlements/create-normal-settlement';
