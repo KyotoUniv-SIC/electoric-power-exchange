@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
 /* eslint-disable camelcase */
-import { primary_ask } from '.';
+// import { primary_ask } from '.';
 import { admin_account } from '../admin-accounts';
 import { admin_private } from '../admin-privates';
 import { balance } from '../balances';
@@ -10,7 +10,8 @@ import { student_account } from '../student-accounts';
 import { Balance, PrimaryAsk, PrimaryBid } from '@local/common';
 import * as crypto from 'crypto-js';
 
-primary_ask.onCreateHandler.push(async (snapshot, context) => {
+// primary_ask.onCreateHandler.push();
+export const primaryAskOnCreate = async (snapshot: any, context: any) => {
   const data = snapshot.data()! as PrimaryAsk;
   await primary_bid.create(new PrimaryBid(data, data.created_at, data.updated_at));
   const askAmount = parseInt(data.amount_uupx);
@@ -71,4 +72,4 @@ primary_ask.onCreateHandler.push(async (snapshot, context) => {
     throw `${data.account_id} UPX Error sending transaction: ${payResult.result.meta.TransactionResult}`;
   }
   client.disconnect();
-});
+};
