@@ -12,6 +12,7 @@ import * as crypto from 'crypto-js';
 
 primary_ask.onCreateHandler.push(async (snapshot, context) => {
   const data = snapshot.data()! as PrimaryAsk;
+  await primary_bid.create(new PrimaryBid(data, data.created_at, data.updated_at));
   const askAmount = parseInt(data.amount_uupx);
   const studentID = data.account_id;
   const studentAccount = await student_account.get(studentID);
@@ -19,7 +20,6 @@ primary_ask.onCreateHandler.push(async (snapshot, context) => {
   if (!accountBalance.length) {
     return;
   }
-  await primary_bid.create(new PrimaryBid(data, data.created_at, data.updated_at));
   await balance.create(
     new Balance({
       student_account_id: data.account_id,
