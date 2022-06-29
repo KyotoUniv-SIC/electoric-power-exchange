@@ -19,36 +19,39 @@ module.exports.contractNormal = f.pubsub
     if (!normalBids.length || !normalAsks.length) {
       console.log('bid,askの不足でUPX成約は0です。');
 
-      for (const bid of normalBids) {
-        await normal_bid_history.create(
-          new NormalBidHistory(
-            {
-              account_id: bid.account_id,
-              price_ujpy: bid.price_ujpy,
-              amount_uupx: bid.amount_uupx,
-              is_accepted: false,
-            },
-            bid.created_at,
-          ),
-        );
-        await normal_bid.delete_(bid.id);
-      }
+      await Promise.all(
+        normalBids.map(async (bid) => {
+          await normal_bid_history.create(
+            new NormalBidHistory(
+              {
+                account_id: bid.account_id,
+                price_ujpy: bid.price_ujpy,
+                amount_uupx: bid.amount_uupx,
+                is_accepted: false,
+              },
+              bid.created_at,
+            ),
+          );
+          await normal_bid.delete_(bid.id);
+        }),
+      );
 
-      for (const ask of normalAsks) {
-        await normal_ask_history.create(
-          new NormalAskHistory(
-            {
-              account_id: ask.account_id,
-              price_ujpy: ask.price_ujpy,
-              amount_uupx: ask.amount_uupx,
-              is_accepted: false,
-            },
-            ask.created_at,
-          ),
-        );
-        await normal_ask.delete_(ask.id);
-      }
-      return;
+      await Promise.all(
+        normalAsks.map(async (ask) => {
+          await normal_ask_history.create(
+            new NormalAskHistory(
+              {
+                account_id: ask.account_id,
+                price_ujpy: ask.price_ujpy,
+                amount_uupx: ask.amount_uupx,
+                is_accepted: false,
+              },
+              ask.created_at,
+            ),
+          );
+          await normal_ask.delete_(ask.id);
+        }),
+      );
     }
 
     // Bidを価格の高い順に並び替える
@@ -61,35 +64,39 @@ module.exports.contractNormal = f.pubsub
     if (parseInt(sortNormalBids[0].price_ujpy) < parseInt(sortNormalAsks[0].price_ujpy)) {
       console.log('UPX成約はありませんでした。');
 
-      for (const bid of sortNormalBids) {
-        await normal_bid_history.create(
-          new NormalBidHistory(
-            {
-              account_id: bid.account_id,
-              price_ujpy: bid.price_ujpy,
-              amount_uupx: bid.amount_uupx,
-              is_accepted: false,
-            },
-            bid.created_at,
-          ),
-        );
-        await normal_bid.delete_(bid.id);
-      }
+      await Promise.all(
+        sortNormalBids.map(async (bid) => {
+          await normal_bid_history.create(
+            new NormalBidHistory(
+              {
+                account_id: bid.account_id,
+                price_ujpy: bid.price_ujpy,
+                amount_uupx: bid.amount_uupx,
+                is_accepted: false,
+              },
+              bid.created_at,
+            ),
+          );
+          await normal_bid.delete_(bid.id);
+        }),
+      );
 
-      for (const ask of sortNormalAsks) {
-        await normal_ask_history.create(
-          new NormalAskHistory(
-            {
-              account_id: ask.account_id,
-              price_ujpy: ask.price_ujpy,
-              amount_uupx: ask.amount_uupx,
-              is_accepted: false,
-            },
-            ask.created_at,
-          ),
-        );
-        await normal_ask.delete_(ask.id);
-      }
+      await Promise.all(
+        sortNormalAsks.map(async (ask) => {
+          await normal_ask_history.create(
+            new NormalAskHistory(
+              {
+                account_id: ask.account_id,
+                price_ujpy: ask.price_ujpy,
+                amount_uupx: ask.amount_uupx,
+                is_accepted: false,
+              },
+              ask.created_at,
+            ),
+          );
+          await normal_ask.delete_(ask.id);
+        }),
+      );
       return;
     }
 

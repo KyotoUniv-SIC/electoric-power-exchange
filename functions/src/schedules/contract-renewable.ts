@@ -19,35 +19,40 @@ module.exports.contractRenewable = f.pubsub
     if (!renewableBids.length || !renewableAsks.length) {
       console.log('bid,askの不足でSPX成約は0です。');
 
-      for (const bid of renewableBids) {
-        await renewable_bid_history.create(
-          new RenewableBidHistory(
-            {
-              account_id: bid.account_id,
-              price_ujpy: bid.price_ujpy,
-              amount_uspx: bid.amount_uspx,
-              is_accepted: false,
-            },
-            bid.created_at,
-          ),
-        );
-        await renewable_bid.delete_(bid.id);
-      }
+      await Promise.all(
+        renewableBids.map(async (bid) => {
+          await renewable_bid_history.create(
+            new RenewableBidHistory(
+              {
+                account_id: bid.account_id,
+                price_ujpy: bid.price_ujpy,
+                amount_uspx: bid.amount_uspx,
+                is_accepted: false,
+              },
+              bid.created_at,
+            ),
+          );
+          await renewable_bid.delete_(bid.id);
+        }),
+      );
 
-      for (const ask of renewableAsks) {
-        await renewable_ask_history.create(
-          new RenewableAskHistory(
-            {
-              account_id: ask.account_id,
-              price_ujpy: ask.price_ujpy,
-              amount_uspx: ask.amount_uspx,
-              is_accepted: false,
-            },
-            ask.created_at,
-          ),
-        );
-        await renewable_ask.delete_(ask.id);
-      }
+      await Promise.all(
+        renewableAsks.map(async (ask) => {
+          await renewable_ask_history.create(
+            new RenewableAskHistory(
+              {
+                account_id: ask.account_id,
+                price_ujpy: ask.price_ujpy,
+                amount_uspx: ask.amount_uspx,
+                is_accepted: false,
+              },
+              ask.created_at,
+            ),
+          );
+          await renewable_ask.delete_(ask.id);
+        }),
+      );
+
       return;
     }
 
@@ -61,35 +66,40 @@ module.exports.contractRenewable = f.pubsub
     if (parseInt(sortRenewableBids[0].price_ujpy) < parseInt(sortRenewableAsks[0].price_ujpy)) {
       console.log('SPX成約はありませんでした。');
 
-      for (const bid of sortRenewableBids) {
-        await renewable_bid_history.create(
-          new RenewableBidHistory(
-            {
-              account_id: bid.account_id,
-              price_ujpy: bid.price_ujpy,
-              amount_uspx: bid.amount_uspx,
-              is_accepted: false,
-            },
-            bid.created_at,
-          ),
-        );
-        await renewable_bid.delete_(bid.id);
-      }
+      await Promise.all(
+        sortRenewableBids.map(async (bid) => {
+          await renewable_bid_history.create(
+            new RenewableBidHistory(
+              {
+                account_id: bid.account_id,
+                price_ujpy: bid.price_ujpy,
+                amount_uspx: bid.amount_uspx,
+                is_accepted: false,
+              },
+              bid.created_at,
+            ),
+          );
+          await renewable_bid.delete_(bid.id);
+        }),
+      );
 
-      for (const ask of sortRenewableAsks) {
-        await renewable_ask_history.create(
-          new RenewableAskHistory(
-            {
-              account_id: ask.account_id,
-              price_ujpy: ask.price_ujpy,
-              amount_uspx: ask.amount_uspx,
-              is_accepted: false,
-            },
-            ask.created_at,
-          ),
-        );
-        await renewable_ask.delete_(ask.id);
-      }
+      await Promise.all(
+        sortRenewableAsks.map(async (ask) => {
+          await renewable_ask_history.create(
+            new RenewableAskHistory(
+              {
+                account_id: ask.account_id,
+                price_ujpy: ask.price_ujpy,
+                amount_uspx: ask.amount_uspx,
+                is_accepted: false,
+              },
+              ask.created_at,
+            ),
+          );
+          await renewable_ask.delete_(ask.id);
+        }),
+      );
+
       return;
     }
 
