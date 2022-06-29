@@ -52,6 +52,8 @@ module.exports.contractNormal = f.pubsub
           await normal_ask.delete_(ask.id);
         }),
       );
+
+      return;
     }
 
     // Bidを価格の高い順に並び替える
