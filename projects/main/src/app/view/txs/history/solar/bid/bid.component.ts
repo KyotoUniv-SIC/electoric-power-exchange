@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { RenewableBidHistory } from '@local/common';
-import { Timestamp } from 'firebase/firestore';
 
 @Component({
   selector: 'view-bid',

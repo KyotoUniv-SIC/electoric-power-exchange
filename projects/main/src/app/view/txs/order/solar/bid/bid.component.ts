@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { RenewableBid } from '@local/common';
-import { Timestamp } from 'firebase/firestore';
 
 export type DeleteOnSubmitEvent = {
   bidID: string;

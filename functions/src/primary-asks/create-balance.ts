@@ -66,7 +66,7 @@ primary_ask.onCreateHandler.push(async (snapshot, context) => {
     console.log(`Transaction succeeded: https://testnet.xrpl.org/transactions/${paySigned.hash}`);
   } else {
     // eslint-disable-next-line no-throw-literal
-    throw `Error sending transaction: ${payResult.result.meta.TransactionResult}`;
+    throw `${data.account_id} UPX Error sending transaction: ${payResult.result.meta.TransactionResult}`;
   }
   client.disconnect();
 });
