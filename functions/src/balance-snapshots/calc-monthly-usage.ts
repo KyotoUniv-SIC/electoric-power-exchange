@@ -9,6 +9,7 @@ import { discount_price } from '../discount-prices';
 import { insufficient_balance } from '../insufficient-balances';
 import { monthly_payment } from '../monthly-payments';
 import { monthly_usage } from '../monthly-usages';
+import { monthlyUsageOnCreate } from '../monthly-usages/create-primary-ask';
 import { normal_ask_history } from '../normal-ask-histories';
 import { normal_bid_history } from '../normal-bid-histories';
 import { primary_ask } from '../primary-asks';
@@ -128,14 +129,13 @@ export const balanceSnapshotOnCreate = async (snapshot: any, context: any) => {
       amount_reward_ujpy: rewardPayment.toString(),
     }),
   );
-  await monthly_usage.create(
-    new MonthlyUsage({
-      student_account_id: data.student_account_id,
-      year: date.getFullYear().toString(),
-      month: date.getMonth().toString(),
-      amount_mwh: usage.toString(),
-    }),
-  );
+  const monthlyUsage = new MonthlyUsage({
+    student_account_id: data.student_account_id,
+    year: date.getFullYear().toString(),
+    month: date.getMonth().toString(),
+    amount_mwh: usage.toString(),
+  });
+  await monthly_usage.create(monthlyUsage);
 
   const accountPrivate = await account_private.list(data.student_account_id);
   if (!accountPrivate.length) {
@@ -209,4 +209,6 @@ export const balanceSnapshotOnCreate = async (snapshot: any, context: any) => {
     }
   }
   client.disconnect();
+
+  await monthlyUsageOnCreate({ data: () => monthlyUsage }, null);
 };
