@@ -5,11 +5,12 @@
 import { account_private } from '../account-privates';
 import { admin_account } from '../admin-accounts';
 import { admin_private } from '../admin-privates';
+import { balance } from '../balances';
 import { daily_usage } from '../daily-usages';
 import { primary_ask } from '../primary-asks';
 import { primary_bid } from '../primary-bids';
 import { student_account } from '../student-accounts';
-import { MonthlyUsage, PrimaryAsk } from '@local/common';
+import { MonthlyUsage, PrimaryAsk, Balance } from '@local/common';
 import * as crypto from 'crypto-js';
 import { Timestamp } from 'firebase/firestore';
 
@@ -44,6 +45,17 @@ export const monthlyUsageOnCreate = async (snapshot: any, context: any) => {
 
   await primary_ask.create(primaryAsk);
   await primary_bid.create(primaryAsk);
+  await balance.create(
+    new Balance({
+      student_account_id: studentID,
+      amount_uupx: primaryAsk.amount_uupx,
+      amount_uspx: '0',
+    }),
+  );
+
+  // to do
+  // txを配列に保存してドキュメントに保存
+  // forループで直列に処理する
 
   // XRPL tx
   const accountPrivate = await account_private.list(data.student_account_id);
@@ -55,7 +67,7 @@ export const monthlyUsageOnCreate = async (snapshot: any, context: any) => {
   const TEST_NET = 'wss://s.altnet.rippletest.net:51233';
   const client = new xrpl.Client(TEST_NET);
   const adminAccount = await admin_account.getByName('admin');
-  // await client.connect();
+  await client.connect();
   const privKey = process.env.PRIV_KEY;
   if (!privKey) {
     console.log('no privKey');
@@ -95,6 +107,32 @@ export const monthlyUsageOnCreate = async (snapshot: any, context: any) => {
     }
   }
 
+  // トークン回収用
+  // if (parseInt(upxAmount) > 0) {
+  //   const vli = await client.getLedgerIndex();
+  //   const sendTokenTx = {
+  //     TransactionType: 'Payment',
+  //     Account: studentAccount.address,
+  //     Amount: {
+  //       currency: 'UPX',
+  //       value: upxAmount,
+  //       issuer: adminAccount[0].xrp_address_cold,
+  //     },
+  //     Destination: adminAccount[0].xrp_address_hot,
+  //     LastLedgerSequence: vli + 540,
+  //   };
+  //   const payPrepared = await client.autofill(sendTokenTx);
+  //   const paySigned = studentAccount.sign(payPrepared);
+  //   const payResult = await client.submitAndWait(paySigned.tx_blob);
+  //   if (payResult.result.meta.TransactionResult == 'tesSUCCESS') {
+  //     console.log(`Transaction succeeded: https://testnet.xrpl.org/transactions/${paySigned.hash}`);
+  //   } else {
+  //     // eslint-disable-next-line no-throw-literal
+  //     throw `Error sending transaction: ${payResult.result.meta.TransactionResult}`;
+  //   }
+  // }
+
+  // 残高とPrimaryAskでTxを計算
   const askAmount = parseInt(primaryAsk.amount_uupx);
   const balanceAmount = parseInt(upxAmount) * 1000000;
   if (askAmount > balanceAmount) {
@@ -147,5 +185,5 @@ export const monthlyUsageOnCreate = async (snapshot: any, context: any) => {
       throw `${data.student_account_id} UPX Error sending transaction: ${payResult.result.meta.TransactionResult}`;
     }
   }
-  // client.disconnect();
+  client.disconnect();
 };
