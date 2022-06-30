@@ -56,8 +56,8 @@ export class SellComponent implements OnInit {
 
   onSubmit(accountID: string, price: string, amount: string, denom: string) {
     const now = new Date();
-    if (0 < now.getUTCHours() && now.getUTCHours() < 3) {
-      alert('EDISONでは、9:00-12:00(JST)のAskの入札ができません');
+    if (0 <= now.getUTCHours() && now.getUTCHours() < 2) {
+      alert('EDISONでは、9:00-11:00(JST)のAskの入札ができません');
       return;
     }
     if (!denom) {
