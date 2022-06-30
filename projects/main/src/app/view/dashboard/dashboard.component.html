@@ -429,8 +429,13 @@
       <details>
         <summary>Read More</summary>
         <mat-card-content>
-          <p>Displays the ranking of SPX as a percentage of electricity usage.</p>
-          <p>Users who finish in the top three places at the end of the month will be recognized and awarded cash prizes.</p>
+          <p>
+            Displays the ranking of SPX as a percentage of electricity usage. Users who finish in the top three places at the end of the
+            month will be recognized and awarded cash prizes.
+          </p>
+          <p>1st: {{ renewableRewardSetting?.first_price_ujpy | microString }} JPY</p>
+          <p>2nd: {{ renewableRewardSetting?.second_price_ujpy | microString }} JPY</p>
+          <p>3rd: {{ renewableRewardSetting?.third_price_ujpy | microString }} JPY</p>
         </mat-card-content>
       </details>
       <mat-list>
