@@ -10,7 +10,7 @@ import * as functions from 'firebase-functions';
 
 const f = functions.region('asia-northeast1').runWith({ timeoutSeconds: 540, memory: '2GB' });
 module.exports.operationRenewable = f.pubsub
-  .schedule('0 10 * * *')
+  .schedule('15 10 * * *')
   // .schedule('5,35 * * * *')
   .timeZone('Asia/Tokyo') // Users can choose timezone - default is America/Los_Angeles
   .onRun(async () => {

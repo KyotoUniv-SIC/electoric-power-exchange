@@ -2,13 +2,12 @@
 
 /* eslint-disable camelcase */
 // import { balance_snapshot } from '.';
-import { account_private } from '../account-privates';
-import { admin_account } from '../admin-accounts';
 import { balance } from '../balances';
 import { discount_price } from '../discount-prices';
 import { insufficient_balance } from '../insufficient-balances';
 import { monthly_payment } from '../monthly-payments';
 import { monthly_usage } from '../monthly-usages';
+import { monthlyUsageOnCreate } from '../monthly-usages/create-primary-ask';
 import { normal_ask_history } from '../normal-ask-histories';
 import { normal_bid_history } from '../normal-bid-histories';
 import { primary_ask } from '../primary-asks';
@@ -17,7 +16,6 @@ import { renewable_bid_history } from '../renewable-bid-histories';
 import { renewable_ranking } from '../renewable-rankings';
 import { renewable_reward_setting } from '../renewable-reward-settings';
 import { Balance, BalanceSnapshot, MonthlyPayment, MonthlyUsage } from '@local/common';
-import * as crypto from 'crypto-js';
 
 // balance_snapshot.onCreateHandler.push();
 export const balanceSnapshotOnCreate = async (snapshot: any, context: any) => {
@@ -128,85 +126,12 @@ export const balanceSnapshotOnCreate = async (snapshot: any, context: any) => {
       amount_reward_ujpy: rewardPayment.toString(),
     }),
   );
-  await monthly_usage.create(
-    new MonthlyUsage({
-      student_account_id: data.student_account_id,
-      year: date.getFullYear().toString(),
-      month: date.getMonth().toString(),
-      amount_mwh: usage.toString(),
-    }),
-  );
-
-  const accountPrivate = await account_private.list(data.student_account_id);
-  if (!accountPrivate.length) {
-    console.log(data.student_account_id, 'no XRP address');
-    return;
-  }
-  const xrpl = require('xrpl');
-  const TEST_NET = 'wss://s.altnet.rippletest.net:51233';
-  const client = new xrpl.Client(TEST_NET);
-  const adminAccount = await admin_account.getByName('admin');
-  await client.connect();
-  const privKey = process.env.PRIV_KEY;
-  if (!privKey) {
-    console.log('no privKey');
-    return;
-  }
-  const decrypted = crypto.AES.decrypt(accountPrivate[0].xrp_seed, privKey).toString(crypto.enc.Utf8);
-  const sender = xrpl.Wallet.fromSeed(decrypted);
-  const trustLine = await client.request({
-    command: 'account_lines',
-    account: sender.address,
-    ledger_index: 'validated',
+  const monthlyUsage = new MonthlyUsage({
+    student_account_id: data.student_account_id,
+    year: date.getFullYear().toString(),
+    month: date.getMonth().toString(),
+    amount_mwh: usage.toString(),
   });
-  const spxAmount: string = trustLine.result.lines.find((line: { currency: string }) => line.currency == 'SPX').balance;
-  const upxAmount: string = trustLine.result.lines.find((line: { currency: string }) => line.currency == 'UPX').balance;
-
-  if (parseInt(spxAmount) > 0) {
-    const vli = await client.getLedgerIndex();
-    const sendTokenTx = {
-      TransactionType: 'Payment',
-      Account: sender.address,
-      Amount: {
-        currency: 'SPX',
-        value: spxAmount,
-        issuer: adminAccount[0].xrp_address_cold,
-      },
-      Destination: adminAccount[0].xrp_address_hot,
-      LastLedgerSequence: vli + 540,
-    };
-    const payPrepared = await client.autofill(sendTokenTx);
-    const paySigned = sender.sign(payPrepared);
-    const payResult = await client.submitAndWait(paySigned.tx_blob);
-    if (payResult.result.meta.TransactionResult == 'tesSUCCESS') {
-      console.log(`Transaction succeeded: https://testnet.xrpl.org/transactions/${paySigned.hash}`);
-    } else {
-      // eslint-disable-next-line no-throw-literal
-      throw `Error sending transaction: ${payResult.result.meta.TransactionResult}`;
-    }
-  }
-  if (parseInt(upxAmount) > 0) {
-    const vli = await client.getLedgerIndex();
-    const sendTokenTx = {
-      TransactionType: 'Payment',
-      Account: sender.address,
-      Amount: {
-        currency: 'UPX',
-        value: upxAmount,
-        issuer: adminAccount[0].xrp_address_cold,
-      },
-      Destination: adminAccount[0].xrp_address_hot,
-      LastLedgerSequence: vli + 540,
-    };
-    const payPrepared = await client.autofill(sendTokenTx);
-    const paySigned = sender.sign(payPrepared);
-    const payResult = await client.submitAndWait(paySigned.tx_blob);
-    if (payResult.result.meta.TransactionResult == 'tesSUCCESS') {
-      console.log(`Transaction succeeded: https://testnet.xrpl.org/transactions/${paySigned.hash}`);
-    } else {
-      // eslint-disable-next-line no-throw-literal
-      throw `Error sending transaction: ${payResult.result.meta.TransactionResult}`;
-    }
-  }
-  client.disconnect();
+  await monthly_usage.create(monthlyUsage);
+  await monthlyUsageOnCreate({ data: () => monthlyUsage }, null);
 };

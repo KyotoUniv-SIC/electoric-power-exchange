@@ -8,6 +8,7 @@ import { account_private } from '../account-privates';
 import { admin_account } from '../admin-accounts';
 import { daily_usage } from '../daily-usages';
 import { primary_ask } from '../primary-asks';
+import { primaryAskOnCreate } from '../primary-asks/create-balance';
 import { AccountPrivate, PrimaryAsk, StudentAccount } from '@local/common';
 import * as crypto from 'crypto-js';
 
@@ -91,5 +92,7 @@ student_account.onCreateHandler.push(async (snapshot, context) => {
   if (!uupxAmount) {
     console.log(student.room_id, 'have no usage data');
   }
-  await primary_ask.create(new PrimaryAsk({ account_id: data.id, price_ujpy: '27000000', amount_uupx: uupxAmount.toString() }));
+  const primaryAsk = new PrimaryAsk({ account_id: data.id, price_ujpy: '27000000', amount_uupx: uupxAmount.toString() });
+  await primary_ask.create(primaryAsk);
+  await primaryAskOnCreate({ data: () => primaryAsk }, null);
 });
