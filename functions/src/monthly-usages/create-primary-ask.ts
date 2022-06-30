@@ -112,7 +112,7 @@ export const monthlyUsageOnCreate = async (snapshot: any, context: any) => {
         value: ((askAmount - balanceAmount) / 1000000).toString(),
         issuer: adminAccount[0].xrp_address_cold,
       },
-      Destination: studentAccount.xrp_address,
+      Destination: studentAccount.address,
       LastLedgerSequence: vli + 540,
     };
     const payPrepared = await client.autofill(sendTokenTx);
