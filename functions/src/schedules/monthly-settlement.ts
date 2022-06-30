@@ -22,7 +22,7 @@ import * as functions from 'firebase-functions';
 const f = functions.region('asia-northeast1').runWith({ timeoutSeconds: 540, memory: '2GB', secrets: ['PRIV_KEY'] });
 module.exports.monthlySettlement = f.pubsub
   // .schedule('45 9 1 * *')
-  .schedule('20,50 * * * *')
+  .schedule('20,40,50 * * * *')
   .timeZone('Asia/Tokyo') // Users can choose timezone - default is America/Los_Angeles
   .onRun(async () => {
     const students = await student_account.list();
@@ -125,17 +125,20 @@ module.exports.monthlySettlement = f.pubsub
     );
 
     // BalanceSnapshotが計算のトリガーなので分割している
-    const xrpl = require('xrpl');
-    const TEST_NET = 'wss://s.altnet.rippletest.net:51233';
-    const client = new xrpl.Client(TEST_NET);
-    await client.connect();
-    await Promise.all(
-      students.map(async (student) => {
-        const studentID = student.id;
-        const lastMonthBalance = await balance.listLatest(studentID);
-        await balance_snapshot.create(new BalanceSnapshot(lastMonthBalance[0]));
-        await balanceSnapshotOnCreate({ data: () => lastMonthBalance[0] }, null);
-      }),
-    );
-    client.disconnect();
+    for (const student of students) {
+      const studentID = student.id;
+      console.log(studentID, 'payment start');
+      const lastMonthBalance = await balance.listLatest(studentID);
+      await balance_snapshot.create(new BalanceSnapshot(lastMonthBalance[0]));
+      await balanceSnapshotOnCreate({ data: () => lastMonthBalance[0] }, null);
+    }
+    // await Promise.all(
+    //   students.map(async (student) => {
+    //     const studentID = student.id;
+    //     const lastMonthBalance = await balance.listLatest(studentID);
+    //     await balance_snapshot.create(new BalanceSnapshot(lastMonthBalance[0]));
+    //     await balanceSnapshotOnCreate({ data: () => lastMonthBalance[0] }, null);
+    //   }),
+    // );
+    console.log('tx end');
   });
