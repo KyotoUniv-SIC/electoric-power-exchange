@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+
 /* eslint-disable camelcase */
 import { admin_account } from '../admin-accounts';
 import { balance_snapshot } from '../balance-snapshots';
@@ -123,6 +125,10 @@ module.exports.monthlySettlement = f.pubsub
     );
 
     // BalanceSnapshotが計算のトリガーなので分割している
+    const xrpl = require('xrpl');
+    const TEST_NET = 'wss://s.altnet.rippletest.net:51233';
+    const client = new xrpl.Client(TEST_NET);
+    await client.connect();
     await Promise.all(
       students.map(async (student) => {
         const studentID = student.id;
@@ -131,4 +137,5 @@ module.exports.monthlySettlement = f.pubsub
         await balanceSnapshotOnCreate({ data: () => lastMonthBalance[0] }, null);
       }),
     );
+    client.disconnect();
   });
