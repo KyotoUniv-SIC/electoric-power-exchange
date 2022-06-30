@@ -10,4 +10,5 @@ message AdminAccount {
   string name = 2;
   string xrp_address_hot = 3;
   string xrp_address_cold = 4;
+  string password = 5;
 }

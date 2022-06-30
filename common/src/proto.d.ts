@@ -327,6 +327,9 @@ export namespace main {
 
         /** AdminAccount xrp_address_cold */
         xrp_address_cold?: (string|null);
+
+        /** AdminAccount password */
+        password?: (string|null);
     }
 
     /** Represents an AdminAccount. */
@@ -349,6 +352,9 @@ export namespace main {
 
         /** AdminAccount xrp_address_cold. */
         public xrp_address_cold: string;
+
+        /** AdminAccount password. */
+        public password: string;
 
         /**
          * Encodes the specified AdminAccount message. Does not implicitly {@link main.AdminAccount.verify|verify} messages.

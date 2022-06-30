@@ -836,6 +836,7 @@
              * @property {string|null} [name] AdminAccount name
              * @property {string|null} [xrp_address_hot] AdminAccount xrp_address_hot
              * @property {string|null} [xrp_address_cold] AdminAccount xrp_address_cold
+             * @property {string|null} [password] AdminAccount password
              */
     
             /**
@@ -886,6 +887,14 @@
             AdminAccount.prototype.xrp_address_cold = "";
     
             /**
+             * AdminAccount password.
+             * @member {string} password
+             * @memberof main.AdminAccount
+             * @instance
+             */
+            AdminAccount.prototype.password = "";
+    
+            /**
              * Encodes the specified AdminAccount message. Does not implicitly {@link main.AdminAccount.verify|verify} messages.
              * @function encode
              * @memberof main.AdminAccount
@@ -905,6 +914,8 @@
                     writer.uint32(/* id 3, wireType 2 =*/26).string(message.xrp_address_hot);
                 if (message.xrp_address_cold != null && Object.hasOwnProperty.call(message, "xrp_address_cold"))
                     writer.uint32(/* id 4, wireType 2 =*/34).string(message.xrp_address_cold);
+                if (message.password != null && Object.hasOwnProperty.call(message, "password"))
+                    writer.uint32(/* id 5, wireType 2 =*/42).string(message.password);
                 return writer;
             };
     
@@ -950,6 +961,9 @@
                         break;
                     case 4:
                         message.xrp_address_cold = reader.string();
+                        break;
+                    case 5:
+                        message.password = reader.string();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -998,6 +1012,9 @@
                 if (message.xrp_address_cold != null && message.hasOwnProperty("xrp_address_cold"))
                     if (!$util.isString(message.xrp_address_cold))
                         return "xrp_address_cold: string expected";
+                if (message.password != null && message.hasOwnProperty("password"))
+                    if (!$util.isString(message.password))
+                        return "password: string expected";
                 return null;
             };
     
@@ -1021,6 +1038,8 @@
                     message.xrp_address_hot = String(object.xrp_address_hot);
                 if (object.xrp_address_cold != null)
                     message.xrp_address_cold = String(object.xrp_address_cold);
+                if (object.password != null)
+                    message.password = String(object.password);
                 return message;
             };
     
@@ -1042,6 +1061,7 @@
                     object.name = "";
                     object.xrp_address_hot = "";
                     object.xrp_address_cold = "";
+                    object.password = "";
                 }
                 if (message.id != null && message.hasOwnProperty("id"))
                     object.id = message.id;
@@ -1051,6 +1071,8 @@
                     object.xrp_address_hot = message.xrp_address_hot;
                 if (message.xrp_address_cold != null && message.hasOwnProperty("xrp_address_cold"))
                     object.xrp_address_cold = message.xrp_address_cold;
+                if (message.password != null && message.hasOwnProperty("password"))
+                    object.password = message.password;
                 return object;
             };
     

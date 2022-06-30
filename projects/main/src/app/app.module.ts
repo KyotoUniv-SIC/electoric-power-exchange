@@ -4,6 +4,7 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
 import { AppHomeModule } from './page/home/home.module';
 import { reducers, metaReducers } from './reducers';
+import { AppAdminAuthDialogModule } from './view/dialogs/admin/admin-auth-dialog/admin-auth-dialog.module';
 import { ViewModule } from './view/view.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -62,6 +63,7 @@ const initApp = () => initializeApp(environment.firebase);
     }),
     provideStorage(() => getStorage()),
     provideAnalytics(() => getAnalytics()),
+    AppAdminAuthDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
