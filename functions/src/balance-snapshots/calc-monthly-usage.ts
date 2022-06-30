@@ -2,8 +2,6 @@
 
 /* eslint-disable camelcase */
 // import { balance_snapshot } from '.';
-import { account_private } from '../account-privates';
-import { admin_account } from '../admin-accounts';
 import { balance } from '../balances';
 import { discount_price } from '../discount-prices';
 import { insufficient_balance } from '../insufficient-balances';
@@ -18,7 +16,6 @@ import { renewable_bid_history } from '../renewable-bid-histories';
 import { renewable_ranking } from '../renewable-rankings';
 import { renewable_reward_setting } from '../renewable-reward-settings';
 import { Balance, BalanceSnapshot, MonthlyPayment, MonthlyUsage } from '@local/common';
-import * as crypto from 'crypto-js';
 
 // balance_snapshot.onCreateHandler.push();
 export const balanceSnapshotOnCreate = async (snapshot: any, context: any) => {
