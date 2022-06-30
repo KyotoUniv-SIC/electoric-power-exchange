@@ -55,7 +55,7 @@ export const monthlyUsageOnCreate = async (snapshot: any, context: any) => {
   const TEST_NET = 'wss://s.altnet.rippletest.net:51233';
   const client = new xrpl.Client(TEST_NET);
   const adminAccount = await admin_account.getByName('admin');
-  await client.connect();
+  // await client.connect();
   const privKey = process.env.PRIV_KEY;
   if (!privKey) {
     console.log('no privKey');
@@ -147,5 +147,5 @@ export const monthlyUsageOnCreate = async (snapshot: any, context: any) => {
       throw `${data.student_account_id} UPX Error sending transaction: ${payResult.result.meta.TransactionResult}`;
     }
   }
-  client.disconnect();
+  // client.disconnect();
 };
