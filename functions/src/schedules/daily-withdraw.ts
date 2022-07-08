@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import { balance } from '../balances';
 import { daily_payment } from '../daily-payments';
+import { dailyPaymentOnCreate } from '../daily-payments/create-balance';
 import { daily_usage } from '../daily-usages';
 import { student_account } from '../student-accounts';
 import { DailyPayment } from '@local/common';
@@ -50,18 +51,18 @@ module.exports.dailyWithdraw = f.pubsub
 
           const now = new Date();
 
-          await daily_payment.create(
-            new DailyPayment({
-              student_account_id: student.id,
-              year: now.getFullYear().toString(),
-              month: (now.getMonth() + 1).toString(),
-              date: now.getDate().toString(),
-              amount_mwh: usage.toString(),
-              amount_uupx: uupxPayment,
-              amount_uspx: uspxPayment,
-              amount_insufficiency: insufficiency,
-            }),
-          );
+          const dailyPayment = new DailyPayment({
+            student_account_id: student.id,
+            year: now.getFullYear().toString(),
+            month: (now.getMonth() + 1).toString(),
+            date: now.getDate().toString(),
+            amount_mwh: usage.toString(),
+            amount_uupx: uupxPayment,
+            amount_uspx: uspxPayment,
+            amount_insufficiency: insufficiency,
+          });
+          await daily_payment.create(dailyPayment);
+          await dailyPaymentOnCreate({ data: () => dailyPayment }, null);
         }
       }
     }
