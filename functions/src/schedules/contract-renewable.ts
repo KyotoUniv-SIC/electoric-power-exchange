@@ -19,6 +19,13 @@ module.exports.contractRenewable = f.pubsub
     if (!renewableBids.length || !renewableAsks.length) {
       console.log('bid,askの不足でSPX成約は0です。');
 
+      await single_price_renewable_settlement.create(
+        new SinglePriceRenewableSettlement({
+          price_ujpy: '0',
+          amount_uspx: '0',
+        }),
+      );
+
       await Promise.all(
         renewableBids.map(async (bid) => {
           await renewable_bid_history.create(
@@ -65,6 +72,13 @@ module.exports.contractRenewable = f.pubsub
     // i,j両方が0のとき、成約は0になる
     if (parseInt(sortRenewableBids[0].price_ujpy) < parseInt(sortRenewableAsks[0].price_ujpy)) {
       console.log('SPX成約はありませんでした。');
+
+      await single_price_renewable_settlement.create(
+        new SinglePriceRenewableSettlement({
+          price_ujpy: '0',
+          amount_uspx: '0',
+        }),
+      );
 
       await Promise.all(
         sortRenewableBids.map(async (bid) => {
