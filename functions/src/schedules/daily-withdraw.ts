@@ -50,7 +50,6 @@ module.exports.dailyWithdraw = f.pubsub
           }
 
           const now = new Date();
-
           const dailyPayment = new DailyPayment({
             student_account_id: student.id,
             year: now.getFullYear().toString(),
@@ -61,6 +60,7 @@ module.exports.dailyWithdraw = f.pubsub
             amount_uspx: uspxPayment,
             amount_insufficiency: insufficiency,
           });
+
           await daily_payment.create(dailyPayment);
           await dailyPaymentOnCreate({ data: () => dailyPayment }, null);
         }

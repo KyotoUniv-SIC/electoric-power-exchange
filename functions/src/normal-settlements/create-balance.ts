@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
 /* eslint-disable camelcase */
-import { normal_settlement } from '.';
+// import { normal_settlement } from '.';
 import { account_private } from '../account-privates';
 import { admin_account } from '../admin-accounts';
 import { admin_private } from '../admin-privates';
@@ -10,7 +10,8 @@ import { student_account } from '../student-accounts';
 import { Balance, NormalSettlement } from '@local/common';
 import * as crypto from 'crypto-js';
 
-normal_settlement.onCreateHandler.push(async (snapshot, context) => {
+// normal_settlement.onCreateHandler.push()
+export const normalSettlementOnCreate = async (snapshot: any, context: any) => {
   const data = snapshot.data()! as NormalSettlement;
   const bidderBalance = await balance.listLatest(data.bid_id);
   await balance.create(
@@ -116,4 +117,4 @@ normal_settlement.onCreateHandler.push(async (snapshot, context) => {
     }
     client.disconnect();
   }
-});
+};

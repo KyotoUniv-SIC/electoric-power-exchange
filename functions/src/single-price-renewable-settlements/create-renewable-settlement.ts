@@ -5,6 +5,7 @@ import { renewable_ask } from '../renewable-asks';
 import { renewable_bid_history } from '../renewable-bid-histories';
 import { renewable_bid } from '../renewable-bids';
 import { renewable_settlement } from '../renewable-settlements';
+import { renewableSettlementOnCreate } from '../renewable-settlements/create-balance';
 import { proto, RenewableAskHistory, RenewableBidHistory, RenewableSettlement } from '@local/common';
 
 single_price_renewable_settlement.onCreateHandler.push(async (snapshot, context) => {
@@ -64,14 +65,13 @@ single_price_renewable_settlement.onCreateHandler.push(async (snapshot, context)
     }
 
     if (parseInt(sortRenewableBids[i].amount_uspx) < parseInt(sortRenewableAsks[j].amount_uspx)) {
-      await renewable_settlement.create(
-        new RenewableSettlement({
-          bid_id: sortRenewableBids[i].account_id,
-          ask_id: sortRenewableAsks[j].account_id,
-          price_ujpy: data.price_ujpy,
-          amount_uspx: sortRenewableBids[i].amount_uspx,
-        }),
-      );
+      const renewableSettlement = new RenewableSettlement({
+        bid_id: sortRenewableBids[i].account_id,
+        ask_id: sortRenewableAsks[j].account_id,
+        price_ujpy: data.price_ujpy,
+        amount_uspx: sortRenewableBids[i].amount_uspx,
+      });
+      await renewable_settlement.create(renewableSettlement);
 
       await renewable_bid_history.create(
         new RenewableBidHistory(
@@ -101,6 +101,8 @@ single_price_renewable_settlement.onCreateHandler.push(async (snapshot, context)
         ),
       );
       await renewable_ask.delete_(sortRenewableAsks[j].id);
+
+      await renewableSettlementOnCreate({ data: () => renewableSettlement }, null);
 
       sortRenewableAsks[j].amount_uspx = (
         parseInt(sortRenewableAsks[j].amount_uspx) - parseInt(sortRenewableBids[i].amount_uspx)
@@ -126,14 +128,13 @@ single_price_renewable_settlement.onCreateHandler.push(async (snapshot, context)
         break;
       }
     } else if (parseInt(sortRenewableBids[i].amount_uspx) > parseInt(sortRenewableAsks[j].amount_uspx)) {
-      await renewable_settlement.create(
-        new RenewableSettlement({
-          bid_id: sortRenewableBids[i].account_id,
-          ask_id: sortRenewableAsks[j].account_id,
-          price_ujpy: data.price_ujpy,
-          amount_uspx: sortRenewableAsks[j].amount_uspx,
-        }),
-      );
+      const renewableSettlement = new RenewableSettlement({
+        bid_id: sortRenewableBids[i].account_id,
+        ask_id: sortRenewableAsks[j].account_id,
+        price_ujpy: data.price_ujpy,
+        amount_uspx: sortRenewableAsks[j].amount_uspx,
+      });
+      await renewable_settlement.create(renewableSettlement);
 
       await renewable_bid_history.create(
         new RenewableBidHistory(
@@ -163,6 +164,8 @@ single_price_renewable_settlement.onCreateHandler.push(async (snapshot, context)
         ),
       );
       await renewable_ask.delete_(sortRenewableAsks[j].id);
+
+      await renewableSettlementOnCreate({ data: () => renewableSettlement }, null);
 
       sortRenewableBids[i].amount_uspx = (
         parseInt(sortRenewableBids[i].amount_uspx) - parseInt(sortRenewableAsks[j].amount_uspx)
@@ -187,14 +190,13 @@ single_price_renewable_settlement.onCreateHandler.push(async (snapshot, context)
         break;
       }
     } else {
-      await renewable_settlement.create(
-        new RenewableSettlement({
-          bid_id: sortRenewableBids[i].account_id,
-          ask_id: sortRenewableAsks[j].account_id,
-          price_ujpy: data.price_ujpy,
-          amount_uspx: sortRenewableBids[i].amount_uspx,
-        }),
-      );
+      const renewableSettlement = new RenewableSettlement({
+        bid_id: sortRenewableBids[i].account_id,
+        ask_id: sortRenewableAsks[j].account_id,
+        price_ujpy: data.price_ujpy,
+        amount_uspx: sortRenewableBids[i].amount_uspx,
+      });
+      await renewable_settlement.create(renewableSettlement);
 
       await renewable_bid_history.create(
         new RenewableBidHistory(
@@ -225,6 +227,8 @@ single_price_renewable_settlement.onCreateHandler.push(async (snapshot, context)
         ),
       );
       await renewable_ask.delete_(sortRenewableAsks[j].id);
+
+      await renewableSettlementOnCreate({ data: () => renewableSettlement }, null);
 
       i++;
       j++;
