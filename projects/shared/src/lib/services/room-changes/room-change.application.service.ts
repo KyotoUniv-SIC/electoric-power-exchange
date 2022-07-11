@@ -15,7 +15,7 @@ export class RoomChangeApplicationService {
   ) {}
 
   async create(data: RoomChange) {
-    const dialogRef = this.loadingDialog.open('Sending Ask');
+    const dialogRef = this.loadingDialog.open('Registering room numbers');
     try {
       this.roomChange.create(data);
     } catch {
@@ -26,11 +26,7 @@ export class RoomChangeApplicationService {
     } finally {
       dialogRef.close();
     }
-    if (!data.room_id_before) {
-      this.snackBar.open('Success!', undefined, {
-        duration: 6000,
-      });
-    } else {
+    if (data.room_id_before) {
       this.snackBar.open('Successful change request. Please wait for confirmation', undefined, {
         duration: 6000,
       });
