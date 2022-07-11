@@ -11,7 +11,23 @@ export class BalanceApplicationService {
   constructor(private readonly balance: BalanceService) {}
 
   list(uid: string) {
-    return this.balance.list(uid);
+    return this.balance.list(uid).then((balances) =>
+      balances.sort(function (first, second) {
+        if (!first.created_at) {
+          return 1;
+        } else if (!second.created_at) {
+          return -1;
+        } else {
+          if ((first.created_at as Timestamp).toDate() < (second.created_at as Timestamp).toDate()) {
+            return 1;
+          } else if ((first.created_at as Timestamp).toDate() > (second.created_at as Timestamp).toDate()) {
+            return -1;
+          } else {
+            return 0;
+          }
+        }
+      }),
+    );
   }
 
   list$(uid: string) {

@@ -19,6 +19,13 @@ module.exports.contractNormal = f.pubsub
     if (!normalBids.length || !normalAsks.length) {
       console.log('bid,askの不足でUPX成約は0です。');
 
+      await single_price_normal_settlement.create(
+        new SinglePriceNormalSettlement({
+          price_ujpy: '0',
+          amount_uupx: '0',
+        }),
+      );
+
       await Promise.all(
         normalBids.map(async (bid) => {
           await normal_bid_history.create(
@@ -65,6 +72,13 @@ module.exports.contractNormal = f.pubsub
     // 最高値のBidが最安値のAskより低い場合0成約で終了
     if (parseInt(sortNormalBids[0].price_ujpy) < parseInt(sortNormalAsks[0].price_ujpy)) {
       console.log('UPX成約はありませんでした。');
+
+      await single_price_normal_settlement.create(
+        new SinglePriceNormalSettlement({
+          price_ujpy: '0',
+          amount_uupx: '0',
+        }),
+      );
 
       await Promise.all(
         sortNormalBids.map(async (bid) => {
