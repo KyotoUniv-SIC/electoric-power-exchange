@@ -10,6 +10,10 @@ import { NormalAskHistory, NormalBidHistory, NormalSettlement, proto, SinglePric
 
 single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) => {
   const data = snapshot.data()! as SinglePriceNormalSettlement;
+  if (data.amount_uupx == '0') {
+    console.log('no normal contract');
+    return;
+  }
 
   const normalBids = await normal_bid.listValid();
   // 降順

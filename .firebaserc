@@ -1,12 +1,12 @@
 {
   "projects": {
-    "default": "edison-dev-1c1b5"
+    "default": "edison-test-f6ac3"
   },
   "targets": {
-    "edison-dev-1c1b5": {
+    "edison-test-f6ac3": {
       "hosting": {
         "main": [
-          "edison-dev-1c1b5"
+          "edison-test-f6ac3"
         ]
       }
     }

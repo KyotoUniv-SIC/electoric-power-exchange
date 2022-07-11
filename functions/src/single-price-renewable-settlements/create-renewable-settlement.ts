@@ -10,6 +10,10 @@ import { proto, RenewableAskHistory, RenewableBidHistory, RenewableSettlement } 
 
 single_price_renewable_settlement.onCreateHandler.push(async (snapshot, context) => {
   const data = snapshot.data()! as RenewableSettlement;
+  if (data.amount_uspx == '0') {
+    console.log('no renewable contract');
+    return;
+  }
 
   const renewableBids = await renewable_bid.listValid();
   const sortRenewableBids = renewableBids.sort((first, second) => parseInt(second.price_ujpy) - parseInt(first.price_ujpy));
