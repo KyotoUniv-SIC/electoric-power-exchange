@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
 /* eslint-disable camelcase */
-import { renewable_settlement } from '.';
+// import { renewable_settlement } from '.';
 import { account_private } from '../account-privates';
 import { admin_account } from '../admin-accounts';
 import { admin_private } from '../admin-privates';
@@ -10,7 +10,8 @@ import { student_account } from '../student-accounts';
 import { Balance, RenewableSettlement } from '@local/common';
 import * as crypto from 'crypto-js';
 
-renewable_settlement.onCreateHandler.push(async (snapshot, context) => {
+// renewable_settlement.onCreateHandler.push()
+export const renewableSettlementOnCreate = async (snapshot: any, context: any) => {
   const data = snapshot.data()! as RenewableSettlement;
   const bidderBalance = await balance.listLatest(data.bid_id);
   await balance.create(
@@ -117,4 +118,4 @@ renewable_settlement.onCreateHandler.push(async (snapshot, context) => {
     }
     client.disconnect();
   }
-});
+};
