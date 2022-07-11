@@ -61,7 +61,7 @@ export class AccountPrivateInfrastructureService
   }
 
   create(data: AccountPrivate) {
-    const doc = this.document(data.student_account_iddata.id);
+    const doc = this.document(data.student_account_id);
     data.id = doc.id;
 
     const now = serverTimestamp();
