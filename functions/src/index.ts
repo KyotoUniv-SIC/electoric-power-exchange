@@ -88,6 +88,7 @@ const files = {
   monthly_settlement: './schedules/monthly-settlement',
   operation_normal: './schedules/operation-normal',
   operation_renewable: './schedules/operation-renewable',
+  send_mails: './schedules/send-mails',
 };
 
 const loadFunctions = (filesObj: any) => {
