@@ -39,6 +39,13 @@ export async function list(studentAccountID: string) {
     .then((snapshot) => snapshot.docs.map((doc) => doc.data() as AccountPrivate));
 }
 
+export async function listLatest(studentAccountID: string) {
+  return await collection(studentAccountID)
+    .orderBy('created_at', 'desc')
+    .get()
+    .then((snapshot) => snapshot.docs.map((doc) => doc.data() as AccountPrivate));
+}
+
 export async function create(data: AccountPrivate) {
   const doc = document(data.student_account_id);
   data.id = doc.id;
