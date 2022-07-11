@@ -1,41 +1,51 @@
-import { autoID } from '../auto-id';
-import { Injectable } from '@angular/core';
-import { Firestore, collection, collectionGroup, query, QueryConstraint, doc, getDoc, docData, getDocs, collectionData, setDoc, serverTimestamp } from '@angular/fire/firestore';
+import { autoID } from '../../auto-id';
 import { IAccountPrivateInfrastructureService } from './account-private.service';
+import { Injectable } from '@angular/core';
+import {
+  Firestore,
+  collection,
+  collectionGroup,
+  query,
+  QueryConstraint,
+  doc,
+  getDoc,
+  docData,
+  getDocs,
+  collectionData,
+  setDoc,
+  serverTimestamp,
+} from '@angular/fire/firestore';
 import { AccountPrivate } from '@local/common';
 import { AccountPrivateFirestore } from '@local/common';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AccountPrivateInfrastructureService
-  implements IAccountPrivateInfrastructureService {
-
+export class AccountPrivateInfrastructureService implements IAccountPrivateInfrastructureService {
   constructor(private readonly firestore: Firestore) {}
 
   collection(studentAccountID: string, ...queryConstraints: QueryConstraint[]) {
     const ref = collection(this.firestore, AccountPrivateFirestore.collectionPath(studentAccountID));
 
-    return (queryConstraints.length > 0
-      ? query(ref, ...queryConstraints) : ref).withConverter(AccountPrivateFirestore.converter);
+    return (queryConstraints.length > 0 ? query(ref, ...queryConstraints) : ref).withConverter(AccountPrivateFirestore.converter);
   }
 
   collectionGroup(...queryConstraints: QueryConstraint[]) {
     const ref = collectionGroup(this.firestore, AccountPrivateFirestore.collectionID);
 
-    return (queryConstraints.length > 0
-      ? query(ref, ...queryConstraints) : ref).withConverter(AccountPrivateFirestore.converter);
+    return (queryConstraints.length > 0 ? query(ref, ...queryConstraints) : ref).withConverter(AccountPrivateFirestore.converter);
   }
 
   document(studentAccountID: string, id?: string) {
     const ref = collection(this.firestore, AccountPrivateFirestore.collectionPath(studentAccountID));
 
-    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path, autoID())).withConverter(AccountPrivateFirestore.converter);
+    return (id ? doc(this.firestore, ref.path, id) : doc(this.firestore, ref.path, autoID())).withConverter(
+      AccountPrivateFirestore.converter,
+    );
   }
 
   get(studentAccountID: string, id: string) {
-    return getDoc(this.document(studentAccountID, id))
-      .then(snapshot => snapshot.data());
+    return getDoc(this.document(studentAccountID, id)).then((snapshot) => snapshot.data());
   }
 
   get$(studentAccountID: string, id: string) {
@@ -43,8 +53,7 @@ export class AccountPrivateInfrastructureService
   }
 
   list(studentAccountID: string) {
-    return getDocs(this.collection(studentAccountID))
-      .then(snapshots => snapshots.docs.map(doc => doc.data()))
+    return getDocs(this.collection(studentAccountID)).then((snapshots) => snapshots.docs.map((doc) => doc.data()));
   }
 
   list$(studentAccountID: string) {
@@ -52,8 +61,7 @@ export class AccountPrivateInfrastructureService
   }
 
   listGroup() {
-    return getDocs(this.collectionGroup())
-      .then(snapshots => snapshots.docs.map(doc => doc.data()))
+    return getDocs(this.collectionGroup()).then((snapshots) => snapshots.docs.map((doc) => doc.data()));
   }
 
   listGroup$() {
