@@ -77,7 +77,14 @@ student_account.onCreateHandler.push(async (snapshot, context) => {
   const privKey = process.env.PRIV_KEY;
   if (privKey) {
     const encryptedSeed = crypto.AES.encrypt(wallet.seed, privKey).toString();
-    await account_private.create(new AccountPrivate({ student_account_id: data.id, xrp_seed: encryptedSeed }));
+    const accountPrivates = await account_private.listLatest(data.id);
+    if (accountPrivates.length) {
+      await account_private.create(
+        new AccountPrivate({ student_account_id: data.id, xrp_seed: encryptedSeed, email: accountPrivates[0].email }),
+      );
+    } else {
+      await account_private.create(new AccountPrivate({ student_account_id: data.id, xrp_seed: encryptedSeed }));
+    }
   } else {
     console.log('No privKey detected!');
   }
