@@ -5,6 +5,7 @@ import { normal_ask } from '../normal-asks';
 import { normal_bid_history } from '../normal-bid-histories';
 import { normal_bid } from '../normal-bids';
 import { normal_settlement } from '../normal-settlements';
+import { normalSettlementOnCreate } from '../normal-settlements/create-balance';
 import { NormalAskHistory, NormalBidHistory, NormalSettlement, proto, SinglePriceNormalSettlement } from '@local/common';
 
 single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) => {
@@ -63,14 +64,13 @@ single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) =>
     }
 
     if (parseInt(sortNormalBids[i].amount_uupx) < parseInt(sortNormalAsks[j].amount_uupx)) {
-      await normal_settlement.create(
-        new NormalSettlement({
-          bid_id: sortNormalBids[i].account_id,
-          ask_id: sortNormalAsks[j].account_id,
-          price_ujpy: data.price_ujpy,
-          amount_uupx: sortNormalBids[i].amount_uupx,
-        }),
-      );
+      const normalSettlement = new NormalSettlement({
+        bid_id: sortNormalBids[i].account_id,
+        ask_id: sortNormalAsks[j].account_id,
+        price_ujpy: data.price_ujpy,
+        amount_uupx: sortNormalBids[i].amount_uupx,
+      });
+      await normal_settlement.create(normalSettlement);
 
       await normal_bid_history.create(
         new NormalBidHistory(
@@ -100,6 +100,8 @@ single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) =>
         ),
       );
       await normal_ask.delete_(sortNormalAsks[j].id);
+
+      await normalSettlementOnCreate({ data: () => normalSettlement }, null);
 
       sortNormalAsks[j].amount_uupx = (parseInt(sortNormalAsks[j].amount_uupx) - parseInt(sortNormalBids[i].amount_uupx)).toString();
       i++;
@@ -124,14 +126,13 @@ single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) =>
         break;
       }
     } else if (parseInt(sortNormalBids[i].amount_uupx) > parseInt(sortNormalAsks[j].amount_uupx)) {
-      await normal_settlement.create(
-        new NormalSettlement({
-          bid_id: sortNormalBids[i].account_id,
-          ask_id: sortNormalAsks[j].account_id,
-          price_ujpy: data.price_ujpy,
-          amount_uupx: sortNormalAsks[j].amount_uupx,
-        }),
-      );
+      const normalSettlement = new NormalSettlement({
+        bid_id: sortNormalBids[i].account_id,
+        ask_id: sortNormalAsks[j].account_id,
+        price_ujpy: data.price_ujpy,
+        amount_uupx: sortNormalAsks[j].amount_uupx,
+      });
+      await normal_settlement.create(normalSettlement);
 
       await normal_bid_history.create(
         new NormalBidHistory(
@@ -161,6 +162,8 @@ single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) =>
         ),
       );
       await normal_ask.delete_(sortNormalAsks[j].id);
+
+      await normalSettlementOnCreate({ data: () => normalSettlement }, null);
 
       sortNormalBids[i].amount_uupx = (parseInt(sortNormalBids[i].amount_uupx) - parseInt(sortNormalAsks[j].amount_uupx)).toString();
       j++;
@@ -184,14 +187,13 @@ single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) =>
         break;
       }
     } else {
-      await normal_settlement.create(
-        new NormalSettlement({
-          bid_id: sortNormalBids[i].account_id,
-          ask_id: sortNormalAsks[j].account_id,
-          price_ujpy: data.price_ujpy,
-          amount_uupx: sortNormalBids[i].amount_uupx,
-        }),
-      );
+      const normalSettlement = new NormalSettlement({
+        bid_id: sortNormalBids[i].account_id,
+        ask_id: sortNormalAsks[j].account_id,
+        price_ujpy: data.price_ujpy,
+        amount_uupx: sortNormalBids[i].amount_uupx,
+      });
+      await normal_settlement.create(normalSettlement);
 
       await normal_bid_history.create(
         new NormalBidHistory(
@@ -222,6 +224,8 @@ single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) =>
         ),
       );
       await normal_ask.delete_(sortNormalAsks[j].id);
+
+      await normalSettlementOnCreate({ data: () => normalSettlement }, null);
 
       i++;
       j++;
