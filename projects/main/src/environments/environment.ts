@@ -5,13 +5,13 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: 'AIzaSyD7h7z5SNhVz_L9uJS5i4WLe7VACgaNoR8',
-    authDomain: 'edison-test-f6ac3.firebaseapp.com',
-    projectId: 'edison-test-f6ac3',
-    storageBucket: 'edison-test-f6ac3.appspot.com',
-    messagingSenderId: '739107341891',
-    appId: '1:739107341891:web:54fb0767d50f823c06b6f6',
-    measurementId: 'G-KEL769L1D2',
+    apiKey: 'AIzaSyABS-YFbTz8MCgMiqHchDNRgMDQy599Deo',
+    authDomain: 'edison-dev-1c1b5.firebaseapp.com',
+    projectId: 'edison-dev-1c1b5',
+    storageBucket: 'edison-dev-1c1b5.appspot.com',
+    messagingSenderId: '260332319675',
+    appId: '1:260332319675:web:6d27a52f2e832bc0410a9e',
+    measurementId: 'G-2HB1BRH1ES',
   },
   useEmulator: false,
 };
