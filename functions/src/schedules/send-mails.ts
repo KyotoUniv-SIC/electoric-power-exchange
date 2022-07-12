@@ -35,6 +35,7 @@ module.exports.operationRenewable = f.pubsub
         const email = accountPriv.email;
         const subject = '【EDISON】本日の注文がまだされておりません';
         const body = `${student.name}様
+
 ${student.name}様は、EDISONでの本日の注文をまだ行っておりません。
 明日の午前9時までの注文をお願いいたします。
 
