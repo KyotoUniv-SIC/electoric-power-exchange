@@ -126,11 +126,9 @@ export class BuyComponent implements OnInit {
         const maxFloorStr = (maxFloor / 10).toString();
         if (minCeil == maxFloor) {
           if (min == max) {
-            return [maxStr];
-          } else if (min == minCeil || max == minCeil) {
-            return [minStr, maxStr];
+            return [minStr];
           } else {
-            return [minStr, minCeilStr, maxStr];
+            return [minStr, maxStr];
           }
         } else {
           let prices = [minStr];
