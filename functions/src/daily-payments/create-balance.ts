@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
 /* eslint-disable camelcase */
-import { daily_payment } from '.';
+// import { daily_payment } from '.';
 import { account_private } from '../account-privates';
 import { admin_account } from '../admin-accounts';
 import { balance } from '../balances';
@@ -9,7 +9,8 @@ import { insufficient_balance } from '../insufficient-balances';
 import { InsufficientBalance, DailyPayment, Balance } from '@local/common';
 import * as crypto from 'crypto-js';
 
-daily_payment.onCreateHandler.push(async (snapshot, context) => {
+// daily_payment.onCreateHandler.push()
+export const dailyPaymentOnCreate = async (snapshot: any, context: any) => {
   const data = snapshot.data()! as DailyPayment;
   const accountBalance = await balance.listLatest(data.student_account_id);
   await balance.create(
@@ -97,4 +98,4 @@ daily_payment.onCreateHandler.push(async (snapshot, context) => {
     }
     client.disconnect();
   }
-});
+};
