@@ -33,10 +33,6 @@ export class SinglePriceNormalSettlementApplicationService {
   }
 
   listLatestMonth$() {
-    const first = new Date();
-    first.setMonth(first.getMonth() - 1);
-    first.setDate(1);
-    first.setHours(0, 0, 0, 0);
     const settlements = this.list$().pipe(
       map((params) =>
         params
@@ -49,7 +45,7 @@ export class SinglePriceNormalSettlementApplicationService {
               return 0;
             }
           })
-          .filter((params) => (params.created_at as Timestamp).toDate() > first)
+          .slice(0, 7)
           .reverse(),
       ),
     );
