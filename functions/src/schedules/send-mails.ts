@@ -31,11 +31,10 @@ module.exports.operationRenewable = f.pubsub
       const accountPriv = accountPrivs.find((priv) => priv.email);
       if (!accountPriv) {
         console.log(student.id, 'no email address');
-        return;
-      }
-      const email = accountPriv.email;
-      const subject = '【EDISON】本日の注文がまだされておりません';
-      const body = `${student.name}様
+      } else {
+        const email = accountPriv.email;
+        const subject = '【EDISON】本日の注文がまだされておりません';
+        const body = `${student.name}様
       ${student.name}様は、EDISONでの本日の注文をまだ行っておりません。
       明日の午前9時までの注文をお願いいたします。
 
@@ -43,18 +42,19 @@ module.exports.operationRenewable = f.pubsub
       https://edison-dev-1c1b5.web.app/txs
 
       京都大学EDISONチーム`;
-      const api = process.env.SEND_MAIL;
-      if (api) {
-        await axios.post(
-          api,
-          qs.stringify({
-            email,
-            subject,
-            body,
-          }),
-        );
-      } else {
-        console.log('Mail API is not set');
+        const api = process.env.SEND_MAIL;
+        if (api) {
+          await axios.post(
+            api,
+            qs.stringify({
+              email,
+              subject,
+              body,
+            }),
+          );
+        } else {
+          console.log('Mail API is not set');
+        }
       }
     }
   });
