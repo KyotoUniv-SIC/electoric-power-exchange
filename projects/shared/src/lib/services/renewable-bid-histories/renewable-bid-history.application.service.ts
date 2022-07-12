@@ -20,4 +20,12 @@ export class RenewableBidHistoryApplicationService {
   listAll$() {
     return this.renewableBidHistory.list$();
   }
+
+  listYesterdayAll$() {
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    return this.renewableBidHistory
+      .list$()
+      .pipe(map((params) => params.filter((param) => (param.created_at as Timestamp).toDate() > yesterday)));
+  }
 }

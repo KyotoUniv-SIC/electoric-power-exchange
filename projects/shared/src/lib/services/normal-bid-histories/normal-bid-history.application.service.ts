@@ -1,5 +1,6 @@
 import { NormalBidHistoryService } from './normal-bid-history.service';
 import { Injectable } from '@angular/core';
+import { Timestamp } from '@angular/fire/firestore';
 import { NormalBidHistory } from '@local/common';
 import { filter, map } from 'rxjs/operators';
 
@@ -18,5 +19,13 @@ export class NormalBidHistoryApplicationService {
 
   listAll$() {
     return this.normalBidHistory.list$();
+  }
+
+  listYesterdayAll$() {
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    return this.normalBidHistory
+      .list$()
+      .pipe(map((params) => params.filter((param) => (param.created_at as Timestamp).toDate() > yesterday)));
   }
 }
