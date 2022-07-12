@@ -115,6 +115,7 @@ export class BuyComponent implements OnInit {
       }),
     );
 
+    // 横軸を最大値と最小値から作成
     this.normalGraphPrices$ = combineLatest([maxPrice$, minPrice$]).pipe(
       map(([max, min]) => {
         const minStr = (min / 1000000).toString();
@@ -148,6 +149,7 @@ export class BuyComponent implements OnInit {
       }),
     );
 
+    // 横軸に合わせてBidの量を負の値の配列で作成
     const NormalGraphBids$ = combineLatest([this.normalGraphPrices$, historyNormalBids$]).pipe(
       map(([prices, bids]) =>
         prices.map((price) => {
@@ -175,6 +177,7 @@ export class BuyComponent implements OnInit {
       ),
     );
 
+    // 横軸に合わせてAskの量を正の値の配列で作成
     const NormalGraphAsks$ = combineLatest([this.normalGraphPrices$, historyNormalAsks$]).pipe(
       map(([prices, asks]) =>
         prices.map((price) => {
