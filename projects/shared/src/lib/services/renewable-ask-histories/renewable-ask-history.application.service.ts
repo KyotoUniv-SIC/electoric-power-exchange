@@ -1,5 +1,6 @@
 import { RenewableAskHistoryService } from './renewable-ask-history.service';
 import { Injectable } from '@angular/core';
+import { Timestamp } from '@angular/fire/firestore';
 import { RenewableAskHistory } from '@local/common';
 import { map } from 'rxjs/operators';
 

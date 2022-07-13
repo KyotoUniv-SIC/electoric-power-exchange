@@ -1,5 +1,6 @@
 import { RenewableBidHistoryService } from './renewable-bid-history.service';
 import { Injectable } from '@angular/core';
+import { Timestamp } from '@angular/fire/firestore';
 import { RenewableBidHistory } from '@local/common';
 import { map } from 'rxjs/operators';
 
