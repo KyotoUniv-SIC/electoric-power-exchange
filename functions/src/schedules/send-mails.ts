@@ -11,7 +11,7 @@ import * as qs from 'qs';
 
 const f = functions.region('asia-northeast1').runWith({ timeoutSeconds: 540, memory: '2GB', secrets: ['SEND_MAIL'] });
 module.exports.operationRenewable = f.pubsub
-  .schedule('15,30 14 * * *')
+  .schedule('0 9 * * *')
   // .schedule('5,35 * * * *')
   .timeZone('Asia/Tokyo') // Users can choose timezone - default is America/Los_Angeles
   .onRun(async () => {
@@ -42,7 +42,7 @@ ${student.name}様は、EDISONでの本日の注文をまだ行っておりま�
 以下のページ Orderにて注文状況をご確認いただけます。
       https://edison-dev-1c1b5.web.app/txs
 
-京都大学EDISONチーム`;
+京都大学総合生存学館EDISONチーム`;
         const api = process.env.SEND_MAIL;
         if (api) {
           await axios.post(
