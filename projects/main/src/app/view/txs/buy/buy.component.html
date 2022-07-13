@@ -92,6 +92,55 @@
     </mat-list>
   </mat-card>
 
+  <mat-card class="mb-10">
+    <mat-card-title>Yesterday's Orders</mat-card-title>
+    <ng-container *ngIf="normalGraphAmounts == null || normalGraphPrices == null; then loading; else loadedNormal"></ng-container>
+    <ng-template #loading>
+      <mat-progress-spinner [diameter]="60" [mode]="'indeterminate'"></mat-progress-spinner>
+    </ng-template>
+    <ng-template #loadedNormal>
+      <mat-card class="flex flex-wrap" style="padding: 0px; margin-bottom: 10px; border: 2.5px solid #6c8fb6; border-radius: 10px">
+        <mat-list>
+          <mat-list-item>
+            <span class="break-all text-xl" style="color: #6c8fb6">UPX</span>
+          </mat-list-item>
+        </mat-list>
+        <canvas
+          baseChart
+          [datasets]="normalGraphAmounts!"
+          [labels]="normalGraphPrices!"
+          [options]="barChartOptions"
+          [plugins]="barChartPlugins"
+          [legend]="barChartLegend"
+          [chartType]="barChartType"
+          [colors]="barColors"
+        >
+        </canvas>
+      </mat-card>
+    </ng-template>
+    <ng-container *ngIf="renewableGraphAmounts == null || renewableGraphPrices == null; then loading; else loadedRenewable"></ng-container>
+    <ng-template #loadedRenewable>
+      <mat-card class="flex flex-wrap" style="padding: 0px; border: 2.5px solid #b67cb6; border-radius: 10px">
+        <mat-list>
+          <mat-list-item>
+            <span class="break-all text-xl" style="color: #b67cb6">SPX</span>
+          </mat-list-item>
+          <canvas
+            baseChart
+            [datasets]="renewableGraphAmounts!"
+            [labels]="renewableGraphPrices!"
+            [options]="barChartOptions"
+            [plugins]="barChartPlugins"
+            [legend]="barChartLegend"
+            [chartType]="barChartType"
+            [colors]="barColors"
+          >
+          </canvas>
+        </mat-list>
+      </mat-card>
+    </ng-template>
+  </mat-card>
+
   <form (submit)="onSubmit(accountID || '', priceRef.value, amountRef.value, denomRef.value)">
     <mat-card class="mb-10">
       <mat-card-title>Token Market - Buy (Next Auction 9:00 a.m.)</mat-card-title>

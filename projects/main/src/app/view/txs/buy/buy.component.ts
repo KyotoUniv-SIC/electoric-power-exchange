@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { AvailableBalance, SinglePriceNormalSettlement, SinglePriceRenewableSettlement, StudentAccount } from '@local/common';
+import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
+import { Color, Label } from 'ng2-charts';
 
 interface Token {
   value: string;
@@ -35,7 +37,14 @@ export class BuyComponent implements OnInit {
   singlePriceRenewable?: SinglePriceRenewableSettlement | null;
   @Input()
   singlePriceRenewableDate?: Date | null;
-
+  @Input()
+  normalGraphPrices?: Label[] | null;
+  @Input()
+  normalGraphAmounts?: ChartDataSets[] | null;
+  @Input()
+  renewableGraphPrices?: Label[] | null;
+  @Input()
+  renewableGraphAmounts?: ChartDataSets[] | null;
   @Input()
   accountID?: string | null;
   @Input()
@@ -47,6 +56,21 @@ export class BuyComponent implements OnInit {
 
   @Output()
   appSubmit: EventEmitter<BuyOnSubmitEvent>;
+
+  barChartOptions: ChartOptions = {
+    responsive: true,
+  };
+  barChartType: ChartType = 'bar';
+  barChartLegend = true;
+  barChartPlugins = [];
+  barColors: Color[] = [
+    {
+      backgroundColor: '#b67cb6',
+    },
+    {
+      backgroundColor: '#6c8fb6',
+    },
+  ];
 
   constructor() {
     this.appSubmit = new EventEmitter();
