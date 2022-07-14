@@ -28,6 +28,7 @@ export class SinglePriceRenewableSettlementApplicationService {
       ),
     );
   }
+
   list$() {
     return this.singlePriceRenewableSettlement.list$();
   }

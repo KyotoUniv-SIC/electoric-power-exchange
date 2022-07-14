@@ -28,6 +28,7 @@ export class SinglePriceNormalSettlementApplicationService {
       ),
     );
   }
+
   list$() {
     return this.singlePriceNormalSettlement.list$();
   }
