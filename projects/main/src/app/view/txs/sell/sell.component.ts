@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { AvailableBalance, SinglePriceNormalSettlement, SinglePriceRenewableSettlement, StudentAccount } from '@local/common';
+import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
+import { Color, Label } from 'ng2-charts';
 
 interface Token {
   value: string;
@@ -35,6 +37,18 @@ export class SellComponent implements OnInit {
   singlePriceRenewable?: SinglePriceRenewableSettlement | null;
   @Input()
   singlePriceRenewableDate?: Date | null;
+  @Input()
+  normalGraphPrices?: Label[] | null;
+  @Input()
+  normalGraphAmounts?: ChartDataSets[] | null;
+  @Input()
+  renewableGraphPrices?: Label[] | null;
+  @Input()
+  renewableGraphAmounts?: ChartDataSets[] | null;
+  @Input()
+  isNormalContractToday?: boolean | null;
+  @Input()
+  isRenewableContractToday?: boolean | null;
 
   @Input()
   accountID?: string | null;
@@ -47,6 +61,35 @@ export class SellComponent implements OnInit {
 
   @Output()
   appSubmit: EventEmitter<SellOnSubmitEvent>;
+
+  barChartOptions: ChartOptions = {
+    responsive: true,
+    scales: {
+      xAxes: [
+        {
+          scaleLabel: { display: true, labelString: 'Price' },
+          stacked: true,
+        },
+      ],
+      yAxes: [
+        {
+          scaleLabel: { display: true, labelString: 'Amount' },
+          stacked: true,
+        },
+      ],
+    },
+  };
+  barChartType: ChartType = 'bar';
+  barChartLegend = true;
+  barChartPlugins = [];
+  barColors: Color[] = [
+    {
+      backgroundColor: '#b67cb6',
+    },
+    {
+      backgroundColor: '#6c8fb6',
+    },
+  ];
 
   constructor() {
     this.appSubmit = new EventEmitter();

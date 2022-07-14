@@ -4,7 +4,7 @@ import { renewable_ask } from '../renewable-asks';
 import { renewable_bid_history } from '../renewable-bid-histories';
 import { renewable_bid } from '../renewable-bids';
 import { single_price_renewable_settlement } from '../single-price-renewable-settlements';
-import { RenewableAskHistory, RenewableBidHistory, SinglePriceRenewableSettlement } from '@local/common';
+import { proto, RenewableAskHistory, RenewableBidHistory, SinglePriceRenewableSettlement } from '@local/common';
 import * as functions from 'firebase-functions';
 
 const f = functions.region('asia-northeast1').runWith({ timeoutSeconds: 540, memory: '2GB' });
@@ -35,6 +35,7 @@ module.exports.contractRenewable = f.pubsub
                 price_ujpy: bid.price_ujpy,
                 amount_uspx: bid.amount_uspx,
                 is_accepted: false,
+                contract_price_ujpy: '0',
               },
               bid.created_at,
             ),
@@ -48,10 +49,12 @@ module.exports.contractRenewable = f.pubsub
           await renewable_ask_history.create(
             new RenewableAskHistory(
               {
+                type: ask.type as unknown as proto.main.RenewableAskHistoryType,
                 account_id: ask.account_id,
                 price_ujpy: ask.price_ujpy,
                 amount_uspx: ask.amount_uspx,
                 is_accepted: false,
+                contract_price_ujpy: '0',
               },
               ask.created_at,
             ),
@@ -89,6 +92,7 @@ module.exports.contractRenewable = f.pubsub
                 price_ujpy: bid.price_ujpy,
                 amount_uspx: bid.amount_uspx,
                 is_accepted: false,
+                contract_price_ujpy: '0',
               },
               bid.created_at,
             ),
@@ -102,10 +106,12 @@ module.exports.contractRenewable = f.pubsub
           await renewable_ask_history.create(
             new RenewableAskHistory(
               {
+                type: ask.type as unknown as proto.main.RenewableAskHistoryType,
                 account_id: ask.account_id,
                 price_ujpy: ask.price_ujpy,
                 amount_uspx: ask.amount_uspx,
                 is_accepted: false,
+                contract_price_ujpy: '0',
               },
               ask.created_at,
             ),
@@ -140,7 +146,7 @@ module.exports.contractRenewable = f.pubsub
     let equilibriumAmount = 0;
     const condition = true;
     while (condition) {
-      if (parseInt(sortRenewableBids[i].price_ujpy) <= parseInt(sortRenewableAsks[j].price_ujpy)) {
+      if (parseInt(sortRenewableBids[i].price_ujpy) < parseInt(sortRenewableAsks[j].price_ujpy)) {
         break;
       }
       if (sumBidAmountHistory[i] <= sumAskAmountHistory[j]) {
@@ -172,4 +178,43 @@ module.exports.contractRenewable = f.pubsub
         amount_uspx: equilibriumAmount.toString(),
       }),
     );
+
+    if (equilibriumAmount == 0) {
+      await Promise.all(
+        sortRenewableBids.map(async (bid) => {
+          await renewable_bid_history.create(
+            new RenewableBidHistory(
+              {
+                account_id: bid.account_id,
+                price_ujpy: bid.price_ujpy,
+                amount_uspx: bid.amount_uspx,
+                is_accepted: false,
+                contract_price_ujpy: '0',
+              },
+              bid.created_at,
+            ),
+          );
+          await renewable_bid.delete_(bid.id);
+        }),
+      );
+
+      await Promise.all(
+        sortRenewableAsks.map(async (ask) => {
+          await renewable_ask_history.create(
+            new RenewableAskHistory(
+              {
+                type: ask.type as unknown as proto.main.RenewableAskHistoryType,
+                account_id: ask.account_id,
+                price_ujpy: ask.price_ujpy,
+                amount_uspx: ask.amount_uspx,
+                is_accepted: false,
+                contract_price_ujpy: '0',
+              },
+              ask.created_at,
+            ),
+          );
+          await renewable_ask.delete_(ask.id);
+        }),
+      );
+    }
   });

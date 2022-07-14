@@ -1,5 +1,6 @@
 import { RenewableAskHistoryService } from './renewable-ask-history.service';
 import { Injectable } from '@angular/core';
+import { Timestamp } from '@angular/fire/firestore';
 import { RenewableAskHistory } from '@local/common';
 import { map } from 'rxjs/operators';
 
@@ -19,5 +20,13 @@ export class RenewableAskHistoryApplicationService {
 
   listAll$() {
     return this.renewableAskHistory.list$();
+  }
+
+  listYesterdayAll$() {
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    return this.renewableAskHistory
+      .list$()
+      .pipe(map((params) => params.filter((param) => (param.created_at as Timestamp).toDate() > yesterday)));
   }
 }
