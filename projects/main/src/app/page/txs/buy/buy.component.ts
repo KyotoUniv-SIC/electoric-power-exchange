@@ -34,6 +34,8 @@ export class BuyComponent implements OnInit {
   normalGraphAmounts$: Observable<ChartDataSets[]>;
   renewableGraphPrices$: Observable<Label[]>;
   renewableGraphAmounts$: Observable<ChartDataSets[]>;
+  isNormalContractToday$: Observable<boolean>;
+  isRenewableContractToday$: Observable<boolean>;
   price: number | undefined;
   amount: number | undefined;
   denom: string | undefined;
@@ -91,6 +93,10 @@ export class BuyComponent implements OnInit {
     this.singlePriceNormalDate$ = this.singlePriceNormal$.pipe(map((single) => (single.market_date as Timestamp).toDate()));
     this.singlePriceRenewable$ = this.singlePriceRenewableApp.getLatest$();
     this.singlePriceRenewableDate$ = this.singlePriceRenewable$.pipe(map((single) => (single.market_date as Timestamp).toDate()));
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    this.isNormalContractToday$ = this.singlePriceNormal$.pipe(map((price) => (price.created_at as Timestamp).toDate() > yesterday));
+    this.isRenewableContractToday$ = this.singlePriceRenewable$.pipe(map((price) => (price.created_at as Timestamp).toDate() > yesterday));
 
     // 昨日分のグラフ作成
     this.normalGraphPrices$ = this.ordersChartApp.createNormalPriceLabels();

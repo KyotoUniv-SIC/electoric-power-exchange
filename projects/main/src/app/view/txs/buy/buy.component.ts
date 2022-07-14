@@ -46,6 +46,10 @@ export class BuyComponent implements OnInit {
   @Input()
   renewableGraphAmounts?: ChartDataSets[] | null;
   @Input()
+  isNormalContractToday?: boolean | null;
+  @Input()
+  isRenewableContractToday?: boolean | null;
+  @Input()
   accountID?: string | null;
   @Input()
   price?: number | null;
@@ -59,6 +63,20 @@ export class BuyComponent implements OnInit {
 
   barChartOptions: ChartOptions = {
     responsive: true,
+    scales: {
+      xAxes: [
+        {
+          scaleLabel: { display: true, labelString: 'Price' },
+          stacked: true,
+        },
+      ],
+      yAxes: [
+        {
+          scaleLabel: { display: true, labelString: 'Amount' },
+          stacked: true,
+        },
+      ],
+    },
   };
   barChartType: ChartType = 'bar';
   barChartLegend = true;
