@@ -35,6 +35,7 @@ module.exports.contractNormal = f.pubsub
                 price_ujpy: bid.price_ujpy,
                 amount_uupx: bid.amount_uupx,
                 is_accepted: false,
+                contract_price_ujpy: '0',
               },
               bid.created_at,
             ),
@@ -52,6 +53,7 @@ module.exports.contractNormal = f.pubsub
                 price_ujpy: ask.price_ujpy,
                 amount_uupx: ask.amount_uupx,
                 is_accepted: false,
+                contract_price_ujpy: '0',
               },
               ask.created_at,
             ),
@@ -89,6 +91,7 @@ module.exports.contractNormal = f.pubsub
                 price_ujpy: bid.price_ujpy,
                 amount_uupx: bid.amount_uupx,
                 is_accepted: false,
+                contract_price_ujpy: '0',
               },
               bid.created_at,
             ),
@@ -106,6 +109,7 @@ module.exports.contractNormal = f.pubsub
                 price_ujpy: ask.price_ujpy,
                 amount_uupx: ask.amount_uupx,
                 is_accepted: false,
+                contract_price_ujpy: '0',
               },
               ask.created_at,
             ),
@@ -170,4 +174,42 @@ module.exports.contractNormal = f.pubsub
         amount_uupx: equilibriumAmount.toString(),
       }),
     );
+
+    if (equilibriumAmount == 0) {
+      await Promise.all(
+        normalBids.map(async (bid) => {
+          await normal_bid_history.create(
+            new NormalBidHistory(
+              {
+                account_id: bid.account_id,
+                price_ujpy: bid.price_ujpy,
+                amount_uupx: bid.amount_uupx,
+                is_accepted: false,
+                contract_price_ujpy: '0',
+              },
+              bid.created_at,
+            ),
+          );
+          await normal_bid.delete_(bid.id);
+        }),
+      );
+
+      await Promise.all(
+        normalAsks.map(async (ask) => {
+          await normal_ask_history.create(
+            new NormalAskHistory(
+              {
+                account_id: ask.account_id,
+                price_ujpy: ask.price_ujpy,
+                amount_uupx: ask.amount_uupx,
+                is_accepted: false,
+                contract_price_ujpy: '0',
+              },
+              ask.created_at,
+            ),
+          );
+          await normal_ask.delete_(ask.id);
+        }),
+      );
+    }
   });
