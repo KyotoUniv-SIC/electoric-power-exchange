@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { Auth, authState } from '@angular/fire/auth';
 import { Timestamp } from '@angular/fire/firestore';
 import { NormalAsk, proto, RenewableAsk, SinglePriceNormalSettlement, SinglePriceRenewableSettlement, StudentAccount } from '@local/common';
+import { ChartDataSets } from 'chart.js';
+import { Label } from 'ng2-charts';
+import { OrdersChartService } from 'projects/shared/src/lib/services/charts/orders/orders-chart.service';
 import { NormalAskApplicationService } from 'projects/shared/src/lib/services/normal-asks/normal-ask.application.service';
 import { RenewableAskApplicationService } from 'projects/shared/src/lib/services/renewable-asks/renewable-ask.application.service';
 import { SinglePriceNormalSettlementApplicationService } from 'projects/shared/src/lib/services/single-price-normal-settlements/single-price-normal-settlement.application.service';
@@ -27,6 +30,12 @@ export class SellComponent implements OnInit {
   singlePriceNormalDate$: Observable<Date> | undefined;
   singlePriceRenewable$: Observable<SinglePriceRenewableSettlement> | undefined;
   singlePriceRenewableDate$: Observable<Date> | undefined;
+  normalGraphPrices$: Observable<Label[]>;
+  normalGraphAmounts$: Observable<ChartDataSets[]>;
+  renewableGraphPrices$: Observable<Label[]>;
+  renewableGraphAmounts$: Observable<ChartDataSets[]>;
+  isNormalContractToday$: Observable<boolean>;
+  isRenewableContractToday$: Observable<boolean>;
   price: number | undefined;
   amount: number | undefined;
   denom: string | undefined;
@@ -40,6 +49,7 @@ export class SellComponent implements OnInit {
     private readonly insufficientBalanceApp: InsufficientBalanceApplicationService,
     private readonly singlePriceNormalApp: SinglePriceNormalSettlementApplicationService,
     private readonly singlePriceRenewableApp: SinglePriceRenewableSettlementApplicationService,
+    private readonly ordersChartApp: OrdersChartService,
   ) {
     this.price = 27;
     this.amount = 1;
@@ -83,6 +93,18 @@ export class SellComponent implements OnInit {
     this.singlePriceNormalDate$ = this.singlePriceNormal$.pipe(map((single) => (single.market_date as Timestamp).toDate()));
     this.singlePriceRenewable$ = this.singlePriceRenewableApp.getLatest$();
     this.singlePriceRenewableDate$ = this.singlePriceRenewable$.pipe(map((single) => (single.market_date as Timestamp).toDate()));
+
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    this.isNormalContractToday$ = this.singlePriceNormal$.pipe(map((price) => (price.created_at as Timestamp).toDate() > yesterday));
+    this.isRenewableContractToday$ = this.singlePriceRenewable$.pipe(map((price) => (price.created_at as Timestamp).toDate() > yesterday));
+
+    // 昨日分のグラフ作成
+    this.normalGraphPrices$ = this.ordersChartApp.createNormalPriceLabels();
+    this.renewableGraphPrices$ = this.ordersChartApp.createRenewablePriceLabels();
+
+    this.normalGraphAmounts$ = this.ordersChartApp.createNormalAmountDataSets();
+    this.renewableGraphAmounts$ = this.ordersChartApp.createRenewableAmountDataSets();
   }
 
   ngOnInit(): void {}
