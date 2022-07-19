@@ -19,8 +19,13 @@ import {
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Color, Label, MultiDataSet } from 'ng2-charts';
 
-export interface DateRange {
+export interface historyData {
   data: any;
+  start: Date;
+  end: Date;
+}
+
+export interface DateRange {
   start: Date;
   end: Date;
 }
@@ -77,13 +82,15 @@ export class DashboardComponent implements OnInit {
   @Output()
   appDownloadMonthlyUsages: EventEmitter<MonthlyUsageData[]>;
   @Output()
-  appDownloadNormalBids: EventEmitter<DateRange>;
+  appDownloadNormalBids: EventEmitter<historyData>;
   @Output()
-  appDownloadNormalAsks: EventEmitter<DateRange>;
+  appDownloadNormalAsks: EventEmitter<historyData>;
   @Output()
-  appDownloadRenewableBids: EventEmitter<DateRange>;
+  appDownloadRenewableBids: EventEmitter<historyData>;
   @Output()
-  appDownloadRenewableAsks: EventEmitter<DateRange>;
+  appDownloadRenewableAsks: EventEmitter<historyData>;
+  @Output()
+  appDownloadUsages: EventEmitter<DateRange>;
 
   doughnutChartLabels: Label[] = ['Utility Power', 'Solar Power'];
   doughnutChartType: ChartType = 'doughnut';
@@ -114,6 +121,11 @@ export class DashboardComponent implements OnInit {
     end: new FormControl(),
   });
 
+  usageRange = new FormGroup({
+    start: new FormControl(),
+    end: new FormControl(),
+  });
+
   checked: boolean = false;
 
   constructor() {
@@ -125,6 +137,7 @@ export class DashboardComponent implements OnInit {
     this.appDownloadNormalAsks = new EventEmitter();
     this.appDownloadRenewableBids = new EventEmitter();
     this.appDownloadRenewableAsks = new EventEmitter();
+    this.appDownloadUsages = new EventEmitter();
   }
 
   ngOnInit(): void {}
@@ -225,5 +238,13 @@ export class DashboardComponent implements OnInit {
       return;
     }
     this.appDownloadRenewableAsks.emit({ data, start: this.range.value.start, end: this.range.value.end });
+  }
+
+  onDownloadUsages() {
+    if (!this.usageRange.value.start || !this.usageRange.value.end) {
+      alert('範囲を正しく指定してください');
+      return;
+    }
+    this.appDownloadUsages.emit({ start: this.usageRange.value.start, end: this.usageRange.value.end });
   }
 }

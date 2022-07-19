@@ -1,4 +1,4 @@
-import { DateRange } from '../../../view/admin/dashboard/dashboard.component';
+import { DateRange, historyData } from '../../../view/admin/dashboard/dashboard.component';
 import { Ranking } from '../../dashboard/dashboard.component';
 import { Component, OnInit } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
@@ -17,6 +17,7 @@ import {
 } from '@local/common';
 import { ChartDataSets } from 'chart.js';
 import { MultiDataSet } from 'ng2-charts';
+import { CsvDailyUsagesService } from 'projects/shared/src/lib/services/csvs/csv-daily-usages/csv-daily-usages.service';
 import { CsvdownloadService } from 'projects/shared/src/lib/services/csvs/csv-downloads/csv-download.service';
 import { CsvOrderHistoriesService } from 'projects/shared/src/lib/services/csvs/csv-order-histories/csv-order-histories.service';
 import { DailyUsageApplicationService } from 'projects/shared/src/lib/services/daily-usages/daily-usage.application.service';
@@ -103,6 +104,7 @@ export class DashboardComponent implements OnInit {
     private readonly renewableAskHistoryApp: RenewableAskHistoryApplicationService,
     private readonly csvHistories: CsvOrderHistoriesService,
     private readonly csvDownload: CsvdownloadService,
+    private readonly csvDailyUsages: CsvDailyUsagesService,
   ) {
     const now = new Date();
     let firstDay = new Date();
@@ -344,19 +346,23 @@ export class DashboardComponent implements OnInit {
     this.csvDownload.downloadMonthlyUsages($event);
   }
 
-  async onDownloadNormalBids($event: DateRange) {
+  async onDownloadNormalBids($event: historyData) {
     this.csvHistories.downloadNormalBids($event);
   }
 
-  async onDownloadNormalAsks($event: DateRange) {
+  async onDownloadNormalAsks($event: historyData) {
     await this.csvHistories.downloadNormalAsks($event);
   }
 
-  async onDownloadRenewableBids($event: DateRange) {
+  async onDownloadRenewableBids($event: historyData) {
     this.csvHistories.downloadRenewableBids($event);
   }
 
-  async onDownloadRenewableAsks($event: DateRange) {
+  async onDownloadRenewableAsks($event: historyData) {
     await this.csvHistories.downloadRenewableAsks($event);
+  }
+
+  async onDownloadUsages($event: DateRange) {
+    await this.csvDailyUsages.downloadDailyUsages($event);
   }
 }
