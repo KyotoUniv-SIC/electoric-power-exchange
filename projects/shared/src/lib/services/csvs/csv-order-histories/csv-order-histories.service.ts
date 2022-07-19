@@ -4,7 +4,7 @@ import { CSVCommonService } from '../csv-common.service';
 import { Injectable } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
 import { NormalAskHistory, NormalBidHistory, RenewableAskHistory, RenewableBidHistory } from '@local/common';
-import { DateRange } from 'projects/main/src/app/view/admin/dashboard/dashboard.component';
+import { historyData } from 'projects/main/src/app/view/admin/dashboard/dashboard.component';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +16,7 @@ export class CsvOrderHistoriesService {
     private readonly studentsApp: StudentAccountApplicationService,
   ) {}
 
-  async downloadNormalBids($event: DateRange) {
+  async downloadNormalBids($event: historyData) {
     const admin = await this.adminApp.getByName('admin');
     const normalBids = $event.data as NormalBidHistory[];
     const students = await this.studentsApp.list();
@@ -36,7 +36,7 @@ export class CsvOrderHistoriesService {
     this.csvCommon.downloadCsv(csv, 'upx_bid_history');
   }
 
-  async downloadNormalAsks($event: DateRange) {
+  async downloadNormalAsks($event: historyData) {
     const admin = await this.adminApp.getByName('admin');
     const normalAsks = $event.data as NormalAskHistory[];
     const students = await this.studentsApp.list();
@@ -56,7 +56,7 @@ export class CsvOrderHistoriesService {
     this.csvCommon.downloadCsv(csv, 'upx_ask_history');
   }
 
-  async downloadRenewableBids(range: DateRange) {
+  async downloadRenewableBids(range: historyData) {
     const admin = await this.adminApp.getByName('admin');
     const renewableBids = range.data as RenewableBidHistory[];
     const students = await this.studentsApp.list();
@@ -76,7 +76,7 @@ export class CsvOrderHistoriesService {
     this.csvCommon.downloadCsv(csv, 'spx_bid_history');
   }
 
-  async downloadRenewableAsks(range: DateRange) {
+  async downloadRenewableAsks(range: historyData) {
     const admin = await this.adminApp.getByName('admin');
     const renewableAsks = range.data as RenewableAskHistory[];
     const students = await this.studentsApp.list();
