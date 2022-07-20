@@ -1,33 +1,24 @@
-import { DateRange, historyData } from '../../../view/admin/dashboard/dashboard.component';
+import { DateRange, historyOption } from '../../../view/admin/dashboard/dashboard.component';
 import { Ranking } from '../../dashboard/dashboard.component';
 import { Component, OnInit } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
 import {
-  Balance,
   NormalAsk,
-  NormalAskHistory,
   NormalBid,
-  NormalBidHistory,
   RenewableAsk,
-  RenewableAskHistory,
   RenewableBid,
-  RenewableBidHistory,
   SinglePriceNormalSettlement,
   SinglePriceRenewableSettlement,
 } from '@local/common';
 import { ChartDataSets } from 'chart.js';
 import { MultiDataSet } from 'ng2-charts';
 import { CsvDailyUsagesService } from 'projects/shared/src/lib/services/csvs/csv-daily-usages/csv-daily-usages.service';
-import { CsvdownloadService } from 'projects/shared/src/lib/services/csvs/csv-downloads/csv-download.service';
+import { CsvDownloadService } from 'projects/shared/src/lib/services/csvs/csv-downloads/csv-download.service';
 import { CsvOrderHistoriesService } from 'projects/shared/src/lib/services/csvs/csv-order-histories/csv-order-histories.service';
 import { DailyUsageApplicationService } from 'projects/shared/src/lib/services/daily-usages/daily-usage.application.service';
-import { NormalAskHistoryApplicationService } from 'projects/shared/src/lib/services/normal-ask-histories/normal-ask-history.application.service';
 import { NormalAskApplicationService } from 'projects/shared/src/lib/services/normal-asks/normal-ask.application.service';
-import { NormalBidHistoryApplicationService } from 'projects/shared/src/lib/services/normal-bid-histories/normal-bid-history.application.service';
 import { NormalBidApplicationService } from 'projects/shared/src/lib/services/normal-bids/normal-bid.application.service';
-import { RenewableAskHistoryApplicationService } from 'projects/shared/src/lib/services/renewable-ask-histories/renewable-ask-history.application.service';
 import { RenewableAskApplicationService } from 'projects/shared/src/lib/services/renewable-asks/renewable-ask.application.service';
-import { RenewableBidHistoryApplicationService } from 'projects/shared/src/lib/services/renewable-bid-histories/renewable-bid-history.application.service';
 import { RenewableBidApplicationService } from 'projects/shared/src/lib/services/renewable-bids/renewable-bid.application.service';
 import { SinglePriceNormalSettlementApplicationService } from 'projects/shared/src/lib/services/single-price-normal-settlements/single-price-normal-settlement.application.service';
 import { SinglePriceRenewableSettlementApplicationService } from 'projects/shared/src/lib/services/single-price-renewable-settlements/single-price-renewable-settlement.application.service';
@@ -69,7 +60,6 @@ export interface MonthlyUsageData {
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
-  balances$: Observable<Balance[]>;
   totalBalanceData$: Observable<MultiDataSet> | undefined;
   totalUsage$: Observable<MonthlyUsageData[]> | undefined;
   totalUsageData$: Observable<ChartDataSets[]> | undefined;
@@ -83,10 +73,6 @@ export class DashboardComponent implements OnInit {
   singlePriceNormalDate$: Observable<Date> | undefined;
   singlePriceRenewable$: Observable<SinglePriceRenewableSettlement> | undefined;
   singlePriceRenewableDate$: Observable<Date> | undefined;
-  normalBidHistories$: Observable<NormalBidHistory[] | undefined>;
-  normalAskHistories$: Observable<NormalAskHistory[] | undefined>;
-  renewableBidHistories$: Observable<RenewableBidHistory[] | undefined>;
-  renewableAskHistories$: Observable<RenewableAskHistory[] | undefined>;
 
   constructor(
     private readonly studentsApp: StudentAccountApplicationService,
@@ -98,12 +84,8 @@ export class DashboardComponent implements OnInit {
     private readonly renewableBidApp: RenewableBidApplicationService,
     private readonly singlePriceNormalApp: SinglePriceNormalSettlementApplicationService,
     private readonly singlePriceRenewableApp: SinglePriceRenewableSettlementApplicationService,
-    private readonly normalBidHistoryApp: NormalBidHistoryApplicationService,
-    private readonly normalAskHistoryApp: NormalAskHistoryApplicationService,
-    private readonly renewableBidHistoryApp: RenewableBidHistoryApplicationService,
-    private readonly renewableAskHistoryApp: RenewableAskHistoryApplicationService,
     private readonly csvHistories: CsvOrderHistoriesService,
-    private readonly csvDownload: CsvdownloadService,
+    private readonly csvDownload: CsvDownloadService,
     private readonly csvDailyUsages: CsvDailyUsagesService,
   ) {
     const now = new Date();
@@ -111,10 +93,6 @@ export class DashboardComponent implements OnInit {
     firstDay.setUTCDate(1);
     firstDay.setUTCHours(0, 0, 0, 0);
     const users$ = this.studentsApp.list$();
-
-    this.balances$ = users$.pipe(
-      mergeMap((users) => Promise.all(users.map((user) => this.balanceApp.list(user.id).then((balances) => balances[0])))),
-    );
 
     this.totalBalanceData$ = users$.pipe(
       mergeMap((users) => Promise.all(users.map((user) => this.balanceApp.list(user.id).then((balances) => balances[0])))),
@@ -321,17 +299,12 @@ export class DashboardComponent implements OnInit {
     this.singlePriceNormalDate$ = this.singlePriceNormal$.pipe(map((single) => (single.market_date as Timestamp).toDate()));
     this.singlePriceRenewable$ = this.singlePriceRenewableApp.getLatest$();
     this.singlePriceRenewableDate$ = this.singlePriceRenewable$.pipe(map((single) => (single.market_date as Timestamp).toDate()));
-
-    this.normalBidHistories$ = this.normalBidHistoryApp.listAll$();
-    this.normalAskHistories$ = this.normalAskHistoryApp.listAll$();
-    this.renewableBidHistories$ = this.renewableBidHistoryApp.listAll$();
-    this.renewableAskHistories$ = this.renewableAskHistoryApp.listAll$();
   }
 
   ngOnInit(): void {}
 
-  async onDownloadBalances($event: Balance[]) {
-    this.csvDownload.downloadBalances($event);
+  async onDownloadBalances() {
+    this.csvDownload.downloadBalances();
   }
 
   async onDownloadOrders($event: OrderData[]) {
@@ -346,19 +319,19 @@ export class DashboardComponent implements OnInit {
     this.csvDownload.downloadMonthlyUsages($event);
   }
 
-  async onDownloadNormalBids($event: historyData) {
+  async onDownloadNormalBids($event: historyOption) {
     this.csvHistories.downloadNormalBids($event);
   }
 
-  async onDownloadNormalAsks($event: historyData) {
+  async onDownloadNormalAsks($event: historyOption) {
     await this.csvHistories.downloadNormalAsks($event);
   }
 
-  async onDownloadRenewableBids($event: historyData) {
+  async onDownloadRenewableBids($event: historyOption) {
     this.csvHistories.downloadRenewableBids($event);
   }
 
-  async onDownloadRenewableAsks($event: historyData) {
+  async onDownloadRenewableAsks($event: historyOption) {
     await this.csvHistories.downloadRenewableAsks($event);
   }
 

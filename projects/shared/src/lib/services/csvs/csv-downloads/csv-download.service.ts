@@ -12,7 +12,7 @@ import { Ranking } from 'projects/main/src/app/page/dashboard/dashboard.componen
 @Injectable({
   providedIn: 'root',
 })
-export class CsvdownloadService {
+export class CsvDownloadService {
   constructor(
     private readonly csvCommon: CSVCommonService,
     private readonly adminApp: AdminAccountApplicationService,
@@ -22,12 +22,15 @@ export class CsvdownloadService {
     private readonly insufficientBalanceApp: InsufficientBalanceApplicationService,
   ) {}
 
-  async downloadBalances(balances: Balance[]) {
+  async downloadBalances() {
     // ここでJSON=>CSVの変換とダウンロードを行う
     const students = await this.studentsApp.list();
+    let balances: Balance[] = [];
     let studentInsufficiencies: { account_id: string; account_name: string; insufficient_utoken: number }[] = [];
     for (let student of students) {
+      const balance = await this.balanceApp.getLatest(student.id);
       const insufficiencies = await this.insufficientBalanceApp.list(student.id);
+      balances.push(balance);
       studentInsufficiencies.push({
         account_id: student.id,
         account_name: student.name,
@@ -38,10 +41,11 @@ export class CsvdownloadService {
       return {
         account_id: balance.student_account_id,
         account_name: students.find((student) => student.id == balance.student_account_id)?.name,
-        amount_uupx: balance.amount_uupx,
-        amount_uspx: balance.amount_uspx,
-        insufficient_utoken: studentInsufficiencies.find((insufficiency) => (insufficiency.account_id = balance.student_account_id))
-          ?.insufficient_utoken,
+        amount_upx: parseInt(balance.amount_uupx) / 1000000,
+        amount_spx: parseInt(balance.amount_uspx) / 1000000,
+        insufficient_utoken:
+          studentInsufficiencies.find((insufficiency) => (insufficiency.account_id = balance.student_account_id))?.insufficient_utoken! /
+          1000000,
         timestamp: (balance.updated_at as Timestamp).toDate().toLocaleString(),
       };
     });

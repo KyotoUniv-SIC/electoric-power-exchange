@@ -1,5 +1,4 @@
 <view-dashboard
-  [balances]="balances$ | async"
   [totalBalanceData]="totalBalanceData$ | async"
   [totalUsage]="totalUsage$ | async"
   [totalUsageData]="totalUsageData$ | async"
@@ -13,11 +12,7 @@
   [singlePriceNormalDate]="singlePriceNormalDate$ | async"
   [singlePriceRenewable]="singlePriceRenewable$ | async"
   [singlePriceRenewableDate]="singlePriceRenewableDate$ | async"
-  [normalBidHistories]="normalBidHistories$ | async"
-  [normalAskHistories]="normalAskHistories$ | async"
-  [renewableBidHistories]="renewableBidHistories$ | async"
-  [renewableAskHistories]="renewableAskHistories$ | async"
-  (appDownloadBalances)="onDownloadBalances($event)"
+  (appDownloadBalances)="onDownloadBalances()"
   (appDownloadOrders)="onDownloadOrders($event)"
   (appDownloadUserUsages)="onDownloadUserUsages($event)"
   (appDownloadMonthlyUsages)="onDownloadMonthlyUsages($event)"
