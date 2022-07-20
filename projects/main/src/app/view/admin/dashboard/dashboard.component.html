@@ -239,6 +239,10 @@
 
   <mat-card class="mb-20">
     <mat-card-title>Daily Electricity Usages</mat-card-title>
+    <mat-card-content>
+      <p>EDISON retrieves the previous day's data from the energy server around 10:00 (UTC+09:00).</p>
+      <p>The retrieved data is presented to the user as the next payment, which is executed at 9:30 (UTC+09:00) the next day.</p>
+    </mat-card-content>
     <mat-form-field appearance="fill">
       <mat-label>Enter a date range</mat-label>
       <mat-date-range-input [formGroup]="usageRange" [rangePicker]="usagePicker">
@@ -257,7 +261,7 @@
       <button mat-flat-button class="w-full" color="accent" (click)="onDownloadUsages()">Download (All room)</button>
     </div>
     <div class="mt-5">
-      <button mat-flat-button class="w-full" color="primary">Download (EDISON Users) -coming soon-</button>
+      <button mat-flat-button class="w-full" color="primary" (click)="onDownloadPayments()">Download (EDISON Users)</button>
     </div>
   </mat-card>
 </div>

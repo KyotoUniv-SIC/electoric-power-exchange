@@ -365,4 +365,8 @@ export class DashboardComponent implements OnInit {
   async onDownloadUsages($event: DateRange) {
     await this.csvDailyUsages.downloadDailyUsages($event);
   }
+
+  async onDownloadPayments($event: DateRange) {
+    await this.csvDailyUsages.downloadDailyPayments($event);
+  }
 }

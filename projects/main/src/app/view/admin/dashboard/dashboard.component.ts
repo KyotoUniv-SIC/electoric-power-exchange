@@ -91,6 +91,8 @@ export class DashboardComponent implements OnInit {
   appDownloadRenewableAsks: EventEmitter<historyData>;
   @Output()
   appDownloadUsages: EventEmitter<DateRange>;
+  @Output()
+  appDownloadPayments: EventEmitter<DateRange>;
 
   doughnutChartLabels: Label[] = ['Utility Power', 'Solar Power'];
   doughnutChartType: ChartType = 'doughnut';
@@ -138,6 +140,7 @@ export class DashboardComponent implements OnInit {
     this.appDownloadRenewableBids = new EventEmitter();
     this.appDownloadRenewableAsks = new EventEmitter();
     this.appDownloadUsages = new EventEmitter();
+    this.appDownloadPayments = new EventEmitter();
   }
 
   ngOnInit(): void {}
@@ -246,5 +249,13 @@ export class DashboardComponent implements OnInit {
       return;
     }
     this.appDownloadUsages.emit({ start: this.usageRange.value.start, end: this.usageRange.value.end });
+  }
+
+  onDownloadPayments() {
+    if (!this.usageRange.value.start || !this.usageRange.value.end) {
+      alert('範囲を正しく指定してください');
+      return;
+    }
+    this.appDownloadPayments.emit({ start: this.usageRange.value.start, end: this.usageRange.value.end });
   }
 }
