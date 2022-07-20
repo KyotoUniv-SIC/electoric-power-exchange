@@ -18,6 +18,10 @@ export class RenewableAskHistoryApplicationService {
     return this.renewableAskHistory.list$().pipe(map((params) => params.filter((param) => param.account_id == uid)));
   }
 
+  listAll() {
+    return this.renewableAskHistory.list();
+  }
+
   listAll$() {
     return this.renewableAskHistory.list$();
   }

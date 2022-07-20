@@ -17,6 +17,10 @@ export class NormalBidHistoryApplicationService {
     return this.normalBidHistory.list$().pipe(map((params) => params.filter((param) => param.account_id == uid)));
   }
 
+  listAll() {
+    return this.normalBidHistory.list();
+  }
+
   listAll$() {
     return this.normalBidHistory.list$();
   }
