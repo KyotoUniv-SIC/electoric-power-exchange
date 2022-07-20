@@ -29,7 +29,7 @@ export class XrplComponent implements OnInit {
   ) {
     this.user$ = authState(this.auth);
     this.studentAccount$ = this.user$.pipe(mergeMap((user) => this.studentAccApp.getByUid$(user?.uid!)));
-    this.balances$ = this.studentAccount$.pipe(mergeMap((account) => (!account ? of(null) : this.balanceApp.getByUid$(account.id))));
+    this.balances$ = this.studentAccount$.pipe(mergeMap((account) => (!account ? of(null) : this.balanceApp.getLatest$(account.id))));
 
     const TEST_NET = 'wss://s.altnet.rippletest.net:51233';
     const client = new xrpl.Client(TEST_NET);
