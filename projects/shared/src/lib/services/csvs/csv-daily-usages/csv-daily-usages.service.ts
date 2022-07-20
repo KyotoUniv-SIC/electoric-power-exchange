@@ -86,11 +86,12 @@ export class CsvDailyUsagesService {
         }
       })
       .map((data) => {
-        const studentName = students.find((student) => student.id == data.student_account_id)?.name;
+        const student = students.find((student) => student.id == data.student_account_id);
         return {
           id: data.id,
           account_id: data.student_account_id,
-          account_name: studentName,
+          account_name: student?.name,
+          room_id: student?.room_id,
           usage_amount_kwh: parseInt(data.amount_mwh) / 1000000,
           amount_upx: parseInt(data.amount_uupx) / 1000000,
           amount_spx: parseInt(data.amount_uspx) / 1000000,
