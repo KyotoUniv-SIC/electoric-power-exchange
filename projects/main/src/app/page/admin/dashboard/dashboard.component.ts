@@ -1,36 +1,28 @@
-import { DateRange } from '../../../view/admin/dashboard/dashboard.component';
+import { DateRange, historyOption } from '../../../view/admin/dashboard/dashboard.component';
 import { Ranking } from '../../dashboard/dashboard.component';
 import { Component, OnInit } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
 import {
-  Balance,
   NormalAsk,
-  NormalAskHistory,
   NormalBid,
-  NormalBidHistory,
   RenewableAsk,
-  RenewableAskHistory,
   RenewableBid,
-  RenewableBidHistory,
   SinglePriceNormalSettlement,
   SinglePriceRenewableSettlement,
 } from '@local/common';
 import { ChartDataSets } from 'chart.js';
 import { MultiDataSet } from 'ng2-charts';
-import { AdminAccountApplicationService } from 'projects/shared/src/lib/services/admin-accounts/admin-account.application.service';
+import { CsvDailyUsagesService } from 'projects/shared/src/lib/services/csvs/csv-daily-usages/csv-daily-usages.service';
+import { CsvDownloadService } from 'projects/shared/src/lib/services/csvs/csv-downloads/csv-download.service';
+import { CsvOrderHistoriesService } from 'projects/shared/src/lib/services/csvs/csv-order-histories/csv-order-histories.service';
 import { DailyUsageApplicationService } from 'projects/shared/src/lib/services/daily-usages/daily-usage.application.service';
-import { NormalAskHistoryApplicationService } from 'projects/shared/src/lib/services/normal-ask-histories/normal-ask-history.application.service';
 import { NormalAskApplicationService } from 'projects/shared/src/lib/services/normal-asks/normal-ask.application.service';
-import { NormalBidHistoryApplicationService } from 'projects/shared/src/lib/services/normal-bid-histories/normal-bid-history.application.service';
 import { NormalBidApplicationService } from 'projects/shared/src/lib/services/normal-bids/normal-bid.application.service';
-import { RenewableAskHistoryApplicationService } from 'projects/shared/src/lib/services/renewable-ask-histories/renewable-ask-history.application.service';
 import { RenewableAskApplicationService } from 'projects/shared/src/lib/services/renewable-asks/renewable-ask.application.service';
-import { RenewableBidHistoryApplicationService } from 'projects/shared/src/lib/services/renewable-bid-histories/renewable-bid-history.application.service';
 import { RenewableBidApplicationService } from 'projects/shared/src/lib/services/renewable-bids/renewable-bid.application.service';
 import { SinglePriceNormalSettlementApplicationService } from 'projects/shared/src/lib/services/single-price-normal-settlements/single-price-normal-settlement.application.service';
 import { SinglePriceRenewableSettlementApplicationService } from 'projects/shared/src/lib/services/single-price-renewable-settlements/single-price-renewable-settlement.application.service';
 import { BalanceApplicationService } from 'projects/shared/src/lib/services/student-accounts/balances/balance.application.service';
-import { InsufficientBalanceApplicationService } from 'projects/shared/src/lib/services/student-accounts/insufficient-balances/insufficient-balance.application.service';
 import { StudentAccountApplicationService } from 'projects/shared/src/lib/services/student-accounts/student-account.application.service';
 import { combineLatest, Observable } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
@@ -68,7 +60,6 @@ export interface MonthlyUsageData {
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
-  balances$: Observable<Balance[]>;
   totalBalanceData$: Observable<MultiDataSet> | undefined;
   totalUsage$: Observable<MonthlyUsageData[]> | undefined;
   totalUsageData$: Observable<ChartDataSets[]> | undefined;
@@ -82,13 +73,8 @@ export class DashboardComponent implements OnInit {
   singlePriceNormalDate$: Observable<Date> | undefined;
   singlePriceRenewable$: Observable<SinglePriceRenewableSettlement> | undefined;
   singlePriceRenewableDate$: Observable<Date> | undefined;
-  normalBidHistories$: Observable<NormalBidHistory[] | undefined>;
-  normalAskHistories$: Observable<NormalAskHistory[] | undefined>;
-  renewableBidHistories$: Observable<RenewableBidHistory[] | undefined>;
-  renewableAskHistories$: Observable<RenewableAskHistory[] | undefined>;
 
   constructor(
-    private readonly adminApp: AdminAccountApplicationService,
     private readonly studentsApp: StudentAccountApplicationService,
     private readonly balanceApp: BalanceApplicationService,
     private readonly dailyUsageApp: DailyUsageApplicationService,
@@ -98,21 +84,15 @@ export class DashboardComponent implements OnInit {
     private readonly renewableBidApp: RenewableBidApplicationService,
     private readonly singlePriceNormalApp: SinglePriceNormalSettlementApplicationService,
     private readonly singlePriceRenewableApp: SinglePriceRenewableSettlementApplicationService,
-    private readonly normalBidHistoryApp: NormalBidHistoryApplicationService,
-    private readonly normalAskHistoryApp: NormalAskHistoryApplicationService,
-    private readonly renewableBidHistoryApp: RenewableBidHistoryApplicationService,
-    private readonly renewableAskHistoryApp: RenewableAskHistoryApplicationService,
-    private readonly insufficientBalanceApp: InsufficientBalanceApplicationService,
+    private readonly csvHistories: CsvOrderHistoriesService,
+    private readonly csvDownload: CsvDownloadService,
+    private readonly csvDailyUsages: CsvDailyUsagesService,
   ) {
     const now = new Date();
     let firstDay = new Date();
     firstDay.setUTCDate(1);
     firstDay.setUTCHours(0, 0, 0, 0);
     const users$ = this.studentsApp.list$();
-
-    this.balances$ = users$.pipe(
-      mergeMap((users) => Promise.all(users.map((user) => this.balanceApp.list(user.id).then((balances) => balances[0])))),
-    );
 
     this.totalBalanceData$ = users$.pipe(
       mergeMap((users) => Promise.all(users.map((user) => this.balanceApp.list(user.id).then((balances) => balances[0])))),
@@ -319,173 +299,47 @@ export class DashboardComponent implements OnInit {
     this.singlePriceNormalDate$ = this.singlePriceNormal$.pipe(map((single) => (single.market_date as Timestamp).toDate()));
     this.singlePriceRenewable$ = this.singlePriceRenewableApp.getLatest$();
     this.singlePriceRenewableDate$ = this.singlePriceRenewable$.pipe(map((single) => (single.market_date as Timestamp).toDate()));
-
-    this.normalBidHistories$ = this.normalBidHistoryApp.listAll$();
-    this.normalAskHistories$ = this.normalAskHistoryApp.listAll$();
-    this.renewableBidHistories$ = this.renewableBidHistoryApp.listAll$();
-    this.renewableAskHistories$ = this.renewableAskHistoryApp.listAll$();
   }
 
   ngOnInit(): void {}
 
-  jsonToCsv(json: any[], delimiter: string | undefined) {
-    var header = Object.keys(json[0]).join(delimiter) + '\n';
-    var body = json
-      .map(function (d) {
-        return Object.keys(d)
-          .map(function (key) {
-            return d[key];
-          })
-          .join(delimiter);
-      })
-      .join('\n');
-    return header + body;
-  }
-
-  downloadCsv(csv: string, title: string) {
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
-    const url = (window.URL || window.webkitURL).createObjectURL(blob);
-    const link = document.createElement('a');
-    link.download = title + '.csv';
-    link.href = url;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  }
-
-  async onDownloadBalances($event: Balance[]) {
-    // ここでJSON=>CSVの変換とダウンロードを行う
-    const students = await this.studentsApp.list();
-    let studentInsufficiencies: { account_id: string; account_name: string; insufficient_utoken: number }[] = [];
-    for (let student of students) {
-      const insufficiencies = await this.insufficientBalanceApp.list(student.id);
-      studentInsufficiencies.push({
-        account_id: student.id,
-        account_name: student.name,
-        insufficient_utoken: insufficiencies.reduce((previous, current) => previous + parseInt(current.amount_utoken), 0),
-      });
-    }
-    const balanceData = $event.map((balance) => {
-      return {
-        account_id: balance.student_account_id,
-        account_name: students.find((student) => student.id == balance.student_account_id)?.name,
-        amount_uupx: balance.amount_uupx,
-        amount_uspx: balance.amount_uspx,
-        insufficient_utoken: studentInsufficiencies.find((insufficiency) => (insufficiency.account_id = balance.student_account_id))
-          ?.insufficient_utoken,
-        timestamp: (balance.updated_at as Timestamp).toDate().toLocaleString(),
-      };
-    });
-    const csv = this.jsonToCsv(balanceData, ',');
-    this.downloadCsv(csv, 'balances');
+  async onDownloadBalances() {
+    this.csvDownload.downloadBalances();
   }
 
   async onDownloadOrders($event: OrderData[]) {
-    const csv = this.jsonToCsv($event, ',');
-    this.downloadCsv(csv, 'orders');
+    this.csvDownload.downloadOrders($event);
   }
 
   async onDownloadUserUsages($event: Ranking[]) {
-    let usages = [];
-    for (let data of $event) {
-      const balance = await this.balanceApp.list(data.id);
-      const insufficiencies = await this.insufficientBalanceApp.list(data.id);
-      usages.push({
-        rank: data.rank,
-        account_id: data.id,
-        account_name: data.name,
-        usage_kwh: data.kwhAmount,
-        amount_uupx: balance[0].amount_uupx,
-        amount_uspx: balance[0].amount_uspx,
-        amount_insufficient_utoken: insufficiencies.reduce((previous, current) => previous + parseInt(current.amount_utoken), 0),
-      });
-    }
-    const csv = this.jsonToCsv(usages, ',');
-    this.downloadCsv(csv, 'users_usages');
+    this.csvDownload.downloadUserUsages($event);
   }
 
   async onDownloadMonthlyUsages($event: MonthlyUsageData[]) {
-    const csv = this.jsonToCsv($event, ',');
-    this.downloadCsv(csv, 'monthly_usages');
+    this.csvDownload.downloadMonthlyUsages($event);
   }
 
-  async onDownloadNormalBids($event: DateRange) {
-    const admin = await this.adminApp.getByName('admin');
-    const normalBids = $event.data as NormalBidHistory[];
-    const students = await this.studentsApp.list();
-    const bidsData = normalBids.map((data) => {
-      return {
-        bid_id: data.id,
-        account_id: data.account_id,
-        account_name: admin?.id == data.account_id ? admin.name : students.find((student) => student.id == data.account_id)?.name,
-        price: parseInt(data.price_ujpy) / 1000000,
-        amount: parseInt(data.amount_uupx) / 1000000,
-        contract: data.is_accepted ? 'YES' : 'NO',
-        contract_price: parseInt(data.contract_price_ujpy) / 1000000,
-        timestamp: (data.bid_created_at as Timestamp).toDate().toLocaleString(),
-      };
-    });
-    const csv = this.jsonToCsv(bidsData, ',');
-    this.downloadCsv(csv, 'upx_bid_history');
+  async onDownloadNormalBids($event: historyOption) {
+    this.csvHistories.downloadNormalBids($event);
   }
 
-  async onDownloadNormalAsks($event: DateRange) {
-    const admin = await this.adminApp.getByName('admin');
-    const normalAsks = $event.data as NormalAskHistory[];
-    const students = await this.studentsApp.list();
-    const asksData = normalAsks.map((data) => {
-      return {
-        ask_id: data.id,
-        account_id: data.account_id,
-        account_name: admin?.id == data.account_id ? admin.name : students.find((student) => student.id == data.account_id)?.name,
-        price: parseInt(data.price_ujpy) / 1000000,
-        amount: parseInt(data.amount_uupx) / 1000000,
-        contract: data.is_accepted ? 'YES' : 'NO',
-        contract_price: parseInt(data.contract_price_ujpy) / 1000000,
-        timestamp: (data.ask_created_at as Timestamp).toDate().toLocaleString(),
-      };
-    });
-    const csv = this.jsonToCsv(asksData, ',');
-    this.downloadCsv(csv, 'upx_ask_history');
+  async onDownloadNormalAsks($event: historyOption) {
+    await this.csvHistories.downloadNormalAsks($event);
   }
 
-  async onDownloadRenewableBids($event: DateRange) {
-    const admin = await this.adminApp.getByName('admin');
-    const renewableBids = $event.data as RenewableBidHistory[];
-    const students = await this.studentsApp.list();
-    const bidsData = renewableBids.map((data) => {
-      return {
-        bid_id: data.id,
-        account_id: data.account_id,
-        account_name: admin?.id == data.account_id ? admin.name : students.find((student) => student.id == data.account_id)?.name,
-        price: parseInt(data.price_ujpy) / 1000000,
-        amount: parseInt(data.amount_uspx) / 1000000,
-        contract: data.is_accepted ? 'YES' : 'NO',
-        contract_price: parseInt(data.contract_price_ujpy) / 1000000,
-        timestamp: (data.bid_created_at as Timestamp).toDate().toLocaleString(),
-      };
-    });
-    const csv = this.jsonToCsv(bidsData, ',');
-    this.downloadCsv(csv, 'spx_bid_history');
+  async onDownloadRenewableBids($event: historyOption) {
+    this.csvHistories.downloadRenewableBids($event);
   }
 
-  async onDownloadRenewableAsks($event: DateRange) {
-    const admin = await this.adminApp.getByName('admin');
-    const renewableAsks = $event.data as RenewableAskHistory[];
-    const students = await this.studentsApp.list();
-    const asksData = renewableAsks.map((data) => {
-      return {
-        ask_id: data.id,
-        account_id: data.account_id,
-        account_name: admin?.id == data.account_id ? admin.name : students.find((student) => student.id == data.account_id)?.name,
-        price: parseInt(data.price_ujpy) / 1000000,
-        amount: parseInt(data.amount_uspx) / 1000000,
-        contract: data.is_accepted ? 'YES' : 'NO',
-        contract_price: parseInt(data.contract_price_ujpy) / 1000000,
-        timestamp: (data.ask_created_at as Timestamp).toDate().toLocaleString(),
-      };
-    });
-    const csv = this.jsonToCsv(asksData, ',');
-    this.downloadCsv(csv, 'spx_ask_history');
+  async onDownloadRenewableAsks($event: historyOption) {
+    await this.csvHistories.downloadRenewableAsks($event);
+  }
+
+  async onDownloadUsages($event: DateRange) {
+    await this.csvDailyUsages.downloadDailyUsages($event);
+  }
+
+  async onDownloadPayments($event: DateRange) {
+    await this.csvDailyUsages.downloadDailyPayments($event);
   }
 }

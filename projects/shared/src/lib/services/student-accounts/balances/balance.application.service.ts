@@ -52,7 +52,28 @@ export class BalanceApplicationService {
     );
   }
 
-  getByUid$(uid: string) {
+  getLatest(uid: string) {
+    return this.balance.list(uid).then(
+      (balances) =>
+        balances.sort(function (first, second) {
+          if (!first.created_at) {
+            return 1;
+          } else if (!second.created_at) {
+            return -1;
+          } else {
+            if ((first.created_at as Timestamp).toDate() < (second.created_at as Timestamp).toDate()) {
+              return 1;
+            } else if ((first.created_at as Timestamp).toDate() > (second.created_at as Timestamp).toDate()) {
+              return -1;
+            } else {
+              return 0;
+            }
+          }
+        })[0],
+    );
+  }
+
+  getLatest$(uid: string) {
     return this.balance.list$(uid).pipe(
       map(
         (balances) =>

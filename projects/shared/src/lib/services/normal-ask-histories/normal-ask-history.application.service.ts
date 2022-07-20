@@ -18,6 +18,10 @@ export class NormalAskHistoryApplicationService {
     return this.normalAskHistory.list$().pipe(map((params) => params.filter((param) => param.account_id == uid)));
   }
 
+  listAll() {
+    return this.normalAskHistory.list();
+  }
+
   listAll$() {
     return this.normalAskHistory.list$();
   }

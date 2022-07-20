@@ -118,7 +118,7 @@ export class DashboardComponent implements OnInit {
     const users$ = this.studentsApp.list$();
 
     // 1.Account Balance
-    const balance$ = studentAccount$.pipe(mergeMap((account) => this.balanceApp.getByUid$(account.id)));
+    const balance$ = studentAccount$.pipe(mergeMap((account) => this.balanceApp.getLatest$(account.id)));
     this.balanceData$ = balance$.pipe(
       map((balance) => [[parseInt(balance.amount_uupx) / 1000000, parseInt(balance.amount_uspx) / 1000000]]),
     );

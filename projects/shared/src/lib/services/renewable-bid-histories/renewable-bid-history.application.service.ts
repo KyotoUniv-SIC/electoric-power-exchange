@@ -18,6 +18,10 @@ export class RenewableBidHistoryApplicationService {
     return this.renewableBidHistory.list$().pipe(map((params) => params.filter((param) => param.account_id == uid)));
   }
 
+  listAll() {
+    return this.renewableBidHistory.list();
+  }
+
   listAll$() {
     return this.renewableBidHistory.list$();
   }

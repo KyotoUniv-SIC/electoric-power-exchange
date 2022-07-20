@@ -236,4 +236,32 @@
       </div>
     </ng-template>
   </mat-card>
+
+  <mat-card class="mb-20">
+    <mat-card-title>Daily Electricity Usages</mat-card-title>
+    <mat-card-content>
+      <p>EDISON retrieves the previous day's data from the energy server around 10:00 (UTC+09:00).</p>
+      <p>The retrieved data is presented to the user as the next payment, which is executed at 9:30 (UTC+09:00) the next day.</p>
+    </mat-card-content>
+    <mat-form-field appearance="fill">
+      <mat-label>Enter a date range</mat-label>
+      <mat-date-range-input [formGroup]="usageRange" [rangePicker]="usagePicker">
+        <input matStartDate formControlName="start" placeholder="Start date" />
+        <input matEndDate formControlName="end" placeholder="End date" />
+      </mat-date-range-input>
+      <mat-hint>MM/DD/YYYY - MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="usagePicker"></mat-datepicker-toggle>
+      <mat-date-range-picker #usagePicker></mat-date-range-picker>
+
+      <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+      <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+    </mat-form-field>
+
+    <div class="mt-5">
+      <button mat-flat-button class="w-full" color="accent" (click)="onDownloadUsages()">Download Usages (All room)</button>
+    </div>
+    <div class="mt-5">
+      <button mat-flat-button class="w-full" color="primary" (click)="onDownloadPayments()">Download Payments (EDISON Users)</button>
+    </div>
+  </mat-card>
 </div>
