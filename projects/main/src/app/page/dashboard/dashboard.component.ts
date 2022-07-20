@@ -252,7 +252,7 @@ export class DashboardComponent implements OnInit {
     this.normalChartOptions$ = combineLatest([maxPriceNormal$, minPriceNormal$, maxAmountNormal$, minAmountNormal$]).pipe(
       map(([maxPriceNormal, minPriceNormal, maxAmountNormal, minAmountNormal]) => {
         return {
-          responsive: true,
+          responsive: false,
           elements: {
             point: {
               radius: 0,
@@ -302,7 +302,7 @@ export class DashboardComponent implements OnInit {
     this.renewableChartOptions$ = combineLatest([maxPriceRenewable$, minPriceRenewable$, maxAmountRenewable$, minAmountRenewable$]).pipe(
       map(([maxPriceRenewable, minPriceRenewable, maxAmountRenewable, minAmountRenewable]) => {
         return {
-          responsive: true,
+          responsive: false,
           elements: {
             point: {
               radius: 0,

@@ -1,7 +1,7 @@
 <h2>Student Dashboard</h2>
 <div class="w-full lg:mx-auto lg:flex lg:flex-row">
   <span class="flex-auto"></span>
-  <mat-card class="mb-10 2xl:w-1/4">
+  <mat-card class="mb-10">
     <mat-card-title>Account Balance</mat-card-title>
     <details>
       <summary>Read More</summary>
@@ -45,74 +45,35 @@
           <p>Displays a breakdown of the tokens you own and the overall breakdown.</p>
         </mat-card-content>
       </details>
-      <div class="w-auto flex flex-row">
-        <div>
-          <mat-card-content style="font-size: large; margin-top: 15px">Student</mat-card-content>
-          <ng-container *ngIf="balanceData === null; then loading; else loadedBalance"></ng-container>
-          <ng-template #loading>
-            <mat-progress-spinner [diameter]="60" [mode]="'indeterminate'"></mat-progress-spinner>
-          </ng-template>
-          <ng-template #loadedBalance>
-            <div class="2xl:hidden">
-              <canvas
-                height="150"
-                width="150"
-                baseChart
-                [data]="balanceData!"
-                [labels]="doughnutChartLabels"
-                [chartType]="doughnutChartType"
-                [colors]="doughnutColors"
-              >
-              </canvas>
-            </div>
+      <ng-container *ngIf="balanceData === null || totalBalanceData === null; then loading; else loadedBalance"></ng-container>
+      <ng-template #loading>
+        <mat-progress-spinner [diameter]="60" [mode]="'indeterminate'"></mat-progress-spinner>
+      </ng-template>
+      <ng-template #loadedBalance>
+        <div class="flex flex-row">
+          <div class="flex flex-col">
+            <mat-card-content style="font-size: large; margin-top: 15px">Student</mat-card-content>
+            <canvas
+              baseChart
+              height="150"
+              width="150"
+              [data]="balanceData!"
+              [labels]="doughnutChartLabels"
+              [chartType]="doughnutChartType"
+              [colors]="doughnutColors"
+            >
+            </canvas>
+          </div>
 
-            <div class="hidden 2xl:block">
-              <canvas
-                height="200"
-                width="200"
-                baseChart
-                [data]="balanceData!"
-                [labels]="doughnutChartLabels"
-                [chartType]="doughnutChartType"
-                [colors]="doughnutColors"
-              >
-              </canvas>
-            </div>
-          </ng-template>
+          <div>
+            <mat-card-content style="font-size: large; margin-top: 15px">Total</mat-card-content>
+            <canvas baseChart height="150" width="150" [data]="totalBalanceData!" [labels]="doughnutChartLabels"
+            [chartType]="doughnutChartType" [colors]="doughnutColors"
+            >
+            </canvas>
+          </div>
         </div>
-
-        <div>
-          <mat-card-content style="font-size: large; margin-top: 15px">Total</mat-card-content>
-          <ng-container *ngIf="totalBalanceData === null; then loading; else loadedTotalBalance"></ng-container>
-          <ng-template #loadedTotalBalance>
-            <div class="2xl:hidden">
-              <canvas
-                height="150"
-                width="150"
-                baseChart
-                [data]="totalBalanceData!"
-                [labels]="doughnutChartLabels"
-                [chartType]="doughnutChartType"
-                [colors]="doughnutColors"
-              >
-              </canvas>
-            </div>
-
-            <div class="hidden 2xl:block">
-              <canvas
-                height="200"
-                width="200"
-                baseChart
-                [data]="totalBalanceData!"
-                [labels]="doughnutChartLabels"
-                [chartType]="doughnutChartType"
-                [colors]="doughnutColors"
-              >
-              </canvas>
-            </div>
-          </ng-template>
-        </div>
-      </div>
+      </ng-template>
     </div>
   </mat-card>
 

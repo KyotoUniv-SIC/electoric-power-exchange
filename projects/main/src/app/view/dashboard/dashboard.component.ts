@@ -95,22 +95,12 @@ export class DashboardComponent implements OnInit {
       backgroundColor: ['#6c8fb6', '#b67cb6'],
     },
   ];
-
-  barChartOptions: ChartOptions = {
+  doughnutChartOptions: ChartOptions = {
     responsive: true,
   };
-  barChartLabels: Label[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
   barChartType: ChartType = 'bar';
   barChartLegend = true;
-  barChartPlugins = [];
-  barColors: Color[] = [
-    {
-      backgroundColor: '#6c8fb6',
-    },
-    {
-      backgroundColor: '#b67cb6',
-    },
-  ];
 
   displayedColumns: string[] = ['classification', 'usage', 'unit', 'charge'];
   dataSource = [
