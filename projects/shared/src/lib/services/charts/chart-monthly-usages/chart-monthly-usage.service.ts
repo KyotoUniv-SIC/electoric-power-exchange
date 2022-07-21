@@ -1,14 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
-import { Balance, DailyUsage, MonthlyUsage } from '@local/common';
-import { ChartType } from 'chart.js';
+import { DailyUsage, MonthlyUsage } from '@local/common';
+import { ChartOptions, ChartType } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 
-export const balanceChartLabels: Label[] = ['UPX', 'SPX'];
-export const balanceChartType: ChartType = 'doughnut';
-export const balanceColors: Color[] = [
+export const usageChartOptions: ChartOptions = {
+  responsive: true,
+};
+export const usageChartLabels: Label[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+export const usageChartType: ChartType = 'bar';
+export const usageChartLegend = true;
+export const usageChartPlugins = [];
+export const usageColors: Color[] = [
   {
-    backgroundColor: ['#6c8fb6', '#b67cb6'],
+    backgroundColor: '#6c8fb6',
+  },
+  {
+    backgroundColor: '#b67cb6',
   },
 ];
 
@@ -57,5 +65,38 @@ export class ChartMonthlyUsageService {
       { data: usagesThisYear, label: 'This year' },
       { data: usagesPreviousYear, label: 'Last year' },
     ];
+  }
+
+  createAllMonthlyUsageChartDataSets(usages: DailyUsage[]) {
+    const now = new Date();
+    let totalUsageThisYear: number[] = [];
+    let totalUsageLastYear: number[] = [];
+    for (let i = 0; i < 12; i++) {
+      const thisMonth = new Date(now.getFullYear(), i, 1);
+      const nextMonth = new Date(now.getFullYear(), i + 1, 1);
+      const thisMonthLastYear = new Date(now.getFullYear() - 1, i, 1);
+      const nextMonthLastYear = new Date(now.getFullYear() - 1, i + 1, 1);
+      const usage = usages.reduce(
+        (sum, element) =>
+          thisMonth < (element.created_at as Timestamp).toDate() && (element.created_at as Timestamp).toDate() < nextMonth
+            ? sum + parseInt(element.amount_kwh_str)
+            : sum,
+        0,
+      );
+      const usageLastYear = usages.reduce(
+        (sum, element) =>
+          thisMonthLastYear < (element.created_at as Timestamp).toDate() && (element.created_at as Timestamp).toDate() < nextMonthLastYear
+            ? sum + parseInt(element.amount_kwh_str)
+            : sum,
+        0,
+      );
+      totalUsageThisYear.push(usage);
+      totalUsageLastYear.push(usageLastYear);
+    }
+    const dataSets = [
+      { data: totalUsageThisYear, label: 'This year' },
+      { data: totalUsageLastYear, label: 'Last year' },
+    ];
+    return dataSets;
   }
 }

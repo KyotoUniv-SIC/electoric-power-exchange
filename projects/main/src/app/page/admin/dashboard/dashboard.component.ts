@@ -12,6 +12,7 @@ import {
 } from '@local/common';
 import { ChartDataSets } from 'chart.js';
 import { MultiDataSet } from 'ng2-charts';
+import { ChartMonthlyUsageService } from 'projects/shared/src/lib/services/charts/chart-monthly-usages/chart-monthly-usage.service';
 import { CsvDailyUsagesService } from 'projects/shared/src/lib/services/csvs/csv-daily-usages/csv-daily-usages.service';
 import { CsvDownloadService } from 'projects/shared/src/lib/services/csvs/csv-downloads/csv-download.service';
 import { CsvOrderHistoriesService } from 'projects/shared/src/lib/services/csvs/csv-order-histories/csv-order-histories.service';
@@ -37,23 +38,6 @@ export interface OrderData {
   power_type: string;
   order_type: string;
 }
-
-export interface MonthlyUsageData {
-  year: number;
-  jan: number;
-  feb: number;
-  mar: number;
-  apr: number;
-  may: number;
-  jun: number;
-  jul: number;
-  aug: number;
-  sep: number;
-  oct: number;
-  nov: number;
-  dec: number;
-}
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -61,7 +45,6 @@ export interface MonthlyUsageData {
 })
 export class DashboardComponent implements OnInit {
   totalBalanceData$: Observable<MultiDataSet> | undefined;
-  totalUsage$: Observable<MonthlyUsageData[]> | undefined;
   totalUsageData$: Observable<ChartDataSets[]> | undefined;
   rankings$: Observable<Ranking[]> | undefined;
   normalAsks$: Observable<NormalAsk[]> | undefined;
@@ -87,6 +70,7 @@ export class DashboardComponent implements OnInit {
     private readonly csvHistories: CsvOrderHistoriesService,
     private readonly csvDownload: CsvDownloadService,
     private readonly csvDailyUsages: CsvDailyUsagesService,
+    private readonly chartMonthlyUsage: ChartMonthlyUsageService,
   ) {
     const now = new Date();
     let firstDay = new Date();
@@ -107,83 +91,8 @@ export class DashboardComponent implements OnInit {
       }),
     );
 
-    const usageListDailyTotal$ = this.dailyUsageApp.list$();
-    const totalUsageThisYear$ = usageListDailyTotal$.pipe(
-      map((usages) => {
-        let list = [];
-        for (let i = 0; i < 12; i++) {
-          const thisMonth = new Date(now.getFullYear(), i, 1);
-          const nextMonth = new Date(now.getFullYear(), i + 1, 1);
-          let usage = usages.reduce(
-            (sum, element) =>
-              thisMonth < (element.created_at as Timestamp).toDate() && (element.created_at as Timestamp).toDate() < nextMonth
-                ? sum + parseInt(element.amount_kwh_str)
-                : sum,
-            0,
-          );
-          list.push(usage);
-        }
-        return list;
-      }),
-    );
-    const totalUsageLastYear$ = usageListDailyTotal$.pipe(
-      map((usages) => {
-        let list = [];
-        for (let i = 0; i < 12; i++) {
-          const thisMonth = new Date(now.getFullYear() - 1, i, 1);
-          const nextMonth = new Date(now.getFullYear() - 1, i + 1, 1);
-          let usage = usages.reduce(
-            (sum, element) =>
-              thisMonth < (element.created_at as Timestamp).toDate() && (element.created_at as Timestamp).toDate() < nextMonth
-                ? sum + parseInt(element.amount_kwh_str)
-                : sum,
-            0,
-          );
-          list.push(usage);
-        }
-        return list;
-      }),
-    );
-    this.totalUsage$ = combineLatest([totalUsageThisYear$, totalUsageLastYear$]).pipe(
-      map(([thisYear, lastYear]) => [
-        {
-          year: now.getFullYear() - 1,
-          jan: lastYear[0],
-          feb: lastYear[1],
-          mar: lastYear[2],
-          apr: lastYear[3],
-          may: lastYear[4],
-          jun: lastYear[5],
-          jul: lastYear[6],
-          aug: lastYear[7],
-          sep: lastYear[8],
-          oct: lastYear[9],
-          nov: lastYear[10],
-          dec: lastYear[11],
-        },
-        {
-          year: now.getFullYear(),
-          jan: thisYear[0],
-          feb: thisYear[1],
-          mar: thisYear[2],
-          apr: thisYear[3],
-          may: thisYear[4],
-          jun: thisYear[5],
-          jul: thisYear[6],
-          aug: thisYear[7],
-          sep: thisYear[8],
-          oct: thisYear[9],
-          nov: thisYear[10],
-          dec: thisYear[11],
-        },
-      ]),
-    );
-    this.totalUsageData$ = combineLatest([totalUsageThisYear$, totalUsageLastYear$]).pipe(
-      map(([thisYear, lastYear]) => [
-        { data: thisYear, label: 'This year' },
-        { data: lastYear, label: 'Last year' },
-      ]),
-    );
+    const dailyUsages$ = this.dailyUsageApp.list$();
+    this.totalUsageData$ = dailyUsages$.pipe(map((usages) => this.chartMonthlyUsage.createAllMonthlyUsageChartDataSets(usages)));
 
     this.rankings$ = users$.pipe(
       mergeMap((users) =>
@@ -315,7 +224,7 @@ export class DashboardComponent implements OnInit {
     this.csvDownload.downloadUserUsages($event);
   }
 
-  async onDownloadMonthlyUsages($event: MonthlyUsageData[]) {
+  async onDownloadMonthlyUsages($event: ChartDataSets[]) {
     this.csvDownload.downloadMonthlyUsages($event);
   }
 
