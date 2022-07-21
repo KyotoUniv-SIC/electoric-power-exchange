@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
-import { Color, Label } from 'ng2-charts';
+import { ChartDataSets, ChartOptions } from 'chart.js';
+import { contractChartLegend, contractChartType } from 'projects/shared/src/lib/services/charts/chart-contracts/chart-contract.service';
 
 @Component({
   selector: 'view-charts',
@@ -22,20 +22,8 @@ export class ChartsComponent implements OnInit {
   @Input()
   renewableChartOptions?: ChartOptions | null;
 
-  barChartOptions: ChartOptions = {
-    responsive: true,
-  };
-  barChartType: ChartType = 'bar';
-  barChartLegend = true;
-  barChartPlugins = [];
-  barColors: Color[] = [
-    {
-      backgroundColor: '#6c8fb6',
-    },
-    {
-      backgroundColor: '#b67cb6',
-    },
-  ];
+  barChartType = contractChartType;
+  barChartLegend = contractChartLegend;
 
   constructor() {}
 

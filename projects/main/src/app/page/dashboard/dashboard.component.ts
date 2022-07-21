@@ -14,6 +14,8 @@ import {
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { MultiDataSet } from 'ng2-charts';
 import { AdminAccountApplicationService } from 'projects/shared/src/lib/services/admin-accounts/admin-account.application.service';
+import { ChartBalanceService } from 'projects/shared/src/lib/services/charts/chart-balances/chart-balance.service';
+import { ChartContractService } from 'projects/shared/src/lib/services/charts/chart-contracts/chart-contract.service';
 import { DailyUsageApplicationService } from 'projects/shared/src/lib/services/daily-usages/daily-usage.application.service';
 import { NormalAskApplicationService } from 'projects/shared/src/lib/services/normal-asks/normal-ask.application.service';
 import { NormalBidApplicationService } from 'projects/shared/src/lib/services/normal-bids/normal-bid.application.service';
@@ -71,7 +73,6 @@ export class DashboardComponent implements OnInit {
 
   normalSettlement$: Observable<SinglePriceNormalSettlement> | undefined;
   normalDate$: Observable<Date> | undefined;
-  normalSettlements$: Observable<SinglePriceNormalSettlement[]> | undefined;
   normalChartDataSets$: Observable<ChartDataSets[]> | undefined;
   normalChartDates$: Observable<string[]> | undefined;
   normalChartOptions$: Observable<ChartOptions> | undefined;
@@ -109,6 +110,8 @@ export class DashboardComponent implements OnInit {
     private readonly adminApp: AdminAccountApplicationService,
     private readonly dailyPaymentApp: DailyPaymentApplicationService,
     private readonly renewableRewardSettingApp: RenewableRewardSettingApplicationService,
+    private readonly chartBalance: ChartBalanceService,
+    private readonly chartContract: ChartContractService,
   ) {
     let firstDay = new Date();
     firstDay.setUTCDate(1);
@@ -119,9 +122,7 @@ export class DashboardComponent implements OnInit {
 
     // 1.Account Balance
     const balance$ = studentAccount$.pipe(mergeMap((account) => this.balanceApp.getLatest$(account.id)));
-    this.balanceData$ = balance$.pipe(
-      map((balance) => [[parseInt(balance.amount_uupx) / 1000000, parseInt(balance.amount_uspx) / 1000000]]),
-    );
+    this.balanceData$ = balance$.pipe(map((balance) => this.chartBalance.createBalanceDonutChartData(balance)));
     const totalBalance$ = users$.pipe(
       mergeMap((users) => Promise.all(users.map((user) => this.balanceApp.list(user.id).then((balances) => balances[0])))),
       map((balances) => {
@@ -134,9 +135,7 @@ export class DashboardComponent implements OnInit {
         return new Balance({ amount_uupx: upxTotal.toString(), amount_uspx: spxTotal.toString() });
       }),
     );
-    this.totalBalanceData$ = totalBalance$.pipe(
-      map((balance) => [[parseInt(balance.amount_uupx) / 1000000, parseInt(balance.amount_uspx) / 1000000]]),
-    );
+    this.totalBalanceData$ = totalBalance$.pipe(map((balance) => this.chartBalance.createBalanceDonutChartData(balance)));
     const insufficiency$ = studentAccount$.pipe(mergeMap((account) => this.insufficientBalanceApp.list(account.id))).pipe(
       map((insufficiencies) => {
         let count = 0;
@@ -173,180 +172,27 @@ export class DashboardComponent implements OnInit {
     this.normalDate$ = this.normalSettlement$.pipe(map((single) => (single.market_date as Timestamp).toDate()));
     this.renewableSettlement$ = this.singlePriceRenewableApp.getLatest$();
     this.renewableDate$ = this.renewableSettlement$.pipe(map((single) => (single.market_date as Timestamp).toDate()));
-    this.normalSettlements$ = this.singlePriceNormalApp.listLatestMonth$();
-    const renewableSettlements$ = this.singlePriceRenewableApp.listLatestMonth$();
 
     // 3.Contract Price & Amount Charts (4.は無し)
-    const pricesNormal$ = this.normalSettlements$.pipe(map((params) => params.map((param) => parseInt(param.price_ujpy) / 1000000)));
-    const amountsNormal$ = this.normalSettlements$.pipe(map((params) => params.map((param) => parseInt(param.amount_uupx) / 1000000)));
-    const pricesRenewable$ = renewableSettlements$.pipe(map((params) => params.map((param) => parseInt(param.price_ujpy) / 1000000)));
-    const amountsRenewable$ = renewableSettlements$.pipe(map((params) => params.map((param) => parseInt(param.amount_uspx) / 1000000)));
-    const referencePriceNormal$ = pricesNormal$.pipe(map((params) => Array(params.length).fill(27 as number)));
-    const referencePriceRenewable$ = pricesRenewable$.pipe(map((params) => Array(params.length).fill(27 as number)));
+    const normalSettlements$ = this.singlePriceNormalApp.list$();
+    const renewableSettlements$ = this.singlePriceRenewableApp.list$();
 
-    this.normalChartDataSets$ = combineLatest([pricesNormal$, amountsNormal$, referencePriceNormal$]).pipe(
-      map(([prices, amounts, references]) => [
-        {
-          data: references,
-          label: 'Reference Price',
-          borderDash: [5, 3], //点線
-          fill: 'false', //塗りつぶし
-          type: 'line',
-          tension: 0,
-          yAxisID: 'y-axis-price',
-        },
-        {
-          data: prices,
-          label: 'Contract Price',
-          fill: 'false',
-          type: 'line',
-          tension: 0,
-          yAxisID: 'y-axis-price',
-        },
-        { data: amounts, label: 'Contract Amount', type: 'bar', yAxisID: 'y-axis-amount' },
-      ]),
-    );
+    this.normalChartDataSets$ = normalSettlements$.pipe(map((settlements) => this.chartContract.createContractChartDataSets(settlements)));
 
-    this.normalChartDates$ = this.normalSettlements$.pipe(
-      map((params) =>
-        params.map(
-          (param) => (param.created_at as Timestamp).toDate().getMonth() + 1 + '/' + (param.created_at as Timestamp).toDate().getDate(),
-        ),
-      ),
-    );
+    this.normalChartDates$ = normalSettlements$.pipe(map((settlements) => this.chartContract.createContractChartDatesLabel(settlements)));
 
-    this.renewableChartDataSets$ = combineLatest([pricesRenewable$, amountsRenewable$, referencePriceRenewable$]).pipe(
-      map(([prices, amounts, references]) => [
-        {
-          data: references,
-          label: 'Reference Price',
-          borderDash: [5, 3],
-          fill: 'false',
-          type: 'line',
-          tension: 0,
-          yAxisID: 'y-axis-price',
-        },
-        { data: prices, label: 'Contract Price', fill: '', type: 'line', tension: 0, yAxisID: 'y-axis-price' },
-        { data: amounts, label: 'Contract Amount', yAxisID: 'y-axis-amount' },
-      ]),
+    this.normalChartOptions$ = normalSettlements$.pipe(map((settlements) => this.chartContract.createContractChartOption(settlements)));
+
+    this.renewableChartDataSets$ = renewableSettlements$.pipe(
+      map((settlements) => this.chartContract.createContractChartDataSets(settlements)),
     );
 
     this.renewableChartDates$ = renewableSettlements$.pipe(
-      map((params) =>
-        params.map(
-          (param) => (param.created_at as Timestamp).toDate().getMonth() + 1 + '/' + (param.created_at as Timestamp).toDate().getDate(),
-        ),
-      ),
+      map((settlements) => this.chartContract.createContractChartDatesLabel(settlements)),
     );
 
-    const maxPriceNormal$ = pricesNormal$.pipe(map((pricesNormal) => pricesNormal.reduce((a, b) => Math.max(a, b))));
-    const minPriceNormal$ = pricesNormal$.pipe(map((pricesNormal) => pricesNormal.reduce((a, b) => Math.min(a, b))));
-    const maxAmountNormal$ = amountsNormal$.pipe(map((amountsNormal) => amountsNormal.reduce((a, b) => Math.max(a, b))));
-    const minAmountNormal$ = amountsNormal$.pipe(map((amountsNormal) => amountsNormal.reduce((a, b) => Math.min(a, b))));
-
-    const maxPriceRenewable$ = pricesRenewable$.pipe(map((pricesRenewable) => pricesRenewable.reduce((a, b) => Math.max(a, b))));
-    const minPriceRenewable$ = pricesRenewable$.pipe(map((pricesRenewable) => pricesRenewable.reduce((a, b) => Math.min(a, b))));
-    const maxAmountRenewable$ = amountsRenewable$.pipe(map((amountsRenewable) => amountsRenewable.reduce((a, b) => Math.max(a, b))));
-    const minAmountRenewable$ = amountsRenewable$.pipe(map((amountsRenewable) => amountsRenewable.reduce((a, b) => Math.min(a, b))));
-
-    this.normalChartOptions$ = combineLatest([maxPriceNormal$, minPriceNormal$, maxAmountNormal$, minAmountNormal$]).pipe(
-      map(([maxPriceNormal, minPriceNormal, maxAmountNormal, minAmountNormal]) => {
-        return {
-          responsive: true,
-          elements: {
-            point: {
-              radius: 0,
-            },
-          },
-          scales: {
-            yAxes: [
-              {
-                id: 'y-axis-price', // Y軸のID
-                scaleLabel: {
-                  display: true, // 必須
-                  labelString: 'JPY', // 軸ラベル
-                },
-                type: 'linear', // linear固定
-                position: 'left', // どちら側に表示される軸か？
-                ticks: {
-                  // スケール
-                  max: maxPriceNormal + 5,
-                  min: Math.max(minPriceNormal - 5, 0),
-                  stepSize: 10,
-                },
-              },
-              {
-                id: 'y-axis-amount',
-                scaleLabel: {
-                  display: true,
-                  labelString: 'UPX Amount',
-                },
-                type: 'linear',
-                position: 'right',
-                ticks: {
-                  max: maxAmountNormal + 5,
-                  min: Math.max(minAmountNormal - 5, 0),
-                  stepSize: 10,
-                },
-                gridLines: {
-                  // 2つ目の軸のグリッド削除
-                  drawOnChartArea: false,
-                },
-              },
-            ],
-          },
-        };
-      }),
-    );
-
-    this.renewableChartOptions$ = combineLatest([maxPriceRenewable$, minPriceRenewable$, maxAmountRenewable$, minAmountRenewable$]).pipe(
-      map(([maxPriceRenewable, minPriceRenewable, maxAmountRenewable, minAmountRenewable]) => {
-        return {
-          responsive: true,
-          elements: {
-            point: {
-              radius: 0,
-            },
-          },
-          scales: {
-            yAxes: [
-              {
-                id: 'y-axis-price', // Y軸のID
-                scaleLabel: {
-                  display: true, // 必須
-                  labelString: 'JPY', // 軸ラベル
-                },
-                type: 'linear', // linear固定
-                position: 'left', // どちら側に表示される軸か？
-                ticks: {
-                  // スケール
-                  max: maxPriceRenewable + 5,
-                  min: Math.max(minPriceRenewable - 5, 0),
-                  stepSize: 10,
-                },
-              },
-              {
-                id: 'y-axis-amount',
-                scaleLabel: {
-                  display: true,
-                  labelString: 'SPX Amount',
-                },
-                type: 'linear',
-                position: 'right',
-                ticks: {
-                  max: maxAmountRenewable + 5,
-                  min: Math.max(minAmountRenewable - 5, 0),
-                  stepSize: 10,
-                },
-                gridLines: {
-                  // 2つ目の軸のグリッド削除
-                  drawOnChartArea: false,
-                },
-              },
-            ],
-          },
-        };
-      }),
+    this.renewableChartOptions$ = renewableSettlements$.pipe(
+      map((settlements) => this.chartContract.createContractChartOption(settlements)),
     );
 
     // 5.System Operation Status

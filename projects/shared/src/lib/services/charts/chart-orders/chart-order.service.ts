@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
-export class OrdersChartService {
+export class ChartOrderService {
   constructor(
     private readonly normalBidHistoryApp: NormalBidHistoryApplicationService,
     private readonly normalAskHistoryApp: NormalAskHistoryApplicationService,

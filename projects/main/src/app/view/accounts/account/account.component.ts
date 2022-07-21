@@ -1,9 +1,16 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { User } from '@firebase/auth';
-import { Balance, MonthlyPayment, StudentAccount } from '@local/common'
-import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
-import { Color, Label } from 'ng2-charts';
+import { Balance, MonthlyPayment, StudentAccount } from '@local/common';
+import { ChartDataSets } from 'chart.js';
 import { AuthApplicationService } from 'projects/shared/src/lib/services/auth/auth.application.service';
+import {
+  usageChartLabels,
+  usageChartLegend,
+  usageChartOptions,
+  usageChartPlugins,
+  usageChartType,
+  usageColors,
+} from 'projects/shared/src/lib/services/charts/chart-monthly-usages/chart-monthly-usage.service';
 
 @Component({
   selector: 'view-account',
@@ -28,21 +35,12 @@ export class AccountComponent implements OnInit {
   @Input()
   usageData?: ChartDataSets[] | null;
 
-  barChartOptions: ChartOptions = {
-    responsive: true,
-  };
-  barChartLabels: Label[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  barChartType: ChartType = 'bar';
-  barChartLegend = true;
-  barChartPlugins = [];
-  barColors: Color[] = [
-    {
-      backgroundColor: '#6c8fb6',
-    },
-    {
-      backgroundColor: '#b67cb6',
-    },
-  ];
+  barChartOptions = usageChartOptions;
+  barChartLabels = usageChartLabels;
+  barChartType = usageChartType;
+  barChartLegend = usageChartLegend;
+  barChartPlugins = usageChartPlugins;
+  barColors = usageColors;
 
   constructor(private readonly authApp: AuthApplicationService) {}
 

@@ -1,4 +1,3 @@
-import { MonthlyUsageData, OrderData } from '../../../page/admin/dashboard/dashboard.component';
 import { Ranking } from '../../../page/dashboard/dashboard.component';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -9,9 +8,18 @@ import {
   RenewableBid,
   SinglePriceNormalSettlement,
   SinglePriceRenewableSettlement,
+  StudentAccount,
 } from '@local/common';
-import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
+import { ChartDataSets, ChartType } from 'chart.js';
 import { Color, Label, MultiDataSet } from 'ng2-charts';
+import {
+  usageChartLabels,
+  usageChartLegend,
+  usageChartOptions,
+  usageChartPlugins,
+  usageChartType,
+  usageColors,
+} from 'projects/shared/src/lib/services/charts/chart-monthly-usages/chart-monthly-usage.service';
 
 export interface historyOption {
   onlyContracted: boolean;
@@ -24,6 +32,14 @@ export interface DateRange {
   end: Date;
 }
 
+export interface OrderData {
+  students: StudentAccount[];
+  normalBids: NormalBid[];
+  normalAsks: NormalAsk[];
+  renewableBids: RenewableBid[];
+  renewableAsks: RenewableAsk[];
+}
+
 @Component({
   selector: 'view-dashboard',
   templateUrl: './dashboard.component.html',
@@ -31,9 +47,9 @@ export interface DateRange {
 })
 export class DashboardComponent implements OnInit {
   @Input()
-  totalBalanceData?: MultiDataSet | null;
+  students?: StudentAccount[] | null;
   @Input()
-  totalUsage?: MonthlyUsageData[] | null;
+  totalBalanceData?: MultiDataSet | null;
   @Input()
   totalUsageData?: ChartDataSets[] | null;
   @Input()
@@ -47,8 +63,6 @@ export class DashboardComponent implements OnInit {
   @Input()
   renewableBids?: RenewableBid[] | null;
   @Input()
-  orders?: OrderData[] | null;
-  @Input()
   singlePriceNormal?: SinglePriceNormalSettlement | null;
   @Input()
   singlePriceNormalDate?: Date | null;
@@ -60,11 +74,11 @@ export class DashboardComponent implements OnInit {
   @Output()
   appDownloadBalances: EventEmitter<{}>;
   @Output()
-  appDownloadOrders: EventEmitter<OrderData[]>;
+  appDownloadOrders: EventEmitter<OrderData>;
   @Output()
   appDownloadUserUsages: EventEmitter<Ranking[]>;
   @Output()
-  appDownloadMonthlyUsages: EventEmitter<MonthlyUsageData[]>;
+  appDownloadMonthlyUsages: EventEmitter<ChartDataSets[]>;
   @Output()
   appDownloadNormalBids: EventEmitter<historyOption>;
   @Output()
@@ -86,21 +100,12 @@ export class DashboardComponent implements OnInit {
     },
   ];
 
-  barChartOptions: ChartOptions = {
-    responsive: true,
-  };
-  barChartLabels: Label[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  barChartType: ChartType = 'bar';
-  barChartLegend = true;
-  barChartPlugins = [];
-  barColors: Color[] = [
-    {
-      backgroundColor: '#6c8fb6',
-    },
-    {
-      backgroundColor: '#b67cb6',
-    },
-  ];
+  barChartOptions = usageChartOptions;
+  barChartLabels = usageChartLabels;
+  barChartType = usageChartType;
+  barChartLegend = usageChartLegend;
+  barChartPlugins = usageChartPlugins;
+  barColors = usageColors;
 
   range = new FormGroup({
     start: new FormControl(),
@@ -133,11 +138,21 @@ export class DashboardComponent implements OnInit {
     this.appDownloadBalances.emit();
   }
   onDownloadOrders() {
-    if (!this.orders) {
-      alert('Order情報を取得できません');
+    if (!this.students) {
+      alert('エラーが発生しました');
       return;
     }
-    this.appDownloadOrders.emit(this.orders);
+    if (!this.normalBids || !this.normalAsks || !this.renewableBids || !this.renewableAsks) {
+      alert('注文情報を取得できません');
+      return;
+    }
+    this.appDownloadOrders.emit({
+      students: this.students,
+      normalBids: this.normalBids,
+      normalAsks: this.normalAsks,
+      renewableBids: this.renewableBids,
+      renewableAsks: this.renewableAsks,
+    });
   }
   onDownloadUserUsages() {
     if (!this.rankings) {
@@ -147,11 +162,11 @@ export class DashboardComponent implements OnInit {
     this.appDownloadUserUsages.emit(this.rankings);
   }
   onDownloadMonthlyUsages() {
-    if (!this.totalUsage) {
+    if (!this.totalUsageData) {
       alert('使用量情報を取得できません');
       return;
     }
-    this.appDownloadMonthlyUsages.emit(this.totalUsage);
+    this.appDownloadMonthlyUsages.emit(this.totalUsageData);
   }
 
   onDownloadNormalBidHistories() {
