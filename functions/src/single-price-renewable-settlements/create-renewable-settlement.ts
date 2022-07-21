@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { single_price_renewable_settlement } from '.';
+// import { single_price_renewable_settlement } from '.';
 import { renewable_ask_history } from '../renewable-ask-histories';
 import { renewable_ask } from '../renewable-asks';
 import { renewable_bid_history } from '../renewable-bid-histories';
@@ -8,7 +8,8 @@ import { renewable_settlement } from '../renewable-settlements';
 import { renewableSettlementOnCreate } from '../renewable-settlements/create-balance';
 import { proto, RenewableAskHistory, RenewableBidHistory, RenewableSettlement } from '@local/common';
 
-single_price_renewable_settlement.onCreateHandler.push(async (snapshot, context) => {
+// single_price_renewable_settlement.onCreateHandler.push()
+export const singlePriceRenewableSettlementOnCreate = async (snapshot: any, context: any) => {
   const data = snapshot.data()! as RenewableSettlement;
   if (data.amount_uspx == '0') {
     console.log('no renewable contract');
@@ -270,4 +271,4 @@ single_price_renewable_settlement.onCreateHandler.push(async (snapshot, context)
     }
   }
   console.log('complete Renewable settlement');
-});
+};

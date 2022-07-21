@@ -4,10 +4,11 @@ import { renewable_ask } from '../renewable-asks';
 import { renewable_bid_history } from '../renewable-bid-histories';
 import { renewable_bid } from '../renewable-bids';
 import { single_price_renewable_settlement } from '../single-price-renewable-settlements';
+import { singlePriceRenewableSettlementOnCreate } from '../single-price-renewable-settlements/create-renewable-settlement';
 import { proto, RenewableAskHistory, RenewableBidHistory, SinglePriceRenewableSettlement } from '@local/common';
 import * as functions from 'firebase-functions';
 
-const f = functions.region('asia-northeast1').runWith({ timeoutSeconds: 540, memory: '2GB' });
+const f = functions.region('asia-northeast1').runWith({ timeoutSeconds: 540, memory: '2GB', secrets: ['PRIV_KEY'] });
 module.exports.contractRenewable = f.pubsub
   .schedule('15 9 * * *')
   // .schedule('0,30 * * * *')
@@ -172,12 +173,11 @@ module.exports.contractRenewable = f.pubsub
     // 止まったときの低い方が成約取引量となる
     // const equilibriumAmount = sumBidAmountHistory[i] <= sumAskAmountHistory[j] ? sumBidAmountHistory[i] : sumAskAmountHistory[j];
 
-    await single_price_renewable_settlement.create(
-      new SinglePriceRenewableSettlement({
-        price_ujpy: equilibriumPrice.toString(),
-        amount_uspx: equilibriumAmount.toString(),
-      }),
-    );
+    const singlePrice = new SinglePriceRenewableSettlement({
+      price_ujpy: equilibriumPrice.toString(),
+      amount_uspx: equilibriumAmount.toString(),
+    });
+    await single_price_renewable_settlement.create(singlePrice);
 
     if (equilibriumAmount == 0) {
       await Promise.all(
@@ -216,5 +216,7 @@ module.exports.contractRenewable = f.pubsub
           await renewable_ask.delete_(ask.id);
         }),
       );
+    } else {
+      await singlePriceRenewableSettlementOnCreate({ data: () => singlePrice }, null);
     }
   });

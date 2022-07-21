@@ -4,10 +4,11 @@ import { normal_ask } from '../normal-asks';
 import { normal_bid_history } from '../normal-bid-histories';
 import { normal_bid } from '../normal-bids';
 import { single_price_normal_settlement } from '../single-price-normal-settlements';
+import { singlePriceNormalSettlementOnCreate } from '../single-price-normal-settlements/create-normal-settlement';
 import { NormalAskHistory, NormalBidHistory, SinglePriceNormalSettlement } from '@local/common';
 import * as functions from 'firebase-functions';
 
-const f = functions.region('asia-northeast1').runWith({ timeoutSeconds: 540, memory: '2GB' });
+const f = functions.region('asia-northeast1').runWith({ timeoutSeconds: 540, memory: '2GB', secrets: ['PRIV_KEY'] });
 module.exports.contractNormal = f.pubsub
   .schedule('0 9 * * *')
   // .schedule('0,30 * * * *')
@@ -167,13 +168,11 @@ module.exports.contractNormal = f.pubsub
     // const equilibriumPrice = sortNormalBids[i].price <= sortNormalAsks[j].price ? sortNormalBids[i].price : sortNormalAsks[j].price;
     // 止まったときの低い方が成約取引量となる
     // const equilibriumAmount = sumBidAmountHistory[i] <= sumAskAmountHistory[j] ? sumBidAmountHistory[i] : sumAskAmountHistory[j];
-
-    await single_price_normal_settlement.create(
-      new SinglePriceNormalSettlement({
-        price_ujpy: equilibriumPrice.toString(),
-        amount_uupx: equilibriumAmount.toString(),
-      }),
-    );
+    const singlePrice = new SinglePriceNormalSettlement({
+      price_ujpy: equilibriumPrice.toString(),
+      amount_uupx: equilibriumAmount.toString(),
+    });
+    await single_price_normal_settlement.create(singlePrice);
 
     if (equilibriumAmount == 0) {
       await Promise.all(
@@ -211,5 +210,7 @@ module.exports.contractNormal = f.pubsub
           await normal_ask.delete_(ask.id);
         }),
       );
+    } else {
+      await singlePriceNormalSettlementOnCreate({ data: () => singlePrice }, null);
     }
   });
