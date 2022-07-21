@@ -5,7 +5,7 @@ import { Timestamp } from '@angular/fire/firestore';
 import { NormalAsk, proto, RenewableAsk, SinglePriceNormalSettlement, SinglePriceRenewableSettlement, StudentAccount } from '@local/common';
 import { ChartDataSets } from 'chart.js';
 import { Label } from 'ng2-charts';
-import { OrdersChartService } from 'projects/shared/src/lib/services/charts/orders/orders-chart.service';
+import { ChartOrderService } from 'projects/shared/src/lib/services/charts/chart-orders/chart-order.service';
 import { NormalAskApplicationService } from 'projects/shared/src/lib/services/normal-asks/normal-ask.application.service';
 import { RenewableAskApplicationService } from 'projects/shared/src/lib/services/renewable-asks/renewable-ask.application.service';
 import { SinglePriceNormalSettlementApplicationService } from 'projects/shared/src/lib/services/single-price-normal-settlements/single-price-normal-settlement.application.service';
@@ -49,7 +49,7 @@ export class SellComponent implements OnInit {
     private readonly insufficientBalanceApp: InsufficientBalanceApplicationService,
     private readonly singlePriceNormalApp: SinglePriceNormalSettlementApplicationService,
     private readonly singlePriceRenewableApp: SinglePriceRenewableSettlementApplicationService,
-    private readonly ordersChartApp: OrdersChartService,
+    private readonly ordersChartApp: ChartOrderService,
   ) {
     this.price = 27;
     this.amount = 1;
