@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { single_price_normal_settlement } from '.';
+// import { single_price_normal_settlement } from '.';
 import { normal_ask_history } from '../normal-ask-histories';
 import { normal_ask } from '../normal-asks';
 import { normal_bid_history } from '../normal-bid-histories';
@@ -8,7 +8,8 @@ import { normal_settlement } from '../normal-settlements';
 import { normalSettlementOnCreate } from '../normal-settlements/create-balance';
 import { NormalAskHistory, NormalBidHistory, NormalSettlement, proto, SinglePriceNormalSettlement } from '@local/common';
 
-single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) => {
+// single_price_normal_settlement.onCreateHandler.push()
+export const singlePriceNormalSettlementOnCreate = async (snapshot: any, context: any) => {
   const data = snapshot.data()! as SinglePriceNormalSettlement;
   if (data.amount_uupx == '0') {
     console.log('no normal contract');
@@ -272,4 +273,4 @@ single_price_normal_settlement.onCreateHandler.push(async (snapshot, context) =>
     }
   }
   console.log('complete Normal settlement');
-});
+};
