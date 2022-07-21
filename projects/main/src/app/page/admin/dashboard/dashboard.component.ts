@@ -1,4 +1,4 @@
-import { DateRange, historyOption } from '../../../view/admin/dashboard/dashboard.component';
+import { DateRange, historyOption, OrderData } from '../../../view/admin/dashboard/dashboard.component';
 import { Ranking } from '../../dashboard/dashboard.component';
 import { Component, OnInit } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
@@ -9,6 +9,7 @@ import {
   RenewableBid,
   SinglePriceNormalSettlement,
   SinglePriceRenewableSettlement,
+  StudentAccount,
 } from '@local/common';
 import { ChartDataSets } from 'chart.js';
 import { MultiDataSet } from 'ng2-charts';
@@ -25,25 +26,16 @@ import { SinglePriceNormalSettlementApplicationService } from 'projects/shared/s
 import { SinglePriceRenewableSettlementApplicationService } from 'projects/shared/src/lib/services/single-price-renewable-settlements/single-price-renewable-settlement.application.service';
 import { BalanceApplicationService } from 'projects/shared/src/lib/services/student-accounts/balances/balance.application.service';
 import { StudentAccountApplicationService } from 'projects/shared/src/lib/services/student-accounts/student-account.application.service';
-import { combineLatest, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 
-export interface OrderData {
-  id: string;
-  account_id: string;
-  account_name: string | undefined;
-  date: string;
-  amount_utoken: string;
-  price_ujpy: string;
-  power_type: string;
-  order_type: string;
-}
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
+  students$: Observable<StudentAccount[]>;
   totalBalanceData$: Observable<MultiDataSet> | undefined;
   totalUsageData$: Observable<ChartDataSets[]> | undefined;
   rankings$: Observable<Ranking[]> | undefined;
@@ -51,7 +43,6 @@ export class DashboardComponent implements OnInit {
   normalBids$: Observable<NormalBid[]> | undefined;
   renewableAsks$: Observable<RenewableAsk[]> | undefined;
   renewableBids$: Observable<RenewableBid[]> | undefined;
-  orders$: Observable<OrderData[]> | undefined;
   singlePriceNormal$: Observable<SinglePriceNormalSettlement> | undefined;
   singlePriceNormalDate$: Observable<Date> | undefined;
   singlePriceRenewable$: Observable<SinglePriceRenewableSettlement> | undefined;
@@ -72,13 +63,12 @@ export class DashboardComponent implements OnInit {
     private readonly csvDailyUsages: CsvDailyUsagesService,
     private readonly chartMonthlyUsage: ChartMonthlyUsageService,
   ) {
-    const now = new Date();
     let firstDay = new Date();
     firstDay.setUTCDate(1);
     firstDay.setUTCHours(0, 0, 0, 0);
-    const users$ = this.studentsApp.list$();
+    this.students$ = this.studentsApp.list$();
 
-    this.totalBalanceData$ = users$.pipe(
+    this.totalBalanceData$ = this.students$.pipe(
       mergeMap((users) => Promise.all(users.map((user) => this.balanceApp.list(user.id).then((balances) => balances[0])))),
       map((balances) => {
         let upxTotal = 0;
@@ -94,16 +84,16 @@ export class DashboardComponent implements OnInit {
     const dailyUsages$ = this.dailyUsageApp.list$();
     this.totalUsageData$ = dailyUsages$.pipe(map((usages) => this.chartMonthlyUsage.createAllMonthlyUsageChartDataSets(usages)));
 
-    this.rankings$ = users$.pipe(
-      mergeMap((users) =>
+    this.rankings$ = this.students$.pipe(
+      mergeMap((students) =>
         Promise.all(
-          users.map((user) =>
-            this.dailyUsageApp.getRoom(user.room_id).then((usages) => {
+          students.map((student) =>
+            this.dailyUsageApp.getRoom(student.room_id).then((usages) => {
               let count = 0;
               for (const usage of usages) {
                 (usage.created_at as Timestamp).toDate() > firstDay ? (count += parseInt(usage.amount_kwh_str)) : count;
               }
-              return { id: user.id, name: user.name, kwhAmount: count };
+              return { id: student.id, name: student.name, kwhAmount: count };
             }),
           ),
         ),
@@ -132,77 +122,6 @@ export class DashboardComponent implements OnInit {
     this.normalBids$ = this.normalBidApp.list$().pipe(map((bids) => bids.filter((bid) => bid.is_deleted != true)));
     this.renewableAsks$ = this.renewableAskApp.list$().pipe(map((asks) => asks.filter((ask) => ask.is_deleted != true)));
     this.renewableBids$ = this.renewableBidApp.list$().pipe(map((bids) => bids.filter((bid) => bid.is_deleted != true)));
-    this.orders$ = combineLatest([this.normalBids$, this.normalAsks$, this.renewableBids$, this.renewableAsks$, users$]).pipe(
-      map(([normalBids, normalAsks, renewableBids, renewableAsks, users]) => {
-        const normalBidList = normalBids
-          .filter((bid) => bid.is_deleted == false)
-          .map((bid) => ({
-            id: bid.id,
-            account_id: bid.account_id,
-            account_name: !users.find((user) => user.id == bid.account_id)?.name
-              ? 'System'
-              : users.find((user) => user.id == bid.account_id)?.name,
-            date: !bid.created_at ? now.toLocaleString() : (bid.created_at as Timestamp).toDate().toLocaleString(),
-            amount_utoken: bid.amount_uupx,
-            price_ujpy: bid.price_ujpy,
-            power_type: 'utility',
-            order_type: 'bid',
-          }));
-
-        const normalAskList = normalAsks
-          .filter((ask) => ask.is_deleted == false)
-          .map((ask) => ({
-            id: ask.id,
-            account_id: ask.account_id,
-            account_name: !users.find((user) => user.id == ask.account_id)?.name
-              ? 'System'
-              : users.find((user) => user.id == ask.account_id)?.name,
-            date: !ask.created_at ? now.toLocaleString() : (ask.created_at as Timestamp).toDate().toLocaleString(),
-            amount_utoken: ask.amount_uupx,
-            price_ujpy: ask.price_ujpy,
-            power_type: 'utility',
-            order_type: 'ask',
-          }));
-        const renewableBidList = renewableBids
-          .filter((bid) => bid.is_deleted == false)
-          .map((bid) => ({
-            id: bid.id,
-            account_id: bid.account_id,
-            account_name: !users.find((user) => user.id == bid.account_id)?.name
-              ? 'System'
-              : users.find((user) => user.id == bid.account_id)?.name,
-            date: !bid.created_at ? now.toLocaleString() : (bid.created_at as Timestamp).toDate().toLocaleString(),
-            amount_utoken: bid.amount_uspx,
-            price_ujpy: bid.price_ujpy,
-            power_type: 'solar',
-            order_type: 'bid',
-          }));
-
-        const renewableAskList = renewableAsks
-          .filter((ask) => ask.is_deleted == false)
-          .map((ask) => ({
-            id: ask.id,
-            account_id: ask.account_id,
-            account_name: !users.find((user) => user.id == ask.account_id)?.name
-              ? 'System'
-              : users.find((user) => user.id == ask.account_id)?.name,
-            date: !ask.created_at ? now.toLocaleString() : (ask.created_at as Timestamp).toDate().toLocaleString(),
-            amount_utoken: ask.amount_uspx,
-            price_ujpy: ask.price_ujpy,
-            power_type: 'solar',
-            order_type: 'ask',
-          }));
-        return normalBidList.concat(normalAskList, renewableBidList, renewableAskList).sort(function (first, second) {
-          if (first.date > second.date) {
-            return -1;
-          } else if (first.date < second.date) {
-            return 1;
-          } else {
-            return 0;
-          }
-        });
-      }),
-    );
 
     this.singlePriceNormal$ = this.singlePriceNormalApp.getLatest$();
     this.singlePriceNormalDate$ = this.singlePriceNormal$.pipe(map((single) => (single.market_date as Timestamp).toDate()));
@@ -216,8 +135,8 @@ export class DashboardComponent implements OnInit {
     this.csvDownload.downloadBalances();
   }
 
-  async onDownloadOrders($event: OrderData[]) {
-    this.csvDownload.downloadOrders($event);
+  async onDownloadOrders($event: OrderData) {
+    this.csvDownload.downloadOrders($event.students, $event.normalBids, $event.normalAsks, $event.renewableBids, $event.renewableAsks);
   }
 
   async onDownloadUserUsages($event: Ranking[]) {

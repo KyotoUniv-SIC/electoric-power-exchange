@@ -1,4 +1,3 @@
-import { OrderData } from '../../../page/admin/dashboard/dashboard.component';
 import { Ranking } from '../../../page/dashboard/dashboard.component';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -9,6 +8,7 @@ import {
   RenewableBid,
   SinglePriceNormalSettlement,
   SinglePriceRenewableSettlement,
+  StudentAccount,
 } from '@local/common';
 import { ChartDataSets, ChartType } from 'chart.js';
 import { Color, Label, MultiDataSet } from 'ng2-charts';
@@ -32,12 +32,22 @@ export interface DateRange {
   end: Date;
 }
 
+export interface OrderData {
+  students: StudentAccount[];
+  normalBids: NormalBid[];
+  normalAsks: NormalAsk[];
+  renewableBids: RenewableBid[];
+  renewableAsks: RenewableAsk[];
+}
+
 @Component({
   selector: 'view-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
+  @Input()
+  students?: StudentAccount[] | null;
   @Input()
   totalBalanceData?: MultiDataSet | null;
   @Input()
@@ -53,8 +63,6 @@ export class DashboardComponent implements OnInit {
   @Input()
   renewableBids?: RenewableBid[] | null;
   @Input()
-  orders?: OrderData[] | null;
-  @Input()
   singlePriceNormal?: SinglePriceNormalSettlement | null;
   @Input()
   singlePriceNormalDate?: Date | null;
@@ -66,7 +74,7 @@ export class DashboardComponent implements OnInit {
   @Output()
   appDownloadBalances: EventEmitter<{}>;
   @Output()
-  appDownloadOrders: EventEmitter<OrderData[]>;
+  appDownloadOrders: EventEmitter<OrderData>;
   @Output()
   appDownloadUserUsages: EventEmitter<Ranking[]>;
   @Output()
@@ -130,11 +138,21 @@ export class DashboardComponent implements OnInit {
     this.appDownloadBalances.emit();
   }
   onDownloadOrders() {
-    if (!this.orders) {
-      alert('Order情報を取得できません');
+    if (!this.students) {
+      alert('エラーが発生しました');
       return;
     }
-    this.appDownloadOrders.emit(this.orders);
+    if (!this.normalBids || !this.normalAsks || !this.renewableBids || !this.renewableAsks) {
+      alert('注文情報を取得できません');
+      return;
+    }
+    this.appDownloadOrders.emit({
+      students: this.students,
+      normalBids: this.normalBids,
+      normalAsks: this.normalAsks,
+      renewableBids: this.renewableBids,
+      renewableAsks: this.renewableAsks,
+    });
   }
   onDownloadUserUsages() {
     if (!this.rankings) {

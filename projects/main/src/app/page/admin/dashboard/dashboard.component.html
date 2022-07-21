@@ -1,4 +1,5 @@
 <view-dashboard
+  [students]="students$ | async"
   [totalBalanceData]="totalBalanceData$ | async"
   [totalUsageData]="totalUsageData$ | async"
   [rankings]="rankings$ | async"
@@ -6,7 +7,6 @@
   [normalBids]="normalBids$ | async"
   [renewableAsks]="renewableAsks$ | async"
   [renewableBids]="renewableBids$ | async"
-  [orders]="orders$ | async"
   [singlePriceNormal]="singlePriceNormal$ | async"
   [singlePriceNormalDate]="singlePriceNormalDate$ | async"
   [singlePriceRenewable]="singlePriceRenewable$ | async"
