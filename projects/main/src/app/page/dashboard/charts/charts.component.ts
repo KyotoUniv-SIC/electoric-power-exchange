@@ -32,31 +32,27 @@ export class ChartsComponent implements OnInit {
   constructor(
     private readonly singlePriceNormalApp: SinglePriceNormalSettlementApplicationService,
     private readonly singlePriceRenewableApp: SinglePriceRenewableSettlementApplicationService,
-    private readonly chartContractApp: ChartContractService,
+    private readonly chartContract: ChartContractService,
   ) {
     const normalSettlements$ = this.singlePriceNormalApp.list$();
     const renewableSettlements$ = this.singlePriceRenewableApp.list$();
 
-    this.normalChartDataSets$ = normalSettlements$.pipe(
-      map((settlements) => this.chartContractApp.createContractChartDataSets(settlements)),
-    );
+    this.normalChartDataSets$ = normalSettlements$.pipe(map((settlements) => this.chartContract.createContractChartDataSets(settlements)));
 
-    this.normalChartDates$ = normalSettlements$.pipe(
-      map((settlements) => this.chartContractApp.createContractChartDatesLabel(settlements)),
-    );
+    this.normalChartDates$ = normalSettlements$.pipe(map((settlements) => this.chartContract.createContractChartDatesLabel(settlements)));
 
-    this.normalChartOptions$ = normalSettlements$.pipe(map((settlements) => this.chartContractApp.createContractChartOption(settlements)));
+    this.normalChartOptions$ = normalSettlements$.pipe(map((settlements) => this.chartContract.createContractChartOption(settlements)));
 
     this.renewableChartDataSets$ = renewableSettlements$.pipe(
-      map((settlements) => this.chartContractApp.createContractChartDataSets(settlements)),
+      map((settlements) => this.chartContract.createContractChartDataSets(settlements)),
     );
 
     this.renewableChartDates$ = renewableSettlements$.pipe(
-      map((settlements) => this.chartContractApp.createContractChartDatesLabel(settlements)),
+      map((settlements) => this.chartContract.createContractChartDatesLabel(settlements)),
     );
 
     this.renewableChartOptions$ = renewableSettlements$.pipe(
-      map((settlements) => this.chartContractApp.createContractChartOption(settlements)),
+      map((settlements) => this.chartContract.createContractChartOption(settlements)),
     );
   }
 

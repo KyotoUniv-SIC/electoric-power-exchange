@@ -110,8 +110,8 @@ export class DashboardComponent implements OnInit {
     private readonly adminApp: AdminAccountApplicationService,
     private readonly dailyPaymentApp: DailyPaymentApplicationService,
     private readonly renewableRewardSettingApp: RenewableRewardSettingApplicationService,
-    private readonly chartBalanceApp: ChartBalanceService,
-    private readonly chartContractApp: ChartContractService,
+    private readonly chartBalance: ChartBalanceService,
+    private readonly chartContract: ChartContractService,
   ) {
     let firstDay = new Date();
     firstDay.setUTCDate(1);
@@ -122,7 +122,7 @@ export class DashboardComponent implements OnInit {
 
     // 1.Account Balance
     const balance$ = studentAccount$.pipe(mergeMap((account) => this.balanceApp.getLatest$(account.id)));
-    this.balanceData$ = balance$.pipe(map((balance) => this.chartBalanceApp.createBalanceDonutChartData(balance)));
+    this.balanceData$ = balance$.pipe(map((balance) => this.chartBalance.createBalanceDonutChartData(balance)));
     const totalBalance$ = users$.pipe(
       mergeMap((users) => Promise.all(users.map((user) => this.balanceApp.list(user.id).then((balances) => balances[0])))),
       map((balances) => {
@@ -135,7 +135,7 @@ export class DashboardComponent implements OnInit {
         return new Balance({ amount_uupx: upxTotal.toString(), amount_uspx: spxTotal.toString() });
       }),
     );
-    this.totalBalanceData$ = totalBalance$.pipe(map((balance) => this.chartBalanceApp.createBalanceDonutChartData(balance)));
+    this.totalBalanceData$ = totalBalance$.pipe(map((balance) => this.chartBalance.createBalanceDonutChartData(balance)));
     const insufficiency$ = studentAccount$.pipe(mergeMap((account) => this.insufficientBalanceApp.list(account.id))).pipe(
       map((insufficiencies) => {
         let count = 0;
@@ -177,26 +177,22 @@ export class DashboardComponent implements OnInit {
     const normalSettlements$ = this.singlePriceNormalApp.list$();
     const renewableSettlements$ = this.singlePriceRenewableApp.list$();
 
-    this.normalChartDataSets$ = normalSettlements$.pipe(
-      map((settlements) => this.chartContractApp.createContractChartDataSets(settlements)),
-    );
+    this.normalChartDataSets$ = normalSettlements$.pipe(map((settlements) => this.chartContract.createContractChartDataSets(settlements)));
 
-    this.normalChartDates$ = normalSettlements$.pipe(
-      map((settlements) => this.chartContractApp.createContractChartDatesLabel(settlements)),
-    );
+    this.normalChartDates$ = normalSettlements$.pipe(map((settlements) => this.chartContract.createContractChartDatesLabel(settlements)));
 
-    this.normalChartOptions$ = normalSettlements$.pipe(map((settlements) => this.chartContractApp.createContractChartOption(settlements)));
+    this.normalChartOptions$ = normalSettlements$.pipe(map((settlements) => this.chartContract.createContractChartOption(settlements)));
 
     this.renewableChartDataSets$ = renewableSettlements$.pipe(
-      map((settlements) => this.chartContractApp.createContractChartDataSets(settlements)),
+      map((settlements) => this.chartContract.createContractChartDataSets(settlements)),
     );
 
     this.renewableChartDates$ = renewableSettlements$.pipe(
-      map((settlements) => this.chartContractApp.createContractChartDatesLabel(settlements)),
+      map((settlements) => this.chartContract.createContractChartDatesLabel(settlements)),
     );
 
     this.renewableChartOptions$ = renewableSettlements$.pipe(
-      map((settlements) => this.chartContractApp.createContractChartOption(settlements)),
+      map((settlements) => this.chartContract.createContractChartOption(settlements)),
     );
 
     // 5.System Operation Status
